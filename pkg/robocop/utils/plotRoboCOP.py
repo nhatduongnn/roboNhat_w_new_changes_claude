@@ -340,15 +340,15 @@ def plotFiberseqAx(ax_w, ax_c, fiber_info, start, end):
                            fiber_info["count_meth_crick"] / fiber_info["count_A_crick"],
                            np.nan)
 
-    ax_w.scatter(x, ratio_w, s=1 ,color="blue", alpha=0.7, label="Watson meth/A")
-    ax_c.scatter(x, ratio_c, s=1, color="orange", alpha=0.7, label="Crick meth/A")
+    ax_w.scatter(x, ratio_w, s=0.5 ,color="blue", alpha=0.7, label="Watson meth/A")
+    ax_c.scatter(x, ratio_c, s=0.5, color="orange", alpha=0.7, label="Crick meth/A")
 
     for ax, title in zip([ax_w, ax_c], ["Watson strand", "Crick strand"]):
         ax.set_xlim(start, end)
         ax.set_ylim(0, 1)        # ratio is 0–1
-        ax.set_ylabel("meth/A ratio")
+        # ax.set_ylabel("meth/A ratio")
         ax.legend(loc="upper right", frameon=False)
-        ax.set_title(title)
+        # ax.set_title(title)
 
     
 if __name__ == '__main__':
