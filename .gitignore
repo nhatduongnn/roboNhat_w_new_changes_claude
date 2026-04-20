@@ -30,3 +30,5 @@ analysis/robocop_train/HMMconfig*.pkl
 analysis/robocop_all_subset/tmpDir/*.h5
 analysis/robocop_all/tmpDir/info.h5
 analysis/robocop_all_abf1/tmpDir/info.h5
+analysis/robocop_all_fiber/tmpDir/info.h5
+analysis/inputs/DM504_sacCer3_subset.bam
