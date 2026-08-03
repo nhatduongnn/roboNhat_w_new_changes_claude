@@ -1,0 +1,62 @@
+[
+  {
+    "outDir": "robocop_chrI_maskon",
+    "label": "Fiber\nAbf1 only",
+    "chereji_recall": 0.7925925925925926,
+    "chereji_within30": 0.8888888888888888,
+    "chereji_nref": 135,
+    "chereji_mederr": 7.0,
+    "brogaard_recall": 0.7435897435897436,
+    "brogaard_within30": 0.8461538461538461,
+    "brogaard_nref": 39,
+    "brogaard_mederr": 8.0,
+    "abf1_recall": 0.6,
+    "abf1_nref": 5,
+    "abf1_enrich": 4.343425224420312
+  },
+  {
+    "outDir": "robocop_chrI_maskoff",
+    "label": "Fiber\nall TFs",
+    "chereji_recall": 0.8074074074074075,
+    "chereji_within30": 0.8814814814814815,
+    "chereji_nref": 135,
+    "chereji_mederr": 7.0,
+    "brogaard_recall": 0.717948717948718,
+    "brogaard_within30": 0.8205128205128205,
+    "brogaard_nref": 39,
+    "brogaard_mederr": 8.5,
+    "abf1_recall": 0.0,
+    "abf1_nref": 5,
+    "abf1_enrich": 1.0811489377483443
+  },
+  {
+    "outDir": "robocop_chrI_seq_maskon",
+    "label": "Fiber+seq\nAbf1 only",
+    "chereji_recall": 0.7851851851851852,
+    "chereji_within30": 0.8888888888888888,
+    "chereji_nref": 135,
+    "chereji_mederr": 7.0,
+    "brogaard_recall": 0.7435897435897436,
+    "brogaard_within30": 0.8974358974358975,
+    "brogaard_nref": 39,
+    "brogaard_mederr": 8.0,
+    "abf1_recall": 0.4,
+    "abf1_nref": 5,
+    "abf1_enrich": 14.08757314104341
+  },
+  {
+    "outDir": "robocop_chrI_seq_maskoff",
+    "label": "Fiber+seq\nall TFs",
+    "chereji_recall": 0.8,
+    "chereji_within30": 0.8888888888888888,
+    "chereji_nref": 135,
+    "chereji_mederr": 6.5,
+    "brogaard_recall": 0.717948717948718,
+    "brogaard_within30": 0.8974358974358975,
+    "brogaard_nref": 39,
+    "brogaard_mederr": 8.5,
+    "abf1_recall": 0.4,
+    "abf1_nref": 5,
+    "abf1_enrich": 29.3629887067506
+  }
+]

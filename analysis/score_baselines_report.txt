@@ -1,0 +1,83 @@
+### fiberOnly_maskON (robocop_all_abf1)
+====================================================================
+RoboCOP decode score:  fiberOnly_maskON
+regions scored: 5   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_all_abf1
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 27  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 159
+    TP / FN             : 22 / 5   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.815   <- frac of +1/-1 dyads recovered
+    median dyad error   : 9.5 bp (KEY)
+    % within +/-20 bp   : 0.815
+    % within +/-30 bp   : 0.815
+    FP=137, precision=0.138, F1=0.237  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 173.5 bp   (expected ~160-170)
+    regions with period : 4
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 2
+    predicted footprints: 134
+    TP / FP / FN        : 2 / 132 / 0
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.015 / 1.000
+    F1                  : 0.029
+    AUROC               : 0.744
+    mean post @ sites   : 0.278
+    mean post @ bg      : 0.049
+    enrichment          : 5.7x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.216   (over 5 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_all_abf1/score_report.json
+
+### fiberOnly_maskOFF (robocop_all_fiber)
+====================================================================
+RoboCOP decode score:  fiberOnly_maskOFF
+regions scored: 5   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_all_fiber
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 27  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 157
+    TP / FN             : 22 / 5   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.815   <- frac of +1/-1 dyads recovered
+    median dyad error   : 9.5 bp (KEY)
+    % within +/-20 bp   : 0.815
+    % within +/-30 bp   : 0.815
+    FP=135, precision=0.140, F1=0.239  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 173.0 bp   (expected ~160-170)
+    regions with period : 4
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 2
+    predicted footprints: 76
+    TP / FP / FN        : 0 / 76 / 2
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.000 / 0.000
+    F1                  : 0.000
+    AUROC               : 0.740
+    mean post @ sites   : 0.040
+    mean post @ bg      : 0.029
+    enrichment          : 1.4x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.214   (over 5 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_all_fiber/score_report.json
+
+DONE Wed Jul 29 07:36:10 PM EDT 2026

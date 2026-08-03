@@ -1,0 +1,43 @@
+ABF1 reference sites on chrI (MacIsaac match_PWM), n=5:
+  #1  chrI:45318-45332  center=45325  strand=-  score=0
+  #2  chrI:45498-45512  center=45505  strand=-  score=0
+  #3  chrI:61163-61177  center=61170  strand=-  score=0
+  #4  chrI:62657-62671  center=62664  strand=-  score=0
+  #5  chrI:108788-108802  center=108795  strand=-  score=0
+
+=== Fiber / Abf1 only        (robocop_chrI_maskon) ===
+   predicted ABF1 peaks: n=673
+   site #1 center=45325    RECOVERED  pred=45320  dist=5bp
+   site #2 center=45505    missed     (nearest pred=45538, 33bp away)
+   site #3 center=61170    RECOVERED  pred=61163  dist=7bp
+   site #4 center=62664    RECOVERED  pred=62663  dist=1bp
+   site #5 center=108795   missed     (nearest pred=108749, 46bp away)
+   recall = 3/5 = 0.60
+
+=== Fiber / all TFs          (robocop_chrI_maskoff) ===
+   predicted ABF1 peaks: n=422
+   site #1 center=45325    missed     (nearest pred=45077, 248bp away)
+   site #2 center=45505    missed     (nearest pred=45642, 137bp away)
+   site #3 center=61170    missed     (nearest pred=64012, 2842bp away)
+   site #4 center=62664    missed     (nearest pred=64012, 1348bp away)
+   site #5 center=108795   missed     (nearest pred=108723, 72bp away)
+   recall = 0/5 = 0.00
+
+=== Fiber+seq / Abf1 only    (robocop_chrI_seq_maskon) ===
+   predicted ABF1 peaks: n=188
+   site #1 center=45325    RECOVERED  pred=45326  dist=1bp
+   site #2 center=45505    missed     (nearest pred=45326, 179bp away)
+   site #3 center=61170    missed     (nearest pred=62665, 1495bp away)
+   site #4 center=62664    RECOVERED  pred=62665  dist=1bp
+   site #5 center=108795   missed     (nearest pred=108723, 72bp away)
+   recall = 2/5 = 0.40
+
+=== Fiber+seq / all TFs      (robocop_chrI_seq_maskoff) ===
+   predicted ABF1 peaks: n=103
+   site #1 center=45325    RECOVERED  pred=45326  dist=1bp
+   site #2 center=45505    missed     (nearest pred=45326, 179bp away)
+   site #3 center=61170    missed     (nearest pred=62665, 1495bp away)
+   site #4 center=62664    RECOVERED  pred=62665  dist=1bp
+   site #5 center=108795   missed     (nearest pred=104391, 4404bp away)
+   recall = 2/5 = 0.40
+

@@ -10,6 +10,7 @@ import sys
 import re
 import pickle
 import random
+import hashlib
 import glob
 import h5py
 import os
@@ -70,6 +71,13 @@ def calc_posterior(allinfofiles, dshared, coords, chrm, start, end):
     optable = get_posterior_binding_probability_df(dshared, ptable)
     return optable, longCounts, shortCounts
     
+def _color_for_name(name):
+    # Stable RGBA derived from the DBF name via md5 -> seeded local RNG.
+    # Same name always yields the same color, independent of PYTHONHASHSEED.
+    h = int(hashlib.md5(name.encode("utf-8")).hexdigest(), 16)
+    rng = random.Random(h)
+    return (rng.random(), rng.random(), rng.random(), 1.0)
+
 def colorMap(outDir):
     if os.path.isfile(outDir + 'dbf_color_map.pkl'):
         dbf_color_map = pickle.load(open(outDir + "dbf_color_map.pkl", "rb"))
@@ -82,7 +90,10 @@ def colorMap(outDir):
     predefined_dbfs = [x for x in predefined_dbfs if x != "unknown"]
     predefined_dbfs = list(set([(x.split("_")[0]).upper() for x in predefined_dbfs]))
     n_tfs = len(predefined_dbfs)
-    colorset48 = [(random.random(), random.random(), random.random(), 1.0) for i in range(n_tfs)] 
+    # Deterministic color per DBF name: a given TF (e.g. ABF1) gets the SAME
+    # color in every plot and every output folder, regardless of process
+    # hash-seed or set() ordering. Keyed on the name, not on a global seed.
+    colorset48 = [_color_for_name(x) for x in predefined_dbfs]
     nucleosome_color = '0.7'
     
     dbf_color_map = dict(list(zip(predefined_dbfs, colorset48)))

@@ -1,0 +1,138 @@
+{
+  "label": "fiberOnly_maskOFF",
+  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_all_fiber",
+  "n_regions": 5,
+  "nucleosome": {
+    "n_ref": 27,
+    "n_pred": 157,
+    "tp": 22,
+    "fp": 135,
+    "fn": 5,
+    "precision": 0.14012738853503184,
+    "recall": 0.8148148148148148,
+    "f1": 0.23913043478260868,
+    "median_dyad_err": 9.5,
+    "mean_dyad_err": 9.681818181818182,
+    "pct_within_20bp": 0.8148148148148148,
+    "pct_within_30bp": 0.8148148148148148,
+    "tol_bp": 20
+  },
+  "phasing": {
+    "median_period_bp": 173.0,
+    "n_regions_with_period": 4,
+    "expected_bp": "~160-170"
+  },
+  "abf1": {
+    "n_ref": 2,
+    "n_pred": 76,
+    "tp": 0,
+    "fp": 76,
+    "fn": 2,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "median_dist": NaN,
+    "tol_bp": 20,
+    "auroc": 0.7398817683021234,
+    "mean_post_at_sites": 0.040110605001619414,
+    "mean_post_background": 0.02867554414106528,
+    "enrichment": 1.398773979817121
+  },
+  "accessibility_consistency": {
+    "mean_corr_access_vs_methylation": 0.21438799022545668,
+    "n_regions": 5,
+    "note": "corr( 1-nuc_occupancy , Fiber meth/A ). Higher = model puts nucleosomes where DNA is protected."
+  },
+  "_per_region": [
+    {
+      "region": "chrI:24001-33000",
+      "n_pred_dyads": 45,
+      "nuc": {
+        "n_ref": 5,
+        "n_pred": 45,
+        "tp": 3,
+        "fp": 42,
+        "fn": 2,
+        "precision": 0.06666666666666667,
+        "recall": 0.6,
+        "f1": 0.12000000000000001,
+        "median_dist": 5.0,
+        "mean_dist": 5.666666666666667
+      },
+      "abf1": null,
+      "period": 176
+    },
+    {
+      "region": "chrI:60001-73000",
+      "n_pred_dyads": 59,
+      "nuc": {
+        "n_ref": 10,
+        "n_pred": 59,
+        "tp": 9,
+        "fp": 50,
+        "fn": 1,
+        "precision": 0.15254237288135594,
+        "recall": 0.9,
+        "f1": 0.2608695652173913,
+        "median_dist": 11.0,
+        "mean_dist": 10.777777777777779
+      },
+      "abf1": {
+        "n_ref": 2,
+        "n_pred": 26,
+        "tp": 0,
+        "fp": 26,
+        "fn": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "median_dist": NaN,
+        "mean_dist": NaN
+      },
+      "period": 168
+    },
+    {
+      "region": "chrIV:461001-466000",
+      "n_pred_dyads": 24,
+      "nuc": {
+        "n_ref": 5,
+        "n_pred": 24,
+        "tp": 5,
+        "fp": 19,
+        "fn": 0,
+        "precision": 0.20833333333333334,
+        "recall": 1.0,
+        "f1": 0.3448275862068966,
+        "median_dist": 9.0,
+        "mean_dist": 10.0
+      },
+      "abf1": null,
+      "period": 175
+    },
+    {
+      "region": "chrVII:438001-444000",
+      "n_pred_dyads": 28,
+      "nuc": {
+        "n_ref": 7,
+        "n_pred": 28,
+        "tp": 5,
+        "fp": 23,
+        "fn": 2,
+        "precision": 0.17857142857142858,
+        "recall": 0.7142857142857143,
+        "f1": 0.2857142857142857,
+        "median_dist": 12.0,
+        "mean_dist": 9.8
+      },
+      "abf1": null,
+      "period": 171
+    },
+    {
+      "region": "chrXII:457001-467000",
+      "n_pred_dyads": 1,
+      "nuc": null,
+      "abf1": null,
+      "period": null
+    }
+  ]
+}

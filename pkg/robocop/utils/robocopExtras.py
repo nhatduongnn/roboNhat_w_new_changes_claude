@@ -105,6 +105,14 @@ def updateMNaseEMMatNB(args):
     data_emission_matrix[5][data_emission_matrix[5] == 0] = epsilon
     data_emission_matrix[6][data_emission_matrix[6] == 0] = epsilon
 
+    ## ABF1 HARD-forbid mask (comment IN for a TRUE ABF1-only run). Runs AFTER the 1e-30 floor
+    ## so non-ABF1 TF states (29..nuc_start, incl. 'unknown') stay EXACTLY 0. Emission is a
+    ## product over channels, so a 0 in the Fiber channels => total emission 0 => posterior 0
+    ## for every TF except ABF1 (states 1..28). Background (0) and nucleosomes (nuc_start..)
+    ## keep the 1e-30 floor so no position becomes all-zero (no NaN). Supersedes robocop.py:798.
+    # data_emission_matrix[5][:, 29:dshared['nuc_start']] = 0
+    # data_emission_matrix[6][:, 29:dshared['nuc_start']] = 0
+
     d['emission'] = data_emission_matrix
 
     # # data_emission_matrix[0][:,2799-10:2799] = 0.

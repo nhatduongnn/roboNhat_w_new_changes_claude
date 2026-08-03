@@ -1,0 +1,179 @@
+################################################################
+### chrI_maskON_fiberOnly  (robocop_chrI_maskon)
+################################################################
+====================================================================
+RoboCOP decode score:  chrI_maskON_fiberOnly
+regions scored: 1   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_maskon
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 135  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 1180
+    TP / FN             : 107 / 28   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.793   <- frac of +1/-1 dyads recovered
+    median dyad error   : 7.0 bp (KEY)
+    % within +/-20 bp   : 0.793
+    % within +/-30 bp   : 0.889
+    FP=1073, precision=0.091, F1=0.163  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 172.0 bp   (expected ~160-170)
+    regions with period : 1
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 5
+    predicted footprints: 563
+    TP / FP / FN        : 2 / 561 / 3
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.004 / 0.400
+    F1                  : 0.007
+    AUROC               : 0.637
+    mean post @ sites   : 0.175
+    mean post @ bg      : 0.040
+    enrichment          : 4.3x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.223   (over 1 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_chrI_maskon/score_report.json
+
+################################################################
+### chrI_maskOFF_fiberOnly  (robocop_chrI_maskoff)
+################################################################
+====================================================================
+RoboCOP decode score:  chrI_maskOFF_fiberOnly
+regions scored: 1   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_maskoff
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 135  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 1172
+    TP / FN             : 109 / 26   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.807   <- frac of +1/-1 dyads recovered
+    median dyad error   : 7.0 bp (KEY)
+    % within +/-20 bp   : 0.807
+    % within +/-30 bp   : 0.881
+    FP=1063, precision=0.093, F1=0.167  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 172.0 bp   (expected ~160-170)
+    regions with period : 1
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 5
+    predicted footprints: 357
+    TP / FP / FN        : 0 / 357 / 5
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.000 / 0.000
+    F1                  : 0.000
+    AUROC               : 0.632
+    mean post @ sites   : 0.025
+    mean post @ bg      : 0.023
+    enrichment          : 1.1x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.223   (over 1 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_chrI_maskoff/score_report.json
+
+################################################################
+### seqlayer_maskON  (robocop_seqlayer_maskon)
+################################################################
+====================================================================
+RoboCOP decode score:  seqlayer_maskON
+regions scored: 5   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_seqlayer_maskon
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 27  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 164
+    TP / FN             : 21 / 6   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.778   <- frac of +1/-1 dyads recovered
+    median dyad error   : 10.0 bp (KEY)
+    % within +/-20 bp   : 0.778
+    % within +/-30 bp   : 0.815
+    FP=143, precision=0.128, F1=0.220  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 173.5 bp   (expected ~160-170)
+    regions with period : 4
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 2
+    predicted footprints: 64
+    TP / FP / FN        : 1 / 63 / 1
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.016 / 0.500
+    F1                  : 0.030
+    AUROC               : 0.649
+    mean post @ sites   : 0.176
+    mean post @ bg      : 0.014
+    enrichment          : 12.7x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.220   (over 5 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_seqlayer_maskon/score_report.json
+
+################################################################
+### seqlayer_maskOFF  (robocop_seqlayer_maskoff)
+################################################################
+/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/score_robocop.py:293: RuntimeWarning: invalid value encountered in divide
+  ac = ac / ac[0]
+/home/users/nd141/miniconda3/envs/robocop-2024/lib/python3.10/site-packages/numpy/core/_methods.py:176: RuntimeWarning: overflow encountered in multiply
+  x = um.multiply(x, x, out=x)
+/home/users/nd141/miniconda3/envs/robocop-2024/lib/python3.10/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+====================================================================
+RoboCOP decode score:  seqlayer_maskOFF
+regions scored: 5   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_seqlayer_maskoff
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=20 bp)
+    reference dyads     : 27  (Chereji lists ONLY +1/-1 nucs)
+    predicted dyads     : 160
+    TP / FN             : 21 / 6   (FN = missed +1/-1 dyads)
+    recall (KEY)        : 0.778   <- frac of +1/-1 dyads recovered
+    median dyad error   : 10.0 bp (KEY)
+    % within +/-20 bp   : 0.778
+    % within +/-30 bp   : 0.815
+    FP=139, precision=0.131, F1=0.225  (NOT meaningful: ref is +1/-1 only,
+                          other predicted nucs are real, not false pos)
+
+[2] PHASING periodicity (internal)
+    median period       : 171.0 bp   (expected ~160-170)
+    regions with period : 5
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 2
+    predicted footprints: 20
+    TP / FP / FN        : 1 / 19 / 1
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.050 / 0.500
+    F1                  : 0.091
+    AUROC               : 0.658
+    mean post @ sites   : 0.172
+    mean post @ bg      : 0.005
+    enrichment          : 34.8x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.212   (over 5 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_seqlayer_maskoff/score_report.json
+
+ALL SCORING DONE Wed Jul 29 07:33:43 PM EDT 2026

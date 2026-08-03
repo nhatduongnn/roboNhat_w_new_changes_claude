@@ -32,3 +32,24 @@ analysis/robocop_all/tmpDir/info.h5
 analysis/robocop_all_abf1/tmpDir/info.h5
 analysis/robocop_all_fiber/tmpDir/info.h5
 analysis/inputs/DM504_sacCer3_subset.bam
+
+# Large per-run decode/training outputs (20-210 MB each, regenerate via sbatch_*.sh; kept local)
+analysis/robocop_chrI_maskon/
+analysis/robocop_chrI_maskoff/
+analysis/robocop_chrI_seq_maskon/
+analysis/robocop_chrI_seq_maskoff/
+analysis/robocop_seqlayer_maskon/
+analysis/robocop_seqlayer_maskoff/
+analysis/robocop_erv46_maskon/
+analysis/robocop_erv46_maskoff/
+analysis/robocop_train_fiberonly/
+# Regenerable model-artifact binaries inside tracked decode dirs
+analysis/**/HMMconfig*.pkl
+analysis/**/negParamsMNase.pkl
+# Ephemeral job-tracking scratch and run logs
+analysis/logs/
+analysis/.*_jobid
+analysis/.*_ids
+analysis/.last_job_ids
+analysis/.score5_optionA.log
+analysis/.*.sh

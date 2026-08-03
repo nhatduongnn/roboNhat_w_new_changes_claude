@@ -82,6 +82,10 @@ DEFAULT_CHEREJI = os.environ.get(
 DEFAULT_ABF1 = os.environ.get(
     "ROBOCOP_ABF1_BED",
     os.path.join(_HERE, "inputs", "MacIsaac_sacCer3_liftOver_Abf1_Reb1_match_PWM.bed"))
+DEFAULT_BROGAARD = os.environ.get(
+    "ROBOCOP_BROGAARD_TSV",
+    "/usr/xtmp/nd141/projects/Fiber_seq/hmm_for_clustering_claude_code/"
+    "output/genome_4st_10iter_flip/overlap/brogaard_top2000_dyads.tsv")
 
 
 # ----------------------------------------------------------------------------
@@ -197,6 +201,14 @@ def load_chereji(path):
     return df
 
 
+def load_brogaard(path):
+    """Brogaard top-2000 well-positioned dyads. TSV with header: chrom<TAB>dyad."""
+    df = pd.read_csv(path, sep="\t")
+    df = df.rename(columns={"chrom": "chr"})
+    df["dyad"] = df["dyad"].astype(int)
+    return df[["chr", "dyad"]]
+
+
 def load_abf1(path):
     df = pd.read_csv(path, sep="\t", header=None,
                      names=["chr", "start", "end", "name", "score", "strand"])
@@ -220,6 +232,58 @@ def call_peaks(track, height, distance):
             if not pk or i - pk[-1] >= distance:
                 pk.append(i)
     return pk
+
+
+def _above_threshold_runs(track, height, min_len=1):
+    """Low-level: index spans (i, j) of every contiguous run where track >= height.
+    Single source of truth for the footprint/peak logic used everywhere below --
+    footprint_centers, call_abf1 and the scorer all derive from this one scan."""
+    track = np.nan_to_num(np.asarray(track, dtype=float))
+    above = track >= height
+    runs, i, n = [], 0, len(above)
+    while i < n:
+        if above[i]:
+            j = i
+            while j + 1 < n and above[j + 1]:
+                j += 1
+            if (j - i + 1) >= min_len:
+                runs.append((i, j))
+            i = j + 1
+        else:
+            i += 1
+    return runs
+
+
+def footprint_centers(track, height, min_len=1):
+    """Return the CENTER index of each contiguous run where track >= height.
+
+    A TF footprint is an interval, not a point. When the posterior saturates to a
+    flat plateau across the motif, a single-peak call (find_peaks/argmax) is
+    degenerate -- the chosen base is decided by float64 round-off and shifts with
+    the scoring window. Anchoring on the footprint center instead is stable
+    (window/ULP independent) and lands on the motif center, which is what a
+    midpoint-to-midpoint comparison against MacIsaac should use."""
+    return [(i + j) // 2 for (i, j) in _above_threshold_runs(track, height, min_len)]
+
+
+def abf1_call_threshold(gmax):
+    """Scorer's ABF1 call threshold: 0.30 x (whole-chrI ABF1 max), floored at 0.10.
+    `gmax` is the global (per-chromosome) posterior max; on a whole-chrI region this
+    equals np.nanmax(track)."""
+    return max(0.10, 0.30 * gmax) if gmax and gmax > 0 else 0.10
+
+
+def call_abf1(track, pos, threshold, min_len=1):
+    """THE ABF1 peak-caller -- single source of truth for score() and the locus plot.
+
+    Returns the scorer's ABF1 calls over `track` (genomic coords `pos`): the CENTER of
+    each contiguous run where the posterior >= threshold, plus the run extent. Anything
+    that wants "what would the scorer call here" invokes this; change it and both the
+    recall numbers and the locus plot's arrows move together.
+    Returns list of dict(center, start, end) in genomic coordinates."""
+    pos = np.asarray(pos)
+    return [dict(center=int(pos[(i + j) // 2]), start=int(pos[i]), end=int(pos[j]))
+            for (i, j) in _above_threshold_runs(track, threshold, min_len)]
 
 
 def match_peaks(pred, ref, tol):
@@ -321,16 +385,27 @@ def merge_regions(coords):
 # Scoring
 # ----------------------------------------------------------------------------
 def score(outDir, regions=None, tol_nuc=20, tol_abf1=20, label=None,
-          chereji_path=DEFAULT_CHEREJI, abf1_path=DEFAULT_ABF1):
+          chereji_path=DEFAULT_CHEREJI, abf1_path=DEFAULT_ABF1,
+          brogaard_path=DEFAULT_BROGAARD,
+          abf1_global_max=None, return_abf1_tracks=False):
+    """Score a decode. `abf1_global_max`: use this (per-run whole-chrI) posterior max
+    for the ABF1 call threshold instead of the scored region's max -- lets a caller
+    score a small window while keeping the scorer's real (global) threshold. When None
+    and regions is the default whole-chrI merge, the region max IS the global max, so
+    behaviour is unchanged. `return_abf1_tracks`: attach the ABF1 track + threshold +
+    calls per region to result["_per_region"] so a plot can draw exactly what was
+    called."""
     dec = load_decode(outDir)
     label = label or os.path.basename(outDir.rstrip("/"))
     if regions is None:
         regions = merge_regions(dec["coords"])
     chereji = load_chereji(chereji_path) if os.path.isfile(chereji_path) else None
     abf1 = load_abf1(abf1_path) if os.path.isfile(abf1_path) else None
+    brogaard = load_brogaard(brogaard_path) if os.path.isfile(brogaard_path) else None
 
     # accumulators
     nuc_pred, nuc_ref = [], []
+    brog_ref = []
     abf1_pred, abf1_ref = [], []
     periods = []
     abf1_scores_all, abf1_labels_all = [], []
@@ -359,6 +434,12 @@ def score(outDir, regions=None, tol_nuc=20, tol_abf1=20, label=None,
             if ref:
                 reg_nuc = match_peaks(pred_dyads, ref, tol_nuc)
 
+        # --- nucleosome dyads vs Brogaard top-2000 (same predictions, 2nd reference) ---
+        if brogaard is not None:
+            bref = brogaard[(brogaard["chr"] == chrm) &
+                            (brogaard["dyad"] >= start) & (brogaard["dyad"] <= end)]["dyad"].tolist()
+            brog_ref += bref
+
         # --- phasing ---
         p = dominant_period(occ_track)
         if p is not None:
@@ -366,12 +447,20 @@ def score(outDir, regions=None, tol_nuc=20, tol_abf1=20, label=None,
 
         # --- ABF1 ---
         reg_abf1 = None
+        reg_abf1_detail = None
         if ABF1_COL in optable.columns:
             abf1_track = optable[ABF1_COL].values
-            ah = max(0.10, 0.30 * np.nanmax(abf1_track)) if np.nanmax(abf1_track) > 0 else 0.10
-            apk = call_peaks(abf1_track, height=ah, distance=30)
-            pred_a = [int(pos[i]) for i in apk]
+            gmax = abf1_global_max if abf1_global_max is not None else float(np.nanmax(abf1_track))
+            ah = abf1_call_threshold(gmax)
+            # Option A: anchor on the CENTER of each above-threshold footprint (call_abf1),
+            # not a single find_peaks base -- robust to the flat-plateau/ULP degeneracy.
+            calls = call_abf1(abf1_track, pos, ah)
+            pred_a = [c["center"] for c in calls]
             abf1_pred += pred_a
+            if return_abf1_tracks:
+                reg_abf1_detail = dict(threshold=ah, global_max=gmax, calls=calls,
+                                       pos=[int(p) for p in pos],
+                                       track=[float(v) for v in np.nan_to_num(abf1_track)])
             if abf1 is not None:
                 ref_a = abf1[(abf1["chr"] == chrm) &
                              (abf1["center"] >= start) & (abf1["center"] <= end)]["center"].tolist()
@@ -400,23 +489,31 @@ def score(outDir, regions=None, tol_nuc=20, tol_abf1=20, label=None,
 
         per_region.append(dict(region="%s:%d-%d" % (chrm, start, end),
                                n_pred_dyads=len(pred_dyads),
-                               nuc=reg_nuc, abf1=reg_abf1, period=p))
+                               nuc=reg_nuc, abf1=reg_abf1, period=p,
+                               abf1_detail=reg_abf1_detail))
 
     # --- aggregate ---
     result = dict(label=label, outDir=os.path.abspath(outDir),
                   n_regions=len(per_region))
 
-    if chereji is not None and nuc_ref:
-        agg = match_peaks(nuc_pred, nuc_ref, tol_nuc)
-        agg20 = match_peaks(nuc_pred, nuc_ref, 20)
-        agg30 = match_peaks(nuc_pred, nuc_ref, 30)
-        result["nucleosome"] = dict(
+    def _nuc_entry(ref_list, reference_name):
+        agg = match_peaks(nuc_pred, ref_list, tol_nuc)
+        agg20 = match_peaks(nuc_pred, ref_list, 20)
+        agg30 = match_peaks(nuc_pred, ref_list, 30)
+        return dict(
+            reference=reference_name,
             n_ref=agg["n_ref"], n_pred=agg["n_pred"],
             tp=agg["tp"], fp=agg["fp"], fn=agg["fn"],
             precision=agg["precision"], recall=agg["recall"], f1=agg["f1"],
             median_dyad_err=agg["median_dist"], mean_dyad_err=agg["mean_dist"],
             pct_within_20bp=agg20["recall"], pct_within_30bp=agg30["recall"],
             tol_bp=tol_nuc)
+
+    if chereji is not None and nuc_ref:
+        result["nucleosome"] = _nuc_entry(nuc_ref, "Chereji 2018 +1/-1")
+
+    if brogaard is not None and brog_ref:
+        result["nucleosome_brogaard"] = _nuc_entry(brog_ref, "Brogaard top-2000")
 
     if periods:
         result["phasing"] = dict(median_period_bp=float(np.median(periods)),
@@ -468,21 +565,27 @@ def print_report(r):
     print("regions scored: %d   outDir: %s" % (r["n_regions"], r["outDir"]))
     print("=" * 68)
 
+    def _print_nuc(entry, tag, subset_note):
+        print("\n[1] NUCLEOSOME dyads  (vs %s, tol=%d bp)" % (entry["reference"], entry["tol_bp"]))
+        print("    reference dyads     : %d  (%s)" % (entry["n_ref"], subset_note))
+        print("    predicted dyads     : %d" % entry["n_pred"])
+        print("    TP / FN             : %d / %d" % (entry["tp"], entry["fn"]))
+        print("    recall (KEY)        : %s   <- frac of ref dyads recovered" % _fmt(entry["recall"]))
+        print("    median dyad error   : %s bp (KEY)" % _fmt(entry["median_dyad_err"], 1))
+        print("    %% within +/-20 bp   : %s" % _fmt(entry["pct_within_20bp"]))
+        print("    %% within +/-30 bp   : %s" % _fmt(entry["pct_within_30bp"]))
+        print("    FP=%d, precision=%s, F1=%s"
+              % (entry["fp"], _fmt(entry["precision"]), _fmt(entry["f1"])))
+
     n = r.get("nucleosome")
     if n:
-        print("\n[1] NUCLEOSOME dyads  (vs Chereji 2018, tol=%d bp)" % n["tol_bp"])
-        print("    reference dyads     : %d  (Chereji lists ONLY +1/-1 nucs)" % n["n_ref"])
-        print("    predicted dyads     : %d" % n["n_pred"])
-        print("    TP / FN             : %d / %d   (FN = missed +1/-1 dyads)"
-              % (n["tp"], n["fn"]))
-        print("    recall (KEY)        : %s   <- frac of +1/-1 dyads recovered" % _fmt(n["recall"]))
-        print("    median dyad error   : %s bp (KEY)" % _fmt(n["median_dyad_err"], 1))
-        print("    %% within +/-20 bp   : %s" % _fmt(n["pct_within_20bp"]))
-        print("    %% within +/-30 bp   : %s" % _fmt(n["pct_within_30bp"]))
-        print("    FP=%d, precision=%s, F1=%s  (NOT meaningful: ref is +1/-1 only,"
-              % (n["fp"], _fmt(n["precision"]), _fmt(n["f1"])))
-        print("                          other predicted nucs are real, not false pos)")
-    else:
+        _print_nuc(n, "chereji",
+                   "Chereji lists ONLY +1/-1 nucs -> precision/F1 NOT meaningful")
+    nb = r.get("nucleosome_brogaard")
+    if nb:
+        _print_nuc(nb, "brogaard",
+                   "Brogaard top-2000 well-positioned nucs, genome-wide")
+    if not n and not nb:
         print("\n[1] NUCLEOSOME dyads  : no reference dyads in scored regions")
 
     p = r.get("phasing")
@@ -531,6 +634,8 @@ def main():
     ap.add_argument("--tol-abf1", type=int, default=20)
     ap.add_argument("--out", default=None, help="Write JSON report here "
                     "(default: <outDir>/score_report.json).")
+    ap.add_argument("--brogaard", default=DEFAULT_BROGAARD,
+                    help="Brogaard top-2000 dyads TSV (chrom<TAB>dyad).")
     args = ap.parse_args()
 
     regions = None
@@ -540,7 +645,7 @@ def main():
                    for _, row in rdf.iterrows()]
 
     r = score(args.outDir, regions=regions, tol_nuc=args.tol_nuc,
-              tol_abf1=args.tol_abf1, label=args.label)
+              tol_abf1=args.tol_abf1, label=args.label, brogaard_path=args.brogaard)
     print_report(r)
 
     out = args.out or (args.outDir.rstrip("/") + "/score_report.json")

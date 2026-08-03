@@ -756,6 +756,7 @@ def plot_all_factors_side_by_side(bg_params, nucleosome_params, loaded_params, f
     plt.title("Watson (blue) and Crick (orange) p-values for binding factors")
     plt.tight_layout()
     plt.show()
+    plt.close('all')  # free figure; under Agg plt.show() is a no-op and figures otherwise leak (OOM on many segments)
 
 def update_data_emission_matrix_using_binomial_fiber_seq(
         d, segment, dshared, ps, data, data_trials, index, timepoint, strand):
@@ -790,11 +791,11 @@ def update_data_emission_matrix_using_binomial_fiber_seq(
             # If nucleotide is not 'A', set emission probs to 0
             data_emission_matrix[index, i, :dshared['silent_states_begin']] = 0
     
-    ### Hard code to only keep emission for only ABF1, delete later!!!
-    # emat = info_file['segment_' + str(segment) + '/emission']
-    # data_emission_matrix[index][14:, :] = 1
-    # data_emission_matrix[index][dshared['nuc_start']:(dshared['nuc_start'] + dshared['nuc_len']), :] = 1
-    # emat[...] = data_emission_matrix
+    ### ABF1-focus mask (comment IN to enable). FORBIDS (=0, floored to 1e-30 in robocopExtras)
+    ### the Fiber emission of every other TF state incl. unknown (states 29..2798), leaving only
+    ### background (0), ABF1 fwd+rev (1..28) and nucleosomes (nuc_start.. == 2799..) occupiable.
+    ### STATE axis. Remove when sequence/MNase layers are added back -- experiment-specific.
+    # data_emission_matrix[index][:, 29:dshared['nuc_start']] = 0
     d['emission'] = data_emission_matrix
 
 def set_transition(d, tf_prob, background_prob, nucleosome_prob):
