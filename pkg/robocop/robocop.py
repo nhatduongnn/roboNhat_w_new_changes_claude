@@ -635,6 +635,17 @@ def update_data_emission_matrix_using_fiber_seq_counts_Bionomial(
     
     all_tf_from_pwm = dshared['tfs']
 
+    # The fitted p lives in the MOTIF's own frame, not the reference frame:
+    # combine_motif_counts_binom pools minus-strand training sites with BOTH a mirror
+    # (::-1) and a Watson<->Crick channel cross, so ['watson_signal'] means "the motif's
+    # own strand" and ['crick_signal'] means "the opposite strand" at motif column j.
+    # (Verified against the raw pileup: trial counts of the crossed minus group correlate
+    # +0.998 with the plus group, vs -0.508 without the cross.)
+    # Mapping that back onto reference-strand layers therefore needs the SAME two
+    # operations reverse_complement() applies to the PWM for layer 0: mirror AND cross.
+    # Mirroring alone hands the reverse block the wrong strand's footprint.
+    other_strand = 'crick_signal' if strand == 'watson_signal' else 'watson_signal'
+
     for i in range(dshared['n_tfs']):
         tf_start = tf_starts[i]
         tf_end = tf_start + 2 * tf_lens[i]
@@ -646,7 +657,7 @@ def update_data_emission_matrix_using_fiber_seq_counts_Bionomial(
             print("tf_name:", tf_name)
             print("tf_start:", tf_start, "tf_end:", tf_end)
             p_forward = loaded_params['p'][tf_name][strand]['A']
-            p_reverse = loaded_params['p'][tf_name][strand]['A'][::-1]
+            p_reverse = loaded_params['p'][tf_name][other_strand]['A'][::-1]
             print("p_forward shape:", np.shape(p_forward))
             print("p_reverse shape:", np.shape(p_reverse))
             print("Concatenated shape:", len(np.concatenate((p_forward, p_reverse))))
@@ -659,7 +670,10 @@ def update_data_emission_matrix_using_fiber_seq_counts_Bionomial(
             ps[tf_start:tf_end] = np.concatenate((p_forward, p_reverse))
         else:
             print(f"{tf_name} not in loaded_params['p'], using combined_low_count")
-            ps[tf_start:tf_end] = loaded_params['p']['combined_low_count'][strand]['A']
+            # combined_low_count is length 1 (broadcast across the whole block), so the
+            # mirror is a no-op, but the reverse half still needs the channel cross.
+            ps[tf_start:tf_start + tf_lens[i]] = loaded_params['p']['combined_low_count'][strand]['A']
+            ps[tf_start + tf_lens[i]:tf_end]   = loaded_params['p']['combined_low_count'][other_strand]['A']
 
     nuc_p_params = nucleosome_params['p'][strand]['A']
     if dshared['nuc_present']:

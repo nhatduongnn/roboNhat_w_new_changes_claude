@@ -46,6 +46,13 @@ analysis/robocop_train_fiberonly/
 # Regenerable model-artifact binaries inside tracked decode dirs
 analysis/**/HMMconfig*.pkl
 analysis/**/negParamsMNase.pkl
+# Posterior tables. Every decode dir is 55-434 MB and essentially all of it is here;
+# the rest of the dir (config.ini, coords.tsv, pwm.p, figures/, score_report.json) is
+# small and IS tracked, so a run stays reproducible from what is committed.
+analysis/**/tmpDir/
+# Full FIMO placement tables (--thresh 1 --text over a whole chromosome, 33 MB each).
+# The filtered fimo_out/ results next to them are tracked.
+analysis/**/fimo_all.tsv
 # Ephemeral job-tracking scratch and run logs
 analysis/logs/
 analysis/.*_jobid

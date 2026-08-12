@@ -1135,5 +1135,5 @@ abf1_reb1_params = a
 # To load the dictionary later, you can use:
 
 # Save the dictionary to a file
-with open('inputs/all_TFs_1000pealVal_params.pkl', 'wb') as f:
+with open('inputs/all_TFs_1000pealVal_params_pseudo.pkl', 'wb') as f:
     pickle.dump(abf1_reb1_params, f)
