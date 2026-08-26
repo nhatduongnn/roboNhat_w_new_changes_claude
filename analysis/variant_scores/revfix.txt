@@ -1,0 +1,50 @@
+/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/score_robocop.py:122: DeprecationWarning: numpy.core.numeric is deprecated and has been renamed to numpy._core.numeric. The numpy._core namespace contains private NumPy internals and its use is discouraged, as NumPy internals can change without warning in any release. In practice, most real-world usage of numpy.core is to access functionality in the public NumPy API. If that is the case, use the public NumPy API. If not, you are using NumPy internals. If you would still like to access an internal attribute, use numpy._core.numeric._frombuffer.
+  dshared = pickle.load(open(os.path.join(train_dir, "HMMconfig.pkl"), "rb"))
+====================================================================
+RoboCOP decode score:  robocop_chrI_seq_maskoff_revfix
+regions scored: 1   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_seq_maskoff_revfix
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018 +1/-1, tol=20 bp)
+    reference dyads     : 135  (Chereji lists ONLY +1/-1 nucs -> precision/F1 NOT meaningful)
+    predicted dyads     : 1234
+    TP / FN             : 108 / 27
+    recall (KEY)        : 0.800   <- frac of ref dyads recovered
+    median dyad error   : 6.5 bp (KEY)
+    % within +/-20 bp   : 0.800
+    % within +/-30 bp   : 0.889
+    FP=1126, precision=0.088, F1=0.158
+
+[1] NUCLEOSOME dyads  (vs Brogaard top-2000, tol=20 bp)
+    reference dyads     : 39  (Brogaard top-2000 well-positioned nucs, genome-wide)
+    predicted dyads     : 1234
+    TP / FN             : 28 / 11
+    recall (KEY)        : 0.718   <- frac of ref dyads recovered
+    median dyad error   : 6.0 bp (KEY)
+    % within +/-20 bp   : 0.718
+    % within +/-30 bp   : 0.897
+    FP=1206, precision=0.023, F1=0.044
+
+[2] PHASING periodicity (internal)
+    median period       : 171.0 bp   (expected ~160-170)
+    regions with period : 1
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 5
+    predicted footprints: 83
+    TP / FP / FN        : 2 / 81 / 3
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.024 / 0.400
+    F1                  : 0.045
+    AUROC               : 0.590
+    mean post @ sites   : 0.135
+    mean post @ bg      : 0.004
+    enrichment          : 33.6x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.231   (over 1 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_chrI_seq_maskoff_revfix/score_report.json

@@ -1,0 +1,26 @@
+{
+  "fiber_abf1": {
+    "global_max": 0.9999999654947149,
+    "call_threshold": 0.29999998964841446
+  },
+  "fiber_all": {
+    "global_max": 0.9999898603150386,
+    "call_threshold": 0.29999695809451155
+  },
+  "seq_abf1": {
+    "global_max": 0.9999995926652772,
+    "call_threshold": 0.29999987779958315
+  },
+  "seq_all": {
+    "global_max": 0.9999661197711438,
+    "call_threshold": 0.29998983593134315
+  },
+  "fiber_abf1_revfix": {
+    "global_max": 0.9999999045523934,
+    "call_threshold": 0.299999971365718
+  },
+  "seq_abf1_revfix": {
+    "global_max": 0.9999998994098185,
+    "call_threshold": 0.2999999698229455
+  }
+}

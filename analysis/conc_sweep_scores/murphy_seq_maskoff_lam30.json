@@ -1,0 +1,18 @@
+{
+  "label": "murphy_seq_maskoff_lam30",
+  "variant": "seq_maskoff",
+  "lam": 30,
+  "pwm": "murphy",
+  "outDir": "robocop_chrI_seq_maskoff_conc30",
+  "abf1_recall": 0.4,
+  "abf1_tp": 2,
+  "abf1_n_pred": 175,
+  "abf1_auroc": 0.5836766914446935,
+  "abf1_post_sites": 0.14096369835372916,
+  "abf1_post_bg": 0.008268785563231846,
+  "abf1_enrichment": 17.047690652487262,
+  "nuc_recall": 0.8,
+  "nuc_median_err": 6.5,
+  "phasing_bp": 171.0,
+  "access_corr": 0.23067177375626505
+}

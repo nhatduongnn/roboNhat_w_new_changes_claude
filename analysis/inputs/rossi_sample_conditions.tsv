@@ -1,0 +1,1237 @@
+sample_id	target	replicate	assay	condition	gsm	on_disk
+14374	ARP9	rep1	ChIP-exo	normal	GSM4449193	
+14449	Aap1	rep1	ChIP-exo	normal	GSM4449150	yes
+17031	Aap1	rep2	ChIP-exo	normal	GSM4449151	yes
+14859	Abd1	rep1	ChIP-exo	normal	GSM4449152	
+15254	Abf1	rep1	ChIP-exo	normal	GSM4449153	yes
+19442	Abf1	rep2	ChIP-exo	normal	GSM4449154	yes
+19997	Abf1	rep3	ChIP-exo	normal	GSM4449651	yes
+16021	Ace2	rep1	ChIP-exo	normal	GSM4449155	yes
+17958	Ace2	rep2	ChIP-exo	normal	GSM4449156	yes
+11920	Aco1	rep1	ChIP-exo	normal	GSM4449157	
+14640	Acs1	rep1	ChIP-exo	normal	GSM4449158	
+11926	Acs2	rep1	ChIP-exo	normal	GSM4449159	yes
+17945	Acs2	rep2	ChIP-exo	normal	GSM4449160	yes
+19993	Ada1	rep1	ChIP-exo	normal	GSM4449161	
+12860	Ada2	rep1	ChIP-exo	normal	GSM4449162	yes
+17019	Ada2	rep2	ChIP-exo	normal	GSM4449163	yes
+19994	Ada2	rep3	ChIP-exo	normal	GSM4449164	yes
+14183	Ade12	rep1	ChIP-exo	normal	GSM4449165	
+14778	Adk1	rep1	ChIP-exo	normal	GSM4449166	
+14405	Ado1	rep1	ChIP-exo	normal	GSM4449167	
+17768	Adr1	rep1	ChIP-exo	normal	GSM4449168	
+11942	Aft2	rep1	ChIP-exo	normal	GSM4449169	yes
+15627	Aft2	rep2	ChIP-exo	normal	GSM4449170	yes
+17594	Ahc1	rep1	ChIP-exo	normal	GSM4449171	
+14822	Ahc2	rep1	ChIP-exo	normal	GSM4449172	
+12950	Aor1	rep1	ChIP-exo	normal	GSM4449173	yes
+17794	Aor1	rep2	ChIP-exo	normal	GSM4449174	yes
+12021	Apc5	rep1	ChIP-exo	normal	GSM4449175	
+12040	Apc9	rep1	ChIP-exo	normal	GSM4449176	
+14478	Apt1	rep1	ChIP-exo	normal	GSM4449177	
+14851	Arg80	rep1	ChIP-exo	normal	GSM4449178	
+14850	Arg81	rep1	ChIP-exo	normal	GSM4449179	
+12032	Arg82	rep1	ChIP-exo	normal	GSM4449180	
+13467	Aro3	rep1	ChIP-exo	normal	GSM4449181	
+13439	Aro4	rep1	ChIP-exo	normal	GSM4449182	
+14469	Aro80	rep1	ChIP-exo	normal	GSM4449183	yes
+14970	Aro80	rep2	ChIP-exo	normal	GSM4449184	yes
+12865	Aro9	rep1	ChIP-exo	normal	GSM4449185	
+14377	Arp4	rep1	ChIP-exo	normal	GSM4449186	
+17950	Arp5	rep1	ChIP-exo	normal	GSM4449187	
+17158	Arp6	rep1	ChIP-exo	normal	GSM4449188	yes
+17582	Arp6	rep2	ChIP-exo	normal	GSM4449189	yes
+12434	Arp7	rep1	ChIP-exo	normal	GSM4449190	yes
+17800	Arp7	rep2	ChIP-exo	normal	GSM4449191	yes
+12090	Arp8	rep1	ChIP-exo	normal	GSM4449192	
+14860	Arr1	rep1	ChIP-exo	normal	GSM4449194	
+12845	Arx1	rep1	ChIP-exo	normal	GSM4449195	
+17557	Asf1	rep1	ChIP-exo	normal	GSM4449196	
+17802	Asf2	rep1	ChIP-exo	normal	GSM4449197	yes
+20419	Asf2	rep2	ChIP-exo	normal	GSM4449198	yes
+12453	Asg1	rep1	ChIP-exo	normal	GSM4449199	
+28363	Asg1	rep2	ChIP-exo	normal	GSM4449200	
+12024	Ash1	rep1	ChIP-exo	normal	GSM4449201	
+12111	Ask10	rep1	ChIP-exo	normal	GSM4449202	
+17773	Azf1	rep1	ChIP-exo	normal	GSM4449203	yes
+19305	Azf1	rep2	ChIP-exo	normal	GSM4449204	yes
+12018	Bas1	rep1	ChIP-exo	normal	GSM4449205	yes
+15649	Bas1	rep2	ChIP-exo	normal	GSM4449206	yes
+13440	Bat2	rep1	ChIP-exo	normal	GSM4449207	
+17139	Bcy1	rep1	ChIP-exo	normal	GSM4449208	yes
+18464	Bcy1	rep2	ChIP-exo	normal	GSM4449209	yes
+12139	Bdf1	rep1	ChIP-exo	normal	GSM4449210	yes
+15630	Bdf1	rep2	ChIP-exo	normal	GSM4449211	yes
+12116	Bdf2	rep1	ChIP-exo	normal	GSM4449212	yes
+17013	Bdf2	rep2	ChIP-exo	normal	GSM4449213	yes
+12113	Bdp1	rep1	ChIP-exo	normal	GSM4449214	yes
+14278	Bdp1	rep2	ChIP-exo	normal	GSM4449215	yes
+12854	Bem4	rep1	ChIP-exo	normal	GSM4449216	
+14765	Bim1	rep1	ChIP-exo	normal	GSM4449217	
+14769	Bmh1	rep1	ChIP-exo	normal	GSM4449218	
+13446	Bmh2	rep1	ChIP-exo	normal	GSM4449219	
+11752	Bre1	rep1	ChIP-exo	normal	GSM4449220	yes
+13789	Bre1	rep2	ChIP-exo	normal	GSM4449221	yes
+14798	Bre2	rep1	ChIP-exo	normal	GSM4449222	yes
+17951	Bre2	rep2	ChIP-exo	normal	GSM4449223	yes
+13145	Brf1	rep1	ChIP-exo	normal	GSM4449224	yes
+15488	Brf1	rep2	ChIP-exo	normal	GSM4449225	yes
+12943	Brn1	rep1	ChIP-exo	normal	GSM4449226	yes
+17986	Brn1	rep2	ChIP-exo	normal	GSM4449227	yes
+12870	Bud17	rep1	ChIP-exo	normal	GSM4449228	
+13462	Bud20	rep1	ChIP-exo	normal	GSM4449229	
+17145	Bud22	rep1	ChIP-exo	normal	GSM4449230	
+14493	Bud32	rep1	ChIP-exo	normal	GSM4449231	
+11903	Bud6	rep1	ChIP-exo	normal	GSM4449232	
+12877	Bur2	rep1	ChIP-exo	normal	GSM4449233	yes
+14631	Bur2	rep2	ChIP-exo	normal	GSM4449234	yes
+17876	Bur6	rep1	ChIP-exo	normal	GSM4449235	yes
+19995	Bur6	rep2	ChIP-exo	normal	GSM4449236	yes
+20420	Bur6	rep3	ChIP-exo	normal	GSM4449237	yes
+13149	Bye1	rep1	ChIP-exo	normal	GSM4449238	yes
+17799	Bye1	rep2	ChIP-exo	normal	GSM4449239	yes
+20077	CTDSer2	rep1	ChIP-exo	normal	GSM4449304	
+20081	CTDSer2	rep2	ChIP-exo	normal	GSM4449305	
+20078	CTDSer5	rep1	ChIP-exo	normal	GSM4449306	
+20082	CTDSer5	rep2	ChIP-exo	normal	GSM4449307	
+20079	CTDSer7	rep1	ChIP-exo	normal	GSM4449308	
+20083	CTDSer7	rep2	ChIP-exo	normal	GSM4449309	
+16029	Cac2	rep1	ChIP-exo	normal	GSM4449240	
+14777	Cad1	rep1	ChIP-exo	normal	GSM4449241	yes
+20421	Cad1	rep2	ChIP-exo	normal	GSM4449242	yes
+17598	Caf120	rep1	ChIP-exo	normal	GSM4449243	
+12457	Caf130	rep1	ChIP-exo	normal	GSM4449244	
+16544	Caf16	rep1	ChIP-exo	normal	GSM4449245	
+17030	Caf4	rep1	ChIP-exo	normal	GSM4449246	
+13158	Caf40	rep1	ChIP-exo	normal	GSM4449247	
+11922	Cam1	rep1	ChIP-exo	normal	GSM4449248	
+14757	Car1	rep1	ChIP-exo	normal	GSM4449249	
+12844	Car2	rep1	ChIP-exo	normal	GSM4449250	
+14357	Cbc2	rep1	ChIP-exo	normal	GSM4449251	yes
+14988	Cbc2	rep2	ChIP-exo	normal	GSM4449252	yes
+10352	Cbf1	rep1	ChIP-exo	normal	GSM4449253	yes
+24636	Cbf1	rep2	ChIP-exo	normal	GSM4449254	yes
+12435	Cca1	rep1	ChIP-exo	normal	GSM4449255	yes
+17016	Cca1	rep2	ChIP-exo	normal	GSM4449256	yes
+14529	Ccl1	rep1	ChIP-exo	normal	GSM4449257	yes
+16571	Ccl1	rep2	ChIP-exo	normal	GSM4449258	yes
+12091	Ccr4	rep1	ChIP-exo	normal	GSM4449259	
+12095	Cdc26	rep1	ChIP-exo	normal	GSM4449260	
+12087	Cdc28	rep1	ChIP-exo	normal	GSM4449261	
+13480	Cdc33	rep1	ChIP-exo	normal	GSM4449262	
+12934	Cdc36	rep1	ChIP-exo	normal	GSM4449263	
+12940	Cdc39	rep1	ChIP-exo	normal	GSM4449264	
+17942	Cdc46	rep1	ChIP-exo	normal	GSM4449265	yes
+18483	Cdc46	rep2	ChIP-exo	normal	GSM4449266	yes
+12029	Cdc47	rep1	ChIP-exo	normal	GSM4449267	
+13456	Cdc48	rep1	ChIP-exo	normal	GSM4449268	
+12010	Cdc53	rep1	ChIP-exo	normal	GSM4449269	
+13450	Cdc55	rep1	ChIP-exo	normal	GSM4449270	
+14403	Cdd1	rep1	ChIP-exo	normal	GSM4449271	
+23472	Cet1	rep1	ChIP-exo	normal	GSM4449272	
+12427	Cft1	rep1	ChIP-exo	normal	GSM4449273	yes
+17809	Cft1	rep2	ChIP-exo	normal	GSM4449274	yes
+12003	Cha4	rep1	ChIP-exo	normal	GSM4449275	yes
+20422	Cha4	rep2	ChIP-exo	normal	GSM4449276	yes
+12056	Chd1	rep1	ChIP-exo	normal	GSM4449277	yes
+18003	Chd1	rep2	ChIP-exo	normal	GSM4449278	yes
+18006	Chz1	rep1	ChIP-exo	normal	GSM4449279	
+12011	Cin5	rep1	ChIP-exo	normal	GSM4449280	yes
+17890	Cin5	rep2	ChIP-exo	normal	GSM4449281	yes
+12841	Cka1	rep1	ChIP-exo	normal	GSM4449282	yes
+20423	Cka1	rep2	ChIP-exo	normal	GSM4449283	yes
+20424	Cka2	rep1	ChIP-exo	normal	GSM4449284	yes
+20994	Cka2	rep2	ChIP-exo	normal	GSM4449285	yes
+14396	Ckb1	rep1	ChIP-exo	normal	GSM4449286	yes
+12875	Ckb2	rep1	ChIP-exo	normal	GSM4449287	yes
+18481	Ckb2	rep2	ChIP-exo	normal	GSM4449288	yes
+14451	Cks1	rep1	ChIP-exo	normal	GSM4449289	
+15001	Cln1	rep1	ChIP-exo	normal	GSM4449290	yes
+17956	Cln1	rep2	ChIP-exo	normal	GSM4449291	yes
+28330	Cmr3	rep1	ChIP-exo	normal	GSM4449292	
+13805	Cpr1	rep1	ChIP-exo	normal	GSM4449293	
+17927	Crm1	rep1	ChIP-exo	normal	GSM4449294	
+12876	Crz1	rep1	ChIP-exo	normal	GSM4449295	yes
+17034	Crz1	rep2	ChIP-exo	normal	GSM4449296	yes
+12053	Cse2	rep1	ChIP-exo	normal	GSM4449297	yes
+13817	Cse2	rep2	ChIP-exo	normal	GSM4449298	yes
+26215	Cse4	rep1	ChIP-exo	normal	GSM4449299	
+14536	Csl4	rep1	ChIP-exo	normal	GSM4449300	
+12051	Csn12	rep1	ChIP-exo	normal	GSM4449301	yes
+17589	Csn12	rep2	ChIP-exo	normal	GSM4449302	yes
+14866	Csr2	rep1	ChIP-exo	normal	GSM4449303	
+12134	Ctk1	rep1	ChIP-exo	normal	GSM4449310	yes
+16047	Ctk1	rep2	ChIP-exo	normal	GSM4449311	yes
+12879	Ctk2	rep1	ChIP-exo	normal	GSM4449312	yes
+16598	Ctk2	rep2	ChIP-exo	normal	GSM4449313	yes
+14975	Ctk3	rep1	ChIP-exo	normal	GSM4449314	yes
+11749	Ctr9	rep1	ChIP-exo	normal	GSM4449315	yes
+15196	Ctr9	rep2	ChIP-exo	normal	GSM4449316	yes
+12081	Cts1	rep1	ChIP-exo	normal	GSM4449317	
+17208	Cup2	rep1	ChIP-exo	normal	GSM4449318	
+11777	Cup9	rep1	ChIP-exo	normal	GSM4449319	yes
+18501	Cup9	rep2	ChIP-exo	normal	GSM4449320	yes
+12949	Cyc8	rep1	ChIP-exo	normal	GSM4449321	yes
+13210	Cyc8	rep2	ChIP-exo	normal	GSM4449322	yes
+14387	DOT5	rep1	ChIP-exo	normal	GSM4449341	
+11778	Dal81	rep1	ChIP-exo	normal	GSM4449323	
+14175	Dat1	rep1	ChIP-exo	normal	GSM4449324	yes
+20426	Dat1	rep2	ChIP-exo	normal	GSM4449325	yes
+17026	Dbf4	rep1	ChIP-exo	normal	GSM4449326	yes
+17128	Dbf4	rep2	ChIP-exo	normal	GSM4449327	yes
+14527	Dbp2	rep1	ChIP-exo	normal	GSM4449328	yes
+17847	Dbp2	rep2	ChIP-exo	normal	GSM4449329	yes
+13445	Dbp3	rep1	ChIP-exo	normal	GSM4449330	
+14484	Dcc1	rep1	ChIP-exo	normal	GSM4449331	
+14409	Dcp1	rep1	ChIP-exo	normal	GSM4449332	
+14184	Dcp2	rep1	ChIP-exo	normal	GSM4449333	
+12423	Ddp1	rep1	ChIP-exo	normal	GSM4449334	
+14828	Dep1	rep1	ChIP-exo	normal	GSM4449335	
+14770	Dhh1	rep1	ChIP-exo	normal	GSM4449336	
+17599	Dig1	rep1	ChIP-exo	normal	GSM4449337	yes
+17870	Dig1	rep2	ChIP-exo	normal	GSM4449338	yes
+13470	Doa1	rep1	ChIP-exo	normal	GSM4449339	
+13147	Dot1	rep1	ChIP-exo	normal	GSM4449340	
+17866	Dot6	rep1	ChIP-exo	normal	GSM4449342	
+12132	Dst1	rep1	ChIP-exo	normal	GSM4449343	yes
+17867	Dst1	rep2	ChIP-exo	normal	GSM4449344	yes
+14391	Dus1	rep1	ChIP-exo	normal	GSM4449345	
+11760	Eaf3	rep1	ChIP-exo	normal	GSM4449346	yes
+13142	Eaf5	rep1	ChIP-exo	normal	GSM4449347	yes
+17025	Eaf5	rep2	ChIP-exo	normal	GSM4449348	yes
+14792	Eaf6	rep1	ChIP-exo	normal	GSM4449349	yes
+17940	Eaf6	rep2	ChIP-exo	normal	GSM4449350	yes
+12461	Eaf7	rep1	ChIP-exo	normal	GSM4449351	
+14368	Ecm15	rep1	ChIP-exo	normal	GSM4449352	
+18487	Ecm22	rep1	ChIP-exo	normal	GSM4449353	yes
+20427	Ecm22	rep2	ChIP-exo	normal	GSM4449354	yes
+14793	Ecm5	rep1	ChIP-exo	normal	GSM4449355	yes
+17159	Ecm5	rep2	ChIP-exo	normal	GSM4449356	yes
+17131	Edc3	rep1	ChIP-exo	normal	GSM4449357	
+14856	Eds1	rep1	ChIP-exo	normal	GSM4449358	
+13448	Ela1	rep1	ChIP-exo	normal	GSM4449359	
+17209	Elc1	rep1	ChIP-exo	normal	GSM4449360	
+14481	Elf1	rep1	ChIP-exo	normal	GSM4449361	yes
+14982	Elf1	rep2	ChIP-exo	normal	GSM4449362	yes
+17781	Elp2	rep1	ChIP-exo	normal	GSM4449363	
+15479	Elp3	rep1	ChIP-exo	normal	GSM4449364	
+14434	Elp4	rep1	ChIP-exo	normal	GSM4449365	
+14836	Elp6	rep1	ChIP-exo	normal	GSM4449366	
+14426	Emi2	rep1	ChIP-exo	normal	GSM4449367	
+14385	Erg8	rep1	ChIP-exo	normal	GSM4449368	
+17577	Esa1	rep1	ChIP-exo	normal	GSM4449369	yes
+18477	Esa1	rep2	ChIP-exo	normal	GSM4449370	yes
+12082	Esc2	rep1	ChIP-exo	normal	GSM4449371	yes
+18480	Esc2	rep2	ChIP-exo	normal	GSM4449372	yes
+14392	Esc8	rep1	ChIP-exo	normal	GSM4449373	
+14462	Ess1	rep1	ChIP-exo	normal	GSM4449374	yes
+28366	Ess1	rep2	ChIP-exo	normal	GSM4449375	yes
+14383	Fap1	rep1	ChIP-exo	normal	GSM4449376	
+13471	Fap7	rep1	ChIP-exo	normal	GSM4449377	
+17157	Fcp1	rep1	ChIP-exo	normal	GSM4449378	
+8938	Fhl1	rep1	ChIP-exo	normal	GSM4449379	yes
+8944	Fhl1	rep2	ChIP-exo	normal	GSM4449380	yes
+11009	Fkh1	rep1	ChIP-exo	normal	GSM4449381	yes
+11289	Fkh1	rep2	ChIP-exo	normal	GSM4449382	yes
+10542	Fkh2	rep1	ChIP-exo	normal	GSM4449383	yes
+17968	Fkh2	rep2	ChIP-exo	normal	GSM4449384	yes
+14188	Fpr3	rep1	ChIP-exo	normal	GSM4449385	
+14190	Fpr4	rep1	ChIP-exo	normal	GSM4449386	
+17142	Fra1	rep1	ChIP-exo	normal	GSM4449387	
+13452	Fsh1	rep1	ChIP-exo	normal	GSM4449388	
+11911	Fun30	rep1	ChIP-exo	normal	GSM4449389	yes
+14269	Fun30	rep2	ChIP-exo	normal	GSM4449390	yes
+13457	Fus3	rep1	ChIP-exo	normal	GSM4449391	
+13138	Fzf1	rep1	ChIP-exo	normal	GSM4449392	yes
+15788	Fzf1	rep2	ChIP-exo	normal	GSM4449393	yes
+14495	Gal11	rep1	ChIP-exo	normal	GSM4449394	yes
+17127	Gal11	rep2	ChIP-exo	normal	GSM4449395	yes
+14187	Gal3	rep1	ChIP-exo	normal	GSM4449396	
+11796	Gal4	rep1	ChIP-exo	normal	GSM4449397	yes
+15659	Gal4	rep2	ChIP-exo	normal	GSM4449398	yes
+14366	Gal83	rep1	ChIP-exo	normal	GSM4449399	
+17980	Gat1	rep1	ChIP-exo	normal	GSM4449400	
+16046	Gcn4	rep1	ChIP-exo	normal	GSM4449401	yes
+18488	Gcn4	rep2	ChIP-exo	normal	GSM4449402	yes
+11826	Gcn5	rep1	ChIP-exo	normal	GSM4449403	yes
+15202	Gcn5	rep2	ChIP-exo	normal	GSM4449404	yes
+19996	Gcn5	rep3	ChIP-exo	normal	GSM4449405	yes
+12449	Gcr1	rep1	ChIP-exo	normal	GSM4449406	yes
+16050	Gcr1	rep2	ChIP-exo	normal	GSM4449407	yes
+12843	Gdh1	rep1	ChIP-exo	normal	GSM4449408	
+15794	Gis1	rep1	ChIP-exo	normal	GSM4449409	yes
+17040	Gis1	rep2	ChIP-exo	normal	GSM4449410	yes
+13478	Gis2	rep1	ChIP-exo	normal	GSM4449411	
+14460	Glc7	rep1	ChIP-exo	normal	GSM4449412	
+17877	Gln3	rep1	ChIP-exo	normal	GSM4449413	yes
+20429	Gln3	rep2	ChIP-exo	normal	GSM4449414	yes
+11940	God1	rep1	ChIP-exo	normal	GSM4449415	yes
+17932	God1	rep2	ChIP-exo	normal	GSM4449416	yes
+12437	Gpb2	rep1	ChIP-exo	normal	GSM4449417	
+19310	Gpn2	rep1	ChIP-exo	normal	GSM4449418	
+13458	Gpx2	rep1	ChIP-exo	normal	GSM4449419	
+14786	Gre2	rep1	ChIP-exo	normal	GSM4449420	
+14479	Gre3	rep1	ChIP-exo	normal	GSM4449421	
+14815	Grs1	rep1	ChIP-exo	normal	GSM4449422	
+14352	Grx3	rep1	ChIP-exo	normal	GSM4449423	
+13466	Grx4	rep1	ChIP-exo	normal	GSM4449424	
+14445	Gtr1	rep1	ChIP-exo	normal	GSM4449425	
+14482	Gtr2	rep1	ChIP-exo	normal	GSM4449426	
+17881	Gts1	rep1	ChIP-exo	normal	GSM4449427	
+20430	Gts1	rep2	ChIP-exo	normal	GSM4449428	
+14363	Gzf3	rep1	ChIP-exo	normal	GSM4449429	yes
+20431	Gzf3	rep2	ChIP-exo	normal	GSM4449430	yes
+10951	H2B	rep1	MNase-ChIP-seq	normal	GSM4449431	
+10952	H2B	rep2	MNase-ChIP-seq	normal	GSM4449432	
+10967	H2B	rep3	MNase-ChIP-seq	normal	GSM4449433	
+13889	H2BK123ub	rep1	MNase-ChIP-seq	normal	GSM4449434	
+13898	H2BK123ub	rep2	MNase-ChIP-seq	normal	GSM4449435	
+10947	H3	rep1	MNase-ChIP-seq	normal	GSM4449436	
+10948	H3	rep2	MNase-ChIP-seq	normal	GSM4449437	
+10966	H3	rep3	MNase-ChIP-seq	normal	GSM4449438	
+13886	H3K27ac	rep1	MNase-ChIP-seq	normal	GSM4449439	
+13895	H3K27ac	rep2	MNase-ChIP-seq	normal	GSM4449440	
+13887	H3K36me3	rep1	MNase-ChIP-seq	normal	GSM4449441	
+13896	H3K36me3	rep2	MNase-ChIP-seq	normal	GSM4449442	
+13884	H3K4me3	rep1	MNase-ChIP-seq	normal	GSM4449443	
+13893	H3K4me3	rep2	MNase-ChIP-seq	normal	GSM4449444	
+13888	H3K79me3	rep1	MNase-ChIP-seq	normal	GSM4449445	
+13897	H3K79me3	rep2	MNase-ChIP-seq	normal	GSM4449446	
+13885	H3K9ac	rep1	MNase-ChIP-seq	normal	GSM4449447	
+13894	H3K9ac	rep2	MNase-ChIP-seq	normal	GSM4449448	
+13890	H4K12ac	rep1	MNase-ChIP-seq	normal	GSM4449449	
+13899	H4K12ac	rep2	MNase-ChIP-seq	normal	GSM4449450	
+18014	Haa1	rep1	ChIP-exo	normal	GSM4449451	
+12034	Hac1	rep1	ChIP-exo	normal	GSM4449452	
+11804	Hal9	rep1	ChIP-exo	normal	GSM4449453	yes
+13794	Hal9	rep2	ChIP-exo	normal	GSM4449454	yes
+12438	Ham1	rep1	ChIP-exo	normal	GSM4449455	
+14855	Hap1	rep1	ChIP-exo	normal	GSM4449456	yes
+17050	Hap1	rep2	ChIP-exo	normal	GSM4449457	yes
+11805	Hap2	rep1	ChIP-exo	normal	GSM4449458	yes
+15633	Hap2	rep2	ChIP-exo	normal	GSM4449459	yes
+12013	Hap3	rep1	ChIP-exo	normal	GSM4449460	yes
+18494	Hap3	rep2	ChIP-exo	normal	GSM4449461	yes
+10535	Hap5	rep1	ChIP-exo	normal	GSM4449462	yes
+10706	Hap5	rep2	ChIP-exo	normal	GSM4449463	yes
+14830	Hat2	rep1	ChIP-exo	normal	GSM4449464	
+13460	Hch1	rep1	ChIP-exo	normal	GSM4449465	
+12039	Hcm1	rep1	ChIP-exo	normal	GSM4449466	
+12858	Hda1	rep1	ChIP-exo	normal	GSM4449467	
+20432	Hda1	rep2	ChIP-exo	normal	GSM4449468	
+14431	Hem2	rep1	ChIP-exo	normal	GSM4449469	yes
+17043	Hem2	rep2	ChIP-exo	normal	GSM4449470	yes
+11757	Hhf1	rep1	ChIP-exo	normal	GSM4449471	yes
+15663	Hhf1	rep2	ChIP-exo	normal	GSM4449472	yes
+14818	Hhf2	rep1	ChIP-exo	normal	GSM4449473	yes
+18495	Hhf2	rep2	ChIP-exo	normal	GSM4449474	yes
+11771	Hho1	rep1	ChIP-exo	normal	GSM4449475	yes
+16025	Hho1	rep2	ChIP-exo	normal	GSM4449476	yes
+17783	Hht1	rep1	ChIP-exo	normal	GSM4449477	yes
+19308	Hht1	rep2	ChIP-exo	normal	GSM4449478	yes
+11758	Hht2	rep1	ChIP-exo	normal	GSM4449479	yes
+15662	Hht2	rep2	ChIP-exo	normal	GSM4449480	yes
+14465	Hif1	rep1	ChIP-exo	normal	GSM4449481	
+17575	Hir1	rep1	ChIP-exo	normal	GSM4449482	yes
+17865	Hir1	rep2	ChIP-exo	normal	GSM4449483	yes
+11847	Hir2	rep1	ChIP-exo	normal	GSM4449484	yes
+15197	Hir2	rep2	ChIP-exo	normal	GSM4449485	yes
+15789	Hir3	rep1	ChIP-exo	normal	GSM4449486	yes
+17987	Hir3	rep2	ChIP-exo	normal	GSM4449487	yes
+14865	Hmlalpha2	rep1	ChIP-exo	normal	GSM4449488	
+12836	Hmo1	rep1	ChIP-exo	normal	GSM4449489	yes
+14622	Hmo1	rep2	ChIP-exo	normal	GSM4449490	yes
+14842	Hms1	rep1	ChIP-exo	normal	GSM4449491	
+16018	Hms2	rep1	ChIP-exo	normal	GSM4449492	yes
+17849	Hms2	rep2	ChIP-exo	normal	GSM4449493	yes
+17213	Hmt1	rep1	ChIP-exo	normal	GSM4449494	
+16033	Hog1	rep1	ChIP-exo	normal	GSM4449495	
+12432	Hom6	rep1	ChIP-exo	normal	GSM4449496	
+14781	Hor2	rep1	ChIP-exo	normal	GSM4449497	
+17593	Hos1	rep1	ChIP-exo	normal	GSM4449498	
+13157	Hos2	rep1	ChIP-exo	normal	GSM4449499	yes
+20433	Hos2	rep2	ChIP-exo	normal	GSM4449500	yes
+17564	Hos3	rep1	ChIP-exo	normal	GSM4449501	
+16044	Hos4	rep1	ChIP-exo	normal	GSM4449502	yes
+17797	Hos4	rep2	ChIP-exo	normal	GSM4449503	yes
+13141	Hot1	rep1	ChIP-exo	normal	GSM4449504	yes
+15491	Hot1	rep2	ChIP-exo	normal	GSM4449505	yes
+12941	Hpa3	rep1	ChIP-exo	normal	GSM4449506	
+14989	Hpc2	rep1	ChIP-exo	normal	GSM4449507	yes
+20434	Hpc2	rep2	ChIP-exo	normal	GSM4449508	yes
+14810	Hpr1	rep1	ChIP-exo	normal	GSM4449509	yes
+17936	Hpr1	rep2	ChIP-exo	normal	GSM4449510	yes
+14487	Hpt1	rep1	ChIP-exo	normal	GSM4449511	
+17929	Hrb1	rep1	ChIP-exo	normal	GSM4449512	
+28336	Hrb1	rep2	ChIP-exo	normal	GSM4449513	
+14993	Hrr25	rep1	ChIP-exo	normal	GSM4449514	
+8581	Hsf1	rep1	ChIP-exo	normal	GSM4449515	yes
+10401	Hsf1	rep2	ChIP-exo	normal	GSM4449516	yes
+10406	Hsf1	rep3	ChIP-exo	6 min heat shock	GSM4449517	yes
+23750	Hsf1	rep4	ChIP-exo	normal	GSM4449518	yes
+23755	Hsf1	rep5	ChIP-exo	6 min heat shock	GSM4449519	yes
+12868	Hsl7	rep1	ChIP-exo	normal	GSM4449520	
+13140	Hst1	rep1	ChIP-exo	normal	GSM4449521	yes
+15798	Hst1	rep2	ChIP-exo	normal	GSM4449522	yes
+14467	Hst2	rep1	ChIP-exo	normal	GSM4449523	
+13143	Hst3	rep1	ChIP-exo	normal	GSM4449524	yes
+15796	Hst3	rep2	ChIP-exo	normal	GSM4449525	yes
+11819	Hst4	rep1	ChIP-exo	normal	GSM4449526	
+11844	Hta2	rep1	ChIP-exo	normal	GSM4449527	yes
+15784	Hta2	rep2	ChIP-exo	normal	GSM4449528	yes
+11772	Htb2	rep1	ChIP-exo	normal	GSM4449529	yes
+14255	Htb2	rep2	ChIP-exo	normal	GSM4449530	yes
+17028	Htl1	rep1	ChIP-exo	normal	GSM4449531	yes
+20435	Htl1	rep2	ChIP-exo	normal	GSM4449532	yes
+11759	Htz1	rep1	ChIP-exo	normal	GSM4449533	yes
+15193	Htz1	rep2	ChIP-exo	normal	GSM4449534	yes
+12842	Hxk2	rep1	ChIP-exo	normal	GSM4449535	
+14476	Idi1	rep1	ChIP-exo	normal	GSM4449536	
+14399	Ids2	rep1	ChIP-exo	normal	GSM4449537	
+17984	Ies1	rep1	ChIP-exo	normal	GSM4449538	
+17136	Ies2	rep1	ChIP-exo	normal	GSM4449539	
+17891	Ies3	rep1	ChIP-exo	normal	GSM4449540	yes
+20436	Ies3	rep2	ChIP-exo	normal	GSM4449541	yes
+11994	Ies4	rep1	ChIP-exo	normal	GSM4449542	
+14811	Ies5	rep1	ChIP-exo	normal	GSM4449543	
+14984	Ies6	rep1	ChIP-exo	normal	GSM4449544	yes
+17042	Ies6	rep2	ChIP-exo	normal	GSM4449545	yes
+8934	Ifh1	rep1	ChIP-exo	normal	GSM4449546	yes
+8936	Ifh1	rep2	ChIP-exo	normal	GSM4449547	yes
+14439	Iki1	rep1	ChIP-exo	normal	GSM4449548	
+12077	Iki3	rep1	ChIP-exo	normal	GSM4449549	
+11925	Ilv5	rep1	ChIP-exo	normal	GSM4449550	
+12033	Imd2	rep1	ChIP-exo	normal	GSM4449551	
+12853	Iml2	rep1	ChIP-exo	normal	GSM4449552	
+12012	Ino2	rep1	ChIP-exo	normal	GSM4449553	yes
+17971	Ino2	rep2	ChIP-exo	normal	GSM4449554	yes
+14597	Ino4	rep1	ChIP-exo	normal	GSM4449555	yes
+15653	Ino4	rep2	ChIP-exo	normal	GSM4449556	yes
+17581	Ino80	rep1	ChIP-exo	normal	GSM4449557	yes
+17998	Ioc2	rep1	ChIP-exo	normal	GSM4449558	
+18004	Ioc3	rep1	ChIP-exo	normal	GSM4449559	yes
+17032	Ioc4	rep1	ChIP-exo	normal	GSM4449560	
+16344	Irc20	rep1	ChIP-exo	normal	GSM4449561	
+14992	Irr1	rep1	ChIP-exo	normal	GSM4449562	yes
+17954	Irr1	rep2	ChIP-exo	normal	GSM4449563	yes
+18013	Isw1	rep1	ChIP-exo	normal	GSM4449564	yes
+14762	Isw2	rep1	ChIP-exo	normal	GSM4449565	yes
+17152	Itc1	rep1	ChIP-exo	normal	GSM4449566	
+17146	Iwr1	rep1	ChIP-exo	normal	GSM4449567	
+12107	Iws1	rep1	ChIP-exo	normal	GSM4449568	yes
+14601	Iws1	rep2	ChIP-exo	normal	GSM4449569	yes
+17850	Ixr1	rep1	ChIP-exo	normal	GSM4449570	
+17792	Jhd1	rep1	ChIP-exo	normal	GSM4449571	
+18002	Jhd2	rep1	ChIP-exo	normal	GSM4449572	
+16542	Kae1	rep1	ChIP-exo	normal	GSM4449573	
+13465	Kap95	rep1	ChIP-exo	normal	GSM4449574	
+13443	Kar2	rep1	ChIP-exo	normal	GSM4449575	
+14492	Kar4	rep1	ChIP-exo	normal	GSM4449576	yes
+14972	Kar4	rep2	ChIP-exo	normal	GSM4449577	yes
+17983	Kin28	rep1	ChIP-exo	normal	GSM4449578	yes
+19392	Kin28	rep2	ChIP-exo	normal	GSM4449579	yes
+14180	Kss1	rep1	ChIP-exo	normal	GSM4449580	
+17935	Kti12	rep1	ChIP-exo	normal	GSM4449581	
+18473	Lea1	rep1	ChIP-exo	normal	GSM4449582	yes
+20437	Lea1	rep2	ChIP-exo	normal	GSM4449583	yes
+11773	Leo1	rep1	ChIP-exo	normal	GSM4449584	yes
+13793	Leo1	rep2	ChIP-exo	normal	GSM4449585	yes
+14199	Leu3	rep1	ChIP-exo	normal	GSM4449586	yes
+15669	Leu3	rep2	ChIP-exo	normal	GSM4449587	yes
+14417	Lge1	rep1	ChIP-exo	normal	GSM4449588	
+13464	Lot5	rep1	ChIP-exo	normal	GSM4449589	
+12140	Lrg1	rep1	ChIP-exo	normal	GSM4449590	
+14428	Lys14	rep1	ChIP-exo	normal	GSM4449591	yes
+14817	Lys14	rep2	ChIP-exo	normal	GSM4449592	yes
+12114	Lys20	rep1	ChIP-exo	normal	GSM4449593	yes
+17012	Lys20	rep2	ChIP-exo	normal	GSM4449594	yes
+12089	Lys21	rep1	ChIP-exo	normal	GSM4449595	yes
+15656	Lys21	rep2	ChIP-exo	normal	GSM4449596	yes
+12006	Mac1	rep1	ChIP-exo	normal	GSM4449597	yes
+13808	Mac1	rep2	ChIP-exo	normal	GSM4449598	yes
+11824	Maf1	rep1	ChIP-exo	normal	GSM4449599	yes
+17010	Maf1	rep2	ChIP-exo	normal	GSM4449600	yes
+14847	Mal33	rep1	ChIP-exo	normal	GSM4449601	
+12869	Mas6	rep1	ChIP-exo	normal	GSM4449602	
+14496	Matalpha2	rep1	ChIP-exo	normal	GSM4449603	yes
+14973	Matalpha2	rep2	ChIP-exo	normal	GSM4449604	yes
+17115	Mbf1	rep1	ChIP-exo	normal	GSM4449605	
+12937	Mbp1	rep1	ChIP-exo	normal	GSM4449606	yes
+15655	Mbp1	rep2	ChIP-exo	normal	GSM4449607	yes
+14362	Mca1	rep1	ChIP-exo	normal	GSM4449608	
+14797	Mcd1	rep1	ChIP-exo	normal	GSM4449609	yes
+13441	Mck1	rep1	ChIP-exo	normal	GSM4449610	
+12441	Mcm1	rep1	ChIP-exo	normal	GSM4449611	yes
+14618	Mcm1	rep2	ChIP-exo	normal	GSM4449612	yes
+14480	Mcm16	rep1	ChIP-exo	normal	GSM4449613	yes
+14997	Mcm16	rep2	ChIP-exo	normal	GSM4449614	yes
+14983	Med1	rep1	ChIP-exo	normal	GSM4449615	
+16043	Med11	rep1	ChIP-exo	normal	GSM4449616	yes
+18486	Med11	rep2	ChIP-exo	normal	GSM4449617	yes
+12084	Med2	rep1	ChIP-exo	normal	GSM4449618	yes
+15187	Med2	rep2	ChIP-exo	normal	GSM4449619	yes
+17969	Med20	rep1	ChIP-exo	normal	GSM4449620	
+12083	Med4	rep1	ChIP-exo	normal	GSM4449621	yes
+14611	Med4	rep2	ChIP-exo	normal	GSM4449622	yes
+12470	Med6	rep1	ChIP-exo	normal	GSM4449623	yes
+15800	Med6	rep2	ChIP-exo	normal	GSM4449624	yes
+17597	Med8	rep1	ChIP-exo	normal	GSM4449625	
+14191	Met18	rep1	ChIP-exo	normal	GSM4449626	
+11797	Met28	rep1	ChIP-exo	normal	GSM4449627	
+19657	Met28	rep2	ChIP-exo	6 min heat shock	GSM4449628	
+28348	Met28	rep3	ChIP-exo	normal	GSM4449629	
+13211	Met30	rep1	ChIP-exo	normal	GSM4449630	
+11806	Met31	rep1	ChIP-exo	normal	GSM4449631	yes
+15634	Met31	rep2	ChIP-exo	normal	GSM4449632	yes
+12464	Met32	rep1	ChIP-exo	normal	GSM4449633	yes
+15791	Met32	rep2	ChIP-exo	normal	GSM4449634	yes
+11990	Met4	rep1	ChIP-exo	normal	GSM4449635	yes
+20438	Met4	rep2	ChIP-exo	normal	GSM4449636	yes
+12130	Mft1	rep1	ChIP-exo	normal	GSM4449637	yes
+13813	Mft1	rep2	ChIP-exo	normal	GSM4449638	yes
+11908	Mga2	rep1	ChIP-exo	normal	GSM4449639	
+16540	Mif2	rep1	ChIP-exo	normal	GSM4449640	yes
+18474	Mif2	rep2	ChIP-exo	normal	GSM4449641	yes
+17869	Mig1	rep1	ChIP-exo	normal	GSM4449642	yes
+19327	Mig1	rep2	ChIP-exo	normal	GSM4449643	yes
+12946	Mig2	rep1	ChIP-exo	normal	GSM4449644	yes
+18493	Mig2	rep2	ChIP-exo	normal	GSM4449645	yes
+14854	Mig3	rep1	ChIP-exo	normal	GSM4449646	
+14846	Mks1	rep1	ChIP-exo	normal	GSM4450379	
+12425	Mlp1	rep1	ChIP-exo	normal	GSM4449647	yes
+17196	Mlp1	rep2	ChIP-exo	normal	GSM4449648	yes
+14382	Mor1	rep1	ChIP-exo	normal	GSM4449649	
+17039	Mot1	rep1	ChIP-exo	normal	GSM4449650	yes
+17985	Mot2	rep1	ChIP-exo	normal	GSM4449652	
+11807	Mot3	rep1	ChIP-exo	normal	GSM4449653	
+14292	Mot3	rep2	ChIP-exo	normal	GSM4449654	
+14772	Mre11	rep1	ChIP-exo	normal	GSM4449655	
+14525	Msc6	rep1	ChIP-exo	normal	GSM4449656	
+17960	Msi1	rep1	ChIP-exo	normal	GSM4449657	
+17125	Msn1	rep1	ChIP-exo	normal	GSM4449658	
+8584	Msn2	rep1	ChIP-exo	normal	GSM4449659	yes
+14839	Msn4	rep1	ChIP-exo	normal	GSM4449660	
+15218	Mss11	rep1	ChIP-exo	normal	GSM4449661	yes
+15661	Mss11	rep2	ChIP-exo	normal	GSM4449662	yes
+17038	Mth1	rep1	ChIP-exo	normal	GSM4449663	
+17796	Mud1	rep1	ChIP-exo	normal	GSM4449664	yes
+19309	Mud1	rep2	ChIP-exo	normal	GSM4449665	yes
+13449	Mus81	rep1	ChIP-exo	normal	GSM4449666	
+14384	Mxr1	rep1	ChIP-exo	normal	GSM4449667	
+15000	Nab2	rep1	ChIP-exo	normal	GSM4449668	yes
+17118	Nab2	rep2	ChIP-exo	normal	GSM4449669	yes
+14379	Naf1	rep1	ChIP-exo	normal	GSM4449670	yes
+15004	Naf1	rep2	ChIP-exo	normal	GSM4449671	yes
+14526	Nan1	rep1	ChIP-exo	normal	GSM4449672	
+17868	Nap1	rep1	ChIP-exo	normal	GSM4449673	
+12861	Ncb2	rep1	ChIP-exo	normal	GSM4449674	yes
+20439	Ncb2	rep2	ChIP-exo	normal	GSM4449675	yes
+20440	Ncl1	rep1	ChIP-exo	normal	GSM4449676	
+14590	Ndd1	rep1	ChIP-exo	normal	GSM4449677	yes
+17949	Ndd1	rep2	ChIP-exo	normal	GSM4449678	yes
+12066	Net1	rep1	ChIP-exo	normal	GSM4449679	
+17953	Nfi1	rep1	ChIP-exo	normal	GSM4449680	yes
+12092	Ngg1	rep1	ChIP-exo	normal	GSM4449681	yes
+17767	Ngg1	rep2	ChIP-exo	normal	GSM4449682	yes
+17788	Nhp10	rep1	ChIP-exo	normal	GSM4449683	
+24336	Nhp10	rep2	ChIP-exo	normal	GSM4449684	
+12052	Nhp6a	rep1	ChIP-exo	normal	GSM4449685	yes
+14606	Nhp6a	rep2	ChIP-exo	normal	GSM4449686	yes
+14468	Nic96	rep1	ChIP-exo	normal	GSM4449687	
+14861	Nkp1	rep1	ChIP-exo	normal	GSM4449688	yes
+17055	Nkp1	rep2	ChIP-exo	normal	GSM4449689	yes
+12455	Nkp2	rep1	ChIP-exo	normal	GSM4449690	yes
+14620	Nkp2	rep2	ChIP-exo	normal	GSM4449691	yes
+14764	Nma1	rep1	ChIP-exo	normal	GSM4449692	
+14401	Nma2	rep1	ChIP-exo	normal	GSM4449693	
+14532	Nmd5	rep1	ChIP-exo	normal	GSM4449694	
+20442	Nnf2	rep1	ChIP-exo	normal	GSM4449695	
+13474	Nog2	rep1	ChIP-exo	normal	GSM4449696	
+13804	Nop58	rep1	ChIP-exo	normal	GSM4449697	
+12947	Not3	rep1	ChIP-exo	normal	GSM4449698	
+13154	Not5	rep1	ChIP-exo	normal	GSM4449699	
+17126	Npl3	rep1	ChIP-exo	normal	GSM4449700	yes
+18460	Npl3	rep2	ChIP-exo	normal	GSM4449701	yes
+17926	Npl6	rep1	ChIP-exo	normal	GSM4449702	
+11900	Nrd1	rep1	ChIP-exo	normal	GSM4449703	yes
+14265	Nrd1	rep2	ChIP-exo	normal	GSM4449704	yes
+14419	Nrg1	rep1	ChIP-exo	normal	GSM4449705	yes
+14812	Nrg1	rep2	ChIP-exo	normal	GSM4449706	yes
+11998	Nrg2	rep1	ChIP-exo	normal	GSM4449707	yes
+16023	Nrg2	rep2	ChIP-exo	normal	GSM4449708	yes
+12878	Nrm1	rep1	ChIP-exo	normal	GSM4449709	yes
+15792	Nrm1	rep2	ChIP-exo	normal	GSM4449710	yes
+12110	Nsa2	rep1	ChIP-exo	normal	GSM4449711	
+12007	Nsp1	rep1	ChIP-exo	normal	GSM4449712	
+14779	Nsr1	rep1	ChIP-exo	normal	GSM4449713	
+17779	Nto1	rep1	ChIP-exo	normal	GSM4449714	
+14858	Nup42	rep1	ChIP-exo	normal	GSM4449715	
+18007	Nut1	rep1	ChIP-exo	normal	GSM4449716	yes
+18485	Nut1	rep2	ChIP-exo	normal	GSM4449717	yes
+12054	Nut2	rep1	ChIP-exo	normal	GSM4449718	yes
+17863	Nut2	rep2	ChIP-exo	normal	GSM4449719	yes
+14404	Oaf1	rep1	ChIP-exo	normal	GSM4449720	
+14355	Oaf3	rep1	ChIP-exo	normal	GSM4449721	yes
+14995	Oaf3	rep2	ChIP-exo	normal	GSM4449722	yes
+14474	Orc1	rep1	ChIP-exo	normal	GSM4449723	yes
+16352	Orc1	rep2	ChIP-exo	normal	GSM4449724	yes
+17775	Orc2	rep1	ChIP-exo	normal	GSM4449725	yes
+19306	Orc2	rep2	ChIP-exo	normal	GSM4449726	yes
+17147	Orc4	rep1	ChIP-exo	normal	GSM4449727	yes
+18466	Orc4	rep2	ChIP-exo	normal	GSM4449728	yes
+17148	Orc5	rep1	ChIP-exo	normal	GSM4449729	yes
+18467	Orc5	rep2	ChIP-exo	normal	GSM4449730	yes
+14534	Orc6	rep1	ChIP-exo	normal	GSM4449731	yes
+16527	Orc6	rep2	ChIP-exo	normal	GSM4449732	yes
+14470	Otu1	rep1	ChIP-exo	normal	GSM4449733	
+17928	Pab1	rep1	ChIP-exo	normal	GSM4449734	
+11750	Paf1	rep1	ChIP-exo	normal	GSM4449735	yes
+15772	Paf1	rep2	ChIP-exo	normal	GSM4449736	yes
+14530	Pap1	rep1	ChIP-exo	normal	GSM4449737	yes
+17875	Pap1	rep2	ChIP-exo	normal	GSM4449738	yes
+12085	Pat1	rep1	ChIP-exo	normal	GSM4449739	
+13148	Pcf11	rep1	ChIP-exo	normal	GSM4449740	yes
+15486	Pcf11	rep2	ChIP-exo	normal	GSM4449741	yes
+14870	Pcl9	rep1	ChIP-exo	normal	GSM4449742	
+14395	Pct1	rep1	ChIP-exo	normal	GSM4449743	
+13442	Pdc1	rep1	ChIP-exo	normal	GSM4449744	
+16586	Pdr1	rep1	ChIP-exo	normal	GSM4449745	yes
+18497	Pdr1	rep2	ChIP-exo	normal	GSM4449746	yes
+17769	Pdr3	rep1	ChIP-exo	normal	GSM4449747	yes
+20443	Pdr3	rep2	ChIP-exo	normal	GSM4449748	yes
+12055	Pgd1	rep1	ChIP-exo	normal	GSM4449749	yes
+13819	Pgd1	rep2	ChIP-exo	normal	GSM4449750	yes
+14596	Phd1	rep1	ChIP-exo	normal	GSM4449751	yes
+17018	Phd1	rep2	ChIP-exo	normal	GSM4449752	yes
+12137	Pho2	rep1	ChIP-exo	normal	GSM4449753	
+11761	Pho23	rep1	ChIP-exo	normal	GSM4449754	yes
+15191	Pho23	rep2	ChIP-exo	normal	GSM4449755	yes
+14840	Pho4	rep1	ChIP-exo	normal	GSM4449756	
+12037	Pho80	rep1	ChIP-exo	normal	GSM4449757	
+12849	Pho85	rep1	ChIP-exo	normal	GSM4449758	
+16604	Pip2	rep1	ChIP-exo	normal	GSM4449759	yes
+18476	Pip2	rep2	ChIP-exo	normal	GSM4449760	yes
+17143	Plo1	rep1	ChIP-exo	normal	GSM4449761	
+17772	Plo2	rep1	ChIP-exo	normal	GSM4449762	
+12840	Plp1	rep1	ChIP-exo	normal	GSM4449763	
+14186	Plp2	rep1	ChIP-exo	normal	GSM4449764	
+14393	Pnc1	rep1	ChIP-exo	normal	GSM4449765	
+12117	Png1	rep1	ChIP-exo	normal	GSM4449766	
+12060	Pob3	rep1	ChIP-exo	normal	GSM4449767	yes
+14285	Pob3	rep2	ChIP-exo	normal	GSM4449768	yes
+17153	Pog1	rep1	ChIP-exo	normal	GSM4449769	
+17135	Pol1	rep1	ChIP-exo	normal	GSM4449770	
+17150	Pol2	rep1	ChIP-exo	normal	GSM4449771	
+12932	Pop2	rep1	ChIP-exo	normal	GSM4449772	
+13473	Pre2	rep1	ChIP-exo	normal	GSM4449773	
+13459	Pre4	rep1	ChIP-exo	normal	GSM4449774	
+14501	Pre8	rep1	ChIP-exo	normal	GSM4449775	
+17141	Prp4	rep1	ChIP-exo	normal	GSM4449776	yes
+18465	Prp4	rep2	ChIP-exo	normal	GSM4449777	yes
+17892	Prp45	rep1	ChIP-exo	normal	GSM4449778	yes
+17965	Prp45	rep2	ChIP-exo	normal	GSM4449779	yes
+17155	Prp46	rep1	ChIP-exo	normal	GSM4449780	yes
+18469	Prp46	rep2	ChIP-exo	normal	GSM4449781	yes
+14864	Prr2	rep1	ChIP-exo	normal	GSM4449782	
+17970	Psh1	rep1	ChIP-exo	normal	GSM4449783	
+14533	Psy2	rep1	ChIP-exo	normal	GSM4449784	
+14413	Pta1	rep1	ChIP-exo	normal	GSM4450380	
+15003	Pta1	rep2	ChIP-exo	normal	GSM4449785	
+13455	Ptc3	rep1	ChIP-exo	normal	GSM4449786	
+14999	Pub1	rep1	ChIP-exo	normal	GSM4449787	yes
+18482	Pub1	rep2	ChIP-exo	normal	GSM4449788	yes
+12074	Pup1	rep1	ChIP-exo	normal	GSM4449789	
+14373	Pus4	rep1	ChIP-exo	normal	GSM4449790	
+12872	Put3	rep1	ChIP-exo	normal	GSM4449791	yes
+26016	Put3	rep2	ChIP-exo	normal	GSM4449792	yes
+13476	Pwp1	rep1	ChIP-exo	normal	GSM4449793	
+14372	Pzf1	rep1	ChIP-exo	normal	GSM4449794	
+14790	Qri1	rep1	ChIP-exo	normal	GSM4449795	
+12424	Qri8	rep1	ChIP-exo	normal	GSM4449796	
+16013	RIM20	rep1	ChIP-exo	normal	GSM4449850	
+11868	RPB11	rep1	ChIP-exo	normal	GSM4449878	
+13801	RPB11	rep2	ChIP-exo	normal	GSM4449879	
+14356	RPC40	rep1	ChIP-exo	normal	GSM4449902	yes
+14654	RPC40	rep2	ChIP-exo	normal	GSM4449903	yes
+17885	RSC4	rep1	ChIP-exo	normal	GSM4449942	
+14388	Rad2	rep1	ChIP-exo	normal	GSM4449797	
+13155	Rad3	rep1	ChIP-exo	normal	GSM4449798	yes
+17791	Rad3	rep2	ChIP-exo	normal	GSM4449799	yes
+14502	Rad30	rep1	ChIP-exo	normal	GSM4449800	
+13447	Rad50	rep1	ChIP-exo	normal	GSM4449801	
+14663	Rad51	rep1	ChIP-exo	normal	GSM4449802	
+13461	Rad52	rep1	ChIP-exo	normal	GSM4449803	
+14433	Rad54	rep1	ChIP-exo	normal	GSM4449804	
+14795	Rad55	rep1	ChIP-exo	normal	GSM4449805	
+14787	Rad57	rep1	ChIP-exo	normal	GSM4449806	
+11753	Rad6	rep1	ChIP-exo	normal	GSM4449807	yes
+15260	Rad6	rep2	ChIP-exo	normal	GSM4449808	yes
+16555	Rad9	rep1	ChIP-exo	normal	GSM4449809	
+20974	Rad9	rep2	ChIP-exo	normal	GSM4449810	
+17962	Rai1	rep1	ChIP-exo	normal	GSM4449811	
+11765	Rap1	rep1	ChIP-exo	normal	GSM4449812	yes
+15258	Rap1	rep2	ChIP-exo	normal	GSM4449813	yes
+19998	Rap1	rep3	ChIP-exo	normal	GSM4449814	yes
+16230	Rat1	rep1	ChIP-exo	normal	GSM4449815	
+14819	Rco1	rep1	ChIP-exo	normal	GSM4449816	
+12001	Rcs1	rep1	ChIP-exo	normal	GSM4449817	yes
+14197	Rcs1	rep2	ChIP-exo	normal	GSM4449818	yes
+14853	Rdr1	rep1	ChIP-exo	normal	GSM4449819	
+14461	Rds2	rep1	ChIP-exo	normal	GSM4449820	yes
+14968	Rds2	rep2	ChIP-exo	normal	GSM4449821	yes
+12141	Reb1	rep1	ChIP-exo	normal	GSM4449822	yes
+12467	Reb1	rep2	ChIP-exo	normal	GSM4449823	yes
+18479	Ref2	rep1	ChIP-exo	normal	GSM4449824	yes
+20445	Ref2	rep2	ChIP-exo	normal	GSM4449825	yes
+14429	Reg1	rep1	ChIP-exo	normal	GSM4449826	
+14869	Reg2	rep1	ChIP-exo	normal	GSM4449827	
+14412	Rei1	rep1	ChIP-exo	normal	GSM4450385	
+12119	Ret1	rep1	ChIP-exo	normal	GSM4449828	yes
+14281	Ret1	rep2	ChIP-exo	normal	GSM4449829	yes
+15012	Rfa1	rep1	ChIP-exo	normal	GSM4449830	
+17776	Rfc1	rep1	ChIP-exo	normal	GSM4449831	
+17777	Rfc5	rep1	ChIP-exo	normal	GSM4449832	
+14539	Rfm1	rep1	ChIP-exo	normal	GSM4449833	
+12938	Rfx1	rep1	ChIP-exo	normal	GSM4449834	yes
+16548	Rfx1	rep2	ChIP-exo	normal	GSM4449835	yes
+12047	Rgm1	rep1	ChIP-exo	normal	GSM4449836	
+17780	Rgm1	rep2	ChIP-exo	normal	GSM4449837	
+12124	Rgr1	rep1	ChIP-exo	normal	GSM4449838	yes
+13812	Rgr1	rep2	ChIP-exo	normal	GSM4449839	yes
+16011	Rgt1	rep1	ChIP-exo	normal	GSM4449840	
+20446	Rgt1	rep2	ChIP-exo	normal	GSM4449841	
+14425	Rhr2	rep1	ChIP-exo	normal	GSM4449842	
+14794	Rib1	rep1	ChIP-exo	normal	GSM4449843	
+14375	Rib4	rep1	ChIP-exo	normal	GSM4449844	
+12428	Rif1	rep1	ChIP-exo	normal	GSM4449845	yes
+17117	Rif1	rep2	ChIP-exo	normal	GSM4449846	yes
+17883	Rif2	rep1	ChIP-exo	normal	GSM4449847	yes
+19331	Rif2	rep2	ChIP-exo	normal	GSM4449848	yes
+16010	Rim101	rep1	ChIP-exo	normal	GSM4449849	
+14789	Rio2	rep1	ChIP-exo	normal	GSM4449851	
+17996	Rlf2	rep1	ChIP-exo	normal	GSM4449852	
+13150	Rlm1	rep1	ChIP-exo	normal	GSM4449853	yes
+17871	Rlm1	rep2	ChIP-exo	normal	GSM4449854	yes
+14816	Rlr1	rep1	ChIP-exo	normal	GSM4449855	yes
+17997	Rlr1	rep2	ChIP-exo	normal	GSM4449856	yes
+14454	Rms1	rep1	ChIP-exo	normal	GSM4449857	
+14381	Rmt2	rep1	ChIP-exo	normal	GSM4449858	
+12935	Rna14	rep1	ChIP-exo	normal	GSM4449859	yes
+14633	Rna14	rep2	ChIP-exo	normal	GSM4449860	yes
+12871	Rox1	rep1	ChIP-exo	normal	GSM4449861	yes
+18502	Rox1	rep2	ChIP-exo	normal	GSM4449862	yes
+17804	Rox3	rep1	ChIP-exo	normal	GSM4449863	
+19404	Rox3	rep2	ChIP-exo	normal	GSM4449864	
+11822	Rpa12	rep1	ChIP-exo	normal	GSM4449865	yes
+16546	Rpa12	rep2	ChIP-exo	normal	GSM4449866	yes
+14776	Rpa135	rep1	ChIP-exo	normal	GSM4449867	yes
+17888	Rpa135	rep2	ChIP-exo	normal	GSM4449868	yes
+12104	Rpa14	rep1	ChIP-exo	normal	GSM4449869	
+17578	Rpa14	rep2	ChIP-exo	normal	GSM4449870	
+11876	Rpa190	rep1	ChIP-exo	normal	GSM4449871	
+17596	Rpa190	rep2	ChIP-exo	normal	GSM4449872	
+12097	Rpa34	rep1	ChIP-exo	normal	GSM4449873	yes
+17562	Rpa34	rep2	ChIP-exo	normal	GSM4449874	yes
+14260	Rpa43	rep1	ChIP-exo	normal	GSM4449875	
+16026	Rpa43	rep2	ChIP-exo	normal	GSM4449876	
+17572	Rpa49	rep1	ChIP-exo	normal	GSM4449877	
+14410	Rpb10	rep1	ChIP-exo	normal	GSM4450384	
+12123	Rpb2	rep1	ChIP-exo	normal	GSM4449880	yes
+14282	Rpb2	rep2	ChIP-exo	normal	GSM4449881	yes
+8929	Rpb3	rep1	ChIP-exo	3 min heat shock	GSM4449882	yes
+11746	Rpb3	rep2	ChIP-exo	normal	GSM4449883	yes
+19398	Rpb3	rep3	ChIP-exo	normal	GSM4449884	yes
+14834	Rpb4	rep1	ChIP-exo	normal	GSM4449885	yes
+17052	Rpb4	rep2	ChIP-exo	normal	GSM4449886	yes
+12115	Rpb7	rep1	ChIP-exo	normal	GSM4449887	yes
+14280	Rpb7	rep2	ChIP-exo	normal	GSM4449888	yes
+11869	Rpb9	rep1	ChIP-exo	normal	GSM4449889	yes
+14256	Rpb9	rep2	ChIP-exo	normal	GSM4449890	yes
+11823	Rpc17	rep1	ChIP-exo	normal	GSM4449891	yes
+14298	Rpc17	rep2	ChIP-exo	normal	GSM4449892	yes
+11884	Rpc19	rep1	ChIP-exo	normal	GSM4449893	yes
+13802	Rpc19	rep2	ChIP-exo	normal	GSM4449894	yes
+12421	Rpc25	rep1	ChIP-exo	normal	GSM4449895	yes
+14614	Rpc25	rep2	ChIP-exo	normal	GSM4449896	yes
+14833	Rpc31	rep1	ChIP-exo	normal	GSM4449897	
+14832	Rpc34	rep1	ChIP-exo	normal	GSM4449898	yes
+19335	Rpc34	rep2	ChIP-exo	normal	GSM4449899	yes
+17964	Rpc37	rep1	ChIP-exo	normal	GSM4449900	yes
+18484	Rpc37	rep2	ChIP-exo	normal	GSM4449901	yes
+14351	Rpc53	rep1	ChIP-exo	normal	GSM4449904	yes
+14652	Rpc53	rep2	ChIP-exo	normal	GSM4449905	yes
+19326	Rpc82	rep1	ChIP-exo	normal	GSM4449906	
+11754	Rpd3	rep1	ChIP-exo	normal	GSM4449907	yes
+17858	Rpd3	rep2	ChIP-exo	normal	GSM4449908	yes
+16038	Rph1	rep1	ChIP-exo	normal	GSM4449909	yes
+17854	Rph1	rep2	ChIP-exo	normal	GSM4449910	yes
+14780	Rpn11	rep1	ChIP-exo	normal	GSM4449911	
+14371	Rpn14	rep1	ChIP-exo	normal	GSM4449912	
+11941	Rpn4	rep1	ChIP-exo	normal	GSM4449913	yes
+13807	Rpn4	rep2	ChIP-exo	normal	GSM4449914	yes
+17782	Rpo21	rep1	ChIP-exo	normal	GSM4449915	yes
+19307	Rpo21	rep2	ChIP-exo	normal	GSM4449916	yes
+17130	Rpo31	rep1	ChIP-exo	normal	GSM4449917	yes
+18461	Rpo31	rep2	ChIP-exo	normal	GSM4449918	yes
+12038	Rrd1	rep1	ChIP-exo	normal	GSM4449919	
+20448	Rrn10	rep1	ChIP-exo	normal	GSM4449920	yes
+20990	Rrn10	rep2	ChIP-exo	normal	GSM4449921	yes
+12846	Rrn11	rep1	ChIP-exo	normal	GSM4449922	
+16531	Rrn5	rep1	ChIP-exo	normal	GSM4449923	yes
+17212	Rrn5	rep2	ChIP-exo	normal	GSM4449924	yes
+14424	Rrn6	rep1	ChIP-exo	normal	GSM4449925	yes
+15005	Rrn6	rep2	ChIP-exo	normal	GSM4449926	yes
+12837	Rrn7	rep1	ChIP-exo	normal	GSM4449927	
+16516	Rrn9	rep1	ChIP-exo	normal	GSM4449928	yes
+17207	Rrn9	rep2	ChIP-exo	normal	GSM4449929	yes
+14427	Rrp4	rep1	ChIP-exo	normal	GSM4449930	
+14477	Rrp42	rep1	ChIP-exo	normal	GSM4449931	
+12065	Rsc1	rep1	ChIP-exo	normal	GSM4449932	yes
+15165	Rsc1	rep2	ChIP-exo	6 min heat shock	GSM4449933	yes
+15809	Rsc1	rep3	ChIP-exo	normal	GSM4449934	yes
+15816	Rsc1	rep4	ChIP-exo	6 min heat shock	GSM4449935	yes
+17957	Rsc2	rep1	ChIP-exo	normal	GSM4449936	
+11848	Rsc3	rep1	ChIP-exo	normal	GSM4449937	yes
+15808	Rsc3	rep2	ChIP-exo	normal	GSM4449938	yes
+15815	Rsc3	rep3	ChIP-exo	6 min heat shock	GSM4449939	yes
+19678	Rsc3	rep4	ChIP-exo	6 min heat shock	GSM4449940	yes
+17048	Rsc30	rep1	ChIP-exo	normal	GSM4449941	yes
+11855	Rsc58	rep1	ChIP-exo	normal	GSM4449943	yes
+15803	Rsc58	rep2	ChIP-exo	normal	GSM4449944	yes
+15810	Rsc58	rep3	ChIP-exo	6 min heat shock	GSM4449945	yes
+11856	Rsc6	rep1	ChIP-exo	normal	GSM4449946	yes
+15807	Rsc6	rep2	ChIP-exo	normal	GSM4449947	yes
+15814	Rsc6	rep3	ChIP-exo	6 min heat shock	GSM4449948	yes
+12079	Rsc8	rep1	ChIP-exo	normal	GSM4449949	yes
+15804	Rsc8	rep2	ChIP-exo	normal	GSM4449950	yes
+12276	Rsc9	rep1	ChIP-exo	normal	GSM4449951	yes
+15806	Rsc9	rep2	ChIP-exo	normal	GSM4449952	yes
+19834	Rsc9	rep3	ChIP-exo	6 min heat shock	GSM4449953	yes
+19898	Rsc9	rep4	ChIP-exo	6 min heat shock	GSM4449954	yes
+14862	Rsp5	rep1	ChIP-exo	normal	GSM4449955	
+12031	Rtf1	rep1	ChIP-exo	normal	GSM4450383	
+14623	Rtf1	rep2	ChIP-exo	normal	GSM4449956	yes
+11742	Rtg1	rep1	ChIP-exo	normal	GSM4449957	
+14463	Rtg2	rep1	ChIP-exo	normal	GSM4449958	
+11976	Rtg3	rep1	ChIP-exo	normal	GSM4449959	yes
+15189	Rtg3	rep2	ChIP-exo	normal	GSM4449960	yes
+18499	Rtr1	rep1	ChIP-exo	normal	GSM4449961	yes
+12106	Rts2	rep1	ChIP-exo	normal	GSM4449962	yes
+17585	Rts2	rep2	ChIP-exo	normal	GSM4449963	yes
+11890	Rtt102	rep1	ChIP-exo	normal	GSM4449964	yes
+16032	Rtt102	rep2	ChIP-exo	normal	GSM4449965	yes
+12944	Rtt103	rep1	ChIP-exo	normal	GSM4449966	yes
+16576	Rtt103	rep2	ChIP-exo	normal	GSM4449967	yes
+11915	Rtt106	rep1	ChIP-exo	normal	GSM4449968	yes
+17933	Rtt109	rep1	ChIP-exo	normal	GSM4449969	
+17014	Rvb1	rep1	ChIP-exo	normal	GSM4449970	yes
+22433	Rvb1	rep2	ChIP-exo	normal	GSM4449971	yes
+14538	Rvb2	rep1	ChIP-exo	normal	GSM4449972	
+12933	Rxt1	rep1	ChIP-exo	normal	GSM4449973	yes
+18018	Rxt1	rep2	ChIP-exo	normal	GSM4449974	yes
+16037	Rxt2	rep1	ChIP-exo	normal	GSM4449975	yes
+17853	Rxt2	rep2	ChIP-exo	normal	GSM4449976	yes
+12942	Rxt3	rep1	ChIP-exo	normal	GSM4449977	yes
+18015	Rxt3	rep2	ChIP-exo	normal	GSM4449978	yes
+12855	Sam4	rep1	ChIP-exo	normal	GSM4449979	
+15771	Sap30	rep1	ChIP-exo	normal	GSM4449980	yes
+17156	Sap30	rep2	ChIP-exo	normal	GSM4449981	yes
+16030	Sas2	rep1	ChIP-exo	normal	GSM4449982	
+18017	Sas3	rep1	ChIP-exo	normal	GSM4449983	
+17937	Sas4	rep1	ChIP-exo	normal	GSM4449984	
+17560	Sas5	rep1	ChIP-exo	normal	GSM4449985	
+11909	Scc2	rep1	ChIP-exo	normal	GSM4449986	yes
+17930	Scc2	rep2	ChIP-exo	normal	GSM4449987	yes
+12064	Scc4	rep1	ChIP-exo	normal	GSM4449988	
+13479	Sch9	rep1	ChIP-exo	normal	GSM4449989	
+17925	Sda1	rep1	ChIP-exo	normal	GSM4449990	
+12086	Sdc1	rep1	ChIP-exo	normal	GSM4449991	yes
+15650	Sdc1	rep2	ChIP-exo	normal	GSM4449992	yes
+11843	Sds3	rep1	ChIP-exo	normal	GSM4449993	
+11907	Sen1	rep1	ChIP-exo	normal	GSM4449994	yes
+14267	Sen1	rep2	ChIP-exo	normal	GSM4449995	yes
+14475	Ser2	rep1	ChIP-exo	normal	GSM4449996	
+12443	Set1	rep1	ChIP-exo	normal	GSM4449997	yes
+16042	Set1	rep2	ChIP-exo	normal	GSM4449998	yes
+11755	Set2	rep1	ChIP-exo	normal	GSM4449999	yes
+13791	Set2	rep2	ChIP-exo	normal	GSM4450000	yes
+12454	Set3	rep1	ChIP-exo	normal	GSM4450001	yes
+16049	Set3	rep2	ChIP-exo	normal	GSM4450002	yes
+12458	Set5	rep1	ChIP-exo	normal	GSM4450003	
+17852	Sfh1	rep1	ChIP-exo	normal	GSM4450004	yes
+20451	Sfh1	rep2	ChIP-exo	normal	GSM4450005	yes
+14459	Sfl1	rep1	ChIP-exo	normal	GSM4450006	yes
+14977	Sfl1	rep2	ChIP-exo	normal	GSM4450007	yes
+12450	Sfp1	rep1	ChIP-exo	normal	GSM4450008	yes
+14619	Sfp1	rep2	ChIP-exo	normal	GSM4450009	yes
+11852	Sgf11	rep1	ChIP-exo	normal	GSM4450010	yes
+13365	Sgf11	rep2	ChIP-exo	normal	GSM4450011	yes
+13366	Sgf11	rep3	ChIP-exo	6 min heat shock	GSM4450012	yes
+20607	Sgf11	rep4	ChIP-exo	6 min heat shock	GSM4450013	yes
+12466	Sgf29	rep1	ChIP-exo	normal	GSM4450014	
+17217	Sgf29	rep2	ChIP-exo	normal	GSM4450015	
+19999	Sgf29	rep3	ChIP-exo	normal	GSM4450016	
+12459	Sgf73	rep1	ChIP-exo	normal	GSM4450017	yes
+15793	Sgf73	rep2	ChIP-exo	normal	GSM4450018	yes
+20000	Sgf73	rep3	ChIP-exo	normal	GSM4450019	yes
+14491	Sgi1	rep1	ChIP-exo	normal	GSM4450020	
+11827	Sgv1	rep1	ChIP-exo	normal	GSM4450021	yes
+15778	Sgv1	rep2	ChIP-exo	normal	GSM4450022	yes
+17803	Shg1	rep1	ChIP-exo	normal	GSM4450023	yes
+19313	Shg1	rep2	ChIP-exo	normal	GSM4450024	yes
+13146	Sif2	rep1	ChIP-exo	normal	GSM4450025	yes
+18489	Sif2	rep2	ChIP-exo	normal	GSM4450026	yes
+13792	Sin3	rep1	ChIP-exo	normal	GSM4450027	yes
+17856	Sin3	rep2	ChIP-exo	normal	GSM4450028	yes
+17573	Sin4	rep1	ChIP-exo	normal	GSM4450029	yes
+17861	Sin4	rep2	ChIP-exo	normal	GSM4450030	yes
+13806	Sip3	rep1	ChIP-exo	normal	GSM4450031	
+14845	Sip4	rep1	ChIP-exo	normal	GSM4450032	
+14758	Sir2	rep1	ChIP-exo	normal	GSM4450033	yes
+16039	Sir2	rep2	ChIP-exo	normal	GSM4450034	yes
+12952	Sir3	rep1	ChIP-exo	normal	GSM4450035	yes
+17882	Sir3	rep2	ChIP-exo	normal	GSM4450036	yes
+14784	Sir4	rep1	ChIP-exo	normal	GSM4450037	yes
+18491	Sir4	rep2	ChIP-exo	normal	GSM4450038	yes
+13451	Ski6	rep1	ChIP-exo	normal	GSM4450039	
+14464	Skn7	rep1	ChIP-exo	normal	GSM4450040	yes
+14969	Skn7	rep2	ChIP-exo	normal	GSM4450041	yes
+14594	Sko1	rep1	ChIP-exo	normal	GSM4450042	yes
+15654	Sko1	rep2	ChIP-exo	normal	GSM4450043	yes
+14863	Skp1	rep1	ChIP-exo	normal	GSM4450044	
+14471	Sks1	rep1	ChIP-exo	normal	GSM4450045	
+14389	Slt2	rep1	ChIP-exo	normal	GSM4450046	
+14376	Smc1	rep1	ChIP-exo	normal	GSM4450047	yes
+14996	Smc1	rep2	ChIP-exo	normal	GSM4450048	yes
+11886	Smc3	rep1	ChIP-exo	normal	GSM4450049	yes
+17988	Smc3	rep2	ChIP-exo	normal	GSM4450050	yes
+11889	Smc4	rep1	ChIP-exo	normal	GSM4450051	yes
+17934	Smc4	rep2	ChIP-exo	normal	GSM4450052	yes
+17132	Smd1	rep1	ChIP-exo	normal	GSM4450053	yes
+18462	Smd1	rep2	ChIP-exo	normal	GSM4450054	yes
+13475	Sml1	rep1	ChIP-exo	normal	GSM4450055	
+14844	Smp1	rep1	ChIP-exo	normal	GSM4450056	
+17154	Smt3	rep1	ChIP-exo	normal	GSM4450057	
+17938	Snf1	rep1	ChIP-exo	normal	GSM4450058	
+14458	Snf11	rep1	ChIP-exo	normal	GSM4450059	yes
+14978	Snf11	rep2	ChIP-exo	normal	GSM4450060	yes
+12080	Snf2	rep1	ChIP-exo	normal	GSM4450061	yes
+17999	Snf2	rep2	ChIP-exo	normal	GSM4450062	yes
+12071	Snf4	rep1	ChIP-exo	normal	GSM4450063	
+17857	Snf5	rep1	ChIP-exo	normal	GSM4450064	
+11858	Snf6	rep1	ChIP-exo	normal	GSM4450065	yes
+13799	Snf6	rep2	ChIP-exo	normal	GSM4450066	yes
+14760	Snf7	rep1	ChIP-exo	normal	GSM4450067	
+11859	Snf8	rep1	ChIP-exo	normal	GSM4450068	
+17587	Snt1	rep1	ChIP-exo	normal	GSM4450069	
+11939	Snt2	rep1	ChIP-exo	normal	GSM4450070	yes
+14193	Snt2	rep2	ChIP-exo	normal	GSM4450071	yes
+14483	Sod1	rep1	ChIP-exo	normal	GSM4450072	
+17848	Soh1	rep1	ChIP-exo	normal	GSM4450073	yes
+20984	Soh1	rep2	ChIP-exo	normal	GSM4450074	yes
+12009	Sok2	rep1	ChIP-exo	normal	GSM4450075	yes
+13809	Sok2	rep2	ChIP-exo	normal	GSM4450076	yes
+13469	Spe2	rep1	ChIP-exo	normal	GSM4450077	
+17586	Spo7	rep1	ChIP-exo	normal	GSM4450382	
+17133	Spp1	rep1	ChIP-exo	normal	GSM4450078	yes
+18463	Spp1	rep2	ChIP-exo	normal	GSM4450079	yes
+14759	Spt10	rep1	ChIP-exo	normal	GSM4450080	yes
+17939	Spt10	rep2	ChIP-exo	normal	GSM4450081	yes
+8599	Spt15	rep1	ChIP-exo	normal	GSM4450082	yes
+8600	Spt15	rep2	ChIP-exo	3 min heat shock	GSM4450083	yes
+8602	Spt15	rep3	ChIP-exo	normal	GSM4450084	yes
+20001	Spt15	rep4	ChIP-exo	normal	GSM4450085	yes
+8633	Spt16	rep1	ChIP-exo	6 min heat shock	GSM4450086	yes
+11872	Spt16	rep2	ChIP-exo	normal	GSM4450087	yes
+14259	Spt16	rep3	ChIP-exo	normal	GSM4450088	yes
+12931	Spt2	rep1	ChIP-exo	normal	GSM4450089	yes
+15493	Spt2	rep2	ChIP-exo	normal	GSM4450090	yes
+15911	Spt20	rep1	ChIP-exo	normal	GSM4450091	yes
+17798	Spt20	rep2	ChIP-exo	normal	GSM4450092	yes
+11834	Spt21	rep1	ChIP-exo	normal	GSM4450093	yes
+13795	Spt21	rep2	ChIP-exo	normal	GSM4450094	yes
+13209	Spt23	rep1	ChIP-exo	normal	GSM4450095	
+15220	Spt3	rep1	ChIP-exo	normal	GSM4450096	yes
+15774	Spt3	rep2	ChIP-exo	normal	GSM4450097	yes
+20003	Spt3	rep3	ChIP-exo	normal	GSM4450098	yes
+11748	Spt4	rep1	ChIP-exo	normal	GSM4450099	yes
+15181	Spt4	rep2	ChIP-exo	normal	GSM4450100	yes
+12835	Spt5	rep1	ChIP-exo	normal	GSM4450101	yes
+15787	Spt5	rep2	ChIP-exo	normal	GSM4450102	yes
+15219	Spt6	rep1	ChIP-exo	normal	GSM4450103	yes
+15664	Spt6	rep2	ChIP-exo	normal	GSM4450104	yes
+11960	Spt7	rep1	ChIP-exo	normal	GSM4450105	yes
+11961	Spt7	rep2	ChIP-exo	6 min heat shock	GSM4450106	yes
+14638	Spt7	rep3	ChIP-exo	normal	GSM4450107	yes
+18475	Spt7	rep4	ChIP-exo	normal	GSM4450108	yes
+20004	Spt7	rep5	ChIP-exo	normal	GSM4450109	yes
+20115	Spt7	rep6	ChIP-exo	6 min heat shock	GSM4450110	yes
+11866	Spt8	rep1	ChIP-exo	normal	GSM4450111	yes
+13800	Spt8	rep2	ChIP-exo	normal	GSM4450112	yes
+14416	Srb2	rep1	ChIP-exo	normal	GSM4450113	
+12050	Srb4	rep1	ChIP-exo	normal	GSM4450114	yes
+13816	Srb4	rep2	ChIP-exo	normal	GSM4450115	yes
+13156	Srb5	rep1	ChIP-exo	normal	GSM4450116	yes
+17879	Srb5	rep2	ChIP-exo	normal	GSM4450117	yes
+16036	Srb6	rep1	ChIP-exo	normal	GSM4450118	yes
+18470	Srb6	rep2	ChIP-exo	normal	GSM4450119	yes
+11879	Srb8	rep1	ChIP-exo	normal	GSM4450120	yes
+17948	Srd1	rep1	ChIP-exo	normal	GSM4450121	
+11894	Srm1	rep1	ChIP-exo	normal	GSM4450122	
+13481	Ssa1	rep1	ChIP-exo	normal	GSM4450123	
+15215	Ssl1	rep1	ChIP-exo	normal	GSM4450124	yes
+15477	Ssl1	rep2	ChIP-exo	normal	GSM4450125	yes
+11747	Ssl2	rep1	ChIP-exo	normal	GSM4450126	yes
+15253	Ssl2	rep2	ChIP-exo	normal	GSM4450127	yes
+11880	Ssn2	rep1	ChIP-exo	normal	GSM4450128	yes
+14262	Ssn2	rep2	ChIP-exo	normal	GSM4450129	yes
+14835	Ssn3	rep1	ChIP-exo	normal	GSM4450130	
+11881	Ssn8	rep1	ChIP-exo	normal	GSM4450131	yes
+17787	Ssn8	rep2	ChIP-exo	normal	GSM4450132	yes
+14783	Stb1	rep1	ChIP-exo	normal	GSM4450133	yes
+17149	Stb2	rep1	ChIP-exo	normal	GSM4450134	
+12431	Stb3	rep1	ChIP-exo	normal	GSM4450135	yes
+17886	Stb3	rep2	ChIP-exo	normal	GSM4450136	yes
+11910	Stb4	rep1	ChIP-exo	normal	GSM4450137	yes
+18503	Stb4	rep2	ChIP-exo	normal	GSM4450138	yes
+11918	Stb5	rep1	ChIP-exo	normal	GSM4450139	yes
+14182	Stb5	rep2	ChIP-exo	normal	GSM4450140	yes
+17120	Stb6	rep1	ChIP-exo	normal	GSM4450141	
+14394	Std1	rep1	ChIP-exo	normal	GSM4450142	
+12862	Ste12	rep1	ChIP-exo	normal	GSM4450143	yes
+15802	Ste12	rep2	ChIP-exo	normal	GSM4450144	yes
+14531	Sth1	rep1	ChIP-exo	normal	GSM4450145	yes
+15805	Sth1	rep2	ChIP-exo	normal	GSM4450146	yes
+15812	Sth1	rep3	ChIP-exo	6 min heat shock	GSM4450147	yes
+17947	Stm1	rep1	ChIP-exo	normal	GSM4450148	
+11808	Stp1	rep1	ChIP-exo	normal	GSM4450149	yes
+14293	Stp1	rep2	ChIP-exo	normal	GSM4450150	yes
+13139	Stp2	rep1	ChIP-exo	normal	GSM4450151	yes
+17035	Stp2	rep2	ChIP-exo	normal	GSM4450152	yes
+11929	Stp4	rep1	ChIP-exo	normal	GSM4450153	yes
+20452	Stp4	rep2	ChIP-exo	normal	GSM4450154	yes
+11743	Sua7	rep1	ChIP-exo	normal	GSM4450155	yes
+12275	Sua7	rep2	ChIP-exo	normal	GSM4450156	yes
+20022	Sua7	rep3	ChIP-exo	normal	GSM4450157	yes
+17124	Sub1	rep1	ChIP-exo	normal	GSM4450158	yes
+18459	Sub1	rep2	ChIP-exo	normal	GSM4450159	yes
+20006	Sub1	rep3	ChIP-exo	normal	GSM4450160	yes
+11809	Sum1	rep1	ChIP-exo	normal	GSM4450161	yes
+13776	Sum1	rep2	ChIP-exo	normal	GSM4450162	yes
+11997	Sut1	rep1	ChIP-exo	normal	GSM4450163	yes
+14176	Sut1	rep2	ChIP-exo	normal	GSM4450164	yes
+12433	Suv3	rep1	ChIP-exo	normal	GSM4450165	
+11839	Swc7	rep1	ChIP-exo	normal	GSM4450166	yes
+15785	Swc7	rep2	ChIP-exo	normal	GSM4450167	yes
+17801	Swd1	rep1	ChIP-exo	normal	GSM4450168	yes
+19312	Swd1	rep2	ChIP-exo	normal	GSM4450169	yes
+11987	Swd2	rep1	ChIP-exo	normal	GSM4450170	yes
+17977	Swd2	rep2	ChIP-exo	normal	GSM4450171	yes
+14814	Swd3	rep1	ChIP-exo	normal	GSM4450172	yes
+17972	Swd3	rep2	ChIP-exo	normal	GSM4450173	yes
+11995	Swi1	rep1	ChIP-exo	normal	GSM4450174	yes
+17859	Swi1	rep2	ChIP-exo	normal	GSM4450175	yes
+12102	Swi3	rep1	ChIP-exo	normal	GSM4450176	yes
+14277	Swi3	rep2	ChIP-exo	normal	GSM4450177	yes
+12000	Swi4	rep1	ChIP-exo	normal	GSM4450178	yes
+13786	Swi4	rep2	ChIP-exo	normal	GSM4450179	yes
+12059	Swi5	rep1	ChIP-exo	normal	GSM4450180	yes
+18016	Swi5	rep2	ChIP-exo	normal	GSM4450181	yes
+12015	Swi6	rep1	ChIP-exo	normal	GSM4450182	yes
+18001	Swi6	rep2	ChIP-exo	normal	GSM4450183	yes
+11751	Swr1	rep1	ChIP-exo	normal	GSM4450184	yes
+15779	Swr1	rep2	ChIP-exo	normal	GSM4450185	yes
+11988	TAF7	rep1	ChIP-exo	normal	GSM4450215	yes
+15208	TAF7	rep2	ChIP-exo	normal	GSM4450216	yes
+20018	TAF7	rep3	ChIP-exo	normal	GSM4450217	yes
+12101	TFA1	rep1	ChIP-exo	normal	GSM4450233	yes
+14276	TFA1	rep2	ChIP-exo	normal	GSM4450234	yes
+20023	TFA1	rep3	ChIP-exo	normal	GSM4450235	yes
+11867	TFC1	rep1	ChIP-exo	normal	GSM4450247	yes
+14166	TFC1	rep2	ChIP-exo	normal	GSM4450248	yes
+11986	TFC6	rep1	ChIP-exo	normal	GSM4450253	yes
+17981	TFC6	rep2	ChIP-exo	normal	GSM4450254	yes
+14838	TOA1	rep1	ChIP-exo	normal	GSM4450271	yes
+17053	TOA1	rep2	ChIP-exo	normal	GSM4450272	yes
+20021	TOA1	rep3	ChIP-exo	normal	GSM4450273	yes
+11821	TOP1	rep1	ChIP-exo	normal	GSM4450276	yes
+17771	TOP1	rep2	ChIP-exo	normal	GSM4450277	yes
+11744	Taf1	rep1	ChIP-exo	normal	GSM4450186	yes
+15184	Taf1	rep2	ChIP-exo	normal	GSM4450187	yes
+20007	Taf1	rep3	ChIP-exo	normal	GSM4450188	yes
+11741	Taf10	rep1	ChIP-exo	normal	GSM4450189	yes
+15185	Taf10	rep2	ChIP-exo	normal	GSM4450190	yes
+20008	Taf10	rep3	ChIP-exo	normal	GSM4450191	yes
+12856	Taf11	rep1	ChIP-exo	normal	GSM4450192	yes
+17944	Taf11	rep2	ChIP-exo	normal	GSM4450193	yes
+11863	Taf12	rep1	ChIP-exo	normal	GSM4450194	yes
+15775	Taf12	rep2	ChIP-exo	normal	GSM4450195	yes
+11860	Taf13	rep1	ChIP-exo	normal	GSM4450196	yes
+15209	Taf13	rep2	ChIP-exo	normal	GSM4450197	yes
+17574	Taf14	rep1	ChIP-exo	normal	GSM4450198	yes
+17961	Taf14	rep2	ChIP-exo	normal	GSM4450199	yes
+20012	Taf14	rep3	ChIP-exo	normal	GSM4450200	yes
+11846	Taf2	rep1	ChIP-exo	normal	GSM4450201	yes
+15198	Taf2	rep2	ChIP-exo	normal	GSM4450202	yes
+20013	Taf2	rep3	ChIP-exo	normal	GSM4450203	yes
+11861	Taf3	rep1	ChIP-exo	normal	GSM4450204	yes
+17873	Taf3	rep2	ChIP-exo	normal	GSM4450205	yes
+15183	Taf4	rep1	ChIP-exo	normal	GSM4450206	yes
+17874	Taf4	rep2	ChIP-exo	normal	GSM4450207	yes
+20015	Taf4	rep3	ChIP-exo	normal	GSM4450208	yes
+11768	Taf5	rep1	ChIP-exo	normal	GSM4450209	yes
+15190	Taf5	rep2	ChIP-exo	normal	GSM4450210	yes
+20016	Taf5	rep3	ChIP-exo	normal	GSM4450211	yes
+11864	Taf6	rep1	ChIP-exo	normal	GSM4450212	yes
+15206	Taf6	rep2	ChIP-exo	normal	GSM4450213	yes
+20017	Taf6	rep3	ChIP-exo	normal	GSM4450214	yes
+11740	Taf8	rep1	ChIP-exo	normal	GSM4450218	yes
+15186	Taf8	rep2	ChIP-exo	normal	GSM4450219	yes
+11865	Taf9	rep1	ChIP-exo	normal	GSM4450220	yes
+15205	Taf9	rep2	ChIP-exo	normal	GSM4450221	yes
+14868	Tap42	rep1	ChIP-exo	normal	GSM4450222	
+11825	Tbf1	rep1	ChIP-exo	normal	GSM4450223	yes
+14155	Tbf1	rep2	ChIP-exo	normal	GSM4450224	yes
+11845	Tbs1	rep1	ChIP-exo	normal	GSM4450225	yes
+14162	Tbs1	rep2	ChIP-exo	normal	GSM4450226	yes
+17880	Tda9	rep1	ChIP-exo	normal	GSM4450227	yes
+20453	Tda9	rep2	ChIP-exo	normal	GSM4450228	yes
+14369	Tea1	rep1	ChIP-exo	normal	GSM4450229	yes
+14657	Tea1	rep2	ChIP-exo	normal	GSM4450230	yes
+17223	Tec1	rep1	ChIP-exo	normal	GSM4450231	
+17134	Tel2	rep1	ChIP-exo	normal	GSM4450232	
+12100	Tfa2	rep1	ChIP-exo	normal	GSM4450236	yes
+14600	Tfa2	rep2	ChIP-exo	normal	GSM4450237	yes
+14472	Tfb1	rep1	ChIP-exo	normal	GSM4450238	yes
+14971	Tfb1	rep2	ChIP-exo	normal	GSM4450239	yes
+14651	Tfb2	rep1	ChIP-exo	normal	GSM4450240	yes
+17795	Tfb2	rep2	ChIP-exo	normal	GSM4450241	yes
+11870	Tfb3	rep1	ChIP-exo	normal	GSM4450242	yes
+14257	Tfb3	rep2	ChIP-exo	normal	GSM4450243	yes
+11871	Tfb4	rep1	ChIP-exo	normal	GSM4450244	yes
+14258	Tfb4	rep2	ChIP-exo	normal	GSM4450245	yes
+17137	Tfb6	rep1	ChIP-exo	normal	GSM4450246	
+11835	Tfc3	rep1	ChIP-exo	normal	GSM4450249	yes
+13779	Tfc3	rep2	ChIP-exo	normal	GSM4450250	yes
+14821	Tfc4	rep1	ChIP-exo	normal	GSM4450251	yes
+17966	Tfc4	rep2	ChIP-exo	normal	GSM4450252	yes
+11838	Tfc7	rep1	ChIP-exo	normal	GSM4450255	yes
+14159	Tfc7	rep2	ChIP-exo	normal	GSM4450256	yes
+11836	Tfc8	rep1	ChIP-exo	normal	GSM4450257	yes
+14158	Tfc8	rep2	ChIP-exo	normal	GSM4450258	yes
+12099	Tfg1	rep1	ChIP-exo	normal	GSM4450259	yes
+14275	Tfg1	rep2	ChIP-exo	normal	GSM4450260	yes
+17563	Tfg2	rep1	ChIP-exo	normal	GSM4450261	
+12069	Thi3	rep1	ChIP-exo	normal	GSM4450262	
+14353	Tho1	rep1	ChIP-exo	normal	GSM4450263	yes
+17806	Tho1	rep2	ChIP-exo	normal	GSM4450264	yes
+11984	Thp1	rep1	ChIP-exo	normal	GSM4450265	
+14647	Thp2	rep1	ChIP-exo	normal	GSM4450266	yes
+17872	Thp2	rep2	ChIP-exo	normal	GSM4450267	yes
+14364	Tif1	rep1	ChIP-exo	normal	GSM4450268	
+14466	Tip41	rep1	ChIP-exo	normal	GSM4450269	
+12463	Tma46	rep1	ChIP-exo	normal	GSM4450270	
+17123	Tod6	rep1	ChIP-exo	normal	GSM4450274	
+17144	Tom1	rep1	ChIP-exo	normal	GSM4450275	
+17140	Top2	rep1	ChIP-exo	normal	GSM4450278	
+16031	Top3	rep1	ChIP-exo	normal	GSM4450279	
+11906	Tor1	rep1	ChIP-exo	normal	GSM4450280	
+17121	Tos4	rep1	ChIP-exo	normal	GSM4450281	
+14976	Tpd3	rep1	ChIP-exo	normal	GSM4450282	
+11919	Tpk1	rep1	ChIP-exo	normal	GSM4450283	yes
+17579	Tpk1	rep2	ChIP-exo	normal	GSM4450284	yes
+15245	Tpk2	rep1	ChIP-exo	6 min heat shock	GSM4450285	yes
+17191	Tpk2	rep2	ChIP-exo	normal	GSM4450286	yes
+14192	Tpk3	rep1	ChIP-exo	normal	GSM4450287	
+14826	Tra1	rep1	ChIP-exo	normal	GSM4450288	
+14447	Trm1	rep1	ChIP-exo	normal	GSM4450289	
+14380	Trm5	rep1	ChIP-exo	normal	GSM4450381	
+12851	Trp5	rep1	ChIP-exo	normal	GSM4450290	
+13782	Tup1	rep1	ChIP-exo	normal	GSM4450291	yes
+15773	Tup1	rep2	ChIP-exo	normal	GSM4450292	yes
+12465	Uaf30	rep1	ChIP-exo	normal	GSM4450293	yes
+17561	Uaf30	rep2	ChIP-exo	normal	GSM4450294	yes
+12850	Uba2	rep1	ChIP-exo	normal	GSM4450295	
+13472	Ubc13	rep1	ChIP-exo	normal	GSM4450296	
+12447	Ubp12	rep1	ChIP-exo	normal	GSM4450297	yes
+11962	Ubp8	rep1	ChIP-exo	normal	GSM4450298	yes
+11963	Ubp8	rep2	ChIP-exo	6 min heat shock	GSM4450299	yes
+14981	Ubp8	rep3	ChIP-exo	normal	GSM4450300	yes
+15672	Ubp8	rep4	ChIP-exo	normal	GSM4450301	yes
+20128	Ubp8	rep5	ChIP-exo	6 min heat shock	GSM4450302	yes
+17214	Uga3	rep1	ChIP-exo	normal	GSM4450303	
+12027	Ume1	rep1	ChIP-exo	normal	GSM4450304	yes
+17009	Ume1	rep2	ChIP-exo	normal	GSM4450305	yes
+11017	Ume6	rep1	ChIP-exo	normal	GSM4450306	yes
+13775	Ume6	rep2	ChIP-exo	normal	GSM4450307	yes
+14358	Ung1	rep1	ChIP-exo	normal	GSM4450308	
+20456	Upc2	rep1	ChIP-exo	normal	GSM4450309	
+14755	Ura4	rep1	ChIP-exo	normal	GSM4450310	
+14361	Ura6	rep1	ChIP-exo	normal	GSM4450311	
+17122	Urc2	rep1	ChIP-exo	normal	GSM4450312	yes
+18458	Urc2	rep2	ChIP-exo	normal	GSM4450313	yes
+13777	Ure2	rep1	ChIP-exo	normal	GSM4450314	
+11901	Uth1	rep1	ChIP-exo	normal	GSM4450315	
+14528	Utp10	rep1	ChIP-exo	normal	GSM4450316	
+12847	Utp15	rep1	ChIP-exo	normal	GSM4450317	
+17943	Utp4	rep1	ChIP-exo	normal	GSM4450318	
+14524	Utp5	rep1	ChIP-exo	normal	GSM4450319	
+13468	Utp8	rep1	ChIP-exo	normal	GSM4450320	
+14438	Utp9	rep1	ChIP-exo	normal	GSM4450321	
+14829	Vid21	rep1	ChIP-exo	normal	GSM4450322	yes
+17049	Vid21	rep2	ChIP-exo	normal	GSM4450323	yes
+13463	Vid22	rep1	ChIP-exo	normal	GSM4450324	yes
+16224	Vid22	rep2	ChIP-exo	normal	GSM4450325	yes
+18500	Vid27	rep1	ChIP-exo	normal	GSM4450326	
+11902	Vps36	rep1	ChIP-exo	normal	GSM4450327	
+11840	Vps71	rep1	ChIP-exo	normal	GSM4450328	yes
+15777	Vps71	rep2	ChIP-exo	normal	GSM4450329	yes
+13153	Vps72	rep1	ChIP-exo	normal	GSM4450330	yes
+18490	Vps72	rep2	ChIP-exo	normal	GSM4450331	yes
+11829	Vps75	rep1	ChIP-exo	normal	GSM4450332	
+11917	War1	rep1	ChIP-exo	normal	GSM4450333	yes
+14181	War1	rep2	ChIP-exo	normal	GSM4450334	yes
+14406	Whi5	rep1	ChIP-exo	normal	GSM4450335	yes
+14807	Whi5	rep2	ChIP-exo	normal	GSM4450336	yes
+17974	Wtm1	rep1	ChIP-exo	normal	GSM4450337	
+11980	Wtm2	rep1	ChIP-exo	normal	GSM4450338	
+17774	Xbp1	rep1	ChIP-exo	normal	GSM4450339	
+17793	YLL032C	rep1	ChIP-exo	normal	GSM4450358	
+28327	YLR278C	rep1	ChIP-exo	normal	GSM4450359	
+11832	Yaf9	rep1	ChIP-exo	normal	GSM4450340	
+17878	Yap1	rep1	ChIP-exo	normal	GSM4450341	yes
+20460	Yap1	rep2	ChIP-exo	normal	GSM4450342	yes
+17973	Yap3	rep1	ChIP-exo	normal	GSM4450343	
+11982	Yap5	rep1	ChIP-exo	normal	GSM4450344	yes
+18492	Yap5	rep2	ChIP-exo	normal	GSM4450345	yes
+12002	Yap7	rep1	ChIP-exo	normal	GSM4450346	yes
+14198	Yap7	rep2	ChIP-exo	normal	GSM4450347	yes
+11888	Ycg1	rep1	ChIP-exo	normal	GSM4450348	
+11887	Ycs4	rep1	ChIP-exo	normal	GSM4450349	yes
+17024	Ycs4	rep2	ChIP-exo	normal	GSM4450350	yes
+20024	Ydr1	rep1	ChIP-exo	normal	GSM4450351	
+17138	Yen1	rep1	ChIP-exo	normal	GSM4450352	
+14189	Yhm2	rep1	ChIP-exo	normal	GSM4450353	
+16019	Yhp1	rep1	ChIP-exo	normal	GSM4450354	
+18478	Yku70	rep1	ChIP-exo	normal	GSM4450355	yes
+17952	Yku80	rep1	ChIP-exo	normal	GSM4450356	yes
+20463	Yku80	rep2	ChIP-exo	normal	GSM4450357	yes
+11831	Yng1	rep1	ChIP-exo	normal	GSM4450360	
+12446	Yng2	rep1	ChIP-exo	normal	GSM4450361	yes
+15801	Yng2	rep2	ChIP-exo	normal	GSM4450362	yes
+20464	Yox1	rep1	ChIP-exo	normal	GSM4450363	
+21012	Yox1	rep2	ChIP-exo	normal	GSM4450364	
+28357	Yox1	rep3	ChIP-exo	normal	GSM4450365	
+13454	Ypr1	rep1	ChIP-exo	normal	GSM4450366	
+14857	Yra1	rep1	ChIP-exo	normal	GSM4450367	
+28271	Yrm1	rep1	ChIP-exo	normal	GSM4450368	
+14852	Yrr1	rep1	ChIP-exo	normal	GSM4450369	yes
+17054	Yrr1	rep2	ChIP-exo	normal	GSM4450370	yes
+14400	Ysa1	rep1	ChIP-exo	normal	GSM4450371	
+11933	Ysh1	rep1	ChIP-exo	normal	GSM4450372	yes
+13785	Ysh1	rep2	ChIP-exo	normal	GSM4450373	yes
+11893	Yta7	rep1	ChIP-exo	normal	GSM4450374	yes
+17015	Yta7	rep2	ChIP-exo	normal	GSM4450375	yes
+11817	Zap1	rep1	ChIP-exo	normal	GSM4450376	yes
+11983	Zap1	rep2	ChIP-exo	normal	GSM4450377	yes
+17807	Zms1	rep1	ChIP-exo	normal	GSM4450378	

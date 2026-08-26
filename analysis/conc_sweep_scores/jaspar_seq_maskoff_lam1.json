@@ -1,0 +1,18 @@
+{
+  "label": "jaspar_seq_maskoff_lam1",
+  "variant": "seq_maskoff",
+  "lam": 1,
+  "pwm": "jaspar",
+  "outDir": "robocop_chrI_seq_maskoff_JASPAR",
+  "abf1_recall": 0.6,
+  "abf1_tp": 3,
+  "abf1_n_pred": 152,
+  "abf1_auroc": 0.5891739523100126,
+  "abf1_post_sites": 0.20202619425948737,
+  "abf1_post_bg": 0.006958429114763096,
+  "abf1_enrichment": 29.033304920914677,
+  "nuc_recall": 0.8074074074074075,
+  "nuc_median_err": 7.0,
+  "phasing_bp": 171.0,
+  "access_corr": 0.23126336547780715
+}

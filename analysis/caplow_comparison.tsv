@@ -1,0 +1,4 @@
+run	n_factors	n_fallback_cols	bg	nuc	unknown	fitted	fallback	fb_calls	fit_calls	fb_meth_med	fb_meth_p90	fit_meth_med	genome_meth_med
+baseline	160	142	0.0	0.8124	0.043	0.0301	0.1253	26310	6500	0.0769	0.2593	0.039	0.0278
+capA	160	142	0.0	0.8175	0.0259	0.0696	0.0979	24406	14326	0.0927	0.3051	0.066	0.0278
+capB	160	142	0.0	0.8253	0.086	0.0409	0.0589	11943	8691	0.1538	0.5	0.044	0.0278

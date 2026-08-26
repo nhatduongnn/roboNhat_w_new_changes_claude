@@ -1,0 +1,610 @@
+<title>Odd One Out</title>
+<style>
+:root{
+  color-scheme: light;
+  --ground:#f5f8f7; --panel:#ffffff; --panel-2:#eef3f2;
+  --ink:#0e1518; --ink-2:#556269; --ink-3:#8a959b;
+  --rule:#dbe4e2; --rule-2:#c6d2cf;
+  --accent:#0f6e63; --accent-soft:#dcecea;
+  --crit:#a83326; --crit-soft:#f7e3e0;
+  --warn:#8d6110; --warn-soft:#f7edd9;
+  --good:#2c6f45; --good-soft:#dfeee5;
+  --neut:#65727a; --neut-soft:#e8edee;
+  --info:#1f5d94; --info-soft:#dde9f3;
+  --nA:#008300; --nC:#2a78d6; --nG:#b07800; --nT:#c23b3a;
+  --shadow:0 1px 2px rgba(14,21,24,.05),0 6px 18px rgba(14,21,24,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0e1214; --panel:#161d20; --panel-2:#1d2528;
+    --ink:#e6edeb; --ink-2:#97a4a8; --ink-3:#6d7a7f;
+    --rule:#263136; --rule-2:#334247;
+    --accent:#4cc0af; --accent-soft:#12312e;
+    --crit:#e8776b; --crit-soft:#33201d;
+    --warn:#d6a445; --warn-soft:#30281a;
+    --good:#71bd88; --good-soft:#192c20;
+    --neut:#8d9aa0; --neut-soft:#212a2d;
+    --info:#6aa9dd; --info-soft:#152531;
+    --nA:#3faa48; --nC:#3987e5; --nG:#d0a13c; --nT:#e66767;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0e1214; --panel:#161d20; --panel-2:#1d2528;
+  --ink:#e6edeb; --ink-2:#97a4a8; --ink-3:#6d7a7f;
+  --rule:#263136; --rule-2:#334247;
+  --accent:#4cc0af; --accent-soft:#12312e;
+  --crit:#e8776b; --crit-soft:#33201d;
+  --warn:#d6a445; --warn-soft:#30281a;
+  --good:#71bd88; --good-soft:#192c20;
+  --neut:#8d9aa0; --neut-soft:#212a2d;
+  --info:#6aa9dd; --info-soft:#152531;
+  --nA:#3faa48; --nC:#3987e5; --nG:#d0a13c; --nT:#e66767;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.55;
+}
+.wrap{max-width:1400px;margin:0 auto;padding:40px 24px 96px;display:flex;flex-direction:column;gap:32px}
+header{display:flex;flex-direction:column;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:22px}
+.eyebrow{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  font-size:clamp(26px,4vw,38px);line-height:1.12;letter-spacing:-.02em;
+  font-weight:650;margin:0;text-wrap:balance}
+.standfirst{margin:0;max-width:70ch;color:var(--ink-2);font-size:16px}
+.standfirst b{color:var(--ink);font-weight:600}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  padding:13px 14px;display:flex;flex-direction:column;gap:5px;cursor:pointer;
+  text-align:left;font:inherit;color:inherit;border-left-width:3px;transition:border-color .12s,background .12s}
+.tile:hover{border-color:var(--rule-2)}
+.tile[aria-pressed="true"]{background:var(--panel-2);border-color:var(--ink-3)}
+.tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tile .n{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:26px;font-weight:600;
+  line-height:1;font-variant-numeric:tabular-nums}
+.tile .k{font-size:11.5px;letter-spacing:.04em;color:var(--ink-2);text-transform:uppercase}
+.tile .d{font-size:11.5px;color:var(--ink-3);line-height:1.35}
+.t-crit{border-left-color:var(--crit)} .t-crit .n{color:var(--crit)}
+.t-info{border-left-color:var(--info)} .t-info .n{color:var(--info)}
+.t-warn{border-left-color:var(--warn)} .t-warn .n{color:var(--warn)}
+.t-good{border-left-color:var(--good)} .t-good .n{color:var(--good)}
+.t-neut{border-left-color:var(--neut)} .t-neut .n{color:var(--ink-2)}
+
+.note{background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  padding:20px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.note h2{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;letter-spacing:.1em;
+  text-transform:uppercase;margin:0;color:var(--accent);font-weight:650}
+.note p{margin:0;max-width:78ch;color:var(--ink-2);font-size:14.5px}
+.note p b,.note p strong{color:var(--ink);font-weight:600}
+.calib{width:100%;border-collapse:collapse;font-size:13px}
+.calib th,.calib td{text-align:right;padding:5px 12px 5px 0;border-bottom:1px solid var(--rule);
+  font-variant-numeric:tabular-nums}
+.calib th:first-child,.calib td:first-child{text-align:left;color:var(--ink-2)}
+.calib thead th{color:var(--ink-3);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.calib td.hi{color:var(--ink);font-weight:600}
+.scroll{overflow-x:auto}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.controls input[type=search]{flex:1 1 210px;min-width:170px;padding:8px 11px;border:1px solid var(--rule-2);
+  border-radius:3px;background:var(--panel);color:var(--ink);font:inherit;font-size:14px}
+.controls input[type=search]:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.seg{display:flex;border:1px solid var(--rule-2);border-radius:3px;overflow:hidden;background:var(--panel)}
+.seg button{font:inherit;font-size:13px;padding:8px 13px;border:0;background:transparent;color:var(--ink-2);
+  cursor:pointer;border-right:1px solid var(--rule)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--panel)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.count{margin-left:auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+.tablebox{background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow-x:auto}
+table.data{border-collapse:collapse;width:100%;font-size:13px}
+table.data th,table.data td{padding:7px 10px;white-space:nowrap;border-bottom:1px solid var(--rule)}
+table.data thead th{position:sticky;top:0;z-index:2;background:var(--panel-2);color:var(--ink-2);
+  font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;user-select:none;text-align:right;border-bottom:1px solid var(--rule-2)}
+table.data thead th.l{text-align:left}
+table.data thead th:hover{color:var(--ink)}
+table.data thead th .ar{color:var(--accent);font-size:9px}
+table.data tbody tr:hover{background:var(--panel-2)}
+table.data td{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2);vertical-align:middle}
+table.data td.l{text-align:left}
+td.name{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink);font-weight:600;
+  border-left:3px solid transparent;padding-left:11px}
+tr.v-crit td.name{border-left-color:var(--crit)}
+tr.v-info td.name{border-left-color:var(--info)}
+tr.v-warn td.name{border-left-color:var(--warn)}
+tr.v-good td.name{border-left-color:var(--good)}
+tr.v-neut td.name{border-left-color:var(--neut)}
+td.num{color:var(--ink)}
+td.dim{color:var(--ink-3)}
+.src{display:inline-block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;
+  border-radius:2px;background:var(--neut-soft);color:var(--ink-2);
+  font-family:ui-monospace,Menlo,Consolas,monospace}
+.fit{color:var(--accent);font-weight:700}
+.pill{display:inline-block;font-size:10.5px;letter-spacing:.04em;padding:2px 8px;border-radius:2px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;text-transform:uppercase;font-weight:600}
+.p-crit{background:var(--crit-soft);color:var(--crit)}
+.p-info{background:var(--info-soft);color:var(--info)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-good{background:var(--good-soft);color:var(--good)}
+.p-neut{background:var(--neut-soft);color:var(--neut)}
+.over{color:var(--crit);font-weight:600}
+.spread{color:var(--ink-3);font-size:11px;margin-left:5px;font-variant-numeric:tabular-nums}
+.second{display:inline-block;margin-left:5px;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;
+  font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--warn);border:1px solid var(--warn);
+  border-radius:2px;padding:0 4px;vertical-align:1px}
+.unanimous{display:inline-block;margin-left:5px;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;
+  font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--accent);border:1px solid var(--accent);
+  border-radius:2px;padding:0 4px;vertical-align:1px}
+.rep{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink);font-weight:600}
+.cond{display:inline-block;margin-left:5px;font-size:9.5px;letter-spacing:.05em;padding:1px 5px;border-radius:2px;
+  background:var(--neut-soft);color:var(--ink-3);font-family:ui-monospace,Menlo,Consolas,monospace}
+.hs{display:inline-block;margin-left:5px;font-size:9.5px;letter-spacing:.05em;padding:1px 5px;border-radius:2px;
+  background:var(--crit-soft);color:var(--crit);font-weight:700;
+  font-family:ui-monospace,Menlo,Consolas,monospace}
+.pw{display:inline-block;margin-left:6px;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;
+  font-family:ui-monospace,Menlo,Consolas,monospace}
+.pw-weak{color:var(--warn)} .pw-moderate{color:var(--ink-3)} .pw-strong{color:var(--good)}
+.samp{color:var(--ink-3);font-size:11px;margin-left:5px;font-variant-numeric:tabular-nums}
+.cons{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.cons.unan{color:var(--ink);font-weight:600}
+.consv{color:var(--ink-3);font-size:11.5px}
+td.logo{padding:5px 10px}
+.logowrap{display:block}
+.trk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:9px;fill:var(--ink-3);letter-spacing:.04em}
+.gl{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:700}
+.axis{stroke:var(--rule);stroke-width:1}
+.win{fill:var(--ink);opacity:.085}
+.winedge{stroke:var(--ink-3);stroke-width:.6;opacity:.45;fill:none}
+.pad{fill:var(--warn);opacity:.14}
+.miss{fill:var(--ink-3);font-size:8.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.wnum{font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.wsmall{color:var(--warn)}
+.padn{display:inline-block;margin-left:5px;font-size:9.5px;letter-spacing:.04em;color:var(--warn);
+  font-family:ui-monospace,Menlo,Consolas,monospace}
+.legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:12.5px;color:var(--ink-2)}
+.legend span.k{display:inline-flex;align-items:center;gap:5px}
+.legend i{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-style:normal;font-size:14px}
+footer{color:var(--ink-3);font-size:12.5px;border-top:1px solid var(--rule);padding-top:18px;max-width:100ch}
+footer code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink-2)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">RoboCOP · 153 native matrices · native vs JASPAR vs Rossi · per replicate</div>
+  <h1>Which of the three is the odd one out?</h1>
+  <p class="standfirst">Three datasets measure the same yeast factors: the <b>native</b> set RoboCOP
+  decodes with, <b>JASPAR</b>, and <b>Rossi</b>. None is a reference — none is more authoritative than
+  the others. So the question is asked symmetrically. With three points there is always a closest pair,
+  and the odd one out is the member opposite it — asked once per Rossi replicate, so a verdict can be replicated rather than asserted, with heat-shocked replicates labelled and held out. Distances are TOMTOM's own column functions reported
+  <b>raw, as a mean per column — no p-values</b>, and all three are measured on <b>one common window</b>
+  per row so they can be compared with each other.</p>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<section class="note">
+  <h2>Reading the three numbers</h2>
+  <p>Each row carries three pairwise distances, all measured on the same window. Two datasets
+  <b>agree</b> when they sit at or below <b>KL 0.060</b> — not a guess, but drawn from the data: over the
+  136 replicate rows where all three exist, the <i>closest pair</i> has median distance 0.032 and p75
+  0.073, so 0.060 is what "the two that agree best" typically costs. It falls at the 70th percentile of
+  that distribution, close to where it fell before the common window was imposed, so the threshold did not
+  need re-tuning. The odd one out must then be at least <b>0.030</b> further out than that closest pair,
+  or the call is marked ambiguous rather than forced.</p>
+  <div class="scroll">
+  <table class="calib">
+    <thead><tr><th>Closest-of-three pairwise KL (n=136 replicate rows)</th><th>p25</th><th>median</th><th>p75</th><th>p90</th><th>max</th></tr></thead>
+    <tbody><tr><td>distance between the two that agree best</td><td>0.004</td><td class="hi">0.032</td><td>0.073</td><td>0.170</td><td>0.771</td></tr></tbody>
+  </table>
+  </div>
+  <p><b>The symmetric view changes the story.</b> Distance to the other two runs
+  <b>jaspar 0.142 · native 0.160 · rossi 0.174</b> (medians; means 0.290 / 0.302 / 0.461). <b>Rossi is the
+  most out of step of the three</b>, and it is the odd one out for 29 native motifs against the native
+  set's 7. Treating JASPAR and Rossi jointly as ground truth would have been wrong.</p>
+  <p>That does not rescue the seven where the native set <i>is</i> the outlier — those are still real, and
+  <b>ABF1 and all four RAP1 matrices are among them</b>, both factors with fitted Fiber-seq parameters.
+  ABF1 and three of the RAP1 matrices are <b>unanimous across every replicate</b>, on 195–200 sites.</p>
+  <p><b>A threshold caveat worth reading.</b> <code>no consensus</code> fires whenever even the closest
+  pair exceeds 0.060. That is an absolute test and it does not scale with the size of the gap — a row can
+  have one pair four times closer than the other two and still not be called. Of the 22
+  <code>no consensus</code> motifs, <b>11 have native as the furthest out</b>. That is recorded on every
+  row and shown on hover, so a near miss is not the same as an exoneration.</p>
+</section>
+
+<section class="note">
+  <h2>One row per Rossi replicate</h2>
+  <p>JASPAR ships one matrix per gene. Rossi runs each factor as <b>several independent ChExMix samples</b>
+  — up to 6 — each yielding up to three motifs. Collapsing those to a single "best" matrix threw away the
+  most valuable thing in the data: <b>the replication</b>. So each native motif gets one row per Rossi
+  replicate, and the same verdict reached independently in every replicate is far stronger evidence than
+  any single pick could be.</p>
+  <p>It matters. <code>Abf1_murphy</code> and three of the four RAP1 matrices come out
+  <b>native-is-odd in every replicate, unanimously</b>, as does <code>Pdr1_badis</code> over its two.
+  <code>Cad1_murphy</code> manages it in only <b>1 of 2</b> — same headline verdict, far weaker evidence,
+  and the <b>replicate support</b> column is what separates them.</p>
+  <p><b>Statistical power is on every row.</b> The median surviving Rossi motif rests on just
+  <b>28 sites</b> and 10% on fewer than 10 — MEME caps the count at 200. A large distance from a 9-site
+  motif is noise; the same distance from a 195-site motif is a finding. Rows are tagged
+  <b>weak</b> (&lt;30), <b>moderate</b> (30–99) or <b>strong</b> (≥100). Every native-is-odd call rests on
+  at least 57 sites, and the ABF1 and RAP1 ones — the Fiber-fitted pair — on 195–200.</p>
+</section>
+
+<section class="note">
+  <h2>Growth condition — and heat shock</h2>
+  <p><b>The <code>&lt;id&gt;_YEP</code> directory name is the Yeast Epigenome Project tag, not a growth
+  medium</b>, and the downloaded bundles carry no metadata at all — their README lists only file formats.
+  The condition has to come from the deposit. It does: GEO <b>GSE147927</b> carries a
+  <code>treatment:</code> field per sample, and the lab's <code>sample-key.tab</code> ties sample IDs to
+  GEO accessions.</p>
+  <p>Rossi grew cells in YPD to OD<sub>600</sub> 0.8 at 25 °C, then <b>heat-shocked a subset</b> by adding
+  an equal volume of 55 °C medium to reach 37 °C for 3 or 6 minutes. Of 1236 deposited samples, <b>22 are
+  heat shock — and 21 of them are on this disk</b>, across Hsf1, Rpb3, Rsc1/3/6/9/58, Sgf11, Spt7, Spt15,
+  Spt16, Sth1, Tpk2 and Ubp8.</p>
+  <p><b>Five rows of this sheet use one</b>, and they are not incidental: both of HSF1's later replicates,
+  both of RSC3's, and one of SPT15's. They are shown and labelled <b>3′ HS</b> / <b>6′ HS</b> but
+  <b>excluded from the replicate consensus</b> — a motif measured at 37 °C can differ from a 25 °C one for
+  real biological reasons, which is a different claim from "somebody's matrix is wrong". Excluding SPT15's
+  heat-shocked replicate moves it from 4-of-4 to <b>3-of-3</b>; its verdict is unchanged.</p>
+  <p>Rebuild the condition table any time with <code>analysis/fetch_rossi_conditions.py</code>, which
+  pulls both sources and cross-checks that all 1236 sample IDs agree.</p>
+</section>
+
+<section class="note">
+  <h2>Why there is no universal E-value cutoff</h2>
+  <p>A MEME E-value is the expected number of motifs scoring as well in a shuffled dataset <i>of the same
+  size</i>. It therefore measures <b>evidence within one run</b>, and scales with how much data that run
+  had — log<sub>10</sub>E tracks log<sub>10</sub> of the site count at <b>r = −0.54</b>. Across the 302
+  genes with a Rossi motif, the <i>best</i> E-value ranges from <b>1e−500</b> down to <b>1e−1.4</b>. Any
+  single threshold either keeps junk for the data-rich factors or throws away the real motif of the sparse
+  ones. <b>So the answer to "is there a universal threshold" is no — and it is not even stable between
+  replicates of one TF</b>, whose best E-values span a median of 8.5 orders of magnitude.</p>
+  <p><b>A relative rule works where an absolute one cannot</b>, which is your "clearly better by multiple
+  folds" instinct, made concrete. Within a single replicate the top motif is taken outright when it leads
+  the runner-up by at least <b>2 orders of magnitude</b>; <b>87%</b> of multi-motif samples clear that, with
+  a median lead of <b>10.3</b> orders. When they do not clear it, the runner-up is <b>not discarded — it
+  gets its own row</b>, marked <b>2nd best</b>, so a genuine tie is shown as a tie rather than silently
+  resolved.</p>
+  <div class="scroll">
+  <table class="calib">
+    <thead><tr><th>Lead of the best motif over the runner-up, within one replicate</th><th>≥1</th><th>≥2</th><th>≥3</th><th>≥5</th><th>≥10</th><th>≥20 orders</th></tr></thead>
+    <tbody><tr><td>share of the 232 multi-motif samples</td><td>95%</td><td class="hi">87%</td><td>84%</td><td>78%</td><td>52%</td><td>31%</td></tr></tbody>
+  </table>
+  </div>
+</section>
+
+<section class="note">
+  <h2>The logos</h2>
+  <p>Every logo is the matrix that actually entered the comparison — reverse-complemented and shifted to
+  the one alignment that produced all three numbers, drawn in a <b>single common frame</b> so the three
+  stack column-for-column. Letter height is information content in bits (0–2). Track labels
+  <b>N</b> / <b>J</b> / <b>R</b> mark native, JASPAR and Rossi.</p>
+  <p><b>The shaded band is the window that was scored.</b> Columns outside it are drawn — you can see how
+  much wider a matrix is than its partners — but they contribute nothing to any distance.</p>
+  <p class="legend">
+    <span class="k"><i style="color:var(--nA)">A</i> adenine</span>
+    <span class="k"><i style="color:var(--nC)">C</i> cytosine</span>
+    <span class="k"><i style="color:var(--nG)">G</i> guanine</span>
+    <span class="k"><i style="color:var(--nT)">T</i> thymine</span>
+  </p>
+  <p>Because all three pairwise numbers now come from that one alignment, the picture and the numbers
+  cannot disagree — the earlier caveat about JASPAR↔Rossi being measured off-frame no longer applies.</p>
+</section>
+
+<section class="note">
+  <h2>One window per row, so the three numbers are comparable</h2>
+  <p>The three matrices are rarely the same width. RAP1 is <b>native 20 / JASPAR 12 / Rossi 16</b>. Align
+  each pair on its own terms and the row's three numbers rest on <b>different column counts</b> —
+  12, 16 and 12 for that row — and then "which pair is closest" can be settled by how many columns a pair
+  happened to share rather than by the matrices themselves. So every distance in a row is measured on
+  <b>one window</b>: the columns that all the matrices present actually reach. The <b>window</b> column
+  carries that count; hover it for the three widths.</p>
+  <p><b>Why not simply align each pair the way TOMTOM would and intersect?</b> That is the obvious
+  approach, and where it works this reduces to exactly it. It does not always work, because
+  <b>alignment is not transitive</b>: fixing JASPAR against native and Rossi against native already fixes
+  JASPAR against Rossi, and there is no guarantee it lands where the JASPAR↔Rossi optimum wants it. Across
+  the sheet the three pairwise optima are mutually realisable in a single frame in only <b>82 of 140
+  rows (59%)</b>; in the rest the frame costs the JASPAR↔Rossi pair a median of 0.078 KL and up to 1.52.
+  <b>TOMTOM cannot arbitrate</b> — it compares one query motif against target motifs and has no notion of
+  three motifs at once; there is no multiple-motif alignment anywhere in the MEME suite.</p>
+  <p>So the frame is chosen in one joint search rather than stitched from three pairwise answers: all
+  offsets and orientations, scored by the <b>sum of the three pairwise distances</b> — a sum-of-pairs
+  alignment, symmetric in the datasets. On the 82 rows where the naive approach <i>is</i> well defined,
+  the two agree on <b>78</b> verdicts; the four that differ are all cases where this one is right and the
+  pairwise-stitched frame would have been the compromise.</p>
+  <p>Two details of the search. It runs against a fixed window the width of the shortest matrix, with the
+  columns a matrix cannot reach priced against the genome background, so that a matrix is free to sit
+  where it belongs but cannot buy a better score by shrinking the window onto the columns that happen to
+  match. The <i>reported</i> numbers are then taken over the columns everyone reaches. That freedom
+  matters: ABF1's third Rossi replicate is registered <b>two</b> columns over from the other two, and
+  pinning it inside a 14-column window drove its distance from <b>0.17 to 1.03</b> and broke an otherwise
+  unanimous call. It now scores on 13 columns with the fourteenth dropped, and the call holds.</p>
+  <p><b>Two things this costs, both stated on the rows rather than buried.</b> First, extra width is
+  invisible to the distance: RAP1's native matrix is eight columns longer than JASPAR's, and those eight
+  columns — a real G-rich tail neither other dataset reports — contribute nothing to 0.286. The logo is
+  where you see them. Second, <b>the window is often short</b>: many native matrices are 5–8 columns wide,
+  so <b>120 of 213 rows compare on fewer than 8 columns</b>, and that is marked in amber. A short window
+  is a weak measurement whichever way the verdict falls. A <b>−n</b> tag means n columns of the shortest
+  matrix fell outside another one and were dropped; 44 rows drop one or two, none drops more.</p>
+</section>
+
+<div class="controls">
+  <input type="search" id="q" placeholder="Filter by motif or gene…" aria-label="Filter by motif or gene">
+  <div class="seg" role="group" aria-label="Native sub-collection">
+    <button data-src="all" aria-pressed="true">All</button>
+    <button data-src="murphy" aria-pressed="false">murphy</button>
+    <button data-src="zhu" aria-pressed="false">zhu</button>
+    <button data-src="badis" aria-pressed="false">badis</button>
+  </div>
+  <div class="seg" role="group" aria-label="Metric">
+    <button id="mKL" data-m="kl" aria-pressed="true">KL</button>
+    <button id="mED" data-m="ed" aria-pressed="false">ED</button>
+  </div>
+  <div class="seg" role="group" aria-label="Fitted filter">
+    <button id="fitBtn" aria-pressed="false">Fiber-fitted only (12)</button>
+  </div>
+  <span class="count" id="count"></span>
+</div>
+
+<div class="tablebox">
+  <table class="data">
+    <thead><tr id="hrow"></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<footer>
+  <code>ED = sqrt(Σ(X−Y)²)</code> and <code>KLD = ½(Σ X·ln(X/Y) + Σ Y·ln(Y/X))</code>, per column, after
+  <code>-motif-pseudo 0.1</code> spread by the yeast genome background, averaged over the columns of the
+  row's common window — every column all the matrices present reach. Offsets and orientations are searched
+  jointly for all three and scored by the sum of the pairwise distances, each matrix supplying at least
+  80% of the shortest matrix's width from its own columns. Hover a row for the window, offsets,
+  orientations and widths. Nucleotide colour follows the standard convention and is secondary to the glyph,
+  which carries the identity on its own. Built by
+  <code>analysis/motif_distance_sheet.py</code> → <code>make_motif_sheet_page.py</code>.
+</footer>
+</div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const ROWS = JSON.parse(document.getElementById('data').textContent);
+
+const VERD = {
+  native_is_odd:{cls:'crit',label:'native is odd',tile:'t-crit',
+    desc:'JASPAR and Rossi agree; our matrix differs from both. Ours to fix.'},
+  rossi_is_odd:{cls:'info',label:'rossi is odd',tile:'t-info',
+    desc:'Native and JASPAR agree; the Rossi motif is the one apart.'},
+  jaspar_is_odd:{cls:'info',label:'jaspar is odd',tile:'t-info',
+    desc:'Native and Rossi agree; the JASPAR entry is the one apart.'},
+  no_consensus:{cls:'warn',label:'no consensus',tile:'t-warn',
+    desc:'No two of the three agree. The motif itself is ill-defined.'},
+  ambiguous:{cls:'warn',label:'ambiguous',tile:'t-warn',
+    desc:'A closest pair exists but the third is not clearly further out.'},
+  all_three_agree:{cls:'good',label:'all three agree',tile:'t-good',
+    desc:'Every pair within 0.060. Nothing to do.'},
+  two_datasets_only:{cls:'neut',label:'two datasets',tile:'t-neut',
+    desc:'Only one other dataset has this gene, so there is no third opinion.'},
+  partial:{cls:'neut',label:'partial',tile:'t-neut',desc:'Incomplete comparison.'},
+  no_comparison:{cls:'neut',label:'no comparison',tile:'t-neut',
+    desc:'Neither JASPAR nor Rossi has this gene. Nothing to compare.'}
+};
+const ORDER=['native_is_odd','rossi_is_odd','jaspar_is_odd','no_consensus','ambiguous',
+             'all_three_agree','two_datasets_only','partial','no_comparison'];
+const NUC=['A','C','G','T'], NCOL=['var(--nA)','var(--nC)','var(--nG)','var(--nT)'];
+const SETCH={native:'N',jaspar:'J',rossi:'R'};
+
+let metric='kl';
+
+/* ---- sequence logo, common frame, information-content heights -------------
+   The shaded band marks the W columns every pairwise distance in the row was
+   measured on; anything outside it is drawn but not scored.  Where a motif
+   does not reach a window column, that column is background-padded and is
+   marked separately. */
+const CW=7, TH=17, GAP=3, LAB=13;
+function logo(r){
+  const [f0,f1]=r.frame, n=f1-f0, W=LAB+n*CW+2, H=3*TH+2*GAP+2;
+  const byset={}; r.layers.forEach(l=>byset[l.set]=l);
+  const w0=r.window?r.window[0]:0, w1=r.window?r.window[1]:0, hasWin=w1>w0;
+  const wx=LAB+(w0-f0)*CW, ww=(w1-w0)*CW;
+  let s=`<svg class="logowrap" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="aligned sequence logos; the shaded band is the compared window">`;
+  if(hasWin) s+=`<rect class="win" x="${wx}" y="0" width="${ww}" height="${H-1}"/>`;
+  ['native','jaspar','rossi'].forEach((k,ti)=>{
+    const y0=ti*(TH+GAP), yb=y0+TH;
+    s+=`<text class="trk" x="0" y="${yb-4}">${SETCH[k]}</text>`;
+    s+=`<line class="axis" x1="${LAB}" y1="${yb+.5}" x2="${LAB+n*CW}" y2="${yb+.5}"/>`;
+    const l=byset[k];
+    if(!l){ s+=`<text class="miss" x="${LAB+3}" y="${yb-5}">no motif</text>`; return; }
+    l.pwm.forEach((col,j)=>{
+      const x=LAB+(l.off-f0+j)*CW;
+      let H0=0; col.forEach(p=>{ if(p>0) H0-=p*Math.log2(p); });
+      const ic=Math.max(0,2-H0);
+      const idx=[0,1,2,3].sort((a,b)=>col[a]-col[b]);
+      let cy=yb;
+      idx.forEach(b=>{
+        const h=col[b]*ic/2*TH;
+        if(h<0.35) return;
+        cy-=h;
+        s+=`<text class="gl" x="0" y="0" fill="${NCOL[b]}" font-size="100"`
+          +` transform="translate(${x.toFixed(1)},${(cy+h).toFixed(1)}) scale(${(CW/60).toFixed(4)},${(h/72).toFixed(4)})">${NUC[b]}</text>`;
+      });
+    });
+  });
+  if(hasWin) s+=`<rect class="winedge" x="${wx+.5}" y="0.5" width="${ww-1}" height="${H-2}"/>`;
+  return s+'</svg>';
+}
+
+/* ---- cells --------------------------------------------------------------- */
+function fx(v,strong){
+  if(v===null||v===undefined) return '<span class="dim">—</span>';
+  return `<span class="${strong?'num':''}">${v.toFixed(3)}</span>`;
+}
+const D=(r,a,b)=>r[`${metric}_${a}_${b}`];
+
+const COLS=[
+  {k:'native_motif',t:'native motif',l:true,cell:r=>
+    `<span>${r.native_motif}</span>${r.fitted?' <span class="fit" title="has fitted Fiber-seq parameters">◆</span>':''}`},
+  {k:'source',t:'sub-set',l:true,cell:r=>`<span class="src">${r.source}</span>`},
+  {k:'replicate',t:'Rossi replicate',l:true,cell:r=>{
+    if(!r.rossi_sample) return '<span class="dim">no Rossi motif</span>';
+    const hs=r.heat_shock==='yes';
+    return `<span class="rep">${r.replicate}</span>`
+      +(hs?`<span class="hs" title="${r.condition} — 37°C. Shown, but excluded from the replicate consensus: a motif measured under heat shock can differ for biological reasons.">${r.condition.replace(' heat shock','′ HS')}</span>`
+          :`<span class="cond" title="grown in YPD to OD600 0.8 at 25°C">normal</span>`)
+      +`<span class="samp">#${r.rossi_sample}</span>`;}},
+  {k:'rossi_nsites',t:'sites',cell:r=>{
+    if(r.rossi_nsites===null||r.rossi_nsites===undefined) return '<span class="dim">—</span>';
+    return `<span class="num">${r.rossi_nsites}</span>`
+      +`<span class="pw pw-${r.power}" title="MEME fitted this motif from ${r.rossi_nsites} sites (median across the sheet is 30). Weak &lt;30, moderate 30–99, strong ≥100.">${r.power}</span>`;}},
+  {k:'rossi_logE',t:'Rossi E',cell:r=>{
+    if(r.rossi_logE===null||r.rossi_logE===undefined) return '<span class="dim">—</span>';
+    const e=r.rossi_logE<=-500?'&lt;1e-500':('1e'+r.rossi_logE.toFixed(1));
+    const badge=r.e_rank===2
+      ? ' <span class="second" title="the top motif of this replicate did not lead by 2 orders of magnitude, so the runner-up is shown too">2nd best</span>'
+      : (r.e_ambiguous==='yes' ? ' <span class="second" title="ambiguous: the runner-up is within 2 orders of magnitude and has its own row">tied</span>' : '');
+    return `<span class="num">${e}</span>${badge}`;}},
+  {k:'w_window',t:'window',cell:r=>{
+    if(!r.w_window) return '<span class="dim">—</span>';
+    const ws=[r.w_native,r.w_jaspar,r.w_rossi].filter(x=>x!==null&&x!==undefined).join('/');
+    return `<span class="wnum${r.w_window<8?' wsmall':''}" title="All three distances in this row are measured on the same ${r.w_window} columns — every column that all the matrices present reach. Widths N/J/R = ${ws}; shortest is ${r.window_anchor} at ${r.w_shortest}.">${r.w_window}</span>`
+      +(r.n_dropped?`<span class="padn" title="${r.n_dropped} column(s) of the shortest matrix (${r.window_anchor}, width ${r.w_shortest}) fall outside another matrix at this registration and are not scored by anyone">−${r.n_dropped}</span>`:'');}},
+  {k:'kl_native_jaspar',t:'N↔J',cell:r=>fx(D(r,'native','jaspar'),1),m:1},
+  {k:'kl_native_rossi', t:'N↔R',cell:r=>fx(D(r,'native','rossi'),1),m:1},
+  {k:'kl_jaspar_rossi', t:'J↔R',cell:r=>fx(D(r,'jaspar','rossi'),1),m:1},
+  {k:'margin_kl',t:'margin',cell:r=>fx(r.margin_kl)},
+  {k:'verdict',t:'this replicate',l:true,cell:r=>{
+    const v=VERD[r.verdict]; return `<span class="pill p-${v.cls}">${v.label}</span>`;}},
+  {k:'rep_n_native_odd',t:'replicate support',l:true,cell:r=>{
+    if(!r.rep_n_reps) return '<span class="dim">—</span>';
+    const v=VERD[r.rep_consensus]||VERD.no_comparison;
+    const u=r.rep_unanimous==='yes';
+    return `<span class="cons ${u?'unan':''}">${r.rep_n_consensus} of ${r.rep_n_reps}</span>`
+      +`<span class="consv"> ${v.label}</span>`
+      +(u?' <span class="unanimous" title="every replicate reached this verdict independently">unanimous</span>':'');}},
+  {k:'_logo',t:'aligned logos — N / J / R',l:true,sort:false,cell:r=>logo(r)}
+];
+
+function tip(r){
+  const p=[`${r.gene} · native ${r.native_motif} (${r.source}) · width ${r.w_native}`
+    + (r.off_native!==null&&r.off_native!==undefined?` · offset ${r.off_native} · strand ${r.orient_native}`:'')];
+  if(r.w_window){
+    p.push(`WINDOW ${r.w_window} columns — every column all the matrices reach; all three distances measured on exactly these`
+      + (r.n_dropped?`. ${r.n_dropped} column(s) of the shortest matrix (${r.window_anchor}, ${r.w_shortest}) fall outside another matrix and are dropped`:''));
+    if(r.window_cost_kl>0.02)
+      p.push(`  cost of the common window: the worst pair scores ${r.window_cost_kl.toFixed(3)} higher than at its own free alignment`);
+  }
+  p.push(r.jaspar_motif
+    ? `JASPAR ${r.jaspar_motif} · offset ${r.off_jaspar} · strand ${r.orient_jaspar}`
+    : 'JASPAR: no entry for this gene');
+  if(r.rossi_motif){
+    p.push(`Rossi ${r.rossi_motif} · ${r.replicate}, sample ${r.rossi_sample}, condition ${r.condition}`);
+    p.push(`  offset ${r.off_rossi} · strand ${r.orient_rossi} · width ${r.w_rossi} · ${r.rossi_nsites} sites (${r.power})`);
+    p.push(`  E = ${r.rossi_E} · ${r.n_motifs_in_sample} motif${r.n_motifs_in_sample==1?'':'s'} in this replicate`
+      + (r.e_gap_log10!==null&&r.e_gap_log10!==undefined
+          ? `, best leads the runner-up by ${r.e_gap_log10.toFixed(1)} orders of magnitude` : ''));
+    if(r.e_rank===2) p.push('  This is the RUNNER-UP, shown because the lead was under 2 orders of magnitude.');
+  } else p.push('Rossi: no motif for this gene');
+  if(r.heat_shock==='yes')
+    p.push('HEAT SHOCK replicate — shown but excluded from the consensus.');
+  if(r.rep_n_reps)
+    p.push(`Across ${r.rep_n_reps} normal-condition Rossi replicate${r.rep_n_reps==1?'':'s'}: ${r.rep_n_consensus} say ${r.rep_consensus}`
+      + (r.rep_unanimous==='yes' ? ' (unanimous)' : '')
+      + (r.rep_n_heat_shock ? `; ${r.rep_n_heat_shock} further heat-shock replicate(s) excluded` : ''));
+  if(r.verdict==='no_consensus'&&r.odd_one_out)
+    p.push(`No pair is within 0.060, so no verdict is called — but the furthest out is still ${r.odd_one_out}.`);
+  p.push(VERD[r.verdict].desc);
+  return p.join('\n');
+}
+
+let sortKey=null,sortDir=-1,srcFilter='all',verdFilter=null,fitOnly=false;
+
+/* tiles count NATIVE MOTIFS by their rolled-up consensus, not table rows --
+   a motif with 4 replicates must not count four times. */
+const MOTIF_CONSENSUS={};
+ROWS.forEach(r=>{ MOTIF_CONSENSUS[r.native_motif]=r.rep_consensus||r.verdict; });
+const tiles=document.getElementById('tiles');
+ORDER.filter(v=>Object.values(MOTIF_CONSENSUS).some(x=>x===v)).forEach(v=>{
+  const n=Object.values(MOTIF_CONSENSUS).filter(x=>x===v).length,m=VERD[v];
+  const b=document.createElement('button');
+  b.className='tile '+m.tile; b.setAttribute('aria-pressed','false'); b.dataset.v=v;
+  b.innerHTML=`<span class="n">${n}</span><span class="k">${m.label}</span><span class="d">${m.desc}</span>`;
+  b.addEventListener('click',()=>{
+    verdFilter=verdFilter===v?null:v;
+    [...tiles.children].forEach(c=>c.setAttribute('aria-pressed',c.dataset.v===verdFilter?'true':'false'));
+    render();
+  });
+  tiles.appendChild(b);
+});
+
+const hrow=document.getElementById('hrow');
+COLS.forEach(c=>{
+  const th=document.createElement('th');
+  if(c.l) th.className='l';
+  th.innerHTML=c.t+(c.sort===false?'':' <span class="ar"></span>');
+  if(c.sort!==false) th.addEventListener('click',()=>{
+    if(sortKey===c.k) sortDir=-sortDir; else{sortKey=c.k;sortDir=-1;}
+    render();
+  });
+  hrow.appendChild(th);
+});
+
+document.querySelectorAll('.seg [data-src]').forEach(b=>b.addEventListener('click',()=>{
+  srcFilter=b.dataset.src;
+  document.querySelectorAll('.seg [data-src]').forEach(o=>o.setAttribute('aria-pressed',o===b?'true':'false'));
+  render();
+}));
+document.querySelectorAll('.seg [data-m]').forEach(b=>b.addEventListener('click',()=>{
+  metric=b.dataset.m;
+  document.querySelectorAll('.seg [data-m]').forEach(o=>o.setAttribute('aria-pressed',o===b?'true':'false'));
+  render();
+}));
+const fitBtn=document.getElementById('fitBtn');
+fitBtn.addEventListener('click',()=>{fitOnly=!fitOnly;fitBtn.setAttribute('aria-pressed',fitOnly?'true':'false');render();});
+document.getElementById('q').addEventListener('input',render);
+
+function render(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  let rows=ROWS.filter(r=>
+    (srcFilter==='all'||r.source===srcFilter)&&
+    (!verdFilter||MOTIF_CONSENSUS[r.native_motif]===verdFilter)&&
+    (!fitOnly||r.fitted)&&
+    (!q||r.native_motif.toLowerCase().includes(q)||r.gene.toLowerCase().includes(q)));
+
+  if(sortKey){
+    const col=COLS.find(c=>c.k===sortKey);
+    rows=rows.slice().sort((a,b)=>{
+      let x,y;
+      if(col.m){ const parts=sortKey.split('_'); x=D(a,parts[1],parts[2]); y=D(b,parts[1],parts[2]); }
+      else { x=a[sortKey]; y=b[sortKey]; }
+      if(sortKey==='verdict'){x=ORDER.indexOf(x);y=ORDER.indexOf(y);}
+      const xn=(x===null||x===undefined),yn=(y===null||y===undefined);
+      if(xn&&yn) return 0; if(xn) return 1; if(yn) return -1;
+      if(typeof x==='string') return sortDir*x.localeCompare(y);
+      return sortDir*(x-y);
+    });
+  }
+  [...hrow.children].forEach((th,i)=>{
+    const a=th.querySelector('.ar'); if(!a) return;
+    a.textContent=COLS[i].k===sortKey?(sortDir===-1?'▼':'▲'):'';
+  });
+
+  document.getElementById('tbody').innerHTML=rows.map(r=>{
+    const v=VERD[r.verdict];
+    return `<tr class="v-${v.cls}" title="${tip(r).replace(/"/g,'&quot;')}">`
+      +COLS.map((c,i)=>`<td class="${i===0?'name':''}${c.l?' l':''}${c.k==='_logo'?' logo':''}">${c.cell(r)}</td>`).join('')
+      +`</tr>`;
+  }).join('');
+  document.getElementById('count').textContent=`${rows.length} of ${ROWS.length} motifs · ${metric.toUpperCase()}`;
+}
+render();
+</script>

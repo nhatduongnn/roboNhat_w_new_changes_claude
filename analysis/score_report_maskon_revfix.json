@@ -1,0 +1,63 @@
+{
+  "label": "fiber_abf1_revfix",
+  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_maskon_revfix",
+  "n_regions": 1,
+  "nucleosome": {
+    "reference": "Chereji 2018 +1/-1",
+    "n_ref": 135,
+    "n_pred": 1174,
+    "tp": 107,
+    "fp": 1067,
+    "fn": 28,
+    "precision": 0.09114139693356048,
+    "recall": 0.7925925925925926,
+    "f1": 0.16348357524828114,
+    "median_dyad_err": 7.0,
+    "mean_dyad_err": 7.149532710280374,
+    "pct_within_20bp": 0.7925925925925926,
+    "pct_within_30bp": 0.8888888888888888,
+    "tol_bp": 20
+  },
+  "nucleosome_brogaard": {
+    "reference": "Brogaard top-2000",
+    "n_ref": 39,
+    "n_pred": 1174,
+    "tp": 29,
+    "fp": 1145,
+    "fn": 10,
+    "precision": 0.024701873935264053,
+    "recall": 0.7435897435897436,
+    "f1": 0.04781533388293487,
+    "median_dyad_err": 9.0,
+    "mean_dyad_err": 7.517241379310345,
+    "pct_within_20bp": 0.7435897435897436,
+    "pct_within_30bp": 0.8461538461538461,
+    "tol_bp": 20
+  },
+  "phasing": {
+    "median_period_bp": 172.0,
+    "n_regions_with_period": 1,
+    "expected_bp": "~160-170"
+  },
+  "abf1": {
+    "n_ref": 5,
+    "n_pred": 684,
+    "tp": 3,
+    "fp": 681,
+    "fn": 2,
+    "precision": 0.0043859649122807015,
+    "recall": 0.6,
+    "f1": 0.008708272859216255,
+    "median_dist": 5.0,
+    "tol_bp": 20,
+    "auroc": 0.6401783547122947,
+    "mean_post_at_sites": 0.1713528659347964,
+    "mean_post_background": 0.041016683581775716,
+    "enrichment": 4.177638243061925
+  },
+  "accessibility_consistency": {
+    "mean_corr_access_vs_methylation": 0.22240821056609822,
+    "n_regions": 1,
+    "note": "corr( 1-nuc_occupancy , Fiber meth/A ). Higher = model puts nucleosomes where DNA is protected."
+  }
+}

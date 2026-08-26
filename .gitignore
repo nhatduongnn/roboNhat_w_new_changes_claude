@@ -60,3 +60,18 @@ analysis/.*_ids
 analysis/.last_job_ids
 analysis/.score5_optionA.log
 analysis/.*.sh
+
+# TOMTOM comparison tables (60 MB across 6 files). Regenerate with
+# analysis/build_motif_dbs.py; the .meme databases they are built from ARE tracked,
+# so the comparison stays reproducible from what is committed.
+analysis/motifdb/tomtom_*.tsv
+# Cached sliding-window ABF1 score tracks (8-11 MB each). Regenerate with
+# abf1_slide_calibrate.py / slide_abf1_profile.py. The small companion arrays
+# (abf1_slide_cov.npz, abf1_profile_pm100_agentA.npz) are tracked.
+analysis/abf1_slide_calib_half*.npz
+analysis/abf1_slide_tracks.npz
+# Stray run logs written next to the scripts rather than into logs/
+analysis/*.log
+analysis/trash/
+analysis/.*_jobids
+analysis/.timing.txt

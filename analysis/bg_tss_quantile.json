@@ -1,0 +1,337 @@
+{
+  "shipped_bg": {
+    "watson": 0.13826786764059976,
+    "crick": 0.1384056927819045
+  },
+  "combined_low_count": {
+    "watson": 0.2489396350486994,
+    "crick": 0.26467510854431164
+  },
+  "window": {
+    "up": 200,
+    "down": 100
+  },
+  "n_segments": 4985,
+  "table": {
+    "min_n=1|within|mean": {
+      "watson_pooled_p": 0.16064943037559193,
+      "crick_pooled_p": 0.16067347399407786,
+      "watson_mean_rate": 0.14214988481636168,
+      "crick_mean_rate": 0.14408891081396527,
+      "watson_positions": 257007,
+      "crick_positions": 258602
+    },
+    "min_n=1|within|top25%": {
+      "watson_pooled_p": 0.3316325310329982,
+      "crick_pooled_p": 0.33197728006894356,
+      "watson_mean_rate": 0.4058429375062157,
+      "crick_mean_rate": 0.4108456139160657,
+      "watson_positions": 66125,
+      "crick_positions": 66507
+    },
+    "min_n=1|within|top10%": {
+      "watson_pooled_p": 0.4469600931195116,
+      "crick_pooled_p": 0.4489532507166541,
+      "watson_mean_rate": 0.5728041922499264,
+      "crick_mean_rate": 0.5820292869330858,
+      "watson_positions": 27933,
+      "crick_positions": 28133
+    },
+    "min_n=1|within|top5%": {
+      "watson_pooled_p": 0.5081607132320611,
+      "crick_pooled_p": 0.5105615786568686,
+      "watson_mean_rate": 0.692990714539473,
+      "crick_mean_rate": 0.706029573580752,
+      "watson_positions": 15232,
+      "crick_positions": 15282
+    },
+    "min_n=1|within|max": {
+      "watson_pooled_p": 0.5644638162761321,
+      "crick_pooled_p": 0.5649982462749581,
+      "watson_mean_rate": 0.8542120831691344,
+      "crick_mean_rate": 0.8683335557914948,
+      "watson_positions": 4983,
+      "crick_positions": 4983
+    },
+    "min_n=1|pooled|mean": {
+      "watson_pooled_p": 0.16064943037559193,
+      "crick_pooled_p": 0.16067347399407786,
+      "watson_mean_rate": 0.14214988481636168,
+      "crick_mean_rate": 0.14408891081396527,
+      "watson_positions": 257007,
+      "crick_positions": 258602
+    },
+    "min_n=1|pooled|top25%": {
+      "watson_pooled_p": 0.3841540051599359,
+      "crick_pooled_p": 0.38551174867686616,
+      "watson_mean_rate": 0.44454150345715193,
+      "crick_mean_rate": 0.4497456530798579,
+      "watson_positions": 64252,
+      "crick_positions": 64651
+    },
+    "min_n=1|pooled|top10%": {
+      "watson_pooled_p": 0.5503765768890683,
+      "crick_pooled_p": 0.5550483875557195,
+      "watson_mean_rate": 0.6498200445278113,
+      "crick_mean_rate": 0.6598325435322524,
+      "watson_positions": 25701,
+      "crick_positions": 25861
+    },
+    "min_n=1|pooled|top5%": {
+      "watson_pooled_p": 0.6475311459337019,
+      "crick_pooled_p": 0.6557936243010932,
+      "watson_mean_rate": 0.8091176185877343,
+      "crick_mean_rate": 0.8241020839861678,
+      "watson_positions": 12851,
+      "crick_positions": 12931
+    },
+    "min_n=1|pooled|max": {
+      "watson_pooled_p": 1.0,
+      "crick_pooled_p": 1.0,
+      "watson_mean_rate": 1.0,
+      "crick_mean_rate": 1.0,
+      "watson_positions": 1,
+      "crick_positions": 1
+    },
+    "min_n=5|within|mean": {
+      "watson_pooled_p": 0.16142972633928165,
+      "crick_pooled_p": 0.16143700740970673,
+      "watson_mean_rate": 0.1632382992931578,
+      "crick_mean_rate": 0.164337094728433,
+      "watson_positions": 171846,
+      "crick_positions": 172236
+    },
+    "min_n=5|within|top25%": {
+      "watson_pooled_p": 0.35298846728315963,
+      "crick_pooled_p": 0.35415621286715837,
+      "watson_mean_rate": 0.3602210597579567,
+      "crick_mean_rate": 0.3622053700567337,
+      "watson_positions": 44802,
+      "crick_positions": 44928
+    },
+    "min_n=5|within|top10%": {
+      "watson_pooled_p": 0.4412161725814607,
+      "crick_pooled_p": 0.4444614266783604,
+      "watson_mean_rate": 0.4488297087238392,
+      "crick_mean_rate": 0.45294960400328216,
+      "watson_positions": 19429,
+      "crick_positions": 19435
+    },
+    "min_n=5|within|top5%": {
+      "watson_pooled_p": 0.48756682724892497,
+      "crick_pooled_p": 0.49157050839102356,
+      "watson_mean_rate": 0.49597893850895514,
+      "crick_mean_rate": 0.5009389767368199,
+      "watson_positions": 10948,
+      "crick_positions": 10980
+    },
+    "min_n=5|within|max": {
+      "watson_pooled_p": 0.5388429338685374,
+      "crick_pooled_p": 0.5413874592335916,
+      "watson_mean_rate": 0.549286635997409,
+      "crick_mean_rate": 0.5529596692416767,
+      "watson_positions": 4983,
+      "crick_positions": 4983
+    },
+    "min_n=5|pooled|mean": {
+      "watson_pooled_p": 0.16142972633928165,
+      "crick_pooled_p": 0.16143700740970673,
+      "watson_mean_rate": 0.1632382992931578,
+      "crick_mean_rate": 0.164337094728433,
+      "watson_positions": 171846,
+      "crick_positions": 172236
+    },
+    "min_n=5|pooled|top25%": {
+      "watson_pooled_p": 0.4161253983117199,
+      "crick_pooled_p": 0.4166318327824935,
+      "watson_mean_rate": 0.41625719904744124,
+      "crick_mean_rate": 0.4172248385558962,
+      "watson_positions": 42962,
+      "crick_positions": 43059
+    },
+    "min_n=5|pooled|top10%": {
+      "watson_pooled_p": 0.541478206767953,
+      "crick_pooled_p": 0.5432490348632538,
+      "watson_mean_rate": 0.5429835798143196,
+      "crick_mean_rate": 0.5454823044909394,
+      "watson_positions": 17185,
+      "crick_positions": 17224
+    },
+    "min_n=5|pooled|top5%": {
+      "watson_pooled_p": 0.6145689839689588,
+      "crick_pooled_p": 0.6169108941854491,
+      "watson_mean_rate": 0.6171238667482831,
+      "crick_mean_rate": 0.6202966282559249,
+      "watson_positions": 8593,
+      "crick_positions": 8612
+    },
+    "min_n=5|pooled|max": {
+      "watson_pooled_p": 1.0,
+      "crick_pooled_p": 1.0,
+      "watson_mean_rate": 1.0,
+      "crick_mean_rate": 1.0,
+      "watson_positions": 1,
+      "crick_positions": 1
+    },
+    "min_n=10|within|mean": {
+      "watson_pooled_p": 0.1619154374612556,
+      "crick_pooled_p": 0.16193018864728853,
+      "watson_mean_rate": 0.16849487404067715,
+      "crick_mean_rate": 0.16965529340282104,
+      "watson_positions": 161795,
+      "crick_positions": 161774
+    },
+    "min_n=10|within|top25%": {
+      "watson_pooled_p": 0.35351087203869147,
+      "crick_pooled_p": 0.354593537617063,
+      "watson_mean_rate": 0.3599412464119765,
+      "crick_mean_rate": 0.36165972359542264,
+      "watson_positions": 42346,
+      "crick_positions": 42324
+    },
+    "min_n=10|within|top10%": {
+      "watson_pooled_p": 0.44017731588961584,
+      "crick_pooled_p": 0.4427273636293597,
+      "watson_mean_rate": 0.4461857841881489,
+      "crick_mean_rate": 0.44937929671731397,
+      "watson_positions": 18424,
+      "crick_positions": 18394
+    },
+    "min_n=10|within|top5%": {
+      "watson_pooled_p": 0.4852983967694087,
+      "crick_pooled_p": 0.48859568536763076,
+      "watson_mean_rate": 0.4914899729780148,
+      "crick_mean_rate": 0.49523730895646084,
+      "watson_positions": 10482,
+      "crick_positions": 10459
+    },
+    "min_n=10|within|max": {
+      "watson_pooled_p": 0.5356308655471723,
+      "crick_pooled_p": 0.5374394568087514,
+      "watson_mean_rate": 0.5419873935630902,
+      "crick_mean_rate": 0.5439134195924628,
+      "watson_positions": 4983,
+      "crick_positions": 4983
+    },
+    "min_n=10|pooled|mean": {
+      "watson_pooled_p": 0.1619154374612556,
+      "crick_pooled_p": 0.16193018864728853,
+      "watson_mean_rate": 0.16849487404067715,
+      "crick_mean_rate": 0.16965529340282104,
+      "watson_positions": 161795,
+      "crick_positions": 161774
+    },
+    "min_n=10|pooled|top25%": {
+      "watson_pooled_p": 0.42189053928942966,
+      "crick_pooled_p": 0.4225093092767958,
+      "watson_mean_rate": 0.421082431042685,
+      "crick_mean_rate": 0.4218925063278,
+      "watson_positions": 40449,
+      "crick_positions": 40444
+    },
+    "min_n=10|pooled|top10%": {
+      "watson_pooled_p": 0.5453213385129149,
+      "crick_pooled_p": 0.5473018436280447,
+      "watson_mean_rate": 0.5452648395376761,
+      "crick_mean_rate": 0.5473751351009488,
+      "watson_positions": 16180,
+      "crick_positions": 16178
+    },
+    "min_n=10|pooled|top5%": {
+      "watson_pooled_p": 0.6171095215050512,
+      "crick_pooled_p": 0.6191868950683669,
+      "watson_mean_rate": 0.6171537010740898,
+      "crick_mean_rate": 0.6195264532576983,
+      "watson_positions": 8090,
+      "crick_positions": 8089
+    },
+    "min_n=10|pooled|max": {
+      "watson_pooled_p": 1.0,
+      "crick_pooled_p": 0.9428571428571428,
+      "watson_mean_rate": 1.0,
+      "crick_mean_rate": 0.9428571428571428,
+      "watson_positions": 1,
+      "crick_positions": 1
+    },
+    "min_n=20|within|mean": {
+      "watson_pooled_p": 0.1623960886407791,
+      "crick_pooled_p": 0.16241274772621353,
+      "watson_mean_rate": 0.1711764034075076,
+      "crick_mean_rate": 0.17240813443201258,
+      "watson_positions": 158036,
+      "crick_positions": 157895
+    },
+    "min_n=20|within|top25%": {
+      "watson_pooled_p": 0.35431228243905605,
+      "crick_pooled_p": 0.3554999838697926,
+      "watson_mean_rate": 0.3608604208280826,
+      "crick_mean_rate": 0.36278331934728525,
+      "watson_positions": 41379,
+      "crick_positions": 41343
+    },
+    "min_n=20|within|top10%": {
+      "watson_pooled_p": 0.44051077819063433,
+      "crick_pooled_p": 0.442670107535486,
+      "watson_mean_rate": 0.4463713232682389,
+      "crick_mean_rate": 0.44951692623321104,
+      "watson_positions": 18041,
+      "crick_positions": 18005
+    },
+    "min_n=20|within|top5%": {
+      "watson_pooled_p": 0.48571482058563475,
+      "crick_pooled_p": 0.4883755270560302,
+      "watson_mean_rate": 0.49155303883720414,
+      "crick_mean_rate": 0.49507174417008576,
+      "watson_positions": 10304,
+      "crick_positions": 10265
+    },
+    "min_n=20|within|max": {
+      "watson_pooled_p": 0.5352772955361602,
+      "crick_pooled_p": 0.5372434017595308,
+      "watson_mean_rate": 0.541101918464625,
+      "crick_mean_rate": 0.5435713480957596,
+      "watson_positions": 4983,
+      "crick_positions": 4983
+    },
+    "min_n=20|pooled|mean": {
+      "watson_pooled_p": 0.1623960886407791,
+      "crick_pooled_p": 0.16241274772621353,
+      "watson_mean_rate": 0.1711764034075076,
+      "crick_mean_rate": 0.17240813443201258,
+      "watson_positions": 158036,
+      "crick_positions": 157895
+    },
+    "min_n=20|pooled|top25%": {
+      "watson_pooled_p": 0.42490551318727987,
+      "crick_pooled_p": 0.4254979580054232,
+      "watson_mean_rate": 0.4240716341822549,
+      "crick_mean_rate": 0.42504201691028465,
+      "watson_positions": 39509,
+      "crick_positions": 39474
+    },
+    "min_n=20|pooled|top10%": {
+      "watson_pooled_p": 0.5475351687510807,
+      "crick_pooled_p": 0.549607368633847,
+      "watson_mean_rate": 0.5472896888627079,
+      "crick_mean_rate": 0.549714065983732,
+      "watson_positions": 15804,
+      "crick_positions": 15790
+    },
+    "min_n=20|pooled|top5%": {
+      "watson_pooled_p": 0.6188052380732034,
+      "crick_pooled_p": 0.6210398942533605,
+      "watson_mean_rate": 0.6185709570243622,
+      "crick_mean_rate": 0.6213384263536312,
+      "watson_positions": 7902,
+      "crick_positions": 7895
+    },
+    "min_n=20|pooled|max": {
+      "watson_pooled_p": 0.9482758620689655,
+      "crick_pooled_p": 0.9428571428571428,
+      "watson_mean_rate": 0.9482758620689655,
+      "crick_mean_rate": 0.9428571428571428,
+      "watson_positions": 1,
+      "crick_positions": 1
+    }
+  }
+}

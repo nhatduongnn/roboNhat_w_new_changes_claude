@@ -191,6 +191,52 @@ def region_optable(dec, chrm, start, end):
     return optable, covered, fiber_ratio
 
 
+def region_fiber_counts(dec, chrm, start, end):
+    """Per-strand Fiber-seq counts for a region.
+
+    region_optable() collapses Watson+Crick into one meth/A ratio, which cannot drive a
+    per-strand track. This returns the four count arrays separately, stitched and
+    averaged over overlapping segments exactly the way region_optable does.
+
+    Returns dict with keys meth_watson, meth_crick, A_watson, A_crick (float arrays of
+    length end-start+1), or None if the decode carries no Fiber-seq datasets.
+    """
+    if dec["tech2"] is None:
+        return None
+    coords = dec["coords"]
+    tech = dec["tech2"]
+    n = end - start + 1
+    keys = ("meth_watson", "meth_crick", "A_watson", "A_crick")
+    out = {k: np.zeros(n) for k in keys}
+    counts = np.zeros(n)
+    idxs = _seg_idxs(coords, chrm, start, end)
+    for infofile in dec["infofiles"]:
+        f = h5py.File(infofile, "r")
+        for idx in idxs:
+            k = "segment_" + str(idx)
+            if k not in f.keys():
+                continue
+            try:
+                arrs = [_get_sparse_todense(f, "%s/%s_count_%s" % (k, tech, w))
+                        for w in keys]
+            except Exception:
+                continue
+            seg_start = coords.loc[idx]["start"]
+            seg_end = coords.loc[idx]["end"]
+            ds = max(0, start - seg_start)
+            de = min(end - seg_start + 1, seg_end - seg_start + 1)
+            ps = max(0, seg_start - start)
+            pe = ps + de - ds
+            for name, a in zip(keys, arrs):
+                out[name][ps:pe] += a[ds:de]
+            counts[ps:pe] += 1
+        f.close()
+    m = counts > 0
+    for name in keys:
+        out[name][m] /= counts[m]
+    return out
+
+
 # ----------------------------------------------------------------------------
 # Reference beds
 # ----------------------------------------------------------------------------

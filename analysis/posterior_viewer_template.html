@@ -1,0 +1,867 @@
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;650&display=swap">
+<style>
+/* Chrome is achromatic slate on purpose: every hue on this page belongs to the data
+   (factor colors come from the decode's own dbf_color_map.pkl, Watson/Crick from the
+   original RoboCOP figures), so the UI must not compete for the reader's color budget. */
+:root{
+  --bg:#ffffff; --panel:#f3f6f8; --sunk:#e9eef2;
+  --ink:#0e1720; --ink2:#54626f; --ink3:#8593a1;
+  --line:#d9e1e8; --line2:#eef2f6;
+  --accent:#33475f; --accentbg:#e3eaf1; --accentink:#22334a;
+  --warn:#a03c33;
+  --sel:rgba(51,71,95,.14); --crosshair:#a03c33;
+  --wat:#1f77b4; --cri:#ff7f0e; --depth:#aebbc7;
+  --plus:#87ceeb; --minus:#f08080;
+  --A:#2e8b57; --T:#c0392b; --C:#1f77b4; --G:#8c6239;
+  --ref:#146b63; --ref2:#6b4b9a;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1116; --panel:#141b22; --sunk:#0f151b;
+    --ink:#e4ebf1; --ink2:#94a3b1; --ink3:#65727f;
+    --line:#222c36; --line2:#18212a;
+    --accent:#9db6d2; --accentbg:#1b2836; --accentink:#c8daed;
+    --warn:#e0776b;
+    --sel:rgba(157,182,210,.18); --crosshair:#e0776b;
+    --wat:#5aa9e6; --cri:#ffa657; --depth:#38444f;
+    --plus:#4f92b5; --minus:#b56b6b;
+    --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
+    --ref:#3fb3a6; --ref2:#a68ad4;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1116; --panel:#141b22; --sunk:#0f151b;
+  --ink:#e4ebf1; --ink2:#94a3b1; --ink3:#65727f;
+  --line:#222c36; --line2:#18212a;
+  --accent:#9db6d2; --accentbg:#1b2836; --accentink:#c8daed;
+  --warn:#e0776b;
+  --sel:rgba(157,182,210,.18); --crosshair:#e0776b;
+  --wat:#5aa9e6; --cri:#ffa657; --depth:#38444f;
+  --plus:#4f92b5; --minus:#b56b6b;
+  --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
+  --ref:#3fb3a6; --ref2:#a68ad4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---- header ---- */
+header{position:sticky;top:0;z-index:20;background:var(--bg);
+  border-bottom:1px solid var(--line);padding:11px 16px 9px}
+.tt{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:15.5px;margin:0;font-weight:650;letter-spacing:-.012em}
+.sub{font-size:11.5px;color:var(--ink3);font-family:var(--mono)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.grp{display:flex;gap:3px;align-items:center;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:3px}
+label.rb{font-size:11.5px;padding:3.5px 9px;border-radius:5px;cursor:pointer;
+  color:var(--ink2);white-space:nowrap;font-weight:500;letter-spacing:.01em;
+  transition:background .12s,color .12s}
+label.rb:hover{color:var(--ink)}
+label.rb.on{background:var(--accentbg);color:var(--accentink);font-weight:600}
+label.rb input{position:absolute;opacity:0;width:0;height:0}
+label.rb:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+button{font-family:var(--sans);font-size:12px;padding:4px 9px;border-radius:6px;
+  cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink2);
+  transition:border-color .12s,color .12s}
+button:hover{border-color:var(--accent);color:var(--ink)}
+.grp button{border-color:transparent;background:transparent;padding:3px 8px;font-size:13px;line-height:1}
+.grp button:hover{background:var(--sunk);color:var(--ink)}
+input[type=text],select{font-family:var(--sans);font-size:12px;padding:4.5px 8px;
+  border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+#coord{width:180px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+#sites{max-width:290px}
+#msg{font-size:11.5px;color:var(--warn);font-weight:500}
+
+/* ---- stat strip: the summary before the detail ---- */
+.stats{display:flex;gap:0;margin-top:9px;border:1px solid var(--line);
+  border-radius:8px;overflow:hidden;background:var(--panel);flex-wrap:wrap}
+.stat{padding:5px 13px;border-right:1px solid var(--line);min-width:96px}
+.stat:last-child{border-right:0}
+.stat .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600}
+.stat .v{font-family:var(--mono);font-size:13px;font-weight:500;
+  font-variant-numeric:tabular-nums;margin-top:1px}
+.stat .v small{font-size:10px;color:var(--ink3);font-weight:400}
+
+/* ---- body ---- */
+main{display:grid;grid-template-columns:246px minmax(0,1fr);align-items:start}
+/* the aside is display:none when collapsed, so it stops being a grid item entirely;
+   the column count has to drop with it or the plots get auto-placed into what used
+   to be the sidebar column and render at zero width. */
+main.nosb{grid-template-columns:minmax(0,1fr)}
+aside{border-right:1px solid var(--line);padding:11px;position:sticky;top:142px;
+  max-height:calc(100vh - 154px);overflow:auto;background:var(--bg)}
+main.nosb aside{display:none}
+aside h2{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);
+  margin:0 0 8px;font-weight:650}
+#search{width:100%;margin-bottom:7px}
+.sbtn{display:flex;gap:4px;margin-bottom:9px;flex-wrap:wrap}
+.sbtn button{padding:2.5px 8px;font-size:11px}
+.frow{display:flex;align-items:center;gap:7px;padding:2.5px 4px;border-radius:4px;
+  cursor:pointer;font-size:12px}
+.frow:hover{background:var(--panel)}
+.frow.pin{background:var(--sunk)}
+.sw{width:10px;height:10px;border-radius:2px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(128,128,128,.3)}
+.fname{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.fmax{font-family:var(--mono);font-size:10.5px;color:var(--ink3);flex:0 0 auto;
+  font-variant-numeric:tabular-nums}
+.frow input{margin:0;flex:0 0 auto;accent-color:var(--accent)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:9px 0}
+
+section.plots{padding:9px 16px 30px;min-width:0}
+.pwrap{position:relative;margin-bottom:2px}
+.plab{position:absolute;left:8px;top:4px;font-size:9.5px;color:var(--ink3);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:650;pointer-events:none;z-index:2}
+canvas{display:block;width:100%;touch-action:none}
+#overlay{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
+#stage{position:relative;cursor:crosshair}
+#tip{position:fixed;z-index:40;pointer-events:none;display:none;background:var(--bg);
+  border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11.5px;
+  box-shadow:0 8px 26px rgba(8,18,28,.20);max-width:300px}
+#tip .c{font-family:var(--mono);font-weight:600;margin-bottom:5px;
+  font-variant-numeric:tabular-nums}
+#tip table{border-collapse:collapse}
+#tip td{padding:0 6px 0 0;font-size:11px;white-space:nowrap}
+#tip td.v{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+footer{padding:4px 16px 28px;color:var(--ink3);font-size:11.5px;max-width:74ch}
+footer p{margin:0 0 7px}
+footer b{color:var(--ink2);font-weight:600}
+footer code{font-family:var(--mono);font-size:10.5px;background:var(--panel);
+  padding:.5px 4px;border-radius:3px}
+</style>
+
+<header>
+  <div class="tt"><h1 id="ttl"></h1><span class="sub" id="stl"></span></div>
+
+  <div class="bar">
+    <div class="grp" id="runsel"></div>
+
+    <div class="grp">
+      <input type="text" id="coord" placeholder="chrI:61200-61400" spellcheck="false">
+      <button id="go">Go</button>
+    </div>
+
+    <div class="grp">
+      <button id="zin" title="Zoom in (+)">＋</button>
+      <button id="zout" title="Zoom out (−)">−</button>
+      <button id="back" title="Previous view (←)">↩</button>
+      <button id="reset" title="Reset view">⟲</button>
+    </div>
+
+    <select id="sites"><option value="">Jump to a call…</option></select>
+
+    <div class="grp">
+      <label class="rb" id="fillbtn"><input type="checkbox" id="fill">fill</label>
+      <label class="rb" id="sbbtn"><input type="checkbox" id="sbtog" checked>factors</label>
+    </div>
+
+    <span id="msg"></span>
+  </div>
+
+  <div class="stats" id="stats"></div>
+</header>
+
+<main id="main">
+  <aside>
+    <h2>Factors in view</h2>
+    <input type="text" id="search" placeholder="filter…" spellcheck="false">
+    <div class="sbtn">
+      <button data-a="all">all</button><button data-a="none">none</button>
+      <button data-a="top">top 10</button><button data-a="inv">invert</button>
+    </div>
+    <div id="pinned"></div>
+    <hr class="sep">
+    <div id="flist"></div>
+  </aside>
+
+  <section class="plots">
+    <div id="stage">
+      <div class="pwrap"><div class="plab">posterior</div><canvas id="cPost"></canvas></div>
+      <div class="pwrap"><div class="plab">m6A per A &nbsp;·&nbsp; <span style="color:var(--wat)">watson</span> <span style="color:var(--cri)">crick</span></div><canvas id="cMeth"></canvas></div>
+      <div class="pwrap"><div class="plab" id="deplab">A-trials (depth)</div><canvas id="cDep"></canvas></div>
+      <div class="pwrap"><div class="plab" id="seqlab">AT fraction (7 bp)</div><canvas id="cSeq"></canvas></div>
+      <div class="pwrap"><div class="plab">genes</div><canvas id="cGene"></canvas></div>
+      <div class="pwrap"><canvas id="cAxis"></canvas></div>
+      <canvas id="overlay"></canvas>
+    </div>
+  </section>
+</main>
+
+<div id="tip"></div>
+
+<footer>
+  <p><b>Reading this.</b> Drag on any panel to zoom to that range · shift-drag to pan ·
+  wheel to zoom at the cursor · double-click to zoom out 2× · <code>↩</code> steps back
+  through views. The coordinate box accepts <code>chrI:61200-61400</code>,
+  <code>61200-61400</code>, or a bare position (centres a 400&nbsp;bp window).</p>
+  <p><b>Caveat.</b> <code>save_sparse_posterior</code>
+  (<code>pkg/robocop/robocop.py:31-33</code>) zeroes any posterior below
+  <code>1e-4</code> before writing, so a value rendered as 0 means &ldquo;&lt;1e-4&rdquo;,
+  not a true zero. Factors whose maximum over the loaded region stays under
+  <code>1e-3</code> are omitted entirely.</p>
+  <p id="prov"></p>
+</footer>
+
+<script id="DATA" type="application/json">{{DATA_JSON}}</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("DATA").textContent);
+const N = D.end - D.start + 1;
+const GUT = 54, RPAD = 12;
+const H = {cPost:330, cMeth:150, cDep:74, cSeq:66, cGene:52, cAxis:30};
+// One stroke pattern per run in compare mode. Indexed by run position, so this must
+// cover every run the page carries -- DASH[i] coming back undefined would throw in
+// setLineDash. The || [] is the backstop past the end of the table.
+const DASH = {0:[], 1:[7,4], 2:[2,3], 3:[10,3,2,3], 4:[5,2,1,2,1,2]};
+
+/* ---------- decode ---------- */
+const cache = new Map();
+function dense(run, f){
+  const key = run + "|" + f;
+  let a = cache.get(key);
+  if (a) return a;
+  a = new Float32Array(N);
+  const runs = D.runs[run].post[f];
+  if (runs) for (const seg of runs){
+    const off = seg[0], vals = seg[1];
+    for (let i = 0; i < vals.length; i++) a[off + i] = vals[i] / 1000;
+  }
+  cache.set(key, a);
+  return a;
+}
+
+/* ---------- state ---------- */
+const runIds = D.runOrder;
+let runMode = runIds[0];            // a run id, or "compare"
+let view = {s: D.view[0], e: D.view[1]};
+const hist = [];
+let checked = new Set(D.initialOn);
+let fillMode = false, filter = "";
+
+/* ---------- layout ---------- */
+const cv = {}; let plotW = 800, DPR = 1;
+for (const id of Object.keys(H)) cv[id] = document.getElementById(id);
+const ov = document.getElementById("overlay");
+
+function resize(){
+  DPR = window.devicePixelRatio || 1;
+  const w = Math.max(320, document.querySelector("section.plots").clientWidth - 28);
+  plotW = Math.max(240, w - GUT - RPAD);
+  let total = 0;
+  for (const id of Object.keys(H)){
+    const c = cv[id];
+    c.style.width = w + "px"; c.style.height = H[id] + "px";
+    c.width = Math.round(w * DPR); c.height = Math.round(H[id] * DPR);
+    c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+    total += H[id] + 2;
+  }
+  ov.style.width = w + "px"; ov.style.height = total + "px";
+  ov.width = Math.round(w * DPR); ov.height = Math.round(total * DPR);
+  ov.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+  draw();
+}
+
+const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const nView = () => view.e - view.s + 1;
+const xOf = p => GUT + (p - view.s + 0.5) / nView() * plotW;
+const posOf = px => Math.round(view.s + (px - GUT) / plotW * nView() - 0.5);
+
+/* ---------- axis helper ---------- */
+function ticks(span, target){
+  const raw = span / target;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 5, 10]) if (raw <= m * mag) return m * mag;
+  return 10 * mag;
+}
+const fmt = v => v.toLocaleString("en-US");
+
+function gridX(ctx, h){
+  const step = ticks(nView(), 8);
+  ctx.strokeStyle = css("--line2"); ctx.lineWidth = 1; ctx.beginPath();
+  for (let p = Math.ceil(view.s / step) * step; p <= view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5;
+    ctx.moveTo(x, 0); ctx.lineTo(x, h);
+  }
+  ctx.stroke();
+}
+function frame(ctx, w, h){
+  ctx.strokeStyle = css("--line"); ctx.lineWidth = 1;
+  ctx.strokeRect(GUT + 0.5, 0.5, plotW - 1, h - 1);
+}
+
+/* ---------- panel: posterior ---------- */
+function drawPost(){
+  const c = cv.cPost, ctx = c.getContext("2d"), h = H.cPost;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const y = v => h - 6 - v * (h - 20);
+  ctx.strokeStyle = css("--line2"); ctx.beginPath();
+  for (let v = 0; v <= 1.0001; v += 0.25){
+    const yy = Math.round(y(v)) + 0.5;
+    ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy);
+  }
+  ctx.stroke();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  for (let v = 0; v <= 1.0001; v += 0.25) ctx.fillText(v.toFixed(2), GUT - 6, y(v) + 3);
+  gridX(ctx, h);
+
+  const runs = runMode === "compare" ? runIds : [runMode];
+  const list = [...checked];
+  ctx.lineJoin = "round"; ctx.lineCap = "round";
+  for (const f of list){
+    for (let ri = 0; ri < runs.length; ri++){
+      const arr = dense(runs[ri], f);
+      if (fillMode && runs.length === 1){
+        ctx.fillStyle = (D.colors[f] || "#888") + "33";
+        areaSeries(ctx, arr, y);
+        ctx.fill();
+      }
+      ctx.setLineDash(runs.length > 1 ? (DASH[ri] || []) : []);
+      ctx.strokeStyle = D.colors[f] || "#888";
+      ctx.lineWidth = runs.length > 1 ? 1.3 : 1.6;
+      pathSeries(ctx, arr, y);
+      ctx.stroke();
+    }
+  }
+  ctx.setLineDash([]);
+  frame(ctx, c.width, h);
+}
+
+// A fillable region between the baseline and the curve. This cannot reuse pathSeries():
+// once downsampled, that path is a set of disjoint vertical strokes, and closing it fills
+// only the last subpath -- which is what produced the corner-to-corner wedge when filled
+// at spans above ~1.3 kb. Here the envelope's upper edge is walked as one continuous
+// polygon, so the fill means the same thing at every zoom.
+function areaSeries(ctx, arr, y){
+  const n = nView(), o = view.s - D.start, y0 = y(0);
+  ctx.beginPath();
+  let x0 = null, x1 = null;
+  if (n > plotW * 1.2){
+    for (let px = 0; px < plotW; px++){
+      const i0 = o + Math.floor(px * n / plotW);
+      const i1 = Math.min(o + n, o + Math.floor((px + 1) * n / plotW));
+      let mx = -Infinity;
+      for (let i = Math.max(0, i0); i < Math.min(N, i1); i++) if (arr[i] > mx) mx = arr[i];
+      if (mx === -Infinity) continue;
+      const x = GUT + px + 0.5;
+      if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+      ctx.lineTo(x, y(mx));
+      x1 = x;
+    }
+  } else {
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start;
+      if (i < 0 || i >= N) continue;
+      const x = xOf(p);
+      if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+      ctx.lineTo(x, y(arr[i]));
+      x1 = x;
+    }
+  }
+  if (x0 === null) return;
+  ctx.lineTo(x1, y0);
+  ctx.closePath();
+}
+
+// Builds a path; downsamples to a min/max envelope once there is >1 bp per pixel.
+function pathSeries(ctx, arr, y){
+  const n = nView(), o = view.s - D.start;
+  ctx.beginPath();
+  if (n > plotW * 1.2){
+    for (let px = 0; px < plotW; px++){
+      const i0 = o + Math.floor(px * n / plotW);
+      const i1 = Math.min(o + n, o + Math.floor((px + 1) * n / plotW));
+      let mn = Infinity, mx = -Infinity;
+      for (let i = Math.max(0, i0); i < Math.min(N, i1); i++){
+        const v = arr[i]; if (v < mn) mn = v; if (v > mx) mx = v;
+      }
+      if (mn === Infinity) continue;
+      const x = GUT + px + 0.5;
+      ctx.moveTo(x, y(mn)); ctx.lineTo(x, y(mx === mn ? mn + 1e-6 : mx));
+    }
+  } else {
+    let started = false;
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start;
+      if (i < 0 || i >= N) continue;
+      const x = xOf(p), yy = y(arr[i]);
+      if (!started){ ctx.moveTo(x, yy); started = true; } else ctx.lineTo(x, yy);
+    }
+  }
+}
+
+/* ---------- panel: m6A ---------- */
+function drawMeth(){
+  const c = cv.cMeth, ctx = c.getContext("2d"), h = H.cMeth;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const y = v => h - 6 - Math.min(v, 1) * (h - 20);
+  ctx.strokeStyle = css("--line2"); ctx.beginPath();
+  for (const v of [0, 0.25, 0.5, 0.75, 1]){
+    const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy);
+  }
+  ctx.stroke();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  for (const v of [0, 0.5, 1]) ctx.fillText(v.toFixed(2), GUT - 6, y(v) + 3);
+  gridX(ctx, h);
+
+  // reference levels: bg of the shown run(s) + Nhp6a's fitted rate
+  const refs = D.refs.filter(r => runMode === "compare" || !r.run || r.run === runMode);
+  ctx.setLineDash([4, 3]); ctx.lineWidth = 1; ctx.textAlign = "left"; ctx.font = "9.5px " + css("--mono");
+  for (const r of refs){
+    if (r.value > 1) continue;
+    const yy = Math.round(y(r.value)) + 0.5;
+    const rc = css(r.tone === "tf" ? "--ref2" : "--ref");
+    ctx.strokeStyle = rc; ctx.beginPath();
+    ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); ctx.stroke();
+    ctx.fillStyle = rc; ctx.fillText(r.label, GUT + 4, yy - 3);
+  }
+  ctx.setLineDash([]);
+
+  const F = D.runs[runMode === "compare" ? runIds[0] : runMode].fiber;
+  const n = nView(), r = n > plotW ? 1 : (n > plotW / 3 ? 1.6 : 2.6);
+  for (const [mk, ak, col] of [["mw","aw",css("--wat")], ["mc","ac",css("--cri")]]){
+    ctx.fillStyle = col;
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start;
+      if (i < 0 || i >= N) continue;
+      const a = F[ak][i]; if (!a) continue;
+      ctx.beginPath(); ctx.arc(xOf(p), y(F[mk][i] / a), r, 0, 6.2832); ctx.fill();
+    }
+  }
+  frame(ctx, c.width, h);
+}
+
+/* ---------- panel: depth ---------- */
+// A-trials live only on A (watson) / T (crick) reference bases, so the true track is a
+// comb that drops to 0 at every C and G. Draw it that way: per-base bars anchored on
+// base edges when they are wide enough to see, and a per-pixel max envelope when they
+// are not. An interpolated polyline here read as if C/G bases carried their neighbour's
+// depth, and Math.round() put the step boundary at the base centre, shifting it half a
+// base left.
+function drawDep(){
+  const c = cv.cDep, ctx = c.getContext("2d"), h = H.cDep;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const F = D.runs[runMode === "compare" ? runIds[0] : runMode].fiber;
+  const n = nView(), perBase = plotW / n;
+  const lab = document.getElementById("deplab");
+  let mx = 1;
+  for (let p = view.s; p <= view.e; p++){
+    const i = p - D.start; if (i < 0 || i >= N) continue;
+    const v = F.aw[i] + F.ac[i]; if (v > mx) mx = v;
+  }
+  const y = v => h - 4 - (v / mx) * (h - 16);
+  const y0 = y(0);
+  ctx.fillStyle = css("--depth"); ctx.globalAlpha = 0.75;
+  if (perBase >= 2.5){
+    lab.textContent = "A-trials per base";
+    const w = Math.max(1, perBase - (perBase >= 6 ? 1 : 0));
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const v = F.aw[i] + F.ac[i]; if (!v) continue;
+      ctx.fillRect(xOf(p) - w / 2, y(v), w, y0 - y(v));
+    }
+  } else {
+    lab.textContent = "A-trials (max per px)";
+    const col = new Float32Array(plotW);
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const v = F.aw[i] + F.ac[i]; if (!v) continue;
+      const k = Math.min(plotW - 1, Math.max(0, Math.floor((p - view.s) / n * plotW)));
+      if (v > col[k]) col[k] = v;
+    }
+    for (let px = 0; px < plotW; px++){
+      const v = col[px]; if (!v) continue;
+      ctx.fillRect(GUT + px, y(v), 1, y0 - y(v));
+    }
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  ctx.fillText(String(Math.round(mx)), GUT - 6, y(mx) + 8);
+  ctx.fillText("0", GUT - 6, y0);
+  frame(ctx, c.width, h);
+}
+
+/* ---------- panel: sequence / AT ---------- */
+function drawSeq(){
+  const c = cv.cSeq, ctx = c.getContext("2d"), h = H.cSeq;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), perBase = plotW / n;
+  const lab = document.getElementById("seqlab");
+  if (n <= 200 && perBase >= 5){
+    lab.textContent = "sequence";
+    ctx.font = "bold " + Math.min(13, Math.max(8, perBase * 0.85)).toFixed(1) + "px " + css("--mono");
+    ctx.textAlign = "center";
+    const cols = {A: css("--A"), T: css("--T"), C: css("--C"), G: css("--G")};
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const b = D.seq[i] || "N";
+      ctx.fillStyle = cols[b] || css("--ink3");
+      if (b === "A" || b === "T"){
+        ctx.globalAlpha = 0.13;
+        ctx.fillRect(xOf(p) - perBase / 2, 6, perBase, h - 12);
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillText(b, xOf(p), h / 2 + 5);
+    }
+  } else {
+    lab.textContent = "AT fraction (7 bp)";
+    const y = v => h - 5 - v * (h - 16);
+    ctx.strokeStyle = css("--line2"); ctx.beginPath();
+    for (const v of [0.5, 1]){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+    ctx.stroke();
+    ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+    ctx.fillText("1.0", GUT - 6, y(1) + 7); ctx.fillText("0.5", GUT - 6, y(0.5) + 3);
+    ctx.strokeStyle = css("--T"); ctx.lineWidth = 1.3; ctx.beginPath();
+    let started = false;
+    for (let px = 0; px < plotW; px++){
+      const p = Math.round(view.s + px / plotW * n), i = p - D.start;
+      if (i < 3 || i >= N - 3) continue;
+      let at = 0;
+      for (let k = -3; k <= 3; k++){ const b = D.seq[i + k]; if (b === "A" || b === "T") at++; }
+      const yy = y(at / 7);
+      if (!started){ ctx.moveTo(GUT + px, yy); started = true; } else ctx.lineTo(GUT + px, yy);
+    }
+    ctx.stroke();
+  }
+  frame(ctx, c.width, h);
+}
+
+/* ---------- panel: genes ---------- */
+function drawGene(){
+  const c = cv.cGene, ctx = c.getContext("2d"), h = H.cGene;
+  ctx.clearRect(0, 0, c.width, c.height);
+  gridX(ctx, h);
+  ctx.font = "11px " + css("--mono"); ctx.textAlign = "left";
+  for (const g of D.genes){
+    if (g.end < view.s || g.start > view.e) continue;
+    const x0 = Math.max(GUT, xOf(g.start)), x1 = Math.min(GUT + plotW, xOf(g.end));
+    const plus = g.strand === "+";
+    ctx.fillStyle = plus ? css("--plus") : css("--minus");
+    ctx.fillRect(x0, plus ? 12 : 28, Math.max(2, x1 - x0), 10);
+    ctx.fillStyle = css("--ink2");
+    ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(GUT + 3, x0 + 3), plus ? 10 : 50);
+  }
+  frame(ctx, c.width, h);
+}
+
+/* ---------- panel: axis ---------- */
+function drawAxis(){
+  const c = cv.cAxis, ctx = c.getContext("2d"), h = H.cAxis;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), step = ticks(n, 8);
+  ctx.strokeStyle = css("--line"); ctx.beginPath();
+  ctx.moveTo(GUT, 0.5); ctx.lineTo(GUT + plotW, 0.5); ctx.stroke();
+  ctx.fillStyle = css("--ink2"); ctx.font = "10.5px " + css("--mono"); ctx.textAlign = "center";
+  ctx.strokeStyle = css("--ink3"); ctx.beginPath();
+  for (let p = Math.ceil(view.s / step) * step; p <= view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5;
+    ctx.moveTo(x, 0); ctx.lineTo(x, 5);
+    ctx.fillText(fmt(p), x, 17);
+  }
+  // minor ticks once the view is tight enough to warrant them
+  if (n <= 200){
+    const minor = n <= 60 ? 1 : 10;
+    for (let p = Math.ceil(view.s / minor) * minor; p <= view.e; p += minor){
+      const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, 3);
+    }
+  }
+  ctx.stroke();
+  ctx.textAlign = "left"; ctx.fillStyle = css("--ink3");
+  ctx.fillText(D.chrom, 4, 17);
+}
+
+/* ---------- sidebar ---------- */
+function inViewMax(f){
+  const runs = runMode === "compare" ? runIds : [runMode];
+  let mx = 0;
+  for (const r of runs){
+    const a = dense(r, f), o = Math.max(0, view.s - D.start), e = Math.min(N, view.e - D.start + 1);
+    for (let i = o; i < e; i++) if (a[i] > mx) mx = a[i];
+  }
+  return mx;
+}
+function buildSidebar(){
+  const maxes = {}; for (const f of D.factors) maxes[f] = inViewMax(f);
+  const pin = D.pinned, rest = D.factors.filter(f => !pin.includes(f));
+  rest.sort((a, b) => maxes[b] - maxes[a] || a.localeCompare(b));
+  const row = f => {
+    const on = checked.has(f);
+    return `<label class="frow${pin.includes(f) ? " pin" : ""}" data-f="${f}">
+      <input type="checkbox" ${on ? "checked" : ""}>
+      <span class="sw" style="background:${D.colors[f] || "#888"}"></span>
+      <span class="fname" title="${f}">${D.labels[f] || f}</span>
+      <span class="fmax">${maxes[f] < 0.001 ? "·" : maxes[f].toFixed(2)}</span>
+    </label>`;
+  };
+  document.getElementById("pinned").innerHTML = pin.map(row).join("");
+  const q = filter.toLowerCase();
+  document.getElementById("flist").innerHTML = rest
+    .filter(f => !q || f.toLowerCase().includes(q) || (D.labels[f] || "").toLowerCase().includes(q))
+    .map(row).join("");
+  window._maxes = maxes;
+}
+document.addEventListener("change", e => {
+  const l = e.target.closest(".frow"); if (!l) return;
+  const f = l.dataset.f;
+  if (e.target.checked) checked.add(f); else checked.delete(f);
+  draw(true);
+});
+document.querySelectorAll(".sbtn button").forEach(b => b.onclick = () => {
+  const a = b.dataset.a, m = window._maxes || {};
+  if (a === "all") checked = new Set(D.factors);
+  else if (a === "none") checked = new Set();
+  else if (a === "inv") checked = new Set(D.factors.filter(f => !checked.has(f)));
+  else if (a === "top") checked = new Set([...D.factors].sort((x, y) => m[y] - m[x]).slice(0, 10));
+  draw();
+});
+document.getElementById("search").oninput = e => { filter = e.target.value; buildSidebar(); };
+
+/* ---------- view control ---------- */
+function setView(s, e, push = true){
+  s = Math.round(s); e = Math.round(e);
+  if (e - s < 19){ const c = (s + e) / 2; s = Math.round(c - 10); e = s + 20; }
+  if (s < D.start){ e += D.start - s; s = D.start; }
+  if (e > D.end){ s -= e - D.end; e = D.end; }
+  s = Math.max(D.start, s); e = Math.min(D.end, e);
+  if (push) hist.push({s: view.s, e: view.e});
+  view = {s, e};
+  draw();
+}
+function draw(skipSidebar){
+  if (!window._maxes) skipSidebar = false;
+  drawPost(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawAxis();
+  if (!skipSidebar) buildSidebar();
+  renderStats();
+  document.getElementById("coord").value = `${D.chrom}:${view.s}-${view.e}`;
+  clearOverlay();
+}
+
+// Summary before detail: what the current view actually contains, so the m6A question
+// is answerable without reading the dots.
+function renderStats(){
+  const shown = runMode === "compare" ? runIds[0] : runMode;
+  const F = D.runs[shown].fiber;
+  const a = Math.max(0, view.s - D.start), b = Math.min(N, view.e - D.start + 1);
+  let k = 0, n = 0, at = 0, bases = 0;
+  for (let i = a; i < b; i++){
+    k += F.mw[i] + F.mc[i]; n += F.aw[i] + F.ac[i];
+    const c = D.seq[i]; if (c === "A" || c === "T") at++;
+    bases++;
+  }
+  const ratio = n > 0 ? k / n : NaN;
+  const depth = bases > 0 ? n / bases : 0;
+  // rank by mean posterior over the view, not peak -- peak saturates at 1.00 for
+  // half the factors and stops discriminating.
+  let top = null, topv = 0;
+  for (const f of D.factors){
+    const arr = dense(shown, f);
+    let sum = 0;
+    for (let i = a; i < b; i++) sum += arr[i];
+    const mean = bases > 0 ? sum / bases : 0;
+    if (mean > topv){ topv = mean; top = f; }
+  }
+  const bgv = (D.refs.find(r => r.run === shown) || {}).value;
+  const cell = (kk, vv) => `<div class="stat"><div class="k">${kk}</div><div class="v">${vv}</div></div>`;
+  document.getElementById("stats").innerHTML =
+    cell("view", `${D.chrom}:${fmt(view.s)}–${fmt(view.e)} <small>${fmt(nView())} bp</small>`) +
+    cell("showing", runMode === "compare" ? `all 3 <small>tracks from ${shown}</small>` : shown) +
+    cell("mean m6A", isNaN(ratio) ? "–" :
+        `${ratio.toFixed(3)} ${bgv ? `<small>bg ${bgv.toFixed(3)}</small>` : ""}`) +
+    cell("mean depth", `${depth.toFixed(0)} <small>A-trials</small>`) +
+    cell("AT", (bases ? at / bases : 0).toFixed(2)) +
+    cell("top factor", top
+      ? `<span class="sw" style="display:inline-block;background:${D.colors[top]}"></span> ${D.labels[top] || top} <small>${topv.toFixed(2)}</small>`
+      : "–");
+}
+function zoom(factor, anchor){
+  const n = nView(), c = anchor === undefined ? (view.s + view.e) / 2 : anchor;
+  const nn = Math.max(20, Math.round(n * factor));
+  const frac = (c - view.s) / n;
+  setView(c - frac * nn, c - frac * nn + nn - 1);
+}
+
+document.getElementById("go").onclick = jump;
+document.getElementById("coord").addEventListener("keydown", e => { if (e.key === "Enter") jump(); });
+function jump(){
+  const msg = document.getElementById("msg"); msg.textContent = "";
+  let t = document.getElementById("coord").value.trim().replace(/,/g, "");
+  t = t.replace(/^[A-Za-z_0-9]+\s*:\s*/, "");
+  const m = t.match(/^(\d+)\s*(?:-|\.\.|to)\s*(\d+)$/);
+  let s, e;
+  if (m){ s = +m[1]; e = +m[2]; if (s > e){ const t2 = s; s = e; e = t2; } }
+  else if (/^\d+$/.test(t)){ s = +t - 200; e = +t + 199; }
+  else { msg.textContent = "could not parse that"; return; }
+  if (e < D.start || s > D.end){
+    msg.textContent = `outside the loaded region (${D.chrom}:${fmt(D.start)}-${fmt(D.end)})`;
+    return;
+  }
+  setView(s, e);
+}
+document.getElementById("zin").onclick = () => zoom(0.5);
+document.getElementById("zout").onclick = () => zoom(2);
+document.getElementById("reset").onclick = () => setView(D.view[0], D.view[1]);
+document.getElementById("back").onclick = () => { const h = hist.pop(); if (h) setView(h.s, h.e, false); };
+document.getElementById("fill").onchange = e => {
+  fillMode = e.target.checked;
+  document.getElementById("fillbtn").classList.toggle("on", fillMode); draw(true);
+};
+document.getElementById("sbtog").onchange = e => {
+  document.getElementById("main").classList.toggle("nosb", !e.target.checked);
+  document.getElementById("sbbtn").classList.toggle("on", e.target.checked);
+  requestAnimationFrame(resize);
+};
+document.getElementById("sbbtn").classList.add("on");
+
+// A call belongs to one run, so jumping to it switches to that run and makes sure the
+// factor that was called is actually visible -- otherwise you land on an empty panel.
+// Compare mode is left alone: it already shows every run at once.
+let flashT = null;
+function flash(text){
+  const m = document.getElementById("msg");
+  m.textContent = text;
+  if (flashT) clearTimeout(flashT);
+  flashT = setTimeout(() => { if (m.textContent === text) m.textContent = ""; }, 2600);
+}
+
+function setRun(r, redraw = true){
+  runMode = r;
+  document.querySelectorAll('#runsel label.rb').forEach(x => {
+    const on = x.dataset.r === r;
+    x.classList.toggle("on", on);
+    const i = x.querySelector("input"); if (i) i.checked = on;
+  });
+  if (redraw) draw();
+}
+
+document.getElementById("sites").onchange = e => {
+  if (!e.target.value) return;
+  const [s, en, run, factor] = e.target.value.split(",");
+  if (run && runMode !== "compare" && runMode !== run) setRun(run, false);
+  if (factor && D.factors.includes(factor) && !checked.has(factor)){
+    checked.add(factor);
+    flash(`${D.labels[factor] || factor} switched on`);
+  }
+  const a = Number(s), b = Number(en);
+  const pad = Math.max(60, Math.round((b - a) * 2));
+  setView(a - pad, b + pad);
+  e.target.value = "";
+};
+
+addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const n = nView();
+  if (e.key === "ArrowLeft") setView(view.s - n * 0.1, view.e - n * 0.1);
+  else if (e.key === "ArrowRight") setView(view.s + n * 0.1, view.e + n * 0.1);
+  else if (e.key === "+" || e.key === "=") zoom(0.5);
+  else if (e.key === "-") zoom(2);
+});
+
+/* ---------- mouse ---------- */
+const octx = ov.getContext("2d");
+function clearOverlay(){ octx.clearRect(0, 0, ov.width, ov.height); }
+let drag = null;
+const stage = document.getElementById("stage");
+
+stage.addEventListener("mousedown", e => {
+  const r = stage.getBoundingClientRect();
+  drag = {x0: e.clientX - r.left, pan: e.shiftKey, s0: view.s, e0: view.e};
+});
+addEventListener("mousemove", e => {
+  const r = stage.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  if (drag){
+    if (drag.pan){
+      const d = (drag.x0 - x) / plotW * (drag.e0 - drag.s0 + 1);
+      view = {s: Math.round(drag.s0 + d), e: Math.round(drag.e0 + d)};
+      if (view.s < D.start){ view.e += D.start - view.s; view.s = D.start; }
+      if (view.e > D.end){ view.s -= view.e - D.end; view.e = D.end; }
+      draw(true);
+    } else {
+      clearOverlay();
+      octx.fillStyle = css("--sel");
+      octx.fillRect(Math.min(drag.x0, x), 0, Math.abs(x - drag.x0), ov.height / DPR);
+    }
+    return;
+  }
+  if (x < GUT || x > GUT + plotW || y < 0 || y > ov.height / DPR || e.clientY < r.top){
+    hideTip(); return;
+  }
+  crosshair(x); showTip(e, posOf(x));
+});
+addEventListener("mouseup", e => {
+  if (!drag) return;
+  const r = stage.getBoundingClientRect(), x = e.clientX - r.left;
+  if (!drag.pan && Math.abs(x - drag.x0) > 4) setView(posOf(Math.min(drag.x0, x)), posOf(Math.max(drag.x0, x)));
+  else if (drag.pan) { hist.push({s: drag.s0, e: drag.e0}); }
+  drag = null; clearOverlay();
+});
+stage.addEventListener("dblclick", () => zoom(2));
+stage.addEventListener("wheel", e => {
+  e.preventDefault();
+  const r = stage.getBoundingClientRect();
+  zoom(e.deltaY > 0 ? 1.25 : 0.8, posOf(e.clientX - r.left));
+}, {passive: false});
+stage.addEventListener("mouseleave", hideTip);
+
+function crosshair(x){
+  clearOverlay();
+  octx.strokeStyle = css("--crosshair"); octx.lineWidth = 1; octx.setLineDash([3, 3]);
+  octx.beginPath(); octx.moveTo(Math.round(x) + 0.5, 0);
+  octx.lineTo(Math.round(x) + 0.5, ov.height / DPR); octx.stroke(); octx.setLineDash([]);
+}
+const tip = document.getElementById("tip");
+function hideTip(){ tip.style.display = "none"; }
+function showTip(ev, p){
+  const i = p - D.start;
+  if (i < 0 || i >= N){ hideTip(); return; }
+  const shown = runMode === "compare" ? runIds : [runMode];
+  const F = D.runs[shown[0]].fiber;
+  const nW = F.aw[i], nC = F.ac[i], kW = F.mw[i], kC = F.mc[i];
+  const ratio = (nW + nC) > 0 ? (kW + kC) / (nW + nC) : NaN;
+  const rows = D.factors.map(f => ({f, v: dense(shown[0], f)[i]}))
+    .filter(r => r.v >= 0.005).sort((a, b) => b.v - a.v).slice(0, 6);
+  tip.innerHTML =
+    `<div class="c">${D.chrom}:${fmt(p)} &nbsp;<span style="color:var(--T)">${D.seq[i] || "?"}</span></div>` +
+    `<table>
+      <tr><td>m6A watson</td><td class="v">${kW.toFixed(1)}/${nW.toFixed(0)}</td>
+          <td class="v">${nW > 0 ? (kW / nW).toFixed(3) : "–"}</td></tr>
+      <tr><td>m6A crick</td><td class="v">${kC.toFixed(1)}/${nC.toFixed(0)}</td>
+          <td class="v">${nC > 0 ? (kC / nC).toFixed(3) : "–"}</td></tr>
+      <tr><td><b>combined</b></td><td class="v">${(kW + kC).toFixed(1)}/${(nW + nC).toFixed(0)}</td>
+          <td class="v"><b>${isNaN(ratio) ? "–" : ratio.toFixed(3)}</b></td></tr>
+     </table>` +
+    (rows.length
+      ? `<table style="margin-top:5px">` + rows.map(r =>
+          `<tr><td><span class="sw" style="display:inline-block;background:${D.colors[r.f] || "#888"}"></span></td>
+           <td>${D.labels[r.f] || r.f}</td><td class="v">${r.v.toFixed(3)}</td></tr>`).join("") + `</table>`
+      : `<div style="margin-top:5px;color:var(--ink3)">no factor &ge; 0.005</div>`) +
+    (runMode === "compare" ? `<div style="margin-top:4px;color:var(--ink3)">values shown for ${shown[0]}</div>` : "");
+  tip.style.display = "block";
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.min(innerWidth - w - 8, ev.clientX + 14) + "px";
+  tip.style.top = Math.min(innerHeight - h - 8, ev.clientY + 14) + "px";
+}
+
+/* ---------- init ---------- */
+document.getElementById("ttl").textContent = D.title;
+document.getElementById("stl").textContent = D.subtitle;
+document.getElementById("prov").innerHTML = D.provenance;
+document.getElementById("runsel").innerHTML =
+  [...runIds, "compare"].map(r =>
+    `<label class="rb${r === runMode ? " on" : ""}" data-r="${r}">
+       <input type="radio" name="run" value="${r}" ${r === runMode ? "checked" : ""}>${r === "compare" ? "compare all" : r}
+     </label>`).join("");
+document.querySelectorAll('#runsel label.rb').forEach(l => l.onclick = () => setRun(l.dataset.r));
+document.getElementById("sites").innerHTML +=
+  D.sites.map(s => `<option value="${s.start},${s.end},${s.run},${s.factor}">${s.label}</option>`).join("");
+
+addEventListener("resize", resize);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(true));
+resize();
+</script>
