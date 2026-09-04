@@ -1,0 +1,9 @@
+chrom	run	reference	factor	n_ref	n_pred	tp	fp	fn	precision	recall	f1	enrichment	auroc	median_dist	call_threshold	global_max	tol_bp	mean_post_at_sites	mean_post_background
+chrXIV	seqem10	rossi	Abf1_murphy	32	1198	27	1171	5	0.0225376	0.84375	0.0439024	16.0463	0.659796	0	0.3	1	20	0.28947	0.0180396
+chrXIV	seqem10	rossi	Mcm1_zhu	9	251	2	249	7	0.00796813	0.222222	0.0153846	13.0417	0.670614	11.5	0.3	1	20	0.0501676	0.0038467
+chrXIV	seqem10	rossi	Rap1_telomeric	10	0	0	0	10		0	0	inf	0.5		0.1	0	20	0	0
+chrXIV	seqem10	rossi	Reb1_badis	31	518	24	494	7	0.046332	0.774194	0.0874317	37.248	0.63639	0	0.3	1	20	0.173313	0.00465294
+chrXIV	seqem10	rossi	Spt15_zhu	12	138	0	138	12	0	0	0	4.2642	0.598798		0.295961	0.986537	20	0.00661644	0.00155162
+chrXIV	seqem10	macisaac	Abf1_murphy	19	1198	11	1187	8	0.00918197	0.578947	0.0180772	10.6541	0.60576	1	0.3	1	20	0.195204	0.018322
+chrXIV	seqem10	macisaac	Reb1_badis	11	518	9	509	2	0.0173745	0.818182	0.0340265	37.2663	0.619793	0	0.3	1	20	0.179833	0.00482562
+chrXIV	seqem10	rossi	_other (32 factors)	58	2293	17	2276	41	0.00741387	0.293103	0.0144619			13			20		

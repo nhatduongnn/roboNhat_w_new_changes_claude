@@ -1,0 +1,169 @@
+# Per-TF Fiber-seq footprint pads, in the MOTIF's own 5'->3' frame.
+#   <tf>  <left>  <right>
+# A TF absent from this file gets 0/0, i.e. today's unwidened behaviour.
+# Read by make_meme_wide.py (sequence columns) and make_params_wide.py (Fiber vector),
+# so the two layers cannot disagree about a TF's width.
+# GENERATED -- do not hand-edit; see the header of each consumer.
+#
+# +/-150 on EVERY motif in inputs/motifs_meme.txt. The 12 fitted TFs use their own flanks
+# and their own +/-200bp Fiber profile; the other 141 share the pooled low-count estimate
+# on both layers (combined_low_count for Fiber, the pooled Rossi flank stack for sequence).
+# Same TF set as tf_pads_wide10all.tsv.  ('unknown' is not in the meme file and stays
+# unwidened.)
+#
+# 153 motifs x 300 extra columns = 45900 -> 91800 new states -> n_states 95285.
+#
+# tf                           left  right
+Abf1_murphy                  150   150
+Abf2_badis                   150   150
+Ace2_badis                   150   150
+Adr1_badis                   150   150
+Aft1_zhu                     150   150
+Aft2_badis                   150   150
+Aro80_zhu                    150   150
+Asg1_zhu                     150   150
+Azf1_badis                   150   150
+Bas1_zhu                     150   150
+Cad1_murphy                  150   150
+Cat8_badis                   150   150
+Cbf1_zhu                     150   150
+Cep3_badis                   150   150
+Cha4_zhu                     150   150
+Cin5_murphy                  150   150
+Crz1_badis                   150   150
+Cst6_murphy                  150   150
+Cup9_badis                   150   150
+Dal80_badis                  150   150
+Dal82_badis                  150   150
+Ecm22_murphy                 150   150
+Ecm23_badis                  150   150
+Fhl1_zhu                     150   150
+Fkh1_zhu                     150   150
+Fkh2_zhu                     150   150
+Fzf1_badis                   150   150
+Gal4_zhu                     150   150
+Gat1_zhu                     150   150
+Gat3_zhu                     150   150
+Gat4_zhu                     150   150
+Gcn4_zhu                     150   150
+Gcr1_murphy                  150   150
+Gis1_badis                   150   150
+Gln3_badis                   150   150
+Gsm1_zhu                     150   150
+Gzf3_zhu                     150   150
+Hac1_badis                   150   150
+Hal9_zhu                     150   150
+Hap1_murphy                  150   150
+Hcm1_badis                   150   150
+Hmlalpha2_murphy             150   150
+Hmra2_badis                  150   150
+Hsf1_badis                   150   150
+Leu3_zhu                     150   150
+Lys14_zhu                    150   150
+Matalpha2_zhu                150   150
+Mbp1_zhu                     150   150
+Mcm1_zhu                     150   150
+Met31_badis                  150   150
+Met32_badis                  150   150
+Mga1_zhu                     150   150
+Mig1_zhu                     150   150
+Mig2_zhu                     150   150
+Mig3_zhu                     150   150
+Mot3_murphy                  150   150
+Msn1_murphy                  150   150
+Msn2_badis                   150   150
+Msn4_badis                   150   150
+Ndt80_zhu                    150   150
+Nhp10_badis                  150   150
+Nhp6a_zhu                    150   150
+Nhp6b_zhu                    150   150
+Nrg1_zhu                     150   150
+Nrg2_murphy                  150   150
+Oaf1_badis                   150   150
+Pbf1_zhu                     150   150
+Pbf2_zhu                     150   150
+Pdr1_badis                   150   150
+Pdr3_murphy                  150   150
+Pdr8_badis                   150   150
+Phd1_zhu                     150   150
+Pho2_badis                   150   150
+Pho4_zhu                     150   150
+Put3_badis                   150   150
+Rap1_motif1                  150   150
+Rap1_motif2                  150   150
+Rap1_telomeric               150   150
+Rap1_zhu                     150   150
+Rdr1_zhu                     150   150
+Rds1_zhu                     150   150
+Rds2_badis                   150   150
+Reb1_badis                   150   150
+Rei1_badis                   150   150
+Rfx1_badis                   150   150
+Rgm1_badis                   150   150
+Rgt1_badis                   150   150
+Rim101_badis                 150   150
+Rox1_badis                   150   150
+Rph1_badis                   150   150
+Rpn4_badis                   150   150
+Rsc30_zhu                    150   150
+Rsc3_zhu                     150   150
+Rtg3_zhu                     150   150
+Sfl1_zhu                     150   150
+Sfp1_zhu                     150   150
+Sig1_badis                   150   150
+Sip4_badis                   150   150
+Skn7_badis                   150   150
+Sko1_murphy                  150   150
+Smp1_zhu                     150   150
+Sok2_badis                   150   150
+Spt15_zhu                    150   150
+Srd1_badis                   150   150
+Stb3_zhu                     150   150
+Stb4_murphy                  150   150
+Stb5_murphy                  150   150
+Ste12_murphy                 150   150
+Stp1_murphy                  150   150
+Stp2_zhu                     150   150
+Stp3_badis                   150   150
+Stp4_zhu                     150   150
+Sum1_zhu                     150   150
+Sut1_murphy                  150   150
+Sut2_zhu                     150   150
+Swi4_badis                   150   150
+Swi5_badis                   150   150
+Tbf1_zhu                     150   150
+Tbs1_zhu                     150   150
+Tea1_zhu                     150   150
+Tec1_badis                   150   150
+Tos8_badis                   150   150
+Tye7_zhu                     150   150
+Uga3_badis                   150   150
+Ume6_zhu                     150   150
+Upc2_murphy                  150   150
+Usv1_zhu                     150   150
+Vhr1_murphy                  150   150
+Xbp1_badis                   150   150
+Yap1_zhu                     150   150
+Yap3_murphy                  150   150
+Yap6_zhu                     150   150
+Ybr033w_murphy               150   150
+Ybr239c_zhu                  150   150
+Ydr520c_badis                150   150
+Yer064c_murphy               150   150
+Yer130c_badis                150   150
+Yer184c_murphy               150   150
+Ygr067c_badis                150   150
+Ykl222c_zhu                  150   150
+Yll054c_zhu                  150   150
+Ylr278c_murphy               150   150
+Yml081w_zhu                  150   150
+Ynr063w_badis                150   150
+Yox1_badis                   150   150
+Ypr013c_zhu                  150   150
+Ypr015c_zhu                  150   150
+Ypr022c_badis                150   150
+Ypr196w_badis                150   150
+Yrm1_badis                   150   150
+Yrr1_zhu                     150   150
+Zap1_murphy                  150   150
+Zms1_badis                   150   150

@@ -1,0 +1,725 @@
+chr	start	end	name	v	strand	in_body	near_rna	d_tss	d_end	in_prom	in_end	subtel	cls_prom_first	cls_body_first	ambiguous	n_pass	n_seen	best_fold	best_logp	has_motif
+chrIX	254325	254326	chr9_254325_254326	1000	.	False	False	-217.0	-535.0	True	False	False	promoter	promoter	False	3	3	5.797		True
+chrXIV	57826	57827	chr14_57826_57827	1000	.	False	False	-253.0	-982.0	True	False	False	promoter	promoter	False	3	3	4.722		True
+chrXIII	861241	861242	chr13_861241_861242	1000	.	False	False	-350.0	-2027.0	True	False	False	promoter	promoter	False	3	3	5.218		True
+chrXI	592691	592692	chr11_592691_592692	1000	.	False	False	-133.0	-1186.0	True	False	False	promoter	promoter	False	2	2	4.548	-659.409	True
+chrIV	1030381	1030382	chr4_1030381_1030382	1000	.	False	False	-332.0	168.0	True	True	False	promoter	promoter	True	2	2	4.853	-749.249	True
+chrXIV	34578	34579	chr14_34578_34579	1000	.	False	False	-117.0	-1285.0	True	False	False	promoter	promoter	False	3	3	4.455	-1003.923	True
+chrVIII	437138	437139	chr8_437138_437139	1000	.	False	False	-190.0	31.0	True	True	False	promoter	promoter	True	3	3	4.727	-684.712	True
+chrXIV	559498	559499	chr14_559498_559499	1000	.	False	False	-315.0	-981.0	True	False	False	promoter	promoter	False	3	3	5.001	-1024.086	True
+chrXII	253240	253241	chr12_253240_253241	1000	.	False	False	-160.0	-1718.0	True	False	False	promoter	promoter	False	2	2	4.548	-766.697	True
+chrXI	385411	385412	chr11_385411_385412	1000	.	False	False	-346.0	-1795.0	True	False	False	promoter	promoter	False	3	3	4.869	-1022.502	True
+chrX	94851	94852	chr10_94851_94852	1000	.	False	False	-240.0	290.0	True	True	False	promoter	promoter	True	2	2	4.337	-782.395	True
+chrXVI	95325	95326	chr16_95325_95326	1000	.	False	False	-216.0	46.0	True	True	False	promoter	promoter	True	2	2	4.558	-567.251	True
+chrII	216547	216548	chr2_216547_216548	1000	.	False	False	-163.0	39.0	True	True	False	promoter	promoter	True	2	2	4.291	-532.698	True
+chrIV	392635	392636	chr4_392635_392636	1000	.	False	False	-578.0	23.0	False	True	False	gene end	gene end	False	3	3	4.033	-627.805	True
+chrXII	73298	73299	chr12_73298_73299	1000	.	False	False	-110.0	-803.0	True	False	False	promoter	promoter	False	3	3	3.881	-673.208	True
+chrVII	1026778	1026779	chr7_1026778_1026779	1000	.	True	False	-125.0	-184.0	True	False	False	promoter	gene body	True	3	3	4.239	-606.065	True
+chrV	225581	225582	chr5_225581_225582	1000	.	False	False	-307.0	-1273.0	True	False	False	promoter	promoter	False	3	3	4.666		True
+chrXII	672954	672955	chr12_672954_672955	1000	.	False	False	-176.0	131.0	True	True	False	promoter	promoter	True	2	2	4.427	-490.173	True
+chrII	452410	452411	chr2_452410_452411	1000	.	False	False	-247.0	-814.0	True	False	False	promoter	promoter	False	2	2	5.527	-618.817	True
+chrXI	549447	549448	chr11_549447_549448	1000	.	True	False	0.0	356.0	True	False	False	promoter	gene body	True	2	2	4.392	-590.376	True
+chrX	136373	136374	chr10_136373_136374	1000	.	True	False	200.0	-2.0	False	True	False	gene end	gene body	True	3	3	3.757	-634.666	True
+chrIV	403555	403556	chr4_403555_403556	1000	.	False	False	-264.0	139.0	True	True	False	promoter	promoter	True	3	3	4.209	-423.579	True
+chrXII	82180	82181	chr12_82180_82181	1000	.	True	False	720.0	-1530.0	False	False	False	gene body	gene body	False	3	3	3.603	-521.7	True
+chrII	146016	146017	chr2_146016_146017	1000	.	False	False	-170.0	-869.0	True	False	False	promoter	promoter	False	3	3	4.61	-666.408	True
+chrIX	113541	113542	chr9_113541_113542	1000	.	False	False	-264.0	-3363.0	True	False	False	promoter	promoter	False	0	0			False
+chrVIII	255947	255948	chr8_255947_255948	1000	.	False	False	-191.0	-2071.0	True	False	False	promoter	promoter	False	2	2	4.527	-435.557	True
+chrXIV	187884	187885	chr14_187884_187885	1000	.	False	False	-166.0	-715.0	True	False	False	promoter	promoter	False	3	3	4.282	-599.582	True
+chrXII	704664	704665	chr12_704664_704665	1000	.	True	False	169.0	-34.0	False	True	False	gene end	gene body	True	3	3	5.383	-653.08	True
+chrIII	258758	258759	chr3_258758_258759	1000	.	False	False	-107.0	104.0	True	True	False	promoter	promoter	True	3	3	4.207	-398.215	True
+chrX	54257	54258	chr10_54257_54258	1000	.	True	False	33.0	74.0	True	True	False	promoter	gene body	True	3	3	4.62	-562.793	True
+chrIX	375263	375264	chr9_375263_375264	1000	.	False	False	-167.0	403.0	True	False	False	promoter	promoter	False	2	2	4.216	-387.293	True
+chrXIV	400693	400694	chr14_400693_400694	1000	.	False	False	-156.0	339.0	True	False	False	promoter	promoter	False	2	2	4.113	-447.156	True
+chrVII	81346	81347	chr7_81346_81347	1000	.	False	False	-160.0	79.0	True	True	False	promoter	promoter	True	2	2	4.007	-349.226	True
+chrXVI	482093	482094	chr16_482093_482094	1000	.	False	False	-192.0	-666.0	True	False	False	promoter	promoter	False	3	3	4.471	-475.216	True
+chrXII	921572	921573	chr12_921572_921573	1000	.	True	False	24.0	599.0	True	False	False	promoter	gene body	True	3	3	4.131	-435.928	True
+chrXI	75681	75682	chr11_75681_75682	1000	.	False	False	-139.0	-750.0	True	False	False	promoter	promoter	False	3	3	3.92	-544.139	True
+chrV	123484	123485	chr5_123484_123485	1000	.	False	False	-172.0	-687.0	True	False	False	promoter	promoter	False	3	3	4.298	-425.744	True
+chrXV	413711	413712	chr15_413711_413712	1000	.	False	False	-140.0	231.0	True	True	False	promoter	promoter	True	2	2	3.967	-401.918	True
+chrIV	330857	330858	chr4_330857_330858	1000	.	True	False	-166.0	-192.0	True	False	False	promoter	gene body	True	3	3	3.869	-514.032	True
+chrXII	332282	332283	chr12_332282_332283	1000	.	False	False	-167.0	-2606.0	True	False	False	promoter	promoter	False	3	3	4.845	-518.964	True
+chrXII	194278	194279	chr12_194278_194279	1000	.	False	False	-173.0	-896.0	True	False	False	promoter	promoter	False	3	3	3.455	-429.772	True
+chrIV	431633	431634	chr4_431633_431634	1000	.	False	False	-116.0	-526.0	True	False	False	promoter	promoter	False	3	3	3.68	-456.883	True
+chrVII	905547	905548	chr7_905547_905548	1000	.	True	False	311.0	-136.0	False	False	False	gene body	gene body	False	3	3	5.247	-574.174	True
+chrXIV	405794	405795	chr14_405794_405795	1000	.	False	False	-230.0	-2228.0	True	False	False	promoter	promoter	False	3	3	4.479	-583.847	True
+chrIV	1150644	1150645	chr4_1150644_1150645	1000	.	False	True	-124.0	-539.0	True	False	False	promoter	promoter	False	3	3	3.581	-539.398	True
+chrVI	54475	54476	chr6_54475_54476	1000	.	True	False	221.0	890.0	False	False	False	gene body	gene body	False	3	3	3.561	-473.592	True
+chrV	387030	387031	chr5_387030_387031	1000	.	False	False	-201.0	-765.0	True	False	False	promoter	promoter	False	3	3	4.335	-508.719	True
+chrIV	73456	73457	chr4_73456_73457	1000	.	True	False	462.0	989.0	False	False	False	gene body	gene body	False	3	3	4.736	-438.66	True
+chrXV	99584	99585	chr15_99584_99585	1000	.	False	False	-224.0	96.0	True	True	False	promoter	promoter	True	3	3	3.495	-439.273	True
+chrV	82908	82909	chr5_82908_82909	1000	.	False	False	-305.0	141.0	True	True	False	promoter	promoter	True	3	3	3.811	-452.146	True
+chrXII	198254	198255	chr12_198254_198255	1000	.	False	False	-169.0	1285.0	True	False	False	promoter	promoter	False	3	3	4.523	-447.593	True
+chrI	62664	62665	chr1_62664_62665	1000	.	False	False	-175.0	101.0	True	True	False	promoter	promoter	True	3	3	3.197	-370.397	True
+chrIV	1242802	1242803	chr4_1242802_1242803	1000	.	False	False	-427.0	-1599.0	True	False	False	promoter	promoter	False	3	3	4.726	-370.431	True
+chrVI	40313	40314	chr6_40313_40314	1000	.	False	False	-107.0	-1471.0	True	False	False	promoter	promoter	False	3	3	4.511	-497.875	True
+chrXIV	779006	779007	chr14_779006_779007	1000	.	False	False	-268.0	-1405.0	True	False	True	promoter	promoter	False	3	3	3.871	-394.466	True
+chrVI	225317	225318	chr6_225317_225318	1000	.	True	False	-548.0	-298.0	False	False	False	gene body	gene body	False	3	3	5.198	-472.778	True
+chrIII	103496	103497	chr3_103496_103497	1000	.	False	False	-138.0	74.0	True	True	False	promoter	promoter	True	2	2	3.369	-300.413	True
+chrIV	417064	417065	chr4_417064_417065	1000	.	False	False	-356.0	598.0	True	False	False	promoter	promoter	False	3	3	4.11	-448.918	True
+chrVIII	48131	48132	chr8_48131_48132	1000	.	False	False	-163.0	-2203.0	True	False	False	promoter	promoter	False	3	3	4.944	-538.04	False
+chrV	167721	167722	chr5_167721_167722	1000	.	False	True	-836.0	86.0	False	True	False	gene end	gene end	False	2	2	3.429	-346.58	True
+chrXV	186891	186892	chr15_186891_186892	1000	.	False	False	-132.0	-1044.0	True	False	False	promoter	promoter	False	3	3	3.604	-395.273	True
+chrXI	417046	417047	chr11_417046_417047	1000	.	False	False	-133.0	461.0	True	False	False	promoter	promoter	False	2	2	3.358	-329.155	True
+chrII	444885	444886	chr2_444885_444886	1000	.	False	False	-192.0	176.0	True	True	False	promoter	promoter	True	2	2	3.558	-305.165	True
+chrXIII	392627	392628	chr13_392627_392628	1000	.	False	False	-112.0	-1096.0	True	False	False	promoter	promoter	False	2	2	3.605	-288.136	True
+chrIV	867902	867903	chr4_867902_867903	1000	.	False	False	-321.0	-2661.0	True	False	False	promoter	promoter	False	3	3	3.957	-469.825	True
+chrIV	199839	199840	chr4_199839_199840	1000	.	False	False	-107.0	-1178.0	True	False	False	promoter	promoter	False	3	3	4.002	-385.788	True
+chrXIV	412620	412621	chr14_412620_412621	1000	.	False	False	-150.0	63.0	True	True	False	promoter	promoter	True	3	3	3.6	-342.469	True
+chrXIII	69863	69864	chr13_69863_69864	1000	.	True	False	-137.0	-129.0	True	False	False	promoter	gene body	True	3	3	3.977	-326.239	True
+chrX	316603	316604	chr10_316603_316604	1000	.	False	False	-119.0	-377.0	True	False	False	promoter	promoter	False	3	3	4.194	-381.349	True
+chrXIII	104336	104337	chr13_104336_104337	1000	.	False	False	-174.0	-354.0	True	False	False	promoter	promoter	False	3	3	3.743	-462.905	True
+chrXI	435100	435101	chr11_435100_435101	1000	.	False	False	-223.0	-1685.0	True	False	False	promoter	promoter	False	3	3	4.064	-350.183	True
+chrVIII	498575	498576	chr8_498575_498576	1000	.	True	False	-153.0	-5.0	True	True	False	promoter	gene body	True	3	3	3.418	-290.067	True
+chrXV	432019	432020	chr15_432019_432020	1000	.	False	False	-166.0	-1354.0	True	False	False	promoter	promoter	False	2	2	3.486	-304.796	True
+chrXV	201935	201936	chr15_201935_201936	1000	.	False	False	-56.0	49.0	True	True	False	promoter	promoter	True	3	3	3.728	-329.315	True
+chrXV	371011	371012	chr15_371011_371012	1000	.	False	False	-167.0	-488.0	True	False	False	promoter	promoter	False	3	3	4.405	-417.922	True
+chrII	141106	141107	chr2_141106_141107	1000	.	False	False	-140.0	-866.0	True	False	False	promoter	promoter	False	2	2	3.836	-249.07	True
+chrVII	999298	999299	chr7_999298_999299	1000	.	False	False	-158.0	-941.0	True	False	False	promoter	promoter	False	2	2	3.442	-329.76	True
+chrXIV	91670	91671	chr14_91670_91671	1000	.	False	False	-323.0	246.0	True	True	False	promoter	promoter	True	3	3	4.503	-337.808	True
+chrX	608118	608119	chr10_608118_608119	1000	.	False	False	-186.0	-740.0	True	False	False	promoter	promoter	False	2	2	3.861	-339.459	True
+chrIV	1317985	1317986	chr4_1317985_1317986	1000	.	False	False	-212.0	60.0	True	True	False	promoter	promoter	True	2	2	3.383	-233.837	True
+chrVI	164896	164897	chr6_164896_164897	1000	.	False	False	-170.0	150.0	True	True	False	promoter	promoter	True	3	3	3.575	-388.732	True
+chrXII	912452	912453	chr12_912452_912453	1000	.	False	False	-142.0	97.0	True	True	False	promoter	promoter	True	2	2	3.77	-293.177	True
+chrXII	855710	855711	chr12_855710_855711	1000	.	True	False	-65.0	-133.0	True	False	False	promoter	gene body	True	3	3	3.366	-366.178	True
+chrIV	930731	930732	chr4_930731_930732	1000	.	False	False	-374.0	-1262.0	True	False	False	promoter	promoter	False	2	2	3.74	-396.481	True
+chrXV	256225	256226	chr15_256225_256226	1000	.	False	False	-519.0	124.0	False	True	False	gene end	gene end	False	2	2	3.465	-248.851	True
+chrXIV	283736	283737	chr14_283736_283737	1000	.	False	False	-523.0	727.0	False	False	False	other intergenic	other intergenic	False	2	2	3.75	-445.426	True
+chrXI	500133	500134	chr11_500133_500134	1000	.	False	False	-148.0	-970.0	True	False	False	promoter	promoter	False	3	3	4.161	-442.864	True
+chrXIV	350114	350115	chr14_350114_350115	1000	.	True	False	-358.0	-208.0	True	False	False	promoter	gene body	True	3	3	4.438	-395.439	True
+chrVII	548345	548346	chr7_548345_548346	1000	.	True	False	82.0	876.0	True	False	False	promoter	gene body	True	3	3	3.931	-295.176	True
+chrIV	1125228	1125229	chr4_1125228_1125229	1000	.	False	False	-73.0	205.0	True	True	False	promoter	promoter	True	3	3	3.652	-302.054	True
+chrII	535088	535089	chr2_535088_535089	1000	.	False	False	-171.0	271.0	True	True	False	promoter	promoter	True	2	2	3.542	-229.61	True
+chrIV	62241	62242	chr4_62241_62242	1000	.	True	False	231.0	2.0	False	True	False	gene end	gene body	True	3	3	4.837	-313.402	True
+chrXI	499947	499948	chr11_499947_499948	1000	.	False	False	-114.0	-1156.0	True	False	False	promoter	promoter	False	3	3	3.562	-346.501	True
+chrIV	1055031	1055032	chr4_1055031_1055032	1000	.	False	False	-180.0	-861.0	True	False	False	promoter	promoter	False	3	3	3.986	-324.329	True
+chrVIII	164871	164872	chr8_164871_164872	1000	.	False	False	-160.0	106.0	True	True	False	promoter	promoter	True	3	3	4.019	-284.603	True
+chrXVI	792558	792559	chr16_792558_792559	1000	.	False	False	-128.0	815.0	True	False	False	promoter	promoter	False	3	3	3.953	-331.124	True
+chrXV	722747	722748	chr15_722747_722748	1000	.	True	False	-163.0	139.0	True	True	False	promoter	gene body	True	3	3	5.253	-519.914	True
+chrXVI	795592	795593	chr16_795592_795593	1000	.	True	False	628.0	-175.0	False	False	False	gene body	gene body	False	2	3	2.46	-215.981	True
+chrIII	164330	164331	chr3_164330_164331	1000	.	True	False	-474.0	-220.0	True	False	False	promoter	gene body	True	2	2	3.36	-229.324	True
+chrVII	727555	727556	chr7_727555_727556	1000	.	True	False	582.0	-175.0	False	False	False	gene body	gene body	False	3	3	2.415	-204.885	True
+chrIV	1196430	1196431	chr4_1196430_1196431	1000	.	False	False	-167.0	248.0	True	True	False	promoter	promoter	True	2	2	3.797	-236.539	True
+chrVI	225150	225151	chr6_225150_225151	1000	.	True	False	-381.0	-131.0	True	False	False	promoter	gene body	True	3	3	4.757	-687.125	True
+chrVII	859691	859692	chr7_859691_859692	1000	.	False	False	-215.0	209.0	True	True	False	promoter	promoter	True	3	3	4.033	-330.282	True
+chrVII	1027143	1027144	chr7_1027143_1027144	1000	.	False	False	-226.0	181.0	True	True	False	promoter	promoter	True	3	3	4.896	-355.613	True
+chrIX	292354	292355	chr9_292354_292355	1000	.	False	False	-37.0	-394.0	True	False	False	promoter	promoter	False	2	2	3.299	-206.268	True
+chrX	449078	449079	chr10_449078_449079	1000	.	False	False	-123.0	-602.0	True	False	False	promoter	promoter	False	2	2	3.307	-212.933	True
+chrXII	504180	504181	chr12_504180_504181	1000	.	True	False	-410.0	-67.0	True	True	False	promoter	gene body	True	3	3	4.22	-264.267	True
+chrVI	210241	210242	chr6_210241_210242	1000	.	False	True	-173.0	-1829.0	True	False	False	promoter	promoter	False	3	3	4.198	-302.321	True
+chrXIII	244012	244013	chr13_244012_244013	1000	.	True	False	-136.0	-52.0	True	True	False	promoter	gene body	True	3	3	4.412	-299.226	True
+chrXII	127397	127398	chr12_127397_127398	1000	.	False	False	-125.0	142.0	True	True	False	promoter	promoter	True	3	3	3.484	-252.798	True
+chrXI	82777	82778	chr11_82777_82778	1000	.	False	False	-169.0	138.0	True	True	False	promoter	promoter	True	3	3	5.224	-302.611	True
+chrII	75075	75076	chr2_75075_75076	1000	.	False	False	-183.0	-2006.0	True	False	False	promoter	promoter	False	2	2	3.607	-220.657	True
+chrI	61170	61171	chr1_61170_61171	1000	.	False	False	-118.0	60.0	True	True	False	promoter	promoter	True	2	2	3.453	-193.712	True
+chrXVI	678845	678846	chr16_678845_678846	1000	.	False	False	-105.0	-525.0	True	False	False	promoter	promoter	False	3	3	4.182	-333.226	True
+chrVII	601495	601496	chr7_601495_601496	1000	.	False	False	-165.0	354.0	True	False	False	promoter	promoter	False	3	3	3.854	-290.704	True
+chrIV	172329	172330	chr4_172329_172330	1000	.	False	False	148.0	16.0	False	True	False	gene end	gene end	False	3	3	5.5	-306.47	True
+chrXIV	174770	174771	chr14_174770_174771	1000	.	False	False	-455.0	-2183.0	True	False	False	promoter	promoter	False	2	2	3.543	-307.761	True
+chrXIII	397814	397815	chr13_397814_397815	1000	.	False	False	-88.0	18.0	True	True	False	promoter	promoter	True	3	3	3.892	-245.819	True
+chrII	392541	392542	chr2_392541_392542	1000	.	False	False	-248.0	-737.0	True	False	False	promoter	promoter	False	3	3	4.505	-557.235	True
+chrXIII	337639	337640	chr13_337639_337640	1000	.	False	False	-148.0	36.0	True	True	False	promoter	promoter	True	3	3	3.928	-287.118	True
+chrIV	190728	190729	chr4_190728_190729	1000	.	False	False	-142.0	-1533.0	True	False	False	promoter	promoter	False	3	3	4.264	-287.673	True
+chrXV	780751	780752	chr15_780751_780752	1000	.	False	True	-154.0	567.0	True	False	False	promoter	promoter	False	2	2	2.131	-169.616	True
+chrXIV	507479	507480	chr14_507479_507480	1000	.	False	False	-278.0	-1223.0	True	False	False	promoter	promoter	False	3	3	4.807	-306.379	True
+chrVII	272086	272087	chr7_272086_272087	1000	.	True	False	-433.0	-53.0	True	True	False	promoter	gene body	True	3	3	4.862	-425.234	True
+chrIV	242169	242170	chr4_242169_242170	1000	.	False	False	-382.0	329.0	True	False	False	promoter	promoter	False	2	2	3.755	-181.057	True
+chrXI	513107	513108	chr11_513107_513108	1000	.	True	True	52.0	-1109.0	True	False	False	promoter	gene body	True	0	0			False
+chrXII	605124	605125	chr12_605124_605125	1000	.	False	True	-337.0	245.0	True	True	False	promoter	promoter	True	3	3	3.449	-284.352	True
+chrVIII	209409	209410	chr8_209409_209410	1000	.	False	False	-65.0	106.0	True	True	False	promoter	promoter	True	3	3	3.559	-304.351	True
+chrXVI	641563	641564	chr16_641563_641564	1000	.	False	False	-644.0	605.0	False	False	False	other intergenic	other intergenic	False	3	3	4.593	-388.756	True
+chrIV	1087424	1087425	chr4_1087424_1087425	1000	.	False	False	-156.0	431.0	True	False	False	promoter	promoter	False	3	3	3.717	-263.18	True
+chrVII	23457	23458	chr7_23457_23458	1000	.	False	False	-477.0	254.0	True	True	True	promoter	promoter	True	3	3	4.472	-384.956	True
+chrVII	699929	699930	chr7_699929_699930	1000	.	False	False	-143.0	-941.0	True	False	False	promoter	promoter	False	3	3	4.632	-272.407	True
+chrII	770764	770765	chr2_770764_770765	1000	.	False	False	-349.0	-1822.0	True	False	False	promoter	promoter	False	3	3	4.722	-593.89	True
+chrIV	1277457	1277458	chr4_1277457_1277458	1000	.	False	False	-188.0	-804.0	True	False	False	promoter	promoter	False	2	2	3.708	-325.959	True
+chrVII	996723	996724	chr7_996723_996724	1000	.	False	False	-145.0	494.0	True	False	False	promoter	promoter	False	3	3	3.812	-245.775	True
+chrVIII	98313	98314	chr8_98313_98314	1000	.	False	False	-376.0	29.0	True	True	False	promoter	promoter	True	3	3	3.347	-300.292	True
+chrXV	380828	380829	chr15_380828_380829	1000	.	False	False	-224.0	22.0	True	True	False	promoter	promoter	True	3	3	3.568	-309.435	True
+chrII	770740	770741	chr2_770740_770741	1000	.	False	False	-325.0	-1798.0	True	False	False	promoter	promoter	False	3	3	4.722	-593.89	True
+chrXII	47657	47658	chr12_47657_47658	1000	.	False	False	-194.0	201.0	True	True	False	promoter	promoter	True	3	3	2.851	-235.395	True
+chrXI	125619	125620	chr11_125619_125620	1000	.	False	False	-139.0	76.0	True	True	False	promoter	promoter	True	2	2	3.385	-186.262	True
+chrXV	233914	233915	chr15_233914_233915	1000	.	False	True	-278.0	-1469.0	True	False	False	promoter	promoter	False	3	3	3.302	-287.546	True
+chrXI	385255	385256	chr11_385255_385256	1000	.	False	False	-502.0	-1951.0	False	False	False	other intergenic	other intergenic	False	3	3	4.67	-379.239	True
+chrVII	607254	607255	chr7_607254_607255	1000	.	False	False	-308.0	111.0	True	True	False	promoter	promoter	True	2	2	3.616	-181.057	True
+chrVII	974656	974657	chr7_974656_974657	1000	.	True	False	121.0	-80.0	False	True	False	gene end	gene body	True	3	3	4.567	-319.512	True
+chrV	409553	409554	chr5_409553_409554	1000	.	False	False	-490.0	-2212.0	True	False	False	promoter	promoter	False	3	3	3.722	-196.201	True
+chrXIV	58026	58027	chr14_58026_58027	1000	.	False	False	-128.0	-782.0	True	False	False	promoter	promoter	False	3	3	4.645	-304.315	True
+chrXI	99902	99903	chr11_99902_99903	1000	.	False	False	-768.0	261.0	False	True	False	gene end	gene end	False	3	3	4.361	-373.382	True
+chrIX	113433	113434	chr9_113433_113434	1000	.	False	False	-196.0	-3471.0	True	False	False	promoter	promoter	False	3	3	4.408	-967.958	True
+chrXVI	822168	822169	chr16_822168_822169	1000	.	False	True	-451.0	-2170.0	True	False	False	promoter	promoter	False	3	3	3.182	-200.91	True
+chrVII	750259	750260	chr7_750259_750260	1000	.	False	False	-140.0	-788.0	True	False	False	promoter	promoter	False	2	2	3.326	-176.649	True
+chrIV	1020505	1020506	chr4_1020505_1020506	1000	.	False	False	-241.0	85.0	True	True	False	promoter	promoter	True	2	2	3.486	-187.098	True
+chrXIV	695457	695458	chr14_695457_695458	1000	.	False	False	-130.0	-406.0	True	False	False	promoter	promoter	False	3	3	3.95	-197.448	True
+chrVII	428336	428337	chr7_428336_428337	1000	.	False	False	-264.0	-1040.0	True	False	False	promoter	promoter	False	3	3	4.562	-298.91	True
+chrXIV	160517	160518	chr14_160517_160518	1000	.	False	False	-144.0	113.0	True	True	False	promoter	promoter	True	2	2	3.503	-174.116	True
+chrXV	606329	606330	chr15_606329_606330	1000	.	False	False	-158.0	151.0	True	True	False	promoter	promoter	True	2	2	3.188	-203.136	True
+chrII	159967	159968	chr2_159967_159968	1000	.	False	False	-216.0	-1312.0	True	False	False	promoter	promoter	False	3	3	3.804	-326.59	True
+chrXI	429150	429151	chr11_429150_429151	1000	.	False	False	-151.0	-958.0	True	False	False	promoter	promoter	False	3	3	4.334	-247.349	True
+chrXV	761423	761424	chr15_761423_761424	1000	.	True	False	32.0	190.0	True	True	False	promoter	gene body	True	3	3	4.824	-231.701	True
+chrXI	327970	327971	chr11_327970_327971	1000	.	False	False	-483.0	147.0	True	True	False	promoter	promoter	True	3	3	5.077	-282.974	True
+chrX	684396	684397	chr10_684396_684397	1000	.	False	False	-170.0	-4925.0	True	False	False	promoter	promoter	False	2	2	2.82	-143.177	True
+chrXIV	707650	707651	chr14_707650_707651	1000	.	False	False	-137.0	42.0	True	True	False	promoter	promoter	True	3	3	4.089	-163.749	True
+chrIV	1328633	1328634	chr4_1328633_1328634	1000	.	True	False	-149.0	-68.0	True	True	False	promoter	gene body	True	2	2	3.87	-172.334	True
+chrVIII	227289	227290	chr8_227289_227290	1000	.	False	False	-148.0	242.0	True	True	False	promoter	promoter	True	3	3	4.06	-285.276	True
+chrII	299989	299990	chr2_299989_299990	1000	.	False	False	-176.0	39.0	True	True	False	promoter	promoter	True	1	1	3.135	-91.301	True
+chrI	45325	45326	chr1_45325_45326	1000	.	False	False	-303.0	-2445.0	True	False	False	promoter	promoter	False	3	3	4.233	-329.892	True
+chrIV	251403	251404	chr4_251403_251404	1000	.	False	False	-162.0	165.0	True	True	False	promoter	promoter	True	2	2	3.609	-173.295	True
+chrXIV	408184	408185	chr14_408184_408185	1000	.	False	False	-156.0	162.0	True	True	False	promoter	promoter	True	3	3	4.746	-219.166	True
+chrIV	836225	836226	chr4_836225_836226	1000	.	False	False	-195.0	2.0	True	True	False	promoter	promoter	True	1	1	4.68	-57.447	True
+chrXVI	901678	901679	chr16_901678_901679	1000	.	False	False	-365.0	120.0	True	True	False	promoter	promoter	True	3	3	3.912	-232.383	True
+chrXI	571308	571309	chr11_571308_571309	1000	.	False	False	-303.0	-981.0	True	False	False	promoter	promoter	False	3	3	3.555	-243.746	True
+chrI	108795	108796	chr1_108795_108796	1000	.	False	False	-244.0	81.0	True	True	False	promoter	promoter	True	3	3	4.465	-141.945	True
+chrXIII	527657	527658	chr13_527657_527658	1000	.	False	False	-146.0	158.0	True	True	False	promoter	promoter	True	3	3	3.286	-160.095	True
+chrIV	1031820	1031821	chr4_1031820_1031821	1000	.	False	False	-401.0	-1271.0	True	False	False	promoter	promoter	False	3	3	3.38	-212.983	True
+chrVII	867650	867651	chr7_867650_867651	1000	.	False	False	-123.0	-1315.0	True	False	False	promoter	promoter	False	3	3	5.015	-199.584	True
+chrX	407415	407416	chr10_407415_407416	1000	.	True	False	11.0	142.0	True	True	False	promoter	gene body	True	3	3	4.552	-187.193	True
+chrXIV	622779	622780	chr14_622779_622780	1000	.	False	False	-135.0	-1467.0	True	False	False	promoter	promoter	False	3	3	3.225	-204.484	True
+chrXV	544498	544499	chr15_544498_544499	1000	.	False	False	-353.0	-1835.0	True	False	False	promoter	promoter	False	2	2	3.755	-235.765	True
+chrXV	544516	544517	chr15_544516_544517	1000	.	False	False	-371.0	-1817.0	True	False	False	promoter	promoter	False	2	2	3.755	-231.37	True
+chrXIV	515067	515068	chr14_515067_515068	1000	.	False	False	-132.0	695.0	True	False	False	promoter	promoter	False	3	3	3.582	-175.314	True
+chrIII	24644	24645	chr3_24644_24645	1000	.	False	False	-123.0	-613.0	True	False	True	promoter	promoter	False	3	3	3.634	-214.056	True
+chrXV	817142	817143	chr15_817142_817143	1000	.	False	False	-149.0	-1193.0	True	False	False	promoter	promoter	False	3	3	3.373	-161.687	True
+chrIV	1386656	1386657	chr4_1386656_1386657	1000	.	False	False	-159.0	140.0	True	True	False	promoter	promoter	True	3	3	4.104	-178.403	True
+chrV	422083	422084	chr5_422083_422084	1000	.	True	False	363.0	-969.0	False	False	False	gene body	gene body	False	2	2	3.026	-116.106	True
+chrXVI	828427	828428	chr16_828427_828428	1000	.	False	False	-287.0	-1595.0	True	False	False	promoter	promoter	False	0	0			False
+chrXII	514949	514950	chr12_514949_514950	1000	.	False	False	-236.0	-842.0	True	False	False	promoter	promoter	False	2	2	3.784	-184.834	True
+chrII	258154	258155	chr2_258154_258155	1000	.	False	False	-179.0	992.0	True	False	False	promoter	promoter	False	3	3	4.09	-208.714	True
+chrXIII	659362	659363	chr13_659362_659363	1000	.	False	False	-164.0	-818.0	True	False	False	promoter	promoter	False	2	2	3.266	-136.755	True
+chrX	663269	663270	chr10_663269_663270	1000	.	True	True	-210.0	-11.0	True	True	False	promoter	gene body	True	2	2	3.478	-103.518	True
+chrIV	636207	636208	chr4_636207_636208	1000	.	True	False	320.0	32.0	False	True	False	gene end	gene body	True	3	3	3.865	-219.604	True
+chrXV	631922	631923	chr15_631922_631923	1000	.	False	False	-171.0	-957.0	True	False	False	promoter	promoter	False	1	1	3.322	-8.723	False
+chrVIII	422555	422556	chr8_422555_422556	1000	.	False	False	-269.0	-906.0	True	False	False	promoter	promoter	False	3	3	3.882	-376.575	True
+chrXV	921406	921407	chr15_921406_921407	1000	.	False	False	-344.0	128.0	True	True	False	promoter	promoter	True	3	3	4.309	-181.55	True
+chrIII	216497	216498	chr3_216497_216498	1000	.	False	False	-199.0	52.0	True	True	False	promoter	promoter	True	3	3	3.688	-166.0	True
+chrII	47270	47271	chr2_47270_47271	1000	.	False	False	-90.0	92.0	True	True	False	promoter	promoter	True	3	3	3.305	-145.418	True
+chrXIV	466730	466731	chr14_466730_466731	1000	.	False	False	397.0	88.0	False	True	False	gene end	gene end	False	2	2	3.082	-141.046	True
+chrXII	795231	795232	chr12_795231_795232	1000	.	False	True	668.0	341.0	False	False	False	other intergenic	other intergenic	False	1	1	1.943	-84.777	False
+chrVII	596358	596359	chr7_596358_596359	1000	.	False	False	-334.0	-1373.0	True	False	False	promoter	promoter	False	3	3	4.024	-260.317	True
+chrXIII	790003	790004	chr13_790003_790004	1000	.	False	False	-164.0	201.0	True	True	False	promoter	promoter	True	2	2	2.812	-116.895	True
+chrXV	970117	970118	chr15_970117_970118	1000	.	False	False	-460.0	-1777.0	True	False	False	promoter	promoter	False	3	3	3.529	-201.238	True
+chrXIV	167963	167964	chr14_167963_167964	1000	.	False	False	-173.0	79.0	True	True	False	promoter	promoter	True	3	3	3.864	-177.663	True
+chrVIII	284743	284744	chr8_284743_284744	1000	.	False	False	-118.0	95.0	True	True	False	promoter	promoter	True	2	2	3.062	-140.621	True
+chrX	683832	683833	chr10_683832_683833	1000	.	False	False	-547.0	-4876.0	False	False	False	other intergenic	other intergenic	False	1	1	2.853	-86.725	True
+chrVII	131400	131401	chr7_131400_131401	1000	.	False	False	-124.0	231.0	True	True	False	promoter	promoter	True	2	2	3.154	-121.78	True
+chrXIII	701335	701336	chr13_701335_701336	1000	.	False	False	-296.0	-2032.0	True	False	False	promoter	promoter	False	2	2	3.369	-178.991	True
+chrX	94686	94687	chr10_94686_94687	1000	.	False	False	-156.0	125.0	True	True	False	promoter	promoter	True	2	2	3.153	-210.944	True
+chrVIII	50863	50864	chr8_50863_50864	1000	.	False	False	-247.0	283.0	True	True	False	promoter	promoter	True	3	3	4.051	-186.181	True
+chrIII	65724	65725	chr3_65724_65725	1000	.	False	False	-156.0	209.0	True	True	False	promoter	promoter	True	2	2	2.949	-126.728	True
+chrXIV	694174	694175	chr14_694174_694175	1000	.	False	False	-127.0	186.0	True	True	False	promoter	promoter	True	3	3	3.471	-148.65	True
+chrXV	738157	738158	chr15_738157_738158	1000	.	False	False	-162.0	-375.0	True	False	False	promoter	promoter	False	2	2	3.285	-152.594	True
+chrVII	848279	848280	chr7_848279_848280	1000	.	True	False	144.0	549.0	False	False	False	gene body	gene body	False	2	2	2.431	-37.828	True
+chrXVI	736827	736828	chr16_736827_736828	1000	.	False	False	-394.0	156.0	True	True	False	promoter	promoter	True	3	3	4.766	-167.524	True
+chrXI	525190	525191	chr11_525190_525191	1000	.	False	False	-66.0	196.0	True	True	False	promoter	promoter	True	3	3	3.798	-171.377	True
+chrII	682062	682063	chr2_682062_682063	1000	.	False	True	1028.0	116.0	False	True	False	gene end	gene end	False	2	2	3.594	-162.492	True
+chrXV	216486	216487	chr15_216486_216487	1000	.	False	False	-349.0	-1962.0	True	False	False	promoter	promoter	False	3	3	3.434	-202.927	False
+chrXI	21500	21501	chr11_21500_21501	1000	.	False	False	-733.0	-2584.0	False	False	True	other intergenic	other intergenic	False	3	3	4.117	-139.8	True
+chrXII	924816	924817	chr12_924816_924817	1000	.	False	False	-72.0	-264.0	True	False	False	promoter	promoter	False	3	3	3.909	-208.277	True
+chrIV	1367327	1367328	chr4_1367327_1367328	1000	.	False	False	-157.0	45.0	True	True	False	promoter	promoter	True	3	3	3.28	-163.368	True
+chrX	415893	415894	chr10_415893_415894	1000	.	False	True	-1123.0	-1609.0	False	False	False	other intergenic	other intergenic	False	3	3	3.373	-486.971	True
+chrXVI	594029	594030	chr16_594029_594030	1000	.	False	False	-112.0	-544.0	True	False	False	promoter	promoter	False	2	2	2.669	-109.099	True
+chrXVI	911121	911122	chr16_911121_911122	1000	.	False	False	-99.0	-679.0	True	False	False	promoter	promoter	False	1	1	2.787	-61.887	True
+chrIV	1490754	1490755	chr4_1490754_1490755	1000	.	True	False	159.0	-81.0	False	True	False	gene end	gene body	True	0	0			False
+chrXII	796707	796708	chr12_796707_796708	1000	.	True	True	371.0	-10.0	False	True	False	gene end	gene body	True	0	0			False
+chrXV	1009828	1009829	chr15_1009828_1009829	1000	.	False	False	-116.0	-605.0	True	False	False	promoter	promoter	False	2	2	2.993	-114.309	True
+chrXII	721647	721648	chr12_721647_721648	1000	.	False	False	-217.0	53.0	True	True	False	promoter	promoter	True	2	2	3.236	-108.027	True
+chrIV	121868	121869	chr4_121868_121869	1000	.	False	False	-276.0	-1721.0	True	False	False	promoter	promoter	False	3	3	3.193	-141.825	True
+chrX	640516	640517	chr10_640516_640517	1000	.	False	False	-308.0	65.0	True	True	False	promoter	promoter	True	3	3	4.065	-160.02	True
+chrIX	285357	285358	chr9_285357_285358	1000	.	False	False	-308.0	-2072.0	True	False	False	promoter	promoter	False	2	2	3.291	-98.626	True
+chrVII	625363	625364	chr7_625363_625364	1000	.	True	False	-577.0	-40.0	False	True	False	gene end	gene body	True	3	3	3.956	-182.852	True
+chrXIII	241909	241910	chr13_241909_241910	1000	.	False	False	-373.0	79.0	True	True	False	promoter	promoter	True	2	2	2.913	-137.358	True
+chrII	647330	647331	chr2_647330_647331	1000	.	False	False	-198.0	-1173.0	True	False	False	promoter	promoter	False	2	2	3.125	-124.586	True
+chrIX	96737	96738	chr9_96737_96738	1000	.	False	True	-12.0	-216.0	True	False	False	promoter	promoter	False	2	2	2.837	-227.898	True
+chrXI	578396	578397	chr11_578396_578397	1000	.	True	False	111.0	-210.0	False	False	False	gene body	gene body	False	3	3	3.701	-162.197	True
+chrVII	280689	280690	chr7_280689_280690	1000	.	False	False	-166.0	87.0	True	True	False	promoter	promoter	True	3	3	3.358	-141.578	True
+chrX	703731	703732	chr10_703731_703732	1000	.	False	False	-153.0	-507.0	True	False	False	promoter	promoter	False	3	3	4.496	-192.411	True
+chrV	404528	404529	chr5_404528_404529	1000	.	False	False	-176.0	-1658.0	True	False	False	promoter	promoter	False	1	1	2.72	-72.137	True
+chrVIII	55470	55471	chr8_55470_55471	1000	.	True	False	620.0	-379.0	False	False	False	gene body	gene body	False	1	1	2.177	-41.222	True
+chrXVI	113996	113997	chr16_113996_113997	1000	.	True	False	-1315.0	-319.0	False	False	False	gene body	gene body	False	3	3	3.237	-121.506	True
+chrX	604369	604370	chr10_604369_604370	1000	.	False	False	-166.0	199.0	True	True	False	promoter	promoter	True	3	3	4.37	-150.935	True
+chrXIV	413359	413360	chr14_413359_413360	1000	.	False	False	-279.0	160.0	True	True	False	promoter	promoter	True	1	1	2.896	-46.798	False
+chrXII	125142	125143	chr12_125142_125143	1000	.	False	False	-391.0	-2113.0	True	False	False	promoter	promoter	False	3	3	3.838	-224.267	True
+chrXIII	675375	675376	chr13_675375_675376	1000	.	False	False	-520.0	-1462.0	False	False	False	other intergenic	other intergenic	False	3	3	5.068	-163.672	True
+chrVII	306429	306430	chr7_306429_306430	1000	.	False	False	-130.0	-580.0	True	False	False	promoter	promoter	False	2	2	3.027	-102.411	True
+chrVIII	341630	341631	chr8_341630_341631	1000	.	False	False	-34.0	-490.0	True	False	False	promoter	promoter	False	2	2	2.687	-95.988	True
+chrXIV	140638	140639	chr14_140638_140639	1000	.	False	False	-239.0	253.0	True	True	False	promoter	promoter	True	3	3	3.739	-160.224	True
+chrXII	384650	384651	chr12_384650_384651	1000	.	False	False	-116.0	74.0	True	True	False	promoter	promoter	True	3	3	3.418	-130.634	True
+chrV	491225	491226	chr5_491225_491226	1000	.	False	False	-261.0	304.0	True	False	False	promoter	promoter	False	1	1	3.319	-207.395	False
+chrXII	581893	581894	chr12_581893_581894	1000	.	False	False	-122.0	112.0	True	True	False	promoter	promoter	True	3	3	3.753	-137.171	True
+chrIII	262824	262825	chr3_262824_262825	1000	.	False	False	-91.0	-445.0	True	False	False	promoter	promoter	False	2	2	3.824	-176.419	False
+chrVII	465604	465605	chr7_465604_465605	1000	.	False	False	-169.0	-562.0	True	False	False	promoter	promoter	False	1	1	3.046	-71.051	True
+chrVI	58393	58394	chr6_58393_58394	1000	.	False	False	-388.0	684.0	True	False	False	promoter	promoter	False	3	3	3.597	-161.108	True
+chrXII	921597	921598	chr12_921597_921598	1000	.	False	False	-1.0	624.0	True	False	False	promoter	promoter	False	3	3	4.131	-400.232	True
+chrIV	341288	341289	chr4_341288_341289	1000	.	False	False	-330.0	-661.0	True	False	False	promoter	promoter	False	1	1	3.05	-21.705	False
+chrII	615465	615466	chr2_615465_615466	1000	.	True	False	391.0	-263.0	False	False	False	gene body	gene body	False	3	3	2.763	-103.322	True
+chrX	623436	623437	chr10_623436_623437	1000	.	False	False	-144.0	-887.0	True	False	False	promoter	promoter	False	3	3	3.93	-152.991	True
+chrIV	848059	848060	chr4_848059_848060	1000	.	False	False	-11.0	-164.0	True	False	False	promoter	promoter	False	1	1	3.567	-80.814	True
+chrV	382363	382364	chr5_382363_382364	1000	.	False	False	-260.0	231.0	True	True	False	promoter	promoter	True	2	2	3.392	-84.508	True
+chrXI	93455	93456	chr11_93455_93456	1000	.	False	False	-157.0	-712.0	True	False	False	promoter	promoter	False	1	1	2.736	-50.59	True
+chrXIV	624520	624521	chr14_624520_624521	1000	.	True	False	1309.0	-101.0	False	False	False	gene body	gene body	False	3	3	2.723	-117.025	True
+chrIV	1289028	1289029	chr4_1289028_1289029	1000	.	False	False	-169.0	-814.0	True	False	False	promoter	promoter	False	0	3	3.364	-136.334	False
+chrXI	385624	385625	chr11_385624_385625	1000	.	False	False	-133.0	-1582.0	True	False	False	promoter	promoter	False	2	2	3.304	-173.018	True
+chrXII	838655	838656	chr12_838655_838656	225	.	True	False	598.0	-590.0	False	False	False	gene body	gene body	False	0	0			False
+chrIV	1385909	1385910	chr4_1385909_1385910	1000	.	False	False	-143.0	-386.0	True	False	False	promoter	promoter	False	2	2	2.641	-83.636	True
+chrVIII	267376	267377	chr8_267376_267377	1000	.	False	False	-161.0	-716.0	True	False	False	promoter	promoter	False	3	3	3.097	-96.886	True
+chrXIII	453862	453863	chr13_453862_453863	1000	.	False	False	-152.0	-1694.0	True	False	False	promoter	promoter	False	2	2	2.971	-101.98	True
+chrXI	469520	469521	chr11_469520_469521	1000	.	False	False	-196.0	-1819.0	True	False	False	promoter	promoter	False	3	3	3.393	-174.776	True
+chrXI	361981	361982	chr11_361981_361982	1000	.	False	False	-153.0	-924.0	True	False	False	promoter	promoter	False	1	1	2.703	-47.338	True
+chrXI	402248	402249	chr11_402248_402249	1000	.	False	False	-168.0	-1270.0	True	False	False	promoter	promoter	False	2	2	3.216	-89.401	True
+chrVII	76540	76541	chr7_76540_76541	1000	.	False	False	-353.0	-1367.0	True	False	False	promoter	promoter	False	1	1	3.227	-271.383	False
+chrVII	482230	482231	chr7_482230_482231	182	.	True	False	436.0	710.0	False	False	False	gene body	gene body	False	0	0			False
+chrXVI	701756	701757	chr16_701756_701757	792	.	True	False	1163.0	-214.0	False	False	False	gene body	gene body	False	2	2	2.395	-89.92	False
+chrXV	472343	472344	chr15_472343_472344	1000	.	True	False	-381.0	-254.0	True	False	False	promoter	gene body	True	1	1	2.498	-127.814	False
+chrIV	272057	272058	chr4_272057_272058	1000	.	False	False	-156.0	-1540.0	True	False	False	promoter	promoter	False	2	2	3.032	-83.976	True
+chrX	83895	83896	chr10_83895_83896	1000	.	False	False	-172.0	76.0	True	True	False	promoter	promoter	True	2	2	3.213	-173.288	True
+chrXII	1043740	1043741	chr12_1043740_1043741	1000	.	False	False	-257.0	-1942.0	True	False	False	promoter	promoter	False	2	2	3.231	-102.729	True
+chrIX	261038	261039	chr9_261038_261039	1000	.	False	False	-398.0	119.0	True	True	False	promoter	promoter	True	3	3	4.205	-132.248	True
+chrIV	848188	848189	chr4_848188_848189	1000	.	True	False	118.0	-35.0	False	True	False	gene end	gene body	True	0	0			False
+chrXV	1003354	1003355	chr15_1003354_1003355	1000	.	False	False	-129.0	-2208.0	True	False	False	promoter	promoter	False	2	2	2.906	-89.356	True
+chrIV	87361	87362	chr4_87361_87362	1000	.	False	False	-135.0	-621.0	True	False	False	promoter	promoter	False	3	3	4.284	-121.989	True
+chrVII	1058960	1058961	chr7_1058960_1058961	1000	.	False	False	-236.0	54.0	True	True	False	promoter	promoter	True	2	2	3.095	-110.43	True
+chrXI	263203	263204	chr11_263203_263204	1000	.	False	False	-145.0	90.0	True	True	False	promoter	promoter	True	3	3	3.894	-177.915	True
+chrII	478785	478786	chr2_478785_478786	772	.	True	False	-552.0	-262.0	False	False	False	gene body	gene body	False	2	2	2.378	-87.432	False
+chrVI	224986	224987	chr6_224986_224987	1000	.	False	False	-217.0	33.0	True	True	False	promoter	promoter	True	0	0			False
+chrIV	1402852	1402853	chr4_1402852_1402853	865	.	False	True	-469.0	288.0	True	True	False	promoter	promoter	True	2	2	2.562	-85.248	False
+chrXIII	742861	742862	chr13_742861_742862	1000	.	False	False	-109.0	-583.0	True	False	False	promoter	promoter	False	2	2	2.643	-75.587	True
+chrXIV	48157	48158	chr14_48157_48158	1000	.	False	False	-129.0	-1059.0	True	False	False	promoter	promoter	False	2	2	3.042	-92.826	True
+chrV	225475	225476	chr5_225475_225476	1000	.	False	False	-276.0	-1379.0	True	False	False	promoter	promoter	False	0	0			True
+chrV	85261	85262	chr5_85261_85262	1000	.	True	False	284.0	-217.0	False	False	False	gene body	gene body	False	2	2	3.387	-50.927	False
+chrXIII	831587	831588	chr13_831587_831588	1000	.	False	False	-258.0	-1666.0	True	False	False	promoter	promoter	False	2	2	3.301	-95.909	True
+chrXV	117567	117568	chr15_117567_117568	1000	.	False	False	-113.0	-1172.0	True	False	False	promoter	promoter	False	2	2	2.949	-101.297	True
+chrV	509988	509989	chr5_509988_509989	1000	.	False	False	-384.0	190.0	True	True	False	promoter	promoter	True	3	3	3.991	-178.203	True
+chrX	555062	555063	chr10_555062_555063	1000	.	False	False	-132.0	-510.0	True	False	False	promoter	promoter	False	1	1	3.142	-54.455	True
+chrXIV	283866	283867	chr14_283866_283867	1000	.	False	False	-393.0	857.0	True	False	False	promoter	promoter	False	0	0			False
+chrIX	348977	348978	chr9_348977_348978	1000	.	False	False	-144.0	-1026.0	True	False	False	promoter	promoter	False	3	3	3.183	-115.93	True
+chrXV	780492	780493	chr15_780492_780493	236	.	False	True	-413.0	308.0	True	False	False	promoter	promoter	False	1	1	1.214	-20.58	False
+chrVIII	422655	422656	chr8_422655_422656	1000	.	False	False	-369.0	-806.0	True	False	False	promoter	promoter	False	0	0			False
+chrIV	652517	652518	chr4_652517_652518	1000	.	False	False	-1089.0	-1911.0	False	False	False	other intergenic	other intergenic	False	1	1	3.078	-43.368	False
+chrIII	61526	61527	chr3_61526_61527	1000	.	False	False	-131.0	-686.0	True	False	False	promoter	promoter	False	2	2	2.686	-80.483	True
+chrXVI	892210	892211	chr16_892210_892211	1000	.	False	False	-121.0	102.0	True	True	False	promoter	promoter	True	2	2	3.167	-74.066	True
+chrXIV	500566	500567	chr14_500566_500567	260	.	False	False	886.0	310.0	False	False	False	other intergenic	other intergenic	False	1	1	1.429	-36.844	True
+chrII	145975	145976	chr2_145975_145976	1000	.	False	False	-211.0	-910.0	True	False	False	promoter	promoter	False	1	1	3.964	-283.726	True
+chrXIII	434440	434441	chr13_434440_434441	1000	.	False	False	-347.0	-1475.0	True	False	False	promoter	promoter	False	3	3	4.714	-147.378	True
+chrVI	103345	103346	chr6_103345_103346	1000	.	False	False	-218.0	-587.0	True	False	False	promoter	promoter	False	1	1	3.064	-56.312	True
+chrIV	452838	452839	chr4_452838_452839	1000	.	False	False	-206.0	-812.0	True	False	False	promoter	promoter	False	3	3	3.68	-144.979	True
+chrIX	399664	399665	chr9_399664_399665	1000	.	False	False	-112.0	428.0	True	False	False	promoter	promoter	False	3	3	3.454	-213.496	True
+chrIV	1276524	1276525	chr4_1276524_1276525	1000	.	False	False	645.0	129.0	False	True	False	gene end	gene end	False	3	3	3.688	-117.172	True
+chrXIV	247281	247282	chr14_247281_247282	1000	.	False	False	-177.0	-822.0	True	False	False	promoter	promoter	False	1	1	2.909	-51.173	True
+chrXII	232466	232467	chr12_232466_232467	75	.	True	False	-453.0	-77.0	True	True	False	promoter	gene body	True	2	2	1.647	-15.294	False
+chrXVI	656688	656689	chr16_656688_656689	970	.	False	False	-110.0	-656.0	True	False	False	promoter	promoter	False	3	3	3.436	-84.563	True
+chrIV	228989	228990	chr4_228989_228990	1000	.	False	False	-181.0	274.0	True	True	False	promoter	promoter	True	2	2	3.06	-82.083	True
+chrVII	481781	481782	chr7_481781_481782	67	.	True	False	885.0	1159.0	False	False	False	gene body	gene body	False	0	0			False
+chrXIII	424827	424828	chr13_424827_424828	908	.	False	False	-99.0	-1232.0	True	False	False	promoter	promoter	False	3	3	3.636	-73.4	True
+chrXIII	861334	861335	chr13_861334_861335	1000	.	False	False	-443.0	-2120.0	True	False	False	promoter	promoter	False	2	2	4.637	-494.238	True
+chrIV	716756	716757	chr4_716756_716757	1000	.	False	False	-134.0	33.0	True	True	False	promoter	promoter	True	2	2	2.858	-68.062	True
+chrXII	720497	720498	chr12_720497_720498	847	.	False	False	-127.0	273.0	True	True	False	promoter	promoter	True	3	3	3.088	-78.362	True
+chrXVI	554466	554467	chr16_554466_554467	1000	.	False	False	-138.0	-840.0	True	False	False	promoter	promoter	False	2	2	2.535	-71.182	True
+chrXII	665227	665228	chr12_665227_665228	1000	.	False	False	-225.0	-1944.0	True	False	False	promoter	promoter	False	3	3	3.315	-86.771	True
+chrXVI	251915	251916	chr16_251915_251916	1000	.	False	False	-247.0	118.0	True	True	False	promoter	promoter	True	2	2	2.754	-38.122	True
+chrX	207703	207704	chr10_207703_207704	1000	.	False	False	-173.0	254.0	True	True	False	promoter	promoter	True	1	1	2.515	-21.57	True
+chrXVI	75298	75299	chr16_75298_75299	1000	.	False	False	-403.0	400.0	True	False	False	promoter	promoter	False	2	2	2.635	-99.017	True
+chrXVI	277702	277703	chr16_277702_277703	1000	.	False	False	-173.0	692.0	True	False	False	promoter	promoter	False	3	3	3.778	-115.615	True
+chrX	312834	312835	chr10_312834_312835	991	.	False	False	-128.0	181.0	True	True	False	promoter	promoter	True	2	2	3.195	-107.378	True
+chrXVI	701332	701333	chr16_701332_701333	500	.	True	False	739.0	-638.0	False	False	False	gene body	gene body	False	2	2	2.414	-42.642	False
+chrIV	198549	198550	chr4_198549_198550	1000	.	False	False	-373.0	112.0	True	True	False	promoter	promoter	True	3	3	3.211	-88.39	True
+chrII	394218	394219	chr2_394218_394219	475	.	True	False	1096.0	-524.0	False	False	False	gene body	gene body	False	1	3	1.916	-31.289	True
+chrXV	772336	772337	chr15_772336_772337	1000	.	False	False	-264.0	223.0	True	True	False	promoter	promoter	True	2	2	3.455	-81.263	True
+chrXIII	408074	408075	chr13_408074_408075	1000	.	True	False	366.0	490.0	False	False	False	gene body	gene body	False	1	1	2.548	-91.097	False
+chrXIII	271991	271992	chr13_271991_271992	1000	.	False	False	-201.0	-645.0	True	False	False	promoter	promoter	False	3	3	3.86	-317.105	False
+chrXIII	272010	272011	chr13_272010_272011	1000	.	False	False	-182.0	-653.0	True	False	False	promoter	promoter	False	3	3	3.86	-317.105	False
+chrXI	176633	176634	chr11_176633_176634	1000	.	False	False	-147.0	-791.0	True	False	False	promoter	promoter	False	3	3	3.015	-117.665	True
+chrXV	643292	643293	chr15_643292_643293	1000	.	True	False	552.0	-15.0	False	True	False	gene end	gene body	True	3	3	3.068	-97.464	True
+chrIV	501660	501661	chr4_501660_501661	1000	.	False	False	561.0	92.0	False	True	False	gene end	gene end	False	1	1	3.028	-40.401	True
+chrXI	554793	554794	chr11_554793_554794	1000	.	False	False	-193.0	173.0	True	True	False	promoter	promoter	True	3	3	4.025	-188.191	True
+chrIV	542197	542198	chr4_542197_542198	852	.	False	True	-994.0	476.0	False	False	False	other intergenic	other intergenic	False	1	1	2.463	-38.324	True
+chrIV	1489223	1489224	chr4_1489223_1489224	424	.	False	False	-179.0	-269.0	True	False	False	promoter	promoter	False	2	2	1.942	-50.465	False
+chrXVI	529482	529483	chr16_529482_529483	1000	.	False	False	-132.0	-498.0	True	False	False	promoter	promoter	False	3	3	4.65	-110.743	True
+chrXVI	666163	666164	chr16_666163_666164	1000	.	True	False	80.0	-376.0	True	False	False	promoter	gene body	True	3	3	3.926	-68.356	True
+chrXII	862399	862400	chr12_862399_862400	1000	.	False	False	-145.0	-682.0	True	False	False	promoter	promoter	False	3	3	4.581	-120.895	True
+chrII	297944	297945	chr2_297944_297945	1000	.	False	False	-202.0	-1576.0	True	False	False	promoter	promoter	False	3	3	3.214	-108.415	True
+chrXVI	257323	257324	chr16_257323_257324	1000	.	True	False	-556.0	-108.0	False	False	False	gene body	gene body	False	0	0			False
+chrIX	399485	399486	chr9_399485_399486	1000	.	False	False	-291.0	249.0	True	True	False	promoter	promoter	True	0	0			False
+chrX	83749	83750	chr10_83749_83750	1000	.	True	False	302.0	-70.0	False	True	False	gene end	gene body	True	0	0			False
+chrXIII	408397	408398	chr13_408397_408398	1000	.	True	False	689.0	-169.0	False	False	False	gene body	gene body	False	1	1	4.161	-115.229	True
+chrX	521899	521900	chr10_521899_521900	974	.	False	False	-148.0	-1963.0	True	False	False	promoter	promoter	False	2	2	2.685	-64.964	True
+chrXV	83342	83343	chr15_83342_83343	1000	.	False	False	-422.0	-1556.0	True	False	False	promoter	promoter	False	3	3	4.06	-198.214	True
+chrI	124681	124682	chr1_124681_124682	1000	.	False	False	-189.0	73.0	True	True	False	promoter	promoter	True	1	1	2.55	-37.454	True
+chrXV	722733	722734	chr15_722733_722734	1000	.	True	False	169.0	125.0	False	True	False	gene end	gene body	True	3	3	5.253	-519.914	True
+chrVII	729868	729869	chr7_729868_729869	968	.	False	False	-197.0	164.0	True	True	False	promoter	promoter	True	2	2	2.628	-56.77	True
+chrXI	99848	99849	chr11_99848_99849	1000	.	False	False	-822.0	207.0	False	True	False	gene end	gene end	False	1	1	3.635	-125.279	False
+chrIV	1127707	1127708	chr4_1127707_1127708	925	.	False	False	-112.0	-1438.0	True	False	False	promoter	promoter	False	3	3	3.24	-38.754	True
+chrIV	1277472	1277473	chr4_1277472_1277473	1000	.	False	False	-173.0	-819.0	True	False	False	promoter	promoter	False	2	2	3.708	-325.959	True
+chrVI	90463	90464	chr6_90463_90464	768	.	False	False	-118.0	-2617.0	True	False	False	promoter	promoter	False	3	3	2.833	-32.478	True
+chrVII	883150	883151	chr7_883150_883151	155	.	True	False	660.0	-339.0	False	False	False	gene body	gene body	False	0	0			False
+chrXVI	118131	118132	chr16_118131_118132	1000	.	False	False	-250.0	444.0	True	False	False	promoter	promoter	False	3	3	3.455	-192.188	True
+chrXIII	245921	245922	chr13_245921_245922	1000	.	False	False	-7.0	18.0	True	True	False	promoter	promoter	True	1	1	2.937	-77.837	True
+chrVII	953665	953666	chr7_953665_953666	1000	.	False	False	-185.0	-981.0	True	False	False	promoter	promoter	False	2	2	2.763	-79.601	True
+chrXII	65597	65598	chr12_65597_65598	837	.	False	False	-390.0	177.0	True	True	False	promoter	promoter	True	0	0			False
+chrII	478401	478402	chr2_478401_478402	493	.	True	False	731.0	-646.0	False	False	False	gene body	gene body	False	1	1	1.808	-53.85	False
+chrIV	497542	497543	chr4_497542_497543	891	.	False	False	-224.0	292.0	True	True	False	promoter	promoter	True	1	1	2.048	-51.816	True
+chrXIII	245739	245740	chr13_245739_245740	984	.	True	False	175.0	-164.0	False	False	False	gene body	gene body	False	0	0			False
+chrXII	539787	539788	chr12_539787_539788	1000	.	False	False	-198.0	221.0	True	True	False	promoter	promoter	True	3	3	4.446	-94.055	True
+chrVII	148231	148232	chr7_148231_148232	420	.	True	False	357.0	-3.0	False	True	False	gene end	gene body	True	0	0			False
+chrXI	359919	359920	chr11_359919_359920	1000	.	False	False	-223.0	353.0	True	False	False	promoter	promoter	False	2	2	2.772	-48.45	True
+chrVII	141882	141883	chr7_141882_141883	926	.	False	False	-156.0	33.0	True	True	False	promoter	promoter	True	2	2	3.111	-64.759	True
+chrXII	838280	838281	chr12_838280_838281	66	.	True	False	-923.0	-215.0	False	False	False	gene body	gene body	False	1	1	0.991	-9.905	False
+chrXIII	396694	396695	chr13_396694_396695	1000	.	False	False	-315.0	-1102.0	True	False	False	promoter	promoter	False	1	1	2.573	-96.793	False
+chrXV	274475	274476	chr15_274475_274476	1000	.	False	True	-122.0	-464.0	True	False	False	promoter	promoter	False	0	0			False
+chrVII	780042	780043	chr7_780042_780043	1000	.	False	True	-356.0	-1337.0	True	False	False	promoter	promoter	False	3	3	3.573	-104.0	True
+chrXIII	275914	275915	chr13_275914_275915	1000	.	False	False	-130.0	362.0	True	False	False	promoter	promoter	False	1	1	2.376	-68.133	False
+chrXIV	559443	559444	chr14_559443_559444	1000	.	False	False	-370.0	-1036.0	True	False	False	promoter	promoter	False	2	2	4.991	-153.586	True
+chrII	477916	477917	chr2_477916_477917	360	.	True	False	246.0	-1131.0	False	False	False	gene body	gene body	False	1	1	1.627	-36.904	False
+chrXII	469858	469859	chr12_469858_469859	1000	.	True	False	547.0	-542.0	False	False	False	gene body	gene body	False	2	2	3.985	-98.042	True
+chrVII	76599	76600	chr7_76599_76600	1000	.	False	False	-294.0	-1308.0	True	False	False	promoter	promoter	False	1	1	3.328	-102.163	True
+chrVII	364281	364282	chr7_364281_364282	629	.	False	False	-365.0	53.0	True	True	False	promoter	promoter	True	0	0			False
+chrXII	1027968	1027969	chr12_1027968_1027969	753	.	False	False	-75.0	-1113.0	True	False	False	promoter	promoter	False	1	1	2.358	-19.937	False
+chrVI	183226	183227	chr6_183226_183227	1000	.	True	False	-365.0	-96.0	True	True	False	promoter	gene body	True	0	0			False
+chrXVI	643664	643665	chr16_643664_643665	1000	.	False	False	-171.0	344.0	True	False	False	promoter	promoter	False	3	3	4.188	-145.146	True
+chrXII	826728	826729	chr12_826728_826729	1000	.	False	False	-315.0	248.0	True	True	False	promoter	promoter	True	3	3	4.166	-140.161	True
+chrXV	733607	733608	chr15_733607_733608	884	.	False	False	-150.0	-2570.0	True	False	False	promoter	promoter	False	3	3	4.437	-41.255	True
+chrII	392477	392478	chr2_392477_392478	1000	.	False	False	-184.0	-673.0	True	False	False	promoter	promoter	False	0	0			False
+chrXIV	723314	723315	chr14_723314_723315	1000	.	False	False	-202.0	41.0	True	True	False	promoter	promoter	True	3	3	4.077	-109.697	True
+chrXV	436623	436624	chr15_436623_436624	910	.	False	False	-278.0	2282.0	True	False	False	promoter	promoter	False	1	1	2.321	-27.65	True
+chrX	683868	683869	chr10_683868_683869	1000	.	False	False	-583.0	-4912.0	False	False	False	other intergenic	other intergenic	False	1	1	2.788	-269.152	False
+chrIV	836183	836184	chr4_836183_836184	1000	.	False	False	-237.0	44.0	True	True	False	promoter	promoter	True	3	3	4.325	-369.712	False
+chrXV	745479	745480	chr15_745479_745480	854	.	False	False	-198.0	113.0	True	True	False	promoter	promoter	True	3	3	3.481	-92.335	True
+chrV	512336	512337	chr5_512336_512337	1000	.	False	False	-407.0	230.0	True	True	False	promoter	promoter	True	3	3	3.38	-103.799	True
+chrXIV	668222	668223	chr14_668222_668223	728	.	False	False	0.0	-813.0	True	False	False	promoter	promoter	False	1	2	2.341	-26.8	True
+chrXV	592711	592712	chr15_592711_592712	935	.	False	False	-124.0	-1335.0	True	False	False	promoter	promoter	False	3	3	2.948	-48.386	True
+chrXIII	668334	668335	chr13_668334_668335	1000	.	False	False	-157.0	129.0	True	True	False	promoter	promoter	True	0	0			False
+chrXIV	545085	545086	chr14_545085_545086	1000	.	False	False	-182.0	107.0	True	True	False	promoter	promoter	True	3	3	3.473	-89.677	True
+chrXIII	517359	517360	chr13_517359_517360	725	.	False	False	-179.0	72.0	True	True	False	promoter	promoter	True	2	2	2.526	-25.926	True
+chrIX	166182	166183	chr9_166182_166183	1000	.	False	False	-232.0	-1262.0	True	False	False	promoter	promoter	False	1	1	2.684	-74.867	True
+chrXII	637961	637962	chr12_637961_637962	169	.	True	False	1182.0	1877.0	False	False	False	gene body	gene body	False	1	2	1.471	-17.895	True
+chrX	421804	421805	chr10_421804_421805	901	.	False	False	-141.0	893.0	True	False	False	promoter	promoter	False	2	2	2.876	-68.801	True
+chrXIII	760343	760344	chr13_760343_760344	539	.	True	False	537.0	1160.0	False	False	False	gene body	gene body	False	1	1	1.749	-24.418	False
+chrXIII	408218	408219	chr13_408218_408219	1000	.	True	False	510.0	-348.0	False	False	False	gene body	gene body	False	2	2	3.41	-180.447	True
+chrXV	511422	511423	chr15_511422_511423	1000	.	False	False	-244.0	-1584.0	True	False	False	promoter	promoter	False	1	1	3.261	-98.927	True
+chrXIV	289630	289631	chr14_289630_289631	508	.	True	False	133.0	563.0	False	False	False	gene body	gene body	False	2	3	2.908	-47.192	True
+chrXII	523473	523474	chr12_523473_523474	740	.	False	False	-158.0	185.0	True	True	False	promoter	promoter	True	3	3	2.373	-66.979	True
+chrXV	988488	988489	chr15_988488_988489	1000	.	True	False	294.0	-1590.0	False	False	False	gene body	gene body	False	3	3	4.503	-115.478	True
+chrXII	658352	658353	chr12_658352_658353	1000	.	False	False	-473.0	-1439.0	True	False	False	promoter	promoter	False	2	2	3.278	-69.427	True
+chrIX	226407	226408	chr9_226407_226408	894	.	False	False	-194.0	-2012.0	True	False	False	promoter	promoter	False	2	2	2.336	-61.405	True
+chrXVI	700817	700818	chr16_700817_700818	251	.	True	False	224.0	803.0	False	False	False	gene body	gene body	False	0	0			False
+chrX	136500	136501	chr10_136500_136501	1000	.	True	False	273.0	-33.0	False	True	False	gene end	gene body	True	0	0			False
+chrVIII	236379	236380	chr8_236379_236380	1000	.	True	False	133.0	-1.0	False	True	False	gene end	gene body	True	1	1	3.324	-51.828	True
+chrXIV	217609	217610	chr14_217609_217610	1000	.	True	False	-567.0	-87.0	False	True	False	gene end	gene body	True	3	3	4.28	-140.394	True
+chrII	458530	458531	chr2_458530_458531	957	.	False	False	-77.0	-302.0	True	False	False	promoter	promoter	False	1	1	2.406	-76.783	True
+chrII	786979	786980	chr2_786979_786980	1000	.	False	False	-26.0	-1451.0	True	False	False	promoter	promoter	False	2	2	3.552	-24.445	True
+chrIII	279959	279960	chr3_279959_279960	1000	.	False	False	-139.0	-3196.0	True	False	False	promoter	promoter	False	1	1	3.152	-44.707	True
+chrVII	67444	67445	chr7_67444_67445	871	.	False	False	-153.0	-1887.0	True	False	False	promoter	promoter	False	2	2	2.98	-61.273	True
+chrVII	277732	277733	chr7_277732_277733	236	.	True	False	116.0	-99.0	False	True	False	gene end	gene body	True	0	0			False
+chrXIV	174656	174657	chr14_174656_174657	959	.	False	False	-341.0	-2069.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	87978	87979	chr2_87978_87979	968	.	False	True	-189.0	21.0	True	True	False	promoter	promoter	True	3	3	3.691	-86.789	False
+chrX	291895	291896	chr10_291895_291896	651	.	True	False	-1121.0	-560.0	False	False	False	gene body	gene body	False	3	3	3.511	-47.008	True
+chrXVI	339601	339602	chr16_339601_339602	1000	.	False	False	-342.0	-1344.0	True	False	False	promoter	promoter	False	3	3	4.391	-106.358	True
+chrIV	1224638	1224639	chr4_1224638_1224639	1000	.	False	False	-118.0	-388.0	True	False	False	promoter	promoter	False	2	2	3.693	-43.946	True
+chrXIV	366606	366607	chr14_366606_366607	814	.	False	False	-134.0	194.0	True	True	False	promoter	promoter	True	2	2	2.944	-41.976	True
+chrX	335727	335728	chr10_335727_335728	900	.	False	False	-170.0	26.0	True	True	False	promoter	promoter	True	1	1	3.064	-22.93	True
+chrXI	513291	513292	chr11_513291_513292	1000	.	False	True	-132.0	-1293.0	True	False	False	promoter	promoter	False	2	2	3.762	-682.816	True
+chrV	435655	435656	chr5_435655_435656	947	.	False	True	-1535.0	1611.0	False	False	False	other intergenic	other intergenic	False	3	3	3.121	-111.537	True
+chrXI	551521	551522	chr11_551521_551522	1000	.	False	False	-135.0	154.0	True	True	False	promoter	promoter	True	1	1	2.896	-33.758	True
+chrXII	486742	486743	chr12_486742_486743	1000	.	True	False	547.0	-542.0	False	False	False	gene body	gene body	False	2	2	4.066	-84.311	True
+chrXV	70181	70182	chr15_70181_70182	769	.	True	False	-137.0	-26.0	True	True	False	promoter	gene body	True	2	2	2.406	-49.366	True
+chrXVI	118170	118171	chr16_118170_118171	1000	.	False	False	-211.0	483.0	True	False	False	promoter	promoter	False	1	1	3.455	-36.741	True
+chrIV	894016	894017	chr4_894016_894017	691	.	False	False	486.0	72.0	False	True	False	gene end	gene end	False	2	2	3.086	-38.921	True
+chrVII	547531	547532	chr7_547531_547532	788	.	False	False	-231.0	62.0	True	True	False	promoter	promoter	True	2	2	2.644	-43.706	True
+chrIV	1002374	1002375	chr4_1002374_1002375	897	.	False	False	-351.0	135.0	True	True	False	promoter	promoter	True	3	3	4.411	-80.399	True
+chrXV	898526	898527	chr15_898526_898527	887	.	False	False	-166.0	529.0	True	False	False	promoter	promoter	False	1	1	2.816	-38.099	True
+chrIII	294620	294621	chr3_294620_294621	676	.	True	False	182.0	-85.0	False	True	True	gene end	gene body	True	0	0			False
+chrXV	218755	218756	chr15_218755_218756	926	.	False	False	-455.0	307.0	True	False	False	promoter	promoter	False	0	0			False
+chrXV	823724	823725	chr15_823724_823725	872	.	True	False	1143.0	-1137.0	False	False	False	gene body	gene body	False	3	3	3.513	-59.126	True
+chrXV	259758	259759	chr15_259758_259759	363	.	False	True	-164.0	728.0	True	False	False	promoter	promoter	False	2	2	2.52	-37.855	True
+chrV	343366	343367	chr5_343366_343367	565	.	True	False	512.0	-47.0	False	True	False	gene end	gene body	True	1	1	2.025	-27.542	True
+chrIX	308078	308079	chr9_308078_308079	691	.	False	False	-149.0	122.0	True	True	False	promoter	promoter	True	2	2	3.431	-65.316	True
+chrXIV	405743	405744	chr14_405743_405744	1000	.	False	False	-179.0	-2279.0	True	False	False	promoter	promoter	False	1	1	3.72	-43.856	False
+chrV	492302	492303	chr5_492302_492303	776	.	False	True	-344.0	553.0	True	False	False	promoter	promoter	False	0	0			False
+chrVII	277995	277996	chr7_277995_277996	381	.	True	False	-131.0	-362.0	True	False	False	promoter	gene body	True	1	1	1.832	-14.672	False
+chrXI	39016	39017	chr11_39016_39017	509	.	False	True	-146.0	-2318.0	True	False	False	promoter	promoter	False	2	2	2.277	-59.753	True
+chrXVI	411918	411919	chr16_411918_411919	860	.	False	False	-335.0	633.0	True	False	False	promoter	promoter	False	1	1	2.402	-65.607	False
+chrV	302494	302495	chr5_302494_302495	659	.	False	False	-167.0	-548.0	True	False	False	promoter	promoter	False	2	2	2.2	-40.771	False
+chrXIII	872741	872742	chr13_872741_872742	619	.	False	False	-116.0	549.0	True	False	False	promoter	promoter	False	0	0			False
+chrV	268523	268524	chr5_268523_268524	1000	.	False	False	-410.0	899.0	True	False	False	promoter	promoter	False	3	3	4.566	-100.962	True
+chrXV	511366	511367	chr15_511366_511367	1000	.	False	False	-188.0	-1640.0	True	False	False	promoter	promoter	False	1	1	3.264	-75.877	True
+chrXII	1014055	1014056	chr12_1014055_1014056	463	.	True	False	123.0	-147.0	False	False	False	gene body	gene body	False	1	2	2.077	-40.035	True
+chrXIII	220471	220472	chr13_220471_220472	79	.	True	False	334.0	-257.0	False	False	False	gene body	gene body	False	0	0			False
+chrXIV	251838	251839	chr14_251838_251839	1000	.	False	False	-220.0	95.0	True	True	False	promoter	promoter	True	2	2	3.973	-96.703	True
+chrXVI	874996	874997	chr16_874996_874997	781	.	False	False	-371.0	70.0	True	True	False	promoter	promoter	True	3	3	3.351	-35.939	True
+chrVI	40453	40454	chr6_40453_40454	979	.	True	False	33.0	-1611.0	True	False	False	promoter	gene body	True	0	0			False
+chrVI	74941	74942	chr6_74941_74942	1000	.	True	False	70.0	-251.0	True	False	False	promoter	gene body	True	2	2	3.353	-58.767	True
+chrXV	649091	649092	chr15_649091_649092	569	.	False	False	-84.0	-288.0	True	False	False	promoter	promoter	False	0	0			False
+chrVII	423008	423009	chr7_423008_423009	767	.	False	True	-952.0	-1999.0	False	False	False	other intergenic	other intergenic	False	0	0			False
+chrVI	54325	54326	chr6_54325_54326	601	.	True	False	371.0	1040.0	False	False	False	gene body	gene body	False	0	0			False
+chrXII	253424	253425	chr12_253424_253425	1000	.	False	False	-344.0	-1534.0	True	False	False	promoter	promoter	False	2	2	4.262	-116.803	True
+chrVIII	190287	190288	chr8_190287_190288	899	.	False	False	-255.0	-1157.0	True	False	False	promoter	promoter	False	3	3	4.225	-83.18	True
+chrXIII	408491	408492	chr13_408491_408492	1000	.	True	False	-662.0	-75.0	False	True	False	gene end	gene body	True	2	2	4.651	-185.904	True
+chrXII	921445	921446	chr12_921445_921446	898	.	True	False	151.0	472.0	False	False	False	gene body	gene body	False	1	1	2.8	-108.115	False
+chrXII	483090	483091	chr12_483090_483091	1000	.	True	False	547.0	-542.0	False	False	False	gene body	gene body	False	2	2	4.321	-76.772	True
+chrIV	1293261	1293262	chr4_1293261_1293262	783	.	False	False	-170.0	107.0	True	True	False	promoter	promoter	True	2	2	3.099	-60.814	True
+chrII	401017	401018	chr2_401017_401018	917	.	False	False	-127.0	235.0	True	True	False	promoter	promoter	True	3	3	3.888	-77.501	True
+chrII	101372	101373	chr2_101372_101373	798	.	False	False	-216.0	-1002.0	True	False	False	promoter	promoter	False	3	3	3.805	-43.117	True
+chrXV	472522	472523	chr15_472522_472523	1000	.	True	False	-202.0	-75.0	True	True	False	promoter	gene body	True	0	0			False
+chrXI	38328	38329	chr11_38328_38329	789	.	False	True	-175.0	-1630.0	True	False	False	promoter	promoter	False	3	3	2.885	-58.359	True
+chrXI	80703	80704	chr11_80703_80704	732	.	False	False	-166.0	-544.0	True	False	False	promoter	promoter	False	2	2	2.716	-67.838	True
+chrIII	292792	292793	chr3_292792_292793	756	.	False	False	746.0	386.0	False	False	True	other intergenic	other intergenic	False	1	1	2.602	-76.23	False
+chrIX	212252	212253	chr9_212252_212253	604	.	False	False	-246.0	-1330.0	True	False	False	promoter	promoter	False	1	1	2.234	-48.442	False
+chrVIII	102493	102494	chr8_102493_102494	319	.	False	False	-118.0	93.0	True	True	False	promoter	promoter	True	0	0			False
+chrXII	193569	193570	chr12_193569_193570	512	.	False	False	-288.0	-1605.0	True	False	False	promoter	promoter	False	3	3	3.23	-55.751	True
+chrXVI	99166	99167	chr16_99166_99167	504	.	False	False	-317.0	-920.0	True	False	False	promoter	promoter	False	1	2	2.046	-40.045	False
+chrII	136208	136209	chr2_136208_136209	1000	.	True	False	211.0	-158.0	False	False	False	gene body	gene body	False	3	3	3.583	-68.244	True
+chrXIV	295826	295827	chr14_295826_295827	619	.	False	False	-317.0	133.0	True	True	False	promoter	promoter	True	2	2	4.049	-56.741	True
+chrIV	221315	221316	chr4_221315_221316	260	.	False	False	486.0	408.0	False	False	False	other intergenic	other intergenic	False	0	0			False
+chrIX	355520	355521	chr9_355520_355521	739	.	False	False	1375.0	39.0	False	True	False	gene end	gene end	False	2	2	2.901	-70.045	True
+chrVII	609764	609765	chr7_609764_609765	382	.	False	True	-799.0	663.0	False	False	False	other intergenic	other intergenic	False	1	1	1.895	-37.483	True
+chrVIII	122501	122502	chr8_122501_122502	691	.	False	False	264.0	48.0	False	True	False	gene end	gene end	False	0	0			False
+chrIII	47055	47056	chr3_47055_47056	610	.	False	False	-150.0	55.0	True	True	False	promoter	promoter	True	1	1	2.595	-21.951	True
+chrVIII	451935	451936	chr8_451935_451936	92	.	True	False	609.0	-705.0	False	False	False	gene body	gene body	False	0	1	1.66	-5.223	False
+chrXII	473510	473511	chr12_473510_473511	1000	.	True	False	547.0	-542.0	False	False	False	gene body	gene body	False	2	2	4.039	-69.853	True
+chrI	141788	141789	chr1_141788_141789	953	.	False	False	-357.0	381.0	True	False	False	promoter	promoter	False	3	3	3.164	-122.417	True
+chrXI	408334	408335	chr11_408334_408335	795	.	False	False	-209.0	-870.0	True	False	False	promoter	promoter	False	1	1	3.271	-42.798	True
+chrIII	294810	294811	chr3_294810_294811	970	.	False	False	372.0	105.0	False	True	True	gene end	gene end	False	2	2	3.091	-112.35	True
+chrIX	96545	96546	chr9_96545_96546	606	.	True	False	-170.0	-24.0	True	True	False	promoter	gene body	True	1	1	2.232	-19.407	True
+chrIV	43793	43794	chr4_43793_43794	562	.	False	False	-271.0	86.0	True	True	False	promoter	promoter	True	0	0			False
+chrXVI	834413	834414	chr16_834413_834414	444	.	False	False	-151.0	168.0	True	True	False	promoter	promoter	True	1	1	1.815	-27.924	True
+chrXII	202887	202888	chr12_202887_202888	690	.	False	False	-297.0	-912.0	True	False	False	promoter	promoter	False	0	0			False
+chrXV	444344	444345	chr15_444344_444345	390	.	False	False	-341.0	-1505.0	True	False	False	promoter	promoter	False	1	1	1.848	-27.74	False
+chrX	608245	608246	chr10_608245_608246	622	.	False	False	-59.0	-613.0	True	False	False	promoter	promoter	False	0	0			False
+chrV	192093	192094	chr5_192093_192094	899	.	True	False	-305.0	-135.0	True	False	False	promoter	gene body	True	1	1	3.567	-18.106	True
+chrXI	69070	69071	chr11_69070_69071	620	.	True	False	1150.0	-839.0	False	False	False	gene body	gene body	False	2	2	2.615	-36.075	True
+chrIV	1267149	1267150	chr4_1267149_1267150	628	.	False	False	-251.0	354.0	True	False	False	promoter	promoter	False	1	1	2.237	-45.741	False
+chrI	45447	45448	chr1_45447_45448	1000	.	False	False	-425.0	-2567.0	True	False	False	promoter	promoter	False	1	1	4.542	-84.494	True
+chrVIII	34298	34299	chr8_34298_34299	701	.	False	False	-221.0	661.0	True	False	False	promoter	promoter	False	2	2	3.464	-72.53	True
+chrXVI	246765	246766	chr16_246765_246766	515	.	False	False	-224.0	-2447.0	True	False	False	promoter	promoter	False	1	1	2.969	-22.24	True
+chrVII	271458	271459	chr7_271458_271459	760	.	True	False	462.0	-681.0	False	False	False	gene body	gene body	False	3	3	3.329	-41.038	True
+chrXII	198926	198927	chr12_198926_198927	109	.	False	True	-841.0	613.0	False	False	False	other intergenic	other intergenic	False	1	1	1.249	-13.358	False
+chrVII	56280	56281	chr7_56280_56281	714	.	False	False	-201.0	465.0	True	False	False	promoter	promoter	False	2	2	3.596	-11.814	True
+chrIV	611948	611949	chr4_611948_611949	673	.	False	False	-124.0	23.0	True	True	False	promoter	promoter	True	2	2	3.893	-58.929	True
+chrXV	1018995	1018996	chr15_1018995_1018996	448	.	False	False	-249.0	-1116.0	True	False	False	promoter	promoter	False	1	1	2.172	-42.323	False
+chrXI	288721	288722	chr11_288721_288722	637	.	False	False	-123.0	148.0	True	True	False	promoter	promoter	True	2	2	2.615	-42.057	True
+chrXVI	899956	899957	chr16_899956_899957	667	.	False	False	-237.0	-498.0	True	False	False	promoter	promoter	False	2	2	2.613	-49.962	False
+chrXI	38866	38867	chr11_38866_38867	198	.	False	True	-296.0	-2168.0	True	False	False	promoter	promoter	False	0	0			False
+chrV	194111	194112	chr5_194111_194112	357	.	True	False	428.0	-119.0	False	False	False	gene body	gene body	False	1	2	2.364	-28.144	False
+chrX	415815	415816	chr10_415815_415816	628	.	False	True	-1045.0	-1531.0	False	False	False	other intergenic	other intergenic	False	0	0			False
+chrVIII	48163	48164	chr8_48163_48164	1000	.	False	False	-195.0	-2235.0	True	False	False	promoter	promoter	False	3	3	4.944	-538.04	True
+chrXII	764420	764421	chr12_764420_764421	396	.	False	False	-283.0	845.0	True	False	False	promoter	promoter	False	1	1	2.191	-31.392	False
+chrXIV	417712	417713	chr14_417712_417713	722	.	False	False	-410.0	113.0	True	True	False	promoter	promoter	True	2	2	3.053	-52.805	True
+chrXIV	413414	413415	chr14_413414_413415	766	.	False	False	-224.0	215.0	True	True	False	promoter	promoter	True	2	2	4.105	-239.661	True
+chrVI	103817	103818	chr6_103817_103818	263	.	True	False	119.0	-115.0	False	False	False	gene body	gene body	False	2	2	2.517	-28.175	True
+chrVII	278594	278595	chr7_278594_278595	110	.	False	False	-730.0	213.0	False	True	False	gene end	gene end	False	1	1	1.215	-11.524	False
+chrVIII	56244	56245	chr8_56244_56245	517	.	False	False	-404.0	395.0	True	False	False	promoter	promoter	False	1	1	2.225	-43.705	True
+chrVII	277327	277328	chr7_277327_277328	528	.	False	False	-289.0	306.0	True	False	False	promoter	promoter	False	1	1	2.515	-41.834	True
+chrIV	427080	427081	chr4_427080_427081	508	.	False	False	-146.0	-1079.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	203188	203189	chr2_203188_203189	601	.	True	False	-349.0	-73.0	True	True	False	promoter	gene body	True	2	2	3.407	-62.763	False
+chrVII	596249	596250	chr7_596249_596250	491	.	False	False	-412.0	-1264.0	True	False	False	promoter	promoter	False	0	0			False
+chrVIII	143614	143615	chr8_143614_143615	375	.	False	False	-56.0	-1721.0	True	False	False	promoter	promoter	False	1	1	2.31	-8.452	False
+chrVII	1022036	1022037	chr7_1022036_1022037	648	.	True	False	-183.0	-22.0	True	True	False	promoter	gene body	True	0	0			False
+chrXIV	662435	662436	chr14_662435_662436	466	.	False	False	-477.0	-1146.0	True	False	False	promoter	promoter	False	1	1	2.146	-38.532	False
+chrIV	1429487	1429488	chr4_1429487_1429488	643	.	True	False	-507.0	-300.0	False	False	False	gene body	gene body	False	0	0			False
+chrXV	252920	252921	chr15_252920_252921	364	.	False	False	-274.0	228.0	True	True	False	promoter	promoter	True	1	1	1.907	-32.368	False
+chrXIII	268034	268035	chr13_268034_268035	122	.	False	False	861.0	234.0	False	True	False	gene end	gene end	False	1	1	1.462	-21.237	False
+chrXII	260717	260718	chr12_260717_260718	427	.	False	False	-170.0	-980.0	True	False	False	promoter	promoter	False	2	2	2.14	-27.906	False
+chrXI	75507	75508	chr11_75507_75508	504	.	True	False	27.0	-576.0	True	False	False	promoter	gene body	True	0	0			False
+chrXVI	106742	106743	chr16_106742_106743	426	.	True	False	-532.0	-80.0	False	True	False	gene end	gene body	True	0	0			False
+chrXV	522766	522767	chr15_522766_522767	909	.	False	False	-260.0	484.0	True	False	False	promoter	promoter	False	3	3	3.887	-63.341	True
+chrXI	397143	397144	chr11_397143_397144	438	.	True	False	105.0	200.0	False	True	False	gene end	gene body	True	0	0			False
+chrIV	952577	952578	chr4_952577_952578	537	.	False	False	-222.0	176.0	True	True	False	promoter	promoter	True	1	1	2.558	-26.288	True
+chrXII	424295	424296	chr12_424295_424296	728	.	True	False	613.0	-479.0	False	False	False	gene body	gene body	False	2	2	3.119	-46.769	True
+chrIV	114478	114479	chr4_114478_114479	598	.	False	False	-193.0	244.0	True	True	False	promoter	promoter	True	2	2	3.148	-26.94	True
+chrII	618688	618689	chr2_618688_618689	374	.	False	False	-165.0	-1615.0	True	False	False	promoter	promoter	False	2	2	2.367	-27.279	True
+chrIX	77868	77869	chr9_77868_77869	348	.	False	False	-205.0	-1515.0	True	False	False	promoter	promoter	False	1	1	2.472	-15.437	True
+chrVI	56160	56161	chr6_56160_56161	493	.	False	False	-174.0	-795.0	True	False	False	promoter	promoter	False	2	2	3.49	-40.594	True
+chrX	466990	466991	chr10_466990_466991	215	.	True	False	43.0	-158.0	True	False	False	promoter	gene body	True	1	1	1.54	-19.304	False
+chrX	651383	651384	chr10_651383_651384	784	.	False	False	-517.0	114.0	False	True	False	gene end	gene end	False	1	1	2.975	-67.081	True
+chrV	69184	69185	chr5_69184_69185	656	.	True	False	81.0	-345.0	True	False	False	promoter	gene body	True	2	2	2.647	-51.258	False
+chrXII	722686	722687	chr12_722686_722687	347	.	False	False	-291.0	-618.0	True	False	False	promoter	promoter	False	1	1	1.82	-12.634	False
+chrVII	383306	383307	chr7_383306_383307	287	.	False	False	-98.0	1195.0	True	False	False	promoter	promoter	False	1	1	2.235	-21.45	True
+chrXII	187528	187529	chr12_187528_187529	950	.	False	False	-399.0	134.0	True	True	False	promoter	promoter	True	3	3	4.546	-85.132	True
+chrXII	1014339	1014340	chr12_1014339_1014340	686	.	False	False	-151.0	-431.0	True	False	False	promoter	promoter	False	2	2	5.066	-87.702	True
+chrII	662735	662736	chr2_662735_662736	598	.	True	False	-486.0	-237.0	True	False	False	promoter	gene body	True	2	2	3.237	-41.973	True
+chrVIII	116070	116071	chr8_116070_116071	287	.	False	True	-169.0	-451.0	True	False	False	promoter	promoter	False	1	1	1.951	-25.048	True
+chrXII	871388	871389	chr12_871388_871389	358	.	False	False	-21.0	64.0	True	True	False	promoter	promoter	True	1	1	1.912	-19.913	False
+chrVIII	34660	34661	chr8_34660_34661	76	.	False	False	-583.0	594.0	False	False	False	other intergenic	other intergenic	False	1	1	1.268	-12.422	False
+chrVII	922028	922029	chr7_922028_922029	411	.	False	False	-146.0	240.0	True	True	False	promoter	promoter	True	0	0			False
+chrVII	190231	190232	chr7_190231_190232	490	.	True	False	237.0	1166.0	False	False	False	gene body	gene body	False	1	1	2.768	-24.995	True
+chrV	167579	167580	chr5_167579_167580	485	.	False	True	-694.0	228.0	False	True	False	gene end	gene end	False	1	1	2.221	-36.314	True
+chrI	29863	29864	chr1_29863_29864	765	.	False	False	-1703.0	-3077.0	False	False	False	other intergenic	other intergenic	False	2	3	3.06	-55.177	True
+chrXII	1043524	1043525	chr12_1043524_1043525	483	.	False	False	-473.0	-1726.0	True	False	False	promoter	promoter	False	1	1	2.346	-46.973	False
+chrX	120121	120122	chr10_120121_120122	510	.	False	False	-327.0	-1569.0	True	False	False	promoter	promoter	False	2	2	3.188	-32.264	True
+chrIX	96808	96809	chr9_96808_96809	493	.	False	True	-83.0	-287.0	True	False	False	promoter	promoter	False	1	1	2.433	-12.972	False
+chrVII	278230	278231	chr7_278230_278231	128	.	True	False	-366.0	-151.0	True	False	False	promoter	gene body	True	1	1	1.191	-8.132	False
+chrXVI	746959	746960	chr16_746959_746960	418	.	False	False	-124.0	-1132.0	True	False	False	promoter	promoter	False	1	1	2.133	-30.703	True
+chrXII	789951	789952	chr12_789951_789952	711	.	False	False	-724.0	272.0	False	True	False	gene end	gene end	False	2	2	4.314	-63.978	True
+chrV	559198	559199	chr5_559198_559199	486	.	False	False	-255.0	-1167.0	True	False	True	promoter	promoter	False	2	2	2.288	-40.463	False
+chrI	70954	70955	chr1_70954_70955	893	.	False	False	-831.0	1371.0	False	False	False	other intergenic	other intergenic	False	2	2	4.649	-79.853	True
+chrXI	112640	112641	chr11_112640_112641	331	.	False	False	-137.0	574.0	True	False	False	promoter	promoter	False	0	0			False
+chrX	293189	293190	chr10_293189_293190	318	.	True	False	792.0	-956.0	False	False	False	gene body	gene body	False	3	3	2.745	-22.297	True
+chrXI	581372	581373	chr11_581372_581373	386	.	False	False	-622.0	891.0	False	False	False	other intergenic	other intergenic	False	2	2	3.662	-31.407	True
+chrX	227298	227299	chr10_227298_227299	284	.	False	False	-28.0	-478.0	True	False	False	promoter	promoter	False	1	1	1.816	-16.999	False
+chrIV	909548	909549	chr4_909548_909549	536	.	False	False	-505.0	110.0	False	True	False	gene end	gene end	False	0	0			False
+chrXV	109488	109489	chr15_109488_109489	638	.	True	False	313.0	-401.0	False	False	False	gene body	gene body	False	2	2	3.477	-51.321	True
+chrXVI	462397	462398	chr16_462397_462398	392	.	False	False	-431.0	83.0	True	True	False	promoter	promoter	True	1	1	2.025	-17.016	False
+chrIV	746385	746386	chr4_746385_746386	513	.	False	False	-284.0	-1972.0	True	False	False	promoter	promoter	False	1	1	2.441	-41.703	True
+chrIV	1172204	1172205	chr4_1172204_1172205	495	.	False	False	-379.0	181.0	True	True	False	promoter	promoter	True	2	2	3.536	-44.647	True
+chrIII	14602	14603	chr3_14602_14603	440	.	False	False	852.0	483.0	False	False	True	other intergenic	other intergenic	False	1	1	2.44	-42.97	True
+chrIV	1206547	1206548	chr4_1206547_1206548	244	.	False	False	-164.0	-1772.0	True	False	False	promoter	promoter	False	1	1	1.792	-26.787	True
+chrXVI	207677	207678	chr16_207677_207678	216	.	False	False	-479.0	30.0	True	True	False	promoter	promoter	True	0	0			False
+chrXVI	297284	297285	chr16_297284_297285	492	.	False	False	-268.0	393.0	True	False	False	promoter	promoter	False	2	2	3.187	-41.92	True
+chrXIII	664386	664387	chr13_664386_664387	322	.	False	False	-365.0	102.0	True	True	False	promoter	promoter	True	0	1	2.187	-6.62	False
+chrIV	340358	340359	chr4_340358_340359	216	.	False	False	-224.0	76.0	True	True	False	promoter	promoter	True	1	1	1.662	-18.501	True
+chrVIII	55749	55750	chr8_55749_55750	314	.	True	False	899.0	-100.0	False	True	False	gene end	gene body	True	0	0			False
+chrX	555759	555760	chr10_555759_555760	495	.	False	False	-154.0	187.0	True	True	False	promoter	promoter	True	2	2	2.825	-24.995	True
+chrV	337775	337776	chr5_337775_337776	325	.	False	False	-173.0	546.0	True	False	False	promoter	promoter	False	1	2	2.594	-15.043	True
+chrXV	727202	727203	chr15_727202_727203	228	.	True	False	32.0	-1639.0	True	False	False	promoter	gene body	True	0	0			False
+chrIV	1319177	1319178	chr4_1319177_1319178	145	.	True	False	98.0	209.0	True	True	False	promoter	gene body	True	0	0			False
+chrXII	787500	787501	chr12_787500_787501	485	.	False	False	-163.0	167.0	True	True	False	promoter	promoter	True	2	2	3.087	-30.657	True
+chrIV	1388638	1388639	chr4_1388638_1388639	485	.	False	False	-233.0	263.0	True	True	False	promoter	promoter	True	2	2	2.904	-22.863	True
+chrIV	304962	304963	chr4_304962_304963	434	.	False	False	-274.0	114.0	True	True	False	promoter	promoter	True	1	1	3.712	-12.238	True
+chrIV	369355	369356	chr4_369355_369356	702	.	False	False	-415.0	-1351.0	True	False	False	promoter	promoter	False	2	2	3.704	-36.159	True
+chrII	668608	668609	chr2_668608_668609	354	.	False	False	-112.0	54.0	True	True	False	promoter	promoter	True	1	1	2.194	-20.541	False
+chrIV	1011657	1011658	chr4_1011657_1011658	563	.	True	False	303.0	-69.0	False	True	False	gene end	gene body	True	1	1	2.857	-29.377	False
+chrXI	418271	418272	chr11_418271_418272	192	.	False	False	-38.0	-764.0	True	False	False	promoter	promoter	False	1	1	1.596	-13.428	False
+chrXIV	720880	720881	chr14_720880_720881	429	.	False	False	-233.0	239.0	True	True	False	promoter	promoter	True	2	2	3.119	-34.19	True
+chrVII	148092	148093	chr7_148092_148093	258	.	False	False	496.0	136.0	False	True	False	gene end	gene end	False	2	2	2.433	-68.467	True
+chrXIV	350172	350173	chr14_350172_350173	611	.	True	False	-416.0	-266.0	True	False	False	promoter	gene body	True	2	2	4.663	-122.765	True
+chrXI	140885	140886	chr11_140885_140886	263	.	False	True	-194.0	908.0	True	False	False	promoter	promoter	False	1	1	2.453	-23.859	False
+chrXI	322624	322625	chr11_322624_322625	769	.	False	False	-603.0	-1610.0	False	False	False	other intergenic	other intergenic	False	3	3	4.484	-59.13	False
+chrX	150755	150756	chr10_150755_150756	275	.	False	False	-205.0	-871.0	True	False	False	promoter	promoter	False	0	0			False
+chrXI	134244	134245	chr11_134244_134245	403	.	False	False	-110.0	264.0	True	True	False	promoter	promoter	True	1	1	2.494	-22.582	True
+chrVII	971883	971884	chr7_971883_971884	139	.	True	False	-1830.0	-1113.0	False	False	False	gene body	gene body	False	0	1	1.488	-5.836	False
+chrVI	164719	164720	chr6_164719_164720	273	.	True	False	-347.0	-27.0	True	True	False	promoter	gene body	True	0	0			False
+chrXII	73090	73091	chr12_73090_73091	273	.	True	False	56.0	-1011.0	True	False	False	promoter	gene body	True	0	0			False
+chrX	160181	160182	chr10_160181_160182	392	.	False	False	-334.0	-559.0	True	False	False	promoter	promoter	False	1	1	3.109	-11.046	False
+chrII	337504	337505	chr2_337504_337505	188	.	True	False	-483.0	-322.0	True	False	False	promoter	gene body	True	1	1	1.771	-19.054	True
+chrX	647128	647129	chr10_647128_647129	378	.	True	False	3.0	-348.0	True	False	False	promoter	gene body	True	1	1	2.826	-10.038	True
+chrIII	228889	228890	chr3_228889_228890	337	.	False	False	-384.0	98.0	True	True	False	promoter	promoter	True	1	1	2.287	-23.97	True
+chrXVI	639187	639188	chr16_639187_639188	254	.	False	False	-168.0	-1771.0	True	False	False	promoter	promoter	False	0	0			False
+chrIV	1490996	1490997	chr4_1490996_1490997	212	.	False	False	-97.0	78.0	True	True	False	promoter	promoter	True	0	0			False
+chrXVI	802087	802088	chr16_802087_802088	255	.	False	False	-271.0	70.0	True	True	False	promoter	promoter	True	2	2	4.034	-27.346	True
+chrIII	240674	240675	chr3_240674_240675	308	.	False	False	-131.0	130.0	True	True	False	promoter	promoter	True	2	2	2.676	-13.996	True
+chrVII	635763	635764	chr7_635763_635764	342	.	True	False	52.0	-149.0	True	False	False	promoter	gene body	True	1	1	2.078	-10.923	False
+chrXVI	215196	215197	chr16_215196_215197	362	.	False	False	-1234.0	815.0	False	False	False	other intergenic	other intergenic	False	1	1	2.363	-26.323	True
+chrXI	188858	188859	chr11_188858_188859	308	.	False	False	-218.0	265.0	True	True	False	promoter	promoter	True	1	1	2.546	-7.43	True
+chrIV	310347	310348	chr4_310347_310348	310	.	False	False	-225.0	294.0	True	True	False	promoter	promoter	True	2	2	3.809	-15.91	True
+chrXII	704584	704585	chr12_704584_704585	655	.	True	False	249.0	-92.0	False	True	False	gene end	gene body	True	1	1	5.075	-126.889	True
+chrXI	519005	519006	chr11_519005_519006	181	.	False	False	-439.0	55.0	True	True	False	promoter	promoter	True	1	1	2.754	-7.237	False
+chrX	159848	159849	chr10_159848_159849	301	.	False	False	-1.0	-226.0	True	False	False	promoter	promoter	False	2	2	2.541	-27.142	True
+chrXII	787682	787683	chr12_787682_787683	198	.	True	False	19.0	349.0	True	False	False	promoter	gene body	True	0	0			False
+chrVII	452055	452056	chr7_452055_452056	100	.	True	False	49.0	-1859.0	True	False	False	promoter	gene body	True	0	1	1.232	-3.537	False
+chrXII	48591	48592	chr12_48591_48592	110	.	True	False	38.0	-71.0	True	True	False	promoter	gene body	True	0	0			False
+chrV	39651	39652	chr5_39651_39652	121	.	False	False	-114.0	394.0	True	False	False	promoter	promoter	False	0	0			False
+chrIV	930766	930767	chr4_930766_930767	610	.	False	False	-362.0	-1297.0	True	False	False	promoter	promoter	False	1	1	4.497	-218.837	True
+chrIX	212492	212493	chr9_212492_212493	153	.	False	False	-6.0	-1570.0	True	False	False	promoter	promoter	False	1	1	1.643	-10.058	False
+chrXV	487082	487083	chr15_487082_487083	348	.	False	True	-303.0	-2652.0	True	False	False	promoter	promoter	False	0	0			False
+chrXV	487211	487212	chr15_487211_487212	276	.	False	True	-432.0	-2523.0	True	False	False	promoter	promoter	False	1	1	2.192	-19.405	False
+chrXII	919161	919162	chr12_919161_919162	185	.	False	False	-142.0	374.0	True	False	False	promoter	promoter	False	0	0			False
+chrXVI	431867	431868	chr16_431867_431868	351	.	False	False	-27.0	-432.0	True	False	False	promoter	promoter	False	2	2	4.462	-52.337	True
+chrVI	210516	210517	chr6_210516_210517	155	.	False	True	-420.0	-2104.0	True	False	False	promoter	promoter	False	0	0			False
+chrIV	1367217	1367218	chr4_1367217_1367218	218	.	False	False	-267.0	155.0	True	True	False	promoter	promoter	True	0	0			False
+chrVIII	461563	461564	chr8_461563_461564	306	.	False	False	-938.0	33.0	False	True	False	gene end	gene end	False	1	1	2.315	-10.923	True
+chrXVI	645105	645106	chr16_645105_645106	166	.	True	False	-844.0	-167.0	False	False	False	gene body	gene body	False	0	0			False
+chrIV	512540	512541	chr4_512540_512541	72	.	False	False	-431.0	1502.0	True	False	False	promoter	promoter	False	0	0			False
+chrIII	164237	164238	chr3_164237_164238	292	.	True	False	-381.0	-127.0	True	False	False	promoter	gene body	True	0	0			False
+chrVIII	228963	228964	chr8_228963_228964	149	.	True	False	74.0	-1432.0	True	False	False	promoter	gene body	True	0	0			False
+chrIV	1331051	1331052	chr4_1331051_1331052	359	.	False	False	-185.0	1011.0	True	False	False	promoter	promoter	False	2	2	3.677	-17.79	True
+chrXIII	895628	895629	chr13_895628_895629	199	.	False	False	-202.0	87.0	True	True	False	promoter	promoter	True	0	0			False
+chrIV	1195306	1195307	chr4_1195306_1195307	296	.	False	False	-422.0	105.0	True	True	False	promoter	promoter	True	2	2	2.914	-17.26	True
+chrII	495474	495475	chr2_495474_495475	236	.	False	False	-135.0	117.0	True	True	False	promoter	promoter	True	2	2	3.527	-24.236	True
+chrXIV	723071	723072	chr14_723071_723072	106	.	True	False	41.0	284.0	True	True	False	promoter	gene body	True	0	0			False
+chrVIII	206207	206208	chr8_206207_206208	399	.	False	False	-254.0	56.0	True	True	False	promoter	promoter	True	2	2	3.783	-31.233	True
+chrV	140679	140680	chr5_140679_140680	151	.	True	False	139.0	46.0	False	True	False	gene end	gene body	True	1	1	1.738	-14.386	False
+chrXIII	873032	873033	chr13_873032_873033	100	.	False	False	-407.0	258.0	True	True	False	promoter	promoter	True	0	0			False
+chrV	208754	208755	chr5_208754_208755	169	.	False	False	-280.0	224.0	True	True	False	promoter	promoter	True	0	0			False
+chrV	100543	100544	chr5_100543_100544	284	.	False	True	-225.0	-708.0	True	False	False	promoter	promoter	False	2	2	2.876	-10.173	True
+chrXV	128655	128656	chr15_128655_128656	92	.	False	False	-581.0	-1674.0	False	False	False	other intergenic	other intergenic	False	1	1	1.492	-8.7	False
+chrV	281101	281102	chr5_281101_281102	428	.	False	False	-419.0	-1172.0	True	False	False	promoter	promoter	False	2	2	3.851	-27.803	True
+chrVII	475376	475377	chr7_475376_475377	161	.	False	False	-129.0	-693.0	True	False	False	promoter	promoter	False	1	1	2.521	-9.187	True
+chrXIV	254924	254925	chr14_254924_254925	157	.	True	False	-428.0	-93.0	True	True	False	promoter	gene body	True	0	0			False
+chrXVI	497842	497843	chr16_497842_497843	282	.	False	False	-253.0	123.0	True	True	False	promoter	promoter	True	2	2	2.939	-16.856	True
+chrIV	952729	952730	chr4_952729_952730	205	.	False	False	-70.0	328.0	True	False	False	promoter	promoter	False	1	1	2.009	-13.238	True
+chrIV	589581	589582	chr4_589581_589582	269	.	False	False	-179.0	179.0	True	True	False	promoter	promoter	True	2	2	3.744	-30.814	True
+chrIV	217391	217392	chr4_217391_217392	216	.	False	False	-208.0	317.0	True	False	False	promoter	promoter	False	1	1	2.252	-18.725	False
+chrXII	16114	16115	chr12_16114_16115	286	.	False	False	-42.0	524.0	True	False	True	promoter	promoter	False	2	2	3.219	-24.638	True
+chrIV	1169076	1169077	chr4_1169076_1169077	177	.	False	False	-101.0	-1067.0	True	False	False	promoter	promoter	False	0	0			False
+chrXV	386426	386427	chr15_386426_386427	120	.	False	False	-398.0	1491.0	True	False	False	promoter	promoter	False	0	0			False
+chrIV	512376	512377	chr4_512376_512377	316	.	False	False	-267.0	1666.0	True	False	False	promoter	promoter	False	2	2	2.993	-21.235	True
+chrXI	382391	382392	chr11_382391_382392	344	.	True	False	-106.0	-94.0	True	True	False	promoter	gene body	True	1	1	3.359	-12.238	True
+chrX	525891	525892	chr10_525891_525892	387	.	False	False	-443.0	-773.0	True	False	False	promoter	promoter	False	3	3	4.723	-65.921	True
+chrIV	808044	808045	chr4_808044_808045	156	.	False	False	-279.0	296.0	True	True	False	promoter	promoter	True	1	1	1.746	-9.973	False
+chrXII	65887	65888	chr12_65887_65888	94	.	True	False	631.0	-113.0	False	False	False	gene body	gene body	False	0	1	1.416	-5.292	False
+chrIII	163652	163653	chr3_163652_163653	180	.	True	False	204.0	-207.0	False	False	False	gene body	gene body	False	1	1	2.122	-17.88	False
+chrXV	723438	723439	chr15_723438_723439	110	.	True	False	528.0	520.0	False	False	False	gene body	gene body	False	1	1	1.56	-7.759	True
+chrXI	66222	66223	chr11_66222_66223	121	.	True	False	1244.0	1820.0	False	False	False	gene body	gene body	False	0	0			False
+chrVI	183315	183316	chr6_183315_183316	345	.	True	False	-454.0	-185.0	True	False	False	promoter	gene body	True	3	3	4.489	-109.332	True
+chrXII	670143	670144	chr12_670143_670144	83	.	False	False	-196.0	-676.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	782455	782456	chr2_782455_782456	209	.	False	False	-135.0	71.0	True	True	False	promoter	promoter	True	0	0			False
+chrIX	289142	289143	chr9_289142_289143	177	.	False	False	-234.0	83.0	True	True	False	promoter	promoter	True	0	0			False
+chrIV	442842	442843	chr4_442842_442843	189	.	False	False	-186.0	-669.0	True	False	False	promoter	promoter	False	0	0			False
+chrVII	939816	939817	chr7_939816_939817	196	.	False	True	-106.0	-988.0	True	False	False	promoter	promoter	False	1	1	2.088	-10.923	True
+chrIV	600084	600085	chr4_600084_600085	289	.	False	False	-708.0	396.0	False	False	False	other intergenic	other intergenic	False	1	1	2.927	-29.942	False
+chrXI	69635	69636	chr11_69635_69636	268	.	True	False	585.0	1098.0	False	False	False	gene body	gene body	False	2	2	3.399	-17.797	True
+chrXIV	425146	425147	chr14_425146_425147	140	.	True	False	-651.0	-252.0	False	False	False	gene body	gene body	False	1	1	1.897	-13.582	False
+chrIV	363586	363587	chr4_363586_363587	74	.	False	False	-3.0	859.0	True	False	False	promoter	promoter	False	0	0			False
+chrIX	289280	289281	chr9_289280_289281	66	.	True	False	-372.0	-55.0	True	True	False	promoter	gene body	True	0	0			False
+chrIX	173765	173766	chr9_173765_173766	208	.	False	False	-173.0	-401.0	True	False	False	promoter	promoter	False	2	2	3.296	-16.749	False
+chrVII	592097	592098	chr7_592097_592098	128	.	True	False	345.0	-12.0	False	True	False	gene end	gene body	True	0	0			False
+chrX	587511	587512	chr10_587511_587512	208	.	False	False	-138.0	761.0	True	False	False	promoter	promoter	False	2	2	3.202	-12.752	True
+chrXIV	604844	604845	chr14_604844_604845	146	.	False	False	-539.0	576.0	False	False	False	other intergenic	other intergenic	False	1	1	1.783	-7.913	False
+chrI	189358	189359	chr1_189358_189359	74	.	False	False	-834.0	547.0	False	False	False	other intergenic	other intergenic	False	0	1	1.317	-4.459	False
+chrXVI	919338	919339	chr16_919338_919339	224	.	False	False	-42.0	-1149.0	True	False	False	promoter	promoter	False	1	1	1.998	-13.378	False
+chrXII	407194	407195	chr12_407194_407195	151	.	False	False	-372.0	88.0	True	True	False	promoter	promoter	True	0	0			False
+chrXVI	919186	919187	chr16_919186_919187	251	.	False	False	-145.0	-1301.0	True	False	False	promoter	promoter	False	1	1	2.612	-32.863	True
+chrXV	1083813	1083814	chr15_1083813_1083814	194	.	False	False	556.0	388.0	False	False	True	other intergenic	other intergenic	False	1	1	2.482	-31.047	False
+chrI	71182	71183	chr1_71182_71183	241	.	False	False	-603.0	1143.0	False	False	False	other intergenic	other intergenic	False	2	2	3.193	-28.042	False
+chrXIII	490857	490858	chr13_490857_490858	142	.	True	False	1135.0	-464.0	False	False	False	gene body	gene body	False	0	1	1.826	-5.114	False
+chrXII	48918	48919	chr12_48918_48919	178	.	False	False	-289.0	256.0	True	True	False	promoter	promoter	True	1	1	2.211	-14.811	False
+chrIV	1063060	1063061	chr4_1063060_1063061	82	.	False	False	-269.0	-1556.0	True	False	False	promoter	promoter	False	0	0			False
+chrV	363522	363523	chr5_363522_363523	95	.	True	False	423.0	-180.0	False	False	False	gene body	gene body	False	0	0			False
+chrVIII	337607	337608	chr8_337607_337608	134	.	True	False	-475.0	-202.0	True	False	False	promoter	gene body	True	1	1	1.958	-10.717	True
+chrXV	978580	978581	chr15_978580_978581	222	.	False	False	-511.0	-1387.0	False	False	False	other intergenic	other intergenic	False	1	1	4.107	-43.077	True
+chrVIII	122666	122667	chr8_122666_122667	187	.	True	False	99.0	-117.0	True	False	False	promoter	gene body	True	2	2	4.182	-68.242	True
+chrII	651190	651191	chr2_651190_651191	171	.	True	False	-224.0	-2.0	True	True	False	promoter	gene body	True	1	1	2.246	-14.579	True
+chrXV	480017	480018	chr15_480017_480018	204	.	True	False	-380.0	-403.0	True	False	False	promoter	gene body	True	0	0			False
+chrIV	867863	867864	chr4_867863_867864	195	.	False	False	-341.0	-2700.0	True	False	False	promoter	promoter	False	0	0			False
+chrVIII	217975	217976	chr8_217975_217976	195	.	False	False	-141.0	135.0	True	True	False	promoter	promoter	True	0	0			False
+chrXIV	255190	255191	chr14_255190_255191	186	.	False	False	-162.0	173.0	True	True	False	promoter	promoter	True	1	1	2.333	-8.749	False
+chrXIV	708373	708374	chr14_708373_708374	142	.	False	False	-149.0	178.0	True	True	False	promoter	promoter	True	1	1	2.126	-8.076	True
+chrVIII	218143	218144	chr8_218143_218144	107	.	False	False	-309.0	82.0	True	True	False	promoter	promoter	True	0	0			False
+chrXI	397388	397389	chr11_397388_397389	128	.	True	False	-140.0	-45.0	True	True	False	promoter	gene body	True	0	0			False
+chrIV	1490337	1490338	chr4_1490337_1490338	169	.	False	False	-258.0	103.0	True	True	False	promoter	promoter	True	2	2	3.175	-22.297	False
+chrXII	808973	808974	chr12_808973_808974	169	.	False	False	-1023.0	155.0	False	True	False	gene end	gene end	False	1	1	2.348	-13.885	True
+chrIV	106975	106976	chr4_106975_106976	153	.	True	False	-232.0	-95.0	True	True	False	promoter	gene body	True	1	1	3.522	-14.505	True
+chrXIV	424691	424692	chr14_424691_424692	153	.	False	False	-196.0	108.0	True	True	False	promoter	promoter	True	2	2	3.071	-17.761	True
+chrIX	207305	207306	chr9_207305_207306	153	.	True	False	1671.0	798.0	False	False	False	gene body	gene body	False	0	0			False
+chrXII	932912	932913	chr12_932912_932913	131	.	False	False	-54.0	-707.0	True	False	False	promoter	promoter	False	1	1	2.177	-15.05	True
+chrXIV	619892	619893	chr14_619892_619893	127	.	False	False	-174.0	-1086.0	True	False	False	promoter	promoter	False	2	2	3.055	-15.2	False
+chrI	132257	132258	chr1_132257_132258	62	.	True	False	59.0	274.0	True	True	False	promoter	gene body	True	1	1	1.782	-9.732	False
+chrVII	401408	401409	chr7_401408_401409	130	.	False	True	-121.0	-538.0	True	False	False	promoter	promoter	False	2	2	3.136	-17.761	False
+chrX	295046	295047	chr10_295046_295047	123	.	True	False	15.0	161.0	True	True	False	promoter	gene body	True	2	2	2.951	-9.371	True
+chrX	524711	524712	chr10_524711_524712	123	.	False	False	670.0	196.0	False	True	False	gene end	gene end	False	0	0			False
+chrIV	512183	512184	chr4_512183_512184	70	.	False	False	-74.0	1859.0	True	False	False	promoter	promoter	False	0	0			False
+chrXVI	520467	520468	chr16_520467_520468	123	.	False	False	-234.0	1707.0	True	False	False	promoter	promoter	False	1	1	3.069	-14.171	True
+chrXI	538202	538203	chr11_538202_538203	123	.	True	False	-2921.0	-2556.0	False	False	False	gene body	gene body	False	1	1	2.007	-8.076	True
+chrXIV	355634	355635	chr14_355634_355635	123	.	False	False	-592.0	1159.0	False	False	False	other intergenic	other intergenic	False	2	2	3.648	-20.565	True
+chrIV	304727	304728	chr4_304727_304728	73	.	True	False	-509.0	-121.0	False	False	False	gene body	gene body	False	0	0			False
+chrX	526007	526008	chr10_526007_526008	123	.	False	False	-327.0	-657.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	193620	193621	chr2_193620_193621	102	.	False	False	-501.0	108.0	False	True	False	gene end	gene end	False	0	0			False
+chrXIII	664628	664629	chr13_664628_664629	102	.	False	False	-123.0	344.0	True	False	False	promoter	promoter	False	0	0			False
+chrXVI	99424	99425	chr16_99424_99425	106	.	False	False	-59.0	-662.0	True	False	False	promoter	promoter	False	0	0			False
+chrX	651228	651229	chr10_651228_651229	83	.	True	False	-672.0	-41.0	False	True	False	gene end	gene body	True	0	0			False
+chrXV	712692	712693	chr15_712692_712693	102	.	False	False	-149.0	-1010.0	True	False	False	promoter	promoter	False	1	1	2.42	-9.448	True
+chrIV	1388767	1388768	chr4_1388767_1388768	96	.	False	False	-104.0	392.0	True	False	False	promoter	promoter	False	0	0			False
+chrVI	95146	95147	chr6_95146_95147	96	.	False	False	-136.0	614.0	True	False	False	promoter	promoter	False	2	2	4.167	-22.261	True
+chrVII	397967	397968	chr7_397967_397968	83	.	False	False	-349.0	-1933.0	True	False	False	promoter	promoter	False	1	1	3.226	-42.562	True
+chrXIV	471430	471431	chr14_471430_471431	70	.	True	False	54.0	-1378.0	True	False	False	promoter	gene body	True	0	0			False
+chrII	767935	767936	chr2_767935_767936	73	.	False	False	-304.0	-745.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	100276	100277	chr2_100276_100277	77	.	True	False	-161.0	-31.0	True	True	False	promoter	gene body	True	0	0			False
+chrVII	180690	180691	chr7_180690_180691	73	.	False	False	-9.0	-1428.0	True	False	False	promoter	promoter	False	0	0			False
+chrII	364874	364875	chr2_364874_364875	67	.	True	False	845.0	-88.0	False	True	False	gene end	gene body	True	0	0			False
+chrIV	1245028	1245029	chr4_1245028_1245029	77	.	True	False	-1055.0	-730.0	False	False	False	gene body	gene body	False	1	1	2.142	-7.43	False
+chrIV	1195095	1195096	chr4_1195095_1195096	72	.	False	False	-211.0	63.0	True	True	False	promoter	promoter	True	0	0			False
+chrXVI	918942	918943	chr16_918942_918943	72	.	True	False	99.0	-1545.0	True	False	False	promoter	gene body	True	0	0			False
+chrXI	339043	339044	chr11_339043_339044	66	.	False	False	-290.0	138.0	True	True	False	promoter	promoter	True	1	1	3.637	-27.042	True
+chrIV	1050386	1050387	chr4_1050386_1050387	66	.	False	False	-994.0	72.0	False	True	False	gene end	gene end	False	0	0			False
+chrIV	212820	212821	chr4_212820_212821	42	.	False	False	-530.0	-1446.0	False	False	False	other intergenic	other intergenic	False	1	1	2.33	-8.749	False
+chrIV	1429954	1429955	chr4_1429954_1429955	24	.	True	False	835.0	-767.0	False	False	False	gene body	gene body	False	1	1	2.609	-16.842	True
+chrVII	180566	180567	chr7_180566_180567	13	.	False	False	-133.0	-1552.0	True	False	False	promoter	promoter	False	0	0			False

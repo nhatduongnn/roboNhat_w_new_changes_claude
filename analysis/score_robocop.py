@@ -64,8 +64,47 @@ import h5py
 from scipy import sparse
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_HERE, "..", "pkg"))
-from robocop import get_posterior_binding_probability_df  # noqa: E402
+
+get_posterior_binding_probability_df = None
+PKG = None
+
+
+def use_pkg(pkg=None):
+    """Bind the posterior->factor collapse to a specific RoboCOP package copy.
+
+    Normally irrelevant: every pkgvar shares ../pkg's sum_for_dbf_probs. It matters for
+    the WIDENED-footprint variants, whose TF state blocks are longer than their motifs.
+    Collapsing one of those decodes with baseline ../pkg would sum the pad states into
+    the TF column and turn a motif-width peak into a footprint-width plateau -- not an
+    error, just quietly different numbers. So a widened decode must be scored with its
+    own pkgvar:
+
+        python score_robocop.py <outDir> --pkg pkgvar/seq_maskoff_wide
+
+    The widened variants' _tf_pads() falls back to dshared['padding'] when a baseline
+    HMMconfig carries no 'tf_pads', so a widened --pkg also scores unwidened runs
+    correctly -- which is what keeps a mixed comparison table consistent.
+
+    Default: $ROBOCOP_PKG, else ../pkg. Relative paths resolve against this file.
+    """
+    global get_posterior_binding_probability_df, PKG
+    if pkg is None:
+        pkg = os.environ.get("ROBOCOP_PKG", os.path.join(_HERE, "..", "pkg"))
+    if not os.path.isabs(pkg):
+        pkg = os.path.join(_HERE, pkg)
+    for _m in [k for k in list(sys.modules) if k == "robocop" or k.startswith("robocop.")]:
+        del sys.modules[_m]
+    sys.path.insert(0, pkg)
+    try:
+        import robocop as _robocop
+        get_posterior_binding_probability_df = _robocop.get_posterior_binding_probability_df
+    finally:
+        sys.path.pop(0)
+    PKG = pkg
+    return pkg
+
+
+use_pkg()
 
 try:
     from scipy.signal import find_peaks
@@ -680,9 +719,15 @@ def main():
     ap.add_argument("--tol-abf1", type=int, default=20)
     ap.add_argument("--out", default=None, help="Write JSON report here "
                     "(default: <outDir>/score_report.json).")
+    ap.add_argument("--pkg", default=None,
+                    help="RoboCOP package copy used to collapse the posterior into "
+                         "per-factor columns (default $ROBOCOP_PKG, else ../pkg). Point "
+                         "this at the decode's own pkgvar for widened-footprint runs.")
     ap.add_argument("--brogaard", default=DEFAULT_BROGAARD,
                     help="Brogaard top-2000 dyads TSV (chrom<TAB>dyad).")
     args = ap.parse_args()
+    if args.pkg:
+        print("collapsing posteriors with %s" % use_pkg(args.pkg))
 
     regions = None
     if args.regions:

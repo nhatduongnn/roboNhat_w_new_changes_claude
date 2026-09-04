@@ -1,0 +1,26 @@
+{
+  "lams": {
+    "Abf1_murphy": 0.001
+  },
+  "src": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_fiberonly",
+  "out": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_conclo_0p001",
+  "silent_states_begin": 3330,
+  "factors": {
+    "Abf1_murphy": {
+      "index": 0,
+      "conc_before": 4.7290090269997077e-07,
+      "conc_after": 4.729009026999707e-10,
+      "tf_prob_before": 1.7973671600465632e-07,
+      "tf_prob_after": 1.7973697669724298e-10,
+      "tf_prob_ratio": 0.001000001450413652
+    }
+  },
+  "background_prob_before": 0.9332338342081699,
+  "background_prob_after": 0.9332339308920389,
+  "nucleosome_prob_before": 0.0013572753679111484,
+  "nucleosome_prob_after": 0.0013572960384661678,
+  "max_rel_change_other_tfs": 2.072020147458886e-06,
+  "transition_rows_changed": [
+    3330
+  ]
+}

@@ -141,6 +141,8 @@ footer code{font-family:var(--mono);font-size:10.5px;background:var(--panel);
   <div class="tt"><h1 id="ttl"></h1><span class="sub" id="stl"></span></div>
 
   <div class="bar">
+    <div class="grp"><select id="regionsel" title="Region"></select></div>
+
     <div class="grp" id="runsel"></div>
 
     <div class="grp">
@@ -212,18 +214,49 @@ footer code{font-family:var(--mono);font-size:10.5px;background:var(--panel);
 <script id="DATA" type="application/json">{{DATA_JSON}}</script>
 <script>
 "use strict";
-const D = JSON.parse(document.getElementById("DATA").textContent);
-const N = D.end - D.start + 1;
+// The payload carries SEVERAL regions. `D` always means "the region on screen", so
+// every reference below is unchanged from the single-region viewer -- switching region
+// reassigns D and rebuilds the derived state, rather than threading a region id through
+// forty call sites.
+const ALL = JSON.parse(document.getElementById("DATA").textContent);
+const RKEYS = ALL.regionOrder;
+function savedRegion(){
+  try { const k = localStorage.getItem("rcv.region"); if (RKEYS.includes(k)) return k; }
+  catch (e) {}
+  return RKEYS[0];
+}
+let regionKey = savedRegion();
+let D = ALL.regions[regionKey];
+let N = D.end - D.start + 1;
 const GUT = 54, RPAD = 12;
 const H = {cPost:330, cMeth:150, cDep:74, cSeq:66, cGene:52, cAxis:30};
 // One stroke pattern per run in compare mode. Indexed by run position, so this must
 // cover every run the page carries -- DASH[i] coming back undefined would throw in
 // setLineDash. The || [] is the backstop past the end of the table.
-const DASH = {0:[], 1:[7,4], 2:[2,3], 3:[10,3,2,3], 4:[5,2,1,2,1,2]};
+const DASH = {0:[], 1:[7,4], 2:[2,3], 3:[10,3,2,3], 4:[5,2,1,2,1,2], 5:[1,3],
+              6:[9,3,3,3], 7:[4,4,1,4], 8:[12,4], 9:[3,3,8,3], 10:[6,2,2,2],
+              11:[1,2,6,2]};
+
+/* ---------- reference annotation tracks ---------- */
+// MacIsaac ground truth rides the factor machinery (sidebar row, checkbox, jump list)
+// but carries INTERVALS, not a posterior. Two consequences handled throughout: dense()
+// must never be asked for one, and they are drawn once per view rather than once per
+// run -- ground truth does not differ between models, and dashing it per run would
+// imply a difference that does not exist.
+let REF = D.refSites || {};
+let REF_KEYS = Object.keys(REF);
+const isRef = f => REF_KEYS.includes(f);
+function refInView(f){
+  let k = 0;
+  for (const st of (REF[f] || [])) if (st[1] >= view.s && st[0] <= view.e) k++;
+  return k;
+}
 
 /* ---------- decode ---------- */
 const cache = new Map();
+const ZERO = null;
 function dense(run, f){
+  if (isRef(f)) return new Float32Array(N);   // no posterior; see drawRefBands
   const key = run + "|" + f;
   let a = cache.get(key);
   if (a) return a;
@@ -238,8 +271,13 @@ function dense(run, f){
 }
 
 /* ---------- state ---------- */
-const runIds = D.runOrder;
-let runMode = runIds[0];            // a run id, or "compare"
+let runIds = D.runOrder;
+function savedRun(){
+  try { const r = localStorage.getItem("rcv.run");
+        if (r === "compare" || runIds.includes(r)) return r; } catch (e) {}
+  return runIds[0];
+}
+let runMode = savedRun();           // a run id, or "compare"
 let view = {s: D.view[0], e: D.view[1]};
 const hist = [];
 let checked = new Set(D.initialOn);
@@ -313,8 +351,10 @@ function drawPost(){
 
   const runs = runMode === "compare" ? runIds : [runMode];
   const list = [...checked];
+  drawRefBands(ctx, h);
   ctx.lineJoin = "round"; ctx.lineCap = "round";
   for (const f of list){
+    if (isRef(f)) continue;
     for (let ri = 0; ri < runs.length; ri++){
       const arr = dense(runs[ri], f);
       if (fillMode && runs.length === 1){
@@ -331,6 +371,34 @@ function drawPost(){
   }
   ctx.setLineDash([]);
   frame(ctx, c.width, h);
+}
+
+// Ground-truth spans, behind every curve so a posterior is never hidden by the answer
+// it is being judged against. The cap bar at the top edge stays visible when the band
+// itself is only a pixel or two wide at low zoom.
+function drawRefBands(ctx, h){
+  ctx.save();
+  for (const f of REF_KEYS){
+    if (!checked.has(f)) continue;
+    const col = D.colors[f] || "#888";
+    for (const st of REF[f]){
+      const a = st[0], b = st[1], strand = st[2];
+      if (b < view.s || a > view.e) continue;
+      const x0 = xOf(Math.max(a, view.s)), x1 = xOf(Math.min(b, view.e));
+      const w = Math.max(2, x1 - x0);
+      ctx.fillStyle = col + "22";
+      ctx.fillRect(x0, 0, w, h);
+      ctx.fillStyle = col;
+      ctx.fillRect(x0, 0, w, 3);
+      if (w >= 22){
+        ctx.font = "9px " + css("--mono");
+        ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(strand, x0 + w / 2, 5);
+      }
+    }
+  }
+  ctx.restore();
+  ctx.textBaseline = "alphabetic";
 }
 
 // A fillable region between the baseline and the curve. This cannot reuse pathSeries():
@@ -578,6 +646,7 @@ function drawAxis(){
 
 /* ---------- sidebar ---------- */
 function inViewMax(f){
+  if (isRef(f)) return 0;      // no posterior to take a max of; sidebar shows a count
   const runs = runMode === "compare" ? runIds : [runMode];
   let mx = 0;
   for (const r of runs){
@@ -596,7 +665,8 @@ function buildSidebar(){
       <input type="checkbox" ${on ? "checked" : ""}>
       <span class="sw" style="background:${D.colors[f] || "#888"}"></span>
       <span class="fname" title="${f}">${D.labels[f] || f}</span>
-      <span class="fmax">${maxes[f] < 0.001 ? "·" : maxes[f].toFixed(2)}</span>
+      <span class="fmax">${isRef(f) ? (refInView(f) || "·") + (refInView(f) ? "\u00d7" : "")
+                                       : (maxes[f] < 0.001 ? "·" : maxes[f].toFixed(2))}</span>
     </label>`;
   };
   document.getElementById("pinned").innerHTML = pin.map(row).join("");
@@ -731,6 +801,7 @@ function flash(text){
 
 function setRun(r, redraw = true){
   runMode = r;
+  try { localStorage.setItem("rcv.run", r); } catch (e) {}
   document.querySelectorAll('#runsel label.rb').forEach(x => {
     const on = x.dataset.r === r;
     x.classList.toggle("on", on);
@@ -824,8 +895,14 @@ function showTip(ev, p){
   const F = D.runs[shown[0]].fiber;
   const nW = F.aw[i], nC = F.ac[i], kW = F.mw[i], kC = F.mc[i];
   const ratio = (nW + nC) > 0 ? (kW + kC) / (nW + nC) : NaN;
-  const rows = D.factors.map(f => ({f, v: dense(shown[0], f)[i]}))
+  const rows = D.factors.filter(f => !isRef(f)).map(f => ({f, v: dense(shown[0], f)[i]}))
     .filter(r => r.v >= 0.005).sort((a, b) => b.v - a.v).slice(0, 6);
+  const hits = [];
+  for (const f of REF_KEYS)
+    for (const st of (REF[f] || []))
+      if (p >= st[0] && p <= st[1])
+        hits.push(`<tr><td><span class="sw" style="display:inline-block;background:${D.colors[f]}"></span></td>
+                   <td>${D.labels[f] || f}</td><td class="v">${st[2]} ${fmt(st[0])}\u2013${fmt(st[1])}</td></tr>`);
   tip.innerHTML =
     `<div class="c">${D.chrom}:${fmt(p)} &nbsp;<span style="color:var(--T)">${D.seq[i] || "?"}</span></div>` +
     `<table>
@@ -841,6 +918,7 @@ function showTip(ev, p){
           `<tr><td><span class="sw" style="display:inline-block;background:${D.colors[r.f] || "#888"}"></span></td>
            <td>${D.labels[r.f] || r.f}</td><td class="v">${r.v.toFixed(3)}</td></tr>`).join("") + `</table>`
       : `<div style="margin-top:5px;color:var(--ink3)">no factor &ge; 0.005</div>`) +
+    (hits.length ? `<table style="margin-top:5px">` + hits.join("") + `</table>` : "") +
     (runMode === "compare" ? `<div style="margin-top:4px;color:var(--ink3)">values shown for ${shown[0]}</div>` : "");
   tip.style.display = "block";
   const w = tip.offsetWidth, h = tip.offsetHeight;
@@ -848,18 +926,58 @@ function showTip(ev, p){
   tip.style.top = Math.min(innerHeight - h - 8, ev.clientY + 14) + "px";
 }
 
+/* ---------- region switching ---------- */
+// Everything that depends on WHICH region is on screen lives here, so switching is one
+// call. Deliberately carried across a switch: the selected run and the factor tick-boxes
+// -- the point of one page is comparing the same view of the same model across loci.
+// Deliberately reset: the zoom window (coordinates do not transfer) and the back-history.
+function mountRegion(){
+  D = ALL.regions[regionKey];
+  N = D.end - D.start + 1;
+  REF = D.refSites || {};
+  REF_KEYS = Object.keys(REF);
+  runIds = D.runOrder;
+  cache.clear();                        // keyed by run|factor, both region-scoped
+
+  // Run labels are harmonised across regions, so this normally keeps your run. If a
+  // region genuinely lacks it, fall back rather than render an empty panel.
+  if (runMode !== "compare" && !runIds.includes(runMode)) runMode = runIds[0];
+
+  const keep = new Set([...checked].filter(f => D.factors.includes(f)));
+  checked = keep.size ? keep : new Set(D.initialOn);
+
+  view = {s: D.view[0], e: D.view[1]};
+  hist.length = 0;
+
+  document.getElementById("stl").textContent = D.subtitle;
+  document.getElementById("prov").innerHTML = D.provenance;
+  document.getElementById("runsel").innerHTML =
+    [...runIds, "compare"].map(r =>
+      `<label class="rb${r === runMode ? " on" : ""}" data-r="${r}">
+         <input type="radio" name="run" value="${r}" ${r === runMode ? "checked" : ""}>${r === "compare" ? "compare all" : r}
+       </label>`).join("");
+  document.querySelectorAll('#runsel label.rb').forEach(l => l.onclick = () => setRun(l.dataset.r));
+  document.getElementById("sites").innerHTML =
+    '<option value="">Jump to a call\u2026</option>' +
+    D.sites.map(s => `<option value="${s.start},${s.end},${s.run},${s.factor}">${s.label}</option>`).join("");
+  document.getElementById("coord").placeholder = `${D.chrom}:${D.view[0]}-${D.view[1]}`;
+}
+
+function setRegion(k){
+  if (!ALL.regions[k]) return;
+  regionKey = k;
+  try { localStorage.setItem("rcv.region", k); } catch (e) {}
+  document.getElementById("regionsel").value = k;
+  mountRegion();
+  draw();
+}
+
 /* ---------- init ---------- */
-document.getElementById("ttl").textContent = D.title;
-document.getElementById("stl").textContent = D.subtitle;
-document.getElementById("prov").innerHTML = D.provenance;
-document.getElementById("runsel").innerHTML =
-  [...runIds, "compare"].map(r =>
-    `<label class="rb${r === runMode ? " on" : ""}" data-r="${r}">
-       <input type="radio" name="run" value="${r}" ${r === runMode ? "checked" : ""}>${r === "compare" ? "compare all" : r}
-     </label>`).join("");
-document.querySelectorAll('#runsel label.rb').forEach(l => l.onclick = () => setRun(l.dataset.r));
-document.getElementById("sites").innerHTML +=
-  D.sites.map(s => `<option value="${s.start},${s.end},${s.run},${s.factor}">${s.label}</option>`).join("");
+document.getElementById("ttl").textContent = ALL.title;
+document.getElementById("regionsel").innerHTML = RKEYS.map(k =>
+  `<option value="${k}"${k === regionKey ? " selected" : ""}>${ALL.regionLabels[k] || k}</option>`).join("");
+document.getElementById("regionsel").onchange = e => setRegion(e.target.value);
+mountRegion();
 
 addEventListener("resize", resize);
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(true));

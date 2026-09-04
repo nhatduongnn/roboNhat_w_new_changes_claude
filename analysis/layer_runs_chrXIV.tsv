@@ -1,0 +1,14 @@
+# <label>	<outDir>   -- chrXIV: 19 MacIsaac ABF1 sites, ~4x chrI's 5, so the held-out check
+seq	robocop_chrXIV_seqonly
+fib	robocop_chrXIV_maskoff_fib
+fib+seq	robocop_chrXIV_seq_maskoff_revfix
+fib+seq+lam0.01	robocop_chrXIV_conclo_0p01
+fib+wideABF1	robocop_chrXIV_fib_widememe
+fib+wide12	robocop_chrXIV_fib_wide10
+fib+wideAll	robocop_chrXIV_fib_wide10all
+fibseq+wideABF1	robocop_chrXIV_widememe
+fibseq+wide12	robocop_chrXIV_wide10
+fibseq+wideAll	robocop_chrXIV_wide10all
+seq+em10	robocop_chrXIV_seqonly_em10
+fib+widefp	robocop_chrXIV_fib_widefp
+fibseq+widefp	robocop_chrXIV_widefp

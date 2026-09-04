@@ -32,6 +32,28 @@ Done and validated:
   `analysis/chrI_5run_metrics.json`.
 - **Sequence layer helps ABF1 a lot**: enabling layer 0 lifts chrI ABF1 enrichment from
   ~1.1× to ~29×, though site recall is still 2/5 (see the limitation below).
+- **A widened-footprint series exists and is mostly measured** (2026-08-27 → 09-04). Six
+  variants — `widememe` (ABF1 only, 7/2), `widefp` (12 TFs, per-TF footprint), `wide10` (12
+  TFs, ±10), `wide10all` (all 153, ±10), `wide150` (12 TFs, ±150), `wide150all` (all 153,
+  ±150) — each reached as **pure data plus one changed line**, since
+  `get_transition_matrix_info` derives `tf_lens` from `pwm[tf].shape[1]`. All but `wide150`
+  and `wide150all` are scored on chrI and chrXIV. **`wide150`'s four decodes are finished and
+  unscored — that is the first thing to pick up.** `wide150all` is permanently blocked by
+  32-bit index overflow in `bc.c` at `n_states` 95285; ±70 is the largest uniform pad across
+  all 153 motifs that fits under the 46340 ceiling. Full detail: `HANDOFF.md` §10.1–§10.2 and
+  `analysis/README_wide_implementations.md`.
+- **The concentration prior was calibrated by a λ sweep, not by EM** (2026-08-24 → 09-01).
+  EM collapses: after 10 iterations 66 of 154 TFs sit at exactly 0 and 28 are pinned to the
+  constrained-EM ceiling (`mean + 2*sd` of the *initial* priors, computed once and never
+  recomputed). A direct sweep of ABF1's λ does better — λ=0.01 gives F1 0.111 vs 0.045 at
+  baseline, same true positives, false positives 81 → 29. The response is monotone in λ, so
+  there are no local optima and sampling buys nothing. Runs `robocop_{chrI,chrXIV}_conclo_*`,
+  scored in `conc_scores/`.
+- **A model-free validation target now exists**: Rossi's genic/intergenic split for **378
+  TFs** (`analysis/rossi_genic/rossi_genic_all_TFs.tsv`). For any TF the model emits, compare
+  the fraction of its calls inside an ORF with that TF's row. 77 of the 153 RoboCOP motif TFs
+  have a Rossi row, 47 with ≥100 peaks; their genic% spans 8.8% to 59.3% against a 73.0%
+  random-genome null. `HANDOFF.md` §10.4.
 - **The shipped PWM collection has been audited** (2026-08-14 → 08-18, read-only —
   `inputs/motifs_meme.txt` is unchanged). All 153 shipped matrices were compared against
   JASPAR CORE fungi and Rossi ChExMix, three ways, one row per Rossi replicate. **7
@@ -102,6 +124,27 @@ metrics barely move.
 
 ## Open work
 
+### Tier −1 — finish what is already computed (do this first; it is cheap)
+
+−1. **Score the four `wide150` decodes.** They completed 2026-09-03 and nothing has read
+    them. Add the four rows to `layer_runs_chrI.tsv` / `layer_runs_chrXIV.tsv`, widen the
+    `#SBATCH --array` bound in the two `sbatch_score_layers*.sh` (it is a literal, not
+    derived from the file, so a stale bound silently skips the new rows), and run.
+    **Interpret with the block-width correction**: the posterior collapses over the whole
+    314 bp padded block, so raw enrichment falls ~22× for arithmetic reasons alone. Compare
+    recall and site posteriors. `HANDOFF.md` §10.1.
+
+−2. **Add `widefp` and `wide150` to `viewer_runs_chrI.tsv` / `viewer_runs_chrXIV.tsv`** and
+    rebuild the combined browser artifact (`c6c7d1f3-…`). The two files must carry an
+    identical label set — the label is the join key that preserves the selected run across a
+    region switch.
+
+−3. **Decide the all-motif wide experiment.** ±70 across all 153 runs today with no code
+    change (`n_states` 46325, just under the 46340 ceiling; ~295 GB train, so a
+    `compsci-cluster-fitz-*` node). The alternative is an `int64_t` rebuild of `bc.c` into a
+    **separate** `librobocop.so` used by that variant only — a change to the numerical core
+    that must be re-validated against an existing run first. `HANDOFF.md` §10.2.
+
 ### Tier 0 — the PWM collection (NEW; gates Tier 1 #2)
 
 0. **Decide what to do about the 7 matrices the audit flagged.** The sequence layer is the
@@ -125,11 +168,16 @@ metrics barely move.
    up by ID and it is registered to the motif's column frame.
 
 ### Tier 1 — model quality
-1. **Re-enable EM.** `pkg/robocop_em.py:116` is still `iterations = 0`, so the
-   background/nucleosome/TF/`unknown` balance is never calibrated to the Fiber-seq data.
-   Fiber-seq parameters come entirely from the pre-computed pickles. The constrained-EM
-   machinery (`adjustEM`, threshold) already exists. Train once with EM, then decode with
-   `run_robocop_without_em` so `tmpDir` survives.
+1. ~~**Re-enable EM.**~~ **Done, and the answer is no.** `iterations = 0` still stands in
+   `pkg/robocop_em.py` and should stay: EM was run (`robocop_train_em10_chrII*`,
+   `pkgvar/seq_maskoff_em10`) and it **degrades** ABF1 on the held-out chrXIV in both layer
+   configurations. It drives 66 of 154 TFs to exactly 0 and pins 28 more to the
+   constrained-EM ceiling — a ceiling set by `mean + 2*sd` of the *initial* priors, computed
+   once and never recomputed, over a distribution skewed enough (mean 1.0e-4, median 1.2e-5,
+   sd 2.9e-4) that 6 TFs are already above it before EM starts. Calibrate concentrations with
+   the direct λ sweep instead (`make_conc_trainDir.py`, `sweep_conc.py`, `score_sweep.py`);
+   λ=0.01 for ABF1 is the measured optimum. `HANDOFF.md` §9 has the diagnosis;
+   `conc-calibration-wont-work` in the memory index has the numbers.
 2. **Retrain with the sequence layer ON.** The current `*_seq_*` decodes reuse
    Fiber-only-trained weights, so they are a lower bound on what sequence can do.
 3. **Verify the emission model** — it is the only signal, so bugs here directly break the
@@ -167,8 +215,8 @@ metrics barely move.
    phase being validated.
 
 ### Suggested order
-Tier 2 first (fast, removes the `3330` crash risk and the path fragility), then Tier 1 #1,
-then **Tier 0 before Tier 1 #2** — there is no point retraining with the sequence layer on
+**Tier −1 first** — it only reads runs that already exist. Then Tier 2 (fast, removes the
+`3330` crash risk and the path fragility), then **Tier 0 before Tier 1 #2** — there is no point retraining with the sequence layer on
 a matrix that is known to be wrong — then Tier 1 #3. Score with `score_robocop.py` after
 every change so regressions are visible immediately. Defer Tier 3 until Fiber-only +
 sequence is validated.

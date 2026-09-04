@@ -38,11 +38,73 @@ CALL = 0.30              # posterior threshold for the sites-of-interest list
 MAX_BYTES = 16 * 1024 * 1024
 
 # Fiber-seq background rates in play, for the m6A panel's reference lines.
-# Background methylation rate per run, for the m6A panel's reference lines. em10 shares
-# revfix's emission model exactly (both decode under pkgvar/seq_maskoff, reading the same
-# inputs/bg_params.pkl) -- only the transition prior differs -- so its bg is revfix's.
-BG = {"revfix": 0.1383, "capA": 0.1548, "capB": 0.4402, "em10": 0.1383}
+# Background methylation rate per run, for the m6A panel's reference lines. em10,
+# em10nocap and em10fib all share revfix's emission model -- they decode under the
+# unmodified pkgvar/{seq,fiber}_maskoff and read the same inputs/bg_params.pkl, so only
+# the transition prior differs and their bg is revfix's. (em10fib runs with the sequence
+# layer off, which changes which states can fire but not the Fiber-seq bg rate.)
+BG = {
+    # Compositional labels (viewer_runs_*.tsv): every run has the Fiber-seq layers, so
+    # only capA and capB alter the background emission -- everything else inherits
+    # inputs/bg_params.pkl. EM changes the transition prior, not the emission; widening
+    # changes TF state geometry and the p-vector read inside a TF block, not background.
+    "fib": 0.1383, "fib+em10": 0.1383,
+    "fib+seq": 0.1383, "fib+seq+em10": 0.1383, "fib+seq+em10nocap": 0.1383,
+    "fib+seq+capA": 0.1548, "fib+seq+capB": 0.4402,
+    "fib+seq+lam0.01": 0.1383,
+    "fib+seq+wideABF1": 0.1383, "fib+seq+wide12": 0.1383, "fib+seq+wideAll": 0.1383,
+    # Fiber-only widened runs: same bg_params.pkl, sequence layer masked at decode time.
+    "fib+wideABF1": 0.1383, "fib+wide12": 0.1383, "fib+wideAll": 0.1383,
+    # 'seq' and 'seq+em10' run with the Fiber layers set to 1.0, so no m6A reference line
+    # is meaningful for them -- deliberately absent from this table rather than set to a
+    # number the run does not use.
+    # Legacy short labels, kept so older single-region invocations still resolve.
+    "revfix": 0.1383, "capA": 0.1548, "capB": 0.4402, "em10": 0.1383,
+    "em10nocap": 0.1383, "em10fib": 0.1383,
+    "seq": 0.1383, "seqem10": 0.1383, "fibem10": 0.1383,
+    "wideA": 0.1383, "wideAnull": 0.1383,
+    "widememe": 0.1383, "wide10": 0.1383, "wide10all": 0.1383,
+}
 NHP6A_RATE = 0.1098
+
+# Ground-truth annotation tracks. These are NOT model output: they are the same
+# MacIsaac calls score_robocop.py / score_factors.py grade against, drawn in the
+# posterior panel so "is ABF1 nonzero where a real site is?" can be read off directly
+# instead of inferred from coordinates.
+#
+# They ride the normal factor machinery -- sidebar row, checkbox, jump list -- so they
+# toggle like any TF, but they carry intervals rather than a posterior and are drawn
+# once per view rather than once per run (a reference does not differ between runs).
+# Names are prefixed macisaac_ so a second reference slots in beside the first.
+MACISAAC = os.path.join(HERE, "inputs",
+                        "MacIsaac_sacCer3_liftOver_Abf1_Reb1_match_PWM.bed")
+REF_TRACKS = [
+    # key              bed name  colour     display label     on by default
+    ("macisaac_abf1",  "ABF1",   "#d4145a", "MacIsaac ABF1",   True),
+    ("macisaac_reb1",  "REB1",   "#0d7a8c", "MacIsaac REB1",   False),
+]
+
+
+def load_ref_sites(chrom, start, end, path=MACISAAC):
+    """-> {track_key: [[start, end, strand], ...]} for sites overlapping the region.
+
+    The bed is 0-based half-open (same file load_abf1/load_macisaac read); the viewer
+    works in 1-based inclusive genomic coordinates, so start is shifted by +1 and end
+    is left as-is, which is the standard conversion and keeps a 14 bp motif 14 bp wide.
+    """
+    out = {k: [] for k, _, _, _, _ in REF_TRACKS}
+    if not os.path.isfile(path):
+        print("  WARNING: %s missing -- no reference tracks" % path)
+        return out
+    bed = pd.read_csv(path, sep="\t", header=None,
+                      names=["chr", "start", "end", "name", "score", "strand"])
+    bed = bed[bed["chr"] == chrom]
+    for key, bedname, _, _, _ in REF_TRACKS:
+        sub = bed[bed["name"].str.upper() == bedname]
+        sub = sub[(sub["end"] >= start) & (sub["start"] + 1 <= end)]
+        out[key] = [[int(r["start"]) + 1, int(r["end"]), str(r["strand"])]
+                    for _, r in sub.sort_values("start").iterrows()]
+    return out
 
 # Colors for the non-TF states. 'nucleosome' 0.7 grey and 'unknown' #D3D3D3 are what
 # colorMap() in pkg/robocop/utils/plotRoboCOP.py:81 uses.
@@ -51,7 +113,8 @@ SPECIAL = {
     "nuc_padding": "#cfcfcf", "nuc_center": "#8c8c8c",
     "nuc_start": "#a6a6a6", "nuc_end": "#a6a6a6",
 }
-PINNED = ["nucleosome", "background", "unknown", "Nhp6a_zhu", "Abf1_murphy"]
+PINNED = ["macisaac_abf1", "macisaac_reb1",
+          "nucleosome", "background", "unknown", "Nhp6a_zhu", "Abf1_murphy"]
 
 
 def color_for_name(name):
@@ -142,22 +205,18 @@ def intervals(mask, positions_start, gap=20):
     return [(int(a) + positions_start, int(b) + positions_start) for a, b in zip(starts, ends)]
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--region", required=True, help="chrI:60001-65000 (data loaded)")
-    ap.add_argument("--view", default=None, help="initial view, defaults to --region")
-    ap.add_argument("--run", action="append", required=True, metavar="LABEL=DIR")
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--title", default=None)
-    args = ap.parse_args()
+def build_region(region, view, runs, title=None):
+    """Assemble one region's payload: posteriors, Fiber-seq, sequence, genes, annotations.
 
-    chrom, start, end = parse_region(args.region)
-    vchrom, vs, ve = parse_region(args.view) if args.view else (chrom, start, end)
+    `region` and `view` are "chrom:start-end" strings; `runs` a list of (label, outDir).
+    Returned dict is self-contained -- the viewer swaps between several of them.
+    """
+    chrom, start, end = parse_region(region)
+    vchrom, vs, ve = parse_region(view) if view else (chrom, start, end)
     if vchrom != chrom:
-        sys.exit("--view chromosome %s != --region chromosome %s" % (vchrom, chrom))
+        sys.exit("view chromosome %s != region chromosome %s" % (vchrom, chrom))
     vs, ve = max(vs, start), min(ve, end)
     n = end - start + 1
-    runs = [tuple(r.split("=", 1)) for r in args.run]
 
     print("region %s:%d-%d  (%d bp), %d run(s)" % (chrom, start, end, n, len(runs)))
 
@@ -183,9 +242,20 @@ def main():
     factors = [c for c in tables[runs[0][0]].columns if c in keep]
     print("  keeping %d of %d factors (max >= %g)" % (len(factors), tables[runs[0][0]].shape[1], KEEP_MIN))
 
+    # --- reference tracks: prepended so they read as annotation, not as a 154th TF ---
+    ref_sites = load_ref_sites(chrom, start, end)
+    ref_keys = [k for k, _, _, _, _ in REF_TRACKS]
+    factors = ref_keys + factors
+    for k, _, _, _, _ in REF_TRACKS:
+        print("  %-14s %d site(s) in region" % (k, len(ref_sites[k])))
+
     colors, labels = {}, {}
     cm = colormaps[runs[0][0]]
+    for k, _, col, disp, _ in REF_TRACKS:
+        colors[k], labels[k] = col, disp
     for f in factors:
+        if f in ref_sites:
+            continue
         disp = f.split("_")[0].upper()
         labels[f] = disp if f not in SPECIAL else f
         if f in SPECIAL:
@@ -200,6 +270,8 @@ def main():
     for label, op in tables.items():
         post, q = {}, {}
         for f in factors:
+            if f in ref_sites:
+                continue          # intervals, not a posterior -- stored once in refSites
             v = np.rint(np.nan_to_num(op[f].values) * QUANT).astype(np.int32)
             q[f] = v
             enc = rle(v)
@@ -239,7 +311,14 @@ def main():
                 sites.append({"start": a, "end": b, "peak": pk, "run": label, "factor": f,
                               "label": "%s  %s  %s:%s-%s  (%.2f)" %
                                        (label, labels.get(f, f), chrom, f"{a:,}", f"{b:,}", pk)})
-    sites.sort(key=lambda s: (s["start"], s["run"]))
+    for key, _, _, disp, _ in REF_TRACKS:
+        for a, b, strand in ref_sites[key]:
+            # run="" so the jump handler leaves the current run alone: a reference site
+            # is not a call by any particular model.
+            sites.append({"start": a, "end": b, "peak": 1.0, "run": "", "factor": key,
+                          "label": "%s  %s:%s-%s  (%s)" % (disp, chrom, f"{a:,}", f"{b:,}",
+                                                           strand)})
+    sites.sort(key=lambda s: (0 if s["run"] == "" else 1, s["start"], s["run"]))
     print("  %d sites of interest (%s >= %.2f)" % (len(sites), "Nhp6a/Abf1", CALL))
 
     # --- sequence + genes ---
@@ -257,7 +336,8 @@ def main():
             refs.append({"label": "%s bg %.3f" % (label, BG[label]), "value": BG[label],
                          "tone": "bg", "run": label})
 
-    on0 = [f for f in ("nucleosome", "background", "Nhp6a_zhu", "Abf1_murphy") if f in factors]
+    on0 = [k for k, _, _, _, dflt in REF_TRACKS if dflt]
+    on0 += [f for f in ("nucleosome", "background", "Nhp6a_zhu", "Abf1_murphy") if f in factors]
     data = {
         "chrom": chrom, "start": start, "end": end, "view": [vs, ve],
         "factors": factors, "colors": colors, "labels": labels,
@@ -265,23 +345,114 @@ def main():
         "initialOn": on0,
         "runOrder": [label for label, _ in runs],
         "runs": payload_runs, "seq": seq, "genes": genes, "sites": sites, "refs": refs,
-        "title": args.title or ("%s Occupancy Browser" % chrom),
+        "refSites": ref_sites,
+        "title": title or ("%s Occupancy Browser" % chrom),
         "subtitle": "%s:%s–%s loaded · %s bp · %d factors · %d runs · fiber + sequence layers"
-                    % (chrom, f"{start:,}", f"{end:,}", f"{n:,}", len(factors), len(runs)),
+                    % (chrom, f"{start:,}", f"{end:,}", f"{n:,}",
+                       len(factors) - len(REF_TRACKS), len(runs)),
         "provenance": "Built by <code>analysis/make_posterior_viewer.py</code> from "
                       + " · ".join("<code>%s</code>" % d.rstrip("/") for _, d in runs),
     }
 
+    return data
+
+
+def read_runs(path):
+    """<label>\t<outDir> per line; # comments and blanks ignored."""
+    out = []
+    for line in open(path):
+        line = line.split("#", 1)[0].strip()
+        if line:
+            f = line.split()
+            if len(f) != 2:
+                sys.exit("%s: expected '<label> <outDir>', got %r" % (path, line))
+            out.append((f[0], f[1]))
+    return out
+
+
+def read_regions(path):
+    """<key>\t<label>\t<region>\t<view>\t<runs_file> per line."""
+    out = []
+    for line in open(path):
+        line = line.split("#", 1)[0].strip()
+        if line:
+            f = line.split("\t") if "\t" in line else line.split()
+            if len(f) != 5:
+                sys.exit("%s: expected 5 tab-separated fields, got %r" % (path, line))
+            out.append({"key": f[0], "label": f[1], "region": f[2],
+                        "view": f[3], "runs": read_runs(f[4])})
+    return out
+
+
+def emit(regions, order, labels, out_path, title):
+    """Wrap one or more region payloads into the page.
+
+    The payload is ALWAYS multi-region shaped, even for a single region, so the
+    template has exactly one code path to maintain.
+    """
+    data = {"regions": regions, "regionOrder": order, "regionLabels": labels,
+            "title": title,
+            "provenance": "Built by <code>analysis/make_posterior_viewer.py</code>"}
     tpl = open(TEMPLATE, encoding="utf-8").read()
     js = json.dumps(data, separators=(",", ":"))
-    html = tpl.replace("{{DATA_JSON}}", js).replace("{{TITLE}}", data["title"])
-    out = args.out if os.path.isabs(args.out) else os.path.join(HERE, args.out)
+    html = tpl.replace("{{DATA_JSON}}", js).replace("{{TITLE}}", title)
+    out = out_path if os.path.isabs(out_path) else os.path.join(HERE, out_path)
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(html)
     size = os.path.getsize(out)
-    print("  payload %.2f MB · page %.2f MB" % (len(js) / 1e6, size / 1e6))
+    print("  payload %.2f MB \u00b7 page %.2f MB \u00b7 %d region(s)"
+          % (len(js) / 1e6, size / 1e6, len(regions)))
     assert size < MAX_BYTES, "page is %.1f MB, over the 16 MB artifact cap" % (size / 1e6)
     print("wrote %s" % out)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--regions", default=None,
+                    help="TSV of <key> <label> <region> <view> <runs_file> -- one page "
+                         "carrying several regions, switchable in the viewer")
+    ap.add_argument("--region", default=None, help="chrI:60001-65000 (single-region mode)")
+    ap.add_argument("--view", default=None, help="initial view, defaults to --region")
+    ap.add_argument("--run", action="append", metavar="LABEL=DIR")
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--title", default=None)
+    ap.add_argument("--pkg", default=None,
+                    help="RoboCOP package copy used to collapse posteriors "
+                         "(default $ROBOCOP_PKG, else ../pkg)")
+    args = ap.parse_args()
+    if args.pkg:
+        print("collapsing posteriors with %s" % S.use_pkg(args.pkg))
+
+    if bool(args.regions) == bool(args.region):
+        sys.exit("give exactly one of --regions (combined) or --region (single)")
+
+    if args.regions:
+        specs = read_regions(args.regions)
+        # One label set across regions is what makes "keep my run when I switch region"
+        # work. Mismatched labels would silently drop the viewer back to a default.
+        sets = {r["key"]: [l for l, _ in r["runs"]] for r in specs}
+        common = set.intersection(*(set(v) for v in sets.values())) if sets else set()
+        for k, v in sets.items():
+            missing = [x for x in v if x not in common]
+            if missing:
+                print("  note: %s carries runs absent from some other region: %s"
+                      % (k, ", ".join(missing)))
+        built, order, labels = {}, [], {}
+        for spec in specs:
+            print("=== %s (%s) ===" % (spec["key"], spec["label"]))
+            built[spec["key"]] = build_region(spec["region"], spec["view"], spec["runs"])
+            order.append(spec["key"])
+            labels[spec["key"]] = spec["label"]
+        emit(built, order, labels, args.out,
+             args.title or "RoboCOP Occupancy Browser")
+    else:
+        if not args.run:
+            sys.exit("--region needs at least one --run")
+        runs = [tuple(r.split("=", 1)) for r in args.run]
+        chrom = parse_region(args.region)[0]
+        d = build_region(args.region, args.view, runs, args.title)
+        emit({"main": d}, ["main"], {"main": "%s:%s" % (chrom, args.region.split(":")[1])},
+             args.out, args.title or ("%s Occupancy Browser" % chrom))
 
 
 if __name__ == "__main__":

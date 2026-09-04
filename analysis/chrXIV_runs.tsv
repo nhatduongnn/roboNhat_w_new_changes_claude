@@ -1,0 +1,9 @@
+# label	outDir  -- the seven chrXIV configurations, in the order they should be charted:
+# fiber-only pair first (the H2 control), then the sequence-layer runs.
+fib	robocop_chrXIV_maskoff_fib
+fibem10	robocop_chrXIV_maskoff_em10
+seq	robocop_chrXIV_seq_maskoff_revfix
+seqem10	robocop_chrXIV_seq_maskoff_em10
+em10nocap	robocop_chrXIV_seq_maskoff_em10nocap
+capA	robocop_chrXIV_seq_maskoff_capA
+capB	robocop_chrXIV_seq_maskoff_capB

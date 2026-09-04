@@ -1,0 +1,18 @@
+# Per-TF Fiber-seq footprint padding, in bp, added OUTSIDE the motif.
+#
+# The motif itself never changes: pad columns emit pwm['background'] in the sequence
+# layer (identical to what the background state emits, so it cancels in the likelihood
+# ratio) and the fitted +/-50bp Fiber-seq p-values in layers 5/6. Widening is therefore
+# a Fiber-layer-only change.
+#
+# "left"/"right" are in the MOTIF's own 5'->3' frame, not reference coordinates. The
+# reverse-strand block mirrors them automatically (right pad becomes the reference-left
+# pad), the same way reverse_complement() mirrors the PWM.
+#
+# A TF absent from this file gets 0/0 = exactly today's behaviour. Only the 12 TFs with
+# an individual Fiber-seq fit can be widened; the other 141 fall back to the scalar
+# combined_low_count and have no per-column footprint to widen.
+#
+# tf                left  right
+Abf1_murphy         7     2
+# Nhp6a_zhu         10    8

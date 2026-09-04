@@ -1,0 +1,23 @@
+# Per-TF Fiber-seq footprint pads, in the MOTIF's own 5'->3' frame.
+#   <tf>  <left>  <right>
+# A TF absent from this file gets 0/0, i.e. today's unwidened behaviour.
+# Read by make_meme_wide.py (sequence columns) and make_params_wide.py (Fiber vector),
+# so the two layers cannot disagree about a TF's width.
+# GENERATED -- do not hand-edit; see the header of each consumer.
+#
+# The 12 TFs with >=50 Rossi sites, i.e. those carrying an INDIVIDUAL Fiber-seq fit
+# (abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:54). Run A.
+#
+# tf                           left  right
+Abf1_murphy                  10    10
+Cin5_murphy                  10    10
+Fhl1_zhu                     10    10
+Fkh1_zhu                     10    10
+Mcm1_zhu                     10    10
+Nhp6a_zhu                    10    10
+Rap1_telomeric               10    10
+Reb1_badis                   10    10
+Sko1_murphy                  10    10
+Spt15_zhu                    10    10
+Tbf1_zhu                     10    10
+Ume6_zhu                     10    10

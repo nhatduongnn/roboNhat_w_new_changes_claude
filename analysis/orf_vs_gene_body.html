@@ -1,0 +1,648 @@
+<title>ORF Versus Gene Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Asap:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#e9edf2;
+  --panel:#ffffff;
+  --panel-2:#f4f7fa;
+  --ink:#0f151c;
+  --ink-soft:#48535f;
+  --ink-faint:#7d8896;
+  --rule:#d2dae2;
+  --rule-soft:#e4eaf0;
+
+  --promoter:#1e63c4;
+  --promoter-wash:#dfe9fa;
+  --gene-end:#7a45bd;
+  --gene-end-wash:#ece2f8;
+  --gene-body:#bd4d1c;
+  --gene-body-wash:#f9e6dc;
+  --other:#6f7b88;
+  --other-wash:#e6eaee;
+
+  --orf:#aab8c6;
+  --orf-edge:#8c9dae;
+  --nuc:#c3cede;
+  --axis:#9aa5b2;
+
+  --shadow:0 1px 2px rgba(15,21,28,.05),0 10px 30px -18px rgba(15,21,28,.30);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1218;
+    --panel:#151c25;
+    --panel-2:#1b232e;
+    --ink:#e7ecf2;
+    --ink-soft:#a6b1be;
+    --ink-faint:#76818e;
+    --rule:#2a3543;
+    --rule-soft:#212a35;
+
+    --promoter:#6ea3f0;
+    --promoter-wash:#16263d;
+    --gene-end:#b189e6;
+    --gene-end-wash:#251a38;
+    --gene-body:#e8834f;
+    --gene-body-wash:#33200f;
+    --other:#8b96a3;
+    --other-wash:#1e252e;
+
+    --orf:#495868;
+    --orf-edge:#6b7d90;
+    --nuc:#39485a;
+    --axis:#5d6a78;
+
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 12px 34px -20px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1218;
+  --panel:#151c25;
+  --panel-2:#1b232e;
+  --ink:#e7ecf2;
+  --ink-soft:#a6b1be;
+  --ink-faint:#76818e;
+  --rule:#2a3543;
+  --rule-soft:#212a35;
+
+  --promoter:#6ea3f0;
+  --promoter-wash:#16263d;
+  --gene-end:#b189e6;
+  --gene-end-wash:#251a38;
+  --gene-body:#e8834f;
+  --gene-body-wash:#33200f;
+  --other:#8b96a3;
+  --other-wash:#1e252e;
+
+  --orf:#495868;
+  --orf-edge:#6b7d90;
+  --nuc:#39485a;
+  --axis:#5d6a78;
+
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 12px 34px -20px rgba(0,0,0,.85);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font:400 16px/1.62 "Asap","Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 24px 72px}
+.col{max-width:660px}
+
+header{margin-bottom:34px}
+.eyebrow{
+  font:500 11.5px/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+  margin-bottom:14px;
+}
+h1{
+  font:700 40px/1.08 "Zilla Slab",Georgia,serif;
+  letter-spacing:-.012em;margin:0 0 14px;text-wrap:balance;
+}
+.lede{font-size:18.5px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:640px}
+.lede strong{color:var(--ink);font-weight:600}
+
+h2{
+  font:600 25px/1.2 "Zilla Slab",Georgia,serif;
+  margin:0 0 8px;letter-spacing:-.008em;text-wrap:balance;
+}
+h3{
+  font:600 13px/1.3 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);
+  margin:0 0 10px;
+}
+p{margin:0 0 15px}
+p:last-child{margin-bottom:0}
+strong{font-weight:600}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em}
+
+section{margin-top:44px}
+.shead{margin-bottom:18px}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--rule);
+  border-radius:4px;
+  box-shadow:var(--shadow);
+  padding:22px 20px 18px;
+}
+.scroller{overflow-x:auto}
+figcaption{
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-soft);
+  font-size:14.5px;line-height:1.55;color:var(--ink-soft);max-width:760px;
+}
+figure{margin:0}
+
+/* ---------- the track figure ---------- */
+svg.track{display:block;min-width:940px;width:100%;height:auto}
+.t-win-label{font:500 11px "IBM Plex Mono",monospace;letter-spacing:.04em}
+.t-gene{font:600 13px "Zilla Slab",serif;fill:var(--ink)}
+.t-sub{font:400 10.5px "IBM Plex Mono",monospace;fill:var(--ink-faint)}
+.t-axis{font:400 10.5px "IBM Plex Mono",monospace;fill:var(--ink-faint)}
+.t-ndr{font:500 10px "IBM Plex Mono",monospace;fill:var(--ink-faint);letter-spacing:.06em}
+.t-chip{font:600 11.5px "Asap",sans-serif}
+.t-num{font:500 10.5px "IBM Plex Mono",monospace}
+
+/* ---------- decision chain ---------- */
+.chain{list-style:none;margin:20px 0 0;padding:0;counter-reset:step}
+.chain li{
+  display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:start;
+  padding:14px 16px;background:var(--panel);border:1px solid var(--rule);
+  border-left-width:3px;border-radius:3px;margin-bottom:8px;
+}
+.chain li.c-prom{border-left-color:var(--promoter)}
+.chain li.c-end {border-left-color:var(--gene-end)}
+.chain li.c-body{border-left-color:var(--gene-body)}
+.chain li.c-oth {border-left-color:var(--other)}
+.chain .step{
+  font:500 12px/1.6 "IBM Plex Mono",monospace;color:var(--ink-faint);
+  border:1px solid var(--rule);border-radius:2px;text-align:center;
+}
+.chain .test{font-size:14.5px;line-height:1.5}
+.chain .test em{font-style:normal;color:var(--ink-faint)}
+.chain .test .q{font-weight:600;color:var(--ink)}
+.chain .out{
+  font:600 11.5px/1 "Asap",sans-serif;padding:5px 10px;border-radius:11px;white-space:nowrap;
+}
+.chain .out.o-prom{background:var(--promoter-wash);color:var(--promoter)}
+.chain .out.o-end {background:var(--gene-end-wash);color:var(--gene-end)}
+.chain .out.o-body{background:var(--gene-body-wash);color:var(--gene-body)}
+.chain .out.o-oth {background:var(--other-wash);color:var(--other)}
+@media(max-width:620px){
+  .chain li{grid-template-columns:34px 1fr}
+  .chain .out{grid-column:2;justify-self:start;margin-top:8px}
+}
+
+/* ---------- legend ---------- */
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px;
+  font-size:13.5px;color:var(--ink-soft);
+}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:13px;height:13px;border-radius:2px;flex:none}
+
+/* ---------- the two-meanings callout ---------- */
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:720px){.twoup{grid-template-columns:1fr}}
+.def{
+  background:var(--panel);border:1px solid var(--rule);border-radius:4px;
+  padding:18px 18px 16px;
+}
+.def .tag{
+  display:inline-block;font:500 10.5px/1 "IBM Plex Mono",monospace;
+  letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:2px;
+  margin-bottom:11px;
+}
+.def.phys .tag{background:var(--orf);color:var(--panel)}
+.def.lab  .tag{background:var(--gene-body-wash);color:var(--gene-body)}
+.def h4{font:600 18px/1.25 "Zilla Slab",serif;margin:0 0 8px}
+.def p{font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 10px}
+.def .big{
+  font:500 27px/1 "IBM Plex Mono",monospace;color:var(--ink);
+  display:block;margin-top:12px;
+}
+.def .big small{font:400 13px/1 "Asap",sans-serif;color:var(--ink-faint);margin-left:7px}
+
+/* ---------- matrix ---------- */
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+caption{text-align:left;font-size:14px;color:var(--ink-soft);padding-bottom:12px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--rule-soft)}
+thead th{
+  font:500 11px "IBM Plex Mono",monospace;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-faint);border-bottom:1px solid var(--rule);
+}
+th.l,td.l{text-align:left}
+tbody th.l{font-weight:600;color:var(--ink)}
+td.n{font-family:"IBM Plex Mono",monospace}
+tr.total td,tr.total th{border-top:1px solid var(--rule);border-bottom:none;font-weight:600}
+td.zero{color:var(--ink-faint)}
+.cell-hi{background:var(--gene-body-wash);color:var(--gene-body);font-weight:600}
+.cell-mid{background:var(--panel-2)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+
+/* ---------- loci table ---------- */
+table.loci{font-size:13.5px}
+table.loci td,table.loci th{padding:8px 10px}
+table.loci .gene{font-family:"IBM Plex Mono",monospace;font-weight:500}
+.pill{
+  display:inline-block;padding:3px 9px;border-radius:11px;
+  font:600 11.5px "Asap",sans-serif;white-space:nowrap;
+}
+.p-prom{background:var(--promoter-wash);color:var(--promoter)}
+.p-end{background:var(--gene-end-wash);color:var(--gene-end)}
+.p-body{background:var(--gene-body-wash);color:var(--gene-body)}
+
+.note{
+  border-left:2px solid var(--rule);padding-left:16px;margin-top:22px;
+  font-size:14.5px;color:var(--ink-soft);max-width:660px;
+}
+.note strong{color:var(--ink)}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">S. cerevisiae &middot; Ensembl R64-1-1 = SGD R64</div>
+  <h1>ORF versus gene body</h1>
+  <p class="lede">They are the <strong>same stretch of DNA</strong>. One is a place; the other
+  is a label that place only sometimes gets. That is the whole difference &mdash; and it is why
+  88 of Abf1&rsquo;s peaks sit inside an ORF while only 39 are called gene body.</p>
+</header>
+
+<section>
+  <div class="col shead">
+    <h2>The same span, two jobs</h2>
+  </div>
+  <div class="col">
+    <p>In yeast, the GTF&rsquo;s <code>gene</code> feature for a protein-coding gene runs from
+    the <strong>A of the ATG</strong> to the <strong>last base of the stop codon</strong> and
+    nothing more. I checked all 6,692: gene span and CDS span differ by at most 3&nbsp;bp, which
+    is only whether the stop codon is counted in. No UTRs are annotated. So the ORF and the
+    &ldquo;gene body region&rdquo; are one and the same interval, median 1,086&nbsp;bp.</p>
+  </div>
+
+  <div class="twoup">
+    <div class="def phys">
+      <span class="tag">a place</span>
+      <h4>ORF</h4>
+      <p>A physical interval on the chromosome: ATG &rarr; stop codon. A position either falls
+      inside one or it does not. Nothing about neighbours or windows enters into it.</p>
+      <span class="big">88 <small>Abf1 peaks inside an ORF</small></span>
+    </div>
+    <div class="def lab">
+      <span class="tag">a label</span>
+      <h4>&ldquo;gene body&rdquo;</h4>
+      <p>The <em>leftover</em> bucket in a four-way priority: promoter first, then gene end,
+      then gene body, then other. A peak is only called gene body if it is inside an ORF
+      <em>and</em> no window claimed it first.</p>
+      <span class="big">39 <small>Abf1 peaks labelled gene body</small></span>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>So the ORF is not bigger than the gene body.</strong> The interval is identical.
+    The <em>set of peaks</em> inside that interval (88) is bigger than the set that ends up
+    labelled with its name (39), because 49 of them were claimed by a promoter or terminator
+    window belonging to some gene &mdash; sometimes the very gene they sit inside.
+  </div>
+</section>
+
+<section>
+  <div class="col shead">
+    <h2>How a peak gets its label</h2>
+  </div>
+  <div class="col">
+    <p>Four tests, run <strong>in this order</strong>, first match wins. That order is the
+    only reason &ldquo;gene body&rdquo; and &ldquo;inside an ORF&rdquo; come out to different
+    numbers &mdash; a peak never reaches test&nbsp;3 if test&nbsp;1 or 2 already claimed it.</p>
+  </div>
+
+  <ol class="chain">
+    <li class="c-prom">
+      <span class="step">1</span>
+      <span class="test"><span class="q">Within &minus;500 / +100&nbsp;bp of any ATG?</span>
+        <em><br>Nearest start codon, in the direction of transcription. Any gene&rsquo;s, not
+        just the one it might be sitting inside.</em></span>
+      <span class="out o-prom">promoter</span>
+    </li>
+    <li class="c-end">
+      <span class="step">2</span>
+      <span class="test"><span class="q">Otherwise &mdash; within &minus;100 / +300&nbsp;bp of any stop codon?</span>
+        <em><br>The terminator NDR. Asymmetric because it sits downstream of the poly(A) site,
+        itself about 100&nbsp;bp past the stop.</em></span>
+      <span class="out o-end">gene end</span>
+    </li>
+    <li class="c-body">
+      <span class="step">3</span>
+      <span class="test"><span class="q">Otherwise &mdash; inside an ORF?</span>
+        <em><br>Between some gene&rsquo;s ATG and its stop codon. Reached only by peaks that
+        failed both window tests.</em></span>
+      <span class="out o-body">gene body</span>
+    </li>
+    <li class="c-oth">
+      <span class="step">4</span>
+      <span class="test"><span class="q">Otherwise.</span>
+        <em><br>Not near a start, not near a stop, not inside a gene.</em></span>
+      <span class="out o-oth">other intergenic</span>
+    </li>
+  </ol>
+
+  <div class="note">
+    <strong>That is what &ldquo;leftover bucket&rdquo; means.</strong> Test&nbsp;3 does not ask
+    &ldquo;is this peak in a gene body?&rdquo; &mdash; it asks &ldquo;is this peak in a gene
+    body <em>and</em> did nothing else already take it?&rdquo; 88 Abf1 peaks pass the plain
+    inside-an-ORF question; 49 of them are removed by tests 1 and 2 before test&nbsp;3 ever
+    runs, leaving 39. Run the same four tests with test&nbsp;3 moved to the front and all 88
+    come back as gene body &mdash; that is the <span class="mono">body&sup2;</span> column,
+    and the gap between 39 and 88 is the cost of the ordering.
+  </div>
+</section>
+
+<section>
+  <div class="col shead">
+    <div class="eyebrow">Figure 1</div>
+    <h2>Where the windows fall</h2>
+  </div>
+  <div class="col">
+    <p>Two tandem genes on the Watson strand. The grey bars are the ORFs. The three tinted
+    bands are the windows, each anchored on a codon: promoters on an <strong>ATG</strong>
+    (&minus;500&nbsp;/&nbsp;+100&nbsp;bp), gene ends on a <strong>stop codon</strong>
+    (&minus;100&nbsp;/&nbsp;+300&nbsp;bp). Follow each numbered peak down to the label it
+    receives.</p>
+  </div>
+
+  <figure class="panel scroller" style="margin-top:20px">
+    <svg class="track" viewBox="0 0 1060 350" role="img"
+         aria-label="Schematic of two tandem yeast genes showing promoter, gene-end and gene-body windows, with six peak positions and the label each receives">
+
+      <!-- ================= window bands (behind everything) ================= -->
+      <rect x="106.2" y="56" width="216.9" height="196" style="fill:var(--promoter-wash)"/>
+      <rect x="540.0" y="56" width="144.6" height="196" style="fill:var(--gene-end-wash)"/>
+      <rect x="756.9" y="56" width="217.0" height="196" style="fill:var(--promoter-wash)"/>
+
+      <!-- window brackets + labels -->
+      <g stroke-width="1.4" fill="none">
+        <path d="M106.2 46 v-8 H323.1 v8" style="stroke:var(--promoter)"/>
+        <path d="M540.0 46 v-8 H684.6 v8" style="stroke:var(--gene-end)"/>
+        <path d="M756.9 46 v-8 H973.9 v8" style="stroke:var(--promoter)"/>
+      </g>
+      <text class="t-win-label" x="214.6" y="30" text-anchor="middle" style="fill:var(--promoter)">promoter of A</text>
+      <text class="t-win-label" x="612.3" y="30" text-anchor="middle" style="fill:var(--gene-end)">gene end of A</text>
+      <text class="t-win-label" x="865.4" y="30" text-anchor="middle" style="fill:var(--promoter)">promoter of B</text>
+
+      <!-- ================= nucleosomes ================= -->
+      <g style="fill:var(--nuc)">
+        <ellipse cx="279.7" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="339.4" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="399.0" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="458.7" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="518.3" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="720.7" cy="78" rx="11" ry="8.5"/>
+        <ellipse cx="989.0" cy="78" rx="11" ry="8.5"/>
+      </g>
+      <!-- NDR brackets -->
+      <g stroke-width="1" stroke-dasharray="3 3" fill="none" style="stroke:var(--axis)">
+        <path d="M160 90 H255"/>
+        <path d="M545 90 H700"/>
+        <path d="M760 90 H960"/>
+      </g>
+      <text class="t-ndr" x="207" y="103" text-anchor="middle">NDR</text>
+      <text class="t-ndr" x="622" y="103" text-anchor="middle">NDR</text>
+      <text class="t-ndr" x="860" y="103" text-anchor="middle">NDR</text>
+
+      <!-- ================= ORF bars ================= -->
+      <!-- gene A: bp 600 -> 1400 -->
+      <path d="M286.9 122 H562.2 L576.2 140 L562.2 158 H286.9 Z"
+            stroke-width="1" style="fill:var(--orf);stroke:var(--orf-edge)"/>
+      <text class="t-gene" x="300" y="145">Gene A</text>
+      <text class="t-sub" x="286.9" y="174">ATG</text>
+      <text class="t-sub" x="576.2" y="174" text-anchor="end">stop</text>
+
+      <!-- gene B: bp 2400 -> off right -->
+      <path d="M937.6 122 H1046 L1060 140 L1046 158 H937.6 Z"
+            stroke-width="1" style="fill:var(--orf);stroke:var(--orf-edge)"/>
+      <text class="t-gene" x="950" y="145">Gene B</text>
+      <text class="t-sub" x="937.6" y="174">ATG</text>
+
+      <!-- guides: do they cross the ORF bar? -->
+      <line x1="178.5" y1="110" x2="178.5" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--promoter)"/>
+      <line x1="315.8" y1="110" x2="315.8" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--promoter)"/>
+      <line x1="431.5" y1="110" x2="431.5" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--gene-body)"/>
+      <line x1="558.0" y1="110" x2="558.0" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--gene-end)"/>
+      <line x1="720.7" y1="110" x2="720.7" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--other)"/>
+      <line x1="829.1" y1="110" x2="829.1" y2="222" stroke-width="1" stroke-dasharray="2 3" opacity=".55" style="stroke:var(--promoter)"/>
+      <!-- ================= axis ================= -->
+      <line x1="70" y1="196" x2="1010" y2="196" stroke-width="1" style="stroke:var(--axis)"/>
+      <g stroke-width="1" style="stroke:var(--axis)">
+        <path d="M70 196 v5"/><path d="M250.8 196 v5"/><path d="M431.5 196 v5"/>
+        <path d="M612.3 196 v5"/><path d="M793.1 196 v5"/><path d="M973.9 196 v5"/>
+      </g>
+      <g class="t-axis" text-anchor="middle">
+        <text x="70"    y="215">0</text>
+        <text x="250.8" y="215">500</text>
+        <text x="431.5" y="215">1,000</text>
+        <text x="612.3" y="215">1,500</text>
+        <text x="793.1" y="215">2,000</text>
+        <text x="973.9" y="215">2,500</text>
+      </g>
+      <text class="t-axis" x="1010" y="215" text-anchor="end" style="fill:var(--ink-faint)">bp</text>
+
+      <!-- ================= peak markers ================= -->
+      <!-- 1: bp 300 -> promoter, outside ORF -->
+      <g>
+        <line x1="178.5" y1="252" x2="178.5" y2="232" stroke-width="1.6" style="stroke:var(--promoter)"/>
+        <circle cx="178.5" cy="228" r="5.5" style="fill:var(--promoter)"/>
+        <text class="t-num" x="178.5" y="269" text-anchor="middle" style="fill:var(--ink-faint)">1</text>
+      </g>
+      <!-- 2: bp 680 -> inside ORF, promoter window -->
+      <g>
+        <line x1="315.8" y1="252" x2="315.8" y2="232" stroke-width="1.6" style="stroke:var(--promoter)"/>
+        <circle cx="315.8" cy="228" r="5.5" style="fill:var(--promoter)"/>
+        <text class="t-num" x="315.8" y="269" text-anchor="middle" style="fill:var(--ink-faint)">2</text>
+      </g>
+      <!-- 3: bp 1000 -> inside ORF, no window -->
+      <g>
+        <line x1="431.5" y1="252" x2="431.5" y2="232" stroke-width="1.6" style="stroke:var(--gene-body)"/>
+        <circle cx="431.5" cy="228" r="5.5" style="fill:var(--gene-body)"/>
+        <text class="t-num" x="431.5" y="269" text-anchor="middle" style="fill:var(--ink-faint)">3</text>
+      </g>
+      <!-- 4: bp 1350 -> inside ORF, gene-end window -->
+      <g>
+        <line x1="558.0" y1="252" x2="558.0" y2="232" stroke-width="1.6" style="stroke:var(--gene-end)"/>
+        <circle cx="558.0" cy="228" r="5.5" style="fill:var(--gene-end)"/>
+        <text class="t-num" x="558.0" y="269" text-anchor="middle" style="fill:var(--ink-faint)">4</text>
+      </g>
+      <!-- 5: bp 1800 -> nothing -->
+      <g>
+        <line x1="720.7" y1="252" x2="720.7" y2="232" stroke-width="1.6" style="stroke:var(--other)"/>
+        <circle cx="720.7" cy="228" r="5.5" style="fill:var(--other)"/>
+        <text class="t-num" x="720.7" y="269" text-anchor="middle" style="fill:var(--ink-faint)">5</text>
+      </g>
+      <!-- 6: bp 2100 -> promoter of B -->
+      <g>
+        <line x1="829.1" y1="252" x2="829.1" y2="232" stroke-width="1.6" style="stroke:var(--promoter)"/>
+        <circle cx="829.1" cy="228" r="5.5" style="fill:var(--promoter)"/>
+        <text class="t-num" x="829.1" y="269" text-anchor="middle" style="fill:var(--ink-faint)">6</text>
+      </g>
+
+      <!-- ================= outcome chips ================= -->
+      <g>
+        <rect x="128.5" y="288" width="100" height="24" rx="3" style="fill:var(--promoter-wash)"/>
+        <text class="t-chip" x="178.5" y="304" text-anchor="middle" style="fill:var(--promoter)">promoter</text>
+        <text class="t-sub" x="178.5" y="330" text-anchor="middle">no ORF</text>
+      </g>
+      <g>
+        <rect x="265.8" y="288" width="100" height="24" rx="3" style="fill:var(--promoter-wash)"/>
+        <text class="t-chip" x="315.8" y="304" text-anchor="middle" style="fill:var(--promoter)">promoter</text>
+        <text class="t-sub" x="315.8" y="330" text-anchor="middle">in ORF · 36</text>
+      </g>
+      <g>
+        <rect x="381.5" y="288" width="100" height="24" rx="3" style="fill:var(--gene-body-wash)"/>
+        <text class="t-chip" x="431.5" y="304" text-anchor="middle" style="fill:var(--gene-body)">gene body</text>
+        <text class="t-sub" x="431.5" y="330" text-anchor="middle">in ORF · 39</text>
+      </g>
+      <g>
+        <rect x="508.0" y="288" width="100" height="24" rx="3" style="fill:var(--gene-end-wash)"/>
+        <text class="t-chip" x="558.0" y="304" text-anchor="middle" style="fill:var(--gene-end)">gene end</text>
+        <text class="t-sub" x="558.0" y="330" text-anchor="middle">in ORF · 13</text>
+      </g>
+      <g>
+        <rect x="670.7" y="288" width="100" height="24" rx="3" style="fill:var(--other-wash)"/>
+        <text class="t-chip" x="720.7" y="304" text-anchor="middle" style="fill:var(--other)">other</text>
+        <text class="t-sub" x="720.7" y="330" text-anchor="middle">no ORF</text>
+      </g>
+      <g>
+        <rect x="779.1" y="288" width="100" height="24" rx="3" style="fill:var(--promoter-wash)"/>
+        <text class="t-chip" x="829.1" y="304" text-anchor="middle" style="fill:var(--promoter)">promoter</text>
+        <text class="t-sub" x="829.1" y="330" text-anchor="middle">no ORF</text>
+      </g>
+    </svg>
+
+    <div class="legend">
+      <span><i class="sw" style="background:var(--orf)"></i>ORF &mdash; ATG to stop codon</span>
+      <span><i class="sw" style="background:var(--nuc);border-radius:50%"></i>nucleosome</span>
+      <span><i class="sw" style="background:var(--promoter-wash);border:1px solid var(--promoter)"></i>promoter window</span>
+      <span><i class="sw" style="background:var(--gene-end-wash);border:1px solid var(--gene-end)"></i>gene-end window</span>
+    </div>
+
+    <figcaption>
+      Peaks <strong>2, 3 and 4 are all inside the same ORF</strong> and get three different
+      labels. Peak 2 is only 80&nbsp;bp past gene A&rsquo;s own ATG, still inside A&rsquo;s
+      promoter window. Peak 4 is 50&nbsp;bp before A&rsquo;s stop codon, inside the terminator
+      window. Only peak 3, in neither, is called gene body. The nucleosome row shows why the
+      gene-end window exists at all: yeast has a nucleosome-depleted region at the terminator
+      as well as the promoter, so peak 4 sits in open chromatin of the same character as a
+      promoter NDR &mdash; not buried in a nucleosome array.
+    </figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="col shead">
+    <div class="eyebrow">Figure 2</div>
+    <h2>Abf1&rsquo;s 502 peaks, both ways at once</h2>
+  </div>
+  <div class="col">
+    <p>Rows are the physical question &mdash; is this position inside an ORF? Columns are the
+    label the priority order assigns. The two are not the same cut, and the row total is the
+    honest answer to &ldquo;how much of Abf1 is genic&rdquo;.</p>
+  </div>
+
+  <div class="panel scroller" style="margin-top:20px">
+    <table>
+      <caption>Merged ChExMix calls carrying a FIMO motif, normal-condition samples only.</caption>
+      <thead>
+        <tr>
+          <th class="l">Physical location</th>
+          <th><span class="dot" style="background:var(--promoter)"></span>promoter</th>
+          <th><span class="dot" style="background:var(--gene-end)"></span>gene end</th>
+          <th><span class="dot" style="background:var(--gene-body)"></span>gene body</th>
+          <th><span class="dot" style="background:var(--other)"></span>other</th>
+          <th>row total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="l">Inside an ORF</th>
+          <td class="n cell-mid">36</td>
+          <td class="n cell-mid">13</td>
+          <td class="n cell-hi">39</td>
+          <td class="n zero">0</td>
+          <td class="n"><strong>88</strong></td>
+        </tr>
+        <tr>
+          <th class="l">Outside every ORF</th>
+          <td class="n">378</td>
+          <td class="n">18</td>
+          <td class="n zero">0</td>
+          <td class="n">18</td>
+          <td class="n"><strong>414</strong></td>
+        </tr>
+        <tr class="total">
+          <th class="l">Column total</th>
+          <td class="n">414</td>
+          <td class="n">31</td>
+          <td class="n">39</td>
+          <td class="n">18</td>
+          <td class="n">502</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    The two structural zeros are definitional, not empirical: <strong>gene body requires
+    being inside an ORF</strong>, and <strong>other intergenic requires not being inside
+    one</strong>. Everything interesting lives in the two shaded cells &mdash; the 49 peaks
+    that are physically genic but wear another name.
+  </div>
+</section>
+
+<section>
+  <div class="col shead">
+    <div class="eyebrow">Real loci</div>
+    <h2>One example of each</h2>
+  </div>
+  <div class="col">
+    <p>Three actual Abf1 summits, all of them inside an ORF, all labelled differently.
+    <span class="mono">d&nbsp;ATG</span> and <span class="mono">d&nbsp;stop</span> are signed
+    distances to the nearest such codon in the direction of transcription; negative is
+    upstream.</p>
+  </div>
+
+  <div class="panel scroller" style="margin-top:20px">
+    <table class="loci">
+      <thead>
+        <tr>
+          <th class="l">Summit</th><th class="l">Host ORF</th><th>ORF span</th>
+          <th>d ATG</th><th>d stop</th><th class="l">Label</th><th class="l">Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l gene">chrXIV:350,114</td>
+          <td class="l gene">YNL148C</td>
+          <td class="n">765 bp, &minus;</td>
+          <td class="n">&minus;358</td>
+          <td class="n">&minus;208</td>
+          <td class="l"><span class="pill p-prom">promoter</span></td>
+          <td class="l">358 bp upstream of <span class="gene">YNL149C</span>&rsquo;s ATG &mdash; the tandem neighbour</td>
+        </tr>
+        <tr>
+          <td class="l gene">chrIV:62,241</td>
+          <td class="l gene">YDL221W</td>
+          <td class="n">552 bp, +</td>
+          <td class="n">+231</td>
+          <td class="n">+2</td>
+          <td class="l"><span class="pill p-end">gene end</span></td>
+          <td class="l">2 bp past <span class="gene">YDL220C</span>&rsquo;s stop codon on the other strand</td>
+        </tr>
+        <tr>
+          <td class="l gene">chrXIII:408,397</td>
+          <td class="l gene">YMR069W</td>
+          <td class="n">858 bp, +</td>
+          <td class="n">+689</td>
+          <td class="n">&minus;169</td>
+          <td class="l"><span class="pill p-body">gene body</span></td>
+          <td class="l">80% of the way through its own ORF, in no window at all</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>The middle row is the case that motivated splitting gene end off.</strong> That
+    summit is inside <span class="mono">YDL221W</span>, so the three-class scheme called it
+    gene body &mdash; but it sits two base pairs from a stop codon, in a terminator NDR. It was
+    never buried in nucleosomal DNA, which is what &ldquo;gene body&rdquo; is supposed to mean.
+  </div>
+</section>
+
+</div>

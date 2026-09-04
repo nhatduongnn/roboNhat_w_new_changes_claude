@@ -1,0 +1,27 @@
+# <label>	<outDir>
+#
+# The layer decomposition on chrI. Every row uses the SAME trainDir
+# (robocop_train_fiberonly) except the EM ones, so the only variable is which emission
+# layers are live -- the masks are one line each in robocopExtras.py.
+#
+#   seq   layer 0 (PWM)          fib   layers 5/6 (Fiber-seq Watson/Crick)
+#
+# label            seq  fib   what it answers
+# seq              ON   off   what does sequence alone buy? the floor fib+seq must beat
+# fib              off  ON    what does Fiber-seq alone buy?
+# fib+seq          ON   ON    the standard run
+# fib+wide*        off  ON    does widening help the FIBER footprint, with the PWM out of
+#                             the way? the sharpest test of the widening hypothesis
+seq	robocop_chrI_seqonly
+fib	robocop_chrI_maskoff_revfix
+fib+seq	robocop_chrI_seq_maskoff_revfix
+fib+wideABF1	robocop_chrI_fib_widememe
+fib+wide12	robocop_chrI_fib_wide10
+fib+wideAll	robocop_chrI_fib_wide10all
+fibseq+wideABF1	robocop_chrI_widememe
+fibseq+wide12	robocop_chrI_wide10
+fibseq+wideAll	robocop_chrI_wide10all
+seq+em10	robocop_chrI_seqonly_em10
+fib+seq+lam0.01	robocop_chrI_conclo_0p01
+fib+widefp	robocop_chrI_fib_widefp
+fibseq+widefp	robocop_chrI_widefp

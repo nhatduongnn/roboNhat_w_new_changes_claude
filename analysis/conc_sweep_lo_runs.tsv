@@ -1,0 +1,27 @@
+# <label>	<outDir>	<lambda on Abf1_murphy>
+#
+# The lambda < 1 half of the sweep, which the first round wrongly omitted.
+#
+# Round 0 tested only lambda >= 1 and found the best F1 at lambda = 1 -- the LOW EDGE of
+# the grid. score_sweep.py flagged that as "bracket too narrow"; the correct reading is
+# that the optimum lies BELOW the current value, not that concentration is inert.
+#
+# Lowering concentration is the direction that should help: precision is the bottleneck
+# (0.024 at best, 81-384 false positives against 5 real sites), and when precision << recall
+# F1 ~ 2*precision. Fewer, more confident ABF1 calls is exactly what a lower prior buys.
+# The optimum must be interior: at lambda -> 0 ABF1 never fires at all and F1 -> 0.
+lamlo1e5	robocop_chrI_conclo_1e_05	0.00001
+lamlo1e4	robocop_chrI_conclo_0p0001	0.0001
+lamlo1e3	robocop_chrI_conclo_0p001	0.001
+lamlo0p01	robocop_chrI_conclo_0p01	0.01
+lamlo0p03	robocop_chrI_conclo_0p03	0.03
+lamlo0p1	robocop_chrI_conclo_0p1	0.1
+lamlo0p3	robocop_chrI_conclo_0p3	0.3
+lam1	robocop_chrI_seq_maskoff_revfix	1
+lam3	robocop_chrI_seq_maskoff_conc3	3
+lam10	robocop_chrI_seq_maskoff_conc10	10
+lam30	robocop_chrI_seq_maskoff_conc30	30
+lam100	robocop_chrI_seq_maskoff_conc100	100
+lam300	robocop_chrI_seq_maskoff_conc300	300
+lam1000	robocop_chrI_seq_maskoff_conc1000	1000
+em10	robocop_chrI_seq_maskoff_em10	3723

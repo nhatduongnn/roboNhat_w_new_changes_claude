@@ -4,11 +4,13 @@ Pick-up notes for the next agent. Read `whattodo.md` (strategy + open work) and
 `FIBERSEQ_CHANGES.md` (full code diff vs upstream) first — this file adds the **scoring +
 plotting tooling** and the **layer / mask toggles** that are easy to get wrong.
 
-**Start with §0** — the most recent work (the shipped PWM collection was audited against
-JASPAR and Rossi; ABF1's matrix is demonstrably wrong and six others are suspect). **§8 is
-the repo state: none of it is committed.** §6 covers a self-contained side experiment
-(sliding the fitted ABF1 fiber footprint across the genome), finished as an exploration but
-whose code was never saved.
+**Start with §10** — the newest work (2026-09-01 → 09-04): the widened-footprint runs,
+including four `wide150` decodes that are **finished on disk and not yet scored**; the
+published artifact URLs; and the Rossi genic/intergenic validation table. §0 is the older
+motif-source audit (the shipped PWM collection vs JASPAR and Rossi; ABF1's matrix is
+demonstrably wrong and six others are suspect) and still stands. §6 covers a self-contained
+side experiment (sliding the fitted ABF1 fiber footprint across the genome), finished as an
+exploration but whose code was never saved.
 
 Environment:
 ```bash
@@ -600,9 +602,14 @@ result must do the same or it is measuring memorisation.
 
 ## 8. Repo state — read this before you write anything
 
-`git log` stops at **`90b05c3` "Fix reverse-strand fiber params; stop generator clobbering
-the shipped pkl"**. Everything in §0 is **uncommitted and untracked**, and the user has
-**not approved a commit or a push** — ask before running either.
+> **Superseded in part.** This section was written when `git log` stopped at `90b05c3`.
+> The §0 motif-audit work described below was committed in `3384105`; §10.8 has the current
+> repo state. The rules at the end of this section — how to treat `pkgvar/` and `motifdb/` —
+> still apply.
+
+`git log` stopped at **`90b05c3` "Fix reverse-strand fiber params; stop generator clobbering
+the shipped pkl"** when this was written. Everything in §0 was then uncommitted and
+untracked, and the user had **not approved a commit or a push**.
 
 Tracked files modified: `HANDOFF.md`, `whattodo.md` (this update). Nothing under `pkg/` or
 `robocop.py` has changed since `90b05c3` — the motif audit touched no model code.
@@ -703,3 +710,254 @@ run gets both: revfix/capA nail `62,657-62,671` (0.99/1.00) and miss `61,163-61,
 `python make_posterior_viewer.py --region chrI:60001-65000 --run revfix=... --run em10=...`
 
 **Still not committed** — see section 8. Nothing under `pkg/` was modified.
+
+---
+
+## 10. Most recent work (2026-09-01 → 09-04) — widened footprints, the viewer, and the Rossi genic/intergenic target
+
+**Read this section first.** It supersedes the "start with §0" pointer at the top of this
+file: §0 is the motif audit from August and still stands, but everything below is newer.
+
+### 10.1 What is DONE AND UNSCORED — pick this up first
+
+The `wide150` decodes **all four finished** (Slurm 12492826–12492829, COMPLETED
+2026-09-03 19:24 → 23:20, 1.5–5.5 h each). Their `tmpDir/info_*_6.h5` files are complete on
+disk. **Nothing has scored them, nothing has charted them, and they are in no `*_runs.tsv`.**
+
+| decode dir | layers | chrom | h5 splits |
+|---|---|---|---|
+| `robocop_chrI_wide150` | fib+seq | chrI | 6 |
+| `robocop_chrI_fib_wide150` | fib only | chrI | 6 |
+| `robocop_chrXIV_wide150` | fib+seq | chrXIV | 12 |
+| `robocop_chrXIV_fib_wide150` | fib only | chrXIV | 12 |
+
+Same trainDir `robocop_train_wide150/` for both layer variants; the sequence layer is
+switched at decode time by which `pkgvar` the driver imports. `n_states` 10685 (baseline
+3485). Built by `run_wide150_all.sh`; full rationale in `README_wide_implementations.md`.
+
+**To score them**, add four rows to `layer_runs_chrI.tsv` / `layer_runs_chrXIV.tsv` —
+
+    fib+wide150       robocop_chrI_fib_wide150
+    fibseq+wide150    robocop_chrI_wide150
+    fib+wide150       robocop_chrXIV_fib_wide150
+    fibseq+wide150    robocop_chrXIV_wide150
+
+— then widen the `#SBATCH --array` range in `sbatch_score_layers.sh` /
+`sbatch_score_layers_chrXIV.sh` to match the new row count (they index
+`layer_runs_*.tsv` by array task id; the array bound is **not** derived from the file, so a
+stale bound silently skips the new rows). Reports land in `layer_scores/` and
+`layerXIV_scores/`; `make_factor_chart.py` builds the comparison chart from them.
+
+**Read the enrichment numbers with the block-width correction.** Like every `widememe`-method
+run, the posterior collapses over the whole padded block (`sum_for_dbf_probs` unmodified), so
+at ±150 an ABF1 call renders as a **314 bp plateau, not a 14 bp peak**. That inflates the
+genome-wide mean and deflates enrichment by roughly the width ratio (314/14 ≈ 22×) — far
+larger than `widememe`'s 1.6×. A raw enrichment drop is therefore **expected and not
+evidence the model is worse**; compare recall and site posteriors, or correct for the block
+width, before concluding anything. Same for the estimated-pad prior suppression
+(`README_wide_implementations.md`, "wide10all's pooled path"), which at ±150 will be larger
+still and is undone without retraining via
+`make_conc_trainDir.py --tf <name> --lam <1/ratio>`.
+
+### 10.2 There is NO ±75 run
+
+Nothing at ±75 was ever built or submitted; do not go looking for it. What exists at the
+wide end is `wide150` (§10.1, the 12 fitted TFs at ±150, running and done) and
+`wide150all` (all 153 motifs at ±150) which is **built and gated but permanently blocked**:
+`n_states` 95285 overflows the 32-bit index arithmetic in `pkg/robocop/bc.c`, verified by
+calling the shipped `.so` directly (`sbatch_wide150all_memcheck.sh` —
+`I(n-1,n-1,n)` returned 489,296,632 instead of 9,079,231,224, and `I3` returned negative).
+`run_wide150all_all.sh` refuses to submit.
+
+**±70 is the largest uniform pad across all 153 motifs that fits** (`n_states` 46325 against
+the ceiling of 46340 = floor(sqrt(INT_MAX))). That needs no code change and is the obvious
+next experiment if an all-motif wide run is wanted; memory was measured at ~48 GB for the
+three dense square matrices, ~295 GB train, ~65 GB decode, so only the 1,150,000 MB
+`compsci-cluster-fitz-*` nodes will hold the training job. The alternative — widening the
+index type in `bc.c`/`bc.h`/`algo.c` to `int64_t` and building a **separate**
+`librobocop.so` for that variant only — was scoped but not done; it changes the numerical
+core and must be re-validated against an existing run before it is trusted.
+
+### 10.3 Published artifacts
+
+| artifact | URL | built from |
+|---|---|---|
+| RoboCOP Occupancy Browser (combined, chrI + chrXIV) | `https://claude.ai/code/artifact/c6c7d1f3-d62a-4858-a38a-4ee1c7891e0d` | `posterior_viewer_all.html` ← `make_posterior_viewer.py --regions viewer_regions.tsv` |
+| chrI Occupancy Browser | `https://claude.ai/code/artifact/24b47df3-9f5f-4372-b6ec-d4b1976c6f2a` | `posterior_viewer_erv46.html` |
+| chrXIV Occupancy Browser | `https://claude.ai/code/artifact/9fd1fd00-ad6d-4d85-9e92-177d30888836` | `posterior_viewer_chrXIV_187k.html` |
+| chrXIV Occupancy Browser (55–60 kb) | `https://claude.ai/code/artifact/20e96d14-e171-4170-a11b-f32eb7711680` | `posterior_viewer_chrXIV_58k.html` |
+| Factor Detection on chrXIV | `https://claude.ai/code/artifact/b5a5d5b2-3ba0-4260-b63c-ce74115e33b7` | `chrXIV_factor_chart.html` ← `make_factor_chart.py` |
+| Where the Twelve Bind (genic/intergenic) | `https://claude.ai/code/artifact/7b4db749-5827-40b4-80a3-854fbb56a6b6` | `rossi_genic/where_the_twelve_bind.html` ← `make_genic_report.py` |
+| ORF Versus Gene Body (teaching diagram) | `https://claude.ai/code/artifact/28965c44-fe42-4433-b918-c42a5fe5550b` | `orf_vs_gene_body.html` |
+| Odd One Out (motif audit sheet) | `https://claude.ai/code/artifact/7c63a39b-8e04-4cd1-9660-7797d0dec154` | `motif_distance_sheet.html` |
+
+To update one, edit the file and re-publish **to the same URL** — a publish without the URL
+creates a second artifact instead of updating the first.
+
+**The combined viewer c6c7d1f3 is stale.** `viewer_runs_chrI.tsv` and
+`viewer_runs_chrXIV.tsv` are missing `widefp` and `wide150`; add both label pairs and rebuild
+with `make_posterior_viewer.py --regions viewer_regions.tsv --out posterior_viewer_all.html`.
+The label sets in the two files must stay **identical** — the label is the join key that
+keeps the selected run when you switch region.
+
+**28965c44 (ORF Versus Gene Body) is partly obsolete.** Its decision-chain section and
+cross-tab describe the four-class promoter / gene-end / gene-body / intergenic scheme that
+was abandoned on 2026-09-03 (§10.4). Its Figure 1 — the ORF/gene-body/TSS anatomy diagram —
+is still correct and is the reason to keep it. Either retire it or strip the decision chain.
+
+### 10.4 The Rossi genic/intergenic target — a validation set for any decode
+
+**One rule, and only one:** a position is `genic` if it lies between some gene's ATG and its
+stop codon, `intergenic` otherwise. No promoter window, no terminator window, no priority
+order. An earlier four-class scheme (promoter / gene-end / gene-body / intergenic) was built
+and then **abandoned** — its windows and the priority order needed to arbitrate overlaps moved
+the answer by several points without adding any fact, and it produced the absurdity of a peak
+inside gene A's ORF being labelled "promoter of gene B". Do not reintroduce windows.
+
+The coordinate source is `inputs/sacCer3.gtf` (Ensembl R64-1-1 = SGD R64), **not**
+`inputs/Park_2014_TSS.csv` — Park covers only actively transcribed genes and misses 1,707 of
+the 6,692 ORFs (26%). The GTF `gene` span for a protein-coding gene **is** the ORF: audited
+over all 6,516 genes carrying both a CDS and a stop codon,
+`gene.start − CDS.start ∈ {−3, 0}` and `gene.end − CDS.end ∈ {0, 3}` (that 3 bp is only
+whether the stop codon counts inside the CDS), `+` strand `gene.end == stop_codon.end` and
+`−` strand `gene.start == stop_codon.start` for every gene. No UTRs are annotated. The audit
+re-runs and re-prints on every invocation rather than being trusted from this note.
+
+**The null: 73.0% of this genome is inside an ORF** (union 8,901,290 of 12,157,105 bp,
+confirmed against 200,000 uniform random positions). A raw genic% means nothing without it;
+every table carries `genic_vs_null = genic% / 73.0%`.
+
+| file | rows | what |
+|---|---|---|
+| `analysis/rossi_genic.py` | — | the 12 fitted TFs. `--normal-only`, `--outdir` |
+| `analysis/rossi_genic_all.py` | — | **all 378 TFs** — the validation table. imports `Genome`/`read_orfs` from `rossi_genic.py` |
+| `analysis/make_genic_report.py` | — | renders the artifact from the TSVs |
+| `analysis/rossi_genic/rossi_genic.tsv` | 13 | the 12 + the random-genome null |
+| `analysis/rossi_genic/rossi_genic_all_TFs.tsv` | **378** | per-TF counts, both peak sets, `in_robocop` flag |
+| `analysis/rossi_genic/rossi_peaks_genic_all_cx.tsv` | 182,582 | every merged summit with its genic flag |
+| `analysis/rossi_genic/rossi_peaks_genic_all_motif.tsv` | 29,105 | the motif-filtered subset, same flag |
+| `analysis/rossi_genic/rossi_peaks_genic.tsv` | 3,455 | the 12 TFs, per peak |
+| `analysis/rossi_genic/genic_bars.png`, `set_comparison.tsv` | — | figure + zip/merged/+motif comparison |
+
+**Two peak sets, both in the table, and they are different targets.** `_cx` columns are
+Rossi's merged ChExMix calls read straight from
+`/usr/project/xtmp/nd141/projects/data/rossi_strand/{TF}_CX.bed` (381 files, 3 of them empty
+— Kti12, Rpa190, Rsc2 — hence 378 TFs, 182,582 peaks). `_motif` columns are the same calls
+kept only where a YEP FIMO motif sits within 30 bp
+(`inputs/rossi_peak_w_strand_all_TFs.bed`, 358 TFs, 29,105 peaks after `--normal-only`).
+**The motif filter is not neutral — it removes genic peaks preferentially** and always moves
+genic% down, sometimes hard (Fhl1 53.2 → 17.9%, Tbf1 20.4 → 5.2%, Fkh2 33.7 → 10.4%). Score a
+decode against whichever set the decode resembles; mixing them reads as model error. The 12-TF
+`_motif` columns reproduce `rossi_genic.tsv` exactly (all deltas zero) — that is the
+cross-check between the two scripts.
+
+**How to use it as validation.** For each TF the model emits, count its calls that land genic
+and intergenic and compare the fraction with that TF's row. This is a *distributional* claim,
+weaker than site-level agreement but far broader: a model can be wrong site-by-site and still
+be asked whether it puts the right share of each factor inside genes. The per-peak files keep
+the stricter site-level comparison open. Scope: **77 of the 153 RoboCOP motif TFs have a Rossi
+row, 47 with ≥100 merged peaks** — that is the usable set, and their genic% spans 8.8%
+(Spt15) to 59.3% (Cad1), median 27.8%, so it is a real target and not a constant. The
+remaining 73 PWMs (Pho4, Tec1, Gat1, Msn4, most of the YBR/YDR orphans) have no Rossi target
+at all; the `in_robocop` column marks the join both ways.
+
+**Do not score against a single global expectation.** Pooled over all 378 TFs only 42.2% of
+peaks are genic against the 73.0% null — but 82 of the 378 TFs sit *at or above* the null.
+
+**The table validates itself at both ends**, which is the reason to trust the classifier.
+Sorted by genic%, with no input about what these proteins do, the intergenic extreme is the
+Pol II preinitiation complex (Sua7/TFIIB 9.8%, Spt15/TBP 8.8%, Tfb1, Tfb2, Rad3) plus the
+whole Pol III machinery (TFIIIC Tfc1/3/6/8, Brf1, Bdp1 — tRNA genes are not protein-coding
+ORFs so they read intergenic by construction) and Orc1 at replication origins (2.0%); the
+genic extreme is Paf1C (Paf1, Leo1, Rtf1, Ctk2 89–93%), COMPASS (Bre2 94.6%, Sdc1, Swd3,
+Spp1, Shg1), Set2 94.3%, Chd1, and Rad6/Bre1 — every one a co-transcriptional elongation
+factor that rides the ORF with Pol II. Promoter machinery lands at 0.03–0.13× the null,
+elongation machinery at 1.22–1.30×.
+
+The 12 fitted TFs, merged + motif set, normal condition only:
+
+    TF                   n    genic  interg    genic% interg%   vs null
+    Tbf1               155        8     147       5.2    94.8     0.07x
+    Reb1               583       54     529       9.3    90.7     0.13x
+    Spt15/TBP          259       26     233      10.0    90.0     0.14x
+    Rap1               356       36     320      10.1    89.9     0.14x
+    Fkh1               297       35     262      11.8    88.2     0.16x
+    Mcm1               179       25     154      14.0    86.0     0.19x
+    Abf1               502       88     414      17.5    82.5     0.24x
+    Ume6               236       42     194      17.8    82.2     0.24x
+    Fhl1                84       15      69      17.9    82.1     0.24x
+    Nhp6a              138       26     112      18.8    81.2     0.26x
+    Cin5               264       80     184      30.3    69.7     0.42x
+    Sko1               182       82     100      45.1    54.9     0.62x
+    random genome   200000   145953   54047      73.0    27.0     1.00x
+
+`--normal-only` drops the 223 motif-set rows annotated from a heat-shock sample (13 TFs,
+mostly Spt15/RSC/SAGA). It cannot apply to the merged set: those calls are pooled across
+replicates and carry no sample attribution to filter on.
+
+### 10.5 Abf1's genic peaks are real — the question that started §10.4
+
+Asked whether Abf1's in-ORF calls are replicate-supported or filter leakage. They are real.
+Reconstructed per-peak replicate support and significance from the per-sample
+`{id}_chexmix_allevents.tabular` files (which carry `YPD_Sig`, `YPD_Ctrl`, `YPD_log2Fold`,
+`YPD_log2P` — the only route to per-peak significance, since every score in `{TF}_CX.bed` is
+the constant 1000), matched at 30 bp across 3 replicates by `analysis/rossi_abf1_support.py`:
+
+- promoter+motif mean replicate support **2.24**, gene-body+motif **2.29** — gene-body peaks
+  are *better* supported, not worse;
+- 45.5% vs 46.2% called by all three replicates;
+- **0 of 55** rest on the pooled analysis alone.
+
+Without the motif filter, gene body *is* the weak tail (31.4% zero-support, median log2fold
+2.83 vs 3.45) — so the motif requirement, not the location, is what separates strong from
+weak. Outputs in `analysis/rossi_abf1_support/`.
+
+### 10.6 A gate that was wrong, and the fix
+
+`wide150` training "failed" `check_widememe_traindir.py` after 2h20m: residual spread 6.1e-6
+against a 1e-8 tolerance. **The model was fine; the gate was wrong.** It trusted the
+`background_prob` stored by `convert_to_prob`, which solves its unbound root numerically —
+and the value it *stores* converges less tightly than the `tf_prob`s built with it (4.4e-7
+relative at 320-column motifs vs 3e-15 at 40). `corr(residual, tf_len) = 1.0000` gave it
+away. The gate now **refits the root** from the priors themselves instead of trusting the
+stored one:
+
+```python
+coef = np.linalg.lstsq(np.vstack([np.ones_like(L), L]).T, np.log(raw), rcond=None)[0]
+r_fit = float(np.exp(coef[1]))
+spread = float((raw / r_fit ** L).max() - (raw / r_fit ** L).min())   # 1.1e-15
+drift  = r_fit / (pn / pb) - 1.0
+```
+
+`wide10` and `widefp` were re-verified and still pass. **The gate needs
+`--params inputs/all_TFs_1000pealVal_params_pseudo_<variant>.pkl`** — omitting it fails every
+variant with "every params entry matches its block length", which is the gate correctly
+complaining that the baseline pkl does not describe a widened model.
+
+### 10.7 Standing constraints — carried forward, do not violate
+
+- **Never overwrite** `inputs/all_TFs_1000pealVal_params_pseudo.pkl`, `inputs/bg_params.pkl`,
+  or `inputs/motifs_meme.txt`. New variants get new filenames.
+- **Do not modify** the `robocop_em.py` line-162 tmpDir cleanup.
+- **Do not modify any existing `pkgvar/*` tree** — create a new one.
+- The MacIsaac bed is used **exactly as shipped**: no offset correction, no strand flip. The
+  1 bp ABF1 phase difference against Murphy is a motif-definition difference, not an error.
+- **Commit and push only when explicitly asked.**
+
+### 10.8 Repo state as of this commit
+
+Everything in §10 **is committed**, including `analysis/pkgvar/` (which now carries 28
+frozen package variants; the 40 KB `librobocop.so` binaries are tracked too, matching what
+`3384105` already did — all 28 are byte-identical copies of the
+shipped library, md5 `6a0724bf6ef7b8bc4313927b931ac685`, verified), the widened meme files and params pkls, the
+decode-directory metadata (`config.ini`, `coords.tsv`, `pwm.p` — `tmpDir/` and
+`HMMconfig*.pkl` stay gitignored, so a run is reproducible from what is committed without
+the 60–630 MB of posteriors), and all of `analysis/rossi_genic/`.
+
+**Deliberately NOT committed, still on disk:** `analysis/rossi_locus_class{,_v2,_v3,_normalonly,_setcmp,_setcmp_v2}/`
+— the outputs of the abandoned four-class scheme (§10.4). `rossi_locus_class.py` and
+`rossi_locus_report.py` ARE committed as the record of what was tried, but their output
+directories are noise and are safe to delete.
+
+Nothing under `pkg/` has been modified. `robocop_em.py`'s `iterations = 0` and its line-162
+tmpDir cleanup are both untouched.

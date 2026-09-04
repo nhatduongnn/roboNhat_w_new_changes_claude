@@ -1,0 +1,6 @@
+# Round 2: refining the peak. Round 1 put it at lambda=0.01 (F1 0.111) with 0.03 close
+# behind (0.100) and 0.001 already dead (F1 0), so the true optimum is somewhere in
+# [0.003, 0.03]. These three fill that gap.
+lamlo0p003	robocop_chrI_conclo_0p003	0.003
+lamlo0p005	robocop_chrI_conclo_0p005	0.005
+lamlo0p02	robocop_chrI_conclo_0p02	0.02

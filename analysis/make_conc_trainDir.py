@@ -65,21 +65,28 @@ SIDECARS = ("config.ini", "pwm.p", "nuc_emission.npy",
 CSHARED = "../pkg/robocop/librobocop.so"
 
 
-def dbf_probs(pwm, tf, lam):
-    """Reproduce getDBFconc:80-90 exactly, with dbf_conc[tf] multiplied by `lam`.
+def dbf_probs(pwm, lams):
+    """Reproduce getDBFconc:80-90 exactly, with dbf_conc[tf] multiplied by lams[tf].
 
-    Returns {name: probability} summing to 1 over all TFs + background + nucleosome.
+    `lams` is {tf: multiplier}; several factors move in ONE call because
+    convert_to_prob solves a single unbound root over every motif length at once.
+    Scaling them one at a time in separate trainDirs would give a different -- and
+    wrong -- answer, since each solve would see the others unscaled.
+
+    Returns ({name: probability} summing to 1, {tf: scaled concentration}).
     """
     conc = {k: calculateKD(pwm, k) for k in pwm.keys()}
     conc['background'] = 1.0
     conc['unknown'] = 0.1
     conc['nucleosome'] = 35
-    if tf not in conc:
-        sys.exit("error: %s not in pwm (have %d motifs)" % (tf, len(pwm)))
-    conc[tf] *= lam
+    for tf in lams:
+        if tf not in conc:
+            sys.exit("error: %s not in pwm (have %d motifs)" % (tf, len(pwm)))
+    for tf, lam in lams.items():
+        conc[tf] *= lam
     prob = C.convert_to_prob(conc, pwm)
     total = sum(prob.values())
-    return {k: v / total for k, v in prob.items()}, conc[tf]
+    return {k: v / total for k, v in prob.items()}, {t: conc[t] for t in lams}
 
 
 def apply_probs(cfg, prob):
@@ -93,24 +100,42 @@ def apply_probs(cfg, prob):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lam", type=float, required=True,
-                    help="multiplier on the target factor's concentration")
-    ap.add_argument("--tf", default="Abf1_murphy")
+    ap.add_argument("--lam", type=float, default=None,
+                    help="multiplier on --tf's concentration (single-factor form)")
+    ap.add_argument("--tf", default=None, help="factor to scale (single-factor form)")
+    ap.add_argument("--set", action="append", default=None, metavar="TF=LAM",
+                    help="scale several factors in one trainDir, e.g. "
+                         "--set Abf1_murphy=300 --set Reb1_badis=5. Repeatable. They must "
+                         "be applied together: convert_to_prob solves one unbound root "
+                         "across all motif lengths, so scaling them in separate trainDirs "
+                         "would not compose.")
     ap.add_argument("--src", default="robocop_train_fiberonly",
                     help="trainDir to inherit everything else from")
     ap.add_argument("--out", default=None,
                     help="destination trainDir (default robocop_train_conc<lam>)")
     args = ap.parse_args()
 
-    lam = args.lam
-    lam_tag = ("%g" % lam).replace(".", "p")
-    out = args.out or ("robocop_train_conc%s" % lam_tag)
+    if args.set:
+        lams = {}
+        for spec in args.set:
+            if "=" not in spec:
+                sys.exit("--set wants TF=LAM, got %r" % spec)
+            k, v = spec.split("=", 1)
+            lams[k] = float(v)
+    elif args.tf is not None and args.lam is not None:
+        lams = {args.tf: args.lam}
+    else:
+        sys.exit("give either --set TF=LAM (repeatable) or both --tf and --lam")
+
+    lam_tag = "_".join("%s%s" % (t.split("_")[0], ("%g" % l).replace(".", "p"))
+                       for t, l in sorted(lams.items()))
+    out = args.out or ("robocop_train_conc_%s" % lam_tag)
     if os.path.abspath(out) == os.path.abspath(args.src):
         sys.exit("error: --out must differ from --src (refusing to overwrite the source)")
 
     print("=== make_conc_trainDir ===")
-    print("tf   :", args.tf)
-    print("lam  :", lam)
+    for t, l in sorted(lams.items()):
+        print("scale: %-18s x %g" % (t, l))
     print("src  :", args.src)
     print("out  :", out)
 
@@ -127,10 +152,13 @@ def main():
     src_ep = np.asarray(cfg['end_probs']).copy()
     ssb = int(cfg['silent_states_begin'])
     tfs = list(cfg['tfs'])
-    ti = tfs.index(args.tf)
+    missing = [t for t in lams if t not in tfs]
+    if missing:
+        sys.exit("error: not in this model: %s" % ", ".join(missing))
+    tidx = {t: tfs.index(t) for t in lams}
 
     # ---- gate 1: fidelity. lambda=1 must reproduce the source config bit-exactly. ----
-    p1, _ = dbf_probs(pwm, args.tf, 1.0)
+    p1, _ = dbf_probs(pwm, {t: 1.0 for t in lams})
     tfp1 = np.array([p1[t] for t in tfs])
     d_tf = float(np.max(np.abs(tfp1 / src_tf_prob - 1.0)))
     d_bg = abs(p1['background'] / src_bg - 1.0)
@@ -152,7 +180,7 @@ def main():
     print("   OK -- the rebuild is exact.")
 
     # ---- the actual patch ----
-    prob, conc_new = dbf_probs(pwm, args.tf, lam)
+    prob, conc_new = dbf_probs(pwm, lams)
     tf_prob = apply_probs(cfg, prob)
 
     # ---- gate 2: blast radius. Only row `ssb` of the transition matrix may move. ----
@@ -160,15 +188,18 @@ def main():
     rows = sorted(set(np.argwhere(diff > 0)[:, 0].tolist()))
     print("\n[gate 2] transition_matrix rows changed: %s (silent_states_begin=%d)"
           % (rows if rows else "NONE", ssb))
-    if lam != 1.0 and rows != [ssb]:
+    if any(l != 1.0 for l in lams.values()) and rows != [ssb]:
         sys.exit("BLAST RADIUS GATE FAILED: expected only row %d to change, got %s"
                  % (ssb, rows))
     print("   OK.")
 
-    other = np.delete(np.arange(len(tfs)), ti)
+    other = np.delete(np.arange(len(tfs)), sorted(tidx.values()))
     max_other = float(np.max(np.abs(tf_prob[other] / src_tf_prob[other] - 1.0)))
-    print("\n%s tf_prob: %.6e -> %.6e  (x%.2f, requested x%g)"
-          % (args.tf, src_tf_prob[ti], tf_prob[ti], tf_prob[ti] / src_tf_prob[ti], lam))
+    print()
+    for t in sorted(lams):
+        i = tidx[t]
+        print("%-18s tf_prob: %.6e -> %.6e  (x%.2f, requested x%g)"
+              % (t, src_tf_prob[i], tf_prob[i], tf_prob[i] / src_tf_prob[i], lams[t]))
     print("background_prob : %.9f -> %.9f" % (src_bg, prob['background']))
     print("nucleosome_prob : %.6e -> %.6e" % (src_nuc, prob['nucleosome']))
     print("max |rel change| over the other %d TFs: %.3e" % (len(other), max_other))
@@ -185,11 +216,15 @@ def main():
         pickle.dump(cfg, f)
 
     patch = dict(
-        tf=args.tf, lam=lam, src=os.path.abspath(args.src), out=os.path.abspath(out),
-        tf_index=ti, silent_states_begin=ssb,
-        conc_before=float(calculateKD(pwm, args.tf)), conc_after=float(conc_new),
-        tf_prob_before=float(src_tf_prob[ti]), tf_prob_after=float(tf_prob[ti]),
-        tf_prob_ratio=float(tf_prob[ti] / src_tf_prob[ti]),
+        lams=lams, src=os.path.abspath(args.src), out=os.path.abspath(out),
+        silent_states_begin=ssb,
+        factors={t: dict(index=tidx[t],
+                         conc_before=float(calculateKD(pwm, t)),
+                         conc_after=float(conc_new[t]),
+                         tf_prob_before=float(src_tf_prob[tidx[t]]),
+                         tf_prob_after=float(tf_prob[tidx[t]]),
+                         tf_prob_ratio=float(tf_prob[tidx[t]] / src_tf_prob[tidx[t]]))
+                 for t in lams},
         background_prob_before=src_bg, background_prob_after=float(prob['background']),
         nucleosome_prob_before=src_nuc, nucleosome_prob_after=float(prob['nucleosome']),
         max_rel_change_other_tfs=max_other,

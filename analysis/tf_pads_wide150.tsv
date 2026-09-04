@@ -1,0 +1,37 @@
+# Per-TF Fiber-seq footprint pads, in the MOTIF's own 5'->3' frame.
+#   <tf>  <left>  <right>
+# A TF absent from this file gets 0/0, i.e. today's unwidened behaviour.
+# Read by make_meme_wide.py (sequence columns) and make_params_wide.py (Fiber vector),
+# so the two layers cannot disagree about a TF's width.
+# GENERATED -- do not hand-edit; see the header of each consumer.
+#
+# +/-150 on the 12 TFs with >=50 Rossi sites, i.e. those carrying an INDIVIDUAL Fiber-seq
+# fit (abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:54). Same TF set as tf_pads_wide10.tsv.
+#
+# MOTIVATION. At +/-200 the Fiber-seq accessibility profile around a motif is hyper-
+# methylated (hyper-accessible) far past the motif edge; +/-10 cannot see that.
+#
+# The pad columns are sliced out of the 401-column pm200 refit
+# (inputs/all_TFs_1000pealVal_params_pseudo_pm200bp.pkl, make_params_pm50.py --half 200).
+# That refit bounds the pad: the widest motif here is 20 bp, sitting at [190,210), so the
+# largest symmetric pad it can supply is +/-190. 150 leaves headroom on both sides.
+#
+# FRAME. Pads are in the motif's own 5'->3' frame, which for a MEME motif is the same thing
+# as upstream/downstream on the Watson reference strand. robocop.py's reverse_complement
+# mirrors them onto the reverse block; no strand flip is applied or wanted.
+#
+# 12 TFs x 300 extra columns = 3600 -> 7200 new states -> n_states 10685 (baseline 3485).
+#
+# tf                           left  right
+Abf1_murphy                  150   150
+Cin5_murphy                  150   150
+Fhl1_zhu                     150   150
+Fkh1_zhu                     150   150
+Mcm1_zhu                     150   150
+Nhp6a_zhu                    150   150
+Rap1_telomeric               150   150
+Reb1_badis                   150   150
+Sko1_murphy                  150   150
+Spt15_zhu                    150   150
+Tbf1_zhu                     150   150
+Ume6_zhu                     150   150

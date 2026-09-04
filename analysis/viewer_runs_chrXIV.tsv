@@ -1,0 +1,30 @@
+# label              outDir
+#
+# Names say what is IN the run. Two emission layers can each be on or off:
+#   fib   Fiber-seq layers 5/6      seq   the PWM layer 0
+# plus modifiers: +em10 (10 EM iterations), +capA/+capB (fitted-concentration variants),
+# +nocap (em10 without the constrained-EM ceiling), +lam0.01 (ABF1 prior x0.01, the
+# concentration optimum), +wide* (widened TF footprint states).
+#
+# The three single-layer rows are the controls: `seq` alone calls nothing and nucleosomes
+# collapse (recall 0.081), `fib` alone gets nucleosomes right but ABF1 enrichment is 1.2,
+# i.e. flat. fib+seq's 33.6x is pure synergy.
+#
+# IDENTICAL label set to viewer_runs_chrXIV.tsv -- the labels are the join key that lets
+# the viewer keep your selected run when you switch region.
+seq                  robocop_chrXIV_seqonly
+seq+em10             robocop_chrXIV_seqonly_em10
+fib                  robocop_chrXIV_maskoff_fib
+fib+em10             robocop_chrXIV_maskoff_em10
+fib+seq              robocop_chrXIV_seq_maskoff_revfix
+fib+seq+em10         robocop_chrXIV_seq_maskoff_em10
+fib+seq+em10nocap    robocop_chrXIV_seq_maskoff_em10nocap
+fib+seq+capA         robocop_chrXIV_seq_maskoff_capA
+fib+seq+capB         robocop_chrXIV_seq_maskoff_capB
+fib+seq+lam0.01      robocop_chrXIV_conclo_0p01
+fib+wideABF1         robocop_chrXIV_fib_widememe
+fib+wide12           robocop_chrXIV_fib_wide10
+fib+wideAll          robocop_chrXIV_fib_wide10all
+fib+seq+wideABF1     robocop_chrXIV_widememe
+fib+seq+wide12       robocop_chrXIV_wide10
+fib+seq+wideAll      robocop_chrXIV_wide10all

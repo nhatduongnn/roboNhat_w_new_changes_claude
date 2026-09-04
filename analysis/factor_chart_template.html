@@ -1,0 +1,446 @@
+<title>Factor Detection on chrXIV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+
+<style>
+:root{
+  color-scheme: light;
+  --ground:#fbfcfb; --panel:#ffffff; --panel-2:#f4f7f6;
+  --ink:#101718; --ink-2:#52625f; --ink-3:#7d8d8a;
+  --rule:#e0e7e5; --rule-2:#eef2f1;
+  --fiber:#2a78d6; --seq:#eb6834; --bg:#1baf7a;
+  --track:#eaeeed; --focus:#2a78d6;
+  --shadow:0 1px 2px rgba(16,23,24,.05), 0 4px 14px rgba(16,23,24,.045);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#14191a; --panel:#1b2123; --panel-2:#222a2c;
+    --ink:#eef3f2; --ink-2:#9fb0ad; --ink-3:#788886;
+    --rule:#2b3436; --rule-2:#232b2d;
+    --fiber:#3987e5; --seq:#d95926; --bg:#199e70;
+    --track:#283133; --focus:#3987e5;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#14191a; --panel:#1b2123; --panel-2:#222a2c;
+  --ink:#eef3f2; --ink-2:#9fb0ad; --ink-3:#788886;
+  --rule:#2b3436; --rule-2:#232b2d;
+  --fiber:#3987e5; --seq:#d95926; --bg:#199e70;
+  --track:#283133; --focus:#3987e5;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:40px 28px 96px}
+
+/* ---------- header ---------- */
+header{display:flex; flex-direction:column; gap:14px; margin-bottom:34px}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3);
+}
+h1{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(28px,4.4vw,40px); line-height:1.12; letter-spacing:-.015em;
+  margin:0; text-wrap:balance;
+}
+.lede{max-width:64ch; color:var(--ink-2); font-size:16px; margin:0}
+.lede strong{color:var(--ink); font-weight:600}
+
+/* ---------- controls ---------- */
+.controls{
+  display:flex; flex-wrap:wrap; gap:10px 22px; align-items:flex-end;
+  padding:16px 18px; margin-bottom:8px;
+  background:var(--panel); border:1px solid var(--rule); border-radius:10px;
+  box-shadow:var(--shadow);
+  position:sticky; top:0; z-index:20;
+}
+.ctl{display:flex; flex-direction:column; gap:6px}
+.ctl > span{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3);
+}
+.seg{display:flex; gap:2px; background:var(--panel-2); padding:3px; border-radius:8px}
+.seg button{
+  font:inherit; font-size:13px; font-weight:500; color:var(--ink-2);
+  background:transparent; border:0; padding:6px 12px; border-radius:6px; cursor:pointer;
+  white-space:nowrap;
+}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--panel); color:var(--ink); box-shadow:var(--shadow)}
+.seg button:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+
+.metric-note{
+  color:var(--ink-2); font-size:13.5px; max-width:62ch;
+  margin:14px 2px 26px; min-height:2.6em;
+}
+
+/* ---------- legend ---------- */
+.legend{display:flex; flex-wrap:wrap; gap:8px 20px; margin:0 2px 22px}
+.legend div{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2)}
+.swatch{width:12px; height:12px; border-radius:3px; flex:none}
+
+/* ---------- panels ---------- */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:16px}
+.panel{
+  background:var(--panel); border:1px solid var(--rule); border-radius:10px;
+  padding:18px 18px 14px; box-shadow:var(--shadow);
+}
+.panel h2{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:14px; font-weight:600; margin:0; letter-spacing:-.01em;
+  display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;
+}
+.chip{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.06em; color:var(--ink-3); background:var(--panel-2);
+  padding:2px 7px; border-radius:20px; white-space:nowrap;
+}
+.chip.warn{color:var(--seq)}
+.rows{display:flex; flex-direction:column; gap:2px; margin-top:14px}
+.row{display:grid; grid-template-columns:88px 1fr; align-items:center; gap:10px; padding:2px 0}
+.row:hover .barwrap{background:var(--rule-2)}
+.rowlabel{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px;
+  color:var(--ink-2); text-align:right; white-space:nowrap; overflow:hidden;
+  text-overflow:ellipsis;
+}
+.barwrap{
+  position:relative; height:22px; background:var(--track); border-radius:4px;
+  display:flex; align-items:center;
+}
+.bar{height:22px; border-radius:4px; min-width:2px; transition:width .22s ease}
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+.val{
+  position:absolute; font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px; font-weight:500; color:var(--ink); white-space:nowrap;
+  font-variant-numeric:tabular-nums; pointer-events:none;
+}
+.val.muted{color:var(--ink-3); font-style:italic; font-size:10.5px}
+.gridline{position:absolute; top:0; bottom:0; width:1px; background:var(--rule); opacity:.7}
+.axis{
+  display:grid; grid-template-columns:88px 1fr; gap:10px; margin-top:8px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px; color:var(--ink-3);
+}
+.axisticks{position:relative; height:14px}
+.axisticks span{position:absolute; transform:translateX(-50%); white-space:nowrap}
+
+/* ---------- table ---------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:10px; background:var(--panel); box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:12.5px}
+th,td{padding:7px 11px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--rule-2)}
+th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3);
+  position:sticky; top:0; background:var(--panel); z-index:1;
+}
+td:first-child,th:first-child,td:nth-child(2),th:nth-child(2){text-align:left}
+td{font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",ui-monospace,monospace}
+tbody tr:hover{background:var(--panel-2)}
+.famdot{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:7px; vertical-align:middle}
+.muted-cell{color:var(--ink-3); font-style:italic}
+
+/* ---------- notes ---------- */
+.notes{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); max-width:70ch}
+.notes h3{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px;
+}
+.notes p{color:var(--ink-2); font-size:14px; margin:0 0 12px}
+.notes strong{color:var(--ink); font-weight:600}
+.notes code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12.5px;
+  background:var(--panel-2); padding:1px 5px; border-radius:4px;
+}
+.hide{display:none}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow" id="eyebrow">RoboCOP decode evaluation</div>
+  <h1>Which factors does each model actually find?</h1>
+  <p class="lede" id="lede"></p>
+</header>
+
+<div class="controls">
+  <div class="ctl"><span>Metric</span><div class="seg" id="segMetric"></div></div>
+  <div class="ctl"><span>Reference</span><div class="seg" id="segRef"></div></div>
+  <div class="ctl"><span>View</span><div class="seg" id="segView"></div></div>
+</div>
+
+<p class="metric-note" id="metricNote"></p>
+
+<div class="legend" id="legend"></div>
+
+<div id="chartView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide"><div class="tablewrap"><table id="tbl"></table></div></div>
+
+<div class="notes">
+  <h3>How to read this</h3>
+  <p><strong>Enrichment is the statistic to trust.</strong> It is the mean posterior at
+  reference sites divided by the mean everywhere else, so it does not depend on where the
+  call threshold is drawn. Precision and recall both do — they use
+  <code>0.30 × the factor's chromosome-wide maximum</code>, floored at 0.10, which is the
+  same threshold <code>score_robocop.py</code> uses for ABF1.</p>
+  <p><strong>A false positive here is not necessarily a false positive.</strong> The Rossi
+  reference is ChIP-exo derived, so a site that was never ChIPped looks like a model error.
+  Precision is therefore a comparison between runs, not an absolute score. Only 74 of the
+  model's 153 motifs have Rossi ground truth at all.</p>
+  <p><strong>The two references disagree by construction.</strong> Rossi and MacIsaac were
+  built independently and do not agree on where ABF1 and REB1 sites are, or how many there
+  are. Where a conclusion depends on which one is selected, it is not yet a conclusion.</p>
+  <p><strong>&ldquo;State carries no mass&rdquo; is a result, not a gap.</strong> EM drove
+  some priors to zero, and a state with zero posterior across the whole chromosome has a
+  precision of 0/0 and an enrichment of 0/0. Those cells are labelled rather than drawn,
+  because rendering 0/0 as infinite enrichment would rank an extinct state as the best
+  detector on the page.</p>
+  <p><strong>Low counts are noise.</strong> Factors with fewer than five reference sites on
+  this chromosome are pooled into a single row rather than charted, because precision there
+  moves in steps larger than the differences between runs.</p>
+</div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const FAM_VAR = {fiber:"var(--fiber)", seq:"var(--seq)", bg:"var(--bg)"};
+const state = {metric:"enrichment", reference:"rossi", view:"chart"};
+
+const key = (run, ref, factor) => run + " " + ref + " " + factor;
+const INDEX = new Map();
+for (const r of DATA.rows) INDEX.set(key(r.run, r.reference, r.factor), r);
+
+const refsPresent = [...new Set(DATA.rows.map(r => r.reference))];
+const REF_LABEL = {rossi:"Rossi ChIP-exo", macisaac:"MacIsaac"};
+
+function fmt(v, metric){
+  if (v === null || v === undefined || !isFinite(v)) return "—";
+  if (metric === "enrichment") return v >= 100 ? v.toFixed(0)+"×"
+                                   : v >= 10 ? v.toFixed(1)+"×" : v.toFixed(2)+"×";
+  return v.toFixed(3);
+}
+
+/* Factors available under the selected reference, in the payload's order. */
+function activeFactors(){
+  return DATA.factors.filter(f =>
+    DATA.runs.some(r => INDEX.has(key(r.id, state.reference, f))));
+}
+
+function metricDef(){ return DATA.metrics.find(m => m.key === state.metric); }
+
+/* Scale: linear metrics share a 0..1 axis so panels are comparable; enrichment is
+   log and gets a shared decade range across all panels, for the same reason. */
+function scaleFor(factors){
+  const m = metricDef();
+  const vals = [];
+  for (const f of factors) for (const r of DATA.runs){
+    const row = INDEX.get(key(r.id, state.reference, f));
+    if (!row || row.extinct) continue;
+    const v = row[state.metric];
+    if (v !== null && v !== undefined && isFinite(v) && v > 0) vals.push(v);
+  }
+  if (m.scale === "log"){
+    const max = vals.length ? Math.max(...vals) : 10;
+    const hi = Math.pow(10, Math.ceil(Math.log10(max)));
+    return {kind:"log", lo:1, hi:Math.max(hi,10),
+            pos:v => (v === null || !isFinite(v) || v <= 1) ? 0
+                   : Math.min(1, Math.log10(v) / Math.log10(Math.max(hi,10))),
+            ticks:(()=>{const t=[];for(let e=0;Math.pow(10,e)<=Math.max(hi,10);e++)t.push(Math.pow(10,e));return t})()};
+  }
+  const max = state.metric === "auroc" ? 1 : Math.max(0.2, ...vals.map(v=>v));
+  const hi = state.metric === "auroc" ? 1 : Math.min(1, Math.ceil(max*10)/10);
+  return {kind:"lin", lo:0, hi,
+          pos:v => (v === null || !isFinite(v)) ? 0 : Math.max(0, Math.min(1, v/hi)),
+          ticks: state.metric === "auroc" ? [0,0.5,1] : [0, hi/2, hi]};
+}
+
+function renderSeg(el, items, sel, onPick){
+  el.innerHTML = "";
+  for (const it of items){
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = it.label;
+    b.setAttribute("aria-pressed", String(it.id === sel));
+    b.onclick = () => onPick(it.id);
+    el.appendChild(b);
+  }
+}
+
+function renderLegend(){
+  const el = document.getElementById("legend"); el.innerHTML = "";
+  for (const fam of ["fiber","seq","bg"]){
+    if (!DATA.runs.some(r => r.family === fam)) continue;
+    const d = document.createElement("div");
+    d.innerHTML = '<span class="swatch" style="background:'+FAM_VAR[fam]+'"></span>'
+                + DATA.familyLabels[fam];
+    el.appendChild(d);
+  }
+}
+
+function renderChart(){
+  const factors = activeFactors();
+  const sc = scaleFor(factors);
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  for (const f of factors){
+    const rows = DATA.runs.map(r => INDEX.get(key(r.id, state.reference, f)))
+                          .filter(Boolean);
+    if (!rows.length) continue;
+    const nRef = rows[0].n_ref;
+
+    const p = document.createElement("div"); p.className = "panel";
+    const h = document.createElement("h2");
+    h.innerHTML = f.replace(/</g,"&lt;")
+      + '<span class="chip' + (nRef < 5 ? ' warn' : '') + '">n = ' + nRef + ' sites</span>';
+    p.appendChild(h);
+
+    const rowsEl = document.createElement("div"); rowsEl.className = "rows";
+    for (const r of DATA.runs){
+      const row = INDEX.get(key(r.id, state.reference, f));
+      const v = row ? row[state.metric] : null;
+      const frac = row ? sc.pos(v) : 0;
+
+      const el = document.createElement("div"); el.className = "row";
+      const lab = document.createElement("div");
+      lab.className = "rowlabel"; lab.textContent = r.id; lab.title = r.desc;
+      const wrap = document.createElement("div"); wrap.className = "barwrap";
+
+      for (const t of sc.ticks){
+        if (t === sc.lo) continue;
+        const g = document.createElement("div"); g.className = "gridline";
+        g.style.left = (sc.pos(t)*100) + "%"; wrap.appendChild(g);
+      }
+
+      /* Three outcomes are not the same and must not look the same:
+         a real value, a state EM drove to zero (no mass anywhere — 0/0, not a score),
+         and a metric this row simply does not carry (the pooled tail has no posterior
+         of its own, so no enrichment or AUROC). */
+      const extinct = row && row.extinct;
+      const missing = !row || v === null || v === undefined || !isFinite(v);
+
+      if (!extinct && !missing){
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.width = Math.max(frac*100, 0.6) + "%";
+        bar.style.background = FAM_VAR[r.family];
+        wrap.appendChild(bar);
+      }
+
+      const val = document.createElement("div");
+      val.className = "val";
+      if (extinct){
+        val.textContent = "state carries no mass";
+        val.classList.add("muted");
+        val.style.left = "8px";
+      } else if (missing){
+        val.textContent = "not measured";
+        val.classList.add("muted");
+        val.style.left = "8px";
+      } else {
+        val.textContent = fmt(v, state.metric);
+        if (frac > 0.62){ val.style.right = "8px"; val.style.color = "#fff"; }
+        else { val.style.left = "calc(" + (frac*100) + "% + 8px)"; }
+      }
+      wrap.appendChild(val);
+
+      if (row){
+        wrap.title = r.id + " — " + r.desc + "\n"
+          + (extinct
+             ? "This state's posterior is zero across the whole chromosome — EM drove "
+               + "its prior to zero. Precision and enrichment would both be 0/0."
+             : "TP " + row.tp + " · FP " + row.fp + " · FN " + row.fn
+               + " · " + row.n_pred + " calls\n"
+               + "precision " + fmt(row.precision) + " · recall " + fmt(row.recall)
+               + " · F1 " + fmt(row.f1)
+               + (row.enrichment != null ? "\nenrichment " + fmt(row.enrichment,"enrichment") : "")
+               + (row.auroc != null ? " · AUROC " + fmt(row.auroc) : "")
+               + (row.call_threshold != null
+                  ? "\ncall threshold " + row.call_threshold.toFixed(3)
+                    + " (0.30 × chromosome max " + (row.global_max||0).toFixed(3) + ")"
+                  : ""));
+      }
+      el.appendChild(lab); el.appendChild(wrap); rowsEl.appendChild(el);
+    }
+    p.appendChild(rowsEl);
+
+    const ax = document.createElement("div"); ax.className = "axis";
+    const spacer = document.createElement("div");
+    const ticks = document.createElement("div"); ticks.className = "axisticks";
+    for (const t of sc.ticks){
+      const s = document.createElement("span");
+      s.style.left = (sc.pos(t)*100) + "%";
+      s.textContent = sc.kind === "log" ? (t >= 1000 ? (t/1000)+"k" : t+"×")
+                                        : (Math.round(t*100)/100);
+      ticks.appendChild(s);
+    }
+    ax.appendChild(spacer); ax.appendChild(ticks); p.appendChild(ax);
+    grid.appendChild(p);
+  }
+}
+
+function renderTable(){
+  const cols = [["factor","Factor"],["run","Run"],["n_ref","n ref"],["n_pred","calls"],
+                ["tp","TP"],["fp","FP"],["fn","FN"],["precision","Precision"],
+                ["recall","Recall"],["f1","F1"],["enrichment","Enrichment"],
+                ["auroc","AUROC"]];
+  const t = document.getElementById("tbl");
+  const fam = Object.fromEntries(DATA.runs.map(r => [r.id, r.family]));
+  let h = "<thead><tr>" + cols.map(c=>"<th>"+c[1]+"</th>").join("") + "</tr></thead><tbody>";
+  for (const f of activeFactors()){
+    for (const r of DATA.runs){
+      const row = INDEX.get(key(r.id, state.reference, f));
+      if (!row) continue;
+      h += "<tr>";
+      for (const [k] of cols){
+        let v = row[k];
+        if (k === "run") v = '<span class="famdot" style="background:'+FAM_VAR[fam[r.id]]+'"></span>' + v;
+        else if (row.extinct && ["precision","recall","f1","enrichment","auroc"].includes(k))
+          v = '<span class="muted-cell">no mass</span>';
+        else if (k === "enrichment") v = fmt(v, "enrichment");
+        else if (["precision","recall","f1","auroc"].includes(k)) v = fmt(v);
+        else if (v === null || v === undefined) v = "—";
+        h += "<td>" + v + "</td>";
+      }
+      h += "</tr>";
+    }
+  }
+  t.innerHTML = h + "</tbody>";
+}
+
+function render(){
+  const m = metricDef();
+  document.getElementById("metricNote").textContent = m.note;
+  document.getElementById("chartView").classList.toggle("hide", state.view !== "chart");
+  document.getElementById("tableView").classList.toggle("hide", state.view !== "table");
+  renderSeg(document.getElementById("segMetric"),
+            DATA.metrics.map(x=>({id:x.key,label:x.label})), state.metric,
+            id => { state.metric = id; render(); });
+  renderSeg(document.getElementById("segRef"),
+            refsPresent.map(x=>({id:x,label:REF_LABEL[x]||x})), state.reference,
+            id => { state.reference = id; render(); });
+  renderSeg(document.getElementById("segView"),
+            [{id:"chart",label:"Chart"},{id:"table",label:"Table"}], state.view,
+            id => { state.view = id; render(); });
+  if (state.view === "chart") renderChart(); else renderTable();
+}
+
+document.getElementById("eyebrow").textContent =
+  "RoboCOP decode evaluation · " + DATA.chrom;
+document.getElementById("lede").innerHTML =
+  "Seven model configurations decoded across all of <strong>" + DATA.chrom + "</strong>, "
+  + "each scored against every transcription factor that has ground truth there. "
+  + "The question is not only whether a configuration finds ABF1 — it is whether it "
+  + "finds ABF1 <em>specifically</em>, or simply fires every factor everywhere.";
+renderLegend();
+render();
+</script>
