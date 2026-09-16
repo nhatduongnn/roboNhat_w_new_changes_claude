@@ -1,0 +1,8 @@
+2026-09-11 00:54:50  iter 02  submitted decode 12570645 count 12570646 next 12570647
+2026-09-11 03:16:27  iter 03  submitted decode 12570957 count 12570958 next 12570959
+2026-09-11 15:44:28  iter 03  task 32 failed (config.ini read race); reran as 12573849, count 12573850, next 12573851
+2026-09-11 16:43:04  iter 04  submitted decode 12573984 count 12573985 next 12573986
+2026-09-11 19:07:04  iter 05  submitted decode 12574814 count 12574815 next 12574816
+2026-09-11 21:31:19  iter 06  submitted decode 12575036 count 12575037 next 12575038
+2026-09-11 23:52:52  iter 07  submitted decode 12579342 count 12579343 next 12579344
+2026-09-12 02:14:26  iter 07  STOPPED: reached the 8-round limit

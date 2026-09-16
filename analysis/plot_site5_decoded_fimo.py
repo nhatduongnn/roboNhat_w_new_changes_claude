@@ -56,7 +56,7 @@ FIMO_PAD = 25            # room for placements whose midpoint reaches the window
 
 FIBER_DIR = "robocop_chrI_maskon_revfix"
 SEQ_DIR = "robocop_chrI_seq_maskon_revfix"
-SEQONLY_DIR = "robocop_chrI_seqonly_maskon_revfix"   # sequence layer alone, Fiber neutralised
+SEQONLY_DIR = "robocop_chrI_seq_maskon_revfix"   # sequence layer alone, Fiber neutralised
 MEME_ENV = "/home/users/nd141/miniconda3/envs/meme/bin"
 MEME_FILE = "inputs/motifs_meme.txt"
 GENOME = "inputs/SacCer3.fa"

@@ -1,0 +1,17 @@
+2026-09-15 01:18:31  iter 00  submitted decode 12596388 (40 tasks, robocop_chrXIV_chrII_tw_bt05_00) count 12596389 next 12596390
+2026-09-15 01:18:33  iter 00  holdout: decode 12596391 (robocop_chrIV_tw_bt05_00) count 12596392 validate 12596393
+2026-09-15 02:19:08  iter 01  submitted decode 12596985 (40 tasks, robocop_chrXIV_chrII_tw_bt05_01) count 12596986 next 12596987
+2026-09-15 02:35:01  iter 02  submitted decode 12597142 (40 tasks, robocop_chrXIV_chrII_tw_bt05_02) count 12597144 next 12597146
+2026-09-15 02:51:08  iter 03  submitted decode 12597282 (40 tasks, robocop_chrXIV_chrII_tw_bt05_03) count 12597283 next 12597284
+2026-09-15 03:07:40  iter 04  submitted decode 12597431 (40 tasks, robocop_chrXIV_chrII_tw_bt05_04) count 12597432 next 12597433
+2026-09-15 03:23:40  iter 05  submitted decode 12597583 (40 tasks, robocop_chrXIV_chrII_tw_bt05_05) count 12597584 next 12597585
+2026-09-15 03:40:09  iter 05  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap)
+2026-09-15 03:40:09  iter 05  holdout: decode 12597733 (robocop_chrIV_tw_bt05_05) count 12597734 validate 12597735
+2026-09-15 16:02:19  iter 05  CONTINUE: archived STOPPED ('stopped after iter 5: converged: every tuned group took a zero step (deadband or held at the per-bp cap)') -> STOPPED_20260915_round05; new settings max_rounds 15, deadband 1.1x (was 8, 1.25x); reason: user decision 2026-09-15: tighten target 1.25x -> 1.1x, up to 15 rounds
+2026-09-15 16:02:21  iter 05  CONTINUE: round 05 re-updated under deadband 1.1x: 32 tuned groups outside it, 32 take a non-zero step; bisect-set steps 0, bracket-pinned (<0.1 dec) 0 []
+2026-09-15 16:03:09  iter 06  submitted decode 12601139 (40 tasks, robocop_chrXIV_chrII_tw_bt05_06) count 12601140 next 12601141
+2026-09-15 16:20:58  iter 07  submitted decode 12601404 (40 tasks, robocop_chrXIV_chrII_tw_bt05_07) count 12601405 next 12601406
+2026-09-15 16:37:00  iter 08  submitted decode 12601667 (40 tasks, robocop_chrXIV_chrII_tw_bt05_08) count 12601668 next 12601669
+2026-09-15 16:53:00  iter 08  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-15 16:53:00  iter 08  holdout: decode 12601840 (robocop_chrIV_tw_bt05_08) count 12601841 validate 12601842
+2026-09-15 16:53:00  iter 08  on-stop refresh: {'chereji': '12601843', 'summary': '12601844'}

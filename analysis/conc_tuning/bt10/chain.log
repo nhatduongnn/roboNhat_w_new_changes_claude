@@ -1,0 +1,14 @@
+2026-09-15 01:18:35  iter 00  submitted decode 12596394 (40 tasks, robocop_chrXIV_chrII_tw_bt10_00) count 12596395 next 12596396
+2026-09-15 01:18:37  iter 00  holdout: decode 12596397 (robocop_chrIV_tw_bt10_00) count 12596398 validate 12596399
+2026-09-15 02:25:10  iter 01  submitted decode 12597070 (40 tasks, robocop_chrXIV_chrII_tw_bt10_01) count 12597071 next 12597072
+2026-09-15 02:42:10  iter 02  submitted decode 12597231 (40 tasks, robocop_chrXIV_chrII_tw_bt10_02) count 12597232 next 12597233
+2026-09-15 02:58:10  iter 03  submitted decode 12597366 (40 tasks, robocop_chrXIV_chrII_tw_bt10_03) count 12597367 next 12597368
+2026-09-15 03:14:10  iter 04  submitted decode 12597529 (40 tasks, robocop_chrXIV_chrII_tw_bt10_04) count 12597530 next 12597531
+2026-09-15 03:30:08  iter 04  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap)
+2026-09-15 03:30:09  iter 04  holdout: decode 12597687 (robocop_chrIV_tw_bt10_04) count 12597688 validate 12597689
+2026-09-15 16:02:16  iter 04  CONTINUE: archived STOPPED ('stopped after iter 4: converged: every tuned group took a zero step (deadband or held at the per-bp cap)') -> STOPPED_20260915_round04; new settings max_rounds 15, deadband 1.1x (was 8, 1.25x); reason: user decision 2026-09-15: tighten target 1.25x -> 1.1x, up to 15 rounds
+2026-09-15 16:02:18  iter 04  CONTINUE: round 04 re-updated under deadband 1.1x: 28 tuned groups outside it, 28 take a non-zero step; bisect-set steps 0, bracket-pinned (<0.1 dec) 0 []
+2026-09-15 16:03:06  iter 05  submitted decode 12601097 (40 tasks, robocop_chrXIV_chrII_tw_bt10_05) count 12601098 next 12601099
+2026-09-15 16:20:57  iter 05  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-15 16:20:58  iter 05  holdout: decode 12601399 (robocop_chrIV_tw_bt10_05) count 12601400 validate 12601401
+2026-09-15 16:20:58  iter 05  on-stop refresh: {'chereji': '12601402', 'summary': '12601403'}

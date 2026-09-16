@@ -1,6 +1,6 @@
 {
   "label": "seq",
-  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_seqonly",
+  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrI_seq",
   "n_regions": 1,
   "nucleosome": {
     "reference": "Chereji 2018 +1/-1",

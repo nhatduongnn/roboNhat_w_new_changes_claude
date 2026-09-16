@@ -12,16 +12,33 @@
 # fib+seq          ON   ON    the standard run
 # fib+wide*        off  ON    does widening help the FIBER footprint, with the PWM out of
 #                             the way? the sharpest test of the widening hypothesis
-seq	robocop_chrI_seqonly
-fib	robocop_chrI_maskoff_revfix
-fib+seq	robocop_chrI_seq_maskoff_revfix
-fib+wideABF1	robocop_chrI_fib_widememe
-fib+wide12	robocop_chrI_fib_wide10
-fib+wideAll	robocop_chrI_fib_wide10all
-fibseq+wideABF1	robocop_chrI_widememe
-fibseq+wide12	robocop_chrI_wide10
-fibseq+wideAll	robocop_chrI_wide10all
-seq+em10	robocop_chrI_seqonly_em10
-fib+seq+lam0.01	robocop_chrI_conclo_0p01
-fib+widefp	robocop_chrI_fib_widefp
-fibseq+widefp	robocop_chrI_widefp
+#
+# NAMING (established 2026-09-04). The directory name IS the label, so what you read in the
+# published viewer is what sits on disk. Punctuation is the only difference, since a path
+# cannot hold '+' or '.':
+#
+#     label  fib+seq+lam0.01   ->   dir  robocop_<chrom>_fib_seq_lam0p01
+#     label  fib+wide12        ->   dir  robocop_<chrom>_fib_wide12
+#
+# 'fib_seq_' means both emission layers are live; 'fib_' means Fiber-seq only, sequence
+# layer masked off. The older scheme named directories after the MASK applied
+# (maskoff_revfix, seq_maskoff_capA, conclo_0p01, widememe, wide10all) while labels named
+# the LAYERS -- two systems that had drifted apart; they were reconciled by renaming the
+# directories. Anything written before that date may use the old names.
+#
+# Assets that are NOT runs keep their own names on purpose: pkgvar/{seq,fiber}_maskoff_*
+# (frozen package copies), sbatch_{train,chrI,chrXIV}_wide10.sh and
+# {train,run_split,check}_widememe*.py (generic drivers every widened run calls).
+seq                  robocop_chrI_seq
+fib                  robocop_chrI_fib
+fib+seq              robocop_chrI_fib_seq
+fib+wideABF1         robocop_chrI_fib_wideABF1
+fib+wideAll          robocop_chrI_fib_wideAll
+fib+seq+wideABF1     robocop_chrI_fib_seq_wideABF1
+fib+seq+wideAll      robocop_chrI_fib_seq_wideAll
+seq+em10             robocop_chrI_seq_em10
+fib+seq+lam0.01      robocop_chrI_fib_seq_lam0p01
+fib+wide12           robocop_chrI_fib_wide12
+fib+seq+wide12       robocop_chrI_fib_seq_wide12
+fib+wide150          robocop_chrI_fib_wide150
+fib+seq+wide150      robocop_chrI_fib_seq_wide150

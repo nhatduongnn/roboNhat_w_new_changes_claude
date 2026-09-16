@@ -8,7 +8,7 @@
 #SBATCH --error=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/logs/%x_%A_%a.err
 
 # chrI decode, 6-way split -- same shape as sbatch_revfix_seq_maskoff.sh so the comparison
-# against robocop_chrI_seq_maskoff_revfix is one-variable apart from the widening itself.
+# against robocop_chrI_fib_seq is one-variable apart from the widening itself.
 #
 # Parameterized by DRIVER/TRAINDIR/OUTDIR, matching sbatch_chrXIV.sh's interface so the two
 # chromosomes are launched the same way. Launched by run_widememe_all.sh, which is the only

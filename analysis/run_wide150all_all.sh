@@ -47,6 +47,12 @@
 #
 # Job ids land in .wide150all_jobids.
 
+# NAMING CONVENTION (2026-09-04). A decode directory is named for the run LABEL that
+# identifies it in the scoring tables and the published viewer, so the two can never drift:
+#   robocop_<chrom>_fib_seq_<run>   both emission layers live
+#   robocop_<chrom>_fib_<run>       Fiber-seq only, sequence layer masked off
+# The old implicit form (no prefix = both layers) is gone.
+
 set -eo pipefail
 cd /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis
 mkdir -p logs
@@ -79,7 +85,7 @@ for f in "$PADS" "$MEME" "$PARAMS" "config_fiberonly_${RUN}.ini" \
     [ -e "$f" ] || { echo "missing $f -- build it first"; exit 1; }
 done
 # Never silently overwrite a finished run.
-for d in "$TRAINDIR" robocop_chrI_${RUN} robocop_chrXIV_${RUN} \
+for d in "$TRAINDIR" robocop_chrI_fib_seq_${RUN} robocop_chrXIV_fib_seq_${RUN} \
          robocop_chrI_fib_${RUN} robocop_chrXIV_fib_${RUN}; do
     [ -e "$d" ] && { echo "ERROR: $d already exists; move it aside first."; exit 1; }
 done
@@ -95,7 +101,7 @@ echo "$RUN train $TRAIN_ID" >> .${RUN}_jobids
 for CHR in chrI chrXIV; do
     for LAYER in seq fib; do
         if [ "$LAYER" = seq ]; then
-            VAR="seq_maskoff_${RUN}";   OUT="robocop_${CHR}_${RUN}"
+            VAR="seq_maskoff_${RUN}";   OUT="robocop_${CHR}_fib_seq_${RUN}"
         else
             VAR="fiber_maskoff_${RUN}"; OUT="robocop_${CHR}_fib_${RUN}"
         fi

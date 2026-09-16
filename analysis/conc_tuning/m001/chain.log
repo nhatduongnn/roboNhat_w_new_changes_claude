@@ -1,0 +1,9 @@
+2026-09-11 00:56:47  iter 00  submitted decode 12570698 count 12570699 next 12570700
+2026-09-11 05:07:03  iter 01  submitted decode 12571200 count 12571201 next 12571202
+2026-09-11 07:28:47  iter 02  submitted decode 12571426 count 12571427 next 12571428
+2026-09-11 09:51:06  iter 03  submitted decode 12571663 count 12571664 next 12571665
+2026-09-11 12:13:59  iter 04  submitted decode 12572271 count 12572272 next 12572273
+2026-09-11 14:34:34  iter 05  submitted decode 12573311 count 12573312 next 12573313
+2026-09-11 16:55:42  iter 06  submitted decode 12574034 count 12574035 next 12574036
+2026-09-11 20:47:49  iter 07  submitted decode 12574950 count 12574951 next 12574952
+2026-09-11 22:58:47  iter 07  STOPPED: within-2x count has not risen for 2 rounds (77 -> 77 -> 77)

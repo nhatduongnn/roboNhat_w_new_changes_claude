@@ -1,0 +1,4 @@
+# label	tuning_outDir (chrXIV, chrII)	holdout_outDir (chrIV)   all decoded with robocop_train_tw_sw01_05
+seq only	robocop_chrXIV_chrII_tw_sw01_05	robocop_chrIV_tw_sw01_05
+seq + fiber	robocop_chrXIV_chrII_twS05_both	robocop_chrIV_twS05_both
+fiber only	robocop_chrXIV_chrII_twS05_fib	robocop_chrIV_twS05_fib

@@ -1,963 +1,591 @@
-# RoboCOP + Fiber-seq — Session Handoff
+# RoboCOP + Fiber-seq — Handoff
 
-Pick-up notes for the next agent. Read `whattodo.md` (strategy + open work) and
-`FIBERSEQ_CHANGES.md` (full code diff vs upstream) first — this file adds the **scoring +
-plotting tooling** and the **layer / mask toggles** that are easy to get wrong.
+**Read `CLAUDE.md` first** for the environment, the rules, and the gotchas. This file carries
+the state of each thread and where to pick it up. `whattodo.md` holds strategy and the
+open-work tiers; `FIBERSEQ_CHANGES.md` the code diff against upstream;
+`things_to_revisit_before_shipping.md` the debug leftovers and hardcoded knobs.
 
-**Start with §10** — the newest work (2026-09-01 → 09-04): the widened-footprint runs,
-including four `wide150` decodes that are **finished on disk and not yet scored**; the
-published artifact URLs; and the Rossi genic/intergenic validation table. §0 is the older
-motif-source audit (the shipped PWM collection vs JASPAR and Rossi; ABF1's matrix is
-demonstrably wrong and six others are suspect) and still stands. §6 covers a self-contained
-side experiment (sliding the fitted ABF1 fiber footprint across the genome), finished as an
-exploration but whose code was never saved.
-
-Environment:
-```bash
-source /home/users/nd141/miniconda3/etc/profile.d/conda.sh && conda activate robocop-2024
-cd /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis
-```
-All decode outputs (`robocop_chrI_*`, `robocop_seqlayer_*`, `robocop_erv46_*`,
-`robocop_train_fiberonly/`) live on THIS filesystem, not in git (they are 20–210 MB each and
-git-ignored). A new session on this machine already has them.
+Sections: **§1 concentration calibration (current)** · §2 what a concentration is ·
+§3 tools · §4 model mechanics · §5 ground truth · §6 motif audit · §7 widened footprints ·
+§8 earlier side experiments · §9 published artifacts · §10 standing constraints ·
+§11 repo state.
 
 ---
 
-## 0. Most recent work (2026-08-14 → 08-18) — the motif-source audit
+## 1. Concentration calibration — FINISHED 2026-09-12
 
-**Nothing in `whattodo.md`'s open-work list was touched.** These four days went into a
-question that list did not contain: *is the PWM collection RoboCOP decodes with actually
-right?* The answer is "not everywhere", and that matters because the sequence layer
-(§2 layer 0) is the next phase of the plan — turning it on with a wrong matrix makes
-things worse, not better. Everything below is **read-only diagnosis**;
-`inputs/motifs_meme.txt` has NOT been changed.
+### 1.1 What was run
 
-### 0.1 The finding that started it — ABF1 Murphy vs JASPAR
+The per-DBF prior (`tf_prob`, the "concentration") is never fitted in this fork (§2), so it
+was calibrated by fixed-point iteration against **MacIsaac p005_c1 site counts**: decode the
+genome, count each factor's calls, move its λ toward its target, repeat. Two campaigns, 8
+rounds each, genome-wide, λ_unknown fixed at 0.01 and the nucleosome prior held:
 
-`inputs/motifs_meme.txt`'s `Abf1_murphy` (w=14) and JASPAR MA0265.3-rc (w=14) are the
-same motif in their core and **anti-correlated in their middle**:
-
-| columns | what they are | column r (Murphy vs JASPAR) | P(GC) Murphy / JASPAR / genome |
+| campaign | live motifs | driver | stopped because |
 |---|---|---|---|
-| 0–4, 10–13 | the two half-sites | **+0.998** (9 cols, all ≥ +0.98) | — |
-| 5–9 | the spacer | **−0.411** | **0.678** / 0.300 / 0.381 |
+| `u001` | all 153 | `run_split_revfix_seq_maskoff.py` | hit the 8-round limit |
+| `m001` | 84 MacIsaac motifs + `unknown`; **69 hard-masked** | `run_split_revfix_seq_maskoff_macisaac.py` | within-2× count stalled (77→77→77) |
 
-Murphy's spacer is a **GC-rich, informative** block (per-column KL 0.16–0.75 against the
-yeast background). JASPAR's is nearly flat, as a spacer should be. Real ABF1 sites do not
-carry that GC block, so Murphy charges them for it. Per-column numbers:
-`analysis/abf1_column_distances.{py,tsv,png}` and `analysis/abf1_murphy_vs_jaspar_pwm.txt`.
+Masking is emission-only (`pkgvar/seq_maskoff_macisaac/`, §4.3): the masked motifs keep their
+prior mass, so the tuned factors' priors are identical to `u001`'s and the only difference is
+that the competitors cannot be called. They hold 1.1% of the prior at every entry — more than
+all 84 kept motifs together (0.96%).
 
-**Why it is invisible to TOMTOM.** TOMTOM's q-value asks "closer than two random
-matrices", which saturates for any pair sharing a strong core — Murphy-vs-JASPAR ABF1 is
-a confident match by q. FIMO asks a different question: does this 14-mer clear a
-log-odds threshold, **summed over all 14 columns**. The spacer is 5 of those 14.
-`analysis/explain_abf1_score_split.py` → `abf1_score_split.tsv` decomposes both scores on
-the 5 MacIsaac chrI ABF1 sites. Both matrices score the core within 1.3 bits of each other (max gap at site 2);
-the spacer is where they part:
+### 1.2 Results
 
-| site | spacer contribution Murphy | spacer JASPAR | FIMO p Murphy | FIMO p JASPAR | passes p<1e-4 |
-|---|---|---|---|---|---|
-| 1 | +3.50 | +0.24 | 3.6e-06 | 2.9e-05 | both |
-| 2 | −2.15 | +1.36 | 3.1e-04 | 2.1e-05 | **JASPAR only** |
-| 3 | −7.87 | +2.97 | 3.9e-04 | 6.5e-09 | **JASPAR only** |
-| 4 | −0.74 | −0.06 | 1.6e-05 | 1.6e-05 | both |
-| 5 | −4.87 | +2.67 | 3.1e-04 | 1.8e-06 | **JASPAR only** |
+**Counts converge.** Groups within 2× of their MacIsaac count, over rounds 0→7:
 
-**As a pure sequence scan, Murphy recovers 2 of 5 and JASPAR 5 of 5.** Every miss is a
-spacer penalty, not a core mismatch. (Inside the full RoboCOP decode the gain is smaller —
-3 of 5, not 5 of 5. See §0.2 for why.) This is the general lesson: **a confident TOMTOM match can still lose
-sites, so never validate a PWM swap on q-values alone — score real sites.**
+| campaign | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | typical factor |
+|---|---|---|---|---|---|---|---|---|---|
+| `u001` | 16 | 27 | 40 | 60 | 66 | 71 | 78 | **79 / 81** | 1.07× off |
+| `m001` | 15 | 31 | 42 | 64 | 74 | 77 | 77 | **77 / 81** | 1.05× off |
 
-Supporting figures (all regenerate-able): `abf1_murphy_vs_jaspar_logos.png`,
-`abf1_motif_anatomy*.png`, `abf1_score_split.png`, `abf1_column_distances.png`,
-`macisaac_vs_user_fimo.png`, `chrI190559_decoded_fimo.png`. FIMO scans in
-`analysis/chrI_fimo/` (whole chrI) and `analysis/chrI190k_fimo/`, driven by
-`compare_fimo_macisaac_chrI.py` — note it scores against `motifdb/`-style backgrounds
-(`robocop_bg.txt` = the same yeast background RoboCOP computes, not MEME's uniform).
+**Site accuracy does not follow.** Calls are posterior ≥ 0.10 matched to a MacIsaac site
+within 30 bp; MacIsaac requires cross-species conservation, so these are lower bounds, good
+for comparing rounds rather than as absolute accuracy:
 
-### 0.2 The RoboCOP runs that tested the swap
-
-`inputs/jaspar_abf1_motifs_meme.txt` is a **copy of `inputs/motifs_meme.txt` with exactly
-one motif replaced**: JASPAR MA0265.3, reverse-complemented into Murphy's orientation.
-The other 152 are byte-identical, and the **motif ID is deliberately still
-`Abf1_murphy`** — `update_data_emission_matrix_using_binomial_fiber_seq` in `pkg/robocop/robocop.py`
-looks the Rossi-fitted Fiber-seq p-vector up by that exact string (`loaded_params['p'][tf_name]`), and the 14-column register has to keep applying column-for-column. Do not
-"tidy" that ID.
-
-`analysis/config_jaspar.ini` differs from `config_fiberonly.ini` on **one line**:
-```
-pwmFile = inputs/jaspar_abf1_motifs_meme.txt      # vs inputs/motifs_meme.txt
-```
-trainDir `robocop_train_jaspar/`. Drivers: `sbatch_train_jaspar.sh`,
-`sbatch_jaspar_seq_maskon.sh`, `sbatch_jaspar_seq_maskoff.sh`,
-`sbatch_jaspar_seqonly_maskon.sh`.
-
-The matched pairs on disk (same coords, same layers, same mask — only the ABF1 matrix
-differs):
-
-| layers / mask | Murphy | JASPAR |
-|---|---|---|
-| Fiber+seq, ABF1-only | `robocop_chrI_seq_maskon_revfix` | `robocop_chrI_seq_maskon_JASPAR` |
-| Fiber+seq, all TFs | `robocop_chrI_seq_maskoff_revfix` | `robocop_chrI_seq_maskoff_JASPAR` |
-| seq only, ABF1-only | `robocop_chrI_seqonly_maskon_revfix` | `robocop_chrI_seqonly_maskon_JASPAR` |
-
-**What the swap actually buys in a decode — re-measured 2026-08-18 with
-`score_robocop.py` on whole chrI; raw JSON in `analysis/jaspar_vs_murphy_chrI_metrics.json`:**
-
-| run | ABF1 recall | predicted ABF1 peaks | mean posterior at the 5 sites | ABF1 enrichment | Chereji nuc recall | median dyad err |
-|---|---|---|---|---|---|---|
-| Murphy, Fiber+seq, ABF1-only | 2/5 | 190 | 0.138 | 15.2× | 0.785 | 7.0 bp |
-| **JASPAR**, Fiber+seq, ABF1-only | **3/5** | 256 | **0.204** | 16.3× | 0.793 | 7.0 bp |
-| Murphy, Fiber+seq, all TFs | 2/5 | 83 | 0.135 | 33.6× | 0.800 | 6.5 bp |
-| **JASPAR**, Fiber+seq, all TFs | **3/5** | 152 | **0.202** | 29.0× | 0.807 | 7.0 bp |
-
-**Read this carefully — the decode gains far less than the FIMO scan does.** On sequence
-alone JASPAR goes 2/5 → **5/5** (§0.1). Inside the full model it goes 2/5 → **3/5**, and
-`mean_post_at_sites` only rises 0.138 → 0.204. Nucleosome architecture is untouched, as
-expected (the ABF1 matrix is one of 153).
-
-The gap between 5/5 and 3/5 is the **Fiber layer, not the PWM**. The fitted ABF1 p-vector
-runs 0.029–0.137 against a background of 0.138 — every position below background — so it is
-a generic protection detector with almost no positional specificity, and with raw coverage
-`n` untempered it produces likelihood ratios of 1e9–1e10 at spots 8–91 bp off-motif that no
-sequence term can overturn. **Fixing the fiber emission outranks any further PWM change**;
-see `whattodo.md` Tier 1 #3. Also note the JASPAR runs put *more* mass on ABF1 overall
-(83 → 152 predicted peaks in the all-TF run), so enrichment dips slightly even as recall and
-site posterior improve — judge a swap on posterior-at-sites and recall together, not on
-enrichment alone.
-
-### 0.3 Is ABF1 the only one? — the three-way sheet
-
-One motif found by hand says nothing about the other 152. `inputs/motifs_meme.txt` is
-**not "Murphy"** — it is 153 matrices across mixed sources (64 `_zhu`, 60 `_badis`,
-26 `_murphy`, plus `Rap1_telomeric` / `_motif1` / `_motif2`), so any answer has to break
-down by source.
-
-Three databases, assembled by `analysis/build_motif_dbs.py` into `analysis/motifdb/`:
-
-| file | what | n |
-|---|---|---|
-| `shipped.meme` | copy of `inputs/motifs_meme.txt` — what RoboCOP decodes with | 153 |
-| `jaspar.meme` | JASPAR CORE, `tax_group=fungi`, `version=latest`, via the API | 193 |
-| `rossi.meme` | Rossi ChExMix pre-computed MEME motifs, E-filtered, renamed | 856 |
-| `yeast_bg.txt` | genome background via `getDBFconc.computeBackground` — **the background the model assumes**, not MEME's uniform 0.25 | — |
-| `coverage.tsv` | per shipped **motif**: which sources exist, how many matrices each | 153 |
-
-Rossi sample→TF mapping needs no external sheet: `inputs/rossi_peak_w_strand_all_TFs.bed`
-already carries `sample_id` + `TF`. Coverage came out **3-way 69 / 2-way-JASPAR 70 /
-2-way-Rossi 2 / nothing-to-compare 12** = 153. NHP6A is a real "no JASPAR at all" case —
-an HMG-box architectural protein, so RoboCOP is scanning for a motif JASPAR does not
-think exists.
-
-**Independence caveat.** Rossi and JASPAR are independent of the *shipped PWMs* (which are
-Murphy 2011 / Zhu / Badis lineages), which is what makes them usable as a check here. They are
-NOT independent of everything else in this repo: the fitted Fiber-seq footprints in
-`inputs/all_TFs_1000pealVal_params*.pkl` were trained on Rossi peak locations, and MacIsaac is
-77.5% inside Rossi (§6). So "Rossi agrees with JASPAR against native" is evidence about the
-matrix; it is not independent evidence about the fiber layer.
-
-`analysis/compare_motif_sources.py` runs TOMTOM six ways (three pairs × `-dist ed` and
-`-dist kullback`, `-bfile yeast_bg.txt`, `-thresh 1 -evalue` so weak same-name pairs are
-still reported) and writes `motif_comparison.tsv` + `motif_comparison_report.txt`. It also
-correlates each pair's **log-odds track along real chrI sequence** (`r_track`) — the only
-metric tied to what the model actually does. Two matrices can be formally similar and
-still place mass differently; `Gal4_zhu` is q_ed 3e-07 with r_track 0.56.
-
-### 0.4 The published sheet — native vs JASPAR vs Rossi
-
-**Artifact: <https://claude.ai/code/artifact/7c63a39b-8e04-4cd1-9660-7797d0dec154>
-("Odd One Out").** Rebuild with:
-```bash
-python motif_distance_sheet.py      # -> .tsv + .json (225 rows, incl. aligned logo PWMs)
-python make_motif_sheet_page.py     # -> motif_distance_sheet.html from motif_sheet_template.html
-```
-then re-publish **to that same URL** (pass it as `url` to the Artifact tool) — do not
-create a second one.
-
-Design decisions worth not re-litigating:
-
-- **No privileged reference.** Rossi and JASPAR are not ground truth, they are two more
-  measurements. With three points there is always a closest pair; the **odd one out** is
-  the member opposite it. That is the whole verdict logic.
-- **Raw distances, no p-values.** TOMTOM's own column functions
-  (`ED = sqrt(Σ(X−Y)²)`, `KLD = ½(Σ X ln(X/Y) + Σ Y ln(Y/X))`) reported as a **mean per
-  aligned column** after `-motif-pseudo 0.1` spread by the yeast background. The p-value
-  saturates and is exactly what hid the ABF1 spacer.
-- **One row per Rossi replicate.** Rossi runs each factor as several independent ChExMix
-  samples. Collapsing them to a "best" match threw away the replication, which is the
-  most valuable thing in the data. Within a sample the top motif is taken when it leads
-  the runner-up by ≥ 2 orders of magnitude in E (87% of samples clear that —
-  `rossi_evalue_structure.py`); otherwise the runner-up gets its own row.
-  `rossi_pick_sensitivity.py` shows why "pick the Rossi motif nearest native" is a biased
-  rule: it shrinks N↔R by construction *and* lets native choose the matrix for the J↔R
-  leg, the one leg native is supposed to have no say in.
-- **E-values are not comparable between factors.** log10 E correlates with log10 nsites at
-  r = −0.54, so any absolute cutoff is meaningless across factors; the tie-break is
-  relative, within one run.
-- **Heat shock is labelled and excluded from consensus.** The `<id>_YEP` directory names
-  are a Yeast Epigenome Project tag, not a growth medium. Real conditions come from GEO
-  GSE147927 via `fetch_rossi_conditions.py` → `inputs/rossi_sample_conditions.tsv`;
-  21 samples on this disk are 37 °C heat shock (3 or 6 min).
-- **Power is on every row.** The median surviving Rossi motif rests on **28 sites** and
-  10% on fewer than 10. A large distance from a 9-site motif is noise.
-
-**The width problem, and how it is solved (`common_window`).** The three matrices are
-rarely the same width — RAP1 is native 20 / JASPAR 12 / Rossi 16 — so aligning each pair
-independently leaves the three numbers in a row resting on different column counts. They
-are then not commensurable, and "which pair is closest" can be decided by how many columns
-each pair happened to share. **TOMTOM cannot fix this: it is strictly one query motif vs
-target motifs, no three-motif mode, and no multiple-motif alignment exists anywhere in
-MEME 5.5.9.** Its complete-scoring is also *asymmetric* — the distance depends on which
-motif you call the query — so it cannot be used symmetrically. Two stages instead:
-
-1. **Frame.** Search every offset and orientation against a **fixed** W-column window
-   (W = width of the shortest motif), columns a motif cannot reach priced against the
-   genome background, minimising the **sum of the three pairwise mean KLs**
-   (sum-of-pairs multiple alignment). Fixing the width is what stops the window being
-   minimised by shrinking onto whichever columns happen to match.
-2. **Numbers.** Report all three pairs over the **intersection** of those placements —
-   the columns every matrix actually reaches. One column set, all three pairs.
-
-"Align each pair the way TOMTOM would, then intersect" is the obvious approach and this
-**reduces to it wherever it is well defined** — but alignment is not transitive, so the
-three pairwise optima are mutually realisable in one frame in only **82 of 140 rows
-(59%)**; `pairwise_frame_consistency.py` measures this. On those 82 rows the two schemes
-agree on **78** verdicts and all 4 disagreements favour the intersection. The grey band on
-each logo is exactly the scored columns; a `−n` tag marks columns of the shortest matrix
-dropped because another matrix does not reach them.
-
-Current window statistics (213 rows with a window): scored columns median **7**, min 4,
-max 15, **under 8 in 120 rows** — the honest limitation, and it is flagged amber on every
-row. Dropped columns: 0 in 169 rows, 1 in 36, 2 in 8. `window_cost_kl` (how much worse the
-worst pair is under the joint frame than under its own free alignment): median 0.0000,
-p75 0.0019, p90 0.0634, max 0.5041, above 0.05 in 25 rows.
-
-**Thresholds** `CLOSE_KL = 0.060` and `MARGIN_KL = 0.030` were re-checked, not assumed:
-the closest-of-three distance is median 0.032 / p75 0.074, putting 0.060 at the 69th
-percentile. `margin_kl` = second-smallest minus smallest of the three pairwise KLs; below
-`MARGIN_KL` the row is `ambiguous`.
-
-**Results, per native motif (153 total, gene-level consensus over replicates):**
-
-| consensus | n |
-|---|---|
-| no Rossi motif at all (blank) | 82 |
-| `rossi_is_odd` | 29 |
-| `no_consensus` | 22 |
-| `all_three_agree` | 9 |
-| **`native_is_odd`** | **7** |
-| `ambiguous` | 2 |
-| `two_datasets_only` | 2 |
-
-Median distance to the other two: native **0.167**, JASPAR **0.150**, Rossi **0.175** —
-i.e. the shipped collection is not systematically the outlier; the problem is
-motif-by-motif.
-
-**The 7 `native_is_odd` motifs — the shortlist of matrices to consider replacing:**
-
-| motif | Rossi replicates | reached a verdict | called native odd | unanimous |
+| round | u001 precision | u001 recall | u001 F1 | m001 F1 |
 |---|---|---|---|---|
-| `Abf1_murphy` | 3 | 3 | 3 | **yes** |
-| `Rap1_motif2` | 3 | 3 | 3 | **yes** |
-| `Rap1_telomeric` | 3 | 3 | 3 | **yes** |
-| `Rap1_zhu` | 3 | 3 | 3 | **yes** |
-| `Pdr1_badis` | 2 | 2 | 2 | **yes** |
-| `Rap1_motif1` | 3 | 2 | 2 | no |
-| `Cad1_murphy` | 2 | 1 | 1 | no |
-
-("reached a verdict" excludes replicates that came out `no_consensus` or `ambiguous`;
-none of these seven had a heat-shock replicate.)
-
-**ABF1 came out of the audit unanimously wrong in all three replicates** — the hand
-finding of §0.1 reproduced blind, with JASPAR and Rossi agreeing with each other
-(KL 0.016–0.019) and native 0.17–0.22 away from both. **`Rap1_telomeric` is on this list
-and is one of the 12 TFs with a fitted Fiber-seq footprint** (list at the end of
-`whattodo.md`), so it
-is the next most consequential matrix after ABF1.
-
-### 0.5 `analysis/pkgvar/` — layer and mask state is no longer hand-commented
-
-**This supersedes the "comment the lines IN, submit the sbatch, wait until RUNNING,
-re-comment" mechanics described in §2 and §3.** That dance was a race: with a slurm array
-you cannot know when a task actually imports the file. Instead `analysis/pkgvar/<variant>/`
-holds a **frozen copy of the whole `robocop` package** with the toggles already applied,
-and each driver does
-
-```python
-sys.path.insert(0, 'pkgvar/seq_maskon/')     # run_split_revfix_seq_maskon.py
-from run_robocop import run_robocop_without_em
-```
-
-so every task of every array imports exactly the state it is meant to, and **all variants
-can run concurrently**. `robocop.py` is byte-identical across variants; the only differences
-are in `utils/robocopExtras.py`:
-
-| variant | line 101 (sequence layer) | lines 113+ (ABF1 hard mask) |
-|---|---|---|
-| `fiber_maskon` | `[0][:] = 1` — sequence OFF | mask on layers 5/6 |
-| `fiber_maskoff` | `[0][:] = 1` — sequence OFF | commented out |
-| `seq_maskon` | commented out — sequence **ON** | mask on layers 5/6 |
-| `seq_maskoff` | commented out — sequence **ON** | commented out |
-| `seqonly_maskon` | sequence **ON** | layers 5/6 set to **1** (fiber off) and the **mask moved onto layer 0** |
-| `seq_maskoff_{12tfs,bgtss,lowabf1}` | sequence ON, mask off | differ only in which `inputs/*.pkl` they load |
-
-`seqonly_maskon` is the one to read carefully: because layers 5 and 6 are neutralised there,
-a mask placed on them would be silently wiped and the run would quietly become a full
-154-TF decode — so the mask rides on layer 0, the only live layer. Same semantics (a 0 in
-any channel zeroes the product).
-
-**The gotcha that made the JASPAR retrain necessary:** a decode **never re-reads the meme
-file**. `run_robocop_without_em` takes `pwm_emission` / `tf_prob` / `transition_matrix`
-straight out of the trainDir's `HMMconfig.pkl` (`robocop_no_em.py:51`). Changing `pwmFile`
-in a config does nothing unless you **retrain** — which is why there is a separate
-`robocop_train_jaspar/` built by `sbatch_train_jaspar.sh`.
-
-### 0.6 Where to pick this up
-
-1. **Nothing is committed** — see §8. Commit before building on it.
-2. Decide whether to act on the shortlist. The ABF1 evidence is complete enough to swap
-   (FIMO 5/5 vs 2/5 on chrI, decode 3/5 vs 2/5 with site posterior 0.204 vs 0.138,
-   unanimous across all three Rossi replicates, mechanism understood) — but note §0.2:
-   the decode is fiber-limited, so a PWM swap alone will not reach 5/5;
-   the four RAP1 matrices and `Pdr1_badis` have sheet evidence but **no FIMO / decode
-   validation yet**. Do that first — §0.1 is the cautionary tale about trusting a
-   similarity score without scoring real sites.
-3. A swap means editing `inputs/motifs_meme.txt`, which changes **every** decode. Keep the
-   `jaspar_abf1_motifs_meme.txt` pattern: one alternate PWM file + one alternate config,
-   never an in-place edit, so the two are comparable.
-4. If a matrix with a **fitted Fiber-seq footprint** is swapped (`Rap1_telomeric`,
-   `Abf1_murphy`), the footprint is keyed on the motif ID **and registered to the motif's
-   column frame**. Keep the ID and the width/orientation, or the p-vector silently
-   mis-registers. This is exactly why the JASPAR ABF1 file keeps the name `Abf1_murphy`
-   and is reverse-complemented into Murphy's orientation.
-5. The sheet's real limitation is the 120 rows scored on fewer than 8 columns — many
-   native matrices are only 5–8 wide. Those verdicts are weak; do not act on a
-   short-window row without a FIMO check.
-
----
-
-## 1. The two tools to keep using
-
-### `analysis/score_robocop.py` — the scorer (single source of truth)
-Quantitatively scores a decode against yeast ground truth: Chereji +1/−1 nucleosome dyads,
-MacIsaac ABF1 sites, phasing period, MNase accessibility. Loads the sparse per-segment
-posterior out of the decode's `tmpDir/info.h5`, collapses HMM states → factor tracks, and
-matches predicted peaks to reference within a tolerance.
-
-Public API you will actually call:
-- `score(outDir, regions=None, tol_nuc=20, tol_abf1=20, abf1_global_max=None, return_abf1_tracks=False)`
-  → dict of metrics + `_per_region` list. `regions=[(chrm,lo,hi)]` scores just a window.
-- **ABF1 peak-caller = one code path**: `_above_threshold_runs(track, height)` finds contiguous
-  above-threshold runs; `footprint_centers()` and `call_abf1(track, pos, threshold)` both derive
-  from it. `call_abf1` returns `[{center,start,end}]` in genomic coords. **A predicted ABF1
-  anchor = the CENTER (midpoint) of an above-threshold run**, NOT an argmax — this is robust to
-  the flat, saturated posterior plateaus the sequence layer produces (argmax there jitters with
-  the window; the midpoint does not).
-- Threshold: `abf1_call_threshold(gmax) = max(0.10, 0.30 * gmax)`. When scoring a small window
-  pass `abf1_global_max=<whole-chrI max>` so the window uses the run's REAL global threshold
-  (~0.30 for all 4 chrI runs, since each run's chrI ABF1 max ≈ 1.0). Cache in
-  `analysis/site4_thresholds.json` / `abf1_thresholds.json`.
-- Nucleosome dyads still use `call_peaks` (find_peaks) — unchanged.
-
-### `analysis/plot_abf1_locus.py` — scorer-driven per-locus plot (reusable)
-Renders one panel per model showing the ABF1 posterior around a locus across several decodes.
-**It does NOT re-implement peak calling — it INVOKES `score(..., return_abf1_tracks=True)` and
-draws exactly what the scorer returns** (track, threshold line, and a ▼ arrow at each of the
-scorer's `call_abf1` centers). So if you change the peak-caller or threshold inside
-`score_robocop.py`, this plot moves with it automatically — single source of truth.
-```bash
-python plot_abf1_locus.py                                     # MacIsaac site #4, 4 chrI runs
-python plot_abf1_locus.py --motif chrI:45318-45332 --out siteN.png   # any locus / models
-```
-`DEFAULT_MODELS` = the 4 chrI runs (fiber_abf1, fiber_all, seq_abf1, seq_all). For a new run not
-in the threshold cache, it scores that run whole-chrI once to record its global ABF1 max, then
-every later locus renders instantly.
-
-Companion deliverables (regenerate-able, kept): `plot_abf1_grid.py` +
-`abf1_sites_per_run.py` → `abf1_recovery_grid.png` (5 MacIsaac sites × 4 models);
-`make_5run_chart.py` + `score_5runs.py` → `chrI_5run_recall.png`.
-
----
-
-## 2. Layer toggles — sequence / MNase / Fiber-seq
-
-The emission tensor is **7 layers**, built in `robocop.py:_build_data_emission_matrix` as
-`np.ones((7, n_obs, n_states))` (all neutral), then each ACTIVE layer is multiplied in
-(emission = product over layers, so a layer left at 1.0 contributes nothing = OFF):
-
-| Layer | Channel | State (default) | How to toggle |
-|-------|---------|-----------------|----------------|
-| 0 | Sequence (PWM) | **OFF** | `robocopExtras.py:101` `data_emission_matrix[0][:] = 1` forces it neutral. **Comment out line 101 to turn sequence ON.** (This is the only difference between the `*_maskon`/`*_maskoff` fiber runs and the `*_seq_*` runs — the config.ini files are identical.) |
-| 1–2 | MNase short/long | **OFF** | the `update_..._negative_binomial` calls are commented out in the fiber path (`robocop.py:565-568`); layers stay 1.0. |
-| 3–4 | ATAC short/long | **OFF** | never filled. |
-| 5–6 | Fiber-seq Watson/Crick | **ON** | filled by `update_data_emission_matrix_using_binomial_fiber_seq` (`robocop.py:676-680`); zeros floored to 1e-30 in `robocopExtras.py:105-106` to avoid NaN. |
-
-**Phased strategy (user directive):** get Fiber-seq alone biologically correct FIRST, then add
-sequence, then MNase. Sequence/MNase being off is intentional, not a bug.
-
-**Do not edit these lines by hand any more — see §0.5.** Every combination already exists as
-a frozen package copy under `analysis/pkgvar/`, selected by the driver's `sys.path.insert`.
-
----
-
-## 3. ABF1-only decoding — the hard-forbid mask (apply AFTER the 1e-30 floor)
-
-To force a TRUE ABF1-only decode (absolutely nothing but ABF1 + background + nucleosomes gets
-any posterior), use the **hard mask in `robocopExtras.py:113-114`** (commented out by default):
-```python
-data_emission_matrix[5][:, 29:dshared['nuc_start']] = 0   # Fiber Watson
-data_emission_matrix[6][:, 29:dshared['nuc_start']] = 0   # Fiber Crick
-```
-**Why it must run AFTER the 1e-30 floor (lines 105-106), not before:** the floor turns every 0
-into 1e-30 so no position is all-zero. If the mask ran before the floor, the forbidden states
-would be lifted back to 1e-30 (tiny but nonzero → they can still leak posterior). Running the
-mask AFTER the floor leaves the non-ABF1 TF states (indices `29 .. nuc_start`, incl. `unknown`)
-**EXACTLY 0**. Emission is a product over channels, so a 0 in the Fiber channels ⇒ total
-emission 0 ⇒ posterior exactly 0 for every TF except ABF1 (states 1..28). Background (0) and
-nucleosomes (`nuc_start..`) keep the 1e-30 floor, so no column goes all-zero (no NaN).
-
-This `robocopExtras.py` mask **supersedes the older `robocop.py:798` mask** (which set =0 inside
-the binomial function, before the floor, and could leak). Prefer the robocopExtras one.
-
-State layout for the slice: `0` = background; `1..28` = ABF1 fwd+rev; `29 .. nuc_start-1` = all
-other TFs + `unknown`; `nuc_start..` = nucleosomes.
-
-Mechanics: **the comment-IN / submit / re-comment dance is obsolete — use `analysis/pkgvar/`
-(§0.5).** Pick the variant that already has the mask baked in (`*_maskon`) and run its driver;
-nothing is edited and variants can run concurrently. The older single-run path
-(`run_fiberonly_noem.py` + `sbatch_noem.sh`, trainDir `robocop_train_fiberonly`) still works if
-you edit lines 113-114 by hand. Decodes use `run_robocop_without_em` (keeps `tmpDir/info.h5`;
-equivalent to `with_em` iter=0, which otherwise DELETES tmpDir).
-
----
-
-## 4. TF colors are consistent across decodings
-
-`colorMap()` in both `plotRoboCOP.py` and `plotRoboCOPax.py` assigns each DBF a **deterministic
-color keyed on its NAME** via `_color_for_name(name)` (not on `set()` ordering or the process
-hash seed). So ABF1 is the same color in every plot and every output folder. The map is cached
-per run as `<outDir>/dbf_color_map.pkl` and reused if present. **If you ever see a TF change
-color between two decodes, delete that folder's `dbf_color_map.pkl` and re-plot** — a stale
-pickle from before this fix is the only way colors drift. `nucleosome` = grey `0.7`,
-`unknown` = light grey `#D3D3D3`.
-
----
-
-## 5. The chrI runs on disk
-
-The original four (scored and plotted throughout §1–§4):
-
-| outDir | layers | mask | plot color |
-|--------|--------|------|------------|
-| `robocop_chrI_maskon`      | Fiber only | ABF1-only | blue |
-| `robocop_chrI_maskoff`     | Fiber only | all TFs   | blue |
-| `robocop_chrI_seq_maskon`  | Fiber+seq  | ABF1-only | orange |
-| `robocop_chrI_seq_maskoff` | Fiber+seq  | all TFs   | orange |
-
-**These four predate the reverse-strand fiber-parameter fix (commit `90b05c3`).** The
-post-fix reruns carry a `_revfix` suffix — `robocop_chrI_maskon_revfix`,
-`robocop_chrI_maskoff_revfix`, `robocop_chrI_seq_maskon_revfix`,
-`robocop_chrI_seq_maskoff_revfix`, plus `robocop_chrI_seqonly_maskon_revfix` — and are the
-ones to compare against. Prefer `_revfix` for anything new; the un-suffixed four are kept only
-because the numbers below and in `abf1_thresholds.json` refer to them.
-
-Also on disk: the three `*_JASPAR` runs (§0.2), and three fiber-parameter variants
-`robocop_chrI_seq_maskoff_{12tfs,bgtss,lowabf1}` driven by `run_split_variant_*.py`.
-
-Latest ABF1 site-#4 result (from `plot_abf1_locus.py`, midpoint 62664): fiber_abf1 → 62663
-(1 bp ✓), fiber_all → MISSED (local max 0.147 < 0.30), seq_abf1 → 62665 (1 bp ✓), seq_all →
-62665 (1 bp ✓). Matches `abf1_sites_per_run_centered.txt`.
-
-## 6. Side experiment — sliding the fitted ABF1 fiber footprint across the genome
-
-**Question asked:** is the Fiber-seq-estimated ABF1 methylation profile, on its own, enough to
-*find* ABF1 in the genome — independent of the HMM and of the sequence layer? Run as an
-exploratory side branch (agent "agentA"), read-only, chrI only. **Answer: no, but it finds
-something real.** Details below; the scan code itself was NOT saved (see "What is on disk").
-
-### 6.1 What it computes
-
-Not autocorrelation — a **cross-correlation / matched filter**. (In this repo "autocorrelation"
-already means the nucleosome-phasing-period metric in `score_robocop.py`; don't overload it.)
-
-Two vectors of equal length are formed per candidate window and dot-producted.
-
-*Template side* (from `inputs/all_TFs_1000pealVal_params_pseudo.pkl`), computed once:
-```
-w_j = p_j - mean(p)          # mean-centered => SHAPE only, level discarded
-```
-For the shipped 14-column `p['Abf1_murphy']['watson_signal']['A']`, `mean(p) = 0.0843` and
-`sqrt(sum w_j^2) = 0.1314`. Columns 3 and 13 (deep notch) and 14 (high rim) carry ~half of
-`sum w_j^2`; column 7 (`p=0.0872`, sits on the mean) contributes essentially nothing.
-
-*Genome side*, per position, from the modkit pileup (`k` = methylated calls, `n` = A trials):
-```
-y_j = (k_j - n_j*p_hat) / sqrt(n_j * p_hat * (1 - p_hat))
-```
-i.e. a variance-stabilised residual — observed minus expected, in units of its own standard
-error. This is where **coverage weighting** comes from for free: evidence scales like `sqrt(n)`,
-so 0/100 is a loud protection signal while 0/3 is barely anything.
-
-*Score:*
-```
-S = sum_j (w_j * y_j) / sqrt(sum_j w_j^2)
-```
-Each column casts a signed vote (template says protected + genome is protected => positive).
-Slide 1 bp, repeat, score **both orientations** (mirror `[::-1]` AND Watson<->Crick channel
-swap — see the reverse-strand fix in commit 90b05c3) and keep the better one.
-
-Why each normalisation matters:
-- **mean-centering `w`** is what makes this an ABF1 detector rather than a nucleosome detector.
-  Without it every protected patch scores high; with it, a window must also have the *elevated
-  rim*, not just the notch.
-- **dividing by `sqrt(sum w_j^2)`** cancels the template's arbitrary scale, puts `S` on a unit-
-  variance z-scale under the null, and makes different widths / different TFs comparable.
-- the data side is deliberately **not** normalised (so this is a matched filter, not Pearson
-  `r`) — amplitude should count, a 300-read window tracing the shape must beat a 3-read one.
-- `p_hat` is a **local** background from +/-500 bp, NOT `inputs/bg_params.pkl`. See 6.4.
-
-### 6.2 Results (chrI, ~230k windows, template refit leave-one-chromosome-out)
-
-| width | median true-site percentile | worst true site |
-|-------|-----------------------------|-----------------|
-| +/-7 (14 bp — the width the emission layer actually uses) | 0.401% | 2.139% |
-| +/-25 (51 bp) | **0.086%** | **0.375%** |
-
-+/-10 (21 bp) and intermediate widths were **never run**. Widths were judged on *worst-case*
-site rank, not median. At +/-25: all 5 MacIsaac chrI ABF1 sites in the top 0.375%, permutation
-null `p = 0.025`, top-50 hits 13x enriched for annotated Rossi TF sites.
-
-**But precision is poor: 0.58% at 5/5 recall — 863 chrI windows outscore the worst true site.**
-The Murphy PWM alone narrows chrI to ~92 positions, so as a standalone detector this is ~10x
-worse than sequence. Consistent with the main-line result that fiber-only TF *identity* is at
-its ceiling.
-
-**Controls are the real finding:**
-- Reb1 template: 1.86% (22x worse than ABF1) — so it does discriminate.
-- **Rap1 template: 0.056% — better than ABF1.** Both are notch-in-NDR factors and the filter
-  cannot separate them. Rap1, not Reb1, is the meaningful wrong-TF control.
-
-Conclusion: this is a strong **"protected notch inside an accessible region"** detector, not an
-ABF1-identity detector.
-
-### 6.3 A retracted claim — don't repeat this mistake
-
-An early pass concluded "a flat template scores as well as the ABF1 template" (r = 0.986).
-**That was wrong**, on two counts: (a) it used a +/-100 window, where 14 notch columns are
-diluted by 187 flank columns, and (b) it correlated *un-whitened raw likelihood scores*, which
-mostly compares two total-protection measures. At +/-7 the same correlation is 0.233. Always
-compare **whitened shape vs whitened level**, never raw LLR vs raw LLR.
-
-The profile extractor was also rebuilt: reuse `make_params_pm50.py`'s own `Pileup` /
-`window_for` / `combine_motif_counts_binom` / `add_pseudocounts_binomial(3,58)` /
-`fit_binomial_parameters` rather than re-deriving. The rebuilt +/-100 profile is bit-identical
-(max|diff| = 0.000) to both the pm50 pkl and the shipped 14-column pkl. An ad-hoc extractor
-drifted (max|diff| 0.053 W / 0.170 C) by filtering on reference A/T instead of bucketing on the
-modkit base column, and by omitting pseudocounts.
-
-### 6.4 Open issue this surfaced — `bg_params.pkl` may be mis-calibrated
-
-`inputs/bg_params.pkl` has `p = 0.1383 / 0.1384`. The **genome-wide pooled rate is 0.0790**
-(sum n = 689,036,863; sum k = 54,428,639 over 11,414,910 pileup rows). 0.1383 looks like an
-*accessible-region* fit. Scoring with 0.1383 turns the ABF1 template into a nucleosome detector
-that ranks true sites at 56.8% — worse than chance, which is why the scan used a local +/-500 bp
-background instead. **If this is a real mis-calibration it biases every fiber-layer likelihood
-ratio in the model, not just this scan.** Needs the user to confirm what segments were passed to
-that background fit.
-
-### 6.5 What is on disk
-
-Only the profile artifacts — **the scan itself was never written out and must be rebuilt**:
-- `analysis/abf1_profile_pm100_agentA.npz` — 201-length float64 arrays, keys `half, n_sites,
-  n_plus, n_minus, motif_len, p_all_W, k_all_W, n_all_W, p_all_C, k_all_C, n_all_C, p_refA_W,
-  k_refA_W, n_refA_W, p_refA_C, k_refA_C, n_refA_C`
-- `analysis/abf1_profile_pm100_agentA.png`
-
-### 6.6 Where to pick it up
-
-1. Rebuild the scan as a committed script (it currently exists nowhere) and write results to
-   TSV instead of leaving them in conversation context.
-2. Fill the width sweep: +/-7, +/-10 (21 bp — the user specifically wants this), +/-12, +/-25,
-   +/-50, judged on worst-case rank.
-3. Add the plain-Pearson-`r` baseline at 14 bp and 21 bp alongside the weighted score, to show
-   what the coverage weighting and whitening actually buy.
-4. Settle 6.4 before trusting any genome-wide fiber likelihood ratio.
-5. Note the structural limit: the emission layer consumes only the **14-column** vector, which
-   discards the elevated flanks and does not even span the ~21 bp real footprint. A windowed /
-   contextual fiber emission is the obvious follow-on but has not been scoped.
-
-**Circularity caveat:** Rossi IS the training set for these parameters and MacIsaac is 77.5%
-inside it. The +/-25 numbers above used a leave-one-chromosome-out template refit; any new
-result must do the same or it is measuring memorisation.
-
----
-
-## 7. Open threads (not started)
-- Retrain EM with the sequence layer ON — current `*_seq_*` decodes reuse Fiber-only-trained
-  weights, so they are a lower bound on what seq can do.
-- Optional scorer speedup: cache the collapsed factor track per region (currently re-collapses
-  the whole ~230 kb chrI segment on every score call, ~9 min/run).
-
----
-
-## 8. Repo state — read this before you write anything
-
-> **Superseded in part.** This section was written when `git log` stopped at `90b05c3`.
-> The §0 motif-audit work described below was committed in `3384105`; §10.8 has the current
-> repo state. The rules at the end of this section — how to treat `pkgvar/` and `motifdb/` —
-> still apply.
-
-`git log` stopped at **`90b05c3` "Fix reverse-strand fiber params; stop generator clobbering
-the shipped pkl"** when this was written. Everything in §0 was then uncommitted and
-untracked, and the user had **not approved a commit or a push**.
-
-Tracked files modified: `HANDOFF.md`, `whattodo.md` (this update). Nothing under `pkg/` or
-`robocop.py` has changed since `90b05c3` — the motif audit touched no model code.
-
-New, untracked, worth keeping (all under `analysis/`):
+| 0 | 1.7% | 8.4% | 0.029 | 0.025 |
+| 1 | 2.7% | 10.5% | 0.043 | 0.040 |
+| 3 | 3.3% | 8.7% | 0.048 | 0.041 |
+| 7 | 3.5% | 7.8% | **0.049** | 0.042 |
+
+Almost all of the gain is step 0→1, which cut the gross over-callers; rounds 4–7 each add
+≤ 0.0002, and m001's last round is negative. Recall *peaks at round 1* and then falls as the
+counts are pushed onto target.
+
+**Why: marginal precision is 0.8–2.4% for every step, in both directions** (Δmatched/Δcalls,
+from `tuning_trajectory.py`). Calls a raise adds are about as wrong as the ones already
+there; calls a lowering removes were 1–2% real. **λ moves the model along the count axis, not
+the accuracy axis** — the same conclusion as the ABF1 λ sweep, where AUROC was flat at every
+λ (0.56–0.59) while F1 moved 2.5×.
+
+**Masking does not help; it slightly hurts** (final F1 0.042 vs 0.049). With competitors
+gone the kept factors absorb their calls, so more of them bottom out: at the λ = 1e-6 floor
+and still over target, `m001` has ABF1 (1,638 copies vs 300 sites), REB1, FKH1 and MCM1;
+`u001` has only REB1 (1,177 vs 279). **The can't-fix list only covers the λ cap**, so these
+floor-stuck over-callers are never flagged — a small, worthwhile addition to `cmd_update`.
+
+**Masking does fix HAP1**: within 2× at λ = 1e3, 22 of 184 sites found. In `u001` it stays on
+the can't-fix list (54.6 copies vs 184, would need λ ≈ 8e3).
+
+**Per-factor extremes (u001, round 7 vs 0):** gains ZAP1 +0.297, REB1 +0.076, SUT1 +0.052,
+MBP1 +0.041; losses CBF1 −0.046 (it started near target and ~10% of the calls its lowering
+removed were real), TYE7 −0.025, RPH1 −0.020, GCN4 −0.020.
+
+**Nucleosomes never moved**: 66,545 (u001) and 66,799 (m001) copies against 66,521 untuned,
+i.e. +0.4% at the widest, with the prior held every round.
+
+### 1.3 The machinery
 
 | file | what |
 |---|---|
-| `build_motif_dbs.py` | assembles `motifdb/` — shipped / JASPAR / Rossi / yeast background / coverage |
-| `compare_motif_sources.py` | six TOMTOM runs + chrI log-odds track correlation → `motif_comparison.tsv`, `motif_comparison_report.txt` |
-| `plot_motif_comparison.py` | the three overview figures |
-| `motif_distance_sheet.py` | the sheet: common window, verdicts, replicate consensus → `.tsv` + `.json` |
-| `make_motif_sheet_page.py` + `motif_sheet_template.html` | JSON → `motif_distance_sheet.html` (the artifact) |
-| `pairwise_frame_consistency.py` | proves alignment is not transitive (59%); justifies the two-stage window |
-| `rossi_evalue_structure.py` | why E-values are not comparable across factors; sets the 2-orders rule |
-| `rossi_pick_sensitivity.py` | why "pick the Rossi motif nearest native" is biased |
-| `fetch_rossi_conditions.py` | GEO GSE147927 → `inputs/rossi_sample_conditions.tsv` (heat-shock labels) |
-| `abf1_column_distances.py` + `plot_abf1_column_distances.py` | per-column ED/KLD, Murphy vs JASPAR |
-| `explain_abf1_score_split.py` + `plot_abf1_score_split.py` | TOMTOM-vs-FIMO gap on the 5 chrI sites |
-| `compare_fimo_macisaac_chrI.py` | whole-chrI FIMO scan vs MacIsaac |
-| `config_jaspar.ini`, `sbatch_jaspar_*.sh`, `sbatch_train_jaspar.sh` | the JASPAR-ABF1 run series |
-| `inputs/jaspar_abf1_motifs_meme.txt` | the one-motif-swapped PWM file |
-| `inputs/rossi_sample_conditions.tsv` | Rossi sample → condition / replicate |
+| `tune_concentrations.py` | the loop: `status` / `build` / `submit [--chain]` / `update` / `next`, namespaced by `--run` |
+| `make_conc_targets.py` | per-motif targets from MacIsaac c1 (or Rossi); `--verify` pins the merge rule; `load_macisaac_c1_sites()` gives site centers |
+| `make_conc_trainDir.py` | rewrites one trainDir row from a λ vector, with fidelity + blast-radius gates; `--hold-nucleosome` solves the compensating λ_nuc |
+| `count_calls.py` | per-factor `occ` / calls per chromosome, plus the MacIsaac match sidecar under `macisaac/` |
+| `tuning_trajectory.py` | per-step precision/recall/F1 and marginal precision → `conc_tuning/<run>/trajectory.tsv` |
+| `sbatch_tune_next.sh` | one link of the auto-chain |
+| `conc_tuning/make_conc_sheet.py` | rebuilds the published concentration sheet |
 
-**`analysis/pkgvar/` is untracked too** (§0.5) — 8 frozen copies of the `robocop` package,
-each with its layer/mask toggles baked in. It is the mechanism every current run driver
-depends on, so it is not disposable; but it carries compiled `librobocop.so` and
-`__pycache__`, so if it is committed, commit the sources and gitignore the binaries. The
-alternative is to record the per-variant `robocopExtras.py` diff (it is ~4 lines) and
-regenerate.
+A campaign lives in `conc_tuning/<run>/` (`state.json`, `report_NN.tsv`, `trajectory.tsv`,
+`chain.log`, `STOPPED`) with trainDirs `robocop_train_ct_<run>_NN`, decodes
+`robocop_genome_ct_<run>_NN` and counts `conc_tuning/counts_ct_<run>_NN.tsv`.
 
-Generated outputs also untracked: `jaspar_vs_murphy_chrI_metrics.json` (the §0.2 table),
-`motif_distance_sheet.{tsv,json,html}`,
-`motif_comparison.tsv`, `abf1_*.png`/`.tsv`, `motifdb/` (~60 MB, mostly TOMTOM tables —
-**do not commit `motifdb/`**, regenerate it with `build_motif_dbs.py`), `chrI_fimo/`,
-`chrI190k_fimo/`, and the decode directories (already git-ignored).
+**Step size.** `λ *= (T/E)^(α/β)` with α = 0.7 damping and β seeded at 0.23 — the measured
+elasticity `d log count / d log λ`, re-estimated per group by secant after round 1. A naive
+`(T/E)^0.7` closes only ~16% of the log gap per round (~25 rounds instead of 4–8). λ is
+clamped to [1e-6, 1e3]; above ~1e4 the shared unbound root collapses and `p^147` destroys the
+nucleosome model.
 
-Also untracked and from **earlier** sessions, not this one — they belong to the
-reverse-strand-fix and fiber-parameter-variant work described in §5–§6:
-`fiber_params_lib.py`, `make_params_pm50.py`, `make_bg_tss.py`, `make_low_abf1.py`,
-`compare_variants.py`, `run_split_*.py`, `plot_abf1_5sites_*.py`,
-`plot_abf1_base_overlap*.py`, `plot_abf1_motif_anatomy*.py`,
-`plot_macisaac_*.py`, `plot_site5_decoded_fimo.py`, `plot_native_region.py`,
-`plot_factor_p_values.py`, and the `inputs/*.pkl` variants
-(`all_TFs_1000pealVal_params.pkl`, `..._pseudo_lowabf1.pkl`, `..._pseudo_pm50bp.pkl`,
-`bg_params_tss.pkl`).
+**Cross-TF coupling is real but sparse** — dropping one factor's λ 100× moved the other 147
+by a median of 1.0000 (95th pct 1.0029), with Rsc3 +24.7%, Nhp6a +9.3%, Spt15 +5.5% — which
+is why all factors are tuned at once with damping rather than one at a time.
 
-## 9. EM training of the concentrations — QUEUED 2026-08-24, running unattended
+**The auto-chain.** `submit --chain` appends a `ctNext_<run>_NN` job (`afterany` on the count
+job) that runs `update`, evaluates the stop rules, then builds and submits the next round.
+Stops write `conc_tuning/<run>/STOPPED` with a reason: nucleosome copies >5% from 66,521;
+within-2× not risen for 2 rounds; 8 rounds; or any exception. The count job carries
+`--kill-on-invalid-dep=yes` so a dead decode cancels it and the chain stops **visibly**
+instead of pending forever.
 
-**The finding that prompted it.** The per-DBF concentration prior is never fitted.
-`parameterize.getDBFconc` sets `tf_prob` from `calculateKD` (Kd of the motif consensus,
-a pure function of motif length and information content), and `robocop_em.py` hardcodes
-`iterations = 0`, so the Baum-Welch loop under it never runs. Verified: all 154 states in
-`robocop_train_fiberonly/HMMconfig.pkl` are bit-identical to values recomputed from
-`pwm.p`, and `robocop_train/likelihood.txt` has exactly one line. Result: Nhp6a (7 bp)
-= 7.2239e-4, 6th of 154; Abf1_murphy (14 bp) = 1.7974e-07, 148th — a **4,019x** gap,
-while the chrI posterior implies only ~6.9x.
+**One failure mode seen.** Every decode task copies the trainDir's `config.ini` into the
+output directory and immediately parses it, and `cp` truncates before writing, so a task that
+reads mid-copy dies with `NoSectionError: 'main'` (u001 round 3, task 32). The decode script
+now retries once after 60 s.
 
-**Confirmed clean:** the ABF1 lambda multipliers are NOT in any source. `parameterize.py`
-is byte-identical across `pkg/` and all ten `pkgvar/` copies; the sweep lives only in
-`robocop_train_conc{3,10,30,100,300,1000}/`, each stamped with `conc_patch.json`; and all
-three live decodes read the unpatched `robocop_train_fiberonly`.
+### 1.4 Where to pick this up
 
-**What is queued** (job ids in `analysis/.em10_jobids`, chained with `--dependency=afterok`
-so a bad fit is never decoded and mistaken for a result):
+1. **Validate against Rossi** (§5.2), which was deliberately held back the whole time. That
+   is the outstanding question: did count-matching against a conserved-site catalogue make
+   the model better or just narrower?
+2. The λ vectors worth carrying forward are in `conc_tuning/{u001,m001}/state.json`; the
+   trainDirs `robocop_train_ct_u001_07` and `..._m001_07` are the tuned models.
+3. Do not expect more λ rounds to improve accuracy (§1.2). The next real lever is the fiber
+   emission (§4.6) and then the PWMs (§6).
+4. Optional: flag λ-floor-stuck over-callers, mirroring the can't-fix rule.
 
-| job | script | what |
-|---|---|---|
-| 12420006 | `sbatch_train_em10_smoke.sh` | 2 windows x 2 iters, then `em_smoke_gate.py` |
-| 12420008 | `sbatch_train_em10.sh` | 20 windows x 10 iters -> `robocop_train_em10_chrII/`, then `em_trace_report.py` + gate |
-| 12420009 | `sbatch_chrI_em10.sh` | chrI 6-way decode -> `robocop_chrI_seq_maskoff_em10/` |
+**A standing two-site test case (ERV46).** Two MacIsaac ABF1 sites sit in
+`chrI:60,001-65,000` and **no run has ever got both**: the baseline nails `62,657-62,671`
+(posterior 0.99) and misses `61,163-61,177` (0.002), while the low-ABF1 variant recovers the
+upstream one (0.55) and collapses the downstream one (0.001). A correctly retuned prior should
+get both — a quick, cheap check on any new model. Compare with
+`python make_posterior_viewer.py --region chrI:60001-65000 --run a=<dir> --run b=<dir>`.
 
-- Training coords: `coord_train_chrII_20.tsv`, 20 x 5 kb on **chrII** (median A-trials
-  66-89, comparable to chrI's 66), built by `make_train_coords.py --seed 0`. chrI is a
-  fully held-out test set.
-- Training variant: `pkgvar/seq_maskoff_em10/` — exactly two files differ from
-  `pkgvar/seq_maskoff/`: EM on via `ROBOCOP_EM_ITERS` (default 10) with a compact
-  `em_trace/iter{i}.npz` replacing the 97 MB-per-iteration `HMMconfig{i}.pkl` dumps, and
-  the live emission-plot block (7 PNGs per segment per iteration) commented out.
-- **Decoding uses `pkgvar/seq_maskoff`, NOT `_em10`** (`run_split_em10_decode.py`), so the
-  only variable between `robocop_chrI_seq_maskoff_em10` and `..._revfix` is the trainDir.
-
-**When it finishes, read in this order:** `logs/train_em10_12420008.out` (the gate verdict
-and `em_trace_report`'s tables), `em_trace_robocop_train_em10_chrII.png/.tsv`, then
-`python nhp6a_diag.py robocop_chrI_seq_maskoff_em10` and
-`python score_robocop.py robocop_chrI_seq_maskoff_em10`.
-
-**What to watch for.** The constrained-EM cap is `mean + 2*std` of the INITIAL priors =
-6.69e-4, computed once and never recomputed; Nhp6a already sits at 108% of it, ABF1 at
-0.027%. `unknown` is exempt (`adjustEM`'s `range(1, n_tfs)` skips the last TF, and
-'unknown' sorts last) and has ~1042 implied binding events — the named failure mode is
-`unknown` absorbing the freed mass instead of ABF1.
-
-**The ERV46 test.** Two MacIsaac ABF1 sites sit in `chrI:60,001-65,000`. Today no single
-run gets both: revfix/capA nail `62,657-62,671` (0.99/1.00) and miss `61,163-61,177`
-(0.002/0.017); capB recovers the upstream one (0.55) but collapses the downstream one to
-0.001. A correctly retuned prior should get both. Compare in the viewer:
-`python make_posterior_viewer.py --region chrI:60001-65000 --run revfix=... --run em10=...`
-
-**Still not committed** — see section 8. Nothing under `pkg/` was modified.
+**Other open threads, not started.** Retrain with the sequence layer ON — every current
+`fib_seq` decode reuses Fiber-only-trained weights, so they are a lower bound on what the
+sequence layer can do. And the scorer re-collapses the whole ~230 kb chrI segment on every
+`score()` call (~9 min/run); caching the collapsed factor track per region would pay for
+itself in any multi-run sweep.
 
 ---
 
-## 10. Most recent work (2026-09-01 → 09-04) — widened footprints, the viewer, and the Rossi genic/intergenic target
+## 2. What a concentration is
 
-**Read this section first.** It supersedes the "start with §0" pointer at the top of this
-file: §0 is the motif audit from August and still stands, but everything below is newer.
+Published sheet: <https://claude.ai/artifact/XdB264uQyfr9b8F23B5sgy> (old id `f7ff1c1b-…`)
+(rebuild with `python conc_tuning/make_conc_sheet.py u001=7 m001=7`).
 
-### 10.1 What is DONE AND UNSCORED — pick this up first
+The paper assigns weights and turns them into transition probabilities:
 
-The `wide150` decodes **all four finished** (Slurm 12492826–12492829, COMPLETED
-2026-09-03 19:24 → 23:20, 1.5–5.5 h each). Their `tmpDir/info_*_6.h5` files are complete on
-disk. **Nothing has scored them, nothing has charted them, and they are in no `*_runs.tsv`.**
+> To initialize the probabilities, we assign weight 1 to the "empty" DBF (representing an
+> unbound DNA nucleotide) and 35 to the nucleosome. To each TF, we assign a weight which is
+> that TF's dissociation constant K_D … α_k = w_k · α₀^{L_k}
 
-| decode dir | layers | chrom | h5 splits |
-|---|---|---|---|
-| `robocop_chrI_wide150` | fib+seq | chrI | 6 |
-| `robocop_chrI_fib_wide150` | fib only | chrI | 6 |
-| `robocop_chrXIV_wide150` | fib+seq | chrXIV | 12 |
-| `robocop_chrXIV_fib_wide150` | fib only | chrXIV | 12 |
+1. **Per motif** (`parameterize.calculateKD`): `K_d = Π_i bg(b*_i) / p_i(b*_i)` over columns,
+   where `b*` is the column's most likely base. A sharp 14 bp motif scores ~1 for its best
+   base everywhere, so each column contributes roughly the background frequency; a vague 7 bp
+   motif contributes ~1 per column.
+2. **By hand**: empty DNA 1.0, nucleosome 35, `unknown` (a flat 10 bp matrix) 0.1.
+3. **To probabilities** (`concentration_probability_conversion.convert_to_prob`): solve the
+   single unbound root α₀ of `Σ_k w_k α₀^{L_k} = 1` by `np.roots`, scale each weight by
+   α₀^{L_k}, normalise.
 
-Same trainDir `robocop_train_wide150/` for both layer variants; the sequence layer is
-switched at decode time by which `pkgvar` the driver imports. `n_states` 10685 (baseline
-3485). Built by `run_wide150_all.sh`; full rationale in `README_wide_implementations.md`.
+So concentrations differ **because the motifs differ**: Nhp6a (7 bp) starts at 1.17e-3 and
+Abf1 (14 bp) at 4.73e-7, a 2,478× gap, with λ = 1 for both. λ multiplies the weight.
 
-**To score them**, add four rows to `layer_runs_chrI.tsv` / `layer_runs_chrXIV.tsv` —
+**The cancellation to keep in mind.** At its own consensus a motif's sequence likelihood beats
+background by exactly `1/K_d`. Setting `w_k = K_d` cancels that, so every factor is about
+equally callable at its own best word: the starting concentration encodes **motif sharpness,
+not protein abundance**. Physically the statistical weight should be `[TF]_free / K_d`, and
+the missing per-factor scalar is exactly what λ stands in for.
 
-    fib+wide150       robocop_chrI_fib_wide150
-    fibseq+wide150    robocop_chrI_wide150
-    fib+wide150       robocop_chrXIV_fib_wide150
-    fibseq+wide150    robocop_chrXIV_wide150
+**Nothing here is fitted.** `robocop_em.py` hardcodes `iterations = 0`, so the Baum-Welch
+update the paper describes never runs: all 154 states in
+`robocop_train_fiberonly/HMMconfig.pkl` are bit-identical to values recomputed from `pwm.p`,
+and `robocop_train/likelihood.txt` has one line. When EM *was* forced on (`pkgvar/
+seq_maskoff_em10/`, `ROBOCOP_EM_ITERS=10`) it moved ABF1 3,723× **up** while the data wants it
+~100× down, pinned 28 of 154 factors at the published cap (`mean + 2·std` of the *initial*
+priors = 6.69e-4, computed once and never recomputed) and drove 66 more to exactly 0. EM is a
+dead end here; `unknown` is also exempt from that cap (`adjustEM`'s `range(1, n_tfs)` skips
+the last TF and `unknown` sorts last).
 
-— then widen the `#SBATCH --array` range in `sbatch_score_layers.sh` /
-`sbatch_score_layers_chrXIV.sh` to match the new row count (they index
-`layer_runs_*.tsv` by array task id; the array bound is **not** derived from the file, so a
-stale bound silently skips the new rows). Reports land in `layer_scores/` and
-`layerXIV_scores/`; `make_factor_chart.py` builds the comparison chart from them.
+**`unknown` is the wildcard.** Flat emission, so it matches anywhere, and it held 3.3× the
+prior of all 153 real motifs combined. A sweep of λ_unknown ∈ {1, 0.3, 0.1, 0.03, 0.01} on
+chrIV+VII+XV (nucleosome prior held) cut its occupancy 2.4× and gave real TFs +47% mass, but
+the gain is *global*, not discriminating: the median gap improved 8.3× → 4.5× while the number
+of factors within 2× stayed flat, and REB1 got worse. It is now pinned at **0.01** by user
+decision. HAP1's posterior maximum is 3.4e-4 genome-wide at λ=1 — extinct, not out-competed.
 
-**Read the enrichment numbers with the block-width correction.** Like every `widememe`-method
-run, the posterior collapses over the whole padded block (`sum_for_dbf_probs` unmodified), so
-at ±150 an ABF1 call renders as a **314 bp plateau, not a 14 bp peak**. That inflates the
-genome-wide mean and deflates enrichment by roughly the width ratio (314/14 ≈ 22×) — far
-larger than `widememe`'s 1.6×. A raw enrichment drop is therefore **expected and not
-evidence the model is worse**; compare recall and site posteriors, or correct for the block
-width, before concluding anything. Same for the estimated-pad prior suppression
-(`README_wide_implementations.md`, "wide10all's pooled path"), which at ±150 will be larger
-still and is undone without retraining via
+---
+
+## 3. Tools
+
+### `score_robocop.py` — the scorer, single source of truth
+Scores a decode against Chereji ±1 dyads, MacIsaac ABF1 sites, phasing period and MNase
+accessibility, reading the sparse posterior from `tmpDir/info.h5`.
+- `score(outDir, regions=None, tol_nuc=20, tol_abf1=20, abf1_global_max=None,
+  return_abf1_tracks=False)` → metrics + `_per_region`.
+- **One peak-caller**: `_above_threshold_runs` → `call_abf1(track, pos, threshold)` returns
+  the **center of each above-threshold run** (not an argmax — the sequence layer produces flat
+  saturated plateaus where an argmax jitters with the window). Threshold
+  `abf1_call_threshold(gmax) = max(0.10, 0.30*gmax)`; pass `abf1_global_max` when scoring a
+  window so it uses the run's real global threshold (cached in `abf1_thresholds.json`).
+- Nucleosome dyads use `call_peaks` (find_peaks), unchanged.
+
+### The rest
+| tool | what |
+|---|---|
+| `score_factors.py` | the same caller over **every** factor with ground truth, for many runs; `--runs-from <runs.tsv>` |
+| `count_calls.py` | reference-free per-factor `occ` (expected copies) + calls + MacIsaac matches; what the tuning loop consumes |
+| `tuning_trajectory.py` | what each λ step did to precision/recall/F1 |
+| `plot_abf1_locus.py` | per-locus ABF1 panels; **invokes** the scorer's tracks and calls, so it moves with any change to the caller |
+| `make_posterior_viewer.py` | the published occupancy browser; label is the join key across regions |
+| `make_factor_chart.py` | per-factor detection chart from `layer_scores/` reports |
+| `nhp6a_diag.py` | why Nhp6a over-calls in a given decode |
+
+`occ = Σ posterior / block_len` is the tuning signal: threshold-free and the conjugate of the
+prior. `n_pred_adaptive` is a poor tuning signal because its threshold is 30% of the factor's
+own max, so it moves with the concentration; `n_pred_fixed` (≥0.10) is stable.
+
+---
+
+## 4. Model mechanics
+
+### 4.1 Emission layers
+`np.ones((7, n_obs, n_states))`, each active layer multiplied in (a layer left at 1.0 is OFF):
+0 sequence/PWM · 1–2 MNase short/long · 3–4 ATAC · 5–6 Fiber-seq Watson/Crick. Fiber layers
+are filled by `update_data_emission_matrix_using_binomial_fiber_seq`, with zeros floored to
+1e-30. MNase/ATAC are off by design: the phased plan is to get Fiber-seq right, then add
+sequence, then MNase.
+
+### 4.2 `analysis/pkgvar/` — layer/mask state is frozen, not hand-commented
+Each variant is a full copy of the `robocop` package with its toggles applied, selected by the
+driver (`sys.path.insert(0, 'pkgvar/seq_maskoff/')`). 28 copies exist; `robocop.py` is
+byte-identical across them and only `utils/robocopExtras.py` differs. Hand-commenting was a
+race — with a Slurm array you cannot know when a task imports the file.
+
+| variant | sequence layer | mask |
+|---|---|---|
+| `fiber_maskon` / `fiber_maskoff` | OFF (`[0][:] = 1`) | ABF1-only / none |
+| `seq_maskon` / `seq_maskoff` | ON | ABF1-only / none |
+| `seqonly_maskon` | ON | fiber layers set to 1, **mask moved onto layer 0** |
+| `seq_maskoff_{12tfs,bgtss,lowabf1}` | ON, no mask | differ only in which `inputs/*.pkl` they load |
+| `seq_maskoff_macisaac` | ON | keep-list: 84 MacIsaac motifs + `unknown` (§1.1) |
+| `seq_maskoff_em10` | ON, no mask | EM on via `ROBOCOP_EM_ITERS` |
+
+### 4.3 The hard mask
+In `robocopExtras.py`, **after** the 1e-30 floor, zero the Fiber channels over the states to
+forbid: `data_emission_matrix[5|6][:, s:e] = 0`. Emission is a product over channels, so those
+states get posterior exactly 0 while background and nucleosomes keep the floor (no NaN).
+Masked states **keep their transition prior**, which is simply lost — the model is not
+renormalised. Derive the slice from `dshared['tfs']` + `tf_starts`/`tf_lens` and assert the
+names exist (`seq_maskoff_12tfs` and `_macisaac` do); the old ABF1-only form hardcoded
+`29:nuc_start`, which only worked because Abf1 sorts first. State layout: `0` background,
+`1..28` ABF1 fwd+rev, `29..nuc_start-1` other TFs + `unknown`, `nuc_start..` nucleosomes.
+
+### 4.4 trainDir vs decode
+A decode reads `pwm_emission` / `tf_prob` / `transition_matrix` from `HMMconfig.pkl`
+(`robocop_no_em.py:51`) — so a new PWM file needs a **retrain**, while a concentration change
+does not: `make_conc_trainDir.py` rewrites only row `silent_states_begin` of the transition
+matrix (`set_transition` writes background, nucleosome and the TF entries there) in ~1 min,
+and its two gates prove it (fidelity: λ=1 reproduces the source bit-exactly; blast radius:
+only that row changed). Decode with `run_robocop_without_em`, which keeps `tmpDir/info.h5`.
+
+### 4.5 Run naming
+Directory == label, punctuation aside: `fib+seq+lam0.01` → `robocop_<chrom>_fib_seq_lam0p01`.
+`fib_seq_` = both layers, `fib_` = Fiber only. Not renamed, because they are not runs:
+`pkgvar/*` (frozen packages), `sbatch_*_wide10.sh` and `*_widememe*.py` (generic drivers where
+the name is the method, not the run).
+
+**Runs on disk.** The current chrI/chrXIV series is `robocop_<chrom>_fib{,_seq}[_<variant>]`;
+prefer anything with `_revfix` or a post-`revfix` name, because the original four
+(`robocop_chrI_{maskon,maskoff,seq_maskon,seq_maskoff}`) predate the reverse-strand
+fiber-parameter fix in `90b05c3` and are kept only because older numbers refer to them. Also
+present: the three `*_JASPAR` runs (trainDir `robocop_train_jaspar/`, built by
+`sbatch_train_jaspar.sh` from `config_jaspar.ini`, which differs from `config_fiberonly.ini`
+on the `pwmFile` line alone), the fiber-parameter variants
+`robocop_chrI_seq_maskoff_{12tfs,bgtss,lowabf1}`, and the tuning campaigns'
+`robocop_genome_ct_{u001,m001}_NN`.
+
+**TF colours are deterministic**, keyed on the factor's name by `_color_for_name` in
+`plotRoboCOP{,ax}.py`, and cached per run as `<outDir>/dbf_color_map.pkl`. If a factor ever
+changes colour between decodes, delete that stale pickle and re-plot. `nucleosome` = grey 0.7,
+`unknown` = `#D3D3D3`.
+
+### 4.6 The fiber emission is the real limit
+The fitted ABF1 p-vector runs 0.029–0.137 against a background of 0.138 — every position below
+background — so it is a generic protection detector with almost no positional specificity, and
+with raw coverage `n` untempered it produces likelihood ratios of 1e9–1e10 at spots 8–91 bp
+off-motif that no sequence term can overturn. This is why a PWM swap that goes 2/5 → 5/5 on a
+pure FIMO scan only reaches 3/5 inside the decode. The emission layer also consumes only the
+14-column vector, discarding the elevated flanks and not even spanning the ~21 bp real
+footprint. **Fixing this outranks any further PWM change** (`whattodo.md` Tier 1 #3).
+
+### 4.7 Numeric limits
+`bc.c`'s index arithmetic is 32-bit: `n_states` ≤ 46,340. `wide150all` (all 153 motifs at
+±150, `n_states` 95,285) overflows it — verified by calling the shipped `.so` directly — and
+its driver refuses to submit. ±70 across all 153 motifs (`n_states` 46,325) is the largest
+uniform pad that fits and needs no code change; it was measured at ~295 GB to train and ~65 GB
+to decode, so only the 1,150,000 MB `compsci-cluster-fitz-*` nodes hold the training job.
+Widening the index type to `int64_t` in `bc.c`/`bc.h`/`algo.c` for a separate `.so` was scoped
+but not done; it changes the numerical core and must be re-validated against an existing run.
+
+---
+
+## 5. Ground truth and validation sets
+
+### 5.1 MacIsaac (the tuning target)
+`/usr/project/xtmp/nd141/projects/replicate_prob_dyad_plot/data/ref-data/MacIsaac_p005_c1_V64_SGD.gff3`
+— 27,870 rows, 119 TFs, sacCer3, md5 `898b4e62cc5317da9167c568fb6fdd06`. **Outside the repo**;
+`inputs/MacIsaac_sacCer3_liftOver_Abf1_Reb1.bed` is only a hand-filtered 2-TF slice of it (a
+repo-only search wrongly concludes MacIsaac covers just ABF1 and REB1). Rows are redundant:
+merge by interval union with 20 bp slop, anchored on the motif-interval midpoint, which
+reproduces ABF1 300 / REB1 279 / RAP1 233 (raw 315 / 293 / 282) and 27,870 → 25,104 sites.
+81 of the 150 motif prefixes join it.
+
+### 5.2 Rossi ChExMix — held back as validation
+
+**Where the data lives** (outside the repo; scripts spell it `/usr/project/xtmp/…` or
+`/usr/xtmp/…`, the same directory):
+`/usr/project/xtmp/nd141/projects/data/rossi_strand/`
+
+| what | files | contents |
+|---|---|---|
+| **Merged ChExMix calls** | `<TF>_CX.bed`, 381 files (`Abf1_CX.bed`, …) | one file per TF, merged across replicates; 1 bp summits + score, **no motif, no strand**. This is the `_cx` set below. |
+| **Per-sample zips** | `<sample_id>_YEP.zip`, 778, each extracted to `<sample_id>/<sample_id>_YEP/` | one ChIP-exo replicate each, Rossi's per-sample output: bound-feature beds (promoter/TSS/TES/gene-middle), heatmaps/composites, that sample's MEME motifs (`<id>_MEME_Motifs.txt`) and FIMO instances (`<id>_FIMO_Motifs`, `<id>_Motif_<n>_FourColor.bed`) |
+| **Per-TF motif-anchored beds** | `output/<tf>_rossi_peak_w_strand.bed` | `rossi_strand.py` (same dir) downloads each zip and keeps `_CX` summits with a sample FIMO motif nearby, taking the strand from the motif |
+
+Sample id → TF / replicate / assay / condition / on-disk: `analysis/inputs/rossi_sample_conditions.tsv`
+(built by `fetch_rossi_conditions.py` from GEO GSE147927 + the Rossi GitHub sample key).
+
+Derived files in `analysis/inputs/`:
+- `rossi_peak_w_strand_all_TFs.bed` — the per-TF motif-anchored beds concatenated: header + 29,328 rows,
+  358 TFs, columns `chr start end peakVal strand motif sample_id replicate TF`. **This is the `_motif`
+  set.** HANDOFF's 29,105 is after dropping the 223 rows from heat-shock samples (`--normal-only`,
+  joined on `rossi_sample_conditions.tsv`).
+- `rossi_peak_w_strand_conformed_to_PWM_all_TFs_peakVal_1000.bed` — 2,839 rows, 74 TFs, every
+  `peakVal` = 1000: each `_motif` peak re-anchored to the best-scoring site of RoboCOP's own PWM
+  (`TF` in model naming, `score`, `best_seq`, `agree` = strand matches Rossi's). Built by
+  `analysis/conform_TFs_to_PWM.py`, which hardcodes paths into the older `roboNhat_w_new_changes`
+  repo and writes an unfiltered `…_peakVal.bed`; where the `peakVal == 1000` filter was applied was
+  not found. This is what `score_factors.py` scores against **and what the fitted fiber footprints
+  were trained on** — see the circularity caveat below.
+
+The motif audit (§6) reads the zips' `_MEME_Motifs.txt` (`build_motif_dbs.py`, "Rossi ChExMix 856",
+one motif per replicate); `rossi_genic_all.py` reads the `_CX.bed` files directly.
+
+Genic/intergenic is the distributional target. **One rule**: a position is `genic` if it lies
+between some gene's ATG and its stop codon. An earlier four-class scheme (promoter / gene-end
+/ gene-body / intergenic) was built and **abandoned** — its windows and priority order moved
+the answer several points without adding a fact, and labelled peaks inside gene A's ORF as
+"promoter of gene B". Do not reintroduce windows. Coordinates come from `inputs/sacCer3.gtf`
+(the `gene` span *is* the ORF, audited over 6,516 genes), not `Park_2014_TSS.csv`, which
+misses 26% of ORFs. **The null is 73.0% genic**, so every table carries
+`genic_vs_null = genic% / 73.0%`.
+
+Two peak sets, different targets: `_cx` = Rossi's merged ChExMix calls (378 TFs, 182,582
+peaks); `_motif` = the subset with a YEP FIMO motif within 30 bp (358 TFs, 29,105). The motif
+filter removes genic peaks preferentially (Fhl1 53.2 → 17.9%), so score against whichever set
+the decode resembles. Usable scope: 77 of 153 motif TFs have a Rossi row, 47 with ≥100 peaks,
+genic% spanning 8.8% (Spt15) to 59.3% (Cad1), median 27.8%. Do not score against one global
+expectation — pooled genic% is 42.2% but 82 of 378 TFs sit at or above the null.
+
+The classifier validates itself at both ends: the intergenic extreme is Pol II preinitiation
+(Spt15/TBP 8.8%, Sua7 9.8%) plus the whole Pol III machinery and Orc1 (2.0%); the genic
+extreme is Paf1C (89–93%), COMPASS (Bre2 94.6%) and Set2 (94.3%) — elongation factors that
+ride the ORF. Files in `analysis/rossi_genic/`; scripts `rossi_genic.py` (the 12 fitted TFs),
+`rossi_genic_all.py` (all 378), `make_genic_report.py`.
+
+ABF1's in-ORF peaks are **real, not filter leakage**: per-peak replicate support 2.29 in gene
+bodies vs 2.24 in promoters, 0 of 55 resting on the pooled analysis alone
+(`rossi_abf1_support.py`). Without the motif filter, gene body *is* the weak tail — the motif
+requirement, not the location, separates strong from weak.
+
+**Circularity caveat:** the fitted Fiber-seq footprints in
+`inputs/all_TFs_1000pealVal_params*.pkl` were trained on Rossi peak locations, and MacIsaac is
+77.5% inside Rossi. Any template-based result must refit leave-one-chromosome-out or it is
+measuring memorisation.
+
+### 5.3 The 12 TFs with a fitted footprint
+Abf1_murphy, Cin5_murphy, Fhl1_zhu, Fkh1_zhu, Mcm1_zhu, Nhp6a_zhu, Rap1_telomeric,
+Reb1_badis, Sko1_murphy, Spt15_zhu, Tbf1_zhu, Ume6_zhu. The other 141 fall back to
+`combined_low_count`, whose p (0.2489/0.2647) is **above** the background p (0.1383) — so
+those states outscore background exactly where DNA is most accessible, which is why TFs get
+decoded into linkers. That is the artifact `pkgvar/seq_maskoff_12tfs` was built to remove.
+
+---
+
+## 6. Motif audit (2026-08-14 → 08-18) — read-only, nothing swapped
+
+Published sheet ("Odd One Out"):
+<https://claude.ai/code/artifact/7c63a39b-8e04-4cd1-9660-7797d0dec154>. Rebuild with
+`python motif_distance_sheet.py` then `python make_motif_sheet_page.py`.
+
+**ABF1's shipped matrix is wrong in its middle.** `Abf1_murphy` (w=14) and JASPAR MA0265.3-rc
+agree on both half-sites (column r = +0.998 over 9 columns) and are **anti-correlated in the
+5-column spacer** (r = −0.411), where Murphy carries a GC-rich informative block
+(P(GC) 0.678 vs JASPAR 0.300 vs genome 0.381). Real sites do not carry it, so Murphy charges
+them for it: as a pure FIMO scan Murphy recovers **2 of 5** MacIsaac chrI sites and JASPAR
+**5 of 5**, and every miss is a spacer penalty, not a core mismatch. Inside the decode the
+gain is smaller — 3/5, with mean posterior at sites 0.204 vs 0.138 — because the fiber layer
+limits it (§4.6). Nucleosome architecture is untouched either way.
+
+**Why TOMTOM misses it:** its q-value asks "closer than two random matrices", which saturates
+for any pair sharing a strong core. FIMO asks whether a 14-mer clears a threshold **summed
+over all 14 columns**, and the spacer is 5 of them. **Never validate a PWM swap on
+similarity scores alone — score real sites.**
+
+**The audit, blind, over all 153:** three databases (`shipped` 153 / JASPAR fungi 193 / Rossi
+ChExMix 856) assembled by `build_motif_dbs.py` into `motifdb/` (~60 MB, regenerate, do not
+commit). No privileged reference: with three matrices there is always a closest pair, and the
+**odd one out** is the member opposite it. Distances are raw mean-per-aligned-column ED/KLD,
+not p-values. Widths differ, so a two-stage frame is used: search offsets/orientations against
+a fixed W-column window (W = shortest motif) minimising the sum of the three pairwise KLs,
+then report all three pairs over the **intersection** of those placements. Alignment is not
+transitive, so the three pairwise optima are jointly realisable in only 59% of rows; on those
+the two schemes agree on 78 of 82 verdicts and all 4 disagreements favour the intersection.
+
+Verdicts: 82 rows have no Rossi motif, `rossi_is_odd` 29, `no_consensus` 22,
+`all_three_agree` 9, **`native_is_odd` 7**, `ambiguous` 2, `two_datasets_only` 2. Median
+distance to the other two: native 0.167, JASPAR 0.150, Rossi 0.175 — the shipped collection is
+not systematically the outlier; the problem is motif-by-motif.
+
+**The shortlist:** `Abf1_murphy` (unanimous, 3/3 replicates), `Rap1_motif2`, `Rap1_telomeric`,
+`Rap1_zhu`, `Pdr1_badis` (all unanimous), `Rap1_motif1` (2/3), `Cad1_murphy` (1/2). ABF1 is
+the only one with FIMO + decode validation; **the RAP1 matrices and Pdr1 have sheet evidence
+only.** `Rap1_telomeric` matters most after ABF1 because it is one of the 12 with a fitted
+footprint.
+
+**If a matrix with a fitted footprint is swapped**, the p-vector is keyed on the motif ID and
+registered to its column frame — keep the ID, width and orientation, which is why
+`inputs/jaspar_abf1_motifs_meme.txt` keeps the name `Abf1_murphy` reverse-complemented into
+Murphy's orientation. Honest limitation: 120 of 213 rows are scored on fewer than 8 columns
+(many native matrices are 5–8 wide); do not act on a short-window row without a FIMO check.
+Power too: the median surviving Rossi motif rests on 28 sites, 10% on fewer than 10.
+
+---
+
+## 7. Widened footprints
+
+**`wide150` scored EMPTY, and the cause is the prior, not the pads.** The four decodes
+(`robocop_{chrI,chrXIV}_fib{,_seq}_wide150`, Slurm 12492826–12492829, `n_states` 10,685 against
+the 3,485 baseline, trainDir `robocop_train_wide150/`) are complete and were scored: ABF1's
+posterior is **identically 0** at every MacIsaac site in all four. Not a block-width artifact
+and not a scoring bug — the `Abf1_murphy` column is present and non-widened factors in the same
+decode carry normal mass. The ±150 **estimated pads crush the 12 widened TFs' `tf_prob`** by
+9.6e-19 (ABF1) to 5.0e-30 (Fhl1) while every non-widened TF sits at ratio 1.00, which
+underflows the posterior to zero. Nucleosomes are unaffected (recall 0.81, dyad 7–8 bp, period
+171), so the decodes themselves are healthy.
+
+**It is rescuable without retraining**: `make_conc_trainDir.py --set <TF>=<lam>` takes all
+twelve at once with `lam = baseline tf_prob ÷ wide150 tf_prob` (Abf1_murphy 1.04e18,
+Reb1_badis 1.99e20, Fhl1_zhu 1.99e29, …). Recompute the full vector by reading `tf_prob` out of
+both `robocop_train_fiberonly/HMMconfig.pkl` and `robocop_train_wide150/HMMconfig.pkl` rather
+than copying stale numbers. That turns `wide150` into an actual test of the ±150 hypothesis
+instead of a test of switched-off factors; it needs one new trainDir (a config build, not a
+fit) plus four re-decodes, which is where the cost sits.
+
+When adding any run to the scoring tables, widen the `#SBATCH --array` bound in
+`sbatch_score_layers*.sh` as well — the bound is not derived from `layer_runs_*.tsv`, so a
+stale one silently skips the new rows.
+
+**Read widened enrichment with the block-width correction.** `sum_for_dbf_probs` is unmodified,
+so the posterior collapses over the whole padded block: at ±150 an ABF1 call renders as a
+314 bp plateau, not a 14 bp peak, deflating enrichment by roughly 314/14 ≈ 22×. A raw
+enrichment drop is **expected, not evidence the model is worse** — compare recall and site
+posteriors. Estimated-pad prior suppression is undone without retraining via
 `make_conc_trainDir.py --tf <name> --lam <1/ratio>`.
 
-### 10.2 There is NO ±75 run
+Earlier results: pads 7/2 (`wideABF1`) made ABF1 **worse**; the discriminating signal is the
+hyperaccessible flank further out, not more protection. ABF1's real motif is ~18 bp — exactly
+4 flank columns survive Bonferroni — and beyond ±2 the pads should be background, not
+estimated. There is **no ±75 run**; do not look for one. `wide150all` is blocked by §4.7.
 
-Nothing at ±75 was ever built or submitted; do not go looking for it. What exists at the
-wide end is `wide150` (§10.1, the 12 fitted TFs at ±150, running and done) and
-`wide150all` (all 153 motifs at ±150) which is **built and gated but permanently blocked**:
-`n_states` 95285 overflows the 32-bit index arithmetic in `pkg/robocop/bc.c`, verified by
-calling the shipped `.so` directly (`sbatch_wide150all_memcheck.sh` —
-`I(n-1,n-1,n)` returned 489,296,632 instead of 9,079,231,224, and `I3` returned negative).
-`run_wide150all_all.sh` refuses to submit.
+**A gate that was wrong, and the fix.** `check_widememe_traindir.py` failed `wide150` on a
+6.1e-6 residual spread against a 1e-8 tolerance; the model was fine and the gate was wrong —
+it trusted the `background_prob` stored by `convert_to_prob`, which converges less tightly than
+the `tf_prob`s built from it (`corr(residual, tf_len) = 1.0000` gave it away). It now refits
+the root by least squares from the priors themselves (spread 1.1e-15). The gate needs
+`--params inputs/all_TFs_1000pealVal_params_pseudo_<variant>.pkl`.
 
-**±70 is the largest uniform pad across all 153 motifs that fits** (`n_states` 46325 against
-the ceiling of 46340 = floor(sqrt(INT_MAX))). That needs no code change and is the obvious
-next experiment if an all-motif wide run is wanted; memory was measured at ~48 GB for the
-three dense square matrices, ~295 GB train, ~65 GB decode, so only the 1,150,000 MB
-`compsci-cluster-fitz-*` nodes will hold the training job. The alternative — widening the
-index type in `bc.c`/`bc.h`/`algo.c` to `int64_t` and building a **separate**
-`librobocop.so` for that variant only — was scoped but not done; it changes the numerical
-core and must be re-validated against an existing run before it is trusted.
+Full rationale for the family: `analysis/README_wide_implementations.md`.
 
-### 10.3 Published artifacts
+---
 
-| artifact | URL | built from |
-|---|---|---|
-| RoboCOP Occupancy Browser (combined, chrI + chrXIV) | `https://claude.ai/code/artifact/c6c7d1f3-d62a-4858-a38a-4ee1c7891e0d` | `posterior_viewer_all.html` ← `make_posterior_viewer.py --regions viewer_regions.tsv` |
-| chrI Occupancy Browser | `https://claude.ai/code/artifact/24b47df3-9f5f-4372-b6ec-d4b1976c6f2a` | `posterior_viewer_erv46.html` |
-| chrXIV Occupancy Browser | `https://claude.ai/code/artifact/9fd1fd00-ad6d-4d85-9e92-177d30888836` | `posterior_viewer_chrXIV_187k.html` |
-| chrXIV Occupancy Browser (55–60 kb) | `https://claude.ai/code/artifact/20e96d14-e171-4170-a11b-f32eb7711680` | `posterior_viewer_chrXIV_58k.html` |
-| Factor Detection on chrXIV | `https://claude.ai/code/artifact/b5a5d5b2-3ba0-4260-b63c-ce74115e33b7` | `chrXIV_factor_chart.html` ← `make_factor_chart.py` |
-| Where the Twelve Bind (genic/intergenic) | `https://claude.ai/code/artifact/7b4db749-5827-40b4-80a3-854fbb56a6b6` | `rossi_genic/where_the_twelve_bind.html` ← `make_genic_report.py` |
-| ORF Versus Gene Body (teaching diagram) | `https://claude.ai/code/artifact/28965c44-fe42-4433-b918-c42a5fe5550b` | `orf_vs_gene_body.html` |
-| Odd One Out (motif audit sheet) | `https://claude.ai/code/artifact/7c63a39b-8e04-4cd1-9660-7797d0dec154` | `motif_distance_sheet.html` |
+## 8. Earlier side experiments
 
-To update one, edit the file and re-publish **to the same URL** — a publish without the URL
-creates a second artifact instead of updating the first.
+**Sliding the fitted ABF1 footprint across the genome** (chrI, read-only). A matched filter:
+mean-centre the template (`w_j = p_j − mean(p)`, shape only), form variance-stabilised
+residuals from the pileup (`y_j = (k_j − n_j p̂)/sqrt(n_j p̂(1−p̂))`, so evidence scales like
+`sqrt(n)`), score `S = Σ w_j y_j / sqrt(Σ w_j²)` both orientations. Mean-centring is what makes
+it an ABF1 detector rather than a nucleosome detector; `p̂` must be **local** (±500 bp) — with
+`bg_params.pkl`'s 0.1383 it ranks true sites at 56.8%, worse than chance.
 
-**The combined viewer c6c7d1f3 is stale.** `viewer_runs_chrI.tsv` and
-`viewer_runs_chrXIV.tsv` are missing `widefp` and `wide150`; add both label pairs and rebuild
-with `make_posterior_viewer.py --regions viewer_regions.tsv --out posterior_viewer_all.html`.
-The label sets in the two files must stay **identical** — the label is the join key that
-keeps the selected run when you switch region.
+Result: at ±25 all 5 chrI sites land in the top 0.375% (permutation p = 0.025) but precision
+is 0.58% at 5/5 recall — ~10× worse than the Murphy PWM alone. Controls are the finding: Reb1
+scores 1.86% (22× worse) but **Rap1 scores 0.056%, better than ABF1** — both are
+notch-in-NDR factors and the filter cannot separate them. So it detects "protected notch
+inside an accessible region", not ABF1 identity. A retracted early claim ("a flat template
+does as well") came from a ±100 window and un-whitened LLRs; at ±7 that correlation is 0.233,
+not 0.986 — always compare whitened shape against whitened level. **The scan code was never
+saved**; only `abf1_profile_pm100_agentA.{npz,png}` survive.
 
-**28965c44 (ORF Versus Gene Body) is partly obsolete.** Its decision-chain section and
-cross-tab describe the four-class promoter / gene-end / gene-body / intergenic scheme that
-was abandoned on 2026-09-03 (§10.4). Its Figure 1 — the ORF/gene-body/TSS anatomy diagram —
-is still correct and is the reason to keep it. Either retire it or strip the decision chain.
+**Open issue this surfaced:** `inputs/bg_params.pkl` has p = 0.1383/0.1384, but the
+genome-wide pooled rate is **0.0790** (Σn 689,036,863; Σk 54,428,639). 0.1383 looks like an
+accessible-region fit. If it is mis-calibrated it biases **every** fiber-layer likelihood
+ratio, not just this scan. Needs the user to confirm which segments went into that fit.
 
-### 10.4 The Rossi genic/intergenic target — a validation set for any decode
+Also on disk from this era: the `sacCer3.fai` bug — 12 of 17 chromosomes were misindexed by
+87,501 bytes (inherited from upstream). RoboCOP is unaffected because it reads with SeqIO;
+only faidx users were.
 
-**One rule, and only one:** a position is `genic` if it lies between some gene's ATG and its
-stop codon, `intergenic` otherwise. No promoter window, no terminator window, no priority
-order. An earlier four-class scheme (promoter / gene-end / gene-body / intergenic) was built
-and then **abandoned** — its windows and the priority order needed to arbitrate overlaps moved
-the answer by several points without adding any fact, and it produced the absurdity of a peak
-inside gene A's ORF being labelled "promoter of gene B". Do not reintroduce windows.
+---
 
-The coordinate source is `inputs/sacCer3.gtf` (Ensembl R64-1-1 = SGD R64), **not**
-`inputs/Park_2014_TSS.csv` — Park covers only actively transcribed genes and misses 1,707 of
-the 6,692 ORFs (26%). The GTF `gene` span for a protein-coding gene **is** the ORF: audited
-over all 6,516 genes carrying both a CDS and a stop codon,
-`gene.start − CDS.start ∈ {−3, 0}` and `gene.end − CDS.end ∈ {0, 3}` (that 3 bp is only
-whether the stop codon counts inside the CDS), `+` strand `gene.end == stop_codon.end` and
-`−` strand `gene.start == stop_codon.start` for every gene. No UTRs are annotated. The audit
-re-runs and re-prints on every invocation rather than being trusted from this note.
+## 9. Published artifacts
 
-**The null: 73.0% of this genome is inside an ORF** (union 8,901,290 of 12,157,105 bp,
-confirmed against 200,000 uniform random positions). A raw genic% means nothing without it;
-every table carries `genic_vs_null = genic% / 73.0%`.
+This is the one list of the user's published artifacts; keep it current when one is published.
+Edit the source file and re-publish **to the same URL** (pass it as `url`), or a second artifact
+is created instead of updating the first. Updated 2026-09-16.
 
-| file | rows | what |
-|---|---|---|
-| `analysis/rossi_genic.py` | — | the 12 fitted TFs. `--normal-only`, `--outdir` |
-| `analysis/rossi_genic_all.py` | — | **all 378 TFs** — the validation table. imports `Genome`/`read_orfs` from `rossi_genic.py` |
-| `analysis/make_genic_report.py` | — | renders the artifact from the TSVs |
-| `analysis/rossi_genic/rossi_genic.tsv` | 13 | the 12 + the random-genome null |
-| `analysis/rossi_genic/rossi_genic_all_TFs.tsv` | **378** | per-TF counts, both peak sets, `in_robocop` flag |
-| `analysis/rossi_genic/rossi_peaks_genic_all_cx.tsv` | 182,582 | every merged summit with its genic flag |
-| `analysis/rossi_genic/rossi_peaks_genic_all_motif.tsv` | 29,105 | the motif-filtered subset, same flag |
-| `analysis/rossi_genic/rossi_peaks_genic.tsv` | 3,455 | the 12 TFs, per peak |
-| `analysis/rossi_genic/genic_bars.png`, `set_comparison.tsv` | — | figure + zip/merged/+motif comparison |
+**URL format changed.** Artifacts now live at `https://claude.ai/artifact/<short id>`. The old
+`claude.ai/code/artifact/<uuid>` ids still identify the same pages (reading an artifact reports its
+old uuid); the "old id" column maps between them. Paths below are relative to `analysis/` unless
+they start with `presentation/`.
 
-**Two peak sets, both in the table, and they are different targets.** `_cx` columns are
-Rossi's merged ChExMix calls read straight from
-`/usr/project/xtmp/nd141/projects/data/rossi_strand/{TF}_CX.bed` (381 files, 3 of them empty
-— Kti12, Rpa190, Rsc2 — hence 378 TFs, 182,582 peaks). `_motif` columns are the same calls
-kept only where a YEP FIMO motif sits within 30 bp
-(`inputs/rossi_peak_w_strand_all_TFs.bed`, 358 TFs, 29,105 peaks after `--normal-only`).
-**The motif filter is not neutral — it removes genic peaks preferentially** and always moves
-genic% down, sometimes hard (Fhl1 53.2 → 17.9%, Tbf1 20.4 → 5.2%, Fkh2 33.7 → 10.4%). Score a
-decode against whichever set the decode resembles; mixing them reads as model error. The 12-TF
-`_motif` columns reproduce `rossi_genic.tsv` exactly (all deltas zero) — that is the
-cross-check between the two scripts.
+| artifact | URL | old id | built from |
+|---|---|---|---|
+| **RoboCOP Meets Fiber-seq** (the talk deck) | https://claude.ai/artifact/1vT1DuTfTbuYvFzTyjwMmy | — | `presentation/talk.html` (offline copy `talk_offline.html`); plan and change log `presentation/PLAN.md`; locus slides from `presentation/templates/locus_slide/` |
+| Tuner Continuation Board (status + held-out F1 of the six campaigns after the 1.25× → 1.1× continuation) | https://claude.ai/artifact/MNuieUxLJJNMZMKXvaPQGV | — | scratchpad `tuning_status/tuning_status.html` (numbers from `conc_tuning/<run>/validation.tsv`, `presentation/continue_results.md`); rebuild by hand |
+| Tuned Occupancy Browser (fw01 / sw01 / bw01 r0 + final, bt02/05/10 finals, u001 r7; 42 windows on chrXIV, chrII, chrIV) | https://claude.ai/artifact/55vxej7MWpqoQN7hfdfB6h | — | `presentation/tuned_occupancy_viewer_tempered.html` ← `presentation/build_layer_viewers.py tempered` (wraps `build_tuned_viewer.py`) |
+| Same Weights, Three Layers (overnight job A: sw01 weights decoded seq / seq+fiber / fiber) | https://claude.ai/artifact/JigVragrGjB7MzDin1ydkM | — | `presentation/layer_same_weights_viewer.html` ← `presentation/build_layer_viewers.py sameweights` |
+| ABF1 Layer Viewer (24 MacIsaac ABF1 sites, seq / fib / both, untuned + tuned) | https://claude.ai/artifact/4U6MnRVNN9idFMPEuF8grX | — | `presentation/abf1_layer_viewer.html` ← `make_posterior_viewer.py` with regions/runs in `/usr/project/xtmp/nd141/scratch_fiber_vs_seq2/` |
+| RoboCOP Concentration Sheet (u001/m001 tuning, MacIsaac + Rossi validation) | https://claude.ai/artifact/XdB264uQyfr9b8F23B5sgy | `f7ff1c1b-5987-4ef8-9276-51c39f97acd6` | `conc_tuning/conc_sheet.html` ← `conc_tuning/make_conc_sheet.py u001=7 m001=7` |
+| RoboCOP Tuning Ledger | https://claude.ai/artifact/MDihRrKrtKzaq7qwBhaKpP | — | scratch build, campaigns 01–06 |
+| RoboCOP Occupancy Browser (chrI + chrXIV, untuned and EM runs) | https://claude.ai/artifact/RYgeitfcR21v7zwY8XpTmN | `c6c7d1f3-d62a-4858-a38a-4ee1c7891e0d` | `posterior_viewer_all.html` ← `make_posterior_viewer.py` |
+| chrI Occupancy Browser (ERV46) | https://claude.ai/artifact/5XtKJ7bVN4ueAV2fFf29pV | `24b47df3-9f5f-4372-b6ec-d4b1976c6f2a` | `posterior_viewer_erv46.html` |
+| chrXIV Occupancy Browser (186–191 kb) | https://claude.ai/artifact/LjeWVUHdWVaHWu9CD3GR1X | `9fd1fd00-ad6d-4d85-9e92-177d30888836` | `posterior_viewer_chrXIV_187k.html` |
+| chrXIV Occupancy Browser (55.5–60.5 kb) — same title as the one above | https://claude.ai/artifact/54ic75fzu4rx7uXiFxNKdR | `20e96d14-e171-4170-a11b-f32eb7711680` | `posterior_viewer_chrXIV_58k.html` |
+| Where the Twelve Bind | https://claude.ai/artifact/GE7SMg3VaPRrdivjZC4yxy | `7b4db749-5827-40b4-80a3-854fbb56a6b6` | `rossi_genic/where_the_twelve_bind.html` |
+| ORF Versus Gene Body | https://claude.ai/artifact/61h2XiNhJC7qvYseNd2BSr | `28965c44-fe42-4433-b918-c42a5fe5550b` | `orf_vs_gene_body.html` |
+| Factor Detection on chrXIV | https://claude.ai/artifact/PRygmQbvc3r26RkWRQrvZk | `b5a5d5b2-3ba0-4260-b63c-ce74115e33b7` | `chrXIV_factor_chart.html` ← `make_factor_chart.py` |
+| Odd One Out (motif audit) | https://claude.ai/artifact/GMtQu62hERnEcaX8R3RL5Z | `7c63a39b-8e04-4cd1-9660-7797d0dec154` | `motif_distance_sheet.html` |
+| Fiber-seq HSMM — model lineage | https://claude.ai/artifact/2z2SQpL7psukePJyw15xC9 | — | not recorded |
 
-**How to use it as validation.** For each TF the model emits, count its calls that land genic
-and intergenic and compare the fraction with that TF's row. This is a *distributional* claim,
-weaker than site-level agreement but far broader: a model can be wrong site-by-site and still
-be asked whether it puts the right share of each factor inside genes. The per-peak files keep
-the stricter site-level comparison open. Scope: **77 of the 153 RoboCOP motif TFs have a Rossi
-row, 47 with ≥100 merged peaks** — that is the usable set, and their genic% spans 8.8%
-(Spt15) to 59.3% (Cad1), median 27.8%, so it is a real target and not a constant. The
-remaining 73 PWMs (Pho4, Tec1, Gat1, Msn4, most of the YBR/YDR orphans) have no Rossi target
-at all; the `in_robocop` column marks the join both ways.
+The chrXIV-browser mapping was checked by reading each page's region. The other old→new pairs are
+matched by title.
 
-**Do not score against a single global expectation.** Pooled over all 378 TFs only 42.2% of
-peaks are genic against the 73.0% null — but 82 of the 378 TFs sit *at or above* the null.
+**Known stale content.** `ORF Versus Gene Body`'s decision chain describes the abandoned four-class
+scheme (§5.2); its Figure 1 (ORF/gene-body/TSS anatomy) is still correct and is the reason to keep
+it. `presentation/tuned_occupancy_viewer.html` is the superseded 9.4 MB local build; the live Tuned
+Occupancy Browser matches `tuned_occupancy_viewer_tempered.html`. When adding runs to the untuned
+Occupancy Browser, keep `viewer_runs_chrI.tsv` and `viewer_runs_chrXIV.tsv` label sets
+**identical**, since the label is the join key across regions.
 
-**The table validates itself at both ends**, which is the reason to trust the classifier.
-Sorted by genic%, with no input about what these proteins do, the intergenic extreme is the
-Pol II preinitiation complex (Sua7/TFIIB 9.8%, Spt15/TBP 8.8%, Tfb1, Tfb2, Rad3) plus the
-whole Pol III machinery (TFIIIC Tfc1/3/6/8, Brf1, Bdp1 — tRNA genes are not protein-coding
-ORFs so they read intergenic by construction) and Orc1 at replication origins (2.0%); the
-genic extreme is Paf1C (Paf1, Leo1, Rtf1, Ctk2 89–93%), COMPASS (Bre2 94.6%, Sdc1, Swd3,
-Spp1, Shg1), Set2 94.3%, Chd1, and Rad6/Bre1 — every one a co-transcriptional elongation
-factor that rides the ORF with Pol II. Promoter machinery lands at 0.03–0.13× the null,
-elongation machinery at 1.22–1.30×.
+---
 
-The 12 fitted TFs, merged + motif set, normal condition only:
+## 10. Standing constraints
 
-    TF                   n    genic  interg    genic% interg%   vs null
-    Tbf1               155        8     147       5.2    94.8     0.07x
-    Reb1               583       54     529       9.3    90.7     0.13x
-    Spt15/TBP          259       26     233      10.0    90.0     0.14x
-    Rap1               356       36     320      10.1    89.9     0.14x
-    Fkh1               297       35     262      11.8    88.2     0.16x
-    Mcm1               179       25     154      14.0    86.0     0.19x
-    Abf1               502       88     414      17.5    82.5     0.24x
-    Ume6               236       42     194      17.8    82.2     0.24x
-    Fhl1                84       15      69      17.9    82.1     0.24x
-    Nhp6a              138       26     112      18.8    81.2     0.26x
-    Cin5               264       80     184      30.3    69.7     0.42x
-    Sko1               182       82     100      45.1    54.9     0.62x
-    random genome   200000   145953   54047      73.0    27.0     1.00x
-
-`--normal-only` drops the 223 motif-set rows annotated from a heat-shock sample (13 TFs,
-mostly Spt15/RSC/SAGA). It cannot apply to the merged set: those calls are pooled across
-replicates and carry no sample attribution to filter on.
-
-### 10.5 Abf1's genic peaks are real — the question that started §10.4
-
-Asked whether Abf1's in-ORF calls are replicate-supported or filter leakage. They are real.
-Reconstructed per-peak replicate support and significance from the per-sample
-`{id}_chexmix_allevents.tabular` files (which carry `YPD_Sig`, `YPD_Ctrl`, `YPD_log2Fold`,
-`YPD_log2P` — the only route to per-peak significance, since every score in `{TF}_CX.bed` is
-the constant 1000), matched at 30 bp across 3 replicates by `analysis/rossi_abf1_support.py`:
-
-- promoter+motif mean replicate support **2.24**, gene-body+motif **2.29** — gene-body peaks
-  are *better* supported, not worse;
-- 45.5% vs 46.2% called by all three replicates;
-- **0 of 55** rest on the pooled analysis alone.
-
-Without the motif filter, gene body *is* the weak tail (31.4% zero-support, median log2fold
-2.83 vs 3.45) — so the motif requirement, not the location, is what separates strong from
-weak. Outputs in `analysis/rossi_abf1_support/`.
-
-### 10.6 A gate that was wrong, and the fix
-
-`wide150` training "failed" `check_widememe_traindir.py` after 2h20m: residual spread 6.1e-6
-against a 1e-8 tolerance. **The model was fine; the gate was wrong.** It trusted the
-`background_prob` stored by `convert_to_prob`, which solves its unbound root numerically —
-and the value it *stores* converges less tightly than the `tf_prob`s built with it (4.4e-7
-relative at 320-column motifs vs 3e-15 at 40). `corr(residual, tf_len) = 1.0000` gave it
-away. The gate now **refits the root** from the priors themselves instead of trusting the
-stored one:
-
-```python
-coef = np.linalg.lstsq(np.vstack([np.ones_like(L), L]).T, np.log(raw), rcond=None)[0]
-r_fit = float(np.exp(coef[1]))
-spread = float((raw / r_fit ** L).max() - (raw / r_fit ** L).min())   # 1.1e-15
-drift  = r_fit / (pn / pb) - 1.0
-```
-
-`wide10` and `widefp` were re-verified and still pass. **The gate needs
-`--params inputs/all_TFs_1000pealVal_params_pseudo_<variant>.pkl`** — omitting it fails every
-variant with "every params entry matches its block length", which is the gate correctly
-complaining that the baseline pkl does not describe a widened model.
-
-### 10.7 Standing constraints — carried forward, do not violate
+Also listed in `CLAUDE.md`:
 
 - **Never overwrite** `inputs/all_TFs_1000pealVal_params_pseudo.pkl`, `inputs/bg_params.pkl`,
-  or `inputs/motifs_meme.txt`. New variants get new filenames.
-- **Do not modify** the `robocop_em.py` line-162 tmpDir cleanup.
+  `inputs/motifs_meme.txt`. New variants get new filenames.
+- **Do not modify** `robocop_em.py`'s line-162 tmpDir cleanup or its `iterations = 0`.
 - **Do not modify any existing `pkgvar/*` tree** — create a new one.
-- The MacIsaac bed is used **exactly as shipped**: no offset correction, no strand flip. The
-  1 bp ABF1 phase difference against Murphy is a motif-definition difference, not an error.
+- MacIsaac bed used **exactly as shipped**: no offset correction, no strand flip. The 1 bp
+  ABF1 phase difference against Murphy is a motif-definition difference, not an error.
 - **Commit and push only when explicitly asked.**
+- State every parameter a run changes besides the one under test, as a decision, before
+  running it.
 
-### 10.8 Repo state as of this commit
+---
 
-Everything in §10 **is committed**, including `analysis/pkgvar/` (which now carries 28
-frozen package variants; the 40 KB `librobocop.so` binaries are tracked too, matching what
-`3384105` already did — all 28 are byte-identical copies of the
-shipped library, md5 `6a0724bf6ef7b8bc4313927b931ac685`, verified), the widened meme files and params pkls, the
-decode-directory metadata (`config.ini`, `coords.tsv`, `pwm.p` — `tmpDir/` and
-`HMMconfig*.pkl` stay gitignored, so a run is reproducible from what is committed without
-the 60–630 MB of posteriors), and all of `analysis/rossi_genic/`.
+## 11. Repo state
 
-**Deliberately NOT committed, still on disk:** `analysis/rossi_locus_class{,_v2,_v3,_normalonly,_setcmp,_setcmp_v2}/`
-— the outputs of the abandoned four-class scheme (§10.4). `rossi_locus_class.py` and
-`rossi_locus_report.py` ARE committed as the record of what was tried, but their output
-directories are noise and are safe to delete.
+Committed through `918effb` ("Add widened-footprint runs, concentration sweep, and the Rossi
+genic/intergenic target"), which included `analysis/pkgvar/` (28 frozen variants; the 40 KB
+`librobocop.so` copies are tracked and all byte-identical, md5
+`6a0724bf6ef7b8bc4313927b931ac685`), the widened meme files and params pkls, decode-directory
+metadata (`config.ini`, `coords.tsv`, `pwm.p`, with `tmpDir/` and `HMMconfig*.pkl` gitignored)
+and all of `analysis/rossi_genic/`.
 
-Nothing under `pkg/` has been modified. `robocop_em.py`'s `iterations = 0` and its line-162
-tmpDir cleanup are both untouched.
+**Uncommitted, from the concentration work (2026-09-10 → 09-12):** everything in §1.3 —
+`tune_concentrations.py` and its `--run`/`--chain`/`next` machinery,
+`make_conc_targets.py`'s site loader, `count_calls.py`'s MacIsaac sidecar,
+`make_conc_trainDir.py --hold-nucleosome`, `tuning_trajectory.py`, `sbatch_tune_next.sh`,
+`pkgvar/seq_maskoff_macisaac/`, `run_split_revfix_seq_maskoff_macisaac.py`, the
+`conc_tuning/{u001,m001}/` state and reports, `conc_tuning/conc_sheet*.html` +
+`make_conc_sheet.py`, and this rewrite of `HANDOFF.md` + the new `CLAUDE.md`. Nothing under
+`pkg/` has been modified. `git status` also carries a large tail of older untracked analysis
+scripts and generated figures; `motifdb/` (~60 MB) and the `rossi_locus_class*/` outputs of the
+abandoned four-class scheme are safe to delete rather than commit.

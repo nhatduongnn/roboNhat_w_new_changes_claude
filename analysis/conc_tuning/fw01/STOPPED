@@ -1,0 +1,1 @@
+stopped after iter 24: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_fw01_24/chrXIV.tsv')

@@ -20,7 +20,7 @@ SITE3 = 61170
 RUNS = [
     ("robocop_chrI_seq_maskon_revfix",  "lam1"),
     ("robocop_chrI_seq_maskon_conc30",  "lam30"),
-    ("robocop_chrI_seq_maskoff_revfix", "maskoff_lam1"),
+    ("robocop_chrI_fib_seq", "maskoff_lam1"),
     ("robocop_chrI_seq_maskoff_conc30", "maskoff_lam30"),
 ]
 # (half-width, tag). Tight = read the posterior at the motif; wide = ERV46 context window

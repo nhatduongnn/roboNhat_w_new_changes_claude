@@ -26,7 +26,7 @@ PAD = 300
 DEFAULT_RUNS = [
     ("seq_maskon  lam=1 ", "robocop_chrI_seq_maskon_revfix"),
     ("seq_maskon  lam=30", "robocop_chrI_seq_maskon_conc30"),
-    ("seq_maskoff lam=1 ", "robocop_chrI_seq_maskoff_revfix"),
+    ("seq_maskoff lam=1 ", "robocop_chrI_fib_seq"),
     ("seq_maskoff lam=30", "robocop_chrI_seq_maskoff_conc30"),
     ("seq_maskon  JASPAR", "robocop_chrI_seq_maskon_JASPAR"),
     ("seq_maskoff JASPAR", "robocop_chrI_seq_maskoff_JASPAR"),

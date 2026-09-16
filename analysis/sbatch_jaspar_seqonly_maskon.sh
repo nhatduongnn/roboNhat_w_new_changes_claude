@@ -24,5 +24,5 @@ export MPLBACKEND=Agg
 # which is why the retrain was required.
 # Layer/mask state is BAKED INTO the pkgvar/ variant the driver imports.
 echo "Host: $(hostname)  Task: $SLURM_ARRAY_TASK_ID  Start: $(date)"
-python run_split_revfix_seqonly_maskon.py coord_chrI_full.tsv robocop_train_jaspar ./robocop_chrI_seqonly_maskon_JASPAR/ "$SLURM_ARRAY_TASK_ID" 6
+python run_split_revfix_seqonly_maskon.py coord_chrI_full.tsv robocop_train_jaspar ./robocop_chrI_seq_maskon_JASPAR/ "$SLURM_ARRAY_TASK_ID" 6
 echo "Task: $SLURM_ARRAY_TASK_ID  End: $(date)"

@@ -3,7 +3,7 @@
 The third leg of the comparison. Existing runs:
     robocop_chrI_maskon_revfix          Fiber only          (layer 0 neutralised)
     robocop_chrI_seq_maskon_revfix      Fiber + sequence    (all three live)
-    robocop_chrI_seqonly_maskon_revfix  sequence only       <- this one
+    robocop_chrI_seq_maskon_revfix  sequence only       <- this one
 
 Purpose: isolate what the sequence layer alone decides, so it can be compared
 directly against the FIMO scan of the same Abf1_murphy PWM. If the sequence layer

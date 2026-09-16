@@ -9,7 +9,7 @@
 
 # chrI decode with widened TF footprints, 6-way split -- same shape as
 # sbatch_revfix_seq_maskoff.sh so the comparison against
-# robocop_chrI_seq_maskoff_revfix is one-variable. Parameterized by
+# robocop_chrI_fib_seq is one-variable. Parameterized by
 # VARIANT/TRAINDIR/OUTDIR; launched by run_wide_all.sh.
 
 source /home/users/nd141/miniconda3/etc/profile.d/conda.sh

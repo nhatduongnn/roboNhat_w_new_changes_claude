@@ -9,9 +9,9 @@ meth = np.where(ntot>0, (kw+kc)/np.maximum(ntot,1), np.nan)
 print("chrI m6A ratio: median %.4f mean %.4f p75 %.4f p90 %.4f"%(
     np.nanmedian(meth), np.nanmean(meth), np.nanpercentile(meth,75), np.nanpercentile(meth,90)), flush=True)
 
-DEFAULT_RUNS=["robocop_chrI_seq_maskoff_revfix","robocop_chrI_seq_maskoff_capA","robocop_chrI_seq_maskoff_capB"]
+DEFAULT_RUNS=["robocop_chrI_fib_seq","robocop_chrI_fib_seq_capA","robocop_chrI_fib_seq_capB"]
 # extra decode dirs may be named on the command line, e.g.
-#   python nhp6a_diag.py robocop_chrI_seq_maskoff_em10
+#   python nhp6a_diag.py robocop_chrI_fib_seq_em10
 RUNS=DEFAULT_RUNS+[a for a in sys.argv[1:] if not a.startswith("-")]
 rows=[]
 for run in RUNS:

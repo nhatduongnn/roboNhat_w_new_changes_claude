@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=96G
 #SBATCH --time=2:00:00
-#SBATCH --array=0-10
+#SBATCH --array=0-12
 #SBATCH --output=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/logs/layerScore_%A_%a.out
 #SBATCH --error=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/logs/layerScore_%A_%a.err
 
@@ -29,6 +29,16 @@ export MPLBACKEND=Agg
 export R_HOME=/home/users/nd141/miniconda3/envs/robocop-2024/lib/R
 
 mkdir -p layer_scores
+
+# ARRAY BOUND GUARD. The --array bound above is a literal, not derived from layer_runs_chrI.tsv.
+# A stale bound does not error -- the extra rows simply never get a task, and the missing
+# reports look exactly like reports nobody asked for. Fail loudly instead.
+NROWS=$(grep -v '^[[:space:]]*#' layer_runs_chrI.tsv | grep -v '^[[:space:]]*$' | wc -l)
+if [ "${SLURM_ARRAY_TASK_MAX:-0}" -ne "$((NROWS - 1))" ]; then
+    echo "ERROR: --array=0-${SLURM_ARRAY_TASK_MAX} but layer_runs_chrI.tsv has $NROWS rows;" >&2
+    echo "       widen the #SBATCH --array bound to 0-$((NROWS - 1))." >&2
+    exit 1
+fi
 
 ROW=$(grep -v '^[[:space:]]*#' layer_runs_chrI.tsv | grep -v '^[[:space:]]*$' \
       | sed -n "$((SLURM_ARRAY_TASK_ID + 1))p")

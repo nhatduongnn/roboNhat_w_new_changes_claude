@@ -1,0 +1,37 @@
+config	set	chroms	weights	decode	status	ref	fitted	n_groups	sites	calls	matched	P	R	F1	n_excluded	nuc_copies
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	macisaac	all	58	1439	2833	190	0.0670667	0.132036	0.0889513	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	macisaac	fitted	9	259	529	72	0.136106	0.277992	0.182741	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	macisaac	nonfitted	49	1180	2304	118	0.0512153	0.1	0.0677382	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	rossi_cx	all	58	1441	2833	182	0.0642429	0.126301	0.0851661	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	rossi_cx	fitted	9	626	529	124	0.234405	0.198083	0.214719	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_tw_sw01_05	ok	rossi_cx	nonfitted	49	815	2304	58	0.0251736	0.0711656	0.0371914	{"chrII": 1, "chrXIV": 0}	9191.72
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	macisaac	all	58	1313	2613	154	0.0589361	0.117289	0.0784513	{"chrIV": 0}	8826.29
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	macisaac	fitted	9	226	482	64	0.13278	0.283186	0.180791	{"chrIV": 0}	8826.29
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	macisaac	nonfitted	49	1087	2131	90	0.0422337	0.0827967	0.0559354	{"chrIV": 0}	8826.29
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	rossi_cx	all	58	1264	2613	172	0.0658247	0.136076	0.0887284	{"chrIV": 0}	8826.29
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	rossi_cx	fitted	9	509	482	120	0.248963	0.235756	0.24218	{"chrIV": 0}	8826.29
+seqonly	holdout	chrIV	tw_sw01_05	robocop_chrIV_tw_sw01_05	ok	rossi_cx	nonfitted	49	755	2131	52	0.0244017	0.0688742	0.036036	{"chrIV": 0}	8826.29
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	macisaac	all	58	1439	15048	255	0.0169458	0.177206	0.0309335	{"chrII": 0, "chrXIV": 0}	8870.24
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	macisaac	fitted	9	259	7848	104	0.0132518	0.401544	0.0256568	{"chrII": 0, "chrXIV": 0}	8870.24
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	macisaac	nonfitted	49	1180	7200	151	0.0209722	0.127966	0.0360382	{"chrII": 0, "chrXIV": 0}	8870.24
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	rossi_cx	all	58	1441	15048	273	0.0181419	0.189452	0.033113	{"chrII": 0, "chrXIV": 0}	8870.24
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	rossi_cx	fitted	9	626	7848	199	0.0253568	0.317891	0.0469672	{"chrII": 0, "chrXIV": 0}	8870.24
+both	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_both	ok	rossi_cx	nonfitted	49	815	7200	74	0.0102778	0.0907975	0.0184654	{"chrII": 0, "chrXIV": 0}	8870.24
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	macisaac	all	58	1313	14459	223	0.0154229	0.16984	0.028278	{"chrIV": 0}	8533.8
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	macisaac	fitted	9	226	7654	83	0.010844	0.367257	0.021066	{"chrIV": 0}	8533.8
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	macisaac	nonfitted	49	1087	6805	140	0.0205731	0.128795	0.035479	{"chrIV": 0}	8533.8
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	rossi_cx	all	58	1264	14459	263	0.0181894	0.20807	0.0334542	{"chrIV": 0}	8533.8
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	rossi_cx	fitted	9	509	7654	175	0.0228639	0.343811	0.0428764	{"chrIV": 0}	8533.8
+both	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_both	ok	rossi_cx	nonfitted	49	755	6805	88	0.0129317	0.116556	0.0232804	{"chrIV": 0}	8533.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	macisaac	all	58	1439	30338	207	0.00682313	0.14385	0.0130283	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	macisaac	fitted	9	259	19886	104	0.00522981	0.401544	0.0103251	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	macisaac	nonfitted	49	1180	10452	103	0.00985457	0.0872881	0.0177098	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	rossi_cx	all	58	1441	30338	225	0.00741644	0.156142	0.0141603	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	rossi_cx	fitted	9	626	19886	197	0.00990647	0.314696	0.0192083	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	tune	chrXIV+chrII	tw_sw01_05	robocop_chrXIV_chrII_twS05_fib	ok	rossi_cx	nonfitted	49	815	10452	28	0.00267891	0.0343558	0.00497027	{"chrII": 0, "chrXIV": 0}	8592.8
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	macisaac	all	58	1313	29466	169	0.00573542	0.128713	0.0109815	{"chrIV": 0}	8242.75
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	macisaac	fitted	9	226	19425	93	0.00478764	0.411504	0.00946517	{"chrIV": 0}	8242.75
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	macisaac	nonfitted	49	1087	10041	76	0.00756897	0.0699172	0.0136592	{"chrIV": 0}	8242.75
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	rossi_cx	all	58	1264	29466	226	0.00766986	0.178797	0.0147088	{"chrIV": 0}	8242.75
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	rossi_cx	fitted	9	509	19425	191	0.00983269	0.375246	0.0191632	{"chrIV": 0}	8242.75
+fib	holdout	chrIV	tw_sw01_05	robocop_chrIV_twS05_fib	ok	rossi_cx	nonfitted	49	755	10041	35	0.00348571	0.0463576	0.00648388	{"chrIV": 0}	8242.75

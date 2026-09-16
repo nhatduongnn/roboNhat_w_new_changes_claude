@@ -25,7 +25,7 @@ import score_robocop as S
 import plot_abf1_5sites_decoded as PD
 
 RUNS = [
-    ("baseline (shipped params)", "robocop_chrI_seq_maskoff_revfix"),
+    ("baseline (shipped params)", "robocop_chrI_fib_seq"),
     ("V1 bg_tss",                 "robocop_chrI_seq_maskoff_bgtss"),
     ("V2 low_abf1",               "robocop_chrI_seq_maskoff_lowabf1"),
     ("V3 12_tfs",                 "robocop_chrI_seq_maskoff_12tfs"),

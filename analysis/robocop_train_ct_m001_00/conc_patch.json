@@ -1,0 +1,36 @@
+{
+  "lams": {
+    "unknown": 0.01,
+    "nucleosome": 0.0011563157948183515
+  },
+  "src": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_fiberonly",
+  "out": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_ct_m001_00",
+  "silent_states_begin": 3330,
+  "factors": {
+    "unknown": {
+      "index": 153,
+      "conc_before": 1.0,
+      "conc_after": 0.001,
+      "tf_prob_before": 0.050107733238388324,
+      "tf_prob_after": 0.0007937714490321159,
+      "tf_prob_ratio": 0.015841296297634058
+    },
+    "nucleosome": {
+      "index": null,
+      "conc_before": 35.0,
+      "conc_after": 0.0404710528186423,
+      "tf_prob_before": 0.0013572753679111484,
+      "tf_prob_after": 0.0013572753679107223,
+      "tf_prob_ratio": 0.999999999999686
+    }
+  },
+  "background_prob_before": 0.9332338342081699,
+  "background_prob_after": 0.977168699734593,
+  "nucleosome_prob_before": 0.0013572753679111484,
+  "nucleosome_prob_after": 0.0013572753679107223,
+  "max_rel_change_other_tfs": 1.509466683894344,
+  "transition_rows_changed": [
+    3330
+  ],
+  "nucleosome_lambda_solved": 0.0011563157948183515
+}

@@ -1,0 +1,307 @@
+<!--
+  Locus slide component: one ~2 kb window drawn the way the RoboCOP Occupancy Browser draws it.
+  Three parts, each copied verbatim into the deck (talk.html):
+    1. <style id="locus-slide-css">   -> append inside the deck's main <style>
+    2. <template id="locus-section">  -> filled by build_locus_slide.py (placeholders {{...}});
+                                          never pasted by hand
+    3. <script id="locus-slide-js">   -> paste inside the deck's main <script>, before the deck
+                                          state code; it draws every .trk[data-locus] on the page
+  Depends on deck tokens: --f-mono --rule --rule-2 --muted --ink-2 --ink --wat --cri --bgline
+  --gene-plus --gene-minus, swatch classes .sw.fiber/.both/.seq, .legend, .foot, [data-step].
+-->
+
+<style id="locus-slide-css">
+/* ---------- locus slide: occupancy-browser tracks ---------- */
+.trk{display:grid;grid-template-columns:150px minmax(0,1fr);column-gap:14px;row-gap:5px;min-height:0}
+.trk canvas{display:block;width:100%;height:auto}
+.trk-lab{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:2px;text-align:right;min-width:0}
+.trk-lab .rn{font-family:var(--f-mono);font-size:18px;font-weight:600;color:var(--ink);white-space:nowrap}
+.trk-lab .rn .sw{width:12px;height:12px;margin-right:7px}
+.trk-lab .rd{font-size:15px;color:var(--muted);line-height:1.2}
+.trk-sites{position:relative;height:32px}
+.trk-hl{position:relative;pointer-events:none}
+.trk-chip{position:absolute;bottom:3px;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-mono);font-size:15px;font-weight:600;color:#fff;background:var(--locus-ref,#d4145a);padding:3px 10px;border-radius:4px;line-height:1.2}
+.trk-chip i{font-style:normal;font-weight:400;opacity:.9}
+.trk-band{position:absolute;top:-6px;bottom:0;border:2px solid var(--locus-ref,#d4145a);border-radius:3px}
+.trk-tail{position:absolute;bottom:-5px;width:2px;height:8px;margin-left:-1px;background:var(--locus-ref,#d4145a)}
+.legend .lk{display:inline-block;vertical-align:middle;margin-right:8px}
+.legend .lk.ln{width:22px;height:0;border-top:3px solid}
+.legend .lk.ar{width:22px;height:12px;background:rgba(179,179,179,.45);border-top:2px solid #b3b3b3}
+.legend .lk.band{width:12px;height:16px;background:rgba(212,20,90,.16);background:color-mix(in srgb,var(--locus-ref,#d4145a) 16%,transparent);border-top:3px solid var(--locus-ref,#d4145a)}
+.legend .lk.dot{width:9px;height:9px;border-radius:50%}
+.legend .lk.dash{width:22px;height:0;border-top:2px dashed var(--bgline)}
+.legend .lk.rossi{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid var(--ink)}
+/* narrow screens (inside the deck's @media (max-width:760px) block) */
+@media (max-width:760px){
+  #stage .trk{grid-template-columns:62px minmax(0,1fr);column-gap:6px;row-gap:3px}
+  #stage .trk-lab .rd{display:none}
+  #stage .trk-lab .rn{font-size:11px;white-space:normal;text-align:right}
+  #stage .trk-lab .rn .sw{display:none}
+  #stage .trk-chip{font-size:10px;padding:2px 5px}
+  #stage .trk-chip i{display:none}
+}
+</style>
+
+<template id="locus-section">
+<section class="slide" data-id="{{ID}}" data-kind="{{KIND}}" data-sec="{{SEC}}" data-steps="3"{{TAGATTR}} data-title="{{TITLE}}"{{REFSTYLE}}>
+  <span class="slide-no">{{ID}}</span>
+  <header class="sh">
+    <p class="eyebrow">{{EYEBROW}}</p>
+    <h2>{{TITLE}}</h2>
+    <p class="msg">{{MSG}}</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;gap:8px">
+    <div class="legend" data-step="1" style="font-size:17px">
+      <span><span class="lk ln" style="border-color:{{TFCOLOR}}"></span>{{TF}} posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>{{REFLABEL}} site</span>{{ROSSILEG}}
+{{METHLEG}}    </div>
+    <div class="trk" id="trk{{ID}}" data-locus="{{DATAID}}" role="img" aria-label="{{ARIA}}">
+      <div class="trk-sites" data-step="3"></div>
+{{ROWS}}{{METHROW}}      <div class="trk-lab" data-step="1"><span class="rn">genes</span></div>
+      <canvas data-step="1" data-trk="gene" data-h="52"></canvas>
+      <div class="trk-lab" data-step="1"></div>
+      <canvas data-step="1" data-trk="axis" data-h="28"></canvas>
+      <div class="trk-hl" data-step="3"></div>
+    </div>
+{{EXTRA}}    <p class="foot" data-step="1" style="flex-direction:row;flex-wrap:wrap;gap:2px 22px">{{FOOT}}</p>
+  </div>
+</section>
+</template>
+
+<script id="locus-slide-js">
+/* ---------------- locus slides: occupancy-browser tracks ----------------
+   One component for every .trk[data-locus="<json id>"]. Data: build_locus_slide.py
+   (analysis/make_posterior_viewer.py underneath), posteriors as round(p*1000), one window.
+   Drawing follows posterior_viewer_template.html: posterior panel with reference bands,
+   min/max envelope once there is more than one bp per pixel, m6A dots per A per strand,
+   genes, axis. Step 3 outlines each reference site and labels it hit/miss by the call run's
+   max posterior within +-call.tol bp of the site (hit if >= call.thr). */
+var TRK_GUT = 56, TRK_RPAD = 12;
+function trkTicks(span, target){
+  var raw = span/target, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  var ms = [1,2,5,10];
+  for (var k=0;k<ms.length;k++) if (raw <= ms[k]*mag) return ms[k]*mag;
+  return 10*mag;
+}
+function trkFmt(v){ return v.toLocaleString("en-US"); }
+var LOCUS_DATA = {};
+function locusData(id){
+  if (!(id in LOCUS_DATA)){
+    try { LOCUS_DATA[id] = JSON.parse(document.getElementById(id).textContent); } catch(e){ LOCUS_DATA[id] = null; }
+  }
+  return LOCUS_DATA[id];
+}
+function drawLocus(root, T){
+  if (!root || !T) return;
+  var n = T.e - T.s + 1;
+  var call = T.call || {run:"fib+seq", thr:0.10, tol:20};
+  var rs = getComputedStyle(document.documentElement);
+  var tok = function(k){ return rs.getPropertyValue(k).trim(); };
+  var mono = tok("--f-mono") || "monospace";
+  var labs = root.querySelectorAll(".trk-lab"), cvs = root.querySelectorAll("canvas");
+  root.querySelector(".trk-sites").style.gridArea = "1 / 2 / 2 / 3";
+  var nPost = 0;
+  for (var r=0;r<cvs.length;r++){
+    labs[r].style.gridArea = (r+2)+" / 1 / "+(r+3)+" / 2";
+    cvs[r].style.gridArea = (r+2)+" / 2 / "+(r+3)+" / 3";
+    if (cvs[r].dataset.trk === "post" || cvs[r].dataset.trk === "meth") nPost = r + 1;
+  }
+  var hl = root.querySelector(".trk-hl");
+  hl.style.gridArea = "2 / 2 / "+(nPost+2)+" / 3";   /* outlines span run rows + m6A panel */
+  var W = Math.max(200, Math.floor(cvs[0].clientWidth || root.clientWidth - 164));
+  var plotW = Math.max(120, W - TRK_GUT - TRK_RPAD);
+  var ratio = Math.min(4, Math.max(2, 2*(window.devicePixelRatio||1)));
+  var xOf = function(p){ return TRK_GUT + (p - T.s + 0.5)/n*plotW; };
+  var line2 = tok("--rule-2"), line = tok("--rule"), ink3 = tok("--muted"), ink2 = tok("--ink-2");
+
+  function setup(c){
+    var h = +c.dataset.h;
+    c.width = Math.round(W*ratio); c.height = Math.round(h*ratio);
+    var ctx = c.getContext("2d");
+    ctx.setTransform(ratio,0,0,ratio,0,0); ctx.clearRect(0,0,W,h);
+    return {ctx:ctx, h:h};
+  }
+  function gridX(ctx, h){
+    var step = trkTicks(n, 8);
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,h);
+    }
+    ctx.stroke();
+  }
+  function frame(ctx, h){ ctx.strokeStyle = line; ctx.lineWidth = 1; ctx.strokeRect(TRK_GUT+0.5, 0.5, plotW-1, h-1); }
+  function yGrid(ctx, y, labels){
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    [0,0.25,0.5,0.75,1].forEach(function(v){ var yy = Math.round(y(v))+0.5; ctx.moveTo(TRK_GUT,yy); ctx.lineTo(TRK_GUT+plotW,yy); });
+    ctx.stroke();
+    ctx.fillStyle = ink3; ctx.font = "14px " + mono; ctx.textAlign = "right";
+    labels.forEach(function(v){ ctx.fillText(v.toFixed(2), TRK_GUT-6, y(v)+5); });
+  }
+  /* viewer pathSeries: min/max envelope per pixel once bp per px > 1.2, else a polyline */
+  function pathSeries(ctx, arr, y){
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW));
+        var mn = Infinity, mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v<mn) mn=v; if (v>mx) mx=v; }
+        if (mn === Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        ctx.moveTo(x, y(mn)); ctx.lineTo(x, y(mx === mn ? mn + 1e-6 : mx));
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p), yy = y(arr[p]/1000); if (p===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+    }
+  }
+  /* viewer areaSeries (its fill mode): upper envelope as one polygon */
+  function areaSeries(ctx, arr, y){
+    var y0 = y(0), x0 = null, x1 = null;
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW)), mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v>mx) mx=v; }
+        if (mx === -Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+        ctx.lineTo(x, y(mx)); x1 = x;
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p); if (x0 === null){ x0 = xx; ctx.moveTo(xx, y0); } ctx.lineTo(xx, y(arr[p]/1000)); x1 = xx; }
+    }
+    if (x0 === null) return;
+    ctx.lineTo(x1, y0); ctx.closePath();
+  }
+  function drawPost(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, run = T.runs[c.dataset.run];
+    var y = function(v){ return h - 6 - v*(h - 20); };
+    yGrid(ctx, y, [0,0.5,1]); gridX(ctx, h);
+    T.sites.forEach(function(st){
+      var a = Math.max(st[0], T.s), b = Math.min(st[1], T.e);
+      var x0 = xOf(a), w = Math.max(2, xOf(b) - x0);
+      ctx.fillStyle = T.colors.ref + "22"; ctx.fillRect(x0, 0, w, h);
+      ctx.fillStyle = T.colors.ref; ctx.fillRect(x0, 0, w, 3);
+    });
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    ctx.fillStyle = T.colors.nuc + "55"; areaSeries(ctx, run.nuc, y); ctx.fill();
+    ctx.strokeStyle = T.colors.nuc; ctx.lineWidth = 1.6; pathSeries(ctx, run.nuc, y); ctx.stroke();
+    ctx.strokeStyle = T.colors.tf; ctx.lineWidth = 2.2; pathSeries(ctx, run.tf, y); ctx.stroke();
+    if (T.rossi){                       /* optional: Rossi summits as small ticks on the top edge */
+      ctx.fillStyle = tok("--ink");
+      T.rossi.forEach(function(p){ var x = xOf(p); ctx.beginPath(); ctx.moveTo(x-5,0); ctx.lineTo(x+5,0); ctx.lineTo(x,8); ctx.closePath(); ctx.fill(); });
+    }
+    frame(ctx, h);
+  }
+  function drawMeth(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, F = T.fiber;
+    var y = function(v){ return h - 6 - Math.min(v,1)*(h - 20); };
+    yGrid(ctx, y, [0,0.5,1]); gridX(ctx, h);
+    var yy = Math.round(y(T.bg)) + 0.5, rc = tok("--bgline");
+    ctx.setLineDash([4,3]); ctx.strokeStyle = rc; ctx.lineWidth = 1.2; ctx.beginPath();
+    ctx.moveTo(TRK_GUT, yy); ctx.lineTo(TRK_GUT+plotW, yy); ctx.stroke(); ctx.setLineDash([]);
+    var rad = n > plotW ? 1.4 : (n > plotW/3 ? 1.8 : 2.8);
+    [["mw","aw",tok("--wat")],["mc","ac",tok("--cri")]].forEach(function(t){
+      ctx.fillStyle = t[2];
+      for (var i=0;i<n;i++){
+        var a = F[t[1]][i]; if (!a) continue;
+        ctx.beginPath(); ctx.arc(xOf(T.s+i), y(F[t[0]][i]/a), rad, 0, 6.2832); ctx.fill();
+      }
+    });
+    ctx.fillStyle = rc; ctx.font = "13px " + mono; ctx.textAlign = "right";
+    ctx.fillText("bg " + T.bg.toFixed(3), TRK_GUT + plotW - 6, yy - 5);
+    frame(ctx, h);
+  }
+  function drawGene(c){
+    var s = setup(c), ctx = s.ctx, h = s.h;
+    gridX(ctx, h);
+    ctx.font = "14px " + mono; ctx.textAlign = "left";
+    T.genes.forEach(function(g){
+      var x0 = Math.max(TRK_GUT, xOf(Math.max(g.start, T.s))), x1 = Math.min(TRK_GUT+plotW, xOf(Math.min(g.end, T.e)));
+      var plus = g.strand === "+";
+      ctx.fillStyle = tok(plus ? "--gene-plus" : "--gene-minus");
+      ctx.fillRect(x0, plus ? 16 : 28, Math.max(2, x1 - x0), 9);
+      ctx.fillStyle = ink2;
+      ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(TRK_GUT+3, x0+3), plus ? 13 : 50);
+    });
+    frame(ctx, h);
+  }
+  function drawAxis(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, step = trkTicks(n, 8);
+    ctx.strokeStyle = line; ctx.beginPath(); ctx.moveTo(TRK_GUT, 0.5); ctx.lineTo(TRK_GUT+plotW, 0.5); ctx.stroke();
+    ctx.fillStyle = ink2; ctx.font = "14px " + mono; ctx.textAlign = "center";
+    ctx.strokeStyle = ink3; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,5); ctx.fillText(trkFmt(p), x, 21);
+    }
+    ctx.stroke();
+    ctx.textAlign = "left"; ctx.fillStyle = ink3; ctx.fillText(T.chrom, 2, 21);
+  }
+  cvs.forEach(function(c){
+    var k = c.dataset.trk;
+    if (k === "post") drawPost(c); else if (k === "meth") drawMeth(c); else if (k === "gene") drawGene(c); else drawAxis(c);
+  });
+
+  /* step 3: each reference site, labelled with the call run's posterior (max within +-tol bp) */
+  var chips = root.querySelector(".trk-sites"), bands = hl;
+  chips.innerHTML = ""; bands.innerHTML = "";
+  var fs = T.runs[call.run].tf, placed = [];
+  T.sites.forEach(function(st){
+    var mx = 0;
+    for (var p = st[0]-call.tol; p <= st[1]+call.tol; p++){ var i = p - T.s; if (i>=0 && i<n && fs[i] > mx) mx = fs[i]; }
+    mx = mx/1000;
+    var hit = mx >= call.thr;
+    var xa = xOf(st[0]) - 4, xb = xOf(st[1]) + 4, cx = (xa + xb)/2;
+    var band = document.createElement("div"); band.className = "trk-band";
+    band.style.left = xa + "px"; band.style.width = Math.max(10, xb - xa) + "px";
+    bands.appendChild(band);
+    var chip = document.createElement("span"); chip.className = "trk-chip";
+    chip.innerHTML = "<b></b> <i></i>";
+    chip.querySelector("b").textContent = (hit ? "hit" : "miss") + " · " + trkFmt(st[0]) + "–" + trkFmt(st[1]);
+    var txt = "\u00b7 " + call.run + " " + (T.tfLabel || "ABF1") + " " + mx.toFixed(2);
+    (call.also || []).forEach(function(ar){        /* optional: the same max for comparison runs */
+      var a2 = T.runs[ar].tf, m2 = 0;
+      for (var p2 = st[0]-call.tol; p2 <= st[1]+call.tol; p2++){ var i2 = p2 - T.s; if (i2>=0 && i2<n && a2[i2] > m2) m2 = a2[i2]; }
+      txt += " \u00b7 " + ar + " " + (m2/1000).toFixed(2);
+    });
+    chip.querySelector("i").textContent = txt;
+    chips.appendChild(chip);
+    var cw = chip.offsetWidth || 0;
+    var lo = cw/2 + 2, hi = W - cw/2 - 2;
+    chip.style.left = (hi > lo ? Math.min(hi, Math.max(lo, cx)) : cx) + "px";
+    placed.push({chip:chip, cx:cx, w:cw, x:(hi > lo ? Math.min(hi, Math.max(lo, cx)) : cx)});
+  });
+  /* chips that would overlap (sites closer than a chip width): spread them left to right, keep
+     their order, re-centre the group, and drop a short tail from each shifted chip to its band */
+  placed.sort(function(a,b){ return a.cx - b.cx; });
+  var crowded = false;
+  for (var q=1;q<placed.length;q++) if (placed[q].x - placed[q].w/2 < placed[q-1].x + placed[q-1].w/2 + 8) crowded = true;
+  if (crowded){
+    var gap = 12, total = placed.reduce(function(s,c){ return s + c.w; }, 0) + gap*(placed.length-1);
+    var mid = placed.reduce(function(s,c){ return s + c.cx; }, 0)/placed.length;
+    var left = Math.max(2, Math.min(W - total - 2, mid - total/2));
+    placed.forEach(function(c){
+      c.x = left + c.w/2; left += c.w + gap;
+      c.chip.style.left = c.x + "px";
+      var tail = document.createElement("span"); tail.className = "trk-tail";
+      tail.style.left = c.cx + "px";
+      chips.appendChild(tail);
+    });
+  }
+}
+function drawAllLoci(){
+  document.querySelectorAll('#stage .slide .trk[data-locus]').forEach(function(root){
+    try { drawLocus(root, locusData(root.dataset.locus)); } catch(e){ if (window.console) console.error(e); }
+  });
+}
+try {
+  drawAllLoci();
+  window.addEventListener("resize", drawAllLoci);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAllLoci);
+  if (window.matchMedia) {
+    var trkMQ = window.matchMedia("(prefers-color-scheme: dark)");
+    if (trkMQ.addEventListener) trkMQ.addEventListener("change", drawAllLoci); else if (trkMQ.addListener) trkMQ.addListener(drawAllLoci);
+  }
+  if (window.MutationObserver) new MutationObserver(drawAllLoci).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+} catch(err){ if (window.console) console.error(err); }
+</script>

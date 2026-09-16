@@ -9,9 +9,9 @@ methylated DNA.
 
     python make_posterior_viewer.py \
         --region chrI:60001-65000 --view chrI:60500-64500 \
-        --run revfix=robocop_chrI_seq_maskoff_revfix \
-        --run capA=robocop_chrI_seq_maskoff_capA \
-        --run capB=robocop_chrI_seq_maskoff_capB \
+        --run revfix=robocop_chrI_fib_seq \
+        --run capA=robocop_chrI_fib_seq_capA \
+        --run capB=robocop_chrI_fib_seq_capB \
         --out posterior_viewer_erv46.html
 
 Reuses score_robocop.load_decode / region_optable / region_fiber_counts for the data and

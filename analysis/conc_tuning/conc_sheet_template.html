@@ -1,0 +1,1084 @@
+<title>RoboCOP Concentration Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#F2F4F5; --surface:#FFFFFF; --sunk:#E7EBED; --rule:#D3DADD; --hair:#E4E9EB;
+  --ink:#101619; --ink2:#4A585F; --ink3:#78888F;
+  --accent:#215B66; --accent-soft:#DCEAEC;
+  --under:#2a78d6; --over:#eb6834; --ok:#1baf7a; --flat:#8A979D;
+  --ref-mac:#4a3aa7; --ref-cx:#c98500;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1416; --surface:#161D20; --sunk:#121A1C; --rule:#283438; --hair:#1E282B;
+    --ink:#E6EDEF; --ink2:#9CACB2; --ink3:#6E7F86;
+    --accent:#5FB3BF; --accent-soft:#143136;
+    --under:#3987e5; --over:#d95926; --ok:#199e70; --flat:#77878E;
+    --ref-mac:#9085e9; --ref-cx:#c98500;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1416; --surface:#161D20; --sunk:#121A1C; --rule:#283438; --hair:#1E282B;
+  --ink:#E6EDEF; --ink2:#9CACB2; --ink3:#6E7F86;
+  --accent:#5FB3BF; --accent-soft:#143136;
+  --under:#3987e5; --over:#d95926; --ok:#199e70; --flat:#77878E;
+  --ref-mac:#9085e9; --ref-cx:#c98500;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:36px 72px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.08}
+h2{font-size:20px;font-weight:600;letter-spacing:-.01em}
+h3{font-size:15px;font-weight:600}
+p{margin:0}
+code,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
+header{border-bottom:2px solid var(--ink);padding-bottom:16px;display:flex;flex-direction:column;gap:8px}
+.sub{color:var(--ink2);max-width:70ch}
+section{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+.lede{color:var(--ink2);max-width:72ch}
+
+/* formula chain */
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.step{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.step .n{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.1em}
+.formula{font-family:var(--mono);font-size:13.5px;background:var(--sunk);border-left:2px solid var(--accent);padding:8px 10px;overflow-x:auto;white-space:nowrap}
+.step p{font-size:14px;color:var(--ink2)}
+.quote{border-left:2px solid var(--rule);padding-left:12px;color:var(--ink2);font-style:italic;max-width:72ch}
+.quote cite{display:block;font-style:normal;font-size:13px;color:var(--ink3);margin-top:4px}
+
+/* worked example */
+.worked{background:var(--surface);border:1px solid var(--rule);border-radius:2px;overflow-x:auto}
+.worked table{border-collapse:collapse;width:100%;min-width:560px}
+.worked th,.worked td{padding:9px 14px;text-align:right;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.worked th{font-family:var(--body);font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}
+.worked td:first-child,.worked th:first-child{text-align:left}
+.worked tr:last-child td{border-bottom:0}
+.worked .note{font-family:var(--body);color:var(--ink2);text-align:left;font-size:13.5px}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));background:var(--surface);border:1px solid var(--rule);border-radius:2px}
+.stat{padding:11px 15px;border-right:1px solid var(--hair)}
+.stat:last-child{border-right:0}
+.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.stat .v small{font-size:12px;font-weight:400;color:var(--ink2)}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+select,input[type=search]{font-family:var(--body);font-size:14px;padding:6px 9px;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:2px}
+.seg{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.seg button{font-family:var(--body);font-size:13.5px;padding:6px 13px;background:var(--surface);color:var(--ink2);border:0;border-right:1px solid var(--rule);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:13px;color:var(--ink2)}
+.key{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.hollow{background:transparent;border:1.5px solid var(--ink3)}
+.dot.ring{background:var(--surface);border:2px solid var(--ink);box-shadow:0 0 0 1.5px var(--surface)}
+.dot.sq{border-radius:1px;background:var(--surface);border:2px solid var(--ink2)}
+
+/* charts */
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:2px}
+.scroller{max-height:680px;overflow-y:auto;overflow-x:auto}
+.scroller svg,.plot svg{display:block}
+.axis text{font-family:var(--mono);font-size:10px;fill:var(--ink3)}
+.rowlabel{font-family:var(--mono);font-size:10.5px;fill:var(--ink2)}
+.rowlabel.dim{fill:var(--ink3)}
+.hitrow{fill:transparent;cursor:default}
+.hitrow:hover{fill:var(--sunk)}
+.grid{stroke:var(--hair);stroke-width:1}
+.axisline{stroke:var(--rule);stroke-width:1}
+figcaption{font-size:13px;color:var(--ink2);padding:10px 14px;border-top:1px solid var(--hair)}
+figure{margin:0}
+
+/* table */
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:2px}
+table.data{border-collapse:collapse;width:100%;min-width:940px;font-size:13px}
+table.data th{position:sticky;top:0;background:var(--surface);z-index:1;font-family:var(--body);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);font-weight:600;padding:9px 10px;border-bottom:1px solid var(--rule);text-align:right;cursor:pointer;white-space:nowrap}
+table.data th:first-child{text-align:left}
+table.data th[aria-sort]{color:var(--ink)}
+table.data td{padding:7px 10px;border-bottom:1px solid var(--hair);text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.data td:first-child{text-align:left}
+table.data tr.masked td{color:var(--ink3)}
+.pill{font-family:var(--body);font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.p-within{color:var(--ok)} .p-under{color:var(--under)} .p-over{color:var(--over)}
+.p-cant{color:var(--ink);border-width:2px} .p-none{color:var(--ink3)}
+.p-clamp{color:var(--ink2);border-style:dashed;margin-left:5px}
+
+/* campaign outcome */
+.camps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.camp{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:14px 16px;display:flex;flex-direction:column;gap:9px}
+.camp .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.camp .nm{font-family:var(--mono);font-size:15px;font-weight:600}
+.camp .tag{font-size:12.5px;color:var(--ink2)}
+.camp dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:0;font-size:13.5px}
+.camp dt{color:var(--ink3);font-size:12px;font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase;align-self:center}
+.camp dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.camp .why{font-size:13.5px;color:var(--ink2);border-top:1px solid var(--hair);padding-top:9px}
+.camp .why b{font-family:var(--body);color:var(--ink)}
+.twoup{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px}
+.twoup figure{background:var(--surface);border:1px solid var(--rule);border-radius:2px}
+.twoup svg{display:block;width:100%;height:auto}
+.serieskey{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink2);align-items:center}
+.serieskey svg{vertical-align:middle}
+.verdict{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:2px;padding:13px 16px;max-width:76ch}
+.verdict b{font-family:var(--display);font-weight:600}
+#clamp-h,#mass-h,.probe h3{font-size:16px;margin-top:12px}
+.probe{display:flex;flex-direction:column;gap:12px;padding-top:6px;border-top:1px solid var(--rule)}
+.probe:first-of-type{border-top:0;padding-top:0}
+.probe .kicker{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.06em}
+table.data.narrow{min-width:620px}
+table.data td.lbl{font-family:var(--body);color:var(--ink2)}
+table.data tr.best td{background:var(--accent-soft)}
+table.data tr.sep td{border-top:1px solid var(--rule)}
+.pt-hit{fill:transparent;cursor:default}
+#tr-tbl th,#clamp-tbl th,#mass-tbl th,#sw-tbl th,#unk-tbl th,#em-tbl th,#runs-tbl th{cursor:default}
+.foot{margin-top:34px;border-top:1px solid var(--rule);padding-top:14px;color:var(--ink3);font-size:13px;display:flex;flex-direction:column;gap:4px}
+a{color:var(--accent)}
+#tip{position:fixed;pointer-events:none;opacity:0;background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:8px 10px;font-size:12.5px;font-family:var(--mono);box-shadow:0 6px 22px rgba(0,0,0,.16);max-width:290px;z-index:9;line-height:1.5}
+#tip b{font-family:var(--body)}
+/* Rossi validation */
+.refcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.refcard{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:13px 16px;display:flex;flex-direction:column;gap:7px}
+.refcard .hd{display:flex;align-items:center;gap:9px}
+.refcard .sw{width:22px;height:3px;border-radius:2px;flex:none}
+.refcard .nm{font-family:var(--display);font-weight:600;font-size:15px}
+.refcard p{font-size:13.5px;color:var(--ink2)}
+.refcard .figs{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.refcard.out{background:transparent;border-style:dashed}
+.refcard.out .nm{color:var(--ink2)}
+.threeup{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.threeup figure{background:var(--surface);border:1px solid var(--rule);border-radius:2px}
+.threeup svg{display:block;width:100%;height:auto}
+.kicker{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.04em}
+table.data th.grp{text-align:center;border-bottom:1px solid var(--hair);color:var(--ink2);cursor:default}
+table.data td.c-mac{box-shadow:inset 2px 0 0 var(--ref-mac)}
+table.data td.c-cx{box-shadow:inset 2px 0 0 var(--ref-cx)}
+.pill.p-fit{color:var(--ink2);border-style:dashed;margin-left:6px}
+.rv-h{font-size:16px;margin-top:12px}
+.caveats{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;max-width:78ch;color:var(--ink2)}
+.caveats b{color:var(--ink);font-weight:600}
+#rv-tbl th,#rv-marg th,#rv-genic th,#rv-genic-per th,#rv-per th{cursor:default}
+@media (max-width:640px){h1{font-size:27px}.wrap{padding-block:24px 48px}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">RoboCOP · Mitra, Zhong, Tran, MacAlpine &amp; Hartemink · NAR 49:7925 (2021)</span>
+  <h1>What a concentration is, and what tuning did to it</h1>
+  <p class="sub">Every factor's prior is a weight the model calls a concentration. It is computed from the motif alone, before any data is seen, so two factors at the same &lambda; sit orders of magnitude apart. This sheet shows where each starting concentration comes from and what &lambda; made of it. Two tuning campaigns have now finished: the counts converged on MacIsaac, the sites did not. Rossi's ChIP-exo peaks, held out throughout, rank the rounds the same way, and show that pushing counts onto MacIsaac discarded sites Rossi supports.</p>
+</header>
+
+<section>
+  <h2>The concentration is a property of the motif</h2>
+  <p class="lede">RoboCOP's HMM leaves a hub state at every position and enters one factor's block. The probability of entering factor <em>k</em> is built in three steps, all before the model sees any Fiber-seq data.</p>
+  <div class="chain">
+    <div class="step">
+      <span class="n">STEP 1</span>
+      <h3>Score the motif's own best word</h3>
+      <div class="formula">K<sub>d</sub> = &Pi;<sub>i</sub> bg(b*<sub>i</sub>) / p<sub>i</sub>(b*<sub>i</sub>)</div>
+      <p>For each column <em>i</em>, take the base the motif most prefers, <em>b*</em>, and divide the genome's background frequency of that base by the motif's own probability for it. Multiply across columns. <code>parameterize.py:37</code></p>
+    </div>
+    <div class="step">
+      <span class="n">STEP 2</span>
+      <h3>Three weights are set by hand</h3>
+      <div class="formula">w<sub>empty</sub>=1 · w<sub>nuc</sub>=35 · w<sub>unknown</sub>=0.1</div>
+      <p>Unbound DNA anchors the scale at 1 and the nucleosome is fixed at 35. The 10 bp <em>unknown</em> state, a flat matrix with no sequence preference, is given 0.1. Every other factor's weight is its K<sub>d</sub>.</p>
+    </div>
+    <div class="step">
+      <span class="n">STEP 3</span>
+      <h3>Weights become probabilities</h3>
+      <div class="formula">&alpha;<sub>k</sub> = w<sub>k</sub> &middot; &alpha;<sub>0</sub><sup>L<sub>k</sub></sup>,&nbsp; &Sigma;<sub>k</sub> w<sub>k</sub> &alpha;<sub>0</sub><sup>L<sub>k</sub></sup> = 1</div>
+      <p>One unbound probability &alpha;<sub>0</sub> is solved for as the root of that polynomial, then each weight is scaled by it raised to the factor's footprint length. Longer footprints pay more. <code>concentration_probability_conversion.py:12</code></p>
+    </div>
+  </div>
+  <p class="quote">To initialize the probabilities, we assign weight 1 to the "empty" DBF (representing an unbound DNA nucleotide) and 35 to the nucleosome. To each TF, we assign a weight which is that TF's dissociation constant K<sub>D</sub>.
+    <cite>RoboCOP, Methods</cite></p>
+</section>
+
+<section>
+  <h2>Why a sharp motif starts out rare</h2>
+  <p class="lede">K<sub>d</sub> falls geometrically with motif length and information content. A long, decisive motif scores near 1 for its favourite base in every column, so each column contributes roughly the background frequency, about a quarter. A short, vague motif barely differs from background, so each column contributes close to 1.</p>
+  <div class="worked">
+    <table>
+      <thead><tr><th>Factor</th><th>Motif width</th><th>Starting concentration</th><th>Relative to Nhp6a</th><th class="note">What the model does with it</th></tr></thead>
+      <tbody id="worked-body">
+      </tbody>
+    </table>
+  </div>
+  <p class="lede"><strong>The cancellation worth knowing.</strong> At its own consensus a motif's sequence likelihood beats background by exactly 1/K<sub>d</sub> &mdash; the same quantity, inverted. Setting the weight to K<sub>d</sub> cancels that, so every factor is about equally likely to be called at its own best word. The starting concentration therefore encodes how sharp a motif is, not how abundant the protein is. Nothing in it was measured from data: <code>robocop_em.py</code> pins <code>iterations = 0</code>, so the Baum-Welch training the paper describes never runs in this fork, and &lambda; is the only thing that moves these numbers. When Baum-Welch was forced on, it moved them the wrong way; see below.</p>
+  <p class="lede" id="wide-note"></p>
+</section>
+
+<section>
+  <h2>Moving a concentration by hand</h2>
+  <p class="lede">Three finished experiments moved concentrations before the tuning campaigns, and each set up something the campaigns then took as given: that lowering a prior can help, that <code>unknown</code> is pinned at 0.01, and that EM is not the way to fit any of this.</p>
+
+  <div class="probe">
+    <h3>ABF1's &lambda; alone, whole chrI</h3>
+    <p class="kicker" id="sw-kicker"></p>
+    <p class="lede" id="sw-lede"></p>
+    <div class="twoup">
+      <figure><svg id="sw-f1" role="img" aria-label="ABF1 F1 against lambda on chrI"></svg>
+        <figcaption>F1 against the five MacIsaac ABF1 sites on chrI. Filled points share one Fiber-seq + sequence model with only ABF1's &lambda; changed; the hollow ring is the EM-trained model, drawn at the &lambda; its ABF1 prior works out to.</figcaption></figure>
+      <figure><svg id="sw-auc" role="img" aria-label="ABF1 AUROC against lambda on chrI"></svg>
+        <figcaption>AUROC of ABF1's posterior over the same sites, threshold-free. The axis starts at 0.5, which is chance. Across a hundred-million-fold range of &lambda; it barely moves.</figcaption></figure>
+    </div>
+    <div class="tablewrap"><table class="data narrow" id="sw-tbl">
+      <thead><tr><th>&lambda; on Abf1_murphy</th><th>Calls</th><th>True</th><th>False</th><th>Precision</th><th>Recall</th><th>F1</th><th>AUROC</th><th>Nucleosome recall</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <div class="probe">
+    <h3>The <code>unknown</code> state's &lambda;</h3>
+    <p class="kicker" id="unk-kicker"></p>
+    <p class="lede" id="unk-lede"></p>
+    <div class="tablewrap"><table class="data narrow" id="unk-tbl">
+      <thead></thead><tbody></tbody>
+    </table></div>
+  </div>
+
+  <div class="probe">
+    <h3>Letting EM fit the priors</h3>
+    <p class="kicker" id="em-kicker"></p>
+    <p class="lede" id="em-lede"></p>
+    <div class="tablewrap"><table class="data" id="em-tbl">
+      <thead><tr><th>Layers trained</th><th>ABF1 prior</th><th>Pinned at cap</th><th>Driven to 0</th>
+        <th>chrXIV ABF1, untrained</th><th>chrXIV ABF1, after EM</th><th>F1 untrained &rarr; EM</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section>
+  <h2>What eight rounds of &lambda; bought</h2>
+  <p class="lede">Both campaigns are finished. Each decoded the genome, counted every factor's calls, moved its &lambda; toward the MacIsaac count, and repeated &mdash; eight rounds, &lambda;<sub>unknown</sub> pinned at 0.01 and the nucleosome prior held throughout. <span id="camp-stop"></span> <span id="nuc-hold"></span></p>
+  <div class="camps" id="camps"></div>
+
+  <p class="verdict"><b>The counts converged; the site accuracy did not follow.</b> <span id="v-body"></span> On this evidence &lambda; sets <em>how many</em> calls a factor makes, not <em>which</em> ones are right &mdash; a count knob, not an accuracy knob. Better site accuracy has to come from discrimination: the Fiber-seq emission model and the PWMs, not another round of &lambda;. Rossi's held-out peaks, <a href="#rossi">checked below</a>, agree.</p>
+
+  <div class="twoup">
+    <figure><svg id="tr-count" role="img" aria-label="Groups within two-fold of their MacIsaac count, by round"></svg>
+      <figcaption>Factor groups whose decoded count is within 2&times; of MacIsaac, out of 81. This is what the loop optimises, and it climbs.</figcaption></figure>
+    <figure><svg id="tr-f1" role="img" aria-label="Pooled F1 against MacIsaac sites, by round"></svg>
+      <figcaption>Pooled F1 over the same 81 groups, calls at posterior &ge; 0.10 within 30 bp of a MacIsaac site. It moves once, at the first step, and then flattens.</figcaption></figure>
+  </div>
+  <div class="serieskey">
+    <span class="key"><svg width="26" height="8" aria-hidden="true"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--accent)" stroke-width="2"/></svg> u001 &middot; all 153 motifs live</span>
+    <span class="key"><svg width="26" height="8" aria-hidden="true"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/></svg> m001 &middot; 69 competitors hard-masked</span>
+  </div>
+
+  <div class="tablewrap"><table class="data" id="tr-tbl">
+    <thead><tr>
+      <th>Campaign</th><th>Round</th><th>Within 2&times;</th><th>Typical factor</th>
+      <th>Calls</th><th>Matched</th><th>Precision</th><th>Recall</th><th>F1</th><th>Nucleosome copies</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 id="mass-h">Where the decoded copies went</h3>
+  <p class="lede" id="mass-lede"></p>
+  <div class="tablewrap"><table class="data narrow" id="mass-tbl">
+    <thead><tr><th>Campaign</th><th>Round</th><th>84 tuned motifs</th><th>69 other motifs</th><th>unknown</th><th>Background (bp)</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 id="clamp-h">Factors that ran out of &lambda;</h3>
+  <p class="lede">&lambda; is clamped to <code>[1e-6, 1e3]</code>. A factor at the <strong>cap</strong> still calls too few sites and the loop flags it <em>can't fix</em>. A factor at the <strong>floor</strong> still calls too many and <strong>nothing flags it</strong> &mdash; <code>tune_concentrations.py</code>'s can't-fix rule only watches the cap, so these over-callers end the campaign silently pinned. They are listed here because nowhere else lists them.</p>
+  <div class="tablewrap"><table class="data" id="clamp-tbl">
+    <thead><tr>
+      <th>Campaign</th><th>Factor</th><th>End of the clamp</th><th>MacIsaac</th><th>Copies decoded</th>
+      <th>Fold off</th><th>Calls</th><th>Matched</th><th>Flagged by the loop?</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section id="rossi">
+  <h2>Checked against Rossi</h2>
+  <p class="lede" id="rv-lede"></p>
+  <div class="refcards" id="rv-refs"></div>
+
+  <p class="verdict" id="rv-verdict"></p>
+
+  <div class="controls">
+    <div class="field"><label for="rv-run">Campaign</label>
+      <div class="seg" id="rv-run" role="group" aria-label="Campaign for the Rossi charts">
+        <button type="button" id="rv-btn-u001" data-run="u001" aria-pressed="true">u001 · all factors</button>
+        <button type="button" id="rv-btn-m001" data-run="m001" aria-pressed="false">m001 · masked</button>
+      </div>
+    </div>
+    <div class="field"><label for="rv-fit">Factor groups</label>
+      <div class="seg" id="rv-fit" role="group" aria-label="Include the groups with a Rossi-trained footprint">
+        <button type="button" id="rv-fit-all" data-fit="all" aria-pressed="true">all with a Rossi file</button>
+        <button type="button" id="rv-fit-nofit" data-fit="nofit" aria-pressed="false">without fitted footprints</button>
+      </div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span class="key"><svg width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--ref-mac)" stroke-width="2"/></svg> MacIsaac sites</span>
+      <span class="key"><svg width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--ref-cx)" stroke-width="2"/></svg> Rossi ChExMix peaks</span>
+    </div>
+  </div>
+  <div class="threeup">
+    <figure><svg id="rv-precision" role="img" aria-label="Precision by round against MacIsaac and Rossi"></svg>
+      <figcaption>Precision: share of calls within 30 bp of a site.</figcaption></figure>
+    <figure><svg id="rv-recall" role="img" aria-label="Recall by round against MacIsaac and Rossi"></svg>
+      <figcaption>Recall: share of sites with a call within 30 bp.</figcaption></figure>
+    <figure><svg id="rv-f1" role="img" aria-label="F1 by round against MacIsaac and Rossi"></svg>
+      <figcaption>F1 of the two. Each panel has its own y-scale; both references share it.</figcaption></figure>
+  </div>
+  <p class="kicker" id="rv-chartnote"></p>
+
+  <div class="tablewrap"><table class="data" id="rv-tbl">
+    <thead>
+      <tr><th colspan="3"></th><th colspan="3" class="grp">MacIsaac · all 81 groups</th><th colspan="3" class="grp">MacIsaac · <span class="rv-common"></span> groups</th><th colspan="3" class="grp">Rossi ChExMix · <span class="rv-common"></span> groups</th></tr>
+      <tr><th>Campaign</th><th>Round</th><th>Calls<br>(<span class="rv-common"></span> groups)</th>
+        <th>Precision</th><th>Recall</th><th>F1</th><th>Precision</th><th>Recall</th><th>F1</th><th>Precision</th><th>Recall</th><th>F1</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 class="rv-h">What each step's calls were worth</h3>
+  <p class="lede" id="rv-marg-lede"></p>
+  <div class="tablewrap"><table class="data narrow" id="rv-marg">
+    <thead><tr><th>Campaign</th><th>Step</th><th>Calls added</th><th>MacIsaac matches added</th><th>Marginal precision</th><th>Rossi matches added</th><th>Marginal precision</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 class="rv-h">Inside genes or between them</h3>
+  <p class="lede" id="rv-genic-lede"></p>
+  <div class="tablewrap"><table class="data narrow" id="rv-genic">
+    <thead></thead><tbody></tbody>
+  </table></div>
+  <div class="tablewrap"><table class="data" id="rv-genic-per">
+    <thead><tr><th>Factor</th><th>Rossi peaks</th><th>Rossi genic</th><th>Calls, round 0</th><th>Genic, round 0</th><th>Calls, last round</th><th>Genic, last round</th><th>Gap to Rossi</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 class="rv-h">The factors that moved most</h3>
+  <p class="lede" id="rv-per-lede"></p>
+  <div class="tablewrap"><table class="data" id="rv-per">
+    <thead><tr><th>Factor</th><th>Campaign</th><th>MacIsaac sites</th><th>Rossi peaks</th><th>Calls 0 &rarr; last</th>
+      <th>MacIsaac matched</th><th>MacIsaac F1</th><th>Rossi matched</th><th>Rossi F1</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h3 class="rv-h">Reading these numbers</h3>
+  <ul class="caveats" id="rv-caveats"></ul>
+</section>
+
+<section>
+  <h2>Starting concentration &rarr; &lambda; &rarr; tuned concentration</h2>
+  <div class="controls">
+    <div class="field"><label for="run">Campaign</label>
+      <div class="seg" id="run" role="group" aria-label="Campaign">
+        <button type="button" id="btn-u001" data-run="u001" aria-pressed="true">u001 · all factors</button>
+        <button type="button" id="btn-m001" data-run="m001" aria-pressed="false">m001 · masked</button>
+      </div>
+    </div>
+    <div class="field"><label for="show">Show</label>
+      <select id="show">
+        <option value="target">Tuned factors (MacIsaac targets) + unknown + nucleosome</option>
+        <option value="all">Every factor in the model</option>
+        <option value="moved">Only factors whose &lambda; moved</option>
+      </select>
+    </div>
+    <div class="field"><label for="sortby">Order by</label>
+      <select id="sortby">
+        <option value="conc_after">Tuned concentration</option>
+        <option value="conc_start">Starting concentration</option>
+        <option value="lam">&lambda;</option>
+        <option value="occ">Decoded copies</option>
+        <option value="precision">Precision</option>
+        <option value="name">Name</option>
+      </select>
+    </div>
+    <div class="field"><label for="q">Find</label><input type="search" id="q" placeholder="Abf1, REB1, unknown…"></div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="legend">
+    <span class="key"><span class="dot hollow"></span> starting concentration</span>
+    <span class="key"><span class="dot" style="background:var(--ok)"></span> within 2&times; of MacIsaac</span>
+    <span class="key"><span class="dot" style="background:var(--under)"></span> calls too few</span>
+    <span class="key"><span class="dot" style="background:var(--over)"></span> calls too many</span>
+    <span class="key"><span class="dot ring"></span> at the &lambda; cap &mdash; can't fix with concentration</span>
+    <span class="key"><span class="dot sq"></span> at the &lambda; floor &mdash; out of headroom, unflagged by the loop</span>
+    <span class="key"><span class="dot" style="background:var(--flat)"></span> no MacIsaac target · &lambda; never moved</span>
+  </div>
+  <figure class="panel">
+    <div class="scroller"><svg id="dumb" role="img" aria-label="Starting and tuned concentration for each factor on a log scale"></svg></div>
+    <figcaption id="dumbcap"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>What that concentration produced</h2>
+  <p class="lede">Copies decoded genome-wide against the tuned concentration, both on log scales. The response is sublinear: a hundredfold change in concentration moves the count by roughly threefold, which is why the tuning loop divides its steps by that elasticity.</p>
+  <figure class="panel plot">
+    <svg id="scatter" role="img" aria-label="Decoded copies against tuned concentration, log-log"></svg>
+    <figcaption id="scatcap"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Every factor, every number</h2>
+  <p class="lede">Precision is the share of a factor's calls (posterior &ge; 0.10) that fall within 30 bp of a MacIsaac site; recall is the share of its MacIsaac sites found. MacIsaac lists only sites conserved across species, so both are lower bounds &mdash; useful for comparing rounds, not as absolute accuracy. Click a column to sort.</p>
+  <div class="tablewrap"><table class="data" id="tbl">
+    <thead><tr>
+      <th data-k="name">Factor</th>
+      <th data-k="length">bp</th>
+      <th data-k="conc_start">Start conc.</th>
+      <th data-k="lam">&lambda;</th>
+      <th data-k="conc_after">Tuned conc.</th>
+      <th data-k="prior">Prior &alpha;<sub>k</sub></th>
+      <th data-k="occ">Copies</th>
+      <th data-k="target">MacIsaac</th>
+      <th data-k="calls">Calls</th>
+      <th data-k="matched">Matched</th>
+      <th data-k="precision">Precision</th>
+      <th data-k="recall">Recall</th>
+      <th data-k="status">Status</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<div class="foot">
+  <span id="foot-run"></span>
+  <span id="foot-excl"></span>
+  <span>Sources: <code>analysis/tune_concentrations.py</code>, <code>count_calls.py</code>, <code>tuning_trajectory.py</code>; concentrations recomputed with <code>parameterize.calculateKD</code> from <code>robocop_train_fiberonly/pwm.p</code>.</span>
+</div>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script id="payload" type="application/json">__DATA__</script>
+<script>
+(function(){
+const DATA = JSON.parse(document.getElementById('payload').textContent);
+const fmt = {
+  sci(v){ if(v===null||v===undefined) return "—";
+    if(v===0) return "0";
+    const e = Math.floor(Math.log10(Math.abs(v)));
+    if(e>=-2 && e<=4) return (Math.abs(v)>=100? v.toFixed(0) : v.toPrecision(3)).replace(/\.?0+$/,'');
+    return (v/Math.pow(10,e)).toFixed(2)+"e"+e; },
+  int(v){ return v===null||v===undefined? "—" : Math.round(v).toLocaleString(); },
+  pct(v){ return v===null||v===undefined? "—" : (100*v).toFixed(1)+"%"; }
+};
+const STATUS = {within_2x:{c:'var(--ok)',label:'within 2×',cls:'p-within'},
+                under:{c:'var(--under)',label:'too few',cls:'p-under'},
+                over:{c:'var(--over)',label:'too many',cls:'p-over'},
+                cant_fix:{c:'var(--ink)',label:"can't fix",cls:'p-cant'},
+                no_mass:{c:'var(--flat)',label:'no posterior',cls:'p-none'}};
+function statusOf(r){
+  if(r.kind==='nucleosome') return {c:'var(--flat)',label:'prior held',cls:'p-none'};
+  if(r.kind==='background') return {c:'var(--flat)',label:'pinned',cls:'p-none'};
+  if(r.masked) return {c:'var(--flat)',label:'masked out',cls:'p-none'};
+  if(r.kind==='unknown') return {c:'var(--flat)',label:'fixed 0.01',cls:'p-none'};
+  return STATUS[r.status] || {c:'var(--flat)',label:'untargeted',cls:'p-none'};
+}
+/* Which end of the [1e-6, 1e3] clamp a targeted factor has run into, if any. The tuning loop
+   only ever flags the cap, so the floor is surfaced here. */
+const LAM_FLOOR = 1e-6, LAM_CAP = 1e3;
+function clampOf(r){
+  if(r.kind!=='tf' || r.target===null) return null;
+  if(r.lam<=LAM_FLOOR) return 'floor';
+  if(r.lam>=LAM_CAP) return 'cap';
+  return null;
+}
+let run='u001', show='target', sortby='conc_after', q='';
+const $ = s=>document.querySelector(s);
+const tip = $('#tip');
+function showTip(html, ev){ tip.innerHTML=html; tip.style.opacity=1;
+  const pad=14, w=tip.offsetWidth, h=tip.offsetHeight;
+  let x=ev.clientX+pad, y=ev.clientY+pad;
+  if(x+w>innerWidth-8) x=ev.clientX-w-pad;
+  if(y+h>innerHeight-8) y=ev.clientY-h-pad;
+  tip.style.left=x+'px'; tip.style.top=y+'px'; }
+function hideTip(){ tip.style.opacity=0; }
+
+function rows(){
+  let rs = DATA.runs[run].rows.slice();
+  if(show==='target') rs = rs.filter(r=>r.target!==null||r.kind!=='tf');
+  if(show==='moved') rs = rs.filter(r=>Math.abs(r.lam-1)>1e-12);
+  if(q) rs = rs.filter(r=>(r.name+' '+r.group).toLowerCase().includes(q));
+  const key = sortby;
+  rs.sort((a,b)=>{
+    if(key==='name') return a.name.localeCompare(b.name);
+    const av=a[key], bv=b[key];
+    if(av===null&&bv===null) return 0; if(av===null) return 1; if(bv===null) return -1;
+    return bv-av; });
+  return rs;
+}
+function groups(rs){ const seen=new Set(), out=[];
+  rs.forEach(r=>{ if(r.target===null||seen.has(r.group)) return; seen.add(r.group); out.push(r); });
+  return out; }
+
+/* ---------- stat strip ---------- */
+function stats(){
+  const R = DATA.runs[run], all = R.rows;
+  const g = groups(all.filter(r=>r.kind==='tf'&&r.target!==null));
+  const calls = g.reduce((s,r)=>s+(r.calls||0),0), matched = g.reduce((s,r)=>s+(r.matched||0),0);
+  const sites = g.reduce((s,r)=>s+(r.target||0),0);
+  const within = g.filter(r=>r.status==='within_2x').length;
+  const nuc = all.find(r=>r.kind==='nucleosome');
+  const lams = all.filter(r=>r.kind==='tf'&&!r.masked).map(r=>r.lam);
+  const items = [
+    ['campaign', run + (R.masked_run? ' · masked':' · all')],
+    ['round', R.round],
+    ['within 2×', within + '<small> / ' + g.length + '</small>'],
+    ['precision', fmt.pct(matched/calls)],
+    ['recall', fmt.pct(matched/sites)],
+    ['λ range', fmt.sci(Math.min.apply(null,lams))+'–'+fmt.sci(Math.max.apply(null,lams))],
+    ['nucleosome copies', fmt.int(nuc.occ)]
+  ];
+  $('#stats').innerHTML = items.map(([k,v])=>`<div class="stat"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+  $('#foot-run').innerHTML = `Campaign <b>${run}</b>, round ${R.round}; genome-wide decode, &lambda;<sub>unknown</sub> = 0.01, nucleosome prior held at its untuned value (&lambda;<sub>nuc</sub> = ${fmt.sci(R.nuc_lambda)}).`;
+}
+
+/* ---------- log helpers ---------- */
+const LO = 1e-13, HI = 1e2;
+function clampLog(v){ return Math.max(LO, Math.min(HI, v||LO)); }
+
+/* ---------- dumbbell ---------- */
+function dumbbell(){
+  const rs = rows(), svg = $('#dumb');
+  const RH = 15, padT = 26, padB = 8, padL = 128, padR = 54;
+  const W = Math.max(620, Math.min(1120, (svg.parentNode.clientWidth||900)));
+  const H = padT + rs.length*RH + padB;
+  const x = v => padL + (Math.log10(clampLog(v))-Math.log10(LO))/(Math.log10(HI)-Math.log10(LO)) * (W-padL-padR);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<g class="axis">`;
+  for(let e=-13;e<=2;e+=3){ const X=x(Math.pow(10,e));
+    s += `<line class="grid" x1="${X}" y1="${padT-6}" x2="${X}" y2="${H-padB}"/>`;
+    s += `<text x="${X}" y="${padT-12}" text-anchor="middle">1e${e}</text>`; }
+  s += `<line class="axisline" x1="${padL}" y1="${padT-6}" x2="${W-padR}" y2="${padT-6}"/></g>`;
+  rs.forEach((r,i)=>{
+    const y = padT + i*RH + RH/2, st = statusOf(r);
+    const x0 = x(r.conc_start), x1 = x(r.conc_after);
+    const moved = Math.abs(r.lam-1)>1e-12;
+    s += `<rect class="hitrow" x="0" y="${y-RH/2}" width="${W}" height="${RH}" data-i="${i}"/>`;
+    s += `<text class="rowlabel${r.masked||r.target===null?' dim':''}" x="${padL-8}" y="${y+3.5}" text-anchor="end">${r.name.length>17?r.name.slice(0,16)+'…':r.name}</text>`;
+    if(moved) s += `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${st.c}" stroke-width="2" opacity=".5"/>`;
+    s += `<circle cx="${x0}" cy="${y}" r="3.2" fill="none" stroke="var(--ink3)" stroke-width="1.4"/>`;
+    const cl = clampOf(r);
+    if(cl==='cap'){
+      s += `<circle cx="${x1}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.2"/>`;
+    } else if(cl==='floor'){
+      s += `<rect x="${x1-4}" y="${y-4}" width="8" height="8" fill="var(--surface)" stroke="var(--ink2)" stroke-width="2.2"/>`;
+    } else {
+      s += `<circle cx="${x1}" cy="${y}" r="4" fill="${st.c}" stroke="var(--surface)" stroke-width="1.5"/>`;
+    }
+    if(r.kind!=='tf'||cl||i<3)
+      s += `<text class="rowlabel" x="${Math.max(x0,x1)+9}" y="${y+3.5}">${fmt.sci(r.conc_after)}</text>`;
+  });
+  s += `</svg>`;
+  svg.outerHTML = s;
+  const node = $('#dumb') || document.querySelector('.scroller svg');
+  node.id='dumb';
+  node.querySelectorAll('.hitrow').forEach(el=>{
+    el.addEventListener('mousemove', ev=>{
+      const r = rs[+el.dataset.i], st = statusOf(r), cl = clampOf(r);
+      showTip(`<b>${r.name}</b><br>start ${fmt.sci(r.conc_start)} × λ ${fmt.sci(r.lam)}<br>= <b>${fmt.sci(r.conc_after)}</b><br>prior α ${fmt.sci(r.prior)}<br>copies ${fmt.int(r.occ)}${r.target!==null?`<br>MacIsaac ${fmt.int(r.target)} · calls ${fmt.int(r.calls)} · matched ${fmt.int(r.matched)}<br>precision ${fmt.pct(r.precision)} · recall ${fmt.pct(r.recall)}`:''}<br>${st.label}${cl?` · at the λ ${cl}`:''}`, ev);
+    });
+    el.addEventListener('mouseleave', hideTip);
+  });
+  $('#dumbcap').innerHTML = `${rs.length} factors. Hollow mark is the starting concentration from the motif; filled mark is after &lambda;. A factor with no line never moved.`;
+}
+
+/* ---------- scatter ---------- */
+function scatter(){
+  const rs = DATA.runs[run].rows.filter(r=>r.kind==='tf'&&!r.masked&&r.occ>0);
+  const svg = $('#scatter');
+  const W = Math.max(560, Math.min(1120, (svg.parentNode.clientWidth||900))), H = 380;
+  const padL=62, padR=22, padT=18, padB=42;
+  const xlo=-13, xhi=1, ylo=-1, yhi=5;
+  const X = v => padL + (Math.log10(clampLog(v))-xlo)/(xhi-xlo)*(W-padL-padR);
+  const Y = v => H-padB - (Math.log10(Math.max(0.1,v))-ylo)/(yhi-ylo)*(H-padT-padB);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg"><g class="axis">`;
+  for(let e=xlo;e<=xhi;e+=2){ const x=X(Math.pow(10,e));
+    s += `<line class="grid" x1="${x}" y1="${padT}" x2="${x}" y2="${H-padB}"/><text x="${x}" y="${H-padB+15}" text-anchor="middle">1e${e}</text>`; }
+  for(let e=ylo;e<=yhi;e++){ const y=Y(Math.pow(10,e));
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/><text x="${padL-8}" y="${y+3}" text-anchor="end">1e${e}</text>`; }
+  s += `<text x="${(padL+W-padR)/2}" y="${H-6}" text-anchor="middle">tuned concentration</text>`;
+  s += `<text transform="translate(14,${(padT+H-padB)/2}) rotate(-90)" text-anchor="middle">copies decoded</text>`;
+  s += `<line class="axisline" x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}"/><line class="axisline" x1="${padL}" y1="${padT}" x2="${padL}" y2="${H-padB}"/></g>`;
+  rs.forEach((r,i)=>{ const st=statusOf(r);
+    s += `<circle class="pt" data-i="${i}" cx="${X(r.conc_after)}" cy="${Y(r.occ)}" r="4" fill="${st.c}" fill-opacity=".85" stroke="var(--surface)" stroke-width="1.2"/>`; });
+  s += `</svg>`;
+  svg.outerHTML = s;
+  const node = document.querySelector('.plot svg'); node.id='scatter';
+  node.querySelectorAll('.pt').forEach(el=>{
+    el.addEventListener('mousemove', ev=>{ const r=rs[+el.dataset.i];
+      showTip(`<b>${r.name}</b><br>conc ${fmt.sci(r.conc_after)}<br>copies ${fmt.int(r.occ)}${r.target!==null?`<br>MacIsaac ${fmt.int(r.target)}`:''}`, ev); });
+    el.addEventListener('mouseleave', hideTip); });
+  $('#scatcap').textContent = `${rs.length} motif states with posterior mass, campaign ${run}, round ${DATA.runs[run].round}.`;
+}
+
+/* ---------- table ---------- */
+function table(){
+  const rs = rows();
+  const body = rs.map(r=>{ const st=statusOf(r), cl=clampOf(r);
+    return `<tr${r.masked?' class="masked"':''}><td>${r.name}</td><td>${r.length}</td><td>${fmt.sci(r.conc_start)}</td>`+
+      `<td>${fmt.sci(r.lam)}</td><td>${fmt.sci(r.conc_after)}</td><td>${fmt.sci(r.prior)}</td>`+
+      `<td>${fmt.int(r.occ)}</td><td>${fmt.int(r.target)}</td><td>${fmt.int(r.calls)}</td>`+
+      `<td>${fmt.int(r.matched)}</td><td>${fmt.pct(r.precision)}</td><td>${fmt.pct(r.recall)}</td>`+
+      `<td><span class="pill ${st.cls}">${st.label}</span>`+
+      (cl?`<span class="pill p-clamp">λ ${cl}</span>`:'')+`</td></tr>`; }).join('');
+  $('#tbl').querySelector('tbody').innerHTML = body;
+  $('#tbl').querySelectorAll('th').forEach(th=>{
+    th.setAttribute('aria-sort', th.dataset.k===sortby?'descending':'none'); });
+}
+/* ---------- campaign outcome (both campaigns at once; drawn once) ---------- */
+const RUNKEYS = Object.keys(DATA.runs);
+const RUNTAG = {u001:'all 153 motifs live', m001:'69 competitors hard-masked'};
+const DASH = {u001:'', m001:'stroke-dasharray="4 3"'};
+
+function whyStopped(txt){
+  if(!txt) return '';
+  if(/8-round limit/.test(txt)) return 'ran out the 8-round budget';
+  return txt.replace(/^stopped after iter \d+: /,'').replace(/->/g,'→');
+}
+
+function camps(){
+  $('#camps').innerHTML = RUNKEYS.map(k=>{
+    const R = DATA.runs[k], o = R.outcome, last = o.rounds[o.rounds.length-1], first = o.rounds[0];
+    const dn = 100*(last.nuc - o.nuc_baseline)/o.nuc_baseline;
+    const floors = o.clamped.filter(c=>c.end==='floor').length;
+    return `<div class="camp">
+      <div class="hd"><span class="nm">${k}</span><span class="tag">${RUNTAG[k]||''}</span></div>
+      <dl>
+        <dt>rounds</dt><dd>${o.rounds.length} (00–${String(last.round).padStart(2,'0')})</dd>
+        <dt>within 2×</dt><dd>${first.within2x} → <b>${last.within2x}</b> of ${last.groups}</dd>
+        <dt>typical factor</dt><dd>${first.fold_off.toFixed(2)}× → <b>${last.fold_off.toFixed(2)}×</b> off</dd>
+        <dt>pooled F1</dt><dd>${first.f1.toFixed(4)} → <b>${last.f1.toFixed(4)}</b></dd>
+        <dt>recall</dt><dd>${fmt.pct(first.recall)} → <b>${fmt.pct(last.recall)}</b></dd>
+        <dt>nucleosome</dt><dd>${fmt.int(last.nuc)} <span style="color:var(--ink3)">(${dn>=0?'+':''}${dn.toFixed(2)}%)</span></dd>
+        <dt>λ pinned</dt><dd>${floors} at the floor, ${o.clamped.length-floors} at the cap</dd>
+      </dl>
+      <p class="why"><b>Stopped:</b> ${whyStopped(o.stopped)}.</p>
+    </div>`; }).join('');
+  const bits = RUNKEYS.map(k=>`<b>${k}</b> ${whyStopped(DATA.runs[k].outcome.stopped)}`).join('; ');
+  $('#camp-stop').innerHTML = `Neither stopped because it had converged: ${bits}.`;
+
+  /* Every figure in the verdict comes from the rounds above, so it cannot drift from them. */
+  const o = DATA.runs['u001'].outcome, a = o.rounds[0], z = o.rounds[o.rounds.length-1],
+        b = o.rounds[1], peak = o.rounds.reduce((m,d)=>d.recall>m.recall?d:m, a);
+  const dCalls = 100*(a.calls-z.calls)/a.calls, dMatched = 100*(a.matched-z.matched)/a.matched;
+  const firstShare = 100*(b.f1-a.f1)/(z.f1-a.f1);
+  $('#v-body').innerHTML =
+    `By the last round almost every factor calls about as many sites as MacIsaac lists for it. `+
+    `Pooled F1 over those factors went ${a.f1.toFixed(4)} → ${z.f1.toFixed(4)} in u001 `+
+    `(${DATA.runs['m001'].outcome.rounds[0].f1.toFixed(4)} → ${DATA.runs['m001'].outcome.rounds[DATA.runs['m001'].outcome.rounds.length-1].f1.toFixed(4)} in m001), `+
+    `and ${firstShare.toFixed(0)}% of that move is the single first step, which cut the gross over-callers. `+
+    `Precision did roughly double, ${fmt.pct(a.precision)} → ${fmt.pct(z.precision)}, but it bought that by `+
+    `discarding calls: u001 dropped ${dCalls.toFixed(0)}% of its calls to lose ${dMatched.toFixed(0)}% of its `+
+    `matches, and recall peaked at round ${peak.round} (${fmt.pct(peak.recall)}) then fell to ${fmt.pct(z.recall)} `+
+    `as the counts were pushed onto target. `+
+    RUNKEYS.map(k=>{ const m = DATA.runs[k].outcome.marginal, rr = DATA.runs[k].outcome.rounds;
+      return `From round 1 to round ${rr[rr.length-1].round} ${k} ${m.d_calls<0?'gave up':'added'} ${fmt.int(Math.abs(m.d_calls))} calls and ${fmt.int(Math.abs(m.d_matched))} matches: `+
+        `${fmt.pct(m.precision)} of those calls were at a MacIsaac site, against ${fmt.pct(m.base_precision)} of the calls round 1 held.`; }).join(' ');
+
+  /* The nucleosome hold, read back out of every round's trainDir. */
+  const nucs = RUNKEYS.map(k=>DATA.runs[k]), base = nucs[0].outcome.nuc_baseline;
+  const worst = Math.max.apply(null, nucs.flatMap(R=>R.outcome.rounds.map(d=>Math.abs(d.nuc-base)/base)));
+  const lams = DATA.runs['u001'].nuc_lambdas;
+  $('#nuc-hold').innerHTML = `Every round's trainDir carries the same nucleosome prior, ${nucs[0].outcome.nuc_prior.toPrecision(6)} `+
+    `(relative spread ${RUNKEYS.map(k=>DATA.runs[k].outcome.nuc_prior_rel_spread.toExponential(1)+' in '+k).join(', ')}), `+
+    `while the &lambda;<sub>nuc</sub> needed to hold it swung ${lams.slice(0,3).map(v=>fmt.sci(v)).join(' → ')} → … → ${fmt.sci(lams[lams.length-1])} in u001. `+
+    `Decoded nucleosome copies stayed within ${(100*worst).toFixed(1)}% of the untuned ${fmt.int(base)}.`;
+}
+
+/* Two small multiples on a shared round axis: the quantity the loop optimises, and the one
+   that matters. Same series in both, so only the y-quantity differs. */
+function trend(id, key, ticks, fmtTick, fmtPt, label){
+  const W=440, H=248, padL=52, padR=14, padT=20, padB=40;
+  const rounds = DATA.runs[RUNKEYS[0]].outcome.rounds.length-1;
+  const hi = ticks[ticks.length-1];
+  const X = r => padL + (r/rounds)*(W-padL-padR);
+  const Y = v => H-padB - (v/hi)*(H-padT-padB);
+  const el = $('#'+id);
+  let s = `<svg id="${id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${el.getAttribute('aria-label')}" xmlns="http://www.w3.org/2000/svg"><g class="axis">`;
+  ticks.forEach(t=>{ const y=Y(t);
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/>`+
+         `<text x="${padL-7}" y="${y+3.5}" text-anchor="end">${fmtTick(t)}</text>`; });
+  for(let r=0;r<=rounds;r++)
+    s += `<text x="${X(r)}" y="${H-padB+15}" text-anchor="middle">${r}</text>`;
+  s += `<text x="${(padL+W-padR)/2}" y="${H-7}" text-anchor="middle">round</text>`;
+  s += `<text transform="translate(13,${(padT+H-padB)/2}) rotate(-90)" text-anchor="middle">${label}</text>`;
+  s += `<line class="axisline" x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}"/>`+
+       `<line class="axisline" x1="${padL}" y1="${padT}" x2="${padL}" y2="${H-padB}"/></g>`;
+  RUNKEYS.forEach((k,ki)=>{
+    const rs = DATA.runs[k].outcome.rounds;
+    const pts = rs.map(d=>`${X(d.round)},${Y(d[key])}`).join(' ');
+    s += `<polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" ${DASH[k]||''}/>`;
+    rs.forEach(d=>{
+      s += `<circle cx="${X(d.round)}" cy="${Y(d[key])}" r="${d.round===rounds?4:2.3}" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.2"/>`; });
+    const e = rs[rounds];
+    s += `<text class="rowlabel" x="${X(rounds)-9}" y="${Y(e[key]) + (ki===0?-9:16)}" text-anchor="end">${k} ${fmtPt(e[key])}</text>`;
+  });
+  s += `</svg>`;
+  el.outerHTML = s;
+}
+
+function trendTable(){
+  const body = RUNKEYS.map(k=>DATA.runs[k].outcome.rounds.map(d=>
+    `<tr><td>${k}</td><td>${d.round}</td><td>${d.within2x} / ${d.groups}</td>`+
+    `<td>${d.fold_off.toFixed(2)}×</td><td>${fmt.int(d.calls)}</td><td>${fmt.int(d.matched)}</td>`+
+    `<td>${fmt.pct(d.precision)}</td><td>${fmt.pct(d.recall)}</td><td>${d.f1.toFixed(4)}</td>`+
+    `<td>${fmt.int(d.nuc)}</td></tr>`).join('')).join('');
+  $('#tr-tbl').querySelector('tbody').innerHTML = body;
+}
+
+function clampTable(){
+  const body = RUNKEYS.map(k=>DATA.runs[k].outcome.clamped.map(c=>{
+    const cap = c.end==='cap';
+    return `<tr><td>${k}</td><td>${c.group}</td>`+
+      `<td><span class="pill ${cap?'p-cant':'p-clamp'}">λ ${cap?'cap 1e3':'floor 1e-6'}</span></td>`+
+      `<td>${fmt.int(c.target)}</td><td>${fmt.int(c.decoded)}</td><td>${c.fold_off.toFixed(2)}×</td>`+
+      `<td>${fmt.int(c.calls)}</td><td>${fmt.int(c.matched)}</td>`+
+      `<td>${cap?'yes — <em>can\'t fix</em>':(c.within2x?'no — reads as within 2×':'<b>no</b>')}</td></tr>`;
+  }).join('')).join('');
+  $('#clamp-tbl').querySelector('tbody').innerHTML = body;
+}
+
+function outcome(){
+  camps(); trendTable(); clampTable();
+  trend('tr-count','within2x', [0,20,40,60,81], v=>String(v), v=>String(v), 'groups within 2×');
+  trend('tr-f1','f1', [0,0.01,0.02,0.03,0.04,0.05], v=>v.toFixed(2), v=>v.toFixed(4), 'pooled F1');
+}
+
+/* ---------- where the copies went ---------- */
+function massTable(){
+  $('#mass-tbl').querySelector('tbody').innerHTML = RUNKEYS.map((k,ki)=>DATA.runs[k].outcome.mass.map((m,i)=>
+    `<tr${i===0&&ki>0?' class="sep"':''}><td>${k}</td><td>${m.round}</td><td>${fmt.int(m.tuned)}</td>`+
+    `<td>${DATA.runs[k].masked_run?`${fmt.int(m.untuned)} <span class="pill p-none">masked</span>`:fmt.int(m.untuned)}</td>`+
+    `<td>${fmt.int(m.unknown)}</td><td>${fmt.int(m.background)}</td></tr>`).join('')).join('');
+  $('#mass-lede').innerHTML = `Genome-wide posterior copies by class, from each round's counts file. `+
+    RUNKEYS.map(k=>{ const M = DATA.runs[k].outcome.mass, a = M[0], z = M[M.length-1];
+      return `<b>${k}</b>, round ${a.round} → ${z.round}: the 84 tuned motifs ${fmt.int(a.tuned)} → ${fmt.int(z.tuned)}; `+
+        `the 69 other motifs${DATA.runs[k].masked_run?' (masked)':''} ${fmt.int(a.untuned)} → ${fmt.int(z.untuned)}; `+
+        `unknown ${fmt.int(a.unknown)} → ${fmt.int(z.unknown)}; background ${fmt.int(a.background)} → ${fmt.int(z.background)} bp.`; }).join(' ')+
+    ` Nucleosome copies are in the round table above.`;
+  const ex = RUNKEYS.map(k=>{ const e = DATA.runs[k].outcome.excluded;
+    return `${Object.keys(e).map(c=>`${c} ${fmt.int(e[c].n)}${e[c].n/e[c].length>=0.001?` (${fmt.pct(e[c].n/e[c].length)} of it)`:''}`).join(', ')} in ${k}`; }).join('; ');
+  $('#foot-excl').innerHTML = `Copies and calls leave out positions where the decode's posterior fell outside [0, 1], which <code>count_calls.py</code> drops: at most ${ex}.`;
+}
+
+/* ---------- the three probes ---------- */
+function worked(){
+  const W = DATA.worked, rel = v=>v/W.nhp6a;
+  const relTxt = r=> r<1 ? `1 / ${fmt.int(1/r)}` : (r<1.0001? '1×' : `${fmt.int(r)}×`);
+  const sci = v=>{ const e=Math.floor(Math.log10(v)); return `${(v/Math.pow(10,e)).toFixed(2)}&times;10<sup>${e<0?'&minus;'+(-e):e}</sup>`; };
+  const rowsW = [
+    ['Abf1_murphy', `${W.abf1_len} bp`, W.abf1, `A decisive ${W.abf1_len} bp word: rare a priori, but its sequence evidence at a true site is enormous.`],
+    ['Nhp6a_zhu', `${W.nhp6a_len} bp`, W.nhp6a, `A vague ${W.nhp6a_len} bp word: common a priori, and it matches almost anywhere.`],
+    ['unknown', '10 bp (flat)', W.unknown, 'No sequence preference at all, set by hand, and the largest weight of any factor.'],
+    ['nucleosome', '147 bp', W.nucleosome, 'Huge weight, but &alpha;<sub>0</sub><sup>147</sup> cuts it back to a prior near 10<sup>&minus;3</sup>.']];
+  $('#worked-body').innerHTML = rowsW.map(([n,w,v,note])=>
+    `<tr><td>${n}</td><td>${w}</td><td>${sci(v)}</td><td>${relTxt(rel(v))}</td><td class="note">${note}</td></tr>`).join('');
+
+  const WD = DATA.wide150, R = WD.rows, top = R[0], bot = R[R.length-1], abf = R.find(r=>r.name==='Abf1_murphy');
+  $('#wide-note').innerHTML = `<strong>Both halves of the formula, at once.</strong> The <code>wide150</code> trainDir padded ${R.length} factors' footprints by &plusmn;150 bp with estimated columns. `+
+    `Every extra column enters K<sub>d</sub> and every extra base pair raises the &alpha;<sub>0</sub><sup>L</sup> penalty, so their priors fell by ${fmt.sci(top.prior_ratio)} (${top.name}) to ${fmt.sci(bot.prior_ratio)} (${bot.name}) `+
+    `while the other factors moved ${WD.rest_lo.toFixed(3)}–${WD.rest_hi.toFixed(3)}×. For ABF1 (${abf.L0} → ${abf.L1} bp) that is ${fmt.sci(abf.kd_ratio)} from K<sub>d</sub> times ${fmt.sci(abf.alpha_ratio)} from &alpha;<sub>0</sub><sup>L</sup>. `+
+    `In all ${WD.decodes} of its chrI and chrXIV decodes ABF1's mean posterior at MacIsaac sites is ${WD.abf1_post_at_sites_max}: the widened factors were switched off by their prior, not tested.`;
+}
+
+/* A log-λ small multiple: one series, a guide at the untuned λ = 1, the EM point hollow. */
+function lamChart(id, pts, em, key, ticks, fmtTick, fmtVal, label, best){
+  const W=440, H=248, padL=52, padR=16, padT=22, padB=40, xlo=-5, xhi=4;
+  const lo = ticks[0], hi = ticks[ticks.length-1];
+  const X = v => padL + (Math.log10(v)-xlo)/(xhi-xlo)*(W-padL-padR);
+  const Y = v => H-padB - (v-lo)/(hi-lo)*(H-padT-padB);
+  const el = $('#'+id);
+  let s = `<svg id="${id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${el.getAttribute('aria-label')}" xmlns="http://www.w3.org/2000/svg"><g class="axis">`;
+  ticks.forEach(t=>{ const y=Y(t);
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/><text x="${padL-7}" y="${y+3.5}" text-anchor="end">${fmtTick(t)}</text>`; });
+  for(let e=xlo;e<=xhi-1;e+=2) s += `<text x="${X(Math.pow(10,e))}" y="${H-padB+15}" text-anchor="middle">1e${e}</text>`;
+  s += `<text x="${(padL+W-padR)/2}" y="${H-7}" text-anchor="middle">λ on Abf1_murphy (log)</text>`;
+  s += `<text transform="translate(13,${(padT+H-padB)/2}) rotate(-90)" text-anchor="middle">${label}</text>`;
+  s += `<line class="axisline" x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}"/><line class="axisline" x1="${padL}" y1="${padT}" x2="${padL}" y2="${H-padB}"/></g>`;
+  s += `<line x1="${X(1)}" y1="${padT}" x2="${X(1)}" y2="${H-padB}" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="3 3"/>`+
+       `<text class="rowlabel" x="${X(1)+5}" y="${H-padB-6}">untuned</text>`;
+  s += `<polyline points="${pts.map(d=>`${X(d.lam)},${Y(d[key])}`).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>`;
+  const all = pts.concat([em]);
+  all.forEach((d,i)=>{ const isEm = d===em, cx=X(d.lam), cy=Y(d[key]);
+    s += isEm ? `<circle cx="${cx}" cy="${cy}" r="4.5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>`
+              : `<circle cx="${cx}" cy="${cy}" r="${d===best?4.5:3}" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.2"/>`;
+    s += `<circle class="pt-hit" data-i="${i}" cx="${cx}" cy="${cy}" r="9"/>`; });
+  s += `<text class="rowlabel" x="${X(em.lam)+8}" y="${Y(em[key])+3.5}">EM</text>`;
+  if(best) s += `<text class="rowlabel" x="${X(best.lam)+8}" y="${Y(best[key])-7}">λ ${fmt.sci(best.lam)} · ${fmtVal(best[key])}</text>`;
+  s += `</svg>`;
+  el.outerHTML = s;
+  $('#'+id).querySelectorAll('.pt-hit').forEach(h=>{
+    h.addEventListener('mousemove', ev=>{ const d = all[+h.dataset.i];
+      showTip(`<b>${d===em?'EM-trained (10 iterations)':'λ '+fmt.sci(d.lam)}</b><br>calls ${d.n_pred} · true ${d.tp} · false ${d.fp}<br>F1 ${d.f1.toFixed(3)} · AUROC ${d.auroc.toFixed(3)}`, ev); });
+    h.addEventListener('mouseleave', hideTip); });
+}
+
+function probes(){
+  worked();
+
+  /* ABF1 λ sweep */
+  const S = DATA.abf1_sweep, pts = S.chrI, em = S.em;
+  const best = pts.reduce((m,d)=>d.f1>m.f1?d:m, pts[0]), one = pts.find(d=>d.lam===1);
+  const aucs = pts.concat([em]).map(d=>d.auroc), top = pts[pts.length-1];
+  const x1 = S.chrXIV.find(d=>d.lam===1), xb = S.chrXIV.find(d=>d.lam!==1);
+  $('#sw-kicker').textContent = `chrI, ${pts.length} values of λ plus the EM model · ${one.n_ref} MacIsaac ABF1 sites · each scored whole-chromosome by score_robocop.py`;
+  $('#sw-lede').innerHTML = `Raising ABF1's &lambda; mostly added false calls: ${one.fp} → ${top.fp} at &lambda; = ${fmt.int(top.lam)}, for ${top.tp-one.tp} more true site${top.tp-one.tp===1?'':'s'}. Lowering it helped: at &lambda; = ${fmt.sci(best.lam)} F1 was ${best.f1.toFixed(3)} against ${one.f1.toFixed(3)} untuned, `+
+    (best.tp===one.tp? `with the same ${best.tp} true sites and false calls cut ${one.fp} → ${best.fp}. ` : `true sites ${one.tp} → ${best.tp}, false calls ${one.fp} → ${best.fp}. `)+
+    `Further down it loses the true sites too, and finds none from &lambda; = ${fmt.sci(Math.max.apply(null, pts.filter(d=>d.tp===0).map(d=>d.lam)))} down. `+
+    `AUROC sat between ${Math.min.apply(null,aucs).toFixed(2)} and ${Math.max.apply(null,aucs).toFixed(2)} at every point, so &lambda; slid ABF1 along one ROC curve rather than improving it &mdash; `+
+    `the first sign of what the campaigns later showed for every factor. With only ${one.n_ref} sites the true-positive counts are noisy; `+
+    `on chrXIV (${x1.n_ref} sites) the same &lambda; = ${fmt.sci(xb.lam)} cut false calls ${x1.fp} → ${xb.fp} but also true ones ${x1.tp} → ${xb.tp}, `+
+    `for F1 ${x1.f1.toFixed(3)} → ${xb.f1.toFixed(3)} and AUROC ${x1.auroc.toFixed(3)} → ${xb.auroc.toFixed(3)}.`;
+  lamChart('sw-f1', pts, em, 'f1', [0,0.04,0.08,0.12], v=>v.toFixed(2), v=>'F1 '+v.toFixed(3), 'ABF1 F1', best);
+  lamChart('sw-auc', pts, em, 'auroc', [0.5,0.55,0.6,0.65], v=>v.toFixed(2), v=>v.toFixed(3), 'ABF1 AUROC', null);
+  $('#sw-tbl').querySelector('tbody').innerHTML = pts.concat([em]).map(d=>
+    `<tr${d===best?' class="best"':''}${d===em?' class="sep"':''}><td>${d===em?'EM-trained ('+fmt.int(d.lam)+')':fmt.sci(d.lam)}${d.lam===1&&d!==em?' · untuned':''}</td>`+
+    `<td>${d.n_pred}</td><td>${d.tp}</td><td>${d.fp}</td><td>${fmt.pct(d.precision)}</td><td>${fmt.pct(d.recall)}</td>`+
+    `<td>${d.f1.toFixed(3)}</td><td>${d.auroc.toFixed(3)}</td><td>${fmt.pct(d.nuc_recall)}</td></tr>`).join('');
+
+  /* λ_unknown sweep */
+  const U = DATA.unk_sweep, ur = U.rows, u1 = ur[0], uz = ur[ur.length-1];
+  $('#unk-kicker').textContent = `${U.chroms.join(' + ')}, ${(U.bp/1e6).toFixed(2)} Mb (${fmt.pct(U.bp/U.genome_bp)} of the genome) · λ = 1 control cut from the genome-wide untuned decode · nucleosome prior held`;
+  $('#unk-lede').innerHTML = `Untuned, <code>unknown</code> &mdash; a flat 10 bp matrix that fits anywhere &mdash; holds ${u1.prior_ratio.toFixed(1)}× the prior of all 153 real motifs together. `+
+    `Cutting its &lambda; ${fmt.int(1/uz.lam)}-fold cut its copies ${(u1.unknown/uz.unknown).toFixed(1)}× and gave the real motifs ${(100*(uz.real/u1.real-1)).toFixed(0)}% more, `+
+    `but the gain was global: the median factor went from ${u1.median_fold.toFixed(1)}× to ${uz.median_fold.toFixed(1)}× off its MacIsaac count while the number within 2× went ${u1.within2x} → ${uz.within2x}. `+
+    `The starved factors stayed far under target, REB1, already over, rose ${fmt.int(u1.focus.REB1)} → ${fmt.int(uz.focus.REB1)}, and HAP1 is not out-competed but absent: `+
+    `${U.hap1_genome.occ.toFixed(2)} copies in the whole untuned genome against ${fmt.int(U.targets.HAP1)} MacIsaac sites on these three chromosomes alone, its posterior never above ${fmt.sci(U.hap1_genome.max)}. Both campaigns pinned &lambda;<sub>unknown</sub> at ${fmt.sci(uz.lam)}.`;
+  const utb = $('#unk-tbl');
+  utb.querySelector('thead').innerHTML = `<tr><th>λ<sub>unknown</sub></th>${ur.map(r=>`<th>${fmt.sci(r.lam)}</th>`).join('')}</tr>`;
+  const line = (lbl, f, cls)=>`<tr${cls?` class="${cls}"`:''}><td class="lbl">${lbl}</td>${ur.map(r=>`<td>${f(r)}</td>`).join('')}</tr>`;
+  utb.querySelector('tbody').innerHTML =
+    line('unknown prior ÷ 153 motifs', r=>r.prior_ratio.toFixed(2)+'×') +
+    line('unknown copies', r=>fmt.int(r.unknown)) +
+    line('153 motifs, copies', r=>fmt.int(r.real)) +
+    line('background (bp)', r=>fmt.int(r.background)) +
+    line('nucleosome copies', r=>fmt.int(r.nucleosome)) +
+    line(`median factor, fold off MacIsaac`, r=>r.median_fold.toFixed(1)+'×', 'sep') +
+    line(`within 2× (of ${u1.groups} with copies)`, r=>r.within2x) +
+    Object.keys(U.targets).map((g,i)=>line(`${g} copies · MacIsaac ${U.targets[g]}`,
+      r=>r.focus[g]<1? r.focus[g].toPrecision(2) : r.focus[g].toFixed(r.focus[g]<100?1:0).replace(/\B(?=(\d{3})+(?!\d))/g,','), i===0?'sep':'')).join('');
+
+  /* EM */
+  const E = DATA.em, er = E.rows, main = er[0];
+  const allWorse = er.every(r=>(r.after.f1||0) < (r.before.f1||0));
+  $('#em-kicker').textContent = `${main.iters} Baum-Welch iterations on chrII per trainDir · decoded on chrXIV, ${main.before.n_ref} MacIsaac ABF1 sites · compared with the matching untrained decode`;
+  $('#em-lede').innerHTML = `Forced on with the published constraint, EM moved ABF1's prior ${fmt.int(main.abf1_fold)}× <em>up</em>, straight to the cap &mdash; mean + 2 sd of the initial priors, ${fmt.sci(E.cap)}, computed once &mdash; `+
+    `while the sweep above put its best F1 at ${fmt.int(1/best.lam)}-fold <em>down</em>. ${main.at_cap} of ${main.n} priors ended pinned at that cap and ${main.zero} at exactly zero. `+
+    (allWorse? `Every EM-trained model called ABF1 worse on chrXIV than its untrained counterpart by F1. `:'')+
+    `The Fiber-seq + sequence model bought ${main.after.tp-main.before.tp} more true sites with ${fmt.int(main.after.fp-main.before.fp)} more false ones.`;
+  const abfCell = a=> a.n_pred===0 ? 'no calls' : `${a.tp} true · ${fmt.int(a.fp)} false`;
+  $('#em-tbl').querySelector('tbody').innerHTML = er.map(r=>
+    `<tr><td class="lbl">${r.layers}</td><td>${r.abf1_fold===0?'0 · extinct':'×'+fmt.int(r.abf1_fold)}</td><td>${r.at_cap}</td><td>${r.zero}</td>`+
+    `<td>${abfCell(r.before)}</td><td>${abfCell(r.after)}</td><td>${(r.before.f1||0).toFixed(3)} → ${(r.after.f1||0).toFixed(3)}</td></tr>`).join('');
+}
+
+/* ---------- Rossi validation ---------- */
+const RV = DATA.rossi;
+let rvRun = RUNKEYS[0], rvFit = 'all';
+const REFC = {macisaac:'var(--ref-mac)', rossi_cx:'var(--ref-cx)'};
+const REFN = {macisaac:'MacIsaac', rossi_cx:'Rossi'};
+const pp = v=> v===null||v===undefined? '—' : (100*v).toFixed(2)+'%';
+const f4 = v=> v.toFixed(4);
+
+function niceTicks(max){
+  const raw = max/4, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1,2,2.5,5,10].map(m=>m*mag).find(s=>s>=raw);
+  const out=[]; for(let v=0; v<=max+step*0.999; v+=step) out.push(+v.toPrecision(6));
+  return out;
+}
+
+function rvChart(key){
+  const W=380, H=250, padL=50, padR=64, padT=18, padB=40;
+  const rs = RV.runs[rvRun].rounds, last = rs.length-1;
+  const refs = ['macisaac','rossi_cx'];
+  const vals = rs.flatMap(d=>refs.map(r=>d[rvFit][r][key]));
+  const ticks = niceTicks(Math.max.apply(null, vals)), hi = ticks[ticks.length-1];
+  const X = r => padL + (r/last)*(W-padL-padR);
+  const Y = v => H-padB - (v/hi)*(H-padT-padB);
+  const fmtT = v => key==='f1' ? v.toFixed(hi<0.1?3:2) : (100*v).toFixed(hi<0.05?1:0)+'%';
+  const id = 'rv-'+key, el = $('#'+id);
+  let s = `<svg id="${id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${el.getAttribute('aria-label')}" xmlns="http://www.w3.org/2000/svg"><g class="axis">`;
+  ticks.forEach(t=>{ const y=Y(t);
+    s += `<line class="grid" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/><text x="${padL-7}" y="${y+3.5}" text-anchor="end">${fmtT(t)}</text>`; });
+  for(let r=0;r<=last;r++) s += `<text x="${X(r)}" y="${H-padB+15}" text-anchor="middle">${r}</text>`;
+  s += `<text x="${(padL+W-padR)/2}" y="${H-7}" text-anchor="middle">round</text>`;
+  s += `<line class="axisline" x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}"/><line class="axisline" x1="${padL}" y1="${padT}" x2="${padL}" y2="${H-padB}"/></g>`;
+  /* end labels, pushed apart so they never collide */
+  const ends = refs.map(r=>({r, y:Y(rs[last][rvFit][r][key]), v:rs[last][rvFit][r][key]})).sort((a,b)=>a.y-b.y);
+  for(let i=1;i<ends.length;i++) if(ends[i].y-ends[i-1].y<13) ends[i].y = ends[i-1].y+13;
+  refs.forEach(r=>{
+    const pts = rs.map(d=>`${X(d.round)},${Y(d[rvFit][r][key])}`).join(' ');
+    s += `<polyline points="${pts}" fill="none" stroke="${REFC[r]}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    rs.forEach(d=>{ s += `<circle cx="${X(d.round)}" cy="${Y(d[rvFit][r][key])}" r="${d.round===last||d.round===0?4:2.4}" fill="${REFC[r]}" stroke="var(--surface)" stroke-width="1.4"/>`; });
+  });
+  ends.forEach(e=>{ s += `<text class="rowlabel" x="${W-padR+8}" y="${e.y+3.5}">${REFN[e.r]} ${key==='f1'?f4(e.v):pp(e.v)}</text>`; });
+  rs.forEach(d=>{ s += `<rect class="pt-hit" data-r="${d.round}" x="${X(d.round)-(W-padL-padR)/last/2}" y="${padT}" width="${(W-padL-padR)/last}" height="${H-padT-padB}"/>`; });
+  s += `</svg>`;
+  el.outerHTML = s;
+  $('#'+id).querySelectorAll('.pt-hit').forEach(h=>{
+    h.addEventListener('mousemove', ev=>{ const d = rs[+h.dataset.r];
+      showTip(`<b>${rvRun} · round ${d.round}</b><br>`+refs.map(r=>{ const q=d[rvFit][r];
+        return `${REFN[r]}: ${q.matched.toLocaleString()} of ${q.calls.toLocaleString()} calls · ${q.matched.toLocaleString()} of ${q.sites.toLocaleString()} sites<br>&nbsp;&nbsp;P ${pp(q.precision)} · R ${pp(q.recall)} · F1 ${f4(q.f1)}`; }).join('<br>'), ev); });
+    h.addEventListener('mouseleave', hideTip); });
+}
+
+function rvCharts(){
+  ['precision','recall','f1'].forEach(rvChart);
+  const g = rvFit==='all' ? RV.common : RV.common - RV.fitted.length;
+  $('#rv-chartnote').textContent = `${rvRun} · ${g} factor groups with a Rossi ChExMix file${rvFit==='all'?'':`, the ${RV.fitted.length} with a Rossi-trained footprint left out`} · the same calls scored against both references`;
+}
+
+function rossiSection(){
+  const U = RV.runs['u001'], M = RV.runs['m001'], ua = U.rounds[0].all, uz = U.rounds[U.rounds.length-1].all;
+  const ma = M.rounds[0].all, mz = M.rounds[M.rounds.length-1].all;
+  document.querySelectorAll('.rv-common').forEach(e=>e.textContent = RV.common);
+
+  $('#rv-lede').innerHTML = `Tuning aimed every factor at MacIsaac, a motif catalogue that keeps only sites conserved across yeast species. `+
+    `Rossi's ChIP-exo peaks were held back from all of it. Here the same calls from every round of both campaigns &mdash; posterior &ge; 0.10, the call set the loop counted &mdash; are matched to both references by one rule: `+
+    `within 30 bp of a site center, one call per site, greedy by position (<code>score_robocop.match_peaks</code>, as in <code>count_calls.py</code>). A match is both a site found and a call confirmed, so precision = matched / calls and recall = matched / sites. `+
+    `${RV.common} of the 81 MacIsaac groups have a Rossi ChExMix file; the comparison is pooled over those ${RV.common}, so both references score exactly the same calls.`;
+
+  const cov = RV.mac_in_cx / RV.sites.macisaac;
+  $('#rv-refs').innerHTML =
+    `<div class="refcard"><div class="hd"><span class="sw" style="background:var(--ref-mac)"></span><span class="nm">MacIsaac p005 c1</span></div>`+
+      `<p>Motif hits with ChIP-chip support, conserved across species, merged by interval union with 20 bp slop. The tuning target.</p>`+
+      `<p class="figs">${fmt.int(RV.sites.macisaac_all)} sites in 81 groups · ${fmt.int(RV.sites.macisaac)} in the ${RV.common} shared groups</p></div>`+
+    `<div class="refcard"><div class="hd"><span class="sw" style="background:var(--ref-cx)"></span><span class="nm">Rossi ChExMix</span></div>`+
+      `<p>Rossi et al.'s merged ChIP-exo summits, <code>&lt;TF&gt;_CX.bed</code>, one per peak, no motif requirement. Never seen by the tuning loop.</p>`+
+      `<p class="figs">${fmt.int(RV.sites.rossi_cx)} peaks in ${RV.common} groups · ${fmt.pct(cov)} of those MacIsaac sites have a Rossi peak within 30 bp</p></div>`+
+    `<div class="refcard out"><div class="hd"><span class="nm">Not used</span></div>`+
+      `<p><code>rossi_peak_w_strand_conformed_to_PWM_all_TFs_peakVal_1000.bed</code>: only 74 TFs, filtered to peakVal 1000, and the peak set the fitted Fiber-seq footprints were trained on, so scoring against it would be circular. The ChExMix files are the vetted Rossi set, and nothing else from Rossi is scored here.</p></div>`;
+
+  /* verdict: every number read from the rounds */
+  const dir = (a,z)=> z>a ? 'rose' : 'fell';
+  const mU = U.marginal.all.rest, mM = M.marginal.all.rest, f0 = U.marginal.all.first;
+  /* verdict: every number read from the rounds; the fitted/non-fitted split is what separates the two references */
+  const gain = (a,z)=>100*(z-a)/a;
+  const nU0 = U.rounds[0].nofit, nU1 = U.rounds[1].nofit, nUz = U.rounds[U.rounds.length-1].nofit;
+  const fitLost = f0.rossi_cx.d_matched - U.marginal.nofit.first.rossi_cx.d_matched;
+  const losers = U.per.filter(p=>p.fitted).map(p=>Object.assign({lost:p.rossi_cx.m0-p.rossi_cx.mz}, p)).sort((a,b)=>b.lost-a.lost).slice(0,3);
+  $('#rv-verdict').innerHTML = `<b>Rossi tells the same story, with one difference.</b> Over the ${RV.common} shared groups u001's F1 against Rossi went ${f4(ua.rossi_cx.f1)} → ${f4(U.rounds[1].all.rossi_cx.f1)} at round 1 → ${f4(uz.rossi_cx.f1)} at round ${U.round}, `+
+    `and against MacIsaac ${f4(ua.macisaac.f1)} → ${f4(U.rounds[1].all.macisaac.f1)} → ${f4(uz.macisaac.f1)}: the same ordering, the same flat tail after the first step, and the later steps' calls were worth less than the calls kept against both `+
+    `(rounds 1 → ${U.round} gave up ${fmt.int(Math.abs(mU.rossi_cx.d_calls))} calls at ${pp(mU.rossi_cx.precision)} Rossi precision, against ${pp(mU.rossi_cx.base_precision)} for round 1's calls; ${pp(mU.macisaac.precision)} against ${pp(mU.macisaac.base_precision)} for MacIsaac). `+
+    `The difference is the first step. It gained MacIsaac F1 ${gain(ua.macisaac.f1, U.rounds[1].all.macisaac.f1).toFixed(0)}% but Rossi F1 only ${gain(ua.rossi_cx.f1, U.rounds[1].all.rossi_cx.f1).toFixed(0)}%, and Rossi recall fell from round 0 on, ${pp(ua.rossi_cx.recall)} → ${pp(uz.rossi_cx.recall)}, where MacIsaac recall first rose. `+
+    `The loss sits in the factors tuned hardest down, which have far more Rossi peaks than MacIsaac sites and carry Rossi-trained footprints: ${losers.map(p=>`${p.group} ${p.rossi_cx.m0} → ${p.rossi_cx.mz} Rossi matches`).join(', ')}. `+
+    `The first step cost the ${RV.fitted.length} fitted groups ${fmt.int(-fitLost)} Rossi matches; without them Rossi F1 went ${f4(nU0.rossi_cx.f1)} → ${f4(nU1.rossi_cx.f1)} → ${f4(nUz.rossi_cx.f1)}, the MacIsaac shape. `+
+    `A reference the loop never saw agrees that &lambda; sets how many calls a factor makes, not which; where the two references part, pushing counts onto MacIsaac threw away sites Rossi supports.`;
+
+  /* round table */
+  $('#rv-tbl').querySelector('tbody').innerHTML = RUNKEYS.map((k,ki)=>RV.runs[k].rounds.map((d,i)=>{
+    const a=d.all;
+    const cell=(q,cls)=>`<td class="${cls}">${pp(q.precision)}</td><td>${pp(q.recall)}</td><td>${f4(q.f1)}</td>`;
+    return `<tr${i===0&&ki>0?' class="sep"':''}><td>${k}</td><td>${d.round}</td><td>${fmt.int(a.macisaac.calls)}</td>`+
+      cell(a.macisaac_all,'')+cell(a.macisaac,'c-mac')+cell(a.rossi_cx,'c-cx')+`</tr>`; }).join('')).join('');
+
+  /* marginal precision */
+  const mrow = (k, lbl, m, sep)=>`<tr${sep?' class="sep"':''}><td>${k}</td><td>${lbl}</td><td>${m.macisaac.d_calls>0?'+':''}${fmt.int(m.macisaac.d_calls)}</td>`+
+    `<td>${m.macisaac.d_matched>0?'+':''}${fmt.int(m.macisaac.d_matched)}</td><td class="c-mac">${pp(m.macisaac.precision)}</td>`+
+    `<td>${m.rossi_cx.d_matched>0?'+':''}${fmt.int(m.rossi_cx.d_matched)}</td><td class="c-cx">${pp(m.rossi_cx.precision)}</td></tr>`;
+  $('#rv-marg').querySelector('tbody').innerHTML = RUNKEYS.map((k,ki)=>{ const R = RV.runs[k].marginal[rvFit];
+    return R.steps.map((m,i)=>mrow(k, `${i} → ${i+1}`, m, i===0&&ki>0)).join('') +
+      mrow(k, `1 → ${RV.runs[k].round}, net`, R.rest, false); }).join('');
+  const b1 = U.rounds[1][rvFit];
+  $('#rv-marg-lede').innerHTML = `Marginal precision is Δmatched / Δcalls for one step: of the calls a step added or removed (negative counts are removals), the share that sat at a site. `+
+    `If tuning were sorting good calls from bad, removed calls would score well below the calls kept. A negative value means the step removed calls yet gained matches, which happens when some factors were raised onto their sites while others were cut. For comparison, u001's round-1 calls held ${pp(b1.macisaac.precision)} MacIsaac precision and ${pp(b1.rossi_cx.precision)} Rossi precision. `+
+    `Pooled over the ${rvFit==='all'?RV.common+' shared groups':(RV.common-RV.fitted.length)+' groups without a fitted footprint'}; the factor-groups switch above applies.`;
+
+  /* genic */
+  const gU = U.genic, gM = M.genic;
+  const gRow = (lbl, f)=>`<tr><td class="lbl">${lbl}</td>${gU.rounds.map((d,i)=>`<td>${f(i)}</td>`).join('')}</tr>`;
+  const gt = $('#rv-genic');
+  gt.querySelector('thead').innerHTML = `<tr><th>Round</th>${gU.rounds.map(d=>`<th>${d.round}</th>`).join('')}</tr>`;
+  gt.querySelector('tbody').innerHTML =
+    gRow('u001 calls inside an ORF', i=>gU.rounds[i].pct.toFixed(1)+'%') +
+    gRow('m001 calls inside an ORF', i=>gM.rounds[i].pct.toFixed(1)+'%') +
+    `<tr class="sep"><td class="lbl">Rossi peaks, same ${gU.groups} groups</td><td colspan="${gU.rounds.length}" style="text-align:left">${gU.rossi_pooled_cx.toFixed(1)}% · random genome ${RV.genic_null.toFixed(1)}%</td></tr>`;
+  const ga = gU.rounds[0].pct, gz = gU.rounds[gU.rounds.length-1].pct;
+  const away = Math.abs(gz-gU.rossi_pooled_cx) > Math.abs(ga-gU.rossi_pooled_cx);
+  $('#rv-genic-lede').innerHTML = `<strong>Tuning moved the calls ${away?'away from':'toward'} Rossi's genic fraction.</strong> A check that needs no site matching. One rule: a call is genic if it lies between some gene's ATG and its stop codon (<code>inputs/sacCer3.gtf</code>, as in <code>rossi_genic.py</code>); a random position is genic ${RV.genic_null.toFixed(1)}% of the time. `+
+    `Rossi's peaks for these ${gU.groups} groups are ${gU.rossi_pooled_cx.toFixed(1)}% genic. u001's calls went ${ga.toFixed(1)}% → ${gz.toFixed(1)}% `+
+    `(m001 ${gM.rounds[0].pct.toFixed(1)}% → ${gM.rounds[gM.rounds.length-1].pct.toFixed(1)}%). `+
+    `Per factor, over the ${gU.n_both} with at least 100 Rossi peaks and calls in both rounds, the median call genic% went ${gU.med_call0.toFixed(1)}% → ${gU.med_callz.toFixed(1)}% against a median Rossi ${gU.med_rossi.toFixed(1)}%; `+
+    `the median gap to Rossi went ${gU.med_gap0.toFixed(1)} → ${gU.med_gapz.toFixed(1)} points, and ${gU.closer} of ${gU.n_both} factors ended closer (m001: ${gM.med_gap0.toFixed(1)} → ${gM.med_gapz.toFixed(1)}, ${gM.closer} closer). The table lists u001, round 0 against round ${U.round}, ordered by Rossi's genic share.`;
+  const per = gU.per.slice().sort((a,b)=>a.rossi_cx-b.rossi_cx);
+  $('#rv-genic-per').querySelector('tbody').innerHTML = per.map(p=>{
+    const gap0 = p.pct0===null?null:p.pct0-p.rossi_cx, gapz = p.pctz===null?null:p.pctz-p.rossi_cx;
+    return `<tr><td>${p.group}${p.fitted?'<span class="pill p-fit">fitted</span>':''}</td><td>${fmt.int(p.rossi_n)}</td><td>${p.rossi_cx.toFixed(1)}%</td>`+
+      `<td>${fmt.int(p.calls0)}</td><td>${p.pct0===null?'—':p.pct0.toFixed(1)+'%'}</td><td>${fmt.int(p.callsz)}</td><td>${p.pctz===null?'—':p.pctz.toFixed(1)+'%'}</td>`+
+      `<td>${gap0===null||gapz===null?'—':`${gap0>=0?'+':''}${gap0.toFixed(0)} → ${gapz>=0?'+':''}${gapz.toFixed(0)}`}</td></tr>`; }).join('');
+
+  /* per-factor movers: biggest |ΔF1| against Rossi, either campaign, round 0 vs last */
+  const mv = RUNKEYS.flatMap(k=>RV.runs[k].per.map(p=>Object.assign({run:k}, p)))
+    .map(p=>Object.assign(p, {d: p.rossi_cx.f1z - p.rossi_cx.f10}));
+  const gains = mv.filter(p=>p.d>0).sort((a,b)=>b.d-a.d).slice(0,6), losses = mv.filter(p=>p.d<0).sort((a,b)=>a.d-b.d).slice(0,6);
+  const agree = mv.filter(p=>Math.sign(p.d)===Math.sign(p.macisaac.f1z-p.macisaac.f10) && p.d!==0).length, moved = mv.filter(p=>p.d!==0||p.macisaac.f1z!==p.macisaac.f10).length;
+  $('#rv-per-lede').innerHTML = `Round 0 against round ${U.round}, per factor group and campaign, ranked by the change in F1 against Rossi; the six largest gains, then the six largest losses. `+
+    `Across all ${mv.length} group-campaign pairs, ${agree} of the ${moved} that moved at all moved the same direction against both references. Groups marked <em>fitted</em> carry a Fiber-seq footprint trained on Rossi peak locations.`;
+  const prow = (p, sep)=>`<tr${sep?' class="sep"':''}><td>${p.group}${p.fitted?'<span class="pill p-fit">fitted</span>':''}</td><td>${p.run}</td><td>${fmt.int(p.macisaac.sites)}</td><td>${fmt.int(p.rossi_cx.sites)}</td>`+
+    `<td>${fmt.int(p.macisaac.calls0)} → ${fmt.int(p.macisaac.callsz)}</td>`+
+    `<td>${p.macisaac.m0} → ${p.macisaac.mz}</td><td class="c-mac">${p.macisaac.f10.toFixed(3)} → ${p.macisaac.f1z.toFixed(3)}</td>`+
+    `<td>${p.rossi_cx.m0} → ${p.rossi_cx.mz}</td><td class="c-cx">${p.rossi_cx.f10.toFixed(3)} → ${p.rossi_cx.f1z.toFixed(3)}</td></tr>`;
+  $('#rv-per').querySelector('tbody').innerHTML = gains.map((p,i)=>prow(p,false)).join('') + losses.map((p,i)=>prow(p,i===0)).join('');
+
+  /* caveats */
+  const nf = U.rounds[U.rounds.length-1].nofit, nf0 = U.rounds[0].nofit;
+  $('#rv-caveats').innerHTML = [
+    `<b>Rossi precision is a lower bound.</b> A call at a real binding site that Rossi never ChIPped, or called under its thresholds, counts as false. MacIsaac precision is a lower bound for the same reason, and more so: it keeps only conserved sites.`,
+    `<b>The two recall scales are not the same quantity.</b> The ${RV.common} shared groups have ${fmt.int(RV.sites.rossi_cx)} Rossi peaks and ${fmt.int(RV.sites.macisaac)} MacIsaac sites, and the loop pushed each group's calls toward its MacIsaac count, so recall against Rossi is capped by a count set for a different catalogue. Compare rounds within a reference, not the two references' absolute values.`,
+    `<b>${RV.fitted.length} groups have a footprint trained on Rossi.</b> ${RV.fitted_motifs.join(', ')} carry fitted Fiber-seq footprints learned from Rossi peak locations (${RV.fitted.join(', ')} among the tuning groups; Nhp6a, Spt15 and Tbf1 have no MacIsaac target). Their Rossi agreement is partly memorised. Without them, u001 round 0 → ${U.round}: Rossi F1 ${f4(nf0.rossi_cx.f1)} → ${f4(nf.rossi_cx.f1)}, MacIsaac F1 ${f4(nf0.macisaac.f1)} → ${f4(nf.macisaac.f1)} over ${RV.common-RV.fitted.length} groups; the switch above redraws the charts and marginal table without them.`,
+    `<b>The references overlap.</b> ${fmt.pct(cov)} of the MacIsaac sites in the shared groups have a Rossi peak within 30 bp (${fmt.pct(RV.mac_in_cx_nofit/RV.sites_nofit.macisaac)} without the fitted groups), so the two are not independent tests of the same calls.`,
+    `<b>Joins.</b> Rossi files were matched to tuning groups by name, case-insensitively; ${RV.alias.map(a=>`${a.group} joins ${a.rossi[0].toUpperCase()+a.rossi.slice(1)}_CX.bed through its systematic name`).join(' and ')}. ${RV.unjoined.length} groups have no Rossi file and are left out of every Rossi number: ${RV.unjoined.join(', ')}. `+
+      `ChExMix summits are used as shipped; ${fmt.int(RV.cx_fusable)} of them sit within 20 bp of another summit for the same factor and would fuse under MacIsaac's merge rule.`,
+    `<b>Same exclusions as the counts.</b> Positions where the decode's posterior left [0, 1] (the chrXII rDNA array) are dropped before calling, exactly as <code>count_calls.py</code> does, and every round's MacIsaac matches were re-derived from the stored call positions and checked equal to the tuning loop's own before any Rossi number was computed.`
+  ].map(t=>`<li>${t}</li>`).join('');
+}
+
+function rossiInteract(){
+  document.querySelectorAll('#rv-run button').forEach(b=>b.addEventListener('click',()=>{
+    rvRun=b.dataset.run;
+    document.querySelectorAll('#rv-run button').forEach(o=>o.setAttribute('aria-pressed', String(o===b)));
+    rvCharts(); }));
+  document.querySelectorAll('#rv-fit button').forEach(b=>b.addEventListener('click',()=>{
+    rvFit=b.dataset.fit;
+    document.querySelectorAll('#rv-fit button').forEach(o=>o.setAttribute('aria-pressed', String(o===b)));
+    rvCharts(); rossiSection(); }));
+}
+
+function draw(){ stats(); dumbbell(); scatter(); table(); }
+
+document.querySelectorAll('#run button').forEach(b=>b.addEventListener('click',()=>{
+  run=b.dataset.run;
+  document.querySelectorAll('#run button').forEach(o=>o.setAttribute('aria-pressed', String(o===b)));
+  draw(); }));
+$('#show').addEventListener('change',e=>{ show=e.target.value; dumbbell(); table(); });
+$('#sortby').addEventListener('change',e=>{ sortby=e.target.value; dumbbell(); table(); });
+$('#q').addEventListener('input',e=>{ q=e.target.value.trim().toLowerCase(); dumbbell(); table(); });
+$('#tbl').querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
+  sortby=th.dataset.k; const sel=$('#sortby');
+  if([...sel.options].some(o=>o.value===sortby)) sel.value=sortby;
+  dumbbell(); table(); }));
+let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{dumbbell();scatter();},180); });
+outcome();
+massTable();
+rossiSection();
+rvCharts();
+rossiInteract();
+probes();
+draw();
+})();
+</script>

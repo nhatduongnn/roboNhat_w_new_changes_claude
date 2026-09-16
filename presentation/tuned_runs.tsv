@@ -1,0 +1,8 @@
+# label	tuning_outDir (chrXIV, chrII)	holdout_outDir (chrIV)
+fib r0	robocop_chrXIV_chrII_tw_fw01_00	robocop_chrIV_tw_fw01_00
+fib final	robocop_chrXIV_chrII_tw_fw01_07	robocop_chrIV_tw_fw01_07
+seq r0	robocop_chrXIV_chrII_tw_sw01_00	robocop_chrIV_tw_sw01_00
+seq final	robocop_chrXIV_chrII_tw_sw01_05	robocop_chrIV_tw_sw01_05
+both r0	robocop_chrXIV_chrII_tw_bw01_00	robocop_chrIV_tw_bw01_00
+both final	robocop_chrXIV_chrII_tw_bw01_07	robocop_chrIV_tw_bw01_07
+u001 r7 legacy	robocop_genome_ct_u001_07	robocop_genome_ct_u001_07

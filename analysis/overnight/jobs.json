@@ -1,0 +1,80 @@
+{
+ "A": {
+  "robocop_chrIV_twS05_both": {
+   "coords": "coord_tw_chrIV.tsv",
+   "count": "12596113",
+   "decode": "12596112",
+   "driver": "run_split_revfix_seq_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_sw01_05"
+  },
+  "robocop_chrIV_twS05_fib": {
+   "coords": "coord_tw_chrIV.tsv",
+   "count": "12596115",
+   "decode": "12596114",
+   "driver": "run_split_revfix_fiber_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_sw01_05"
+  },
+  "robocop_chrXIV_chrII_twS05_both": {
+   "coords": "coord_tw_chrXIV_chrII.tsv",
+   "count": "12596109",
+   "decode": "12596108",
+   "driver": "run_split_revfix_seq_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_sw01_05"
+  },
+  "robocop_chrXIV_chrII_twS05_fib": {
+   "coords": "coord_tw_chrXIV_chrII.tsv",
+   "count": "12596111",
+   "decode": "12596110",
+   "driver": "run_split_revfix_fiber_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_sw01_05"
+  }
+ },
+ "B_refresh": {
+  "bt05": {
+   "after_holdout_validate": "12597735",
+   "chereji": "12597859",
+   "stopped": "stopped after iter 5: converged: every tuned group took a zero step (deadband or held at the per-bp cap)",
+   "summary": "12597862"
+  }
+ },
+ "B_watch": {
+  "bt02": "12597684",
+  "bt05": "12597278",
+  "bt10": "12597686"
+ },
+ "C": {
+  "robocop_genome_tw_bw01_07": {
+   "coords": "coord_genome_full.tsv",
+   "count": "12596121",
+   "decode": "12596120",
+   "driver": "run_split_revfix_seq_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_bw01_07"
+  },
+  "robocop_genome_tw_fw01_07": {
+   "coords": "coord_genome_full.tsv",
+   "count": "12596119",
+   "decode": "12596118",
+   "driver": "run_split_revfix_fiber_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_fw01_07"
+  },
+  "robocop_genome_tw_sw01_05": {
+   "coords": "coord_genome_full.tsv",
+   "count": "12596117",
+   "decode": "12596116",
+   "driver": "run_split_revfix_seqonly_maskoff_mr58.py",
+   "traindir": "robocop_train_tw_sw01_05"
+  }
+ },
+ "chereji": {
+  "tw_bt10_04": "12597861",
+  "tw_bw01_07": "12596329",
+  "tw_fw01_07": "12601236",
+  "tw_sw01_05": "12596330"
+ },
+ "score": {
+  "A": "12596326",
+  "C": "12596327",
+  "summary": "12596328",
+  "summary_after_A": "12596338"
+ }
+}

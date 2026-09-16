@@ -6,7 +6,7 @@ NO RETRAIN IS NEEDED for any of these variants. HMMconfig.pkl holds only PWM-der
 quantities (pwm_emission, tf_prob, transition_matrix); the Fiber-seq parameter pkls are
 read at RUNTIME by robocop.py:598/606 inside the emission build, and that emission matrix
 is never persisted. So every variant decodes against robocop_train_fiberonly and shares the
-baseline's exact HMMconfig -- the comparison against robocop_chrI_seq_maskoff_revfix is
+baseline's exact HMMconfig -- the comparison against robocop_chrI_fib_seq is
 strictly one-variable, with no nucleosome-model drift.
 
 MASK OFF is required: variants 1 and 2 only alter parameters used by the ~142 fallback TFs,

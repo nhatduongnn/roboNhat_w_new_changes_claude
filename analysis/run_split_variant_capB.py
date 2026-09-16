@@ -16,7 +16,7 @@ NO RETRAIN NEEDED. HMMconfig.pkl holds only PWM-derived quantities; the Fiber-se
 parameter pkls are read at RUNTIME by robocop.py:598/606 while the emission matrix is
 built, and that matrix is never persisted. Both variants therefore decode against
 robocop_train_fiberonly and share the baseline's exact HMMconfig, so the comparison
-against robocop_chrI_seq_maskoff_revfix is strictly one-variable.
+against robocop_chrI_fib_seq is strictly one-variable.
 
 MASK OFF is required: the change only affects the ~141 fallback TFs, which an ABF1-only
 mask would forbid outright, hiding the effect entirely.

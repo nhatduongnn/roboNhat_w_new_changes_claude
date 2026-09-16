@@ -11,8 +11,9 @@ arrays, TF footprints at NDRs).
 2. Then incorporate the sequence layer, then MNase.
 3. Then move from the aggregate pileup to **single-fiber** (per-read) decoding.
 
-Companion docs: `HANDOFF.md` = current tooling (scorer, plots, layer/mask toggles, canonical
-runs) — that is the up-to-date operational reference. `FIBERSEQ_CHANGES.md` = full code diff
+Companion docs: `CLAUDE.md` = the fresh-session entry point (environment, rules, gotchas,
+command cheat-sheet). `HANDOFF.md` = state of every thread and the tooling (scorer, plots,
+layer/mask toggles, canonical runs) — the up-to-date operational reference. `FIBERSEQ_CHANGES.md` = full code diff
 vs upstream. This file = strategy + what is left to do.
 
 ---
@@ -32,15 +33,18 @@ Done and validated:
   `analysis/chrI_5run_metrics.json`.
 - **Sequence layer helps ABF1 a lot**: enabling layer 0 lifts chrI ABF1 enrichment from
   ~1.1× to ~29×, though site recall is still 2/5 (see the limitation below).
-- **A widened-footprint series exists and is mostly measured** (2026-08-27 → 09-04). Six
-  variants — `widememe` (ABF1 only, 7/2), `widefp` (12 TFs, per-TF footprint), `wide10` (12
-  TFs, ±10), `wide10all` (all 153, ±10), `wide150` (12 TFs, ±150), `wide150all` (all 153,
+- **A widened-footprint series exists and is fully measured** (2026-08-27 → 09-04). Five
+  live variants — `widememe` (ABF1 only, 7/2), `wide12` (the 12 fitted TFs, per-TF
+  footprint), `wide10all` (all 153, ±10), `wide150` (12 TFs, ±150), `wide150all` (all 153,
   ±150) — each reached as **pure data plus one changed line**, since
-  `get_transition_matrix_info` derives `tf_lens` from `pwm[tf].shape[1]`. All but `wide150`
-  and `wide150all` are scored on chrI and chrXIV. **`wide150`'s four decodes are finished and
-  unscored — that is the first thing to pick up.** `wide150all` is permanently blocked by
+  `get_transition_matrix_info` derives `tf_lens` from `pwm[tf].shape[1]`. All are scored on
+  chrI and chrXIV except `wide150all`, which never ran. A sixth, the uniform ±10 padding of
+  the 12 TFs, held the `wide12` name until 2026-09-04 and is retired to
+  `analysis/retired/wide10_uniform/` (its scores are kept in the README there).
+  **`wide150` scored empty: the ±150 pads crush the 12 widened TFs' concentration priors by
+  1e-16…1e-30, so their posterior is zero. Fixable without retraining — see `HANDOFF.md` §7.** `wide150all` is permanently blocked by
   32-bit index overflow in `bc.c` at `n_states` 95285; ±70 is the largest uniform pad across
-  all 153 motifs that fits under the 46340 ceiling. Full detail: `HANDOFF.md` §10.1–§10.2 and
+  all 153 motifs that fits under the 46340 ceiling. Full detail: `HANDOFF.md` §7 and
   `analysis/README_wide_implementations.md`.
 - **The concentration prior was calibrated by a λ sweep, not by EM** (2026-08-24 → 09-01).
   EM collapses: after 10 iterations 66 of 154 TFs sit at exactly 0 and 28 are pinned to the
@@ -49,16 +53,26 @@ Done and validated:
   baseline, same true positives, false positives 81 → 29. The response is monotone in λ, so
   there are no local optima and sampling buys nothing. Runs `robocop_{chrI,chrXIV}_conclo_*`,
   scored in `conc_scores/`.
+- **All 84 MacIsaac-targeted concentrations are now calibrated, and it settles what λ can
+  do** (2026-09-10 → 09-12, `HANDOFF.md` §1). Two 8-round genome-wide campaigns —
+  `u001` (all motifs live) and `m001` (69 non-MacIsaac motifs hard-masked) — drove per-factor
+  call counts onto MacIsaac's site counts: 79 of 81 groups within 2×, typical factor 1.07×
+  off, nucleosomes unmoved. **Site accuracy barely followed**: pooled F1 0.029 → 0.049 with
+  all the gain in the first step, recall peaking at round 1, and every λ step adding or
+  removing calls at only 1–2% MacIsaac precision. So **λ is a count knob, not an accuracy
+  knob** — consistent with the flat AUROC in the ABF1 sweep. Masking the untargeted motifs
+  made it slightly worse (F1 0.042). λ_unknown is pinned at 0.01 by user decision. The tuned
+  models are `robocop_train_ct_{u001,m001}_07`; Rossi validation of them is the open question.
 - **A model-free validation target now exists**: Rossi's genic/intergenic split for **378
   TFs** (`analysis/rossi_genic/rossi_genic_all_TFs.tsv`). For any TF the model emits, compare
   the fraction of its calls inside an ORF with that TF's row. 77 of the 153 RoboCOP motif TFs
   have a Rossi row, 47 with ≥100 peaks; their genic% spans 8.8% to 59.3% against a 73.0%
-  random-genome null. `HANDOFF.md` §10.4.
+  random-genome null. `HANDOFF.md` §5.2.
 - **The shipped PWM collection has been audited** (2026-08-14 → 08-18, read-only —
   `inputs/motifs_meme.txt` is unchanged). All 153 shipped matrices were compared against
   JASPAR CORE fungi and Rossi ChExMix, three ways, one row per Rossi replicate. **7
   matrices come out as the odd one of the three** — `Abf1_murphy`,
-  all four RAP1 matrices, `Pdr1_badis`, `Cad1_murphy`. See **`HANDOFF.md` §0** for the
+  all four RAP1 matrices, `Pdr1_badis`, `Cad1_murphy`. See **`HANDOFF.md` §6** for the
   method, the tooling, and the published sheet; the new open work it created is Tier 0
   below. None of the items in this file were worked on.
 
@@ -96,7 +110,7 @@ cleanup #4 below).
 Mechanics: **do not comment these lines in and out by hand any more.** Every layer/mask
 combination exists as a frozen copy of the package under `analysis/pkgvar/<variant>/`, which
 the driver selects with `sys.path.insert(0, 'pkgvar/<variant>/')`. That removes the
-flip-and-wait race and lets all variants run concurrently — see `HANDOFF.md` §0.5 for the
+flip-and-wait race and lets all variants run concurrently — see `HANDOFF.md` §4.2 for the
 variant table. The older single-run path (trainDir `robocop_train_fiberonly`, driver
 `run_fiberonly_noem.py`, sbatch `sbatch_noem.sh`) still works if you do edit by hand. Decodes
 use `run_robocop_without_em` (keeps `tmpDir/info.h5`; equivalent to `with_em` iter=0, which
@@ -124,26 +138,35 @@ metrics barely move.
 
 ## Open work
 
-### Tier −1 — finish what is already computed (do this first; it is cheap)
+### Tier −1 — DONE 2026-09-04
 
-−1. **Score the four `wide150` decodes.** They completed 2026-09-03 and nothing has read
-    them. Add the four rows to `layer_runs_chrI.tsv` / `layer_runs_chrXIV.tsv`, widen the
-    `#SBATCH --array` bound in the two `sbatch_score_layers*.sh` (it is a literal, not
-    derived from the file, so a stale bound silently skips the new rows), and run.
-    **Interpret with the block-width correction**: the posterior collapses over the whole
-    314 bp padded block, so raw enrichment falls ~22× for arithmetic reasons alone. Compare
-    recall and site posteriors. `HANDOFF.md` §10.1.
+−1. ~~**Score the four `wide150` decodes.**~~ **DONE.** All four scored on chrI and chrXIV;
+    the array bound was widened (and a guard added so a stale bound now aborts instead of
+    silently skipping rows). **Result: empty.** ABF1's posterior is identically 0 at every
+    MacIsaac site in all four. Not the block-width artifact and not a scoring bug — the
+    `Abf1_murphy` column is present and non-widened factors in the same decode carry normal
+    mass. The ±150 estimated pads crush the 12 widened TFs' `tf_prob` by 9.6e-19 (ABF1) to
+    5.0e-30 (Fhl1) while every non-widened TF sits at ratio 1.00, which underflows the
+    posterior to zero. Nucleosomes are unaffected (recall 0.81, dyad 7–8 bp, period 171), so
+    the decodes themselves are healthy. `HANDOFF.md` §7.
 
-−2. **Add `widefp` and `wide150` to `viewer_runs_chrI.tsv` / `viewer_runs_chrXIV.tsv`** and
-    rebuild the combined browser artifact (`c6c7d1f3-…`). The two files must carry an
-    identical label set — the label is the join key that preserves the selected run across a
-    region switch.
+−2. ~~**Add `widefp` and `wide150` to the viewer runs.**~~ **DONE.** Both added, label sets
+    verified identical (18 labels after the `wide12` retirement), combined browser rebuilt
+    and republished in place to `c6c7d1f3-…`.
 
-−3. **Decide the all-motif wide experiment.** ±70 across all 153 runs today with no code
-    change (`n_states` 46325, just under the 46340 ceiling; ~295 GB train, so a
+−3. **Decide the all-motif wide experiment.** STILL OPEN. ±70 across all 153 runs today with
+    no code change (`n_states` 46325, just under the 46340 ceiling; ~295 GB train, so a
     `compsci-cluster-fitz-*` node). The alternative is an `int64_t` rebuild of `bc.c` into a
     **separate** `librobocop.so` used by that variant only — a change to the numerical core
-    that must be re-validated against an existing run first. `HANDOFF.md` §10.2.
+    that must be re-validated against an existing run first. `HANDOFF.md` §4.7.
+
+−4. **NEW — decide whether to rescue `wide150`.** Its priors can be restored without
+    retraining: `make_conc_trainDir.py --set <TF>=<lam>` takes all twelve at once, with
+    lam = baseline `tf_prob` ÷ wide150 `tf_prob` (Abf1_murphy=1.04e18, Reb1_badis=1.99e20,
+    Fhl1_zhu=1.99e29, …; recompute the full vector from the two trainDirs — `HANDOFF.md` §7). That would make `wide150` an
+    actual test of the ±150 hypothesis rather than a test of switched-off factors. It needs
+    a new trainDir plus four re-decodes; the training is a config build, not a fit, so the
+    expensive part is only the decodes.
 
 ### Tier 0 — the PWM collection (NEW; gates Tier 1 #2)
 
@@ -158,7 +181,7 @@ metrics barely move.
    other six (`Rap1_telomeric`, `Rap1_zhu`, `Rap1_motif1`, `Rap1_motif2`, `Pdr1_badis`,
    `Cad1_murphy`) have sheet evidence but **no FIMO or decode validation yet** — get that
    before swapping anything. **A confident TOMTOM q-value is not evidence a matrix works;
-   score real sites.** Details, tooling and the shortlist: `HANDOFF.md` §0.
+   score real sites.** Details, tooling and the shortlist: `HANDOFF.md` §6.
 
    Two constraints when swapping: keep the `jaspar_abf1_motifs_meme.txt` pattern (one
    alternate PWM file + one alternate config, never an in-place edit of
@@ -176,7 +199,7 @@ metrics barely move.
    once and never recomputed, over a distribution skewed enough (mean 1.0e-4, median 1.2e-5,
    sd 2.9e-4) that 6 TFs are already above it before EM starts. Calibrate concentrations with
    the direct λ sweep instead (`make_conc_trainDir.py`, `sweep_conc.py`, `score_sweep.py`);
-   λ=0.01 for ABF1 is the measured optimum. `HANDOFF.md` §9 has the diagnosis;
+   λ=0.01 for ABF1 is the measured optimum. `HANDOFF.md` §2 has the diagnosis;
    `conc-calibration-wont-work` in the memory index has the numbers.
 2. **Retrain with the sequence layer ON.** The current `*_seq_*` decodes reuse
    Fiber-only-trained weights, so they are a lower bound on what sequence can do.

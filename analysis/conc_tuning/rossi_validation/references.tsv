@@ -1,0 +1,82 @@
+group	motifs	fitted	n_macisaac	cx_tf	cx_join	n_cx	cx_fusable_20bp	genic_pct_cx	n_cx_genic_tsv	macisaac_in_rossi_cx
+ABF1	Abf1_murphy	1	300	abf1	name	724	4	23.34	724	256
+ACE2	Ace2_badis	0	202	ace2	name	109	4	23.85	109	16
+ADR1	Adr1_badis	0	303			0	0	NA	NA	
+AFT2	Aft2_badis	0	360	aft2	name	36	0	25.0	36	20
+ARO80	Aro80_zhu	0	2	aro80	name	9	3	11.11	9	2
+AZF1	Azf1_badis	0	40	azf1	name	60	1	21.67	60	2
+BAS1	Bas1_zhu	0	93	bas1	name	97	8	25.77	97	17
+CAD1	Cad1_murphy	0	45	cad1	name	182	0	59.34	182	22
+CBF1	Cbf1_zhu	0	189	cbf1	name	200	7	29.0	200	79
+CHA4	Cha4_zhu	0	45	cha4	name	93	2	78.49	93	0
+CIN5	Cin5_murphy	1	464	cin5	name	557	14	28.19	557	131
+CST6	Cst6_murphy	0	333			0	0	NA	NA	
+DAL80	Dal80_badis	0	276			0	0	NA	NA	
+DAL82	Dal82_badis	0	328			0	0	NA	NA	
+FHL1	Fhl1_zhu	1	160	fhl1	name	556	19	53.24	556	20
+FKH1	Fkh1_zhu	1	310	fkh1	name	625	0	23.04	625	121
+FKH2	Fkh2_zhu	0	304	fkh2	name	193	0	33.68	193	51
+GAL4	Gal4_zhu	0	17	gal4	name	15	1	20.0	15	6
+GAT1	Gat1_zhu	0	130			0	0	NA	NA	
+GAT3	Gat3_zhu	0	107			0	0	NA	NA	
+GCN4	Gcn4_zhu	0	307	gcn4	name	49	0	10.2	49	35
+GCR1	Gcr1_murphy	0	76	gcr1	name	168	2	56.55	168	13
+GLN3	Gln3_badis	0	380	gln3	name	119	0	48.74	119	8
+GZF3	Gzf3_zhu	0	79	gzf3	name	370	2	40.54	370	0
+HAC1	Hac1_badis	0	14			0	0	NA	NA	
+HAP1	Hap1_murphy	0	184	hap1	name	119	0	17.65	119	39
+HSF1	Hsf1_badis	0	74	hsf1	name	204	17	45.1	204	31
+LEU3	Leu3_zhu	0	22	leu3	name	52	0	26.92	52	13
+MBP1	Mbp1_zhu	0	277	mbp1	name	142	1	18.31	142	51
+MCM1	Mcm1_zhu	1	72	mcm1	name	412	2	37.38	412	58
+MET31	Met31_badis	0	201	met31	name	128	8	35.94	128	12
+MET32	Met32_badis	0	27	met32	name	28	1	39.29	28	6
+MIG1	Mig1_zhu	0	33	mig1	name	318	2	40.57	318	6
+MOT3	Mot3_murphy	0	618			0	0	NA	NA	
+MSN2	Msn2_badis	0	613	msn2	name	11	0	72.73	11	0
+MSN4	Msn4_badis	0	610			0	0	NA	NA	
+NRG1	Nrg1_zhu	0	272	nrg1	name	81	0	16.05	81	26
+PDR1	Pdr1_badis	0	41	pdr1	name	316	16	47.78	316	0
+PDR3	Pdr3_murphy	0	2	pdr3	name	46	0	73.91	46	1
+PHD1	Phd1_zhu	0	1068	phd1	name	312	0	21.15	312	49
+PHO2	Pho2_badis	0	1732			0	0	NA	NA	
+PHO4	Pho4_zhu	0	46			0	0	NA	NA	
+PUT3	Put3_badis	0	6	put3	name	36	0	75.0	36	5
+RAP1	Rap1_zhu,Rap1_motif1,Rap1_motif2,Rap1_telomeric	1	233	rap1	name	388	23	10.05	388	173
+RDS1	Rds1_zhu	0	14			0	0	NA	NA	
+REB1	Reb1_badis	1	279	reb1	name	1078	7	21.15	1078	233
+RFX1	Rfx1_badis	0	15	rfx1	name	85	36	27.06	85	12
+RGT1	Rgt1_badis	0	12			0	0	NA	NA	
+RIM101	Rim101_badis	0	11			0	0	NA	NA	
+ROX1	Rox1_badis	0	368	rox1	name	369	0	53.66	369	9
+RPH1	Rph1_badis	0	3	rph1	name	57	0	66.67	57	0
+RPN4	Rpn4_badis	0	97	rpn4	name	98	5	27.55	98	23
+RTG3	Rtg3_zhu	0	298	rtg3	name	21	0	19.05	21	4
+SFP1	Sfp1_zhu	0	88	sfp1	name	189	0	22.75	189	12
+SIP4	Sip4_badis	0	9			0	0	NA	NA	
+SKN7	Skn7_badis	0	438	skn7	name	119	0	21.85	119	44
+SKO1	Sko1_murphy	1	84	sko1	name	300	3	39.0	300	27
+SMP1	Smp1_zhu	0	3			0	0	NA	NA	
+SOK2	Sok2_badis	0	712	sok2	name	526	3	23.38	526	72
+STB4	Stb4_murphy	0	10	stb4	name	94	0	68.09	94	3
+STB5	Stb5_murphy	0	53	stb5	name	219	5	35.62	219	17
+STE12	Ste12_murphy	0	1216	ste12	name	144	2	27.78	144	29
+STP1	Stp1_murphy	0	110	stp1	name	179	0	30.73	179	11
+STP4	Stp4_zhu	0	4	stp4	name	60	2	50.0	60	0
+SUM1	Sum1_zhu	0	105	sum1	name	243	0	20.16	243	31
+SUT1	Sut1_murphy	0	542	sut1	name	184	6	19.02	184	47
+SWI4	Swi4_badis	0	369	swi4	name	149	1	27.52	149	47
+SWI5	Swi5_badis	0	515	swi5	name	38	1	23.68	38	17
+TEC1	Tec1_badis	0	357			0	0	NA	NA	
+TYE7	Tye7_zhu	0	118			0	0	NA	NA	
+UGA3	Uga3_badis	0	5			0	0	NA	NA	
+UME6	Ume6_zhu	1	184	ume6	name	322	0	22.36	322	131
+XBP1	Xbp1_badis	0	150			0	0	NA	NA	
+YAP1	Yap1_zhu	0	100	yap1	name	145	1	46.9	145	16
+YAP3	Yap3_murphy	0	17			0	0	NA	NA	
+YAP6	Yap6_zhu	0	674			0	0	NA	NA	
+YDR520C	Ydr520c_badis	0	6	urc2	alias	55	0	54.55	55	4
+YML081W	Yml081w_zhu	0	17	tda9	alias	172	0	70.35	172	2
+YOX1	Yox1_badis	0	6			0	0	NA	NA	
+YRR1	Yrr1_zhu	0	7	yrr1	name	139	2	32.37	139	0
+ZAP1	Zap1_murphy	0	6	zap1	name	45	1	53.33	45	5

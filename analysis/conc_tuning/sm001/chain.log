@@ -1,0 +1,90 @@
+2026-09-14 10:28:38  iter 00  submitted decode 12590526 count 12590527 next 12590528
+2026-09-14 11:19:13  iter 01  submitted decode 12590937 count 12590938 next 12590939
+2026-09-14 12:10:12  iter 02  submitted decode 12591060 count 12591061 next 12591062
+2026-09-14 13:01:50  iter 02  STOPPED: error: make_conc_trainDir failed:
+e: Aro80_zhu          x 0.0001
+scale: Azf1_badis         x 1000
+scale: Bas1_zhu           x 60.9093
+scale: Cad1_murphy        x 4.14348
+scale: Cbf1_zhu           x 0.33354
+scale: Cha4_zhu           x 0.548561
+scale: Cin5_murphy        x 68.1849
+scale: Cst6_murphy        x 49.7518
+scale: Dal80_badis        x 0.344748
+scale: Dal82_badis        x 18.2699
+scale: Fhl1_zhu           x 0.608458
+scale: Fkh1_zhu           x 22.6628
+scale: Fkh2_zhu           x 10.1085
+scale: Gal4_zhu           x 0.0366955
+scale: Gat1_zhu           x 0.975148
+scale: Gat3_zhu           x 1.36769
+scale: Gcn4_zhu           x 1.60767
+scale: Gcr1_murphy        x 53.0394
+scale: Gln3_badis         x 0.323155
+scale: Gzf3_zhu           x 6.4431
+scale: Hac1_badis         x 1000
+scale: Hap1_murphy        x 1000
+scale: Hsf1_badis         x 1000
+scale: Leu3_zhu           x 0.18113
+scale: Mbp1_zhu           x 65.7341
+scale: Mcm1_zhu           x 11.6361
+scale: Met31_badis        x 14.687
+scale: Met32_badis        x 0.000263232
+scale: Mig1_zhu           x 76.4522
+scale: Mot3_murphy        x 43.8034
+scale: Msn2_badis         x 0.0871403
+scale: Msn4_badis         x 0.152509
+scale: Nrg1_zhu           x 5.2816
+scale: Pdr1_badis         x 0.0723943
+scale: Pdr3_murphy        x 0.0676663
+scale: Phd1_zhu           x 12.8712
+scale: Pho2_badis         x 0.926136
+scale: Pho4_zhu           x 0.468701
+scale: Put3_badis         x 0.00139661
+scale: Rap1_motif1        x 23.7582
+scale: Rap1_motif2        x 23.7582
+scale: Rap1_telomeric     x 23.7582
+scale: Rap1_zhu           x 23.7582
+scale: Rds1_zhu           x 0.272336
+scale: Reb1_badis         x 1.18651
+scale: Rfx1_badis         x 0.000471025
+scale: Rgt1_badis         x 0.0001
+scale: Rim101_badis       x 0.000894684
+scale: Rox1_badis         x 1000
+scale: Rph1_badis         x 0.0331703
+scale: Rpn4_badis         x 0.27759
+scale: Rtg3_zhu           x 20.4085
+scale: Sfp1_zhu           x 0.0654291
+scale: Sip4_badis         x 0.0001
+scale: Skn7_badis         x 3.00315
+scale: Sko1_murphy        x 1.59253
+scale: Smp1_zhu           x 0.00295619
+scale: Sok2_badis         x 1.45367
+scale: Stb4_murphy        x 1000
+scale: Stb5_murphy        x 5.48721
+scale: Ste12_murphy       x 2.13003
+scale: Stp1_murphy        x 1.25759
+scale: Stp4_zhu           x 0.0815639
+scale: Sum1_zhu           x 0.000492069
+scale: Sut1_murphy        x 35.0952
+scale: Swi4_badis         x 1.11537
+scale: Swi5_badis         x 0.6656
+scale: Tec1_badis         x 0.162739
+scale: Tye7_zhu           x 1.25754
+scale: Uga3_badis         x 0.000836013
+scale: Ume6_zhu           x 4.83784
+scale: Xbp1_badis         x 942.237
+scale: Yap1_zhu           x 94.8874
+scale: Yap3_murphy        x 2.27579
+scale: Yap6_zhu           x 8.76789
+scale: Ydr520c_badis      x 0.141825
+scale: Yml081w_zhu        x 52.6295
+scale: Yox1_badis         x 0.0001
+scale: Yrr1_zhu           x 0.220092
+scale: Zap1_murphy        x 0.729229
+scale: unknown            x 0.01
+src  : robocop_train_fiberonly
+out  : robocop_train_ct_sm001_03
+
+error: nucleosome_prob 1.357275e-03 is not reachable with lambda_nucleosome in [1e-08, 1000]
+

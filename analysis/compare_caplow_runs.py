@@ -18,9 +18,9 @@ import pandas as pd
 
 import score_robocop as S
 
-RUNS = [("baseline", "robocop_chrI_seq_maskoff_revfix"),
-        ("capA", "robocop_chrI_seq_maskoff_capA"),
-        ("capB", "robocop_chrI_seq_maskoff_capB")]
+RUNS = [("baseline", "robocop_chrI_fib_seq"),
+        ("capA", "robocop_chrI_fib_seq_capA"),
+        ("capB", "robocop_chrI_fib_seq_capB")]
 FITTED = ["Abf1_murphy", "Cin5_murphy", "Fhl1_zhu", "Fkh1_zhu", "Mcm1_zhu", "Nhp6a_zhu",
           "Rap1_telomeric", "Reb1_badis", "Sko1_murphy", "Spt15_zhu", "Tbf1_zhu", "Ume6_zhu"]
 CHROM, START, END = "chrI", 1, 230218

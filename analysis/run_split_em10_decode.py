@@ -4,7 +4,7 @@ Identical to run_split_revfix_seq_maskoff.py -- same package variant, same emiss
 same reverse-strand fix -- and differs ONLY in the trainDir passed on the command line.
 That is the point: the decode must use the unmodified pkgvar/seq_maskoff (NOT
 pkgvar/seq_maskoff_em10, which only exists to turn training on), so the single variable
-between this run and robocop_chrI_seq_maskoff_revfix is the fitted concentrations.
+between this run and robocop_chrI_fib_seq is the fitted concentrations.
 """
 import sys, os
 sys.path.insert(0, 'pkgvar/seq_maskoff/')

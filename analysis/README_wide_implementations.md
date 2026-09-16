@@ -75,11 +75,20 @@ and `make_params_wide.py` read one, so the sequence and Fiber layers cannot disa
 | run | widened | pads | `n_states` | pad config | Fiber source |
 |---|---|---|---|---|---|
 | `widememe` | Abf1_murphy only | 7 left / 2 right | 3503 | `tf_pads.tsv` | pm50 |
-| `wide10` | the 12 fitted TFs | 10 / 10 | 3965 | `tf_pads_wide10.tsv` | pm50 |
-| `widefp` | the 12 fitted TFs | per-TF footprint | 3765 | `tf_pads_widefp.tsv` | pm50 |
+| `wide12` | the 12 fitted TFs | per-TF footprint | 3765 | `tf_pads_wide12.tsv` | pm50 |
 | `wide10all` | all 153 motifs | 10 / 10 | 9605 | `tf_pads_wide10all.tsv` | pm50 |
 | `wide150` | the 12 fitted TFs | 150 / 150 | 10685 | `tf_pads_wide150.tsv` | pm200 |
 | `wide150all` | all 153 motifs | 150 / 150 | 95285 | `tf_pads_wide150all.tsv` | pm200 -- **BLOCKED, see below** |
+
+**`wide12` was renamed on 2026-09-04, and the name changed meaning.** It used to be a
+uniform +/-10 padding of the same 12 TFs (`tf_pads_wide10.tsv`, `n_states` 3965); it is now
+the per-TF footprint padding formerly called `widefp` (`n_states` 3765). The uniform variant
+is retired to `retired/wide10_uniform/`, whose README keeps its measured scores -- it beat
+the per-TF variant on ABF1 (chrXIV F1 0.192 vs 0.038), and the per-TF geometry was chosen
+anyway because it encodes the specific left/right widths intended for each factor. Any
+number labelled `wide12` in a report written before that date is the uniform run.
+Note that `sbatch_train_wide10.sh` and `sbatch_{chrI,chrXIV}_wide10.sh` keep their names:
+they are the generic drivers every widened run calls, not part of the retired variant.
 
 Each has its own meme file, params pkl, pkgvar (one line), config, trainDir and two decodes
 (chrI + chrXIV), gated by `check_widememe_traindir.py`.
@@ -163,7 +172,8 @@ untouched even at 2.76x the state space. But TF call counts collapse in `wide10a
 0.0003x-0.075x of baseline per TF (median 0.069x). Recoverable per-TF via
 `make_conc_trainDir.py --tf <name> --lam <1/ratio>` without retraining.
 
-**A gate lesson worth keeping.** The first `wide10` train "failed" on a check asserting that
+**A gate lesson worth keeping.** The first uniform-+/-10 train (the retired
+`wide10`, see above) "failed" on a check asserting that
 non-widened TFs keep their baseline prior. They do not, and cannot: `convert_to_prob` solves
 ONE unbound root `p` across all motif lengths and then renormalises, so
 `prob_new/prob_base = (p_new/p_base)^len * (S_base/S_new)` for every TF. Widening 12 TFs by

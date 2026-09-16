@@ -1,0 +1,49 @@
+run	round	set	chroms	ref	fitted	n_groups	sites	calls	matched	P	R	F1	within2x	n_T5	n_capped_under	n_falling_over	nuc_copies	nuc_rel_r0	unknown_occ	invalid_positions
+u001	0	tune	chrXIV+chrII	macisaac	all	58	1439	8292	176	0.0212253	0.122307	0.0361731	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	tune	chrXIV+chrII	macisaac	fitted	9	259	3540	78	0.0220339	0.301158	0.0410634	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	tune	chrXIV+chrII	macisaac	nonfitted	49	1180	4752	98	0.0206229	0.0830508	0.0330411	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	tune	chrXIV+chrII	rossi_cx	all	58	1441	8292	220	0.0265316	0.152672	0.045207	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	tune	chrXIV+chrII	rossi_cx	fitted	9	626	3540	161	0.0454802	0.257188	0.0772924	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	tune	chrXIV+chrII	rossi_cx	nonfitted	49	815	4752	59	0.0124158	0.0723926	0.0211963	9	41			8820.65	0	2742.74	{"chrII": 0, "chrXIV": 0}
+u001	0	holdout	chrIV	macisaac	all	58	1313	7928	149	0.0187941	0.113481	0.0322476					8541.88	0	2685.65	{"chrIV": 0}
+u001	0	holdout	chrIV	macisaac	fitted	9	226	3551	66	0.0185863	0.292035	0.0349484					8541.88	0	2685.65	{"chrIV": 0}
+u001	0	holdout	chrIV	macisaac	nonfitted	49	1087	4377	83	0.0189628	0.0763569	0.0303807					8541.88	0	2685.65	{"chrIV": 0}
+u001	0	holdout	chrIV	rossi_cx	all	58	1264	7928	214	0.0269929	0.169304	0.0465622					8541.88	0	2685.65	{"chrIV": 0}
+u001	0	holdout	chrIV	rossi_cx	fitted	9	509	3551	149	0.04196	0.292731	0.073399					8541.88	0	2685.65	{"chrIV": 0}
+u001	0	holdout	chrIV	rossi_cx	nonfitted	49	755	4377	65	0.0148504	0.0860927	0.0253313					8541.88	0	2685.65	{"chrIV": 0}
+u001	7	tune	chrXIV+chrII	macisaac	all	58	1439	3371	153	0.0453871	0.106324	0.0636175	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	tune	chrXIV+chrII	macisaac	fitted	9	259	586	34	0.0580205	0.131274	0.0804734	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	tune	chrXIV+chrII	macisaac	nonfitted	49	1180	2785	119	0.0427289	0.100847	0.0600252	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	tune	chrXIV+chrII	rossi_cx	all	58	1441	3371	120	0.0355977	0.0832755	0.0498753	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	tune	chrXIV+chrII	rossi_cx	fitted	9	626	586	62	0.105802	0.0990415	0.10231	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	tune	chrXIV+chrII	rossi_cx	nonfitted	49	815	2785	58	0.0208259	0.0711656	0.0322222	33	41			8842.71	0.00250095	3409.91	{"chrII": 0, "chrXIV": 0}
+u001	7	holdout	chrIV	macisaac	all	58	1313	3071	131	0.0426571	0.0997715	0.0597628					8550.89	0.0010548	3339.11	{"chrIV": 0}
+u001	7	holdout	chrIV	macisaac	fitted	9	226	575	23	0.04	0.10177	0.0574282					8550.89	0.0010548	3339.11	{"chrIV": 0}
+u001	7	holdout	chrIV	macisaac	nonfitted	49	1087	2496	108	0.0432692	0.099356	0.0602847					8550.89	0.0010548	3339.11	{"chrIV": 0}
+u001	7	holdout	chrIV	rossi_cx	all	58	1264	3071	122	0.0397265	0.096519	0.056286					8550.89	0.0010548	3339.11	{"chrIV": 0}
+u001	7	holdout	chrIV	rossi_cx	fitted	9	509	575	52	0.0904348	0.102161	0.095941					8550.89	0.0010548	3339.11	{"chrIV": 0}
+u001	7	holdout	chrIV	rossi_cx	nonfitted	49	755	2496	70	0.0280449	0.0927152	0.0430637					8550.89	0.0010548	3339.11	{"chrIV": 0}
+m001	0	tune	chrXIV+chrII	macisaac	all	58	1439	10833	193	0.0178159	0.134121	0.0314537	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	tune	chrXIV+chrII	macisaac	fitted	9	259	4471	77	0.0172221	0.297297	0.0325581	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	tune	chrXIV+chrII	macisaac	nonfitted	49	1180	6362	116	0.0182333	0.0983051	0.0307611	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	tune	chrXIV+chrII	rossi_cx	all	58	1441	10833	231	0.0213237	0.160305	0.0376405	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	tune	chrXIV+chrII	rossi_cx	fitted	9	626	4471	164	0.0366808	0.261981	0.0643516	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	tune	chrXIV+chrII	rossi_cx	nonfitted	49	815	6362	67	0.0105313	0.0822086	0.0186708	9	41			8859.28	0	3872.69	{"chrII": 0, "chrXIV": 0}
+m001	0	holdout	chrIV	macisaac	all	58	1313	10480	161	0.0153626	0.12262	0.0273043					8556.17	0	3757.92	{"chrIV": 0}
+m001	0	holdout	chrIV	macisaac	fitted	9	226	4554	70	0.0153711	0.309735	0.0292887					8556.17	0	3757.92	{"chrIV": 0}
+m001	0	holdout	chrIV	macisaac	nonfitted	49	1087	5926	91	0.0153561	0.0837167	0.0259518					8556.17	0	3757.92	{"chrIV": 0}
+m001	0	holdout	chrIV	rossi_cx	all	58	1264	10480	225	0.0214695	0.178006	0.0383174					8556.17	0	3757.92	{"chrIV": 0}
+m001	0	holdout	chrIV	rossi_cx	fitted	9	509	4554	150	0.0329381	0.294695	0.0592534					8556.17	0	3757.92	{"chrIV": 0}
+m001	0	holdout	chrIV	rossi_cx	nonfitted	49	755	5926	75	0.0126561	0.0993377	0.0224517					8556.17	0	3757.92	{"chrIV": 0}
+m001	7	tune	chrXIV+chrII	macisaac	all	58	1439	3512	141	0.0401481	0.0979847	0.0569582	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	tune	chrXIV+chrII	macisaac	fitted	9	259	852	43	0.0504695	0.166023	0.0774077	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	tune	chrXIV+chrII	macisaac	nonfitted	49	1180	2660	98	0.0368421	0.0830508	0.0510417	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	tune	chrXIV+chrII	rossi_cx	all	58	1441	3512	119	0.0338838	0.0825815	0.0480517	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	tune	chrXIV+chrII	rossi_cx	fitted	9	626	852	72	0.084507	0.115016	0.097429	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	tune	chrXIV+chrII	rossi_cx	nonfitted	49	815	2660	47	0.0176692	0.0576687	0.0270504	34	41			8880.86	0.00243586	6544.72	{"chrII": 0, "chrXIV": 0}
+m001	7	holdout	chrIV	macisaac	all	58	1313	3405	123	0.0361233	0.0936786	0.0521407					8574.77	0.00217387	6319.08	{"chrIV": 0}
+m001	7	holdout	chrIV	macisaac	fitted	9	226	900	29	0.0322222	0.128319	0.0515098					8574.77	0.00217387	6319.08	{"chrIV": 0}
+m001	7	holdout	chrIV	macisaac	nonfitted	49	1087	2505	94	0.037525	0.0864765	0.0523385					8574.77	0.00217387	6319.08	{"chrIV": 0}
+m001	7	holdout	chrIV	rossi_cx	all	58	1264	3405	125	0.0367107	0.0988924	0.0535447					8574.77	0.00217387	6319.08	{"chrIV": 0}
+m001	7	holdout	chrIV	rossi_cx	fitted	9	509	900	64	0.0711111	0.125737	0.0908446					8574.77	0.00217387	6319.08	{"chrIV": 0}
+m001	7	holdout	chrIV	rossi_cx	nonfitted	49	755	2505	61	0.0243513	0.0807947	0.0374233					8574.77	0.00217387	6319.08	{"chrIV": 0}

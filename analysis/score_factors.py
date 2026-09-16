@@ -39,8 +39,8 @@ the call threshold and is the more stable comparison.
 Usage
 -----
     python score_factors.py --chrom chrXIV \
-        --run fib=robocop_chrXIV_maskoff_fib \
-        --run seq=robocop_chrXIV_seq_maskoff_revfix \
+        --run fib=robocop_chrXIV_fib \
+        --run seq=robocop_chrXIV_fib_seq \
         --out chrXIV_factor_scores
 
     python score_factors.py --chrom chrXIV --runs-from chrXIV_runs.tsv --min-sites 5

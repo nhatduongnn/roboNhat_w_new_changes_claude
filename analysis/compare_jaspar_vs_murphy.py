@@ -20,8 +20,8 @@ SITES = [(1, 45318, 45332), (2, 45498, 45512), (3, 61163, 61177),
          (4, 62657, 62671), (5, 108788, 108802)]
 
 RUNS = [
-    ("Murphy  seq-only",   "robocop_chrI_seqonly_maskon_revfix", "robocop_train_fiberonly"),
-    ("JASPAR  seq-only",   "robocop_chrI_seqonly_maskon_JASPAR", "robocop_train_jaspar"),
+    ("Murphy  seq-only",   "robocop_chrI_seq_maskon_revfix", "robocop_train_fiberonly"),
+    ("JASPAR  seq-only",   "robocop_chrI_seq_maskon_JASPAR", "robocop_train_jaspar"),
     ("Murphy  fiber+seq",  "robocop_chrI_seq_maskon_revfix",     "robocop_train_fiberonly"),
     ("JASPAR  fiber+seq",  "robocop_chrI_seq_maskon_JASPAR",     "robocop_train_jaspar"),
     ("Murphy  fiber-only", "robocop_chrI_maskon_revfix",         "robocop_train_fiberonly"),

@@ -1,0 +1,36 @@
+2026-09-14 19:02:56  iter 00  submitted decode 12592804 (40 tasks, robocop_chrXIV_chrII_tw_bw01_00) count 12592805 next 12592806
+2026-09-14 19:02:59  iter 00  holdout: decode 12592807 (robocop_chrIV_tw_bw01_00) count 12592808 validate 12592809
+2026-09-14 19:25:10  iter 01  submitted decode 12593269 (40 tasks, robocop_chrXIV_chrII_tw_bw01_01) count 12593270 next 12593271
+2026-09-14 19:40:58  iter 02  submitted decode 12593435 (40 tasks, robocop_chrXIV_chrII_tw_bw01_02) count 12593436 next 12593437
+2026-09-14 19:57:09  iter 03  submitted decode 12593579 (40 tasks, robocop_chrXIV_chrII_tw_bw01_03) count 12593580 next 12593581
+2026-09-14 20:12:58  iter 04  submitted decode 12593714 (40 tasks, robocop_chrXIV_chrII_tw_bw01_04) count 12593715 next 12593716
+2026-09-14 20:28:58  iter 05  submitted decode 12593847 (40 tasks, robocop_chrXIV_chrII_tw_bw01_05) count 12593848 next 12593849
+2026-09-14 20:44:58  iter 06  submitted decode 12593978 (40 tasks, robocop_chrXIV_chrII_tw_bw01_06) count 12593979 next 12593980
+2026-09-14 21:00:59  iter 07  submitted decode 12594076 (40 tasks, robocop_chrXIV_chrII_tw_bw01_07) count 12594077 next 12594078
+2026-09-14 21:16:58  iter 07  STOPPED: reached the 8-round limit
+2026-09-14 21:16:59  iter 07  holdout: decode 12594199 (robocop_chrIV_tw_bw01_07) count 12594200 validate 12594240
+2026-09-15 16:02:25  iter 07  CONTINUE: archived STOPPED ('stopped after iter 7: reached the 8-round limit') -> STOPPED_20260915_round07; new settings max_rounds 15, deadband 1.1x (was 8, 1.25x); reason: user decision 2026-09-15: tighten target 1.25x -> 1.1x, up to 15 rounds
+2026-09-15 16:02:26  iter 07  CONTINUE: round 07 re-updated under deadband 1.1x: 32 tuned groups outside it, 32 take a non-zero step; bisect-set steps 3, bracket-pinned (<0.1 dec) 3 [BAS1,RTG3,SKN7]
+2026-09-15 16:03:15  iter 08  submitted decode 12601223 (40 tasks, robocop_chrXIV_chrII_tw_bw01_08) count 12601224 next 12601225
+2026-09-15 16:25:01  iter 09  submitted decode 12601485 (40 tasks, robocop_chrXIV_chrII_tw_bw01_09) count 12601486 next 12601487
+2026-09-15 16:40:59  iter 10  submitted decode 12601709 (40 tasks, robocop_chrXIV_chrII_tw_bw01_10) count 12601710 next 12601711
+2026-09-15 16:58:01  iter 11  submitted decode 12601885 (40 tasks, robocop_chrXIV_chrII_tw_bw01_11) count 12601886 next 12601887
+2026-09-15 17:14:01  iter 12  submitted decode 12602024 (40 tasks, robocop_chrXIV_chrII_tw_bw01_12) count 12602025 next 12602026
+2026-09-15 17:31:01  iter 13  submitted decode 12602166 (40 tasks, robocop_chrXIV_chrII_tw_bw01_13) count 12602167 next 12602168
+2026-09-15 17:47:02  iter 14  submitted decode 12602951 (40 tasks, robocop_chrXIV_chrII_tw_bw01_14) count 12602952 next 12602953
+2026-09-15 18:04:03  iter 14  STOPPED: reached the 15-round limit [deadband 1.1x]
+2026-09-15 18:04:05  iter 14  holdout: decode 12603282 (robocop_chrIV_tw_bw01_14) count 12603283 validate 12603284
+2026-09-15 18:04:05  iter 14  on-stop refresh: {'chereji': '12603285', 'summary': '12603286'}
+2026-09-16 13:59:55  iter 14  CONTINUE: archived STOPPED ('stopped after iter 14: reached the 15-round limit [deadband 1.1x]') -> STOPPED_20260916_round14; new settings max_rounds 25, deadband 1.1x (was 15, 1.1x); reason: user decision 2026-09-16: extend non-converged runs to 25 rounds or convergence
+2026-09-16 13:59:58  iter 14  CONTINUE: round 14 re-updated under deadband 1.1x: 3 tuned groups outside it, 3 take a non-zero step; bisect-set steps 3, bracket-pinned (<0.1 dec) 3 [BAS1,RTG3,SKN7]
+2026-09-16 14:00:27  iter 15  submitted decode 12606829 (40 tasks, robocop_chrXIV_chrII_tw_bw01_15) count 12606830 next 12606831
+2026-09-16 14:17:42  iter 16  submitted decode 12606967 (40 tasks, robocop_chrXIV_chrII_tw_bw01_16) count 12606968 next 12606969
+2026-09-16 14:34:10  iter 17  submitted decode 12607053 (40 tasks, robocop_chrXIV_chrII_tw_bw01_17) count 12607054 next 12607055
+2026-09-16 14:49:42  iter 18  submitted decode 12607161 (40 tasks, robocop_chrXIV_chrII_tw_bw01_18) count 12607162 next 12607163
+2026-09-16 15:06:08  iter 19  submitted decode 12607280 (40 tasks, robocop_chrXIV_chrII_tw_bw01_19) count 12607281 next 12607282
+2026-09-16 15:22:44  iter 20  submitted decode 12607424 (40 tasks, robocop_chrXIV_chrII_tw_bw01_20) count 12607425 next 12607426
+2026-09-16 15:38:44  iter 21  submitted decode 12607554 (40 tasks, robocop_chrXIV_chrII_tw_bw01_21) count 12607555 next 12607556
+2026-09-16 15:54:44  iter 22  submitted decode 12607713 (40 tasks, robocop_chrXIV_chrII_tw_bw01_22) count 12607714 next 12607715
+2026-09-16 16:10:45  iter 23  submitted decode 12608053 (40 tasks, robocop_chrXIV_chrII_tw_bw01_23) count 12608054 next 12608055
+2026-09-16 16:26:44  iter 24  submitted decode 12608150 (40 tasks, robocop_chrXIV_chrII_tw_bw01_24) count 12608151 next 12608152
+2026-09-16 16:28:08  iter 24  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_bw01_24/chrXIV.tsv')

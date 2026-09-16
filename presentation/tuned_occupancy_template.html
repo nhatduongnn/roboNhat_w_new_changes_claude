@@ -1,0 +1,935 @@
+<title>Tuned Occupancy Browser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;650&display=swap">
+<style>
+/* Same achromatic slate chrome as analysis/posterior_viewer_template.html: every hue on the
+   page belongs to the data (factor colours, Watson/Crick, reference sites). */
+:root{
+  --bg:#ffffff; --panel:#f3f6f8; --sunk:#e9eef2;
+  --ink:#0e1720; --ink2:#54626f; --ink3:#8593a1;
+  --line:#d9e1e8; --line2:#eef2f6;
+  --accent:#33475f; --accentbg:#e3eaf1; --accentink:#22334a;
+  --warn:#a03c33;
+  --sel:rgba(51,71,95,.14); --crosshair:#a03c33;
+  --wat:#1f77b4; --cri:#ff7f0e; --depth:#aebbc7;
+  --plus:#87ceeb; --minus:#f08080;
+  --A:#2e8b57; --T:#c0392b; --C:#1f77b4; --G:#8c6239;
+  --ref:#146b63; --ref2:#6b4b9a;
+  --mac:#b0124f; --ros:#0d6f8a; --hold:#8a5a12; --holdbg:#f6ecd9;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1116; --panel:#141b22; --sunk:#0f151b;
+    --ink:#e4ebf1; --ink2:#94a3b1; --ink3:#65727f;
+    --line:#222c36; --line2:#18212a;
+    --accent:#9db6d2; --accentbg:#1b2836; --accentink:#c8daed;
+    --warn:#e0776b;
+    --sel:rgba(157,182,210,.18); --crosshair:#e0776b;
+    --wat:#5aa9e6; --cri:#ffa657; --depth:#38444f;
+    --plus:#4f92b5; --minus:#b56b6b;
+    --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
+    --ref:#3fb3a6; --ref2:#a68ad4;
+    --mac:#f0628f; --ros:#4fc0dd; --hold:#e3b25f; --holdbg:#2a2213;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1116; --panel:#141b22; --sunk:#0f151b;
+  --ink:#e4ebf1; --ink2:#94a3b1; --ink3:#65727f;
+  --line:#222c36; --line2:#18212a;
+  --accent:#9db6d2; --accentbg:#1b2836; --accentink:#c8daed;
+  --warn:#e0776b;
+  --sel:rgba(157,182,210,.18); --crosshair:#e0776b;
+  --wat:#5aa9e6; --cri:#ffa657; --depth:#38444f;
+  --plus:#4f92b5; --minus:#b56b6b;
+  --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
+  --ref:#3fb3a6; --ref2:#a68ad4;
+  --mac:#f0628f; --ros:#4fc0dd; --hold:#e3b25f; --holdbg:#2a2213;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);
+  border-bottom:1px solid var(--line);padding:11px 16px 9px}
+.tt{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:15.5px;margin:0;font-weight:650;letter-spacing:-.012em;text-wrap:balance}
+.sub{font-size:11.5px;color:var(--ink3);font-family:var(--mono)}
+.chip{font-size:10px;font-weight:650;letter-spacing:.07em;text-transform:uppercase;
+  padding:1.5px 7px;border-radius:4px;background:var(--accentbg);color:var(--accentink)}
+.chip.hold{background:var(--holdbg);color:var(--hold)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.grp{display:flex;gap:3px;align-items:center;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:3px;flex-wrap:wrap}
+label.rb{font-size:11.5px;padding:3.5px 9px;border-radius:5px;cursor:pointer;
+  color:var(--ink2);white-space:nowrap;font-weight:500;letter-spacing:.01em;
+  transition:background .12s,color .12s;display:inline-flex;align-items:center;gap:6px}
+label.rb:hover{color:var(--ink)}
+label.rb.on{background:var(--accentbg);color:var(--accentink);font-weight:600}
+label.rb input{position:absolute;opacity:0;width:0;height:0}
+label.rb:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+label.rb svg{flex:0 0 auto}
+.gsep{width:1px;align-self:stretch;background:var(--line);margin:2px 2px}
+button{font-family:var(--sans);font-size:12px;padding:4px 9px;border-radius:6px;
+  cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink2);
+  transition:border-color .12s,color .12s}
+button:hover{border-color:var(--accent);color:var(--ink)}
+.grp button{border-color:transparent;background:transparent;padding:3px 8px;font-size:13px;line-height:1}
+.grp button:hover{background:var(--sunk);color:var(--ink)}
+input[type=text],select{font-family:var(--sans);font-size:12px;padding:4.5px 8px;
+  border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+#coord{width:190px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+#sites{max-width:260px}
+#regionsel{max-width:300px}
+#msg{font-size:11.5px;color:var(--warn);font-weight:500}
+
+.stats{display:flex;margin-top:9px;border:1px solid var(--line);
+  border-radius:8px;overflow:hidden;background:var(--panel);flex-wrap:wrap}
+.stat{padding:5px 13px;border-right:1px solid var(--line);min-width:96px}
+.stat:last-child{border-right:0}
+.stat .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600}
+.stat .v{font-family:var(--mono);font-size:13px;font-weight:500;
+  font-variant-numeric:tabular-nums;margin-top:1px}
+.stat .v small{font-size:10px;color:var(--ink3);font-weight:400}
+
+main{display:grid;grid-template-columns:250px minmax(0,1fr);align-items:start}
+main.nosb{grid-template-columns:minmax(0,1fr)}
+aside{border-right:1px solid var(--line);padding:11px;position:sticky;top:150px;
+  max-height:calc(100vh - 160px);overflow:auto;background:var(--bg)}
+main.nosb aside{display:none}
+aside h2{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);
+  margin:0 0 8px;font-weight:650}
+#search{width:100%;margin-bottom:7px}
+.sbtn{display:flex;gap:4px;margin-bottom:9px;flex-wrap:wrap}
+.sbtn button{padding:2.5px 8px;font-size:11px}
+.frow{display:flex;align-items:center;gap:7px;padding:2.5px 4px;border-radius:4px;
+  cursor:pointer;font-size:12px}
+.frow:hover{background:var(--panel)}
+.frow.pin{background:var(--sunk)}
+.sw{width:10px;height:10px;border-radius:2px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(128,128,128,.3)}
+.fname{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.fname i{font-style:normal;color:var(--ink3);font-weight:400;font-size:10.5px}
+.fmax{font-family:var(--mono);font-size:10.5px;color:var(--ink3);flex:0 0 auto;
+  font-variant-numeric:tabular-nums}
+.frow input{margin:0;flex:0 0 auto;accent-color:var(--accent)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:9px 0}
+
+section.plots{padding:9px 16px 30px;min-width:0}
+
+/* window ledger: counts per run for the loaded window */
+.ledger{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 22px;align-items:start;
+  margin:2px 0 12px;padding-left:54px}
+.ledger .cap{font-size:12px;color:var(--ink2);max-width:62ch}
+.ledger .cap b{color:var(--ink);font-weight:600;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.ledger .cap .why{display:block;color:var(--ink3);font-size:11.5px;margin-top:2px}
+.ltab{overflow-x:auto;grid-column:1 / -1}
+table.lt{border-collapse:collapse;font-size:11.5px;min-width:520px}
+table.lt th{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);
+  font-weight:650;text-align:right;padding:0 10px 4px 0;white-space:nowrap}
+table.lt th:first-child{text-align:left}
+table.lt td{padding:2.5px 10px 2.5px 0;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  text-align:right;white-space:nowrap;border-top:1px solid var(--line2)}
+table.lt td:first-child{text-align:left;font-family:var(--sans);font-weight:500;color:var(--ink2)}
+table.lt tr{cursor:pointer}
+table.lt tr:hover td{background:var(--panel)}
+table.lt tr.on td{background:var(--accentbg);color:var(--accentink)}
+table.lt tr.on td:first-child{color:var(--accentink);font-weight:600}
+table.lt td.barc{width:130px;text-align:left}
+.mbar{display:inline-block;height:7px;border-radius:1px;background:var(--depth);vertical-align:middle}
+.mbar.m{background:var(--mac)}
+table.lt td small{color:var(--ink3);font-size:10px}
+@media (max-width:720px){ .ledger{padding-left:0} main{grid-template-columns:minmax(0,1fr)} aside{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line)} }
+
+.pwrap{position:relative;margin-bottom:2px}
+.plab{position:absolute;left:8px;top:4px;font-size:9.5px;color:var(--ink3);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:650;pointer-events:none;z-index:2}
+canvas{display:block;width:100%;touch-action:none}
+#overlay{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
+#stage{position:relative;cursor:crosshair}
+#tip{position:fixed;z-index:40;pointer-events:none;display:none;background:var(--bg);
+  border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11.5px;
+  box-shadow:0 8px 26px rgba(8,18,28,.20);max-width:320px}
+#tip .c{font-family:var(--mono);font-weight:600;margin-bottom:5px;font-variant-numeric:tabular-nums}
+#tip table{border-collapse:collapse}
+#tip td{padding:0 6px 0 0;font-size:11px;white-space:nowrap}
+#tip td.v{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+footer{padding:4px 16px 28px;color:var(--ink3);font-size:11.5px;max-width:78ch}
+footer p{margin:0 0 7px}
+footer b{color:var(--ink2);font-weight:600}
+footer code{font-family:var(--mono);font-size:10.5px;background:var(--panel);
+  padding:.5px 4px;border-radius:3px}
+footer table{border-collapse:collapse;margin:4px 0 10px}
+footer td{padding:1px 12px 1px 0;font-family:var(--mono);font-size:10.5px;white-space:nowrap}
+.ftab{overflow-x:auto}
+</style>
+
+<header>
+  <div class="tt"><h1 id="ttl"></h1><span class="chip" id="rolechip"></span><span class="sub" id="stl"></span></div>
+  <div class="bar">
+    <div class="grp"><select id="regionsel" title="Region"></select>
+      <button id="prevr" title="Previous region">‹</button><button id="nextr" title="Next region">›</button></div>
+    <div class="grp" id="runsel"></div>
+    <div class="grp">
+      <input type="text" id="coord" placeholder="chrXIV:301200-301400" spellcheck="false">
+      <button id="go">Go</button>
+    </div>
+    <div class="grp">
+      <button id="zin" title="Zoom in (+)">＋</button>
+      <button id="zout" title="Zoom out (−)">−</button>
+      <button id="back" title="Previous view">↩</button>
+      <button id="reset" title="Reset to the window">⟲</button>
+    </div>
+    <select id="sites"><option value="">Jump to a reference site…</option></select>
+    <div class="grp">
+      <label class="rb" id="fillbtn"><input type="checkbox" id="fill">fill</label>
+      <label class="rb" id="refallbtn" title="Draw reference sites for every tuned group, or only for groups whose track is ticked"><input type="checkbox" id="refall">sites: all groups</label>
+      <label class="rb" id="sbbtn"><input type="checkbox" id="sbtog" checked>factors</label>
+    </div>
+    <span id="msg"></span>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main id="main">
+  <aside>
+    <h2>Tracks</h2>
+    <input type="text" id="search" placeholder="filter…" spellcheck="false">
+    <div class="sbtn">
+      <button data-a="here" title="Tick the groups with a MacIsaac site or Rossi summit in view">sites in view</button>
+      <button data-a="top">top 10</button><button data-a="none">none</button>
+    </div>
+    <div id="pinned"></div>
+    <hr class="sep">
+    <div id="flist"></div>
+  </aside>
+
+  <section class="plots">
+    <div class="ledger" id="ledger"></div>
+    <div id="stage">
+      <div class="pwrap"><div class="plab">posterior · <span style="color:var(--mac)">▼ MacIsaac site</span> · <span style="color:var(--ros)">▲ Rossi _CX summit</span></div><canvas id="cPost"></canvas></div>
+      <div class="pwrap"><div class="plab">m6A per A &nbsp;·&nbsp; <span style="color:var(--wat)">watson</span> <span style="color:var(--cri)">crick</span></div><canvas id="cMeth"></canvas></div>
+      <div class="pwrap"><div class="plab" id="deplab">A-trials (depth)</div><canvas id="cDep"></canvas></div>
+      <div class="pwrap"><div class="plab" id="seqlab">AT fraction (7 bp)</div><canvas id="cSeq"></canvas></div>
+      <div class="pwrap"><div class="plab">genes</div><canvas id="cGene"></canvas></div>
+      <div class="pwrap"><canvas id="cAxis"></canvas></div>
+      <canvas id="overlay"></canvas>
+    </div>
+  </section>
+</main>
+
+<div id="tip"></div>
+
+<footer id="foot">
+  <p><b>Reading this.</b> Drag on a panel to zoom to that range · shift-drag to pan · wheel to
+  zoom at the cursor · double-click to zoom out 2× · ←/→ pan. Click a row of the window table to
+  show that run; <code>compare all</code> overlays every run with one dash pattern each. The run
+  and the ticked tracks are kept when you switch region.</p>
+  <p><b>What the table counts.</b> For each run, <em>calls</em> are the centres of contiguous
+  stretches with posterior ≥ 0.10 for any of the 61 tuned motifs (the tuning loop's own rule,
+  <code>score_robocop.call_abf1</code>), computed on the window ±250 bp and counted by centre
+  inside the 4 kb window. <em>At MacIsaac</em> / <em>at Rossi</em>: calls matched one-to-one to a
+  same-group reference within 30 bp, motifs of a group pooled (<code>rossi_validate.fast_match</code>).
+  Rossi scores are flattering for the 12 factors with a fitted Fiber-seq footprint (trained on
+  Rossi peaks) in the runs with the fiber layer.</p>
+  <p><b>Caveats.</b> Posteriors are stored in 0.01 steps (values under 0.005 draw as 0; the
+  decode itself already zeroes anything under 1e-4). <code>background</code> is not stored.
+  <code>other motifs</code> is the summed posterior of the 92 motifs outside the tuned set: zero
+  in the masked tuner-v2 runs, live only in the legacy u001 run.</p>
+  <div id="prov"></div>
+</footer>
+
+<script id="DATA" type="application/json">{{DATA_JSON}}</script>
+<script>
+"use strict";
+const ALL = JSON.parse(document.getElementById("DATA").textContent);
+const RKEYS = ALL.regionOrder;
+const FACT = ALL.factors, COL = ALL.colors, LAB = ALL.labels, Q = ALL.quant;
+const REFK = ["ref_mac", "ref_ros"];
+const isRef = f => REFK.includes(f);
+COL.ref_mac = null; COL.ref_ros = null;
+LAB.ref_mac = "MacIsaac sites"; LAB.ref_ros = "Rossi _CX summits";
+const PIN = [...REFK, ...ALL.pinned];
+const TRACKS = [...REFK, ...FACT];
+const store = {get(k){ try { return localStorage.getItem(k); } catch (e) { return null; } },
+               set(k, v){ try { localStorage.setItem(k, v); } catch (e) {} }};
+
+let regionKey = RKEYS.includes(store.get("tob.region")) ? store.get("tob.region") : RKEYS[0];
+let D = ALL.regions[regionKey];
+let N = D.end - D.start + 1;
+const GUT = 54, RPAD = 12;
+const H = {cPost:340, cMeth:140, cDep:70, cSeq:62, cGene:52, cAxis:30};
+const DASH = [[], [7,4], [2,3], [10,3,2,3], [5,2,1,2,1,2], [1,3], [9,3,3,3], [4,4,1,4], [12,4]];
+
+/* ---------- decode ---------- */
+const cache = new Map();
+function dense(run, f){
+  if (isRef(f)) return new Float32Array(N);
+  const key = run + "|" + f;
+  let a = cache.get(key);
+  if (a) return a;
+  a = new Float32Array(N);
+  const segs = D.post[run][f];
+  if (segs) for (const seg of segs){
+    const off = seg[0], vals = seg[1];
+    for (let i = 0; i < vals.length; i++) a[off + i] = vals[i] / Q;
+  }
+  cache.set(key, a);
+  return a;
+}
+
+/* ---------- state ---------- */
+let runIds = D.runOrder;
+let runMode = (() => { const r = store.get("tob.run"); return (r === "compare" || runIds.includes(r)) ? r : (runIds.includes("both final") ? "both final" : runIds[0]); })();
+let view = {s: D.view[0], e: D.view[1]};
+const hist = [];
+let checked = new Set();
+let fillMode = false, filter = "", refAll = true;
+
+function groupsInView(){
+  const g = new Set();
+  for (const [p, gg] of D.mac) if (p >= view.s && p <= view.e) g.add(gg);
+  for (const [p, gg] of D.ros) if (p >= view.s && p <= view.e) g.add(gg);
+  return g;
+}
+function initialChecked(){
+  const g = new Set(D.mac.filter(([p]) => p >= D.win[0] && p <= D.win[1]).map(x => x[1]));
+  return new Set([...REFK, "nucleosome", ...FACT.filter(f => g.has(ALL.groupOf[f]))]);
+}
+{
+  let saved = null;
+  try { saved = JSON.parse(store.get("tob.checked") || "null"); } catch (e) {}
+  checked = Array.isArray(saved) ? new Set(saved.filter(f => TRACKS.includes(f))) : initialChecked();
+}
+const saveChecked = () => store.set("tob.checked", JSON.stringify([...checked]));
+
+/* ---------- layout ---------- */
+const cv = {}; let plotW = 800, DPR = 1;
+for (const id of Object.keys(H)) cv[id] = document.getElementById(id);
+const ov = document.getElementById("overlay");
+function resize(){
+  DPR = window.devicePixelRatio || 1;
+  const w = Math.max(300, document.querySelector("section.plots").clientWidth - 28);
+  plotW = Math.max(220, w - GUT - RPAD);
+  let total = 0;
+  for (const id of Object.keys(H)){
+    const c = cv[id];
+    c.style.width = w + "px"; c.style.height = H[id] + "px";
+    c.width = Math.round(w * DPR); c.height = Math.round(H[id] * DPR);
+    c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+    total += H[id] + 2;
+  }
+  ov.style.width = w + "px"; ov.style.height = total + "px";
+  ov.width = Math.round(w * DPR); ov.height = Math.round(total * DPR);
+  ov.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+  draw();
+}
+const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const nView = () => view.e - view.s + 1;
+const xOf = p => GUT + (p - view.s + 0.5) / nView() * plotW;
+const posOf = px => Math.round(view.s + (px - GUT) / plotW * nView() - 0.5);
+function ticks(span, target){
+  const raw = span / target, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 5, 10]) if (raw <= m * mag) return m * mag;
+  return 10 * mag;
+}
+const fmt = v => v.toLocaleString("en-US");
+function gridX(ctx, h){
+  const step = ticks(nView(), 8);
+  ctx.strokeStyle = css("--line2"); ctx.lineWidth = 1; ctx.beginPath();
+  for (let p = Math.ceil(view.s / step) * step; p <= view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, h);
+  }
+  ctx.stroke();
+}
+function frame(ctx, h){
+  ctx.strokeStyle = css("--line"); ctx.lineWidth = 1;
+  ctx.strokeRect(GUT + 0.5, 0.5, plotW - 1, h - 1);
+}
+// the loaded span is the window ±250 bp; shade the padding so the counted window reads
+function shadePad(ctx, h){
+  ctx.fillStyle = css("--sunk");
+  if (view.s < D.win[0]){ const x = xOf(D.win[0]) - plotW / nView() / 2; ctx.fillRect(GUT, 0, Math.max(0, x - GUT), h); }
+  if (view.e > D.win[1]){ const x = xOf(D.win[1]) + plotW / nView() / 2; ctx.fillRect(x, 0, GUT + plotW - x, h); }
+}
+
+/* ---------- posterior ---------- */
+function drawPost(){
+  const c = cv.cPost, ctx = c.getContext("2d"), h = H.cPost;
+  ctx.clearRect(0, 0, c.width, c.height);
+  shadePad(ctx, h);
+  const top = 26, bot = 24;
+  const y = v => h - bot - v * (h - top - bot);
+  ctx.strokeStyle = css("--line2"); ctx.beginPath();
+  for (let v = 0; v <= 1.0001; v += 0.25){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+  ctx.stroke();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  for (let v = 0; v <= 1.0001; v += 0.25) ctx.fillText(v.toFixed(2), GUT - 6, y(v) + 3);
+  // the call threshold the ledger counts against
+  ctx.setLineDash([2, 3]); ctx.strokeStyle = css("--ink3"); ctx.beginPath();
+  ctx.moveTo(GUT, Math.round(y(0.10)) + 0.5); ctx.lineTo(GUT + plotW, Math.round(y(0.10)) + 0.5); ctx.stroke();
+  ctx.setLineDash([]); ctx.fillText("0.10", GUT - 6, y(0.10) + 3);
+  gridX(ctx, h);
+  drawRefMarks(ctx, h, top, bot);
+  const runs = runMode === "compare" ? runIds : [runMode];
+  ctx.lineJoin = "round"; ctx.lineCap = "round";
+  for (const f of checked){
+    if (isRef(f)) continue;
+    for (let ri = 0; ri < runs.length; ri++){
+      const arr = dense(runs[ri], f);
+      if (fillMode && runs.length === 1){ ctx.fillStyle = COL[f] + "33"; areaSeries(ctx, arr, y); ctx.fill(); }
+      ctx.setLineDash(runs.length > 1 ? (DASH[ri] || []) : []);
+      ctx.strokeStyle = COL[f] || "#888";
+      ctx.lineWidth = runs.length > 1 ? 1.3 : 1.6;
+      pathSeries(ctx, arr, y); ctx.stroke();
+    }
+  }
+  ctx.setLineDash([]);
+  frame(ctx, h);
+}
+function refVisible(g){
+  if (refAll) return true;
+  for (const f of checked) if (ALL.groupOf[f] === g) return true;
+  return false;
+}
+// MacIsaac: ▼ on the top edge + faint line; Rossi: ▲ on the bottom edge + dotted line.
+// Marker colour is the reference set; the group name rides beside it when there is room.
+function drawRefMarks(ctx, h, top, bot){
+  ctx.save();
+  ctx.font = "9.5px " + css("--mono"); ctx.textAlign = "left";
+  const sets = [["ref_mac", D.mac, css("--mac"), true], ["ref_ros", D.ros, css("--ros"), false]];
+  for (const [key, list, col, isTop] of sets){
+    if (!checked.has(key)) continue;
+    let lastLabelEnd = -1e9;
+    for (const [p, g] of list){
+      if (p < view.s || p > view.e || !refVisible(g)) continue;
+      const x = xOf(p);
+      ctx.strokeStyle = col; ctx.globalAlpha = 0.35; ctx.lineWidth = 1;
+      ctx.setLineDash(isTop ? [] : [1, 2]);
+      ctx.beginPath(); ctx.moveTo(Math.round(x) + 0.5, isTop ? 9 : top); ctx.lineTo(Math.round(x) + 0.5, isTop ? h - bot : h - 9); ctx.stroke();
+      ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.fillStyle = col;
+      ctx.beginPath();
+      if (isTop){ ctx.moveTo(x - 4, 2); ctx.lineTo(x + 4, 2); ctx.lineTo(x, 9); }
+      else { ctx.moveTo(x - 4, h - 2); ctx.lineTo(x + 4, h - 2); ctx.lineTo(x, h - 9); }
+      ctx.fill();
+      const w = ctx.measureText(g).width;
+      if (x + 6 > lastLabelEnd + 4 && x + 6 + w < GUT + plotW){
+        ctx.fillText(g, x + 6, isTop ? 11 : h - 4);
+        lastLabelEnd = x + 6 + w;
+      }
+    }
+  }
+  ctx.restore();
+}
+function areaSeries(ctx, arr, y){
+  const n = nView(), o = view.s - D.start, y0 = y(0);
+  ctx.beginPath();
+  let x0 = null, x1 = null;
+  if (n > plotW * 1.2){
+    for (let px = 0; px < plotW; px++){
+      const i0 = o + Math.floor(px * n / plotW), i1 = Math.min(o + n, o + Math.floor((px + 1) * n / plotW));
+      let mx = -Infinity;
+      for (let i = Math.max(0, i0); i < Math.min(N, i1); i++) if (arr[i] > mx) mx = arr[i];
+      if (mx === -Infinity) continue;
+      const x = GUT + px + 0.5;
+      if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+      ctx.lineTo(x, y(mx)); x1 = x;
+    }
+  } else {
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const x = xOf(p);
+      if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+      ctx.lineTo(x, y(arr[i])); x1 = x;
+    }
+  }
+  if (x0 === null) return;
+  ctx.lineTo(x1, y0); ctx.closePath();
+}
+function pathSeries(ctx, arr, y){
+  const n = nView(), o = view.s - D.start;
+  ctx.beginPath();
+  if (n > plotW * 1.2){
+    for (let px = 0; px < plotW; px++){
+      const i0 = o + Math.floor(px * n / plotW), i1 = Math.min(o + n, o + Math.floor((px + 1) * n / plotW));
+      let mn = Infinity, mx = -Infinity;
+      for (let i = Math.max(0, i0); i < Math.min(N, i1); i++){ const v = arr[i]; if (v < mn) mn = v; if (v > mx) mx = v; }
+      if (mn === Infinity) continue;
+      const x = GUT + px + 0.5;
+      ctx.moveTo(x, y(mn)); ctx.lineTo(x, y(mx === mn ? mn + 1e-6 : mx));
+    }
+  } else {
+    let started = false;
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const x = xOf(p), yy = y(arr[i]);
+      if (!started){ ctx.moveTo(x, yy); started = true; } else ctx.lineTo(x, yy);
+    }
+  }
+}
+
+/* ---------- m6A ---------- */
+function drawMeth(){
+  const c = cv.cMeth, ctx = c.getContext("2d"), h = H.cMeth;
+  ctx.clearRect(0, 0, c.width, c.height);
+  shadePad(ctx, h);
+  const y = v => h - 6 - Math.min(v, 1) * (h - 20);
+  ctx.strokeStyle = css("--line2"); ctx.beginPath();
+  for (const v of [0, 0.25, 0.5, 0.75, 1]){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+  ctx.stroke();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  for (const v of [0, 0.5, 1]) ctx.fillText(v.toFixed(2), GUT - 6, y(v) + 3);
+  gridX(ctx, h);
+  const shown = runMode === "compare" ? runIds : [runMode];
+  const bgv = shown.map(r => ALL.bg[r]).find(v => v !== undefined);
+  if (bgv !== undefined){
+    const yy = Math.round(y(bgv)) + 0.5, rc = css("--ref");
+    ctx.setLineDash([4, 3]); ctx.strokeStyle = rc; ctx.beginPath(); ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); ctx.stroke();
+    ctx.setLineDash([]); ctx.fillStyle = rc; ctx.textAlign = "left"; ctx.font = "9.5px " + css("--mono");
+    ctx.fillText("fiber-layer background " + bgv.toFixed(3), GUT + 4, yy - 3);
+  }
+  const F = D.fiber, n = nView(), r = n > plotW ? 1 : (n > plotW / 3 ? 1.6 : 2.6);
+  for (const [mk, ak, col] of [["mw","aw",css("--wat")], ["mc","ac",css("--cri")]]){
+    ctx.fillStyle = col;
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const a = F[ak][i]; if (!a) continue;
+      ctx.beginPath(); ctx.arc(xOf(p), y(F[mk][i] / a), r, 0, 6.2832); ctx.fill();
+    }
+  }
+  frame(ctx, h);
+}
+function drawDep(){
+  const c = cv.cDep, ctx = c.getContext("2d"), h = H.cDep;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const F = D.fiber, n = nView(), perBase = plotW / n, lab = document.getElementById("deplab");
+  let mx = 1;
+  for (let p = view.s; p <= view.e; p++){ const i = p - D.start; if (i < 0 || i >= N) continue; const v = F.aw[i] + F.ac[i]; if (v > mx) mx = v; }
+  const y = v => h - 4 - (v / mx) * (h - 16), y0 = y(0);
+  ctx.fillStyle = css("--depth"); ctx.globalAlpha = 0.75;
+  if (perBase >= 2.5){
+    lab.textContent = "A-trials per base";
+    const w = Math.max(1, perBase - (perBase >= 6 ? 1 : 0));
+    for (let p = view.s; p <= view.e; p++){ const i = p - D.start; if (i < 0 || i >= N) continue; const v = F.aw[i] + F.ac[i]; if (!v) continue; ctx.fillRect(xOf(p) - w / 2, y(v), w, y0 - y(v)); }
+  } else {
+    lab.textContent = "A-trials (max per px)";
+    const col = new Float32Array(plotW);
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const v = F.aw[i] + F.ac[i]; if (!v) continue;
+      const k = Math.min(plotW - 1, Math.max(0, Math.floor((p - view.s) / n * plotW)));
+      if (v > col[k]) col[k] = v;
+    }
+    for (let px = 0; px < plotW; px++){ const v = col[px]; if (!v) continue; ctx.fillRect(GUT + px, y(v), 1, y0 - y(v)); }
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  ctx.fillText(String(Math.round(mx)), GUT - 6, y(mx) + 8); ctx.fillText("0", GUT - 6, y0);
+  frame(ctx, h);
+}
+function drawSeq(){
+  const c = cv.cSeq, ctx = c.getContext("2d"), h = H.cSeq;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), perBase = plotW / n, lab = document.getElementById("seqlab");
+  if (n <= 200 && perBase >= 5){
+    lab.textContent = "sequence";
+    ctx.font = "bold " + Math.min(13, Math.max(8, perBase * 0.85)).toFixed(1) + "px " + css("--mono");
+    ctx.textAlign = "center";
+    const cols = {A: css("--A"), T: css("--T"), C: css("--C"), G: css("--G")};
+    for (let p = view.s; p <= view.e; p++){
+      const i = p - D.start; if (i < 0 || i >= N) continue;
+      const b = D.seq[i] || "N";
+      ctx.fillStyle = cols[b] || css("--ink3");
+      if (b === "A" || b === "T"){ ctx.globalAlpha = 0.13; ctx.fillRect(xOf(p) - perBase / 2, 6, perBase, h - 12); ctx.globalAlpha = 1; }
+      ctx.fillText(b, xOf(p), h / 2 + 5);
+    }
+  } else {
+    lab.textContent = "AT fraction (7 bp)";
+    const y = v => h - 5 - v * (h - 16);
+    ctx.strokeStyle = css("--line2"); ctx.beginPath();
+    for (const v of [0.5, 1]){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+    ctx.stroke();
+    ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+    ctx.fillText("1.0", GUT - 6, y(1) + 7); ctx.fillText("0.5", GUT - 6, y(0.5) + 3);
+    ctx.strokeStyle = css("--T"); ctx.lineWidth = 1.3; ctx.beginPath();
+    let started = false;
+    for (let px = 0; px < plotW; px++){
+      const p = Math.round(view.s + px / plotW * n), i = p - D.start;
+      if (i < 3 || i >= N - 3) continue;
+      let at = 0;
+      for (let k = -3; k <= 3; k++){ const b = D.seq[i + k]; if (b === "A" || b === "T") at++; }
+      const yy = y(at / 7);
+      if (!started){ ctx.moveTo(GUT + px, yy); started = true; } else ctx.lineTo(GUT + px, yy);
+    }
+    ctx.stroke();
+  }
+  frame(ctx, h);
+}
+function drawGene(){
+  const c = cv.cGene, ctx = c.getContext("2d"), h = H.cGene;
+  ctx.clearRect(0, 0, c.width, c.height);
+  gridX(ctx, h);
+  ctx.font = "11px " + css("--mono"); ctx.textAlign = "left";
+  for (const g of D.genes){
+    if (g.end < view.s || g.start > view.e) continue;
+    const x0 = Math.max(GUT, xOf(g.start)), x1 = Math.min(GUT + plotW, xOf(g.end));
+    const plus = g.strand === "+";
+    ctx.fillStyle = plus ? css("--plus") : css("--minus");
+    ctx.fillRect(x0, plus ? 12 : 28, Math.max(2, x1 - x0), 10);
+    ctx.fillStyle = css("--ink2");
+    ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(GUT + 3, x0 + 3), plus ? 10 : 50);
+  }
+  frame(ctx, h);
+}
+function drawAxis(){
+  const c = cv.cAxis, ctx = c.getContext("2d"), h = H.cAxis;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), step = ticks(n, 8);
+  ctx.strokeStyle = css("--line"); ctx.beginPath(); ctx.moveTo(GUT, 0.5); ctx.lineTo(GUT + plotW, 0.5); ctx.stroke();
+  ctx.fillStyle = css("--ink2"); ctx.font = "10.5px " + css("--mono"); ctx.textAlign = "center";
+  ctx.strokeStyle = css("--ink3"); ctx.beginPath();
+  for (let p = Math.ceil(view.s / step) * step; p <= view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, 5); ctx.fillText(fmt(p), x, 17);
+  }
+  if (n <= 200){
+    const minor = n <= 60 ? 1 : 10;
+    for (let p = Math.ceil(view.s / minor) * minor; p <= view.e; p += minor){ const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, 3); }
+  }
+  ctx.stroke();
+  ctx.textAlign = "left"; ctx.fillStyle = css("--ink3"); ctx.fillText(D.chrom, 4, 17);
+}
+
+/* ---------- sidebar ---------- */
+function inViewMax(f){
+  if (isRef(f)) return 0;
+  const runs = runMode === "compare" ? runIds : [runMode];
+  let mx = 0;
+  const o = Math.max(0, view.s - D.start), e = Math.min(N, view.e - D.start + 1);
+  for (const r of runs){ const a = dense(r, f); for (let i = o; i < e; i++) if (a[i] > mx) mx = a[i]; }
+  return mx;
+}
+function refCount(key){
+  const list = key === "ref_mac" ? D.mac : D.ros;
+  let k = 0; for (const [p] of list) if (p >= view.s && p <= view.e) k++;
+  return k;
+}
+function buildSidebar(){
+  const maxes = {}; for (const f of FACT) maxes[f] = inViewMax(f);
+  const here = groupsInView();
+  const rest = FACT.filter(f => !PIN.includes(f));
+  rest.sort((a, b) => maxes[b] - maxes[a] || LAB[a].localeCompare(LAB[b]));
+  const row = f => {
+    const sw = isRef(f) ? `<span class="sw" style="background:var(${f === "ref_mac" ? "--mac" : "--ros"})"></span>`
+                        : `<span class="sw" style="background:${COL[f]}"></span>`;
+    const g = ALL.groupOf[f];
+    const extra = g ? (here.has(g) ? ` <i>site in view</i>` : "") + (ALL.fitted[g] ? ` <i>fitted fp</i>` : "") : "";
+    const val = isRef(f) ? refCount(f) + "×" : (maxes[f] < 0.005 ? "·" : maxes[f].toFixed(2));
+    return `<label class="frow${PIN.includes(f) ? " pin" : ""}" data-f="${f}">
+      <input type="checkbox" ${checked.has(f) ? "checked" : ""}>${sw}
+      <span class="fname" title="${f}">${LAB[f] || f}${extra}</span><span class="fmax">${val}</span></label>`;
+  };
+  document.getElementById("pinned").innerHTML = PIN.map(row).join("");
+  const q = filter.toLowerCase();
+  document.getElementById("flist").innerHTML = rest
+    .filter(f => !q || f.toLowerCase().includes(q) || (LAB[f] || "").toLowerCase().includes(q)).map(row).join("");
+  window._maxes = maxes;
+}
+document.addEventListener("change", e => {
+  const l = e.target.closest(".frow"); if (!l) return;
+  if (e.target.checked) checked.add(l.dataset.f); else checked.delete(l.dataset.f);
+  saveChecked(); draw(true);
+});
+document.querySelectorAll(".sbtn button").forEach(b => b.onclick = () => {
+  const a = b.dataset.a, m = window._maxes || {};
+  const refs = REFK.filter(k => checked.has(k));
+  if (a === "none") checked = new Set(refs);
+  else if (a === "top") checked = new Set([...refs, ...[...FACT].sort((x, y) => (m[y] || 0) - (m[x] || 0)).slice(0, 10)]);
+  else if (a === "here"){ const g = groupsInView(); checked = new Set([...refs, "nucleosome", ...FACT.filter(f => g.has(ALL.groupOf[f]))]); }
+  saveChecked(); draw();
+});
+document.getElementById("search").oninput = e => { filter = e.target.value; buildSidebar(); };
+
+/* ---------- window ledger ---------- */
+function renderLedger(){
+  const sel = ((ALL.selection.chroms[D.chrom] || []).find(s => s.key === D.key)) || {};
+  const why = {sites: `picked for reference density: ${sel.ref_sites} MacIsaac + Rossi sites across the 58 tuned groups (top 8 per chromosome)`,
+               disagree: `picked for layer disagreement: ${sel.private_calls} final-round calls made by only one of fib / seq / both (top 4 per chromosome)`,
+               random: `random control (seed 20260915): ${sel.ref_sites} reference sites, ${sel.private_calls} private calls`}[sel.kind] || "";
+  const C = D.counts, mxCalls = Math.max(1, ...runIds.map(r => C[r].calls));
+  const rows = runIds.map((r, i) => {
+    const c = C[r], on = r === runMode ? " on" : "";
+    const dash = DASH[i] || [];
+    return `<tr class="${on}" data-r="${r}">
+      <td>${dashSwatch(dash)} ${r}</td>
+      <td>${c.calls}</td>
+      <td class="barc"><span class="mbar" style="width:${(100 * c.calls / mxCalls).toFixed(1)}px"></span></td>
+      <td>${c.mac} <small>${c.calls ? Math.round(100 * c.mac / c.calls) + "%" : "–"}</small></td>
+      <td>${c.ros} <small>${c.calls ? Math.round(100 * c.ros / c.calls) + "%" : "–"}</small></td>
+      <td>${D.nMac ? (100 * c.mac / D.nMac).toFixed(0) + "%" : "–"}</td>
+      ${c.invalid ? `<td style="color:var(--warn)">${c.invalid} invalid bp</td>` : ""}
+    </tr>`;
+  }).join("");
+  document.getElementById("ledger").innerHTML =
+    `<div class="cap">Window <b>${D.chrom}:${fmt(D.win[0])}–${fmt(D.win[1])}</b> holds
+       <b>${D.nMac}</b> MacIsaac sites and <b>${D.nRos}</b> Rossi _CX summits (58 tuned groups).
+       <span class="why">${why}</span></div>
+     <div class="ltab"><table class="lt"><thead><tr><th>run</th><th>calls ≥0.10</th><th></th>
+       <th>at MacIsaac <small>% of calls</small></th><th>at Rossi <small>% of calls</small></th><th>MacIsaac found</th></tr></thead>
+       <tbody>${rows}</tbody></table></div>`;
+  document.querySelectorAll("#ledger tr[data-r]").forEach(tr => tr.onclick = () => setRun(tr.dataset.r));
+}
+function dashSwatch(d){
+  const col = "currentColor";
+  return `<svg width="22" height="6" aria-hidden="true"><line x1="1" y1="3" x2="21" y2="3" stroke="${col}" stroke-width="1.6" stroke-dasharray="${d.join(" ")}"/></svg>`;
+}
+
+/* ---------- view control ---------- */
+function setView(s, e, push = true){
+  s = Math.round(s); e = Math.round(e);
+  if (e - s < 19){ const c = (s + e) / 2; s = Math.round(c - 10); e = s + 20; }
+  if (s < D.start){ e += D.start - s; s = D.start; }
+  if (e > D.end){ s -= e - D.end; e = D.end; }
+  s = Math.max(D.start, s); e = Math.min(D.end, e);
+  if (push) hist.push({s: view.s, e: view.e});
+  view = {s, e};
+  draw();
+}
+function draw(skipSidebar){
+  if (!window._maxes) skipSidebar = false;
+  drawPost(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawAxis();
+  if (!skipSidebar) buildSidebar();
+  renderStats();
+  document.getElementById("coord").value = `${D.chrom}:${view.s}-${view.e}`;
+  clearOverlay();
+}
+function renderStats(){
+  const shown = runMode === "compare" ? runIds[0] : runMode;
+  const F = D.fiber;
+  const a = Math.max(0, view.s - D.start), b = Math.min(N, view.e - D.start + 1);
+  let k = 0, n = 0, bases = 0;
+  for (let i = a; i < b; i++){ k += F.mw[i] + F.mc[i]; n += F.aw[i] + F.ac[i]; bases++; }
+  let nuc = 0; const na = dense(shown, "nucleosome"); for (let i = a; i < b; i++) nuc += na[i];
+  let top = null, topv = 0;
+  for (const f of FACT){
+    if (f === "nucleosome" || f === "nuc_center") continue;
+    const arr = dense(shown, f); let sum = 0;
+    for (let i = a; i < b; i++) sum += arr[i];
+    if (sum / bases > topv){ topv = sum / bases; top = f; }
+  }
+  const cell = (kk, vv) => `<div class="stat"><div class="k">${kk}</div><div class="v">${vv}</div></div>`;
+  document.getElementById("stats").innerHTML =
+    cell("view", `${D.chrom}:${fmt(view.s)}–${fmt(view.e)} <small>${fmt(nView())} bp</small>`) +
+    cell("showing", runMode === "compare" ? `all ${runIds.length} <small>stats for ${shown}</small>` : shown) +
+    cell("sites in view", `${refCount("ref_mac")} <small>MacIsaac</small> ${refCount("ref_ros")} <small>Rossi</small>`) +
+    cell("nucleosome occ", (bases ? nuc / bases : 0).toFixed(2)) +
+    cell("mean m6A", n > 0 ? (k / n).toFixed(3) : "–") +
+    cell("top non-nucleosome track", top ? `<span class="sw" style="display:inline-block;background:${COL[top]}"></span> ${LAB[top]} <small>${topv.toFixed(3)}</small>` : "–");
+}
+function zoom(factor, anchor){
+  const n = nView(), c = anchor === undefined ? (view.s + view.e) / 2 : anchor;
+  const nn = Math.max(20, Math.round(n * factor)), frac = (c - view.s) / n;
+  setView(c - frac * nn, c - frac * nn + nn - 1);
+}
+document.getElementById("go").onclick = jump;
+document.getElementById("coord").addEventListener("keydown", e => { if (e.key === "Enter") jump(); });
+function jump(){
+  const msg = document.getElementById("msg"); msg.textContent = "";
+  let t = document.getElementById("coord").value.trim().replace(/,/g, "");
+  t = t.replace(/^[A-Za-z_0-9]+\s*:\s*/, "");
+  const m = t.match(/^(\d+)\s*(?:-|\.\.|to)\s*(\d+)$/);
+  let s, e;
+  if (m){ s = +m[1]; e = +m[2]; if (s > e){ const t2 = s; s = e; e = t2; } }
+  else if (/^\d+$/.test(t)){ s = +t - 200; e = +t + 199; }
+  else { msg.textContent = "Use chrXIV:301200-301400, 301200-301400 or a single position."; return; }
+  if (e < D.start || s > D.end){ msg.textContent = `Outside this region (${D.chrom}:${fmt(D.start)}–${fmt(D.end)}); pick another region first.`; return; }
+  setView(s, e);
+}
+document.getElementById("zin").onclick = () => zoom(0.5);
+document.getElementById("zout").onclick = () => zoom(2);
+document.getElementById("reset").onclick = () => setView(D.view[0], D.view[1]);
+document.getElementById("back").onclick = () => { const h = hist.pop(); if (h) setView(h.s, h.e, false); };
+document.getElementById("fill").onchange = e => { fillMode = e.target.checked; document.getElementById("fillbtn").classList.toggle("on", fillMode); draw(true); };
+document.getElementById("refall").checked = true;
+document.getElementById("refallbtn").classList.add("on");
+document.getElementById("refall").onchange = e => {
+  refAll = e.target.checked;
+  const b = document.getElementById("refallbtn"); b.classList.toggle("on", refAll);
+  b.lastChild.textContent = refAll ? "sites: all groups" : "sites: ticked groups";
+  draw(true);
+};
+document.getElementById("sbtog").onchange = e => {
+  document.getElementById("main").classList.toggle("nosb", !e.target.checked);
+  document.getElementById("sbbtn").classList.toggle("on", e.target.checked);
+  requestAnimationFrame(resize);
+};
+document.getElementById("sbbtn").classList.add("on");
+let flashT = null;
+function flash(text){
+  const m = document.getElementById("msg"); m.textContent = text;
+  if (flashT) clearTimeout(flashT);
+  flashT = setTimeout(() => { if (m.textContent === text) m.textContent = ""; }, 2600);
+}
+function setRun(r, redraw = true){
+  runMode = r; store.set("tob.run", r);
+  document.querySelectorAll("#runsel label.rb").forEach(x => {
+    const on = x.dataset.r === r; x.classList.toggle("on", on);
+    const i = x.querySelector("input"); if (i) i.checked = on;
+  });
+  if (redraw){ renderLedger(); draw(); }
+}
+document.getElementById("sites").onchange = e => {
+  if (!e.target.value) return;
+  const [p, g] = e.target.value.split("|");
+  const fs = FACT.filter(f => ALL.groupOf[f] === g).filter(f => !checked.has(f));
+  if (fs.length){ fs.forEach(f => checked.add(f)); saveChecked(); flash(`${g} switched on`); }
+  setView(+p - 150, +p + 150);
+  e.target.value = "";
+};
+addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const n = nView();
+  if (e.key === "ArrowLeft") setView(view.s - n * 0.1, view.e - n * 0.1);
+  else if (e.key === "ArrowRight") setView(view.s + n * 0.1, view.e + n * 0.1);
+  else if (e.key === "+" || e.key === "=") zoom(0.5);
+  else if (e.key === "-") zoom(2);
+});
+
+/* ---------- mouse ---------- */
+const octx = ov.getContext("2d");
+function clearOverlay(){ octx.clearRect(0, 0, ov.width, ov.height); }
+let drag = null;
+const stage = document.getElementById("stage");
+stage.addEventListener("mousedown", e => { const r = stage.getBoundingClientRect(); drag = {x0: e.clientX - r.left, pan: e.shiftKey, s0: view.s, e0: view.e}; });
+addEventListener("mousemove", e => {
+  const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  if (drag){
+    if (drag.pan){
+      const d = (drag.x0 - x) / plotW * (drag.e0 - drag.s0 + 1);
+      view = {s: Math.round(drag.s0 + d), e: Math.round(drag.e0 + d)};
+      if (view.s < D.start){ view.e += D.start - view.s; view.s = D.start; }
+      if (view.e > D.end){ view.s -= view.e - D.end; view.e = D.end; }
+      draw(true);
+    } else {
+      clearOverlay(); octx.fillStyle = css("--sel");
+      octx.fillRect(Math.min(drag.x0, x), 0, Math.abs(x - drag.x0), ov.height / DPR);
+    }
+    return;
+  }
+  if (x < GUT || x > GUT + plotW || y < 0 || y > ov.height / DPR || e.clientY < r.top){ hideTip(); return; }
+  crosshair(x); showTip(e, posOf(x));
+});
+addEventListener("mouseup", e => {
+  if (!drag) return;
+  const r = stage.getBoundingClientRect(), x = e.clientX - r.left;
+  if (!drag.pan && Math.abs(x - drag.x0) > 4) setView(posOf(Math.min(drag.x0, x)), posOf(Math.max(drag.x0, x)));
+  else if (drag.pan) hist.push({s: drag.s0, e: drag.e0});
+  drag = null; clearOverlay();
+});
+stage.addEventListener("dblclick", () => zoom(2));
+stage.addEventListener("wheel", e => { e.preventDefault(); const r = stage.getBoundingClientRect(); zoom(e.deltaY > 0 ? 1.25 : 0.8, posOf(e.clientX - r.left)); }, {passive: false});
+stage.addEventListener("mouseleave", hideTip);
+function crosshair(x){
+  clearOverlay();
+  octx.strokeStyle = css("--crosshair"); octx.lineWidth = 1; octx.setLineDash([3, 3]);
+  octx.beginPath(); octx.moveTo(Math.round(x) + 0.5, 0); octx.lineTo(Math.round(x) + 0.5, ov.height / DPR); octx.stroke(); octx.setLineDash([]);
+}
+const tip = document.getElementById("tip");
+function hideTip(){ tip.style.display = "none"; }
+function showTip(ev, p){
+  const i = p - D.start;
+  if (i < 0 || i >= N){ hideTip(); return; }
+  const shown = runMode === "compare" ? runIds[0] : runMode;
+  const F = D.fiber, nW = F.aw[i], nC = F.ac[i], kW = F.mw[i], kC = F.mc[i];
+  const ratio = (nW + nC) > 0 ? (kW + kC) / (nW + nC) : NaN;
+  const rows = FACT.map(f => ({f, v: dense(shown, f)[i]})).filter(r => r.v >= 0.01).sort((a, b) => b.v - a.v).slice(0, 7);
+  const near = [];
+  for (const [key, list, cv2] of [["MacIsaac", D.mac, "--mac"], ["Rossi", D.ros, "--ros"]])
+    for (const [q, g] of list) if (Math.abs(q - p) <= 15)
+      near.push(`<tr><td style="color:var(${cv2})">${key}</td><td>${g}</td><td class="v">${fmt(q)} <small>(${q - p >= 0 ? "+" : ""}${q - p})</small></td></tr>`);
+  let cmp = "";
+  if (runMode === "compare"){
+    const chk = [...checked].filter(f => !isRef(f)).slice(0, 3);
+    if (chk.length) cmp = `<table style="margin-top:5px"><tr><td></td>${chk.map(f => `<td class="v">${LAB[f]}</td>`).join("")}</tr>` +
+      runIds.map(r => `<tr><td>${r}</td>${chk.map(f => `<td class="v">${dense(r, f)[i].toFixed(2)}</td>`).join("")}</tr>`).join("") + `</table>`;
+  }
+  tip.innerHTML =
+    `<div class="c">${D.chrom}:${fmt(p)} &nbsp;<span style="color:var(--T)">${D.seq[i] || "?"}</span> <span style="color:var(--ink3);font-weight:400">${shown}</span></div>` +
+    `<table><tr><td>m6A W / C</td><td class="v">${kW}/${nW} · ${kC}/${nC}</td><td class="v"><b>${isNaN(ratio) ? "–" : ratio.toFixed(3)}</b></td></tr></table>` +
+    (rows.length ? `<table style="margin-top:5px">` + rows.map(r =>
+        `<tr><td><span class="sw" style="display:inline-block;background:${COL[r.f]}"></span></td><td>${LAB[r.f]}</td><td class="v">${r.v.toFixed(2)}</td></tr>`).join("") + `</table>`
+      : `<div style="margin-top:5px;color:var(--ink3)">no track ≥ 0.01</div>`) +
+    (near.length ? `<table style="margin-top:5px">` + near.join("") + `</table>` : "") + cmp;
+  tip.style.display = "block";
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.min(innerWidth - w - 8, ev.clientX + 14) + "px";
+  tip.style.top = Math.min(innerHeight - h - 8, ev.clientY + 14) + "px";
+}
+
+/* ---------- region switching ---------- */
+function mountRegion(){
+  D = ALL.regions[regionKey];
+  N = D.end - D.start + 1;
+  runIds = D.runOrder;
+  cache.clear();
+  if (runMode !== "compare" && !runIds.includes(runMode)) runMode = runIds[0];
+  view = {s: D.view[0], e: D.view[1]}; hist.length = 0;
+  const hold = D.chrom === "chrIV";
+  const chip = document.getElementById("rolechip");
+  chip.textContent = hold ? "holdout" : "tuning"; chip.className = "chip" + (hold ? " hold" : "");
+  document.getElementById("stl").textContent =
+    `${D.chrom}:${fmt(D.start)}–${fmt(D.end)} loaded · ${runIds.length} runs · 61 tuned motifs`;
+  document.getElementById("runsel").innerHTML =
+    [...runIds, "compare"].map((r, i) =>
+      `<label class="rb${r === runMode ? " on" : ""}" data-r="${r}"><input type="radio" name="run" value="${r}" ${r === runMode ? "checked" : ""}>${r === "compare" ? "compare all" : r}</label>` +
+      ((i % 2 === 1 && i < runIds.length - 1) ? '<span class="gsep"></span>' : "")).join("");
+  document.querySelectorAll("#runsel label.rb").forEach(l => l.onclick = () => setRun(l.dataset.r));
+  const opts = [...D.mac.map(([p, g]) => ["MacIsaac", p, g]), ...D.ros.map(([p, g]) => ["Rossi", p, g])]
+    .filter(([, p]) => p >= D.win[0] && p <= D.win[1]).sort((a, b) => a[1] - b[1]);
+  document.getElementById("sites").innerHTML = '<option value="">Jump to a reference site…</option>' +
+    opts.map(([k, p, g]) => `<option value="${p}|${g}">${g} · ${k} · ${fmt(p)}</option>`).join("");
+  renderLedger();
+}
+function setRegion(k){
+  if (!ALL.regions[k]) return;
+  regionKey = k; store.set("tob.region", k);
+  document.getElementById("regionsel").value = k;
+  mountRegion(); draw();
+}
+
+/* ---------- provenance ---------- */
+function renderProv(){
+  const R = ALL.runs;
+  document.getElementById("prov").innerHTML =
+    `<p><b>Runs.</b> Tuner v2 (<code>analysis/tune_w.py</code>): round 0 is untuned (w_nuc 35,
+     unknown w 1e-3); final is fw01 round 7 (8-round limit), sw01 round 5 (converged), bw01
+     round 7 (8-round limit). chrIV regions read the holdout decodes. The legacy row is the
+     genome-wide <code>robocop_genome_ct_u001_07</code> (both layers, all 153 motifs live).</p>
+     <div class="ftab"><table>${R.map(r => `<tr><td>${r.label}</td><td>${r.tune}</td><td>${r.hold}</td></tr>`).join("")}</table></div>
+     <p><b>Regions.</b> Per chromosome, 4 kb windows on a 1 kb grid, non-overlapping: the 8 with
+     the most MacIsaac + Rossi sites over the 58 tuned groups; the 4 with the most final-round
+     calls private to one layer configuration (no same-group call within 30 bp in the other two);
+     2 random controls. Built by <code>presentation/select_tuned_regions.py</code> and
+     <code>presentation/build_tuned_viewer.py</code>.</p>`;
+}
+
+/* ---------- init ---------- */
+document.getElementById("ttl").textContent = ALL.title;
+{
+  const byChrom = {};
+  for (const k of RKEYS){ const c = ALL.regions[k].chrom; (byChrom[c] = byChrom[c] || []).push(k); }
+  document.getElementById("regionsel").innerHTML = Object.entries(byChrom).map(([c, ks]) =>
+    `<optgroup label="${c} · ${c === "chrIV" ? "holdout" : "tuning"}">` +
+    ks.map(k => `<option value="${k}"${k === regionKey ? " selected" : ""}>${ALL.regionLabels[k]}</option>`).join("") + `</optgroup>`).join("");
+}
+document.getElementById("regionsel").onchange = e => setRegion(e.target.value);
+document.getElementById("prevr").onclick = () => setRegion(RKEYS[(RKEYS.indexOf(regionKey) + RKEYS.length - 1) % RKEYS.length]);
+document.getElementById("nextr").onclick = () => setRegion(RKEYS[(RKEYS.indexOf(regionKey) + 1) % RKEYS.length]);
+renderProv();
+mountRegion();
+addEventListener("resize", resize);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(true));
+resize();
+</script>

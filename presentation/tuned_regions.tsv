@@ -1,0 +1,43 @@
+# key	label	region	view	runs_file   (built by select_tuned_regions.py)
+chrXIV_6_sites	chrXIV 6–10 kb · sites	chrXIV:6001-10000	chrXIV:6001-10000	tuned_runs.tsv
+chrXIV_62_sites	chrXIV 62–66 kb · sites	chrXIV:62001-66000	chrXIV:62001-66000	tuned_runs.tsv
+chrXIV_87_sites	chrXIV 87–91 kb · sites	chrXIV:87001-91000	chrXIV:87001-91000	tuned_runs.tsv
+chrXIV_197_sites	chrXIV 197–201 kb · sites	chrXIV:197001-201000	chrXIV:197001-201000	tuned_runs.tsv
+chrXIV_217_disagree	chrXIV 217–221 kb · disagree	chrXIV:217001-221000	chrXIV:217001-221000	tuned_runs.tsv
+chrXIV_280_disagree	chrXIV 280–284 kb · disagree	chrXIV:280001-284000	chrXIV:280001-284000	tuned_runs.tsv
+chrXIV_301_sites	chrXIV 301–305 kb · sites	chrXIV:301001-305000	chrXIV:301001-305000	tuned_runs.tsv
+chrXIV_352_sites	chrXIV 352–356 kb · sites	chrXIV:352001-356000	chrXIV:352001-356000	tuned_runs.tsv
+chrXIV_441_disagree	chrXIV 441–445 kb · disagree	chrXIV:441001-445000	chrXIV:441001-445000	tuned_runs.tsv
+chrXIV_500_sites	chrXIV 500–504 kb · sites	chrXIV:500001-504000	chrXIV:500001-504000	tuned_runs.tsv
+chrXIV_559_disagree	chrXIV 559–563 kb · disagree	chrXIV:559001-563000	chrXIV:559001-563000	tuned_runs.tsv
+chrXIV_591_random	chrXIV 591–595 kb · random	chrXIV:591001-595000	chrXIV:591001-595000	tuned_runs.tsv
+chrXIV_656_random	chrXIV 656–660 kb · random	chrXIV:656001-660000	chrXIV:656001-660000	tuned_runs.tsv
+chrXIV_661_sites	chrXIV 661–665 kb · sites	chrXIV:661001-665000	chrXIV:661001-665000	tuned_runs.tsv
+chrII_5_disagree	chrII 5–9 kb · disagree	chrII:5001-9000	chrII:5001-9000	tuned_runs.tsv
+chrII_86_sites	chrII 86–90 kb · sites	chrII:86001-90000	chrII:86001-90000	tuned_runs.tsv
+chrII_106_random	chrII 106–110 kb · random	chrII:106001-110000	chrII:106001-110000	tuned_runs.tsv
+chrII_164_sites	chrII 164–168 kb · sites	chrII:164001-168000	chrII:164001-168000	tuned_runs.tsv
+chrII_222_sites	chrII 222–226 kb · sites	chrII:222001-226000	chrII:222001-226000	tuned_runs.tsv
+chrII_339_disagree	chrII 339–343 kb · disagree	chrII:339001-343000	chrII:339001-343000	tuned_runs.tsv
+chrII_370_disagree	chrII 370–374 kb · disagree	chrII:370001-374000	chrII:370001-374000	tuned_runs.tsv
+chrII_389_sites	chrII 389–393 kb · sites	chrII:389001-393000	chrII:389001-393000	tuned_runs.tsv
+chrII_405_sites	chrII 405–409 kb · sites	chrII:405001-409000	chrII:405001-409000	tuned_runs.tsv
+chrII_476_sites	chrII 476–480 kb · sites	chrII:476001-480000	chrII:476001-480000	tuned_runs.tsv
+chrII_553_sites	chrII 553–557 kb · sites	chrII:553001-557000	chrII:553001-557000	tuned_runs.tsv
+chrII_622_disagree	chrII 622–626 kb · disagree	chrII:622001-626000	chrII:622001-626000	tuned_runs.tsv
+chrII_679_sites	chrII 679–683 kb · sites	chrII:679001-683000	chrII:679001-683000	tuned_runs.tsv
+chrII_718_random	chrII 718–722 kb · random	chrII:718001-722000	chrII:718001-722000	tuned_runs.tsv
+chrIV_10_sites	chrIV 10–14 kb · sites (holdout)	chrIV:10001-14000	chrIV:10001-14000	tuned_runs.tsv
+chrIV_384_sites	chrIV 384–388 kb · sites (holdout)	chrIV:384001-388000	chrIV:384001-388000	tuned_runs.tsv
+chrIV_422_random	chrIV 422–426 kb · random (holdout)	chrIV:422001-426000	chrIV:422001-426000	tuned_runs.tsv
+chrIV_449_sites	chrIV 449–453 kb · sites (holdout)	chrIV:449001-453000	chrIV:449001-453000	tuned_runs.tsv
+chrIV_462_sites	chrIV 462–466 kb · sites (holdout)	chrIV:462001-466000	chrIV:462001-466000	tuned_runs.tsv
+chrIV_504_disagree	chrIV 504–508 kb · disagree (holdout)	chrIV:504001-508000	chrIV:504001-508000	tuned_runs.tsv
+chrIV_541_disagree	chrIV 541–545 kb · disagree (holdout)	chrIV:541001-545000	chrIV:541001-545000	tuned_runs.tsv
+chrIV_597_disagree	chrIV 597–601 kb · disagree (holdout)	chrIV:597001-601000	chrIV:597001-601000	tuned_runs.tsv
+chrIV_719_sites	chrIV 719–723 kb · sites (holdout)	chrIV:719001-723000	chrIV:719001-723000	tuned_runs.tsv
+chrIV_1078_sites	chrIV 1078–1082 kb · sites (holdout)	chrIV:1078001-1082000	chrIV:1078001-1082000	tuned_runs.tsv
+chrIV_1164_sites	chrIV 1164–1168 kb · sites (holdout)	chrIV:1164001-1168000	chrIV:1164001-1168000	tuned_runs.tsv
+chrIV_1239_disagree	chrIV 1239–1243 kb · disagree (holdout)	chrIV:1239001-1243000	chrIV:1239001-1243000	tuned_runs.tsv
+chrIV_1487_sites	chrIV 1487–1491 kb · sites (holdout)	chrIV:1487001-1491000	chrIV:1487001-1491000	tuned_runs.tsv
+chrIV_1501_random	chrIV 1501–1505 kb · random (holdout)	chrIV:1501001-1505000	chrIV:1501001-1505000	tuned_runs.tsv

@@ -1,0 +1,347 @@
+{
+ "rule": "Choose the windows shown in the Tuned Occupancy Browser (tuner v2: fw01 / sw01 / bw01).\n\nRule, per chromosome (chrXIV, chrII = tuning; chrIV = holdout), 4 kb windows on a 1 kb grid:\n  A  \"sites\"     top 8 by (MacIsaac c1 sites + Rossi _CX summits) over the 58 tuned groups,\n                 greedy, non-overlapping.\n  B  \"disagree\"  top 4 by PRIVATE calls at the final round: a call (posterior >= 0.10, one of\n                 the 61 tuned motifs, from the tuning loop's own counts_tw_<run>_NN/calls/)\n                 made by one layer config (fib / seq / both) with no call of the same group\n                 within 30 bp in either other config. Non-overlapping with A.\n  C  \"random\"    2 windows drawn with seed 20260915, non-overlapping with A and B.\nReferences are rossi_validate.load_references (MacIsaac merged-site centers; _CX (s+e)//2).\nWrites tuned_regions.tsv, tuned_runs.tsv and tuned_regions_selection.json next to this file.",
+ "chroms": {
+  "chrXIV": [
+   {
+    "key": "chrXIV_6_sites",
+    "kind": "sites",
+    "start": 6001,
+    "end": 10000,
+    "ref_sites": 44,
+    "private_calls": 76
+   },
+   {
+    "key": "chrXIV_62_sites",
+    "kind": "sites",
+    "start": 62001,
+    "end": 66000,
+    "ref_sites": 26,
+    "private_calls": 51
+   },
+   {
+    "key": "chrXIV_87_sites",
+    "kind": "sites",
+    "start": 87001,
+    "end": 91000,
+    "ref_sites": 51,
+    "private_calls": 51
+   },
+   {
+    "key": "chrXIV_197_sites",
+    "kind": "sites",
+    "start": 197001,
+    "end": 201000,
+    "ref_sites": 27,
+    "private_calls": 69
+   },
+   {
+    "key": "chrXIV_217_disagree",
+    "kind": "disagree",
+    "start": 217001,
+    "end": 221000,
+    "ref_sites": 25,
+    "private_calls": 83
+   },
+   {
+    "key": "chrXIV_280_disagree",
+    "kind": "disagree",
+    "start": 280001,
+    "end": 284000,
+    "ref_sites": 14,
+    "private_calls": 100
+   },
+   {
+    "key": "chrXIV_301_sites",
+    "kind": "sites",
+    "start": 301001,
+    "end": 305000,
+    "ref_sites": 74,
+    "private_calls": 85
+   },
+   {
+    "key": "chrXIV_352_sites",
+    "kind": "sites",
+    "start": 352001,
+    "end": 356000,
+    "ref_sites": 37,
+    "private_calls": 70
+   },
+   {
+    "key": "chrXIV_441_disagree",
+    "kind": "disagree",
+    "start": 441001,
+    "end": 445000,
+    "ref_sites": 11,
+    "private_calls": 87
+   },
+   {
+    "key": "chrXIV_500_sites",
+    "kind": "sites",
+    "start": 500001,
+    "end": 504000,
+    "ref_sites": 44,
+    "private_calls": 89
+   },
+   {
+    "key": "chrXIV_559_disagree",
+    "kind": "disagree",
+    "start": 559001,
+    "end": 563000,
+    "ref_sites": 24,
+    "private_calls": 88
+   },
+   {
+    "key": "chrXIV_591_random",
+    "kind": "random",
+    "start": 591001,
+    "end": 595000,
+    "ref_sites": 0,
+    "private_calls": 37
+   },
+   {
+    "key": "chrXIV_656_random",
+    "kind": "random",
+    "start": 656001,
+    "end": 660000,
+    "ref_sites": 0,
+    "private_calls": 10
+   },
+   {
+    "key": "chrXIV_661_sites",
+    "kind": "sites",
+    "start": 661001,
+    "end": 665000,
+    "ref_sites": 33,
+    "private_calls": 76
+   }
+  ],
+  "chrII": [
+   {
+    "key": "chrII_5_disagree",
+    "kind": "disagree",
+    "start": 5001,
+    "end": 9000,
+    "ref_sites": 42,
+    "private_calls": 93
+   },
+   {
+    "key": "chrII_86_sites",
+    "kind": "sites",
+    "start": 86001,
+    "end": 90000,
+    "ref_sites": 46,
+    "private_calls": 61
+   },
+   {
+    "key": "chrII_106_random",
+    "kind": "random",
+    "start": 106001,
+    "end": 110000,
+    "ref_sites": 4,
+    "private_calls": 21
+   },
+   {
+    "key": "chrII_164_sites",
+    "kind": "sites",
+    "start": 164001,
+    "end": 168000,
+    "ref_sites": 77,
+    "private_calls": 117
+   },
+   {
+    "key": "chrII_222_sites",
+    "kind": "sites",
+    "start": 222001,
+    "end": 226000,
+    "ref_sites": 112,
+    "private_calls": 10
+   },
+   {
+    "key": "chrII_339_disagree",
+    "kind": "disagree",
+    "start": 339001,
+    "end": 343000,
+    "ref_sites": 14,
+    "private_calls": 100
+   },
+   {
+    "key": "chrII_370_disagree",
+    "kind": "disagree",
+    "start": 370001,
+    "end": 374000,
+    "ref_sites": 44,
+    "private_calls": 102
+   },
+   {
+    "key": "chrII_389_sites",
+    "kind": "sites",
+    "start": 389001,
+    "end": 393000,
+    "ref_sites": 47,
+    "private_calls": 72
+   },
+   {
+    "key": "chrII_405_sites",
+    "kind": "sites",
+    "start": 405001,
+    "end": 409000,
+    "ref_sites": 45,
+    "private_calls": 96
+   },
+   {
+    "key": "chrII_476_sites",
+    "kind": "sites",
+    "start": 476001,
+    "end": 480000,
+    "ref_sites": 171,
+    "private_calls": 56
+   },
+   {
+    "key": "chrII_553_sites",
+    "kind": "sites",
+    "start": 553001,
+    "end": 557000,
+    "ref_sites": 104,
+    "private_calls": 101
+   },
+   {
+    "key": "chrII_622_disagree",
+    "kind": "disagree",
+    "start": 622001,
+    "end": 626000,
+    "ref_sites": 10,
+    "private_calls": 97
+   },
+   {
+    "key": "chrII_679_sites",
+    "kind": "sites",
+    "start": 679001,
+    "end": 683000,
+    "ref_sites": 50,
+    "private_calls": 61
+   },
+   {
+    "key": "chrII_718_random",
+    "kind": "random",
+    "start": 718001,
+    "end": 722000,
+    "ref_sites": 5,
+    "private_calls": 52
+   }
+  ],
+  "chrIV": [
+   {
+    "key": "chrIV_10_sites",
+    "kind": "sites",
+    "start": 10001,
+    "end": 14000,
+    "ref_sites": 55,
+    "private_calls": 61
+   },
+   {
+    "key": "chrIV_384_sites",
+    "kind": "sites",
+    "start": 384001,
+    "end": 388000,
+    "ref_sites": 74,
+    "private_calls": 75
+   },
+   {
+    "key": "chrIV_422_random",
+    "kind": "random",
+    "start": 422001,
+    "end": 426000,
+    "ref_sites": 8,
+    "private_calls": 22
+   },
+   {
+    "key": "chrIV_449_sites",
+    "kind": "sites",
+    "start": 449001,
+    "end": 453000,
+    "ref_sites": 49,
+    "private_calls": 50
+   },
+   {
+    "key": "chrIV_462_sites",
+    "kind": "sites",
+    "start": 462001,
+    "end": 466000,
+    "ref_sites": 69,
+    "private_calls": 72
+   },
+   {
+    "key": "chrIV_504_disagree",
+    "kind": "disagree",
+    "start": 504001,
+    "end": 508000,
+    "ref_sites": 21,
+    "private_calls": 102
+   },
+   {
+    "key": "chrIV_541_disagree",
+    "kind": "disagree",
+    "start": 541001,
+    "end": 545000,
+    "ref_sites": 40,
+    "private_calls": 124
+   },
+   {
+    "key": "chrIV_597_disagree",
+    "kind": "disagree",
+    "start": 597001,
+    "end": 601000,
+    "ref_sites": 45,
+    "private_calls": 106
+   },
+   {
+    "key": "chrIV_719_sites",
+    "kind": "sites",
+    "start": 719001,
+    "end": 723000,
+    "ref_sites": 52,
+    "private_calls": 73
+   },
+   {
+    "key": "chrIV_1078_sites",
+    "kind": "sites",
+    "start": 1078001,
+    "end": 1082000,
+    "ref_sites": 55,
+    "private_calls": 59
+   },
+   {
+    "key": "chrIV_1164_sites",
+    "kind": "sites",
+    "start": 1164001,
+    "end": 1168000,
+    "ref_sites": 54,
+    "private_calls": 63
+   },
+   {
+    "key": "chrIV_1239_disagree",
+    "kind": "disagree",
+    "start": 1239001,
+    "end": 1243000,
+    "ref_sites": 7,
+    "private_calls": 105
+   },
+   {
+    "key": "chrIV_1487_sites",
+    "kind": "sites",
+    "start": 1487001,
+    "end": 1491000,
+    "ref_sites": 76,
+    "private_calls": 90
+   },
+   {
+    "key": "chrIV_1501_random",
+    "kind": "random",
+    "start": 1501001,
+    "end": 1505000,
+    "ref_sites": 9,
+    "private_calls": 28
+   }
+  ]
+ }
+}

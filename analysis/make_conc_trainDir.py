@@ -40,6 +40,7 @@ Usage
     python make_conc_trainDir.py --lam 30
     python make_conc_trainDir.py --tf Abf1_murphy --lam 30 \
            --src robocop_train_fiberonly --out robocop_train_conc30
+    python make_conc_trainDir.py --set unknown=0.01 --hold-nucleosome --out <dir>
 """
 import argparse
 import json
@@ -89,6 +90,34 @@ def dbf_probs(pwm, lams):
     return {k: v / total for k, v in prob.items()}, {t: conc[t] for t in lams}
 
 
+def solve_nuc_lam(pwm, lams, target, lo=1e-8, hi=1e3, rtol=1e-12, max_iter=200):
+    """lambda_nucleosome that puts prob['nucleosome'] back at `target`, given `lams`.
+
+    Moving any other concentration moves the shared unbound root, and the 147 bp nucleosome
+    feels that as p^147 -- lambda_unknown = 0.01 alone raises nucleosome_prob ~21x. The
+    compensating lambda therefore depends on the WHOLE vector, so it is re-solved per build
+    rather than reused. prob['nucleosome'] is monotone increasing in its own lambda, so a
+    bisection in log space is safe; each step is one dbf_probs call (no decode).
+    """
+    def nuc(lam_nuc):
+        return dbf_probs(pwm, dict(lams, nucleosome=lam_nuc))[0]['nucleosome']
+
+    a, b = math.log(lo), math.log(hi)
+    if not nuc(lo) <= target <= nuc(hi):
+        sys.exit("error: nucleosome_prob %.6e is not reachable with lambda_nucleosome in "
+                 "[%g, %g]" % (target, lo, hi))
+    for _ in range(max_iter):
+        m = 0.5 * (a + b)
+        p = nuc(math.exp(m))
+        if abs(p / target - 1.0) < rtol:
+            break
+        if p < target:
+            a = m
+        else:
+            b = m
+    return math.exp(m)
+
+
 def apply_probs(cfg, prob):
     """Write `prob` into cfg's transition matrix / initial / end probs, in place."""
     tf_prob = np.array([prob[t] for t in list(cfg['tfs'])])
@@ -109,6 +138,9 @@ def main():
                          "be applied together: convert_to_prob solves one unbound root "
                          "across all motif lengths, so scaling them in separate trainDirs "
                          "would not compose.")
+    ap.add_argument("--hold-nucleosome", action="store_true",
+                    help="solve lambda_nucleosome so nucleosome_prob stays at the source value "
+                         "despite the other --set factors")
     ap.add_argument("--src", default="robocop_train_fiberonly",
                     help="trainDir to inherit everything else from")
     ap.add_argument("--out", default=None,
@@ -126,6 +158,8 @@ def main():
         lams = {args.tf: args.lam}
     else:
         sys.exit("give either --set TF=LAM (repeatable) or both --tf and --lam")
+    if args.hold_nucleosome and "nucleosome" in lams:
+        sys.exit("error: --hold-nucleosome solves lambda_nucleosome itself; don't also --set it")
 
     lam_tag = "_".join("%s%s" % (t.split("_")[0], ("%g" % l).replace(".", "p"))
                        for t, l in sorted(lams.items()))
@@ -152,10 +186,31 @@ def main():
     src_ep = np.asarray(cfg['end_probs']).copy()
     ssb = int(cfg['silent_states_begin'])
     tfs = list(cfg['tfs'])
-    missing = [t for t in lams if t not in tfs]
+    nuc_lam_solved = None
+    if args.hold_nucleosome:
+        nuc_lam_solved = solve_nuc_lam(pwm, lams, src_nuc)
+        lams["nucleosome"] = nuc_lam_solved
+        print("hold : lambda_nucleosome solved = %.10g (keeps nucleosome_prob at %.6e)"
+              % (nuc_lam_solved, src_nuc))
+    # `nucleosome` is a legitimate concentration (dbf_probs sets it to 35 and applies the
+    # multiplier like any other), but it is NOT a member of cfg['tfs'] -- that array holds
+    # the 153 motifs plus `unknown`, and the nucleosome has its own 531-state block. Checking
+    # only against cfg['tfs'] therefore rejected a knob the machinery already supports.
+    #
+    # It has to be settable, because `unknown` cannot be tuned without it: unknown carries ~5%
+    # of the prior mass, so lowering it drives the shared unbound root up, and the 147 bp
+    # nucleosome amplifies that as p^147 -- measured at +1085% to +2036% for lambda_unknown
+    # 0.3 down to 0.01. Compensating the nucleosome in the SAME call is the only way to move
+    # `unknown` without destroying the one part of the model that is already correct.
+    # `background` stays unsettable on purpose: its concentration is pinned at 1.0 and defines
+    # the scale the root is solved against, so scaling it just renames the units.
+    settable = set(tfs) | {"nucleosome"}
+    missing = [t for t in lams if t not in settable]
     if missing:
         sys.exit("error: not in this model: %s" % ", ".join(missing))
-    tidx = {t: tfs.index(t) for t in lams}
+    # `nucleosome` has no slot in cfg['tfs'] / tf_prob -- it owns its own 531-state block and
+    # its probability lives in cfg['nucleosome_prob']. Index only the real TF entries.
+    tidx = {t: tfs.index(t) for t in lams if t in tfs}
 
     # ---- gate 1: fidelity. lambda=1 must reproduce the source config bit-exactly. ----
     p1, _ = dbf_probs(pwm, {t: 1.0 for t in lams})
@@ -197,9 +252,13 @@ def main():
     max_other = float(np.max(np.abs(tf_prob[other] / src_tf_prob[other] - 1.0)))
     print()
     for t in sorted(lams):
-        i = tidx[t]
-        print("%-18s tf_prob: %.6e -> %.6e  (x%.2f, requested x%g)"
-              % (t, src_tf_prob[i], tf_prob[i], tf_prob[i] / src_tf_prob[i], lams[t]))
+        if t in tidx:
+            i = tidx[t]
+            print("%-18s tf_prob: %.6e -> %.6e  (x%.2f, requested x%g)"
+                  % (t, src_tf_prob[i], tf_prob[i], tf_prob[i] / src_tf_prob[i], lams[t]))
+        else:   # nucleosome -- reported from nucleosome_prob, it has no tf_prob slot
+            print("%-18s nuc_prob: %.6e -> %.6e  (x%.2f, requested x%g)"
+                  % (t, src_nuc, prob['nucleosome'], prob['nucleosome'] / src_nuc, lams[t]))
     print("background_prob : %.9f -> %.9f" % (src_bg, prob['background']))
     print("nucleosome_prob : %.6e -> %.6e" % (src_nuc, prob['nucleosome']))
     print("max |rel change| over the other %d TFs: %.3e" % (len(other), max_other))
@@ -218,17 +277,24 @@ def main():
     patch = dict(
         lams=lams, src=os.path.abspath(args.src), out=os.path.abspath(out),
         silent_states_begin=ssb,
-        factors={t: dict(index=tidx[t],
-                         conc_before=float(calculateKD(pwm, t)),
-                         conc_after=float(conc_new[t]),
-                         tf_prob_before=float(src_tf_prob[tidx[t]]),
-                         tf_prob_after=float(tf_prob[tidx[t]]),
-                         tf_prob_ratio=float(tf_prob[tidx[t]] / src_tf_prob[tidx[t]]))
+        factors={t: (dict(index=tidx[t],
+                          conc_before=float(calculateKD(pwm, t)),
+                          conc_after=float(conc_new[t]),
+                          tf_prob_before=float(src_tf_prob[tidx[t]]),
+                          tf_prob_after=float(tf_prob[tidx[t]]),
+                          tf_prob_ratio=float(tf_prob[tidx[t]] / src_tf_prob[tidx[t]]))
+                     if t in tidx else
+                     dict(index=None,                      # nucleosome: own block, own prob
+                          conc_before=35.0, conc_after=float(conc_new[t]),
+                          tf_prob_before=src_nuc,
+                          tf_prob_after=float(prob['nucleosome']),
+                          tf_prob_ratio=float(prob['nucleosome'] / src_nuc)))
                  for t in lams},
         background_prob_before=src_bg, background_prob_after=float(prob['background']),
         nucleosome_prob_before=src_nuc, nucleosome_prob_after=float(prob['nucleosome']),
         max_rel_change_other_tfs=max_other,
         transition_rows_changed=rows,
+        nucleosome_lambda_solved=nuc_lam_solved,
     )
     with open(os.path.join(out, "conc_patch.json"), "w") as f:
         json.dump(patch, f, indent=2)

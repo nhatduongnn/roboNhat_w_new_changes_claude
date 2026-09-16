@@ -21,7 +21,7 @@ export MPLBACKEND=Agg
 # model and reverse-strand fix as sbatch_revfix_seq_maskoff.sh -- the ONLY difference is
 # trainDir: robocop_train_em10_chrII (10 Baum-Welch iterations on the transition prior,
 # fitted on held-out chrII) instead of robocop_train_fiberonly (unfitted calculateKD).
-# So any change against robocop_chrI_seq_maskoff_revfix is attributable to the prior.
+# So any change against robocop_chrI_fib_seq is attributable to the prior.
 echo "Host: $(hostname)  Task: $SLURM_ARRAY_TASK_ID  Start: $(date)"
-python run_split_fiber_em10_decode.py coord_chrI_full.tsv robocop_train_em10_chrII_fiber ./robocop_chrI_maskoff_em10/ "$SLURM_ARRAY_TASK_ID" 6
+python run_split_fiber_em10_decode.py coord_chrI_full.tsv robocop_train_em10_chrII_fiber ./robocop_chrI_fib_em10/ "$SLURM_ARRAY_TASK_ID" 6
 echo "Task: $SLURM_ARRAY_TASK_ID  End: $(date)"

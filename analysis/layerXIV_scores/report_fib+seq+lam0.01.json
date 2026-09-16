@@ -1,6 +1,6 @@
 {
   "label": "fib+seq+lam0.01",
-  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_conclo_0p01",
+  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_fib_seq_lam0p01",
   "n_regions": 1,
   "nucleosome": {
     "reference": "Chereji 2018 +1/-1",

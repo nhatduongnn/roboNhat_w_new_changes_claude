@@ -75,3 +75,15 @@ analysis/*.log
 analysis/trash/
 analysis/.*_jobids
 analysis/.timing.txt
+
+# Regenerable bulk outputs from the tuner-v2 / validation work (2026-09-16).
+# Genome-wide FIMO hit tables (~244 MB); regenerate with the fimo scripts.
+analysis/fimo_genome/
+# Per-round call-position tables (count_calls.py --calls), ~20 MB per round; the pooled
+# validation.tsv / report_NN.tsv / state.json next to them ARE tracked.
+analysis/conc_tuning/calls_ct_*/
+analysis/conc_tuning/counts_tw_*/calls/
+# Overnight genome/job-A count directories (regenerate with overnight_score.py)
+analysis/overnight/counts_*/
+# Superseded viewer build; the live page is tuned_occupancy_viewer_tempered.html
+presentation/tuned_occupancy_viewer.html

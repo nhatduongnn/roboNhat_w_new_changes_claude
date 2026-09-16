@@ -22,5 +22,5 @@ export MPLBACKEND=Agg
 # Layer/mask state is BAKED INTO pkgvar/seq_maskoff/robocop/utils/robocopExtras.py --
 # nothing to comment in or out, and no race with concurrently running arrays.
 echo "Host: $(hostname)  Task: $SLURM_ARRAY_TASK_ID  Start: $(date)"
-python run_split_revfix_seq_maskoff.py coord_chrI_full.tsv robocop_train_fiberonly ./robocop_chrI_seq_maskoff_revfix/ "$SLURM_ARRAY_TASK_ID" 6
+python run_split_revfix_seq_maskoff.py coord_chrI_full.tsv robocop_train_fiberonly ./robocop_chrI_fib_seq/ "$SLURM_ARRAY_TASK_ID" 6
 echo "Task: $SLURM_ARRAY_TASK_ID  End: $(date)"

@@ -36,14 +36,14 @@ echo "train $TRAIN_ID" >> .widememe_jobids
 
 echo
 echo "== decodes (afterok:$TRAIN_ID) =="
-CHRI_ID=$(DRIVER=$DRIVER TRAINDIR=$TRAINDIR OUTDIR=robocop_chrI_widememe \
+CHRI_ID=$(DRIVER=$DRIVER TRAINDIR=$TRAINDIR OUTDIR=robocop_chrI_fib_seq_wideABF1 \
           sbatch --parsable --job-name=wmChrI \
                  --dependency=afterok:$TRAIN_ID sbatch_chrI_widememe.sh)
 echo "chrI  (0-5)      $CHRI_ID"
 echo "chrI $CHRI_ID" >> .widememe_jobids
 
 if [ "$WHICH" = "all" ]; then
-    CHRXIV_ID=$(DRIVER=$DRIVER TRAINDIR=$TRAINDIR OUTDIR=robocop_chrXIV_widememe \
+    CHRXIV_ID=$(DRIVER=$DRIVER TRAINDIR=$TRAINDIR OUTDIR=robocop_chrXIV_fib_seq_wideABF1 \
                 sbatch --parsable --job-name=wmChrXIV \
                        --dependency=afterok:$TRAIN_ID sbatch_chrXIV.sh)
     echo "chrXIV (0-11)    $CHRXIV_ID"

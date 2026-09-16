@@ -27,15 +27,15 @@ submit () {  # name driver traindir outdir
 printf '%-12s %-38s %-32s %s\n' LABEL TRAINDIR OUTDIR JOB
 
 # fiber layer only ---------------------------------------------------------------
-submit fib       run_split_revfix_fiber_maskoff.py robocop_train_fiberonly          robocop_chrXIV_maskoff_fib
-submit fibem10   run_split_fiber_em10_decode.py    robocop_train_em10_chrII_fiber   robocop_chrXIV_maskoff_em10
+submit fib       run_split_revfix_fiber_maskoff.py robocop_train_fiberonly          robocop_chrXIV_fib
+submit fibem10   run_split_fiber_em10_decode.py    robocop_train_em10_chrII_fiber   robocop_chrXIV_fib_em10
 # fiber + sequence layer ---------------------------------------------------------
-submit seq       run_split_revfix_seq_maskoff.py   robocop_train_fiberonly          robocop_chrXIV_seq_maskoff_revfix
-submit seqem10   run_split_em10_decode.py          robocop_train_em10_chrII         robocop_chrXIV_seq_maskoff_em10
-submit em10nocap run_split_em10_decode.py          robocop_train_em10_chrII_nocap   robocop_chrXIV_seq_maskoff_em10nocap
+submit seq       run_split_revfix_seq_maskoff.py   robocop_train_fiberonly          robocop_chrXIV_fib_seq
+submit seqem10   run_split_em10_decode.py          robocop_train_em10_chrII         robocop_chrXIV_fib_seq_em10
+submit em10nocap run_split_em10_decode.py          robocop_train_em10_chrII_nocap   robocop_chrXIV_fib_seq_em10nocap
 # fiber + sequence, alternative Fiber-seq background ------------------------------
-submit capA      run_split_variant_capA.py         robocop_train_fiberonly          robocop_chrXIV_seq_maskoff_capA
-submit capB      run_split_variant_capB.py         robocop_train_fiberonly          robocop_chrXIV_seq_maskoff_capB
+submit capA      run_split_variant_capA.py         robocop_train_fiberonly          robocop_chrXIV_fib_seq_capA
+submit capB      run_split_variant_capB.py         robocop_train_fiberonly          robocop_chrXIV_fib_seq_capB
 
 echo
 echo "84 tasks submitted. Job ids in .chrXIV_jobids"

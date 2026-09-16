@@ -128,7 +128,7 @@ Two consequences:
   first update against precisely the states the fit is meant to rescue. This coupling was
   inert while `iterations = 0` and is live now.
 
-Measured on `robocop_chrI_seq_maskoff_revfix/tmpDir/info_0_6.h5`, `segment_0` (5000 x 3485;
+Measured on `robocop_chrI_fib_seq/tmpDir/info_0_6.h5`, `segment_0` (5000 x 3485;
 99.76% of the stored table is exactly zero). "Max lost" is the worst case, `n_zeros x 1e-4`:
 
 | state | start col | kept mass | zeros | max lost | as % of kept |

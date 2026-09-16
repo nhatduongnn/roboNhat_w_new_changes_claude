@@ -9,11 +9,11 @@
 # fib+seq, i.e. raw calculateKD. The constrained-EM ceiling sits at 6.69176e-4, which is
 # lambda = 3723 relative to ABF1's 1.797e-7 starting point -- so this scan spans most, but
 # not all, of the bracket.
-lam1	robocop_chrI_seq_maskoff_revfix	1
+lam1	robocop_chrI_fib_seq	1
 lam3	robocop_chrI_seq_maskoff_conc3	3
 lam10	robocop_chrI_seq_maskoff_conc10	10
 lam30	robocop_chrI_seq_maskoff_conc30	30
 lam100	robocop_chrI_seq_maskoff_conc100	100
 lam300	robocop_chrI_seq_maskoff_conc300	300
 lam1000	robocop_chrI_seq_maskoff_conc1000	1000
-em10	robocop_chrI_seq_maskoff_em10	3723
+em10	robocop_chrI_fib_seq_em10	3723
