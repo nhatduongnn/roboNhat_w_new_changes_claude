@@ -1,0 +1,2 @@
+group	T	E	fold	calls	matched_mac	lambda	lambda_next	dlog10	rho_next	why	gap	beta	alpha	censored	capped_under	falling_over	fitted
+ABF1	58	247.2	4.26	254	13	1.211e-14	1.211e-15	-1.000	0.030	secant+step-cap	-1.4365	0.100	0.700	0	0	1	1

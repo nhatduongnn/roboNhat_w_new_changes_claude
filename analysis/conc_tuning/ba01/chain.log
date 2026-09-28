@@ -1,0 +1,18 @@
+2026-09-16 18:57:55  iter 00  submitted decode 12611321 (40 tasks, robocop_chrXIV_chrII_tw_ba01_00) count 12611322 next 12611323
+2026-09-16 18:57:55  iter 00  holdout submitter twHS_ba01_00 job 12611324 (runs 'tune_w.py holdout --iter 0' after next 12611323; staggered round-0 holdout)
+2026-09-16 19:24:59  iter 01  submitted decode 12611785 (40 tasks, robocop_chrXIV_chrII_tw_ba01_01) count 12611786 next 12611787
+2026-09-16 19:25:10  iter 00  holdout: decode 12611803 (robocop_chrIV_tw_ba01_00) count 12611804 validate 12611805
+2026-09-16 19:58:49  iter 02  submitted decode 12612330 (40 tasks, robocop_chrXIV_chrII_tw_ba01_02) count 12612331 next 12612332
+2026-09-16 20:15:09  iter 03  submitted decode 12612633 (40 tasks, robocop_chrXIV_chrII_tw_ba01_03) count 12612634 next 12612635
+2026-09-16 20:30:50  iter 04  submitted decode 12612910 (40 tasks, robocop_chrXIV_chrII_tw_ba01_04) count 12612911 next 12612912
+2026-09-16 20:49:50  iter 05  submitted decode 12613214 (40 tasks, robocop_chrXIV_chrII_tw_ba01_05) count 12613215 next 12613216
+2026-09-16 21:05:50  iter 06  submitted decode 12613501 (40 tasks, robocop_chrXIV_chrII_tw_ba01_06) count 12613502 next 12613503
+2026-09-16 21:21:50  iter 07  submitted decode 12613770 (40 tasks, robocop_chrXIV_chrII_tw_ba01_07) count 12613772 next 12613774
+2026-09-16 21:38:20  iter 08  submitted decode 12614033 (40 tasks, robocop_chrXIV_chrII_tw_ba01_08) count 12614034 next 12614035
+2026-09-16 21:58:21  iter 08  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-16 21:58:21  iter 08  holdout: decode 12614744 (robocop_chrIV_tw_ba01_08) count 12614745 validate 12614746
+2026-09-16 21:58:21  iter 08  on-stop refresh: {'chereji': '12614747', 'summary': '12614748'}
+2026-09-16 21:59:50  iter 08  WARNING validation (holdout) failed: RuntimeError('missing /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_ba01_08/calls/chrIV.tsv')
+resume 2026-09-18: round-8 holdout decode 12614744 failed 40/40 on the rpy2 package:utils error; renamed holdout_* job keys to failed_holdout_* (backup state_before_holdout_redo_08.json) and resubmitting the holdout
+2026-09-18 16:57:28  iter 08  holdout: decode 12637876 (robocop_chrIV_tw_ba01_08) count 12637877 validate 12637878
+2026-09-18 16:57:45  iter 08  summary refresh submitted by hand: twSUM_ba01_08 12637879 (afterany:12637878)

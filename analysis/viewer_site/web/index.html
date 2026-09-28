@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoboCOP Run Browser</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="banner" hidden></div>
+
+<!-- ======================= run matrix ======================= -->
+<section id="matrixView" hidden>
+  <header>
+    <div class="tt"><h1>RoboCOP decode runs</h1><span class="sub" id="mSub"></span></div>
+    <div class="bar">
+      <input type="text" id="q" placeholder="filter: any text in the row…" spellcheck="false">
+      <select id="fFamily" data-col="family"><option value="">family: all</option></select>
+      <select id="fSeq" data-col="seq_layer"><option value="">seq layer: all</option></select>
+      <select id="fFib" data-col="fiber_layer"><option value="">fiber layer: all</option></select>
+      <select id="fMask" data-col="mask"><option value="">mask: all</option></select>
+      <select id="fCamp" data-col="campaign"><option value="">campaign: all</option></select>
+      <select id="fRole" data-col="role"><option value="">tuned: all</option></select>
+      <select id="fWidth" data-col="abf1_width"><option value="">ABF1 width: all</option></select>
+      <select id="fDecoy" data-col="decoy"><option value="">decoy: all</option></select>
+      <select id="fEm" data-col="em_iters"><option value="">EM: all</option></select>
+      <select id="fChrom" data-col="chroms"><option value="">covers: any chrom</option></select>
+      <label class="chk"><input type="checkbox" id="showMore"> more columns</label>
+      <label class="chk"><input type="checkbox" id="onlySel"> selected only</label>
+      <span class="grow"></span>
+      <button id="clearSel">clear</button>
+      <button id="viewSel" class="primary" disabled>View selected (0)</button>
+    </div>
+  </header>
+  <div class="tablewrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+  <footer id="mFoot"></footer>
+</section>
+
+<!-- ======================= viewer ======================= -->
+<section id="viewerView" hidden>
+  <header>
+    <div class="bar">
+      <button id="toMatrix" title="Back to the run matrix">&larr; Run matrix</button>
+      <div class="grp"><select id="quick" title="Quick switch: show just this run"></select></div>
+      <div class="grp" id="chips"></div>
+      <div class="grp"><select id="addRun" title="Add a run to the view"></select></div>
+      <div class="grp"><select id="chromSel" title="Chromosome"></select></div>
+      <div class="grp">
+        <input type="text" id="coord" placeholder="chrI:61200-61400" spellcheck="false">
+        <button id="go">Go</button>
+      </div>
+      <div class="grp">
+        <input type="text" id="gene" list="geneList" placeholder="gene…" spellcheck="false">
+        <datalist id="geneList"></datalist>
+      </div>
+      <div class="grp">
+        <button id="zin" title="Zoom in (+)">＋</button>
+        <button id="zout" title="Zoom out (−)">−</button>
+        <button id="back" title="Previous view">↩</button>
+        <button id="win" title="Zoom to the extracted window">window</button>
+        <button id="whole" title="Whole chromosome">whole</button>
+      </div>
+      <label class="chk" id="ovlab"><input type="checkbox" id="overlay"> overlay</label>
+      <label class="chk" title="MacIsaac sites: the ABF1/REB1 bed, plus c1 centres for the highlighted factor"><input type="checkbox" id="refMac" checked> MacIsaac</label>
+      <label class="chk" title="Rossi ChExMix _CX summits for the highlighted factor"><input type="checkbox" id="refCx" checked> Rossi</label>
+      <span id="msg"></span>
+    </div>
+  </header>
+  <main>
+    <aside>
+      <h2>Factors</h2>
+      <input type="text" id="fsearch" placeholder="filter…" spellcheck="false">
+      <div class="sbtn">
+        <button data-a="live">default</button><button data-a="all">all</button>
+        <button data-a="none">none</button><button data-a="top">top 10</button>
+      </div>
+      <div id="flist"></div>
+      <p class="hint">Click a name to highlight that factor in every lane (and show its
+        MacIsaac c1 / Rossi sites); tick to show or hide.</p>
+    </aside>
+    <section class="plots">
+      <div id="stage">
+        <div class="pwrap"><canvas id="cOver"></canvas></div>
+        <div class="pwrap"><div class="plab" id="lanelab">decode</div><canvas id="cLanes"></canvas></div>
+        <div class="pwrap"><div class="plab">m6A per A &nbsp;·&nbsp; <span class="wat">watson</span> <span class="cri">crick</span></div><canvas id="cMeth"></canvas></div>
+        <div class="pwrap"><div class="plab" id="deplab">A-trials</div><canvas id="cDep"></canvas></div>
+        <div class="pwrap"><div class="plab" id="seqlab">AT fraction (7 bp)</div><canvas id="cSeq"></canvas></div>
+        <div class="pwrap"><div class="plab">genes</div><canvas id="cGene"></canvas></div>
+        <div class="pwrap"><div class="plab" id="reflab">reference sites</div><canvas id="cRef"></canvas></div>
+        <div class="pwrap"><canvas id="cAxis"></canvas></div>
+        <canvas id="ovl"></canvas>
+      </div>
+      <div id="vFoot"></div>
+    </section>
+  </main>
+</section>
+<div id="tip"></div>
+<script src="app.js"></script>
+</body>
+</html>

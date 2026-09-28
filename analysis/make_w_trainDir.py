@@ -61,7 +61,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '../pkg/'))
 import make_conc_trainDir as MC                                     # noqa: E402  (import only)
-from robocop.utils.parameterize import calculateKD                  # noqa: E402
+# calculateKD is imported lazily in base_weights (see make_conc_trainDir.py for why): at module
+# level it starts an embedded R that no trainDir build needs, and whose intermittent startup
+# failure killed the round-10 build of six campaigns on 2026-09-19.
 
 UNKNOWN_BASE = 0.001      # rebased from parameterize.py's 0.1 (lambda_unknown 1 -> w 1e-3)
 NUC_BASE = 35.0
@@ -76,6 +78,7 @@ def motif_len(pwm, name):
 
 def base_weights(pwm, tfs):
     """lambda = 1 weights, as ln w, for every DBF in cfg order, plus background/nucleosome."""
+    from robocop_kd import calculateKD   # R-free copy; see robocop_kd.py
     th = {}
     for t in tfs:
         if t == 'unknown':

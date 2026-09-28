@@ -3131,3 +3131,235 @@ fw01	23	tune	rossi_cx	YDR520C	0	11	0	0	nan	0	nan	2	2.28784
 fw01	23	tune	rossi_cx	YML081W	0	18	0	0	nan	0	nan	1	0.942507
 fw01	23	tune	rossi_cx	YRR1	0	16	0	0	nan	0	nan	1	1.15212
 fw01	23	tune	rossi_cx	ZAP1	0	10	0	0	nan	0	nan	1	1.17771
+fw01	24	tune	macisaac	ABF1	1	58	106	2	0.0188679	0.0344828	0.0243902	58	59.3169
+fw01	24	tune	macisaac	ACE2	0	41	0	0	nan	0	nan	41	48.5237
+fw01	24	tune	macisaac	AFT2	0	49	108	0	0	0	0	49	50.7099
+fw01	24	tune	macisaac	ARO80	0	0	1715	0	0	nan	nan	0	560.446
+fw01	24	tune	macisaac	AZF1	0	10	0	0	nan	0	nan	10	10.2151
+fw01	24	tune	macisaac	BAS1	0	7	18	0	0	0	0	7	7.72119
+fw01	24	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.60006
+fw01	24	tune	macisaac	CBF1	0	25	54	0	0	0	0	25	27.4108
+fw01	24	tune	macisaac	CHA4	0	8	0	0	nan	0	nan	8	8.70867
+fw01	24	tune	macisaac	CIN5	1	49	74	0	0	0	0	49	50.1058
+fw01	24	tune	macisaac	FHL1	1	21	44	0	0	0	0	21	23.1733
+fw01	24	tune	macisaac	FKH1	1	23	38	0	0	0	0	23	23.3191
+fw01	24	tune	macisaac	FKH2	0	38	0	0	nan	0	nan	38	40.4528
+fw01	24	tune	macisaac	GAL4	0	5	0	0	nan	0	nan	5	5.31521
+fw01	24	tune	macisaac	GCN4	0	45	0	0	nan	0	nan	45	45.9345
+fw01	24	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.801
+fw01	24	tune	macisaac	GLN3	0	25	0	0	nan	0	nan	25	25.1618
+fw01	24	tune	macisaac	GZF3	0	10	0	0	nan	0	nan	10	10.6113
+fw01	24	tune	macisaac	HAP1	0	19	228	2	0.00877193	0.105263	0.0161943	19	98.6968
+fw01	24	tune	macisaac	HSF1	0	12	0	0	nan	0	nan	12	12.4807
+fw01	24	tune	macisaac	LEU3	0	4	0	0	nan	0	nan	4	4.24007
+fw01	24	tune	macisaac	MBP1	0	36	0	0	nan	0	nan	36	49.4802
+fw01	24	tune	macisaac	MCM1	1	11	15	0	0	0	0	11	11.8084
+fw01	24	tune	macisaac	MET31	0	34	0	0	nan	0	nan	34	52.0618
+fw01	24	tune	macisaac	MET32	0	1	0	0	nan	0	nan	1	1.00663
+fw01	24	tune	macisaac	MIG1	0	1	1	0	0	0	0	1	0.956485
+fw01	24	tune	macisaac	MSN2	0	75	230	4	0.0173913	0.0533333	0.0262295	75	96.5504
+fw01	24	tune	macisaac	NRG1	0	33	0	0	nan	0	nan	33	62.2407
+fw01	24	tune	macisaac	PDR1	0	4	0	0	nan	0	nan	4	4.43481
+fw01	24	tune	macisaac	PDR3	0	2	0	0	nan	0	nan	2	6.45563
+fw01	24	tune	macisaac	PHD1	0	88	450	5	0.0111111	0.0568182	0.0185874	88	295.536
+fw01	24	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.14069
+fw01	24	tune	macisaac	RAP1	1	29	48	0	0	0	0	29	28.6571
+fw01	24	tune	macisaac	REB1	1	44	66	3	0.0454545	0.0681818	0.0545455	44	46.2493
+fw01	24	tune	macisaac	RFX1	0	0	3750	0	0	nan	nan	0	1327.13
+fw01	24	tune	macisaac	ROX1	0	40	135	1	0.00740741	0.025	0.0114286	40	43.5973
+fw01	24	tune	macisaac	RPH1	0	0	64	0	0	nan	nan	0	83.6266
+fw01	24	tune	macisaac	RPN4	0	15	0	0	nan	0	nan	15	15.2222
+fw01	24	tune	macisaac	RTG3	0	27	0	0	nan	0	nan	27	103.121
+fw01	24	tune	macisaac	SFP1	0	15	0	0	nan	0	nan	15	15.7858
+fw01	24	tune	macisaac	SKN7	0	50	92	0	0	0	0	50	170.362
+fw01	24	tune	macisaac	SKO1	1	5	10	0	0	0	0	5	5.34078
+fw01	24	tune	macisaac	SOK2	0	32	0	0	nan	0	nan	32	33.6468
+fw01	24	tune	macisaac	STB4	0	3	0	0	nan	0	nan	3	3.27932
+fw01	24	tune	macisaac	STB5	0	3	0	0	nan	0	nan	3	3.26485
+fw01	24	tune	macisaac	STE12	0	195	1864	48	0.0257511	0.246154	0.0466246	195	589.087
+fw01	24	tune	macisaac	STP1	0	7	0	0	nan	0	nan	7	6.70406
+fw01	24	tune	macisaac	STP4	0	1	0	0	nan	0	nan	1	0.862096
+fw01	24	tune	macisaac	SUM1	0	13	0	0	nan	0	nan	13	13.6322
+fw01	24	tune	macisaac	SUT1	0	26	0	0	nan	0	nan	26	44.1836
+fw01	24	tune	macisaac	SWI4	0	39	0	0	nan	0	nan	39	41.0246
+fw01	24	tune	macisaac	SWI5	0	110	0	0	nan	0	nan	110	117.001
+fw01	24	tune	macisaac	UME6	1	19	33	0	0	0	0	19	19.5098
+fw01	24	tune	macisaac	YAP1	0	8	0	0	nan	0	nan	8	8.85911
+fw01	24	tune	macisaac	YDR520C	0	2	0	0	nan	0	nan	2	2.28784
+fw01	24	tune	macisaac	YML081W	0	1	0	0	nan	0	nan	1	0.942508
+fw01	24	tune	macisaac	YRR1	0	1	0	0	nan	0	nan	1	1.15212
+fw01	24	tune	macisaac	ZAP1	0	1	0	0	nan	0	nan	1	1.17771
+fw01	24	tune	rossi_cx	ABF1	1	98	106	4	0.0377358	0.0408163	0.0392157	58	59.3169
+fw01	24	tune	rossi_cx	ACE2	0	13	0	0	nan	0	nan	41	48.5237
+fw01	24	tune	rossi_cx	AFT2	0	4	108	0	0	0	0	49	50.7099
+fw01	24	tune	rossi_cx	ARO80	0	3	1715	1	0.00058309	0.333333	0.00116414	0	560.446
+fw01	24	tune	rossi_cx	AZF1	0	9	0	0	nan	0	nan	10	10.2151
+fw01	24	tune	rossi_cx	BAS1	0	11	18	0	0	0	0	7	7.72119
+fw01	24	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.60006
+fw01	24	tune	rossi_cx	CBF1	0	29	54	0	0	0	0	25	27.4108
+fw01	24	tune	rossi_cx	CHA4	0	9	0	0	nan	0	nan	8	8.70867
+fw01	24	tune	rossi_cx	CIN5	1	67	74	0	0	0	0	49	50.1058
+fw01	24	tune	rossi_cx	FHL1	1	78	44	0	0	0	0	21	23.1733
+fw01	24	tune	rossi_cx	FKH1	1	80	38	2	0.0526316	0.025	0.0338983	23	23.3191
+fw01	24	tune	rossi_cx	FKH2	0	32	0	0	nan	0	nan	38	40.4528
+fw01	24	tune	rossi_cx	GAL4	0	6	0	0	nan	0	nan	5	5.31521
+fw01	24	tune	rossi_cx	GCN4	0	5	0	0	nan	0	nan	45	45.9345
+fw01	24	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.801
+fw01	24	tune	rossi_cx	GLN3	0	13	0	0	nan	0	nan	25	25.1618
+fw01	24	tune	rossi_cx	GZF3	0	36	0	0	nan	0	nan	10	10.6113
+fw01	24	tune	rossi_cx	HAP1	0	10	228	3	0.0131579	0.3	0.0252101	19	98.6968
+fw01	24	tune	rossi_cx	HSF1	0	29	0	0	nan	0	nan	12	12.4807
+fw01	24	tune	rossi_cx	LEU3	0	8	0	0	nan	0	nan	4	4.24007
+fw01	24	tune	rossi_cx	MBP1	0	15	0	0	nan	0	nan	36	49.4802
+fw01	24	tune	rossi_cx	MCM1	1	51	15	1	0.0666667	0.0196078	0.030303	11	11.8084
+fw01	24	tune	rossi_cx	MET31	0	15	0	0	nan	0	nan	34	52.0618
+fw01	24	tune	rossi_cx	MET32	0	6	0	0	nan	0	nan	1	1.00663
+fw01	24	tune	rossi_cx	MIG1	0	35	1	0	0	0	0	1	0.956485
+fw01	24	tune	rossi_cx	MSN2	0	3	230	0	0	0	0	75	96.5504
+fw01	24	tune	rossi_cx	NRG1	0	8	0	0	nan	0	nan	33	62.2407
+fw01	24	tune	rossi_cx	PDR1	0	42	0	0	nan	0	nan	4	4.43481
+fw01	24	tune	rossi_cx	PDR3	0	6	0	0	nan	0	nan	2	6.45563
+fw01	24	tune	rossi_cx	PHD1	0	34	450	3	0.00666667	0.0882353	0.0123967	88	295.536
+fw01	24	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.14069
+fw01	24	tune	rossi_cx	RAP1	1	44	48	0	0	0	0	29	28.6571
+fw01	24	tune	rossi_cx	REB1	1	138	66	7	0.106061	0.0507246	0.0686275	44	46.2493
+fw01	24	tune	rossi_cx	RFX1	0	8	3750	2	0.000533333	0.25	0.0010644	0	1327.13
+fw01	24	tune	rossi_cx	ROX1	0	42	135	0	0	0	0	40	43.5973
+fw01	24	tune	rossi_cx	RPH1	0	10	64	0	0	0	0	0	83.6266
+fw01	24	tune	rossi_cx	RPN4	0	16	0	0	nan	0	nan	15	15.2222
+fw01	24	tune	rossi_cx	RTG3	0	1	0	0	nan	0	nan	27	103.121
+fw01	24	tune	rossi_cx	SFP1	0	25	0	0	nan	0	nan	15	15.7858
+fw01	24	tune	rossi_cx	SKN7	0	10	92	0	0	0	0	50	170.362
+fw01	24	tune	rossi_cx	SKO1	1	27	10	0	0	0	0	5	5.34078
+fw01	24	tune	rossi_cx	SOK2	0	58	0	0	nan	0	nan	32	33.6468
+fw01	24	tune	rossi_cx	STB4	0	22	0	0	nan	0	nan	3	3.27932
+fw01	24	tune	rossi_cx	STB5	0	15	0	0	nan	0	nan	3	3.26485
+fw01	24	tune	rossi_cx	STE12	0	20	1864	7	0.00375536	0.35	0.007431	195	589.087
+fw01	24	tune	rossi_cx	STP1	0	18	0	0	nan	0	nan	7	6.70406
+fw01	24	tune	rossi_cx	STP4	0	11	0	0	nan	0	nan	1	0.862096
+fw01	24	tune	rossi_cx	SUM1	0	30	0	0	nan	0	nan	13	13.6322
+fw01	24	tune	rossi_cx	SUT1	0	15	0	0	nan	0	nan	26	44.1836
+fw01	24	tune	rossi_cx	SWI4	0	20	0	0	nan	0	nan	39	41.0246
+fw01	24	tune	rossi_cx	SWI5	0	6	0	0	nan	0	nan	110	117.001
+fw01	24	tune	rossi_cx	UME6	1	43	33	0	0	0	0	19	19.5098
+fw01	24	tune	rossi_cx	YAP1	0	21	0	0	nan	0	nan	8	8.85911
+fw01	24	tune	rossi_cx	YDR520C	0	11	0	0	nan	0	nan	2	2.28784
+fw01	24	tune	rossi_cx	YML081W	0	18	0	0	nan	0	nan	1	0.942508
+fw01	24	tune	rossi_cx	YRR1	0	16	0	0	nan	0	nan	1	1.15212
+fw01	24	tune	rossi_cx	ZAP1	0	10	0	0	nan	0	nan	1	1.17771
+fw01	24	holdout	macisaac	ABF1	1	44	142	2	0.0140845	0.0454545	0.0215054		
+fw01	24	holdout	macisaac	ACE2	0	21	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	AFT2	0	28	133	0	0	0	0		
+fw01	24	holdout	macisaac	ARO80	0	1	1627	0	0	0	0		
+fw01	24	holdout	macisaac	AZF1	0	7	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	BAS1	0	7	18	0	0	0	0		
+fw01	24	holdout	macisaac	CAD1	0	2	8	0	0	0	0		
+fw01	24	holdout	macisaac	CBF1	0	18	73	0	0	0	0		
+fw01	24	holdout	macisaac	CHA4	0	4	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	CIN5	1	41	65	0	0	0	0		
+fw01	24	holdout	macisaac	FHL1	1	20	42	0	0	0	0		
+fw01	24	holdout	macisaac	FKH1	1	30	31	0	0	0	0		
+fw01	24	holdout	macisaac	FKH2	0	34	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	GAL4	0	2	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	GCN4	0	24	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	GCR1	0	6	34	0	0	0	0		
+fw01	24	holdout	macisaac	GLN3	0	39	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	GZF3	0	9	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	HAP1	0	9	223	0	0	0	0		
+fw01	24	holdout	macisaac	HSF1	0	13	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	LEU3	0	1	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	MBP1	0	47	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	MCM1	1	6	9	0	0	0	0		
+fw01	24	holdout	macisaac	MET31	0	45	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	MET32	0	1	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	MIG1	0	3	2	0	0	0	0		
+fw01	24	holdout	macisaac	MSN2	0	73	283	2	0.00706714	0.0273973	0.011236		
+fw01	24	holdout	macisaac	NRG1	0	25	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	PDR1	0	6	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	PDR3	0	0	0	0	nan	nan	nan		
+fw01	24	holdout	macisaac	PHD1	0	67	435	8	0.0183908	0.119403	0.0318725		
+fw01	24	holdout	macisaac	PUT3	0	1	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	RAP1	1	30	53	0	0	0	0		
+fw01	24	holdout	macisaac	REB1	1	32	68	2	0.0294118	0.0625	0.04		
+fw01	24	holdout	macisaac	RFX1	0	3	3596	2	0.000556174	0.666667	0.00111142		
+fw01	24	holdout	macisaac	ROX1	0	34	175	0	0	0	0		
+fw01	24	holdout	macisaac	RPH1	0	1	72	0	0	0	0		
+fw01	24	holdout	macisaac	RPN4	0	15	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	RTG3	0	44	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	SFP1	0	17	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	SKN7	0	49	105	0	0	0	0		
+fw01	24	holdout	macisaac	SKO1	1	5	7	0	0	0	0		
+fw01	24	holdout	macisaac	SOK2	0	60	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	STB4	0	2	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	STB5	0	12	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	STE12	0	104	1751	23	0.0131354	0.221154	0.0247978		
+fw01	24	holdout	macisaac	STP1	0	25	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	STP4	0	0	0	0	nan	nan	nan		
+fw01	24	holdout	macisaac	SUM1	0	20	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	SUT1	0	40	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	SWI4	0	70	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	SWI5	0	82	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	UME6	1	18	37	0	0	0	0		
+fw01	24	holdout	macisaac	YAP1	0	15	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	YDR520C	0	0	0	0	nan	nan	nan		
+fw01	24	holdout	macisaac	YML081W	0	1	0	0	nan	0	nan		
+fw01	24	holdout	macisaac	YRR1	0	0	0	0	nan	nan	nan		
+fw01	24	holdout	macisaac	ZAP1	0	0	0	0	nan	nan	nan		
+fw01	24	holdout	rossi_cx	ABF1	1	103	142	2	0.0140845	0.0194175	0.0163265		
+fw01	24	holdout	rossi_cx	ACE2	0	10	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	AFT2	0	7	133	0	0	0	0		
+fw01	24	holdout	rossi_cx	ARO80	0	2	1627	1	0.000614628	0.5	0.00122775		
+fw01	24	holdout	rossi_cx	AZF1	0	10	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	BAS1	0	9	18	0	0	0	0		
+fw01	24	holdout	rossi_cx	CAD1	0	10	8	0	0	0	0		
+fw01	24	holdout	rossi_cx	CBF1	0	18	73	0	0	0	0		
+fw01	24	holdout	rossi_cx	CHA4	0	5	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	CIN5	1	48	65	0	0	0	0		
+fw01	24	holdout	rossi_cx	FHL1	1	44	42	0	0	0	0		
+fw01	24	holdout	rossi_cx	FKH1	1	61	31	1	0.0322581	0.0163934	0.0217391		
+fw01	24	holdout	rossi_cx	FKH2	0	41	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	GAL4	0	2	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	GCN4	0	7	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	GCR1	0	12	34	0	0	0	0		
+fw01	24	holdout	rossi_cx	GLN3	0	8	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	GZF3	0	31	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	HAP1	0	12	223	1	0.0044843	0.0833333	0.00851064		
+fw01	24	holdout	rossi_cx	HSF1	0	27	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	LEU3	0	2	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	MBP1	0	20	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	MCM1	1	35	9	0	0	0	0		
+fw01	24	holdout	rossi_cx	MET31	0	10	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	MET32	0	2	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	MIG1	0	43	2	0	0	0	0		
+fw01	24	holdout	rossi_cx	MSN2	0	1	283	0	0	0	0		
+fw01	24	holdout	rossi_cx	NRG1	0	11	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	PDR1	0	35	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	PDR3	0	3	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	PHD1	0	33	435	6	0.0137931	0.181818	0.025641		
+fw01	24	holdout	rossi_cx	PUT3	0	3	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	RAP1	1	44	53	0	0	0	0		
+fw01	24	holdout	rossi_cx	REB1	1	115	68	2	0.0294118	0.0173913	0.0218579		
+fw01	24	holdout	rossi_cx	RFX1	0	20	3596	10	0.00278087	0.5	0.00553097		
+fw01	24	holdout	rossi_cx	ROX1	0	40	175	1	0.00571429	0.025	0.00930233		
+fw01	24	holdout	rossi_cx	RPH1	0	3	72	0	0	0	0		
+fw01	24	holdout	rossi_cx	RPN4	0	15	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	RTG3	0	4	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SFP1	0	19	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SKN7	0	9	105	0	0	0	0		
+fw01	24	holdout	rossi_cx	SKO1	1	31	7	0	0	0	0		
+fw01	24	holdout	rossi_cx	SOK2	0	52	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	STB4	0	11	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	STB5	0	30	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	STE12	0	11	1751	3	0.00171331	0.272727	0.00340522		
+fw01	24	holdout	rossi_cx	STP1	0	21	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	STP4	0	8	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SUM1	0	28	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SUT1	0	20	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SWI4	0	26	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	SWI5	0	5	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	UME6	1	28	37	0	0	0	0		
+fw01	24	holdout	rossi_cx	YAP1	0	20	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	YDR520C	0	4	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	YML081W	0	17	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	YRR1	0	14	0	0	nan	0	nan		
+fw01	24	holdout	rossi_cx	ZAP1	0	4	0	0	nan	0	nan		

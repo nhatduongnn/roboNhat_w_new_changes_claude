@@ -1,0 +1,25 @@
+2026-09-16 18:59:07  iter 00  submitted decode 12611428 (40 tasks, robocop_chrXIV_chrII_tw_fa01_00) count 12611429 next 12611430
+2026-09-16 18:59:07  iter 00  holdout submitter twHS_fa01_00 job 12611431 (runs 'tune_w.py holdout --iter 0' after next 12611430; staggered round-0 holdout)
+2026-09-16 19:26:19  iter 01  submitted decode 12611815 (40 tasks, robocop_chrXIV_chrII_tw_fa01_01) count 12611817 next 12611819
+2026-09-16 19:26:28  iter 00  holdout: decode 12611821 (robocop_chrIV_tw_fa01_00) count 12611822 validate 12611823
+2026-09-16 20:01:50  iter 02  submitted decode 12612456 (40 tasks, robocop_chrXIV_chrII_tw_fa01_02) count 12612457 next 12612458
+2026-09-16 20:21:50  iter 03  submitted decode 12612731 (40 tasks, robocop_chrXIV_chrII_tw_fa01_03) count 12612733 next 12612735
+2026-09-16 20:38:20  iter 04  submitted decode 12613054 (40 tasks, robocop_chrXIV_chrII_tw_fa01_04) count 12613055 next 12613057
+2026-09-16 20:54:09  iter 05  submitted decode 12613347 (40 tasks, robocop_chrXIV_chrII_tw_fa01_05) count 12613348 next 12613349
+2026-09-16 21:13:09  iter 06  submitted decode 12613632 (40 tasks, robocop_chrXIV_chrII_tw_fa01_06) count 12613633 next 12613634
+2026-09-16 21:28:51  iter 07  submitted decode 12613857 (40 tasks, robocop_chrXIV_chrII_tw_fa01_07) count 12613858 next 12613859
+2026-09-16 21:44:51  iter 08  submitted decode 12614080 (40 tasks, robocop_chrXIV_chrII_tw_fa01_08) count 12614081 next 12614082
+2026-09-16 22:00:52  iter 09  submitted decode 12614799 (40 tasks, robocop_chrXIV_chrII_tw_fa01_09) count 12614800 next 12614801
+2026-09-16 22:02:21  iter 09  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_fa01_09/chrXIV.tsv')
+resume 2026-09-17: round 9 decode failed 40/40 on the rpy2 embedded-R fork error; sbatch_genome_decode.sh now staggers starts and retries 3x with jitter; resubmitting round 9 unchanged
+2026-09-17 17:56:08  iter 09  submitted decode 12626853 (40 tasks, robocop_chrXIV_chrII_tw_fa01_09) count 12626854 next 12626855
+2026-09-17 18:12:18  iter 10  submitted decode 12627040 (40 tasks, robocop_chrXIV_chrII_tw_fa01_10) count 12627041 next 12627042
+2026-09-17 18:28:35  iter 11  submitted decode 12627216 (40 tasks, robocop_chrXIV_chrII_tw_fa01_11) count 12627217 next 12627218
+2026-09-17 18:45:12  iter 12  submitted decode 12628293 (40 tasks, robocop_chrXIV_chrII_tw_fa01_12) count 12628294 next 12628295
+2026-09-17 19:06:07  iter 13  submitted decode 12628449 (40 tasks, robocop_chrXIV_chrII_tw_fa01_13) count 12628450 next 12628451
+2026-09-17 19:22:39  iter 14  submitted decode 12628587 (40 tasks, robocop_chrXIV_chrII_tw_fa01_14) count 12628588 next 12628589
+2026-09-17 19:39:39  iter 15  submitted decode 12629598 (40 tasks, robocop_chrXIV_chrII_tw_fa01_15) count 12629599 next 12629600
+2026-09-17 19:56:09  iter 16  submitted decode 12630602 (40 tasks, robocop_chrXIV_chrII_tw_fa01_16) count 12630603 next 12630604
+2026-09-17 20:12:39  iter 16  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-17 20:12:39  iter 16  holdout: decode 12631646 (robocop_chrIV_tw_fa01_16) count 12631647 validate 12631648
+2026-09-17 20:12:39  iter 16  on-stop refresh: {'chereji': '12631649', 'summary': '12631650'}

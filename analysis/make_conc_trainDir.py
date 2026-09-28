@@ -54,7 +54,10 @@ import numpy as np
 
 sys.path.insert(0, '../pkg/')
 from robocop import robocop as R                                    # noqa: E402
-from robocop.utils.parameterize import calculateKD                  # noqa: E402
+# calculateKD is imported lazily inside the two functions that use it. At module level it
+# pulls pkg/robocop/utils/parameters.py, whose rpy2 import starts an embedded R -- which
+# intermittently fails with `no item called "package:utils"` and killed the round-10 build
+# of six campaigns on 2026-09-19 (logs/twN_bp72_09_12648592.err). No trainDir build needs R.
 from robocop.utils import concentration_probability_conversion as C  # noqa: E402
 
 # Files a trainDir carries besides HMMconfig.pkl. None depend on concentration, so they are
@@ -76,6 +79,7 @@ def dbf_probs(pwm, lams):
 
     Returns ({name: probability} summing to 1, {tf: scaled concentration}).
     """
+    from robocop_kd import calculateKD   # R-free copy; see robocop_kd.py
     conc = {k: calculateKD(pwm, k) for k in pwm.keys()}
     conc['background'] = 1.0
     conc['unknown'] = 0.1
@@ -128,6 +132,7 @@ def apply_probs(cfg, prob):
 
 
 def main():
+    from robocop_kd import calculateKD   # R-free copy; see robocop_kd.py
     ap = argparse.ArgumentParser()
     ap.add_argument("--lam", type=float, default=None,
                     help="multiplier on --tf's concentration (single-factor form)")

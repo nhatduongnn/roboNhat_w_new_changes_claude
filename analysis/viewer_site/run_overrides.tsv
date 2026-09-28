@@ -1,0 +1,70 @@
+# Hand overrides for build_run_matrix.py. Columns: key<TAB>field<TAB>value<TAB>note
+# key = decode dir | run id | traindir:<name> | pwmfile:<path as in trainDir config.ini>
+# original_outdir: the name a RENAMED decode was written (and logged) under. Evidence for each:
+#   score_report.json "outDir" inside the dir where present; otherwise the 2026-09-04 renaming rule
+#   documented in viewer_runs_chrI.tsv header (fib_=maskoff_revfix/maskoff_fib, fib_seq_=seq_maskoff_revfix,
+#   seq=seqonly, lam0p01=conclo_0p01, wideABF1=widememe, wideAll=wide10all, wide12=widefp) and
+#   README_wide_implementations.md:83-89 (widefp -> wide12). build_run_matrix cross-checks each one:
+#   the h5 posterior state count must equal the trainDir n_states (nstates_ok).
+robocop_chrI_fib	original_outdir	robocop_chrI_maskoff_revfix	rename 2026-09-04
+robocop_chrI_fib_em10	original_outdir	robocop_chrI_maskoff_em10	rename 2026-09-04
+robocop_chrI_fib_seq	original_outdir	robocop_chrI_seq_maskoff_revfix	rename 2026-09-04
+robocop_chrI_fib_seq_em10	original_outdir	robocop_chrI_seq_maskoff_em10	rename 2026-09-04
+robocop_chrI_fib_seq_em10nocap	original_outdir	robocop_chrI_seq_maskoff_em10nocap	rename 2026-09-04
+robocop_chrI_fib_seq_capA	original_outdir	robocop_chrI_seq_maskoff_capA	rename 2026-09-04
+robocop_chrI_fib_seq_capB	original_outdir	robocop_chrI_seq_maskoff_capB	rename 2026-09-04
+robocop_chrI_fib_seq_lam0p01	original_outdir	robocop_chrI_conclo_0p01	rename 2026-09-04
+robocop_chrI_seq	original_outdir	robocop_chrI_seqonly	rename 2026-09-04
+robocop_chrI_seq_em10	original_outdir	robocop_chrI_seqonly_em10	rename 2026-09-04
+robocop_chrI_fib_seq_wideABF1	original_outdir	robocop_chrI_widememe	rename 2026-09-04
+robocop_chrI_fib_wideABF1	original_outdir	robocop_chrI_fib_widememe	rename 2026-09-04
+robocop_chrI_fib_seq_wideAll	original_outdir	robocop_chrI_wide10all	rename 2026-09-04
+robocop_chrI_fib_wideAll	original_outdir	robocop_chrI_fib_wide10all	rename 2026-09-04
+robocop_chrI_fib_seq_wide150	original_outdir	robocop_chrI_wide150	rename 2026-09-04
+robocop_chrI_fib_seq_wide12	original_outdir	robocop_chrI_widefp	rename 2026-09-04 (README_wide_implementations.md:83-89)
+robocop_chrI_fib_seq_wide12	tree	pkgvar/seq_maskoff_wide12	logged tree seq_maskoff_widefp retired; wide12 is byte-identical except the params-pkl name (retired/README.md)
+robocop_chrI_fib_seq_wide12	traindir	robocop_train_wide12	logged robocop_train_widefp, renamed to wide12
+robocop_chrI_fib_wide12	original_outdir	robocop_chrI_fib_widefp	rename 2026-09-04 (README_wide_implementations.md:83-89)
+robocop_chrI_fib_wide12	tree	pkgvar/fiber_maskoff_wide12	logged tree fiber_maskoff_widefp retired; see retired/README.md
+robocop_chrI_fib_wide12	traindir	robocop_train_wide12	logged robocop_train_widefp, renamed to wide12
+robocop_chrXIV_fib	original_outdir	robocop_chrXIV_maskoff_fib	rename 2026-09-04
+robocop_chrXIV_fib_em10	original_outdir	robocop_chrXIV_maskoff_em10	rename 2026-09-04
+robocop_chrXIV_fib_seq	original_outdir	robocop_chrXIV_seq_maskoff_revfix	rename 2026-09-04
+robocop_chrXIV_fib_seq_em10	original_outdir	robocop_chrXIV_seq_maskoff_em10	rename 2026-09-04
+robocop_chrXIV_fib_seq_em10nocap	original_outdir	robocop_chrXIV_seq_maskoff_em10nocap	rename 2026-09-04
+robocop_chrXIV_fib_seq_capA	original_outdir	robocop_chrXIV_seq_maskoff_capA	rename 2026-09-04
+robocop_chrXIV_fib_seq_capB	original_outdir	robocop_chrXIV_seq_maskoff_capB	rename 2026-09-04
+robocop_chrXIV_fib_seq_lam0p01	original_outdir	robocop_chrXIV_conclo_0p01	rename 2026-09-04
+robocop_chrXIV_seq	original_outdir	robocop_chrXIV_seqonly	rename 2026-09-04
+robocop_chrXIV_seq_em10	original_outdir	robocop_chrXIV_seqonly_em10	rename 2026-09-04
+robocop_chrXIV_fib_seq_wideABF1	original_outdir	robocop_chrXIV_widememe	rename 2026-09-04
+robocop_chrXIV_fib_wideABF1	original_outdir	robocop_chrXIV_fib_widememe	rename 2026-09-04
+robocop_chrXIV_fib_seq_wideAll	original_outdir	robocop_chrXIV_wide10all	rename 2026-09-04
+robocop_chrXIV_fib_wideAll	original_outdir	robocop_chrXIV_fib_wide10all	rename 2026-09-04
+robocop_chrXIV_fib_seq_wide150	original_outdir	robocop_chrXIV_wide150	rename 2026-09-04
+robocop_chrXIV_fib_seq_wide12	original_outdir	robocop_chrXIV_widefp	rename 2026-09-04 (README_wide_implementations.md:83-89)
+robocop_chrXIV_fib_seq_wide12	tree	pkgvar/seq_maskoff_wide12	logged tree seq_maskoff_widefp retired; wide12 is byte-identical except the params-pkl name (retired/README.md)
+robocop_chrXIV_fib_seq_wide12	traindir	robocop_train_wide12	logged robocop_train_widefp, renamed to wide12
+robocop_chrXIV_fib_wide12	original_outdir	robocop_chrXIV_fib_widefp	rename 2026-09-04 (README_wide_implementations.md:83-89)
+robocop_chrXIV_fib_wide12	tree	pkgvar/fiber_maskoff_wide12	logged tree fiber_maskoff_widefp retired; see retired/README.md
+robocop_chrXIV_fib_wide12	traindir	robocop_train_wide12	logged robocop_train_widefp, renamed to wide12
+robocop_chrI_maskon	legacy	pre-revfix	HANDOFF.md 4.5: predates the reverse-strand fiber fix 90b05c3; decoded with ../pkg hand toggles
+robocop_chrI_maskoff	legacy	pre-revfix	HANDOFF.md 4.5: predates the reverse-strand fiber fix 90b05c3; decoded with ../pkg hand toggles
+robocop_chrI_seq_maskon	legacy	pre-revfix	HANDOFF.md 4.5: predates the reverse-strand fiber fix 90b05c3; decoded with ../pkg hand toggles
+robocop_chrI_seq_maskoff	legacy	pre-revfix	HANDOFF.md 4.5: predates the reverse-strand fiber fix 90b05c3; decoded with ../pkg hand toggles
+robocop_erv46_maskon	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_erv46_maskoff	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_seqlayer_maskon	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_seqlayer_maskoff	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_all	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_all_abf1	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_all_fiber	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_all_subset	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+robocop_train	legacy	early	decoded with ../pkg (hand toggles) or no provenance at all
+traindir:robocop_train_fiberonly	em_iters	0	no likelihood.txt; pkg/robocop_em.py:116 hardcodes iterations = 0
+pwmfile:inputs/motifs_meme_wide.txt	pads_table	tf_pads.tsv	widememe meme (README_wide_implementations.md:77)
+pwmfile:inputs/motifs_meme_abf1_pm20.txt	pads_table	tf_pads_abf1_pm20.tsv	
+pwmfile:inputs/motifs_meme_abf1_pm100.txt	pads_table	tf_pads_abf1_pm100.tsv	
+pwmfile:inputs/motifs_meme_wide12.txt	pads_table	tf_pads_wide12.tsv	
+pwmfile:inputs/motifs_meme_wide150.txt	pads_table	tf_pads_wide150.tsv	
+pwmfile:inputs/motifs_meme_wide10all.txt	pads_table	tf_pads_wide10all.tsv	

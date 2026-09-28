@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_fib_seq_lam0p01",
+ "original_outdir": "robocop_chrXIV_conclo_0p01",
+ "driver": "run_split_widememe.py",
+ "pkg_tree": "pkgvar/seq_maskoff",
+ "pkg_tree_how": "from backfill:hand+log (driver default differs)",
+ "traindir": "robocop_train_conclo_0p01",
+ "traindir_exists": true,
+ "coords": "coord_chrXIV_full.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:21",
+ "slurm_job_id": null,
+ "source": "backfill:hand+log"
+}

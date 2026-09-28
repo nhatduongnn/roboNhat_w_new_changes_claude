@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrIV_tw_bw01_00",
+ "original_outdir": "robocop_chrIV_tw_bw01_00",
+ "driver": "run_split_revfix_seq_maskoff_mr58.py",
+ "pkg_tree": "pkgvar/seq_maskoff_mr58",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bw01_00",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrIV.tsv",
+ "campaign": "bw01",
+ "round": 0,
+ "role": "holdout",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:07:59",
+ "slurm_job_id": null,
+ "source": "backfill:state"
+}

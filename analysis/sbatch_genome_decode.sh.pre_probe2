@@ -1,0 +1,137 @@
+#!/bin/bash
+#SBATCH --partition=compsci
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=48G
+#SBATCH --time=6:00:00
+#SBATCH --array=0-47
+#SBATCH --output=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/logs/%x_%A_%a.out
+#SBATCH --error=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/logs/%x_%A_%a.err
+
+# One parameterized WHOLE-GENOME decode array, same (DRIVER, TRAINDIR, OUTDIR) contract as
+# sbatch_chrXIV.sh -- which model runs is decided entirely by the exported variables.
+#
+# coord_genome_full.tsv is 3,021 windows over the 16 nuclear chromosomes (chrM excluded:
+# neither MacIsaac nor Rossi assays it, so a decode there could never be scored). At 48-way
+# that is ~63 windows/task. chrI ran ~10 windows/task in 7-9 min and chrXIV ~16 in 11-12,
+# i.e. ~0.75 min/window, so expect ~45-50 min/task. Memory is flat at ~10.5 GB regardless of
+# region size -- the cost scales with windows, not chromosome length -- so the 48G request is
+# the same generous headroom every other baseline decode uses.
+#
+# WHY 48 TASKS. The split is stride-interleaved (run_robocop.py:93-97,
+# `indices = range(idx, len(coords), total)`), so any task count divides the work evenly and
+# no merge step is needed -- each task writes its own tmpDir/info_<idx>_<total>.h5 and the
+# scorer globs them all. 48 keeps per-task wall-clock under an hour while staying polite on
+# a shared partition.
+#
+# Launch via tune_concentrations.py, which owns the (TRAINDIR, OUTDIR) mapping per iteration.
+
+# STAGGER THE START. Round 24 of bw01/fw01 and round 9 of bf09/sf09/fa01/ff09 died 40/40 with
+# `no item called "package:utils" on the search list`, raised at rpy2/robjects/vectors.py:34 while
+# importing rpy2.robjects from robocop/utils/parameters.py:6 -- i.e. at embedded-R STARTUP, before
+# any RoboCOP code runs (traceback: logs/twD_bf09_09_12614375_0.err).
+#
+# CAUSE NOT ESTABLISHED. All the logs show is that R could not load its `utils` package. A
+# fork-starvation explanation was tested and does NOT fit: forcing EAGAIN on fork reproduces the
+# error but also prints "system call failed: Resource temporarily unavailable" to stderr, which
+# appears in 0 of the 280 failing logs; and three of the seven nodes involved ran a single task of
+# the array. Making `utils` unreadable reproduces the logs character for character, but nothing in
+# the logs says why that would have happened (the env and its R library are on NFS at 90% full).
+#
+# This stagger is cheap insurance against a transient, not a fix: ~45 s against a ~45 min task.
+sleep $(( RANDOM % 45 ))
+
+source /home/users/nd141/miniconda3/etc/profile.d/conda.sh
+conda activate robocop-2024
+
+set -eo pipefail
+
+cd /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis
+
+export MPLBACKEND=Agg
+export R_HOME=/home/users/nd141/miniconda3/envs/robocop-2024/lib/R
+
+: "${DRIVER:?DRIVER not exported}"
+: "${TRAINDIR:?TRAINDIR not exported}"
+: "${OUTDIR:?OUTDIR not exported}"
+
+NTASK=${NTASK:-48}
+COORDS=${COORDS:-coord_genome_full.tsv}   # subset sweeps pass coord_sweep.tsv
+
+echo "Host: $(hostname)  Task: $SLURM_ARRAY_TASK_ID/$NTASK  Start: $(date)"
+echo "DRIVER=$DRIVER  TRAINDIR=$TRAINDIR  OUTDIR=$OUTDIR  COORDS=$COORDS"
+# One retry. Every array task runs `cp trainDir/config.ini outDir/config.ini` and then parses
+# it (run_robocop.py:60), and cp truncates before writing, so a task that reads while another
+# is copying sees an empty file -> NoSectionError: 'main' within seconds of starting. That
+# killed u001 round 3 task 32 (2026-09-11). The retry re-copies the same file, so it is safe;
+# a genuine failure fails every attempt and still fails the job.
+#
+# THREE attempts, JITTERED. The old single retry slept a constant 60 s, so all 40 tasks retried
+# in lockstep into whatever was still wrong -- every round-9 .err holds exactly two identical rpy2
+# tracebacks. A random back-off decorrelates them.
+# FAILURE PROBE. The Sep 16 failures left no errno anywhere: R's require() swallows the load error
+# and only warns (library/base/R/Rprofile:76-84), so the logs say "utils was not found" and nothing
+# about why. A 16-condition test matrix showed the observed stderr is consistent with a clean
+# "absent or unreadable" on any of utils/, Meta/package.rds, R/utils.rdb, libs/utils.so or NAMESPACE,
+# and inconsistent with truncation/corruption (which adds an R_decompress1 or gzfile diagnostic).
+# The condition persisted >=60 s (both attempts of the old retry failed), so probing right after a
+# failed attempt should still see it. errno is what discriminates the surviving explanations:
+# ESTALE 116 -> server-side (filer event); ENOENT 2 on a path that exists moments later -> client
+# attribute/dentry cache; EACCES 13 -> permissions or export policy. Runs only on failure.
+rprobe() {
+    {
+        echo "=== R-library probe: task ${SLURM_ARRAY_TASK_ID} attempt $1 on $(hostname) at $(date -Is) ==="
+        python - <<'PYPROBE'
+import os
+R = os.environ.get("R_HOME", "")
+lib = os.path.join(R, "library")
+u = os.path.join(lib, "utils")
+targets = [R, lib, u,
+           os.path.join(u, "DESCRIPTION"),
+           os.path.join(u, "Meta", "package.rds"),
+           os.path.join(u, "R", "utils.rdb"),
+           os.path.join(u, "R", "utils.rdx"),
+           os.path.join(u, "libs", "utils.so"),
+           os.path.join(u, "NAMESPACE")]
+for p in targets:
+    try:
+        st = os.stat(p)
+        info = "stat ok size=%d mode=%o" % (st.st_size, st.st_mode & 0o7777)
+    except OSError as e:
+        print("  %-60s STAT FAIL errno=%d %s" % (p, e.errno, os.strerror(e.errno)))
+        continue
+    if os.path.isdir(p):                      # stat can hit cache; a read goes to the server
+        try:
+            info += " entries=%d" % len(os.listdir(p))
+        except OSError as e:
+            info += " LISTDIR FAIL errno=%d %s" % (e.errno, os.strerror(e.errno))
+    else:
+        try:
+            with open(p, "rb") as fh:
+                info += " head=%r" % fh.read(16)
+        except OSError as e:
+            info += " READ FAIL errno=%d %s" % (e.errno, os.strerror(e.errno))
+    print("  %-60s %s" % (p, info))
+print("  R_HOME=%r  R_LIBS=%r" % (R, os.environ.get("R_LIBS", "")))
+PYPROBE
+        echo "=== end probe ==="
+    } >&2 2>&1 || true
+}
+
+rc=1
+for attempt in 1 2 3; do
+    if python "$DRIVER" "$COORDS" "$TRAINDIR" "./$OUTDIR/" "$SLURM_ARRAY_TASK_ID" "$NTASK"; then
+        rc=0
+        break
+    fi
+    rprobe "$attempt"
+    if [ "$attempt" -lt 3 ]; then
+        back=$(( 20 + RANDOM % 120 ))
+        echo "Task $SLURM_ARRAY_TASK_ID attempt $attempt failed; retrying in ${back}s: $(date)" >&2
+        sleep "$back"
+    fi
+done
+if [ "$rc" -ne 0 ]; then
+    echo "Task $SLURM_ARRAY_TASK_ID failed all 3 attempts: $(date)" >&2
+    exit 1
+fi
+echo "Task: $SLURM_ARRAY_TASK_ID  End: $(date)"

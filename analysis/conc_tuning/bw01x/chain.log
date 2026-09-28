@@ -1,0 +1,19 @@
+2026-09-20 00:16:35  iter 00  submitted decode 12649565 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_00) count 12649566 next 12649567
+2026-09-20 00:17:00  iter 00  holdout submitter twHS_bw01x_00 job 12649571 (runs 'tune_w.py holdout --iter 0' after next 12649567; staggered round-0 holdout)
+2026-09-20 06:11:53  iter 01  submitted decode 12650292 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_01) count 12650293 next 12650294
+2026-09-20 06:12:22  iter 00  holdout: decode 12650296 (robocop_chrIV_tw_bw01x_00) count 12650297 validate 12650298
+2026-09-20 07:46:34  iter 02  submitted decode 12650713 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_02) count 12650714 next 12650715
+2026-09-20 09:07:42  iter 03  submitted decode 12651253 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_03) count 12651254 next 12651255
+2026-09-20 10:06:16  iter 04  submitted decode 12651801 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_04) count 12651802 next 12651803
+2026-09-20 10:56:19  iter 05  submitted decode 12652179 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_05) count 12652180 next 12652181
+2026-09-20 11:34:21  iter 06  submitted decode 12652543 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_06) count 12652544 next 12652545
+2026-09-20 12:07:25  iter 07  submitted decode 12652871 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_07) count 12652872 next 12652873
+2026-09-20 12:37:57  iter 08  submitted decode 12653241 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_08) count 12653242 next 12653243
+2026-09-20 13:08:58  iter 09  submitted decode 12653621 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_09) count 12653622 next 12653623
+2026-09-20 13:25:58  iter 09  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_bw01x_09/chrXIV.tsv')
+resume 2026-09-21: round 9 decode failed 40/40 on rpy2 startup in the original mr58 tree. User decision: switch to the lazy-import copy (pkgvar/*_maskoff_mr58lazy; only parameters.py differs, no numeric effect) from round 9 on. Backup state_before_lazytree_09.json. Resubmitting round 9.
+2026-09-21 11:19:06  iter 09  submitted decode 12664968 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_09) count 12664969 next 12664970
+2026-09-21 12:25:59  iter 10  submitted decode 12665845 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_10) count 12665846 next 12665847
+2026-09-21 12:53:20  iter 11  submitted decode 12666284 (40 tasks, robocop_chrXIV_chrII_tw_bw01x_11) count 12666285 next 12666286
+2026-09-21 13:09:44  iter 11  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-21 13:09:45  iter 11  holdout: decode 12666569 (robocop_chrIV_tw_bw01x_11) count 12666570 validate 12666571

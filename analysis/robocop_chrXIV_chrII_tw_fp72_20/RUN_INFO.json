@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_chrII_tw_fp72_20",
+ "original_outdir": "robocop_chrXIV_chrII_tw_fp72_20",
+ "driver": "run_split_revfix_fiber_maskoff_abf1w72.py",
+ "pkg_tree": "pkgvar/fiber_maskoff_abf1w72",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_fp72_20",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrXIV_chrII.tsv",
+ "campaign": "fp72",
+ "round": 20,
+ "role": "tune",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:17",
+ "slurm_job_id": null,
+ "source": "backfill:state"
+}

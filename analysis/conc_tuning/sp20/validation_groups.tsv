@@ -1,0 +1,17 @@
+run	round	set	ref	group	fitted	sites	calls	matched	P	R	F1	T_tune	E
+sp20	0	tune	macisaac	ABF1	1	58	0	0	nan	0	nan	58	0.00247579
+sp20	0	tune	rossi_cx	ABF1	1	98	0	0	nan	0	nan	58	0.00247579
+sp20	1	tune	macisaac	ABF1	1	58	0	0	nan	0	nan	58	0.0263783
+sp20	1	tune	rossi_cx	ABF1	1	98	0	0	nan	0	nan	58	0.0263783
+sp20	0	holdout	macisaac	ABF1	1	44	0	0	nan	0	nan		
+sp20	0	holdout	rossi_cx	ABF1	1	103	0	0	nan	0	nan		
+sp20	2	tune	macisaac	ABF1	1	58	1	1	1	0.0172414	0.0338983	58	0.239315
+sp20	2	tune	rossi_cx	ABF1	1	98	1	1	1	0.0102041	0.020202	58	0.239315
+sp20	3	tune	macisaac	ABF1	1	58	2	1	0.5	0.0172414	0.0333333	58	1.21852
+sp20	3	tune	rossi_cx	ABF1	1	98	2	1	0.5	0.0102041	0.02	58	1.21852
+sp20	4	tune	macisaac	ABF1	1	58	10	2	0.2	0.0344828	0.0588235	58	4.96994
+sp20	4	tune	rossi_cx	ABF1	1	98	10	5	0.5	0.0510204	0.0925926	58	4.96994
+sp20	5	tune	macisaac	ABF1	1	58	16	4	0.25	0.0689655	0.108108	58	6.31299
+sp20	5	tune	rossi_cx	ABF1	1	98	16	7	0.4375	0.0714286	0.122807	58	6.31299
+sp20	5	holdout	macisaac	ABF1	1	44	11	2	0.181818	0.0454545	0.0727273		
+sp20	5	holdout	rossi_cx	ABF1	1	103	11	7	0.636364	0.0679612	0.122807		

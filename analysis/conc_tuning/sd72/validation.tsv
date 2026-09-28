@@ -1,0 +1,49 @@
+run	round	set	chroms	ref	fitted	n_groups	sites	calls	matched	P	R	F1	within2x	n_T5	n_capped_under	n_falling_over	nuc_copies	nuc_rel_r0	unknown_occ	invalid_positions
+sd72	0	tune	chrXIV+chrII	macisaac	all	1	58	0	0	nan	0	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	tune	chrXIV+chrII	macisaac	fitted	1	58	0	0	nan	0	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	tune	chrXIV+chrII	rossi_cx	all	1	98	0	0	nan	0	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	tune	chrXIV+chrII	rossi_cx	fitted	1	98	0	0	nan	0	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.99	0	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	macisaac	all	1	58	1	1	1	0.0172414	0.0338983	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	macisaac	fitted	1	58	1	1	1	0.0172414	0.0338983	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	rossi_cx	all	1	98	1	1	1	0.0102041	0.020202	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	rossi_cx	fitted	1	98	1	1	1	0.0102041	0.020202	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	1	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.89	-1.05966e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	0	holdout	chrIV	macisaac	all	1	44	0	0	nan	0	nan					9049.77	0	0	{"chrIV": 0}
+sd72	0	holdout	chrIV	macisaac	fitted	1	44	0	0	nan	0	nan					9049.77	0	0	{"chrIV": 0}
+sd72	0	holdout	chrIV	macisaac	nonfitted	0	0	0	0	nan	nan	nan					9049.77	0	0	{"chrIV": 0}
+sd72	0	holdout	chrIV	rossi_cx	all	1	103	0	0	nan	0	nan					9049.77	0	0	{"chrIV": 0}
+sd72	0	holdout	chrIV	rossi_cx	fitted	1	103	0	0	nan	0	nan					9049.77	0	0	{"chrIV": 0}
+sd72	0	holdout	chrIV	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan					9049.77	0	0	{"chrIV": 0}
+sd72	2	tune	chrXIV+chrII	macisaac	all	1	58	2	1	0.5	0.0172414	0.0333333	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	2	tune	chrXIV+chrII	macisaac	fitted	1	58	2	1	0.5	0.0172414	0.0333333	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	2	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	2	tune	chrXIV+chrII	rossi_cx	all	1	98	2	1	0.5	0.0102041	0.02	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	2	tune	chrXIV+chrII	rossi_cx	fitted	1	98	2	1	0.5	0.0102041	0.02	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	2	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9436.42	-6.04006e-05	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	macisaac	all	1	58	11	2	0.181818	0.0344828	0.057971	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	macisaac	fitted	1	58	11	2	0.181818	0.0344828	0.057971	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	rossi_cx	all	1	98	11	5	0.454545	0.0510204	0.0917431	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	rossi_cx	fitted	1	98	11	5	0.454545	0.0510204	0.0917431	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	3	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	0	1	0	0	9433.59	-0.000360284	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	macisaac	all	1	58	60	12	0.2	0.206897	0.20339	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	macisaac	fitted	1	58	60	12	0.2	0.206897	0.20339	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	rossi_cx	all	1	98	60	21	0.35	0.214286	0.265823	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	rossi_cx	fitted	1	98	60	21	0.35	0.214286	0.265823	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	4	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	0	1	1	0	9412.47	-0.00259829	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	macisaac	all	1	58	73	13	0.178082	0.224138	0.198473	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	macisaac	fitted	1	58	73	13	0.178082	0.224138	0.198473	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	macisaac	nonfitted	0	0	0	0	nan	nan	nan	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	rossi_cx	all	1	98	73	22	0.30137	0.22449	0.25731	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	rossi_cx	fitted	1	98	73	22	0.30137	0.22449	0.25731	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	tune	chrXIV+chrII	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan	1	1	1	0	9403.37	-0.00356258	0	{"chrII": 0, "chrXIV": 0}
+sd72	5	holdout	chrIV	macisaac	all	1	44	74	12	0.162162	0.272727	0.20339					9018.15	-0.00349401	0	{"chrIV": 0}
+sd72	5	holdout	chrIV	macisaac	fitted	1	44	74	12	0.162162	0.272727	0.20339					9018.15	-0.00349401	0	{"chrIV": 0}
+sd72	5	holdout	chrIV	macisaac	nonfitted	0	0	0	0	nan	nan	nan					9018.15	-0.00349401	0	{"chrIV": 0}
+sd72	5	holdout	chrIV	rossi_cx	all	1	103	74	25	0.337838	0.242718	0.282486					9018.15	-0.00349401	0	{"chrIV": 0}
+sd72	5	holdout	chrIV	rossi_cx	fitted	1	103	74	25	0.337838	0.242718	0.282486					9018.15	-0.00349401	0	{"chrIV": 0}
+sd72	5	holdout	chrIV	rossi_cx	nonfitted	0	0	0	0	nan	nan	nan					9018.15	-0.00349401	0	{"chrIV": 0}

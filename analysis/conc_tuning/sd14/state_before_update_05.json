@@ -1,0 +1,509 @@
+{
+ "L": {
+  "Abf1_murphy": 14
+ },
+ "bracket_max_age": 3,
+ "built": {
+  "0": {
+   "background_prob": 0.9528723844742482,
+   "lam": {
+    "Abf1_murphy": 1.0,
+    "Zz_decoy_abf1": 4.7290090269997045e-07,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985108201398574,
+   "traindir": "robocop_train_tw_sd14_00"
+  },
+  "1": {
+   "background_prob": 0.9528716109305135,
+   "lam": {
+    "Abf1_murphy": 10.000000000000002,
+    "Zz_decoy_abf1": 4.729009026999702e-06,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898164947143638,
+   "traindir": "robocop_train_tw_sd14_01"
+  },
+  "2": {
+   "background_prob": 0.952863872426844,
+   "lam": {
+    "Abf1_murphy": 100.00000000000004,
+    "Zz_decoy_abf1": 4.729009026999707e-05,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02894707101586843,
+   "traindir": "robocop_train_tw_sd14_02"
+  },
+  "3": {
+   "background_prob": 0.9527861796150319,
+   "lam": {
+    "Abf1_murphy": 1000.0000000000007,
+    "Zz_decoy_abf1": 0.00047290090269997076,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028602173986143134,
+   "traindir": "robocop_train_tw_sd14_03"
+  },
+  "4": {
+   "background_prob": 0.9526275520175014,
+   "lam": {
+    "Abf1_murphy": 2817.5831289420685,
+    "Zz_decoy_abf1": 0.0013324376051089112,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6231859226720979,
+   "nucleosome_prob": 0.027910610872698378,
+   "traindir": "robocop_train_tw_sd14_04"
+  },
+  "5": {
+   "background_prob": 0.9525577115158006,
+   "lam": {
+    "Abf1_murphy": 3609.4557909961836,
+    "Zz_decoy_abf1": 0.001706914901817731,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6343089625365653,
+   "nucleosome_prob": 0.027611419814446828,
+   "traindir": "robocop_train_tw_sd14_05"
+  }
+ },
+ "cap_delta": {
+  "ABF1": 9.570930763295987
+ },
+ "config": "seqonly",
+ "coords_holdout": "coord_tw_chrIV.tsv",
+ "coords_tune": "coord_tw_chrXIV_chrII.tsv",
+ "deadband": 0.09531017980432493,
+ "delta": {
+  "ABF1": 8.19131228954637
+ },
+ "driver": "run_split_revfix_seqonly_maskoff_decoy14.py",
+ "factor_set": "abf1only",
+ "fitted": {
+  "ABF1": 1
+ },
+ "frozen": [],
+ "groups": {
+  "ABF1": [
+   "Abf1_murphy"
+  ]
+ },
+ "history": [
+  {
+   "E": {
+    "ABF1": 0.17447780000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 0.0
+   },
+   "delta_next": {
+    "ABF1": 2.302585092994046
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": 3.916713820627809
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 0,
+   "macisaac": {
+    "n_calls": 1,
+    "n_macisaac": 58,
+    "n_matched": 1
+   },
+   "n_T5": 1,
+   "n_censored": 1,
+   "n_zero_step": 0,
+   "nucleosome_copies": 9444.15,
+   "nucleosome_rel_r0": 0.0,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 0,
+     "group": "ABF1",
+     "lam": 4.7290090269997045e-07,
+     "lam_next": 4.729009026999702e-06,
+     "occ": 0.0,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1,
+     "target_calls_macisaac_rows": 1,
+     "target_occ": 0.17447780000000002,
+     "w": 4.7290090269997045e-07,
+     "w_next": 4.729009026999702e-06,
+     "w_target": 4.7290090269997077e-07,
+     "w_target_next": 4.729009026999708e-06
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "no-slope"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1.1346310000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 2.302585092994046
+   },
+   "delta_next": {
+    "ABF1": 4.605170185988092
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": 3.3192436458862544
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 1,
+   "macisaac": {
+    "n_calls": 2,
+    "n_macisaac": 58,
+    "n_matched": 1
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 9443.849999999999,
+   "nucleosome_rel_r0": -3.176569622476144e-05,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 0,
+     "group": "ABF1",
+     "lam": 4.729009026999702e-06,
+     "lam_next": 4.729009026999707e-05,
+     "occ": 0.0,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 2,
+     "target_calls_macisaac_rows": 2,
+     "target_occ": 1.1346310000000002,
+     "w": 4.729009026999702e-06,
+     "w_next": 4.729009026999707e-05,
+     "w_target": 4.729009026999708e-06,
+     "w_target_next": 4.7290090269997094e-05
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 5.37368
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.48753372157453767
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 4.605170185988092
+   },
+   "delta_next": {
+    "ABF1": 6.907755278982138
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": 2.225360433124397
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 2,
+   "macisaac": {
+    "n_calls": 11,
+    "n_macisaac": 58,
+    "n_matched": 2
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 9442.119999999999,
+   "nucleosome_rel_r0": -0.00021494787778686408,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 0,
+     "group": "ABF1",
+     "lam": 4.729009026999707e-05,
+     "lam_next": 0.00047290090269997076,
+     "occ": 0.0,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 11,
+     "target_calls_macisaac_rows": 11,
+     "target_occ": 5.37368,
+     "w": 4.729009026999707e-05,
+     "w_next": 0.00047290090269997076,
+     "w_target": 4.7290090269997094e-05,
+     "w_target_next": 0.0004729009026999711
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 25.1367
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5501971096483835
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 6.907755278982138
+   },
+   "delta_next": {
+    "ABF1": 7.943634749983409
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": 0.81419698698428
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 3,
+   "macisaac": {
+    "n_calls": 55,
+    "n_macisaac": 58,
+    "n_matched": 9
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 9429.0,
+   "nucleosome_rel_r0": -0.0016041676593446796,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 0,
+     "group": "ABF1",
+     "lam": 0.00047290090269997076,
+     "lam_next": 0.0013324376051089112,
+     "occ": 3.21232,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 55,
+     "target_calls_macisaac_rows": 55,
+     "target_occ": 25.1367,
+     "w": 0.00047290090269997076,
+     "w_next": 0.0013324376051089112,
+     "w_target": 0.0004729009026999711,
+     "w_target_next": 0.0013324376051089123
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 47.2131
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5706398453804193
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 7.943634749983409
+   },
+   "delta_next": {
+    "ABF1": 8.19131228954637
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": 0.201906675543444
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 4,
+   "macisaac": {
+    "n_calls": 93,
+    "n_macisaac": 58,
+    "n_matched": 15
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 9406.220000000001,
+   "nucleosome_rel_r0": -0.0040162428593359945,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 0,
+     "group": "ABF1",
+     "lam": 0.0013324376051089112,
+     "lam_next": 0.001706914901817731,
+     "occ": 71.27770000000001,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 93,
+     "target_calls_macisaac_rows": 93,
+     "target_occ": 47.2131,
+     "w": 0.0013324376051089112,
+     "w_next": 0.001706914901817731,
+     "w_target": 0.0013324376051089123,
+     "w_target_next": 0.0017069149018177322
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 1
+  }
+ ],
+ "holdout_chrom": "chrIV",
+ "iter": 5,
+ "jobs": {
+  "0": {
+   "count": "12670929",
+   "decode": "12670928",
+   "holdout_count": "12671864",
+   "holdout_decode": "12671863",
+   "holdout_validate": "12671865",
+   "next": "12670930"
+  },
+  "1": {
+   "count": "12671851",
+   "decode": "12671850",
+   "next": "12671852"
+  },
+  "2": {
+   "count": "12672695",
+   "decode": "12672694",
+   "next": "12672696"
+  },
+  "3": {
+   "count": "12675852",
+   "decode": "12675851",
+   "next": "12675853"
+  },
+  "4": {
+   "count": "12676226",
+   "decode": "12676225",
+   "next": "12676227"
+  },
+  "5": {
+   "count": "12676813",
+   "decode": "12676812",
+   "next": "12676814"
+  }
+ },
+ "kd": {
+  "Abf1_murphy": 4.7290090269997077e-07
+ },
+ "max_rounds": 50,
+ "ntask": 40,
+ "nucleosome": {
+  "hold": false,
+  "stop_rule": false,
+  "w": 35.0
+ },
+ "on_stop": {
+  "chereji": true,
+  "summary": "decoy_summary.py"
+ },
+ "pkgvar": "pkgvar/seqonly_maskoff_decoy14/",
+ "rule": {
+  "ALPHA0": 0.7,
+  "ALPHA_FLOOR": 0.2,
+  "BETA0": 0.5,
+  "BETA_HI": 1.0,
+  "BETA_LO": 0.1,
+  "DEADBAND": 0.09531017980432493,
+  "E_MIN": 0.5,
+  "FALL_ROUNDS": 3,
+  "MAX_ROUNDS": 50,
+  "NUC_WARN": 0.1,
+  "RHO_MAX": 0.7,
+  "SECANT_MIN_DDELTA": 0.1,
+  "STEP_CAP_DECADES": 1.0,
+  "lambda_bounds": "NONE (only the per-bp cap)"
+ },
+ "rule_state": {
+  "ABF1": {
+   "E_prev": 47.2131,
+   "alpha": 0.7,
+   "beta": 0.5706398453804193,
+   "delta_prev": 7.943634749983409,
+   "gap_prev": 0.201906675543444,
+   "n_upd": 5,
+   "th_over": null,
+   "th_over_n": null,
+   "th_under": 7.943634749983409,
+   "th_under_n": 4
+  }
+ },
+ "run": "sd14",
+ "src_traindir": "robocop_train_decoy14",
+ "target": {
+  "ABF1": 58
+ },
+ "tied": {
+  "Zz_decoy_abf1": {
+   "L": 14,
+   "group": "ABF1",
+   "kd": 1.0,
+   "note": "w_Zz_decoy_abf1 = ratio * w_Abf1_murphy every round (lambda = ratio*Kd_target*lambda_target/Kd); live, untargeted, never tuned; rho judged on the target's basis",
+   "ratio": 1.0,
+   "target": "Abf1_murphy"
+  }
+ },
+ "tune_chroms": [
+  "chrXIV",
+  "chrII"
+ ],
+ "tuned": [
+  "ABF1"
+ ],
+ "unknown": {
+  "base": 0.001,
+  "fixed": true,
+  "lam": 1.0,
+  "masked": true,
+  "note": "unknown is hard-masked by the driver (pkgvar/seqonly_maskoff_decoy14/); w_unknown 1e-3 is pure gauge",
+  "w": 0.001
+ }
+}

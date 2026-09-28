@@ -34,3 +34,8 @@
 2026-09-16 16:08:45  iter 23  submitted decode 12608009 (40 tasks, robocop_chrXIV_chrII_tw_fw01_23) count 12608010 next 12608011
 2026-09-16 16:24:44  iter 24  submitted decode 12608107 (40 tasks, robocop_chrXIV_chrII_tw_fw01_24) count 12608108 next 12608109
 2026-09-16 16:26:08  iter 24  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_fw01_24/chrXIV.tsv')
+2026-09-16 18:48:16  iter 24  RESUBMIT: archived STOPPED ('stopped after iter 24: error: missing count table; all 40 round-24 decode tasks failed importing rpy2') -> STOPPED_20260916_round24_rpy2error; rpy2 import re-tested OK on fitz-36/39/43 (job 12611166, 12611173, 12611174); resubmitting round 24 decode+count+next unchanged
+2026-09-16 18:48:19  iter 24  submitted decode 12611217 (40 tasks, robocop_chrXIV_chrII_tw_fw01_24) count 12611218 next 12611219
+2026-09-16 19:04:17  iter 24  STOPPED: reached the 25-round limit [deadband 1.1x]
+2026-09-16 19:04:18  iter 24  holdout: decode 12611447 (robocop_chrIV_tw_fw01_24) count 12611448 validate 12611449
+2026-09-16 19:04:18  iter 24  on-stop refresh: {'chereji': '12611450', 'summary': '12611451'}

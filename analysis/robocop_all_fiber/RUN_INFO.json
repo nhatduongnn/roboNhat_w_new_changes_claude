@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_all_fiber",
+ "original_outdir": "robocop_all_fiber",
+ "driver": "run_fiberonly_noem.py",
+ "pkg_tree": "../pkg",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_fiberonly",
+ "traindir_exists": true,
+ "coords": "coord_all_fiber.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:07:56",
+ "slurm_job_id": null,
+ "source": "backfill:log"
+}

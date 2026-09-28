@@ -1,0 +1,59 @@
+2026-09-19 16:06:12  iter 00  submitted decode 12644208 (40 tasks, robocop_chrXIV_chrII_tw_bp100_00) count 12644209 next 12644210
+2026-09-19 16:06:18  iter 00  holdout submitter twHS_bp100_00 job 12644214 (runs 'tune_w.py holdout --iter 0' after next 12644210; staggered round-0 holdout)
+2026-09-19 16:46:42  iter 01  submitted decode 12644856 (40 tasks, robocop_chrXIV_chrII_tw_bp100_01) count 12644857 next 12644858
+2026-09-19 16:47:10  iter 00  holdout: decode 12644860 (robocop_chrIV_tw_bp100_00) count 12644861 validate 12644862
+2026-09-19 17:42:55  iter 02  submitted decode 12645726 (40 tasks, robocop_chrXIV_chrII_tw_bp100_02) count 12645727 next 12645728
+2026-09-19 18:25:00  iter 03  submitted decode 12646420 (40 tasks, robocop_chrXIV_chrII_tw_bp100_03) count 12646421 next 12646422
+2026-09-19 18:55:17  iter 04  submitted decode 12646925 (40 tasks, robocop_chrXIV_chrII_tw_bp100_04) count 12646926 next 12646927
+2026-09-19 19:29:13  iter 05  submitted decode 12647435 (40 tasks, robocop_chrXIV_chrII_tw_bp100_05) count 12647436 next 12647437
+2026-09-19 19:53:51  iter 06  submitted decode 12647825 (40 tasks, robocop_chrXIV_chrII_tw_bp100_06) count 12647826 next 12647827
+2026-09-19 20:25:17  iter 07  submitted decode 12648250 (40 tasks, robocop_chrXIV_chrII_tw_bp100_07) count 12648251 next 12648252
+2026-09-19 20:45:28  iter 08  submitted decode 12648541 (40 tasks, robocop_chrXIV_chrII_tw_bp100_08) count 12648542 next 12648543
+2026-09-19 21:07:12  iter 09  submitted decode 12648835 (40 tasks, robocop_chrXIV_chrII_tw_bp100_09) count 12648836 next 12648837
+2026-09-19 21:26:23  iter 09  STOPPED: error: RRuntimeError('Error in .Primitive("as.environment")("package:utils") : \n  no item called "package:utils" on the search list\n')
+resume 2026-09-20: round-10 BUILD failed on the rpy2 package:utils error (twN job; make_conc_trainDir/make_w_trainDir imported calculateKD at module level and started R). Those imports are now lazy; rebuilding round 10 and resubmitting.
+2026-09-20 00:12:41  iter 10  submitted decode 12649553 (40 tasks, robocop_chrXIV_chrII_tw_bp100_10) count 12649554 next 12649555
+2026-09-20 05:19:47  iter 11  submitted decode 12650101 (40 tasks, robocop_chrXIV_chrII_tw_bp100_11) count 12650102 next 12650103
+2026-09-20 07:14:31  iter 12  submitted decode 12650538 (40 tasks, robocop_chrXIV_chrII_tw_bp100_12) count 12650539 next 12650540
+2026-09-20 08:44:09  iter 13  submitted decode 12651028 (40 tasks, robocop_chrXIV_chrII_tw_bp100_13) count 12651029 next 12651030
+2026-09-20 09:45:16  iter 14  submitted decode 12651641 (40 tasks, robocop_chrXIV_chrII_tw_bp100_14) count 12651642 next 12651643
+2026-09-20 10:39:49  iter 15  submitted decode 12652039 (40 tasks, robocop_chrXIV_chrII_tw_bp100_15) count 12652040 next 12652041
+2026-09-20 11:20:22  iter 16  submitted decode 12652385 (40 tasks, robocop_chrXIV_chrII_tw_bp100_16) count 12652386 next 12652387
+2026-09-20 11:53:23  iter 17  submitted decode 12652723 (40 tasks, robocop_chrXIV_chrII_tw_bp100_17) count 12652724 next 12652725
+2026-09-20 12:25:26  iter 18  submitted decode 12653070 (40 tasks, robocop_chrXIV_chrII_tw_bp100_18) count 12653071 next 12653072
+2026-09-20 12:57:28  iter 19  submitted decode 12653469 (40 tasks, robocop_chrXIV_chrII_tw_bp100_19) count 12653470 next 12653471
+2026-09-20 13:26:29  iter 19  STOPPED: error: RRuntimeError('Error in .Primitive("as.environment")("package:utils") : \n  no item called "package:utils" on the search list\n')
+resume 2026-09-21: round-20 BUILD failed again on rpy2 package:utils. The 2026-09-20 fix only deferred the parameterize import into base_weights, which still runs on every build. The tuner now uses analysis/robocop_kd.py (verbatim calculateKD, bit-exact on 616 motifs), so no build imports rpy2; a full build was verified to leave R uninitialised. Rebuilding round 20 and resubmitting.
+2026-09-21 11:05:33  iter 20  submitted decode 12664761 (40 tasks, robocop_chrXIV_chrII_tw_bp100_20) count 12664762 next 12664763
+2026-09-21 12:16:18  iter 21  submitted decode 12665698 (40 tasks, robocop_chrXIV_chrII_tw_bp100_21) count 12665699 next 12665700
+2026-09-21 12:54:13  iter 22  submitted decode 12666327 (40 tasks, robocop_chrXIV_chrII_tw_bp100_22) count 12666328 next 12666329
+2026-09-21 13:13:14  iter 23  submitted decode 12666613 (40 tasks, robocop_chrXIV_chrII_tw_bp100_23) count 12666614 next 12666615
+2026-09-21 13:32:14  iter 24  submitted decode 12666913 (40 tasks, robocop_chrXIV_chrII_tw_bp100_24) count 12666914 next 12666915
+2026-09-21 13:51:21  iter 25  submitted decode 12667222 (40 tasks, robocop_chrXIV_chrII_tw_bp100_25) count 12667223 next 12667224
+2026-09-21 14:09:46  iter 26  submitted decode 12668083 (40 tasks, robocop_chrXIV_chrII_tw_bp100_26) count 12668084 next 12668085
+2026-09-21 14:28:29  iter 27  submitted decode 12668873 (40 tasks, robocop_chrXIV_chrII_tw_bp100_27) count 12668874 next 12668875
+2026-09-21 14:50:19  iter 28  submitted decode 12669401 (40 tasks, robocop_chrXIV_chrII_tw_bp100_28) count 12669402 next 12669403
+2026-09-21 15:09:20  iter 29  submitted decode 12669658 (40 tasks, robocop_chrXIV_chrII_tw_bp100_29) count 12669659 next 12669660
+2026-09-21 15:27:52  iter 30  submitted decode 12669973 (40 tasks, robocop_chrXIV_chrII_tw_bp100_30) count 12669974 next 12669975
+2026-09-21 15:46:55  iter 31  submitted decode 12670397 (40 tasks, robocop_chrXIV_chrII_tw_bp100_31) count 12670398 next 12670399
+2026-09-21 16:09:20  iter 32  submitted decode 12670941 (40 tasks, robocop_chrXIV_chrII_tw_bp100_32) count 12670942 next 12670943
+2026-09-21 16:49:04  iter 33  submitted decode 12672131 (40 tasks, robocop_chrXIV_chrII_tw_bp100_33) count 12672132 next 12672133
+2026-09-21 17:56:11  iter 34  submitted decode 12675534 (40 tasks, robocop_chrXIV_chrII_tw_bp100_34) count 12675535 next 12675536
+2026-09-21 18:24:55  iter 35  submitted decode 12676041 (40 tasks, robocop_chrXIV_chrII_tw_bp100_35) count 12676042 next 12676043
+2026-09-21 19:05:52  iter 36  submitted decode 12676572 (40 tasks, robocop_chrXIV_chrII_tw_bp100_36) count 12676573 next 12676574
+2026-09-21 19:35:25  iter 37  submitted decode 12677063 (40 tasks, robocop_chrXIV_chrII_tw_bp100_37) count 12677064 next 12677065
+2026-09-21 21:13:01  iter 38  submitted decode 12677941 (40 tasks, robocop_chrXIV_chrII_tw_bp100_38) count 12677942 next 12677943
+2026-09-21 21:42:07  iter 39  submitted decode 12678505 (40 tasks, robocop_chrXIV_chrII_tw_bp100_39) count 12678506 next 12678507
+2026-09-21 22:03:08  iter 40  submitted decode 12678879 (40 tasks, robocop_chrXIV_chrII_tw_bp100_40) count 12678880 next 12678881
+2026-09-21 22:24:29  iter 41  submitted decode 12679186 (40 tasks, robocop_chrXIV_chrII_tw_bp100_41) count 12679187 next 12679188
+2026-09-21 22:49:09  iter 42  submitted decode 12679617 (40 tasks, robocop_chrXIV_chrII_tw_bp100_42) count 12679618 next 12679619
+2026-09-21 23:19:11  iter 43  submitted decode 12679993 (40 tasks, robocop_chrXIV_chrII_tw_bp100_43) count 12679994 next 12679995
+2026-09-21 23:53:44  iter 44  submitted decode 12680348 (40 tasks, robocop_chrXIV_chrII_tw_bp100_44) count 12680349 next 12680350
+2026-09-22 00:28:16  iter 45  submitted decode 12680713 (40 tasks, robocop_chrXIV_chrII_tw_bp100_45) count 12680714 next 12680715
+2026-09-22 01:00:47  iter 46  submitted decode 12681105 (40 tasks, robocop_chrXIV_chrII_tw_bp100_46) count 12681106 next 12681107
+2026-09-22 01:33:55  iter 47  submitted decode 12682170 (40 tasks, robocop_chrXIV_chrII_tw_bp100_47) count 12682171 next 12682172
+2026-09-22 01:58:28  iter 48  submitted decode 12682420 (40 tasks, robocop_chrXIV_chrII_tw_bp100_48) count 12682421 next 12682422
+2026-09-22 02:27:01  iter 49  submitted decode 12682746 (40 tasks, robocop_chrXIV_chrII_tw_bp100_49) count 12682747 next 12682748
+2026-09-22 02:55:04  iter 49  STOPPED: reached the 50-round limit [deadband 1.1x]
+2026-09-22 02:55:04  iter 49  holdout: decode 12683027 (robocop_chrIV_tw_bp100_49) count 12683028 validate 12683029
+2026-09-22 02:55:04  iter 49  on-stop refresh: {'chereji': '12683030', 'summary': '12683031'}

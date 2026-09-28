@@ -1,0 +1,2 @@
+motif	tied_to	ratio	occ	calls	target_occ	target_calls	lambda	lambda_next	w	w_target	w_next	w_target_next
+Zz_decoy_abf1	Abf1_murphy	1	4455.44	4695	42.5227	82	2.79415e-06	6.61983e-06	2.7941454674925365e-06	2.794145467492536e-06	6.619825782822487e-06	6.6198257828224938e-06

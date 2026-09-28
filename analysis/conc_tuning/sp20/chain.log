@@ -1,0 +1,11 @@
+2026-09-19 16:05:56  iter 00  submitted decode 12644204 (40 tasks, robocop_chrXIV_chrII_tw_sp20_00) count 12644205 next 12644206
+2026-09-19 16:05:56  iter 00  holdout submitter twHS_sp20_00 job 12644207 (runs 'tune_w.py holdout --iter 0' after next 12644206; staggered round-0 holdout)
+2026-09-19 16:42:41  iter 01  submitted decode 12644776 (40 tasks, robocop_chrXIV_chrII_tw_sp20_01) count 12644777 next 12644778
+2026-09-19 16:43:10  iter 00  holdout: decode 12644792 (robocop_chrIV_tw_sp20_00) count 12644793 validate 12644794
+2026-09-19 17:34:57  iter 02  submitted decode 12645620 (40 tasks, robocop_chrXIV_chrII_tw_sp20_02) count 12645621 next 12645622
+2026-09-19 18:24:37  iter 03  submitted decode 12646412 (40 tasks, robocop_chrXIV_chrII_tw_sp20_03) count 12646413 next 12646414
+2026-09-19 18:51:10  iter 04  submitted decode 12646857 (40 tasks, robocop_chrXIV_chrII_tw_sp20_04) count 12646858 next 12646859
+2026-09-19 19:26:19  iter 05  submitted decode 12647399 (40 tasks, robocop_chrXIV_chrII_tw_sp20_05) count 12647400 next 12647401
+2026-09-19 19:52:59  iter 05  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-19 19:53:04  iter 05  holdout: decode 12647808 (robocop_chrIV_tw_sp20_05) count 12647809 validate 12647810
+2026-09-19 19:53:04  iter 05  on-stop refresh: {'chereji': '12647811', 'summary': '12647812'}

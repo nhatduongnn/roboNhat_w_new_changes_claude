@@ -240,7 +240,8 @@ race — with a Slurm array you cannot know when a task imports the file.
 | `fiber_maskon` / `fiber_maskoff` | OFF (`[0][:] = 1`) | ABF1-only / none |
 | `seq_maskon` / `seq_maskoff` | ON | ABF1-only / none |
 | `seqonly_maskon` | ON | fiber layers set to 1, **mask moved onto layer 0** |
-| `seq_maskoff_{12tfs,bgtss,lowabf1}` | ON, no mask | differ only in which `inputs/*.pkl` they load |
+| `seq_maskoff_{bgtss,lowabf1}` | ON, no mask | differ only in which `inputs/*.pkl` they load (`bg_params_tss.pkl` at `robocop.py:606`; `all_TFs_1000pealVal_params_pseudo_lowabf1.pkl` at `robocop.py:598`) |
+| `seq_maskoff_12tfs` | ON | **mask**: keeps the 12 fitted-footprint TFs (`FITTED_12`, `robocopExtras.py:123`), masks all other TFs and `unknown` |
 | `seq_maskoff_macisaac` | ON | keep-list: 84 MacIsaac motifs + `unknown` (§1.1) |
 | `seq_maskoff_em10` | ON, no mask | EM on via `ROBOCOP_EM_ITERS` |
 
@@ -517,6 +518,18 @@ only faidx users were.
 This is the one list of the user's published artifacts; keep it current when one is published.
 Edit the source file and re-publish **to the same URL** (pass it as `url`), or a second artifact
 is created instead of updating the first. Updated 2026-09-16.
+
+**Run Browser (local site, 2026-09-22) replaces the per-window browsers for everyday use.** One static
+site lists every decode run (run matrix: layers, mask, phi, EM, lambda, ABF1 width/pads, decoy,
+trainDir, pkgvar, coverage, Fiber-seq check) and opens 1-N runs side by side on a chromosome (one
+lane per run over shared m6A / depth / genes / reference sites). Code `analysis/viewer_site/`
+(`build_site.sh` rebuilds everything, `serve.sh [PORT]` serves it); output
+`/usr/project/xtmp/nd141/viewer_site/` (not in git, no size limit, opened through VS Code port
+forwarding). Only the 4 windows in `viewer_site/windows.tsv` are extracted for now; data are stored at
+whole-chromosome coordinates so more blocks slot in later. Every decode now also writes
+`RUN_INFO.json` (provenance: driver, pkgvar tree, real trainDir, campaign/round/role) and
+`factor_tables/part_*.npz` (per-factor optable) from `sbatch_genome_decode.sh` (non-fatal hooks,
+backups `*.pre_viewer`). The Occupancy Browser artifacts below are frozen and will go stale.
 
 **URL format changed.** Artifacts now live at `https://claude.ai/artifact/<short id>`. The old
 `claude.ai/code/artifact/<uuid>` ids still identify the same pages (reading an artifact reports its

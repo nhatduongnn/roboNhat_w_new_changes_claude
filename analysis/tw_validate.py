@@ -98,7 +98,12 @@ def score(groups, fitted, calls_dir, counts_dir, chroms):
             pc = [x for m in ms for x in calls.get(m, {}).get(c, [])]
             rc = refs[g]["macisaac"].get(c, [])
             got = (len(pc), len(rc), RV.fast_match(pc, rc))
-            s = srow[g]
+            s = srow.get(g)
+            if s is None:                # no MacIsaac target -> no sidecar row (added 2026-09-16)
+                if rc:
+                    raise RuntimeError("%s %s has %d MacIsaac sites but no sidecar row in %s"
+                                       % (g, c, len(rc), side))
+                continue
             want = (int(s["n_calls"]), int(s["n_macisaac"]), int(s["n_matched"]))
             if got != want:
                 raise RuntimeError("MISMATCH %s %s %s: calls/sites/tp %s vs sidecar %s"

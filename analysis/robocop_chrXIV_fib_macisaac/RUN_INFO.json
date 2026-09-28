@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_fib_macisaac",
+ "original_outdir": "robocop_chrXIV_fib_macisaac",
+ "driver": "run_split_revfix_fiber_maskoff_macisaac.py",
+ "pkg_tree": "pkgvar/fiber_maskoff_macisaac",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_fiberonly",
+ "traindir_exists": true,
+ "coords": "coord_chrXIV_full.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:20",
+ "slurm_job_id": null,
+ "source": "backfill:log"
+}

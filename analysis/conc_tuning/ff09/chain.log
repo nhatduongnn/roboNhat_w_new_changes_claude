@@ -1,0 +1,60 @@
+2026-09-16 18:59:19  iter 00  submitted decode 12611432 (40 tasks, robocop_chrXIV_chrII_tw_ff09_00) count 12611433 next 12611434
+2026-09-16 18:59:19  iter 00  holdout submitter twHS_ff09_00 job 12611435 (runs 'tune_w.py holdout --iter 0' after next 12611434; staggered round-0 holdout)
+2026-09-16 19:26:37  iter 01  submitted decode 12611831 (40 tasks, robocop_chrXIV_chrII_tw_ff09_01) count 12611832 next 12611833
+2026-09-16 19:26:45  iter 00  holdout: decode 12611834 (robocop_chrIV_tw_ff09_00) count 12611835 validate 12611836
+2026-09-16 20:06:19  iter 02  submitted decode 12612525 (40 tasks, robocop_chrXIV_chrII_tw_ff09_02) count 12612526 next 12612527
+2026-09-16 20:22:19  iter 03  submitted decode 12612786 (40 tasks, robocop_chrXIV_chrII_tw_ff09_03) count 12612787 next 12612788
+2026-09-16 20:38:20  iter 04  submitted decode 12613056 (40 tasks, robocop_chrXIV_chrII_tw_ff09_04) count 12613058 next 12613059
+2026-09-16 20:58:09  iter 05  submitted decode 12613392 (40 tasks, robocop_chrXIV_chrII_tw_ff09_05) count 12613393 next 12613394
+2026-09-16 21:14:21  iter 06  submitted decode 12613676 (40 tasks, robocop_chrXIV_chrII_tw_ff09_06) count 12613677 next 12613678
+2026-09-16 21:33:10  iter 07  submitted decode 12613902 (40 tasks, robocop_chrXIV_chrII_tw_ff09_07) count 12613903 next 12613904
+2026-09-16 21:49:22  iter 08  submitted decode 12614123 (40 tasks, robocop_chrXIV_chrII_tw_ff09_08) count 12614124 next 12614125
+2026-09-16 22:04:21  iter 09  submitted decode 12614844 (40 tasks, robocop_chrXIV_chrII_tw_ff09_09) count 12614845 next 12614846
+2026-09-16 22:05:50  iter 09  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_ff09_09/chrXIV.tsv')
+resume 2026-09-17: round 9 decode failed 40/40 on the rpy2 embedded-R fork error; sbatch_genome_decode.sh now staggers starts and retries 3x with jitter; resubmitting round 9 unchanged
+2026-09-17 17:56:10  iter 09  submitted decode 12626895 (40 tasks, robocop_chrXIV_chrII_tw_ff09_09) count 12626896 next 12626897
+2026-09-17 18:18:07  iter 10  submitted decode 12627082 (40 tasks, robocop_chrXIV_chrII_tw_ff09_10) count 12627083 next 12627084
+2026-09-17 18:34:06  iter 11  submitted decode 12627264 (40 tasks, robocop_chrXIV_chrII_tw_ff09_11) count 12627265 next 12627266
+2026-09-17 18:49:36  iter 12  submitted decode 12628300 (40 tasks, robocop_chrXIV_chrII_tw_ff09_12) count 12628301 next 12628302
+2026-09-17 19:08:08  iter 13  submitted decode 12628495 (40 tasks, robocop_chrXIV_chrII_tw_ff09_13) count 12628496 next 12628497
+2026-09-17 19:28:10  iter 14  submitted decode 12628629 (40 tasks, robocop_chrXIV_chrII_tw_ff09_14) count 12628630 next 12628631
+2026-09-17 19:44:10  iter 15  submitted decode 12629641 (40 tasks, robocop_chrXIV_chrII_tw_ff09_15) count 12629642 next 12629643
+2026-09-17 20:00:42  iter 16  submitted decode 12631518 (40 tasks, robocop_chrXIV_chrII_tw_ff09_16) count 12631519 next 12631520
+2026-09-17 20:16:40  iter 17  submitted decode 12631696 (40 tasks, robocop_chrXIV_chrII_tw_ff09_17) count 12631697 next 12631698
+2026-09-17 20:32:40  iter 18  submitted decode 12631785 (40 tasks, robocop_chrXIV_chrII_tw_ff09_18) count 12631786 next 12631787
+2026-09-17 20:37:38  iter 18  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_ff09_18/chrXIV.tsv')
+resume 2026-09-18: round 18 decode failed 40/40 on the rpy2 package:utils error (probe: all R library files readable at failure time); probe extended to print R's hidden load error; resubmitting round 18 unchanged
+2026-09-18 12:44:55  iter 18  submitted decode 12634698 (40 tasks, robocop_chrXIV_chrII_tw_ff09_18) count 12634699 next 12634700
+2026-09-18 14:42:17  iter 19  submitted decode 12635977 (40 tasks, robocop_chrXIV_chrII_tw_ff09_19) count 12636018 next 12636019
+2026-09-18 14:58:45  iter 20  submitted decode 12636243 (40 tasks, robocop_chrXIV_chrII_tw_ff09_20) count 12636244 next 12636245
+2026-09-18 15:15:17  iter 21  submitted decode 12636768 (40 tasks, robocop_chrXIV_chrII_tw_ff09_21) count 12636769 next 12636770
+2026-09-18 15:45:18  iter 22  submitted decode 12637077 (40 tasks, robocop_chrXIV_chrII_tw_ff09_22) count 12637097 next 12637098
+2026-09-18 16:08:02  iter 23  submitted decode 12637265 (40 tasks, robocop_chrXIV_chrII_tw_ff09_23) count 12637266 next 12637267
+2026-09-18 16:30:34  iter 24  submitted decode 12637436 (40 tasks, robocop_chrXIV_chrII_tw_ff09_24) count 12637437 next 12637438
+2026-09-18 17:30:35  iter 24  STOPPED: reached the 25-round limit [deadband 1.1x]
+2026-09-18 17:30:36  iter 24  holdout: decode 12638281 (robocop_chrIV_tw_ff09_24) count 12638282 validate 12638283
+2026-09-18 17:30:36  iter 24  on-stop refresh: {'chereji': '12638284', 'summary': '12638285'}
+2026-09-18 21:30:07  iter 24  CONTINUE: archived STOPPED ('stopped after iter 24: reached the 25-round limit [deadband 1.1x]') -> STOPPED_20260918_round24; new settings max_rounds 50, deadband 1.1x (was 25, 1.1x); reason: user decision 2026-09-18: run past 25 rounds (to 50) so MCM1/REB1/SKO1, still step-capped, can keep falling; only the round cap changes
+2026-09-18 21:30:12  iter 24  CONTINUE: round 24 re-updated under deadband 1.1x: 7 tuned groups outside it, 7 take a non-zero step; bisect-set steps 0, bracket-pinned (<0.1 dec) 0 []
+2026-09-18 21:30:39  iter 25  submitted decode 12640176 (40 tasks, robocop_chrXIV_chrII_tw_ff09_25) count 12640177 next 12640178
+2026-09-18 21:46:18  iter 26  submitted decode 12640289 (40 tasks, robocop_chrXIV_chrII_tw_ff09_26) count 12640290 next 12640291
+2026-09-18 22:01:48  iter 27  submitted decode 12640382 (40 tasks, robocop_chrXIV_chrII_tw_ff09_27) count 12640383 next 12640384
+2026-09-18 22:17:48  iter 28  submitted decode 12640482 (40 tasks, robocop_chrXIV_chrII_tw_ff09_28) count 12640483 next 12640484
+2026-09-18 22:33:18  iter 29  submitted decode 12640572 (40 tasks, robocop_chrXIV_chrII_tw_ff09_29) count 12640573 next 12640574
+2026-09-18 22:48:49  iter 30  submitted decode 12640707 (40 tasks, robocop_chrXIV_chrII_tw_ff09_30) count 12640708 next 12640709
+2026-09-18 23:04:23  iter 31  submitted decode 12640834 (40 tasks, robocop_chrXIV_chrII_tw_ff09_31) count 12640835 next 12640836
+2026-09-18 23:20:19  iter 32  submitted decode 12640925 (40 tasks, robocop_chrXIV_chrII_tw_ff09_32) count 12640926 next 12640927
+2026-09-18 23:36:19  iter 33  submitted decode 12641015 (40 tasks, robocop_chrXIV_chrII_tw_ff09_33) count 12641016 next 12641017
+2026-09-18 23:51:49  iter 34  submitted decode 12641108 (40 tasks, robocop_chrXIV_chrII_tw_ff09_34) count 12641109 next 12641110
+2026-09-18 23:57:18  iter 34  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_ff09_34/chrXIV.tsv')
+resume 2026-09-19: round 34 decode failed 40/40 on the rpy2 package:utils error (probe: fresh bin/R loads utils OK, fresh rpy2 import fails); resubmitting round 34 unchanged
+2026-09-19 15:07:32  iter 34  submitted decode 12643695 (40 tasks, robocop_chrXIV_chrII_tw_ff09_34) count 12643696 next 12643697
+2026-09-19 15:30:06  iter 35  submitted decode 12643796 (40 tasks, robocop_chrXIV_chrII_tw_ff09_35) count 12643797 next 12643798
+2026-09-19 15:46:07  iter 36  submitted decode 12643903 (40 tasks, robocop_chrXIV_chrII_tw_ff09_36) count 12643904 next 12643905
+2026-09-19 16:02:08  iter 37  submitted decode 12644048 (40 tasks, robocop_chrXIV_chrII_tw_ff09_37) count 12644049 next 12644050
+2026-09-19 16:17:38  iter 38  submitted decode 12644371 (40 tasks, robocop_chrXIV_chrII_tw_ff09_38) count 12644372 next 12644373
+2026-09-19 17:00:43  iter 39  submitted decode 12645047 (40 tasks, robocop_chrXIV_chrII_tw_ff09_39) count 12645048 next 12645049
+2026-09-19 18:05:04  iter 40  submitted decode 12646092 (40 tasks, robocop_chrXIV_chrII_tw_ff09_40) count 12646093 next 12646094
+2026-09-19 18:39:39  iter 40  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-19 18:39:40  iter 40  holdout: decode 12646639 (robocop_chrIV_tw_ff09_40) count 12646640 validate 12646641
+2026-09-19 18:39:40  iter 40  on-stop refresh: {'chereji': '12646642', 'summary': '12646643'}

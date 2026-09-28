@@ -1,0 +1,684 @@
+{
+ "L": {
+  "Abf1_murphy": 23
+ },
+ "bracket_max_age": 3,
+ "built": {
+  "0": {
+   "background_prob": 0.952872459545834,
+   "lam": {
+    "Abf1_murphy": 1.0,
+    "Zz_decoy_abf1": 9.239194975677869e-08,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985443889237295,
+   "traindir": "robocop_train_tw_bd72_00"
+  },
+  "1": {
+   "background_prob": 0.9528724674516383,
+   "lam": {
+    "Abf1_murphy": 0.27298129698639384,
+    "Zz_decoy_abf1": 2.5221274275707172e-08,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898547924081766,
+   "traindir": "robocop_train_tw_bd72_01"
+  },
+  "2": {
+   "background_prob": 0.9528724700464304,
+   "lam": {
+    "Abf1_murphy": 0.03436381415382646,
+    "Zz_decoy_abf1": 3.1749397907516142e-09,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898549084369487,
+   "traindir": "robocop_train_tw_bd72_02"
+  },
+  "3": {
+   "background_prob": 0.9528724703827438,
+   "lam": {
+    "Abf1_murphy": 0.003436381415382645,
+    "Zz_decoy_abf1": 3.174939790751611e-10,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898549234755469,
+   "traindir": "robocop_train_tw_bd72_03"
+  },
+  "4": {
+   "background_prob": 0.9528724704163749,
+   "lam": {
+    "Abf1_murphy": 0.00034363814153826446,
+    "Zz_decoy_abf1": 3.174939790751619e-11,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624436,
+   "nucleosome_prob": 0.028985492497940676,
+   "traindir": "robocop_train_tw_bd72_04"
+  },
+  "5": {
+   "background_prob": 0.9528724704197382,
+   "lam": {
+    "Abf1_murphy": 3.4363814153826465e-05,
+    "Zz_decoy_abf1": 3.174939790751615e-12,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492512979178,
+   "traindir": "robocop_train_tw_bd72_05"
+  },
+  "6": {
+   "background_prob": 0.952872470420041,
+   "lam": {
+    "Abf1_murphy": 6.520285116396982e-06,
+    "Zz_decoy_abf1": 6.024218548740218e-13,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898549251433302,
+   "traindir": "robocop_train_tw_bd72_06"
+  },
+  "7": {
+   "background_prob": 0.9528724704200817,
+   "lam": {
+    "Abf1_murphy": 2.7649780379924813e-06,
+    "Zz_decoy_abf1": 2.554617119647974e-13,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624436,
+   "nucleosome_prob": 0.028985492514515727,
+   "traindir": "robocop_train_tw_bd72_07"
+  }
+ },
+ "cap_basis": {
+  "L": {
+   "Abf1_murphy": 14
+  },
+  "kd": {
+   "Abf1_murphy": 4.7290090269997077e-07
+  },
+  "note": "per-bp cap judged on the core motif: rho = (Kd_core*lambda)^(1/L_core); lambda multiplies the campaign's own Kd (from robocop_train_wide_decoy23)",
+  "own_cap_delta": {
+   "ABF1": 7.993702275347815
+  },
+  "traindir": "robocop_train_fiberonly"
+ },
+ "cap_delta": {
+  "ABF1": 9.570930763295987
+ },
+ "config": "both",
+ "coords_holdout": "coord_tw_chrIV.tsv",
+ "coords_tune": "coord_tw_chrXIV_chrII.tsv",
+ "deadband": 0.09531017980432493,
+ "delta": {
+  "ABF1": -12.798477865881383
+ },
+ "driver": "run_split_revfix_seq_maskoff_decoy72.py",
+ "factor_set": "abf1only",
+ "fitted": {
+  "ABF1": 1
+ },
+ "frozen": [],
+ "groups": {
+  "ABF1": [
+   "Abf1_murphy"
+  ]
+ },
+ "history": [
+  {
+   "E": {
+    "ABF1": 148.14690000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 0.0
+   },
+   "delta_next": {
+    "ABF1": -1.298351995351389
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -0.9273942823938492
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 0,
+   "macisaac": {
+    "n_calls": 212,
+    "n_macisaac": 58,
+    "n_matched": 32
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8842.029999999999,
+   "nucleosome_rel_r0": 0.0,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 2652,
+     "group": "ABF1",
+     "lam": 9.239194975677869e-08,
+     "lam_next": 2.5221274275707172e-08,
+     "occ": 2422.79,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 212,
+     "target_calls_macisaac_rows": 212,
+     "target_occ": 148.14690000000002,
+     "w": 9.239194975677869e-08,
+     "w_next": 2.5221274275707172e-08,
+     "w_target": 9.239194975677867e-08,
+     "w_target_next": 2.5221274275707176e-08
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 135.65179999999998
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.2836948847413586
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -1.298351995351389
+   },
+   "delta_next": {
+    "ABF1": -3.3707511823857033
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -0.8398986407196931
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 1,
+   "macisaac": {
+    "n_calls": 200,
+    "n_macisaac": 58,
+    "n_matched": 32
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8852.52,
+   "nucleosome_rel_r0": 0.0011863791459654216,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 2471,
+     "group": "ABF1",
+     "lam": 2.5221274275707172e-08,
+     "lam_next": 3.1749397907516142e-09,
+     "occ": 2217.19,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 200,
+     "target_calls_macisaac_rows": 200,
+     "target_occ": 135.65179999999998,
+     "w": 2.5221274275707172e-08,
+     "w_next": 3.1749397907516142e-09,
+     "w_target": 2.5221274275707176e-08,
+     "w_target_next": 3.174939790751614e-09
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 117.7295
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.17576665278914677
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -3.3707511823857033
+   },
+   "delta_next": {
+    "ABF1": -5.673336275379749
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.6993103525275375
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 2,
+   "macisaac": {
+    "n_calls": 173,
+    "n_macisaac": 58,
+    "n_matched": 29
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8862.689999999999,
+   "nucleosome_rel_r0": 0.0023365675076876258,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 2227,
+     "group": "ABF1",
+     "lam": 3.1749397907516142e-09,
+     "lam_next": 3.174939790751611e-10,
+     "occ": 1924.687,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 173,
+     "target_calls_macisaac_rows": 173,
+     "target_occ": 117.7295,
+     "w": 3.1749397907516142e-09,
+     "w_next": 3.174939790751611e-10,
+     "w_target": 3.174939790751614e-09,
+     "w_target_next": 3.174939790751613e-10
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 101.24090000000001
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.12035031392975726
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -5.673336275379749
+   },
+   "delta_next": {
+    "ABF1": -7.975921368373795
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.5497943495016617
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 3,
+   "macisaac": {
+    "n_calls": 144,
+    "n_macisaac": 58,
+    "n_matched": 25
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8877.8,
+   "nucleosome_rel_r0": 0.004045451101161168,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1925,
+     "group": "ABF1",
+     "lam": 3.174939790751611e-10,
+     "lam_next": 3.174939790751619e-11,
+     "occ": 1611.7269999999999,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 144,
+     "target_calls_macisaac_rows": 144,
+     "target_occ": 101.24090000000001,
+     "w": 3.174939790751611e-10,
+     "w_next": 3.174939790751619e-11,
+     "w_target": 3.174939790751613e-10,
+     "w_target_next": 3.174939790751613e-11
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 1
+  },
+  {
+   "E": {
+    "ABF1": 86.7167
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -7.975921368373795
+   },
+   "delta_next": {
+    "ABF1": -10.27850646136784
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.39657485923728686
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 4,
+   "macisaac": {
+    "n_calls": 123,
+    "n_macisaac": 58,
+    "n_matched": 23
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8894.14,
+   "nucleosome_rel_r0": 0.0058934430215686895,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1589,
+     "group": "ABF1",
+     "lam": 3.174939790751619e-11,
+     "lam_next": 3.174939790751615e-12,
+     "occ": 1335.25,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 123,
+     "target_calls_macisaac_rows": 123,
+     "target_occ": 86.7167,
+     "w": 3.174939790751619e-11,
+     "w_next": 3.174939790751615e-12,
+     "w_target": 3.174939790751613e-11,
+     "w_target_next": 3.1749397907516148e-12
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 1
+  },
+  {
+   "E": {
+    "ABF1": 73.812
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -10.27850646136784
+   },
+   "delta_next": {
+    "ABF1": -11.94059245347308
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.23744085601503429
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 5,
+   "macisaac": {
+    "n_calls": 108,
+    "n_macisaac": 58,
+    "n_matched": 21
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8903.41,
+   "nucleosome_rel_r0": 0.006941844802607733,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1373,
+     "group": "ABF1",
+     "lam": 3.174939790751615e-12,
+     "lam_next": 6.024218548740218e-13,
+     "occ": 1115.3870000000002,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 108,
+     "target_calls_macisaac_rows": 108,
+     "target_occ": 73.812,
+     "w": 3.174939790751615e-12,
+     "w_next": 6.024218548740218e-13,
+     "w_target": 3.1749397907516148e-12,
+     "w_target_next": 6.024218548740217e-13
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 1
+  },
+  {
+   "E": {
+    "ABF1": 65.6925
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -11.94059245347308
+   },
+   "delta_next": {
+    "ABF1": -12.798477865881383
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.1225550589154718
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 6,
+   "macisaac": {
+    "n_calls": 96,
+    "n_macisaac": 58,
+    "n_matched": 20
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8914.25,
+   "nucleosome_rel_r0": 0.00816780761883873,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1223,
+     "group": "ABF1",
+     "lam": 6.024218548740218e-13,
+     "lam_next": 2.554617119647974e-13,
+     "occ": 956.1400000000001,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 96,
+     "target_calls_macisaac_rows": 96,
+     "target_occ": 65.6925,
+     "w": 6.024218548740218e-13,
+     "w_next": 2.554617119647974e-13,
+     "w_target": 6.024218548740217e-13,
+     "w_target_next": 2.554617119647978e-13
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 1
+  }
+ ],
+ "holdout_chrom": "chrIV",
+ "iter": 7,
+ "jobs": {
+  "0": {
+   "count": "12670933",
+   "decode": "12670932",
+   "holdout_count": "12671872",
+   "holdout_decode": "12671871",
+   "holdout_validate": "12671873",
+   "next": "12670934"
+  },
+  "1": {
+   "count": "12671857",
+   "decode": "12671856",
+   "next": "12671858"
+  },
+  "2": {
+   "count": "12672713",
+   "decode": "12672712",
+   "next": "12672714"
+  },
+  "3": {
+   "count": "12675855",
+   "decode": "12675854",
+   "next": "12675856"
+  },
+  "4": {
+   "count": "12676338",
+   "decode": "12676337",
+   "next": "12676339"
+  },
+  "5": {
+   "count": "12676889",
+   "decode": "12676888",
+   "next": "12676890"
+  },
+  "6": {
+   "count": "12677421",
+   "decode": "12677420",
+   "next": "12677422"
+  },
+  "7": {
+   "count": "12678312",
+   "decode": "12678311",
+   "next": "12678313"
+  }
+ },
+ "kd": {
+  "Abf1_murphy": 9.239194975677867e-08
+ },
+ "max_rounds": 50,
+ "ntask": 40,
+ "nucleosome": {
+  "hold": false,
+  "stop_rule": false,
+  "w": 35.0
+ },
+ "on_stop": {
+  "chereji": true,
+  "summary": "decoy_summary.py"
+ },
+ "pkgvar": "pkgvar/seq_maskoff_decoy72/",
+ "rule": {
+  "ALPHA0": 0.7,
+  "ALPHA_FLOOR": 0.2,
+  "BETA0": 0.5,
+  "BETA_HI": 1.0,
+  "BETA_LO": 0.1,
+  "DEADBAND": 0.09531017980432493,
+  "E_MIN": 0.5,
+  "FALL_ROUNDS": 3,
+  "MAX_ROUNDS": 50,
+  "NUC_WARN": 0.1,
+  "RHO_MAX": 0.7,
+  "SECANT_MIN_DDELTA": 0.1,
+  "STEP_CAP_DECADES": 1.0,
+  "lambda_bounds": "NONE (only the per-bp cap)"
+ },
+ "rule_state": {
+  "ABF1": {
+   "E_prev": 65.6925,
+   "alpha": 0.7,
+   "beta": 0.1,
+   "delta_prev": -11.94059245347308,
+   "gap_prev": -0.1225550589154718,
+   "n_upd": 7,
+   "th_over": -11.94059245347308,
+   "th_over_n": 6,
+   "th_under": null,
+   "th_under_n": null
+  }
+ },
+ "run": "bd72",
+ "src_traindir": "robocop_train_wide_decoy23",
+ "target": {
+  "ABF1": 58
+ },
+ "tied": {
+  "Zz_decoy_abf1": {
+   "L": 23,
+   "group": "ABF1",
+   "kd": 1.0,
+   "note": "w_Zz_decoy_abf1 = ratio * w_Abf1_murphy every round (lambda = ratio*Kd_target*lambda_target/Kd); live, untargeted, never tuned; rho judged on the target's basis",
+   "ratio": 1.0,
+   "target": "Abf1_murphy"
+  }
+ },
+ "tune_chroms": [
+  "chrXIV",
+  "chrII"
+ ],
+ "tuned": [
+  "ABF1"
+ ],
+ "unknown": {
+  "base": 0.001,
+  "fixed": true,
+  "lam": 1.0,
+  "masked": true,
+  "note": "unknown is hard-masked by the driver (pkgvar/seq_maskoff_decoy72/); w_unknown 1e-3 is pure gauge",
+  "w": 0.001
+ }
+}

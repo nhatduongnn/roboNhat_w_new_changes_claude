@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_chrII_tw_bp100_47",
+ "original_outdir": "robocop_chrXIV_chrII_tw_bp100_47",
+ "driver": "run_split_revfix_seq_maskoff_abf1w100.py",
+ "pkg_tree": "pkgvar/seq_maskoff_abf1w100",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bp100_47",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrXIV_chrII.tsv",
+ "campaign": "bp100",
+ "round": 47,
+ "role": "tune",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:47:59",
+ "slurm_job_id": "12682170",
+ "source": "decode-time"
+}

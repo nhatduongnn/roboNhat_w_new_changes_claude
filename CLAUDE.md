@@ -45,6 +45,11 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
    `robocop_<chrom>_fib_seq_lam0p01`); keep the two in step.
 7. When a run changes any parameter besides the one under test, say so as a decision before
    running, and restate it next to the result.
+8. **Never hand-wave a claim.** Every statement about results, code behaviour, data or cause
+   must be backed by evidence actually run or read: a `file:line` quote, a command and its
+   output, or a number read from a named file. If something has not been verified, say
+   "unverified" and how to check it. Check agents' reports against the files before relaying
+   them.
 
 ## Gotchas that have each cost a session
 
@@ -93,6 +98,7 @@ python count_calls.py --merge 'conc_tuning/counts_<tag>/*.tsv' --out counts.tsv
 # rebuild published pages
 python conc_tuning/make_conc_sheet.py u001=7 m001=7   # concentration sheet
 python make_posterior_viewer.py --regions viewer_regions.tsv --out posterior_viewer_all.html
+bash viewer_site/build_site.sh && bash viewer_site/serve.sh 8765   # local Run Browser (all runs), HANDOFF §9
 ```
 
 Republish an artifact **to its existing URL** (pass it as `url`), or a second one is created.

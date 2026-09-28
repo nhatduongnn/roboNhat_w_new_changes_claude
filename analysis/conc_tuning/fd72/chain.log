@@ -1,0 +1,26 @@
+2026-09-21 16:09:00  iter 00  submitted decode 12670935 (40 tasks, robocop_chrXIV_chrII_tw_fd72_00) count 12670936 next 12670937
+2026-09-21 16:09:23  iter 00  holdout submitter twHS_fd72_00 job 12670948 (runs 'tune_w.py holdout --iter 0' after next 12670937; staggered round-0 holdout)
+2026-09-21 16:44:33  iter 01  submitted decode 12672023 (40 tasks, robocop_chrXIV_chrII_tw_fd72_01) count 12672024 next 12672025
+2026-09-21 16:45:02  iter 00  holdout: decode 12672031 (robocop_chrIV_tw_fd72_00) count 12672032 validate 12672033
+2026-09-21 17:26:03  iter 02  submitted decode 12673466 (40 tasks, robocop_chrXIV_chrII_tw_fd72_02) count 12673467 next 12673468
+2026-09-21 18:16:17  iter 03  submitted decode 12675892 (40 tasks, robocop_chrXIV_chrII_tw_fd72_03) count 12675893 next 12675894
+2026-09-21 18:57:52  iter 04  submitted decode 12676433 (40 tasks, robocop_chrXIV_chrII_tw_fd72_04) count 12676434 next 12676435
+2026-09-21 19:27:28  iter 05  submitted decode 12676937 (40 tasks, robocop_chrXIV_chrII_tw_fd72_05) count 12676938 next 12676939
+2026-09-21 20:59:01  iter 06  submitted decode 12677758 (40 tasks, robocop_chrXIV_chrII_tw_fd72_06) count 12677759 next 12677760
+2026-09-21 21:35:29  iter 07  submitted decode 12678373 (40 tasks, robocop_chrXIV_chrII_tw_fd72_07) count 12678374 next 12678375
+2026-09-21 21:57:07  iter 08  submitted decode 12678772 (40 tasks, robocop_chrXIV_chrII_tw_fd72_08) count 12678773 next 12678774
+2026-09-21 22:17:25  iter 09  submitted decode 12679118 (40 tasks, robocop_chrXIV_chrII_tw_fd72_09) count 12679119 next 12679120
+2026-09-21 22:41:09  iter 10  submitted decode 12679434 (40 tasks, robocop_chrXIV_chrII_tw_fd72_10) count 12679435 next 12679436
+2026-09-21 23:14:41  iter 11  submitted decode 12679968 (40 tasks, robocop_chrXIV_chrII_tw_fd72_11) count 12679969 next 12679970
+2026-09-21 23:46:42  iter 12  submitted decode 12680307 (40 tasks, robocop_chrXIV_chrII_tw_fd72_12) count 12680308 next 12680309
+2026-09-22 00:19:45  iter 13  submitted decode 12680649 (40 tasks, robocop_chrXIV_chrII_tw_fd72_13) count 12680650 next 12680651
+2026-09-22 00:54:18  iter 14  submitted decode 12681027 (40 tasks, robocop_chrXIV_chrII_tw_fd72_14) count 12681028 next 12681029
+2026-09-22 01:28:25  iter 15  submitted decode 12682095 (40 tasks, robocop_chrXIV_chrII_tw_fd72_15) count 12682096 next 12682097
+2026-09-22 01:54:27  iter 16  submitted decode 12682399 (40 tasks, robocop_chrXIV_chrII_tw_fd72_16) count 12682400 next 12682401
+2026-09-22 02:23:31  iter 17  submitted decode 12682734 (40 tasks, robocop_chrXIV_chrII_tw_fd72_17) count 12682735 next 12682736
+2026-09-22 02:48:30  iter 18  submitted decode 12682990 (40 tasks, robocop_chrXIV_chrII_tw_fd72_18) count 12682991 next 12682992
+2026-09-22 03:13:29  iter 19  submitted decode 12683189 (40 tasks, robocop_chrXIV_chrII_tw_fd72_19) count 12683190 next 12683191
+2026-09-22 03:33:06  iter 20  submitted decode 12683271 (40 tasks, robocop_chrXIV_chrII_tw_fd72_20) count 12683272 next 12683273
+2026-09-22 03:50:07  iter 20  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-22 03:50:07  iter 20  holdout: decode 12683343 (robocop_chrIV_tw_fd72_20) count 12683344 validate 12683345
+2026-09-22 03:50:07  iter 20  on-stop refresh: {'chereji': '12683346', 'summary': '12683347'}

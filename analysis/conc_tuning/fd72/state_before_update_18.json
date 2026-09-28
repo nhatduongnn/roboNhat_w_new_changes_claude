@@ -1,0 +1,1542 @@
+{
+ "L": {
+  "Abf1_murphy": 23
+ },
+ "bracket_max_age": 3,
+ "built": {
+  "0": {
+   "background_prob": 0.952872459545834,
+   "lam": {
+    "Abf1_murphy": 1.0,
+    "Zz_decoy_abf1": 9.239194975677869e-08,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985443889237295,
+   "traindir": "robocop_train_tw_fd72_00"
+  },
+  "1": {
+   "background_prob": 0.9528724693326843,
+   "lam": {
+    "Abf1_murphy": 0.09999999999999998,
+    "Zz_decoy_abf1": 9.239194975677858e-09,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624437,
+   "nucleosome_prob": 0.028985487652107043,
+   "traindir": "robocop_train_tw_fd72_01"
+  },
+  "10": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999925e-11,
+    "Zz_decoy_abf1": 9.239194975677799e-18,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_10"
+  },
+  "11": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999914e-12,
+    "Zz_decoy_abf1": 9.239194975677822e-19,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_11"
+  },
+  "12": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999903e-13,
+    "Zz_decoy_abf1": 9.239194975677779e-20,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_12"
+  },
+  "13": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999892e-14,
+    "Zz_decoy_abf1": 9.239194975677736e-21,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_13"
+  },
+  "14": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999916e-15,
+    "Zz_decoy_abf1": 9.239194975677823e-22,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_14"
+  },
+  "15": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999942e-16,
+    "Zz_decoy_abf1": 9.23919497567778e-23,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_15"
+  },
+  "16": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999965e-17,
+    "Zz_decoy_abf1": 9.23919497567787e-24,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_16"
+  },
+  "17": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.99999999999999e-18,
+    "Zz_decoy_abf1": 9.239194975677826e-25,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_17"
+  },
+  "18": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.0000000000000014e-18,
+    "Zz_decoy_abf1": 9.239194975677914e-26,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fd72_18"
+  },
+  "2": {
+   "background_prob": 0.9528724703113691,
+   "lam": {
+    "Abf1_murphy": 0.009999999999999995,
+    "Zz_decoy_abf1": 9.239194975677881e-10,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492028396002,
+   "traindir": "robocop_train_tw_fd72_02"
+  },
+  "3": {
+   "background_prob": 0.9528724704092376,
+   "lam": {
+    "Abf1_murphy": 0.0009999999999999994,
+    "Zz_decoy_abf1": 9.23919497567787e-11,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492466024762,
+   "traindir": "robocop_train_tw_fd72_03"
+  },
+  "4": {
+   "background_prob": 0.9528724704190245,
+   "lam": {
+    "Abf1_murphy": 9.999999999999991e-05,
+    "Zz_decoy_abf1": 9.23919497567786e-12,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492509787606,
+   "traindir": "robocop_train_tw_fd72_04"
+  },
+  "5": {
+   "background_prob": 0.9528724704200031,
+   "lam": {
+    "Abf1_murphy": 9.99999999999998e-06,
+    "Zz_decoy_abf1": 9.23919497567785e-13,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898549251416406,
+   "traindir": "robocop_train_tw_fd72_05"
+  },
+  "6": {
+   "background_prob": 0.9528724704201011,
+   "lam": {
+    "Abf1_murphy": 9.99999999999997e-07,
+    "Zz_decoy_abf1": 9.239194975677839e-14,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624434,
+   "nucleosome_prob": 0.028985492514601634,
+   "traindir": "robocop_train_tw_fd72_06"
+  },
+  "7": {
+   "background_prob": 0.9528724704201108,
+   "lam": {
+    "Abf1_murphy": 9.999999999999959e-08,
+    "Zz_decoy_abf1": 9.239194975677863e-15,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514645272,
+   "traindir": "robocop_train_tw_fd72_07"
+  },
+  "8": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999947e-09,
+    "Zz_decoy_abf1": 9.23919497567782e-16,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514649724,
+   "traindir": "robocop_train_tw_fd72_08"
+  },
+  "9": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 9.999999999999937e-10,
+    "Zz_decoy_abf1": 9.239194975677777e-17,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.028985492514650112,
+   "traindir": "robocop_train_tw_fd72_09"
+  }
+ },
+ "cap_basis": {
+  "L": {
+   "Abf1_murphy": 14
+  },
+  "kd": {
+   "Abf1_murphy": 4.7290090269997077e-07
+  },
+  "note": "per-bp cap judged on the core motif: rho = (Kd_core*lambda)^(1/L_core); lambda multiplies the campaign's own Kd (from robocop_train_wide_decoy23)",
+  "own_cap_delta": {
+   "ABF1": 7.993702275347815
+  },
+  "traindir": "robocop_train_fiberonly"
+ },
+ "cap_delta": {
+  "ABF1": 9.570930763295987
+ },
+ "config": "fiber",
+ "coords_holdout": "coord_tw_chrIV.tsv",
+ "coords_tune": "coord_tw_chrXIV_chrII.tsv",
+ "deadband": 0.09531017980432493,
+ "delta": {
+  "ABF1": -41.44653167389282
+ },
+ "driver": "run_split_revfix_fiber_maskoff_decoy72.py",
+ "factor_set": "abf1only",
+ "fitted": {
+  "ABF1": 1
+ },
+ "frozen": [],
+ "groups": {
+  "ABF1": [
+   "Abf1_murphy"
+  ]
+ },
+ "history": [
+  {
+   "E": {
+    "ABF1": 2574.79
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 0.0
+   },
+   "delta_next": {
+    "ABF1": -2.302585092994046
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -3.7763741182563164
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 0,
+   "macisaac": {
+    "n_calls": 3270,
+    "n_macisaac": 58,
+    "n_matched": 34
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8807.46,
+   "nucleosome_rel_r0": 0.0,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1371,
+     "group": "ABF1",
+     "lam": 9.239194975677869e-08,
+     "lam_next": 9.239194975677858e-09,
+     "occ": 693.704,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 3270,
+     "target_calls_macisaac_rows": 3270,
+     "target_occ": 2574.79,
+     "w": 9.239194975677869e-08,
+     "w_next": 9.239194975677858e-09,
+     "w_target": 9.239194975677867e-08,
+     "w_target_next": 9.239194975677866e-09
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 2268.14
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.2775245806292577
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -2.302585092994046
+   },
+   "delta_next": {
+    "ABF1": -4.605170185988092
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -3.6496187401606335
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 1,
+   "macisaac": {
+    "n_calls": 2893,
+    "n_macisaac": 58,
+    "n_matched": 30
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8830.39,
+   "nucleosome_rel_r0": 0.002603474781605719,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 1166,
+     "group": "ABF1",
+     "lam": 9.239194975677858e-09,
+     "lam_next": 9.239194975677881e-10,
+     "occ": 564.9100000000001,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 2893,
+     "target_calls_macisaac_rows": 2893,
+     "target_occ": 2268.14,
+     "w": 9.239194975677858e-09,
+     "w_next": 9.239194975677881e-10,
+     "w_target": 9.239194975677866e-09,
+     "w_target_next": 9.239194975677862e-10
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1984.184
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.16779255296022272
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -4.605170185988092
+   },
+   "delta_next": {
+    "ABF1": -6.907755278982138
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -3.515929440133741
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 2,
+   "macisaac": {
+    "n_calls": 2565,
+    "n_macisaac": 58,
+    "n_matched": 29
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8849.5,
+   "nucleosome_rel_r0": 0.004773226333131264,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 962,
+     "group": "ABF1",
+     "lam": 9.239194975677881e-10,
+     "lam_next": 9.23919497567787e-11,
+     "occ": 444.16999999999996,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 2565,
+     "target_calls_macisaac_rows": 2565,
+     "target_occ": 1984.184,
+     "w": 9.239194975677881e-10,
+     "w_next": 9.23919497567787e-11,
+     "w_target": 9.239194975677862e-10,
+     "w_target_next": 9.239194975677861e-11
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1726.79
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.11405118156068006
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -6.907755278982138
+   },
+   "delta_next": {
+    "ABF1": -9.210340371976184
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -3.377060970295405
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 3,
+   "macisaac": {
+    "n_calls": 2276,
+    "n_macisaac": 58,
+    "n_matched": 24
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8865.8,
+   "nucleosome_rel_r0": 0.006623930168289105,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 750,
+     "group": "ABF1",
+     "lam": 9.23919497567787e-11,
+     "lam_next": 9.23919497567786e-12,
+     "occ": 347.589,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 2276,
+     "target_calls_macisaac_rows": 2276,
+     "target_occ": 1726.79,
+     "w": 9.23919497567787e-11,
+     "w_next": 9.23919497567786e-12,
+     "w_target": 9.239194975677861e-11,
+     "w_target_next": 9.239194975677858e-12
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1499.9740000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -9.210340371976184
+   },
+   "delta_next": {
+    "ABF1": -11.51292546497023
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -3.236332065792242
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 4,
+   "macisaac": {
+    "n_calls": 1975,
+    "n_macisaac": 58,
+    "n_matched": 22
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8879.560000000001,
+   "nucleosome_rel_r0": 0.008186242117477871,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 598,
+     "group": "ABF1",
+     "lam": 9.23919497567786e-12,
+     "lam_next": 9.23919497567785e-13,
+     "occ": 271.757,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1975,
+     "target_calls_macisaac_rows": 1975,
+     "target_occ": 1499.9740000000002,
+     "w": 9.23919497567786e-12,
+     "w_next": 9.23919497567785e-13,
+     "w_target": 9.239194975677858e-12,
+     "w_target_next": 9.23919497567785e-13
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1289.38
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -11.51292546497023
+   },
+   "delta_next": {
+    "ABF1": -13.815510557964277
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -3.085154583715112
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 5,
+   "macisaac": {
+    "n_calls": 1719,
+    "n_macisaac": 58,
+    "n_matched": 22
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8892.08,
+   "nucleosome_rel_r0": 0.00960776432705912,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 461,
+     "group": "ABF1",
+     "lam": 9.23919497567785e-13,
+     "lam_next": 9.239194975677839e-14,
+     "occ": 208.54399999999998,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1719,
+     "target_calls_macisaac_rows": 1719,
+     "target_occ": 1289.38,
+     "w": 9.23919497567785e-13,
+     "w_next": 9.239194975677839e-14,
+     "w_target": 9.23919497567785e-13,
+     "w_target_next": 9.239194975677839e-14
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 1097.731
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -13.815510557964277
+   },
+   "delta_next": {
+    "ABF1": -16.118095650958324
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.9243737125664504
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 6,
+   "macisaac": {
+    "n_calls": 1485,
+    "n_macisaac": 58,
+    "n_matched": 20
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8901.99,
+   "nucleosome_rel_r0": 0.010732946842790136,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 359,
+     "group": "ABF1",
+     "lam": 9.239194975677839e-14,
+     "lam_next": 9.239194975677863e-15,
+     "occ": 158.4416,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1485,
+     "target_calls_macisaac_rows": 1485,
+     "target_occ": 1097.731,
+     "w": 9.239194975677839e-14,
+     "w_next": 9.239194975677863e-15,
+     "w_target": 9.239194975677839e-14,
+     "w_target_next": 9.23919497567783e-15
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 928.309
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -16.118095650958324
+   },
+   "delta_next": {
+    "ABF1": -18.42068074395237
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.7569038553195977
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 7,
+   "macisaac": {
+    "n_calls": 1258,
+    "n_macisaac": 58,
+    "n_matched": 19
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8911.16,
+   "nucleosome_rel_r0": 0.011774109675207312,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 272,
+     "group": "ABF1",
+     "lam": 9.239194975677863e-15,
+     "lam_next": 9.23919497567782e-16,
+     "occ": 118.5772,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1258,
+     "target_calls_macisaac_rows": 1258,
+     "target_occ": 928.309,
+     "w": 9.239194975677863e-15,
+     "w_next": 9.23919497567782e-16,
+     "w_target": 9.23919497567783e-15,
+     "w_target_next": 9.239194975677818e-16
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 782.267
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -18.42068074395237
+   },
+   "delta_next": {
+    "ABF1": -20.723265836946418
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.5859361901276854
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 8,
+   "macisaac": {
+    "n_calls": 1067,
+    "n_macisaac": 58,
+    "n_matched": 17
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8920.74,
+   "nucleosome_rel_r0": 0.012861823953784768,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 202,
+     "group": "ABF1",
+     "lam": 9.23919497567782e-16,
+     "lam_next": 9.239194975677777e-17,
+     "occ": 90.6461,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 1067,
+     "target_calls_macisaac_rows": 1067,
+     "target_occ": 782.267,
+     "w": 9.23919497567782e-16,
+     "w_next": 9.239194975677777e-17,
+     "w_target": 9.239194975677818e-16,
+     "w_target_next": 9.239194975677809e-17
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 657.5830000000001
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -20.723265836946418
+   },
+   "delta_next": {
+    "ABF1": -23.025850929940464
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.4125531133742175
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 9,
+   "macisaac": {
+    "n_calls": 920,
+    "n_macisaac": 58,
+    "n_matched": 15
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8928.15,
+   "nucleosome_rel_r0": 0.013703156188049626,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 166,
+     "group": "ABF1",
+     "lam": 9.239194975677777e-17,
+     "lam_next": 9.239194975677799e-18,
+     "occ": 69.4422,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 920,
+     "target_calls_macisaac_rows": 920,
+     "target_occ": 657.5830000000001,
+     "w": 9.239194975677777e-17,
+     "w_next": 9.239194975677799e-18,
+     "w_target": 9.239194975677809e-17,
+     "w_target_next": 9.239194975677798e-18
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 544.54
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -23.025850929940464
+   },
+   "delta_next": {
+    "ABF1": -25.32843602293451
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.2242386859018275
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 10,
+   "macisaac": {
+    "n_calls": 763,
+    "n_macisaac": 58,
+    "n_matched": 14
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8932.189999999999,
+   "nucleosome_rel_r0": 0.014161858242898617,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 131,
+     "group": "ABF1",
+     "lam": 9.239194975677799e-18,
+     "lam_next": 9.239194975677822e-19,
+     "occ": 51.9946,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 763,
+     "target_calls_macisaac_rows": 763,
+     "target_occ": 544.54,
+     "w": 9.239194975677799e-18,
+     "w_next": 9.239194975677822e-19,
+     "w_target": 9.239194975677798e-18,
+     "w_target_next": 9.239194975677788e-19
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 445.966
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -25.32843602293451
+   },
+   "delta_next": {
+    "ABF1": -27.631021115928558
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -2.024945085175119
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 11,
+   "macisaac": {
+    "n_calls": 634,
+    "n_macisaac": 58,
+    "n_matched": 14
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8933.810000000001,
+   "nucleosome_rel_r0": 0.014345793225288839,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 94,
+     "group": "ABF1",
+     "lam": 9.239194975677822e-19,
+     "lam_next": 9.239194975677779e-20,
+     "occ": 36.8602,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 634,
+     "target_calls_macisaac_rows": 634,
+     "target_occ": 445.966,
+     "w": 9.239194975677822e-19,
+     "w_next": 9.239194975677779e-20,
+     "w_target": 9.239194975677788e-19,
+     "w_target_next": 9.239194975677778e-20
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 363.012
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -27.631021115928558
+   },
+   "delta_next": {
+    "ABF1": -29.933606208922605
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.8196493902205875
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 12,
+   "macisaac": {
+    "n_calls": 512,
+    "n_macisaac": 58,
+    "n_matched": 14
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8936.59,
+   "nucleosome_rel_r0": 0.014661434738278745,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 62,
+     "group": "ABF1",
+     "lam": 9.239194975677779e-20,
+     "lam_next": 9.239194975677736e-21,
+     "occ": 26.3104,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 512,
+     "target_calls_macisaac_rows": 512,
+     "target_occ": 363.012,
+     "w": 9.239194975677779e-20,
+     "w_next": 9.239194975677736e-21,
+     "w_target": 9.239194975677778e-20,
+     "w_target_next": 9.239194975677768e-21
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 292.418
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -29.933606208922605
+   },
+   "delta_next": {
+    "ABF1": -32.23619130191665
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.6040607696145974
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 13,
+   "macisaac": {
+    "n_calls": 421,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8938.869999999999,
+   "nucleosome_rel_r0": 0.014920306194975641,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 45,
+     "group": "ABF1",
+     "lam": 9.239194975677736e-21,
+     "lam_next": 9.239194975677823e-22,
+     "occ": 18.43769,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 421,
+     "target_calls_macisaac_rows": 421,
+     "target_occ": 292.418,
+     "w": 9.239194975677736e-21,
+     "w_next": 9.239194975677823e-22,
+     "w_target": 9.239194975677768e-21,
+     "w_target_next": 9.23919497567779e-22
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 234.512
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -32.23619130191665
+   },
+   "delta_next": {
+    "ABF1": -34.53877639491069
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3842244236665824
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 14,
+   "macisaac": {
+    "n_calls": 338,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8940.16,
+   "nucleosome_rel_r0": 0.015066772940212081,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 32,
+     "group": "ABF1",
+     "lam": 9.239194975677823e-22,
+     "lam_next": 9.23919497567778e-23,
+     "occ": 12.2965,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 338,
+     "target_calls_macisaac_rows": 338,
+     "target_occ": 234.512,
+     "w": 9.239194975677823e-22,
+     "w_next": 9.23919497567778e-23,
+     "w_target": 9.23919497567779e-22,
+     "w_target_next": 9.239194975677813e-23
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 191.5017
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -34.53877639491069
+   },
+   "delta_next": {
+    "ABF1": -36.841361487904734
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.1825675409519558
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 15,
+   "macisaac": {
+    "n_calls": 275,
+    "n_macisaac": 58,
+    "n_matched": 9
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8940.67,
+   "nucleosome_rel_r0": 0.015124678397631097,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 22,
+     "group": "ABF1",
+     "lam": 9.23919497567778e-23,
+     "lam_next": 9.23919497567787e-24,
+     "occ": 8.528189999999999,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 275,
+     "target_calls_macisaac_rows": 275,
+     "target_occ": 191.5017,
+     "w": 9.23919497567778e-23,
+     "w_next": 9.23919497567787e-24,
+     "w_target": 9.239194975677813e-23,
+     "w_target_next": 9.239194975677836e-24
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 155.2747
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -36.841361487904734
+   },
+   "delta_next": {
+    "ABF1": -39.14394658089878
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.9740779122174645
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 16,
+   "macisaac": {
+    "n_calls": 236,
+    "n_macisaac": 58,
+    "n_matched": 7
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8941.18,
+   "nucleosome_rel_r0": 0.015182583855050336,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 18,
+     "group": "ABF1",
+     "lam": 9.23919497567787e-24,
+     "lam_next": 9.239194975677826e-25,
+     "occ": 6.3757,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 236,
+     "target_calls_macisaac_rows": 236,
+     "target_occ": 155.2747,
+     "w": 9.23919497567787e-24,
+     "w_next": 9.239194975677826e-25,
+     "w_target": 9.239194975677836e-24,
+     "w_target_next": 9.239194975677857e-25
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 120.65469999999999
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1043798908827381
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -39.14394658089878
+   },
+   "delta_next": {
+    "ABF1": -41.44653167389282
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -0.7236492600069937
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 17,
+   "macisaac": {
+    "n_calls": 190,
+    "n_macisaac": 58,
+    "n_matched": 4
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8942.73,
+   "nucleosome_rel_r0": 0.015358571029559176,
+   "tied": {
+    "Zz_decoy_abf1": {
+     "calls": 10,
+     "group": "ABF1",
+     "lam": 9.239194975677826e-25,
+     "lam_next": 9.239194975677914e-26,
+     "occ": 4.77737,
+     "ratio": 1.0,
+     "target": "Abf1_murphy",
+     "target_calls": 190,
+     "target_calls_macisaac_rows": 190,
+     "target_occ": 120.65469999999999,
+     "w": 9.239194975677826e-25,
+     "w_next": 9.239194975677914e-26,
+     "w_target": 9.239194975677857e-25,
+     "w_target_next": 9.239194975677881e-26
+    }
+   },
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  }
+ ],
+ "holdout_chrom": "chrIV",
+ "iter": 18,
+ "jobs": {
+  "0": {
+   "count": "12670936",
+   "decode": "12670935",
+   "holdout_count": "12672032",
+   "holdout_decode": "12672031",
+   "holdout_validate": "12672033",
+   "next": "12670937"
+  },
+  "1": {
+   "count": "12672024",
+   "decode": "12672023",
+   "next": "12672025"
+  },
+  "10": {
+   "count": "12679435",
+   "decode": "12679434",
+   "next": "12679436"
+  },
+  "11": {
+   "count": "12679969",
+   "decode": "12679968",
+   "next": "12679970"
+  },
+  "12": {
+   "count": "12680308",
+   "decode": "12680307",
+   "next": "12680309"
+  },
+  "13": {
+   "count": "12680650",
+   "decode": "12680649",
+   "next": "12680651"
+  },
+  "14": {
+   "count": "12681028",
+   "decode": "12681027",
+   "next": "12681029"
+  },
+  "15": {
+   "count": "12682096",
+   "decode": "12682095",
+   "next": "12682097"
+  },
+  "16": {
+   "count": "12682400",
+   "decode": "12682399",
+   "next": "12682401"
+  },
+  "17": {
+   "count": "12682735",
+   "decode": "12682734",
+   "next": "12682736"
+  },
+  "18": {
+   "count": "12682991",
+   "decode": "12682990",
+   "next": "12682992"
+  },
+  "2": {
+   "count": "12673467",
+   "decode": "12673466",
+   "next": "12673468"
+  },
+  "3": {
+   "count": "12675893",
+   "decode": "12675892",
+   "next": "12675894"
+  },
+  "4": {
+   "count": "12676434",
+   "decode": "12676433",
+   "next": "12676435"
+  },
+  "5": {
+   "count": "12676938",
+   "decode": "12676937",
+   "next": "12676939"
+  },
+  "6": {
+   "count": "12677759",
+   "decode": "12677758",
+   "next": "12677760"
+  },
+  "7": {
+   "count": "12678374",
+   "decode": "12678373",
+   "next": "12678375"
+  },
+  "8": {
+   "count": "12678773",
+   "decode": "12678772",
+   "next": "12678774"
+  },
+  "9": {
+   "count": "12679119",
+   "decode": "12679118",
+   "next": "12679120"
+  }
+ },
+ "kd": {
+  "Abf1_murphy": 9.239194975677867e-08
+ },
+ "max_rounds": 50,
+ "ntask": 40,
+ "nucleosome": {
+  "hold": false,
+  "stop_rule": false,
+  "w": 35.0
+ },
+ "on_stop": {
+  "chereji": true,
+  "summary": "decoy_summary.py"
+ },
+ "pkgvar": "pkgvar/fiber_maskoff_decoy72/",
+ "rule": {
+  "ALPHA0": 0.7,
+  "ALPHA_FLOOR": 0.2,
+  "BETA0": 0.5,
+  "BETA_HI": 1.0,
+  "BETA_LO": 0.1,
+  "DEADBAND": 0.09531017980432493,
+  "E_MIN": 0.5,
+  "FALL_ROUNDS": 3,
+  "MAX_ROUNDS": 50,
+  "NUC_WARN": 0.1,
+  "RHO_MAX": 0.7,
+  "SECANT_MIN_DDELTA": 0.1,
+  "STEP_CAP_DECADES": 1.0,
+  "lambda_bounds": "NONE (only the per-bp cap)"
+ },
+ "rule_state": {
+  "ABF1": {
+   "E_prev": 120.65469999999999,
+   "alpha": 0.7,
+   "beta": 0.1043798908827381,
+   "delta_prev": -39.14394658089878,
+   "gap_prev": -0.7236492600069937,
+   "n_upd": 18,
+   "th_over": -39.14394658089878,
+   "th_over_n": 17,
+   "th_under": null,
+   "th_under_n": null
+  }
+ },
+ "run": "fd72",
+ "src_traindir": "robocop_train_wide_decoy23",
+ "target": {
+  "ABF1": 58
+ },
+ "tied": {
+  "Zz_decoy_abf1": {
+   "L": 23,
+   "group": "ABF1",
+   "kd": 1.0,
+   "note": "w_Zz_decoy_abf1 = ratio * w_Abf1_murphy every round (lambda = ratio*Kd_target*lambda_target/Kd); live, untargeted, never tuned; rho judged on the target's basis",
+   "ratio": 1.0,
+   "target": "Abf1_murphy"
+  }
+ },
+ "tune_chroms": [
+  "chrXIV",
+  "chrII"
+ ],
+ "tuned": [
+  "ABF1"
+ ],
+ "unknown": {
+  "base": 0.001,
+  "fixed": true,
+  "lam": 1.0,
+  "masked": true,
+  "note": "unknown is hard-masked by the driver (pkgvar/fiber_maskoff_decoy72/); w_unknown 1e-3 is pure gauge",
+  "w": 0.001
+ }
+}

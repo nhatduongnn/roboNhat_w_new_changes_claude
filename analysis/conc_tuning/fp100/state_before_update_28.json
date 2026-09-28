@@ -1,0 +1,1779 @@
+{
+ "L": {
+  "Abf1_murphy": 214
+ },
+ "bracket_max_age": 3,
+ "built": {
+  "0": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.0,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8672943909286549,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_00"
+  },
+  "1": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 0.12112660164762798,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8587813616447807,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_01"
+  },
+  "10": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.211266016476271e-10,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7795186954835788,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_10"
+  },
+  "11": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762696e-11,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7711762361710592,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_11"
+  },
+  "12": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762684e-12,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.762923058395704,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_12"
+  },
+  "13": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.211266016476267e-13,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7547582066607488,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_13"
+  },
+  "14": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762657e-14,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7466807356952174,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_14"
+  },
+  "15": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762686e-15,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7386897103444845,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_15"
+  },
+  "16": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762714e-16,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7307842054620098,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_16"
+  },
+  "17": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762746e-17,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.722963305802231,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_17"
+  },
+  "18": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762774e-18,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7152261059146027,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_18"
+  },
+  "19": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762805e-19,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7075717100387695,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_19"
+  },
+  "2": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 0.012112660164762794,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8495906281711887,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_02"
+  },
+  "20": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762833e-20,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6999992320008613,
+   "nucleosome_prob": 0.028985492514650112,
+   "traindir": "robocop_train_tw_fp100_20"
+  },
+  "21": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762864e-21,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6925077951108976,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_21"
+  },
+  "22": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762893e-22,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6850965320612906,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_22"
+  },
+  "23": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762923e-23,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6777645848264343,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_23"
+  },
+  "24": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762952e-24,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6705111045633683,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_24"
+  },
+  "25": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762981e-25,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6633352515135035,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_25"
+  },
+  "26": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164763011e-26,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.656236194905402,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_26"
+  },
+  "27": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164763042e-27,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6492131128585953,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_27"
+  },
+  "28": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762986e-28,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6422651922884323,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_28"
+  },
+  "3": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 0.0012112660164762792,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8404982545194969,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_03"
+  },
+  "4": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 0.0001211266016476279,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8315031880365529,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_04"
+  },
+  "5": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762776e-05,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.822604387334766,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_05"
+  },
+  "6": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762764e-06,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8138008221715429,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_06"
+  },
+  "7": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.211266016476275e-07,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.8050914733300127,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_07"
+  },
+  "8": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762736e-08,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7964753325010292,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_08"
+  },
+  "9": {
+   "background_prob": 0.9528724704201118,
+   "lam": {
+    "Abf1_murphy": 1.2112660164762724e-09,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.7879514021664356,
+   "nucleosome_prob": 0.028985492514650085,
+   "traindir": "robocop_train_tw_fp100_09"
+  }
+ },
+ "cap_basis": {
+  "L": {
+   "Abf1_murphy": 14
+  },
+  "kd": {
+   "Abf1_murphy": 4.7290090269997077e-07
+  },
+  "note": "per-bp cap judged on the core motif: rho = (Kd_core*lambda)^(1/L_core); lambda multiplies the campaign's own Kd (from robocop_train_abf1_pm100)",
+  "own_cap_delta": {
+   "ABF1": -45.85980096421156
+  },
+  "traindir": "robocop_train_fiberonly"
+ },
+ "cap_delta": {
+  "ABF1": 9.570930763295987
+ },
+ "config": "fiber",
+ "coords_holdout": "coord_tw_chrIV.tsv",
+ "coords_tune": "coord_tw_chrXIV_chrII.tsv",
+ "deadband": 0.09531017980432493,
+ "delta": {
+  "ABF1": -64.28071649660082
+ },
+ "driver": "run_split_revfix_fiber_maskoff_abf1w100.py",
+ "factor_set": "abf1only",
+ "fitted": {
+  "ABF1": 1
+ },
+ "frozen": [],
+ "groups": {
+  "ABF1": [
+   "Abf1_murphy"
+  ]
+ },
+ "history": [
+  {
+   "E": {
+    "ABF1": 265.49
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.5
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": 0.0
+   },
+   "delta_next": {
+    "ABF1": -2.1109189857615993
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -1.5077992755439995
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 0,
+   "macisaac": {
+    "n_calls": 269,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8926.529999999999,
+   "nucleosome_rel_r0": 0.0,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 263.75
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.2515516310697826
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -2.1109189857615993
+   },
+   "delta_next": {
+    "ABF1": -4.413504078755645
+   },
+   "falling_over": [],
+   "gap": {
+    "ABF1": -1.501248540575796
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 1,
+   "macisaac": {
+    "n_calls": 268,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8926.57,
+   "nucleosome_rel_r0": 4.481024541647116e-06,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 262.109
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.12712594793903034
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -4.413504078755645
+   },
+   "delta_next": {
+    "ABF1": -6.716089171749691
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4950309510811186
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 2,
+   "macisaac": {
+    "n_calls": 267,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8926.57,
+   "nucleosome_rel_r0": 4.481024541647116e-06,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 260.565
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -6.716089171749691
+   },
+   "delta_next": {
+    "ABF1": -9.018674264743737
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.48914537467744
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 3,
+   "macisaac": {
+    "n_calls": 266,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8926.6,
+   "nucleosome_rel_r0": 7.841792947660409e-06,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 259.375
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -9.018674264743737
+   },
+   "delta_next": {
+    "ABF1": -11.321259357737784
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4845854556754166
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 4,
+   "macisaac": {
+    "n_calls": 265,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8926.810000000001,
+   "nucleosome_rel_r0": 3.136717179041959e-05,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 258.238
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -11.321259357737784
+   },
+   "delta_next": {
+    "ABF1": -13.62384445073183
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.480209114765218
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 5,
+   "macisaac": {
+    "n_calls": 264,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.33,
+   "nucleosome_rel_r0": 8.962049082916757e-05,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 257.082
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -13.62384445073183
+   },
+   "delta_next": {
+    "ABF1": -15.926429543725877
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4757399199761796
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 6,
+   "macisaac": {
+    "n_calls": 262,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.529999999999,
+   "nucleosome_rel_r0": 0.00011202561353629292,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 256.065
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -15.926429543725877
+   },
+   "delta_next": {
+    "ABF1": -18.229014636719924
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4717915272989996
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 7,
+   "macisaac": {
+    "n_calls": 261,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.53,
+   "nucleosome_rel_r0": 0.00011202561353651497,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 255.05200000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -18.229014636719924
+   },
+   "delta_next": {
+    "ABF1": -20.53159972971397
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4678431049467529
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 8,
+   "macisaac": {
+    "n_calls": 261,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.529999999999,
+   "nucleosome_rel_r0": 0.00011202561353629292,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 254.35699999999997
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -20.53159972971397
+   },
+   "delta_next": {
+    "ABF1": -22.834184822708018
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4651251221664134
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 9,
+   "macisaac": {
+    "n_calls": 259,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.57,
+   "nucleosome_rel_r0": 0.000116506638077718,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 253.68399999999997
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -22.834184822708018
+   },
+   "delta_next": {
+    "ABF1": -25.136769915702065
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4624861171037473
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 10,
+   "macisaac": {
+    "n_calls": 258,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.59,
+   "nucleosome_rel_r0": 0.00011874715034854155,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 252.863
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -25.136769915702065
+   },
+   "delta_next": {
+    "ABF1": -27.43935500869611
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4592573075217103
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 11,
+   "macisaac": {
+    "n_calls": 258,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.599999999999,
+   "nucleosome_rel_r0": 0.00011986740648373129,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 251.088
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -27.43935500869611
+   },
+   "delta_next": {
+    "ABF1": -29.741940101690158
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4522407889965638
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 12,
+   "macisaac": {
+    "n_calls": 256,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.599999999999,
+   "nucleosome_rel_r0": 0.00011986740648373129,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 249.21
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -29.741940101690158
+   },
+   "delta_next": {
+    "ABF1": -32.044525194684205
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4447631213539704
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 13,
+   "macisaac": {
+    "n_calls": 254,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.61,
+   "nucleosome_rel_r0": 0.00012098766261936511,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 247.159
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -32.044525194684205
+   },
+   "delta_next": {
+    "ABF1": -34.34711028767825
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.436532225856105
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 14,
+   "macisaac": {
+    "n_calls": 254,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.61,
+   "nucleosome_rel_r0": 0.00012098766261936511,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 245.339
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -34.34711028767825
+   },
+   "delta_next": {
+    "ABF1": -36.64969538067229
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4291711921693233
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 15,
+   "macisaac": {
+    "n_calls": 252,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8927.71,
+   "nucleosome_rel_r0": 0.00013219022397281677,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 243.812
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -36.64969538067229
+   },
+   "delta_next": {
+    "ABF1": -38.952280473666335
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4229531251388732
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 16,
+   "macisaac": {
+    "n_calls": 249,
+    "n_macisaac": 58,
+    "n_matched": 13
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8928.16,
+   "nucleosome_rel_r0": 0.00018260175006434842,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 242.313
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -38.952280473666335
+   },
+   "delta_next": {
+    "ABF1": -41.25486556666038
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.4168112364333032
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 17,
+   "macisaac": {
+    "n_calls": 249,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8928.57,
+   "nucleosome_rel_r0": 0.00022853225161401092,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 239.804
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -41.25486556666038
+   },
+   "delta_next": {
+    "ABF1": -43.55745065965442
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.406445880686661
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 18,
+   "macisaac": {
+    "n_calls": 248,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8929.39,
+   "nucleosome_rel_r0": 0.00032039325471378,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 238.024
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -43.55745065965442
+   },
+   "delta_next": {
+    "ABF1": -45.860035752648464
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3990265213942417
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 19,
+   "macisaac": {
+    "n_calls": 244,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8930.02,
+   "nucleosome_rel_r0": 0.0003909693912418355,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 237.09499999999997
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -45.860035752648464
+   },
+   "delta_next": {
+    "ABF1": -48.16262084564251
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3951323097865949
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 20,
+   "macisaac": {
+    "n_calls": 243,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8930.26,
+   "nucleosome_rel_r0": 0.0004178555384903859,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 235.96500000000003
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -48.16262084564251
+   },
+   "delta_next": {
+    "ABF1": -50.46520593863655
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3903750069988519
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 21,
+   "macisaac": {
+    "n_calls": 241,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8930.6,
+   "nucleosome_rel_r0": 0.0004559442470928321,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 234.14600000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -50.46520593863655
+   },
+   "delta_next": {
+    "ABF1": -52.767791031630594
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3826691539217766
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 22,
+   "macisaac": {
+    "n_calls": 241,
+    "n_macisaac": 58,
+    "n_matched": 12
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8931.150000000001,
+   "nucleosome_rel_r0": 0.0005175583345378154,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 232.072
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -52.767791031630594
+   },
+   "delta_next": {
+    "ABF1": -55.07037612462464
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3738099748008725
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 23,
+   "macisaac": {
+    "n_calls": 238,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8931.61,
+   "nucleosome_rel_r0": 0.0005690901167645368,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 230.701
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -55.07037612462464
+   },
+   "delta_next": {
+    "ABF1": -57.37296121761868
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3679103034490634
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 24,
+   "macisaac": {
+    "n_calls": 236,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8931.71,
+   "nucleosome_rel_r0": 0.0005802926781179885,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 229.36200000000002
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -57.37296121761868
+   },
+   "delta_next": {
+    "ABF1": -59.675546310612724
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3621145407579212
+   },
+   "invalid_positions": {
+    "chrII": 0,
+    "chrXIV": 0
+   },
+   "iter": 25,
+   "macisaac": {
+    "n_calls": 235,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8931.79,
+   "nucleosome_rel_r0": 0.0005892547272010606,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 227.547
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -59.675546310612724
+   },
+   "delta_next": {
+    "ABF1": -61.97813140360677
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3542044345552995
+   },
+   "invalid_positions": {
+    "chrII": 262,
+    "chrXIV": 0
+   },
+   "iter": 26,
+   "macisaac": {
+    "n_calls": 233,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8931.59,
+   "nucleosome_rel_r0": 0.0005668496044937132,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  },
+  {
+   "E": {
+    "ABF1": 225.945
+   },
+   "alpha": {
+    "ABF1": 0.7
+   },
+   "beta": {
+    "ABF1": 0.1
+   },
+   "capped_under": [],
+   "delta": {
+    "ABF1": -61.97813140360677
+   },
+   "delta_next": {
+    "ABF1": -64.28071649660082
+   },
+   "falling_over": [
+    "ABF1"
+   ],
+   "gap": {
+    "ABF1": -1.3471702534696384
+   },
+   "invalid_positions": {
+    "chrII": 2556,
+    "chrXIV": 0
+   },
+   "iter": 27,
+   "macisaac": {
+    "n_calls": 232,
+    "n_macisaac": 58,
+    "n_matched": 11
+   },
+   "n_T5": 1,
+   "n_censored": 0,
+   "n_zero_step": 0,
+   "nucleosome_copies": 8916.71,
+   "nucleosome_rel_r0": -0.0011000915249261833,
+   "unknown_occ": 0.0,
+   "why": {
+    "ABF1": "secant+step-cap"
+   },
+   "within2x": 0
+  }
+ ],
+ "holdout_chrom": "chrIV",
+ "iter": 28,
+ "jobs": {
+  "0": {
+   "count": "12644217",
+   "decode": "12644216",
+   "holdout_count": "12644920",
+   "holdout_decode": "12644919",
+   "holdout_validate": "12644921",
+   "next": "12644218"
+  },
+  "1": {
+   "count": "12644917",
+   "decode": "12644916",
+   "next": "12644918"
+  },
+  "10": {
+   "count": "12649557",
+   "decode": "12649556",
+   "next": "12649558"
+  },
+  "11": {
+   "count": "12650164",
+   "decode": "12650163",
+   "next": "12650165"
+  },
+  "12": {
+   "count": "12650601",
+   "decode": "12650600",
+   "next": "12650602"
+  },
+  "13": {
+   "count": "12651141",
+   "decode": "12651140",
+   "next": "12651142"
+  },
+  "14": {
+   "count": "12651696",
+   "decode": "12651695",
+   "next": "12651697"
+  },
+  "15": {
+   "count": "12652095",
+   "decode": "12652094",
+   "next": "12652096"
+  },
+  "16": {
+   "count": "12652470",
+   "decode": "12652469",
+   "next": "12652471"
+  },
+  "17": {
+   "count": "12652792",
+   "decode": "12652791",
+   "next": "12652793"
+  },
+  "18": {
+   "count": "12653162",
+   "decode": "12653161",
+   "next": "12653163"
+  },
+  "19": {
+   "count": "12653535",
+   "decode": "12653534",
+   "next": "12653536"
+  },
+  "2": {
+   "count": "12645885",
+   "decode": "12645884",
+   "next": "12645886"
+  },
+  "20": {
+   "count": "12664769",
+   "decode": "12664768",
+   "next": "12664770"
+  },
+  "21": {
+   "count": "12665858",
+   "decode": "12665857",
+   "next": "12665859"
+  },
+  "22": {
+   "count": "12666371",
+   "decode": "12666370",
+   "next": "12666372"
+  },
+  "23": {
+   "count": "12666664",
+   "decode": "12666663",
+   "next": "12666665"
+  },
+  "24": {
+   "count": "12667001",
+   "decode": "12667000",
+   "next": "12667002"
+  },
+  "25": {
+   "count": "12667265",
+   "decode": "12667264",
+   "next": "12667266"
+  },
+  "26": {
+   "count": "12668326",
+   "decode": "12668325",
+   "next": "12668327"
+  },
+  "27": {
+   "count": "12669201",
+   "decode": "12669200",
+   "next": "12669202"
+  },
+  "28": {
+   "count": "12669520",
+   "decode": "12669519",
+   "next": "12669521"
+  },
+  "3": {
+   "count": "12646549",
+   "decode": "12646548",
+   "next": "12646550"
+  },
+  "4": {
+   "count": "12646996",
+   "decode": "12646995",
+   "next": "12646997"
+  },
+  "5": {
+   "count": "12647522",
+   "decode": "12647521",
+   "next": "12647523"
+  },
+  "6": {
+   "count": "12647933",
+   "decode": "12647932",
+   "next": "12647934"
+  },
+  "7": {
+   "count": "12648402",
+   "decode": "12648401",
+   "next": "12648403"
+  },
+  "8": {
+   "count": "12648694",
+   "decode": "12648693",
+   "next": "12648695"
+  },
+  "9": {
+   "count": "12648907",
+   "decode": "12648906",
+   "next": "12648908"
+  }
+ },
+ "kd": {
+  "Abf1_murphy": 5.856512343826365e-14
+ },
+ "max_rounds": 50,
+ "ntask": 40,
+ "nucleosome": {
+  "hold": false,
+  "stop_rule": false,
+  "w": 35.0
+ },
+ "on_stop": {
+  "chereji": true,
+  "summary": "wide_summary.py"
+ },
+ "pkgvar": "pkgvar/fiber_maskoff_abf1w100/",
+ "rule": {
+  "ALPHA0": 0.7,
+  "ALPHA_FLOOR": 0.2,
+  "BETA0": 0.5,
+  "BETA_HI": 1.0,
+  "BETA_LO": 0.1,
+  "DEADBAND": 0.09531017980432493,
+  "E_MIN": 0.5,
+  "FALL_ROUNDS": 3,
+  "MAX_ROUNDS": 50,
+  "NUC_WARN": 0.1,
+  "RHO_MAX": 0.7,
+  "SECANT_MIN_DDELTA": 0.1,
+  "STEP_CAP_DECADES": 1.0,
+  "lambda_bounds": "NONE (only the per-bp cap)"
+ },
+ "rule_state": {
+  "ABF1": {
+   "E_prev": 225.945,
+   "alpha": 0.7,
+   "beta": 0.1,
+   "delta_prev": -61.97813140360677,
+   "gap_prev": -1.3471702534696384,
+   "n_upd": 28,
+   "th_over": -61.97813140360677,
+   "th_over_n": 27,
+   "th_under": null,
+   "th_under_n": null
+  }
+ },
+ "run": "fp100",
+ "src_traindir": "robocop_train_abf1_pm100",
+ "target": {
+  "ABF1": 58
+ },
+ "tune_chroms": [
+  "chrXIV",
+  "chrII"
+ ],
+ "tuned": [
+  "ABF1"
+ ],
+ "unknown": {
+  "base": 0.001,
+  "fixed": true,
+  "lam": 1.0,
+  "masked": true,
+  "note": "unknown is hard-masked by the driver (pkgvar/fiber_maskoff_abf1w100/); w_unknown 1e-3 is pure gauge",
+  "w": 0.001
+ }
+}

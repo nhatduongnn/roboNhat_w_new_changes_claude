@@ -1,0 +1,4 @@
+# ABF1-only symmetric pad of +/-100 bp for the wide9 tuning campaigns (plan okay-so-i-want-humming-hearth, 2026-09-19).
+# Pads are in the motif's own 5'->3' frame (see tf_pads.tsv header).
+# tf                left  right
+Abf1_murphy         100    100

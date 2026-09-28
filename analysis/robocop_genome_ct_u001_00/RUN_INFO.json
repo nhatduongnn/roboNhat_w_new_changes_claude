@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_genome_ct_u001_00",
+ "original_outdir": "robocop_genome_ct_u001_00",
+ "driver": "run_split_revfix_seq_maskoff.py",
+ "pkg_tree": "pkgvar/seq_maskoff",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_ct_u001_00",
+ "traindir_exists": true,
+ "coords": "coord_genome_full.tsv",
+ "campaign": "u001",
+ "round": 0,
+ "role": "tune",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:25",
+ "slurm_job_id": null,
+ "source": "backfill:state+log"
+}

@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrIV_tw_sd72_05",
+ "original_outdir": "robocop_chrIV_tw_sd72_05",
+ "driver": "run_split_revfix_seqonly_maskoff_decoy72.py",
+ "pkg_tree": "pkgvar/seqonly_maskoff_decoy72",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_sd72_05",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrIV.tsv",
+ "campaign": "sd72",
+ "round": 5,
+ "role": "holdout",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:02",
+ "slurm_job_id": null,
+ "source": "backfill:state"
+}

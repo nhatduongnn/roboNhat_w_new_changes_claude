@@ -1,0 +1,932 @@
+"use strict";
+// RoboCOP run browser: run matrix + multi-run whole-chromosome viewer. Static, no build step.
+// Data (all under this directory, written by analysis/viewer_site/*.py):
+//   runs.json                 registry (build_run_matrix.py)
+//   fiber_check.json          Fiber-seq sameness check (fiber_check.py)
+//   colors.json               factor -> colour (plotRoboCOP._color_for_name recipe), motif -> group
+//   shared/<chrom>.json.gz    m6A, A-depth, sequence (window blocks), genes, reference sites
+//   runs/<run>/<chrom>.bin.gz per-factor posterior blocks, uint8 at q=100 (extract_run.py)
+// Coordinates are 1-based whole-chromosome positions throughout. Canvas drawing, the min/max
+// envelope, m6A/depth/sequence/gene/axis panels, tooltip and mouse handling follow
+// analysis/posterior_viewer_template.html, adapted from one dense region to block lists.
+
+const $ = id => document.getElementById(id);
+const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const fmt = v => Number(v).toLocaleString("en-US");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let REG = null, RUNS = [], BYID = {}, FIBER = null, COLORS = {colors:{}, groups:{}}, BUILD = {};
+const WINDOW_CHROMS = new Set();
+const sel = new Set();                     // selected run ids (matrix)
+
+async function getJSON(p){ const r = await fetch(p, {cache:"no-cache"}); if (!r.ok) throw new Error(p + " " + r.status); return r.json(); }
+async function gunzip(p){
+  const r = await fetch(p, {cache:"no-cache"});
+  if (!r.ok) return null;
+  const ds = r.body.pipeThrough(new DecompressionStream("gzip"));
+  return new Uint8Array(await new Response(ds).arrayBuffer());
+}
+
+/* =============================== run matrix =============================== */
+const COLS = [
+  // key, header, class, "more" (hidden unless 'more columns')
+  ["label", "run", "", 0], ["family", "family", "", 0], ["campaign", "campaign", "", 0],
+  ["role", "tuned", "", 0], ["round", "round", "num", 0],
+  ["seq_layer", "seq", "", 0], ["fiber_layer", "fiber", "", 0], ["mask", "mask", "", 0],
+  ["live_motifs", "live", "num", 0], ["unknown_live", "unk", "", 0], ["phi", "φ", "num", 0],
+  ["em_iters", "EM", "num", 0], ["lam", "λ", "", 0], ["abf1_width", "ABF1 w", "num", 0],
+  ["abf1_pads", "pads L/R", "mono", 0], ["decoy", "decoy", "", 0], ["tie", "tie", "mono", 1],
+  ["emission_pkls", "emission pkls", "mono", 1], ["chroms", "covers", "", 0], ["fiber", "fiber", "", 0],
+  ["stop_reason", "stop reason", "wrap", 1], ["traindir", "trainDir", "mono", 1], ["pkgvar", "pkgvar", "mono", 1],
+  ["driver", "driver", "mono", 1], ["nuc_md5", "nuc md5", "mono", 1], ["pwm_file", "pwm file", "mono", 1],
+  ["provenance", "provenance", "mono", 1], ["nstates_ok", "n_states ok", "", 1], ["notes", "notes", "wrap", 1],
+];
+let sortKey = "family", sortAsc = true;
+
+function fiberCell(r){
+  if (!FIBER || !FIBER.runs[r.run_id]) return {t: "–", c: "q"};
+  const cs = FIBER.runs[r.run_id];
+  const bad = Object.keys(cs).filter(c => cs[c].mismatch);
+  if (bad.length) return {t: "DIFFERS " + bad.join(","), c: "fbad"};
+  const n = Object.values(cs).reduce((a, x) => a + x.match, 0);
+  return n ? {t: "same", c: "fok"} : {t: "n/c", c: "q"};
+}
+function cellVal(r, k){
+  if (k === "fiber") return fiberCell(r).t;
+  const v = r[k];
+  if (Array.isArray(v)) return v.join(",");
+  return v === null || v === undefined ? "" : String(v);
+}
+function buildFilters(){
+  document.querySelectorAll("#matrixView select[data-col]").forEach(s => {
+    const col = s.dataset.col, vals = new Set();
+    for (const r of RUNS){
+      if (col === "chroms") r.chroms.forEach(c => vals.add(c));
+      else if (col === "role") vals.add(r.role || "standalone");
+      else vals.add(cellVal(r, col));
+    }
+    const first = s.options[0].outerHTML;
+    s.innerHTML = first + [...vals].sort((a, b) => a.localeCompare(b, "en", {numeric: true}))
+      .map(v => `<option value="${esc(v)}">${esc(v || "(blank)")}</option>`).join("");
+    s.onchange = renderTable;
+  });
+}
+function rowPass(r){
+  const q = $("q").value.trim().toLowerCase();
+  if (q && !COLS.some(([k]) => cellVal(r, k).toLowerCase().includes(q)) && !r.run_id.toLowerCase().includes(q)) return false;
+  for (const s of document.querySelectorAll("#matrixView select[data-col]")){
+    if (!s.value) continue;
+    const col = s.dataset.col;
+    if (col === "chroms"){ if (!r.chroms.includes(s.value)) return false; }
+    else if (col === "role"){ if ((r.role || "standalone") !== s.value) return false; }
+    else if (cellVal(r, col) !== s.value) return false;
+  }
+  if ($("onlySel").checked && !sel.has(r.run_id)) return false;
+  return true;
+}
+function renderTable(){
+  const more = $("showMore").checked;
+  const cols = COLS.filter(c => more || !c[3]);
+  $("tbl").querySelector("thead").innerHTML = "<tr><th></th>" + cols.map(([k, h]) =>
+    `<th data-k="${k}" class="${k === sortKey ? "sorted" + (sortAsc ? " asc" : "") : ""}">${h}</th>`).join("") + "</tr>";
+  const rows = RUNS.filter(rowPass).sort((a, b) => {
+    const x = cellVal(a, sortKey), y = cellVal(b, sortKey);
+    const c = x.localeCompare(y, "en", {numeric: true}) || a.run_id.localeCompare(b.run_id, "en", {numeric: true});
+    return sortAsc ? c : -c;
+  });
+  const html = rows.map(r => {
+    const tds = cols.map(([k, , cls]) => {
+      if (k === "label"){
+        let b = "";
+        if (r.in_progress) b += `<span class="badge prog">in progress</span>`;
+        if (!r.complete) b += `<span class="badge inc" title="${esc((r.incomplete_dirs || []).join(" "))}">incomplete</span>`;
+        if (r.legacy) b += `<span class="badge leg">${esc(r.legacy)}</span>`;
+        return `<td title="${esc(r.run_id)}"><b>${esc(r.label)}</b>${b}</td>`;
+      }
+      if (k === "chroms") return "<td>" + r.chroms.map(c => `<span class="chip${WINDOW_CHROMS.has(c) ? " win" : ""}">${c.replace("chr", "")}</span>`).join("") + "</td>";
+      if (k === "fiber"){ const f = fiberCell(r); return `<td class="${f.c}">${esc(f.t)}</td>`; }
+      const v = cellVal(r, k);
+      return `<td class="${cls}${v === "?" ? " q" : ""}">${esc(v)}</td>`;
+    }).join("");
+    return `<tr data-id="${esc(r.run_id)}" class="${sel.has(r.run_id) ? "sel" : ""}"><td><input type="checkbox" ${sel.has(r.run_id) ? "checked" : ""}></td>${tds}</tr>`;
+  }).join("");
+  $("tbl").querySelector("tbody").innerHTML = html;
+  $("mSub").textContent = `${rows.length} of ${RUNS.length} runs shown · built ${REG.meta.built}`;
+  updateSelBtn();
+}
+function updateSelBtn(){
+  $("viewSel").textContent = `View selected (${sel.size})`;
+  $("viewSel").disabled = sel.size === 0;
+}
+function initMatrix(){
+  buildFilters();
+  $("q").oninput = renderTable;
+  $("showMore").onchange = renderTable;
+  $("onlySel").onchange = renderTable;
+  $("tbl").querySelector("thead").onclick = e => {
+    const th = e.target.closest("th[data-k]"); if (!th) return;
+    if (sortKey === th.dataset.k) sortAsc = !sortAsc; else { sortKey = th.dataset.k; sortAsc = true; }
+    renderTable();
+  };
+  $("tbl").querySelector("tbody").onclick = e => {
+    const tr = e.target.closest("tr[data-id]"); if (!tr) return;
+    const id = tr.dataset.id;
+    if (e.target.tagName !== "INPUT"){ const cb = tr.querySelector("input"); cb.checked = !cb.checked; }
+    if (tr.querySelector("input").checked) sel.add(id); else sel.delete(id);
+    tr.classList.toggle("sel", sel.has(id));
+    updateSelBtn();
+  };
+  $("tbl").querySelector("tbody").ondblclick = e => {
+    const tr = e.target.closest("tr[data-id]"); if (tr) openViewer([tr.dataset.id]);
+  };
+  $("clearSel").onclick = () => { sel.clear(); renderTable(); };
+  $("viewSel").onclick = () => openViewer([...sel]);
+  const m = REG.meta;
+  $("mFoot").innerHTML = `<p>${m.n_runs} runs from ${m.n_dirs} decode directories; ${m.n_campaign_dirs_not_shown}
+    intermediate tuning-round decodes are not listed (a campaign shows its round 00 and its final round, with the
+    chrIV holdout joined in). Click rows to select, double-click to open one run. Attributes are derived from each
+    decode's pkgvar tree and real trainDir (<code>build_run_matrix.py</code>); <code>?</code> means not derivable,
+    never a guess. Chips in <b>bold</b> are chromosomes with an extracted window.</p>`;
+}
+
+/* =============================== viewer state =============================== */
+const V = {runs: [], chrom: null, view: {s: 1, e: 1000}, hist: [], checked: new Set(), hl: null,
+           overlay: false, userTouched: false, filter: "",
+           refMac: true, refCx: true};
+const runCache = new Map(), sharedCache = new Map();
+const GUT = 170, RPAD = 12, LANE_H = 92, LANE_GAP = 6;
+const H = {cOver: 26, cLanes: 200, cMeth: 120, cDep: 60, cSeq: 56, cGene: 52, cRef: 60, cAxis: 30};
+const cv = {}; let plotW = 800, DPR = 1, L = 1;
+const nView = () => V.view.e - V.view.s + 1;
+const xOf = p => GUT + (p - V.view.s + 0.5) / nView() * plotW;
+const posOf = px => Math.round(V.view.s + (px - GUT) / plotW * nView() - 0.5);
+const color = f => (COLORS.colors[f] || "#888888");
+const DASH = [[], [7, 4], [2, 3], [10, 3, 2, 3]];
+
+async function loadRun(id, chrom){
+  const key = id + "|" + chrom;
+  if (runCache.has(key)) return runCache.get(key);
+  const p = (async () => {
+    const r = BYID[id];
+    if (!r || !r.dirs[chrom]) return {missing: "not decoded on " + chrom};
+    const raw = await gunzip(`runs/${encodeURIComponent(id)}/${chrom}.bin.gz`);
+    if (!raw) return {missing: "no data extracted for " + chrom + " (yet)"};
+    const dv = new DataView(raw.buffer);
+    const n = dv.getUint32(4, true);
+    const hdr = JSON.parse(new TextDecoder().decode(raw.subarray(8, 8 + n)));
+    const body = raw.subarray(8 + n);
+    const blocks = hdr.blocks.map(b => {
+      const cols = {};
+      hdr.cols.forEach((c, k) => { cols[c] = body.subarray(b.off + k * b.len, b.off + (k + 1) * b.len); });
+      return {start: b.start, len: b.len, cols};
+    });
+    return {hdr, blocks, q: hdr.q, cols: hdr.cols};
+  })();
+  runCache.set(key, p);
+  return p;
+}
+async function loadShared(chrom){
+  if (sharedCache.has(chrom)) return sharedCache.get(chrom);
+  const p = (async () => {
+    const raw = await gunzip(`shared/${chrom}.json.gz`);
+    if (!raw) return null;
+    return JSON.parse(new TextDecoder().decode(raw));
+  })();
+  sharedCache.set(chrom, p);
+  return p;
+}
+
+/* =============================== layout =============================== */
+function laneCount(){ return V.overlay ? 1 : Math.max(1, V.runs.length); }
+function resize(){
+  DPR = window.devicePixelRatio || 1;
+  const w = Math.max(360, document.querySelector("#viewerView section.plots").clientWidth - 28);
+  plotW = Math.max(240, w - GUT - RPAD);
+  H.cLanes = laneCount() * (LANE_H + LANE_GAP) + (V.overlay ? 60 : 0);
+  H.cRef = Math.max(34, 20 * Math.max(1, refTracksShown().length));
+  let total = 0;
+  for (const id of Object.keys(H)){
+    const c = cv[id];
+    c.style.width = w + "px"; c.style.height = H[id] + "px";
+    c.width = Math.round(w * DPR); c.height = Math.round(H[id] * DPR);
+    c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+    total += H[id] + 2;
+  }
+  const ov = $("ovl");
+  ov.style.width = w + "px"; ov.style.height = total + "px";
+  ov.width = Math.round(w * DPR); ov.height = Math.round(total * DPR);
+  ov.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
+  draw();
+}
+function ticks(span, target){
+  const raw = span / target, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 5, 10]) if (raw <= m * mag) return m * mag;
+  return 10 * mag;
+}
+function gridX(ctx, y0, h){
+  const step = ticks(nView(), 8);
+  ctx.strokeStyle = css("--line2"); ctx.lineWidth = 1; ctx.beginPath();
+  for (let p = Math.ceil(V.view.s / step) * step; p <= V.view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, y0); ctx.lineTo(x, y0 + h);
+  }
+  ctx.stroke();
+}
+function frame(ctx, y0, h){ ctx.strokeStyle = css("--line"); ctx.lineWidth = 1; ctx.strokeRect(GUT + 0.5, y0 + 0.5, plotW - 1, h - 1); }
+function clip(ctx, y0, h){ ctx.save(); ctx.beginPath(); ctx.rect(GUT, y0, plotW, h); ctx.clip(); }
+
+// Shade the parts of the view no block covers ("not extracted"), within a band.
+function shadeGaps(ctx, blocks, y0, h, label){
+  const gaps = []; let cur = V.view.s;
+  const bs = (blocks || []).slice().sort((a, b) => a.start - b.start);
+  for (const b of bs){
+    const be = b.start + b.len - 1;
+    if (be < V.view.s || b.start > V.view.e) continue;
+    if (b.start > cur) gaps.push([cur, b.start - 1]);
+    cur = Math.max(cur, be + 1);
+  }
+  if (cur <= V.view.e) gaps.push([cur, V.view.e]);
+  ctx.fillStyle = css("--noext");
+  ctx.font = "10px " + css("--mono"); ctx.textAlign = "center";
+  for (const [a, b] of gaps){
+    const x0 = Math.max(GUT, xOf(a) - 0.5 * plotW / nView()), x1 = Math.min(GUT + plotW, xOf(b) + 0.5 * plotW / nView());
+    ctx.fillStyle = css("--noext"); ctx.fillRect(x0, y0, x1 - x0, h);
+    if (x1 - x0 > 110 && label){ ctx.fillStyle = css("--ink3"); ctx.fillText(label, (x0 + x1) / 2, y0 + h / 2 + 3); }
+  }
+}
+
+// Per-pixel min/max envelope over block lists (pathSeries of the template, blockwise).
+function envelope(blocks, getter){
+  const n = nView(), mn = new Float32Array(plotW).fill(Infinity), mx = new Float32Array(plotW).fill(-Infinity);
+  for (const b of blocks){
+    const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+    for (let p = a; p <= e; p++){
+      const v = getter(b, p - b.start);
+      const k = Math.min(plotW - 1, Math.floor((p - V.view.s) * plotW / n));
+      if (v < mn[k]) mn[k] = v; if (v > mx[k]) mx[k] = v;
+    }
+  }
+  return [mn, mx];
+}
+function pathSeries(ctx, blocks, getter, y){
+  const n = nView();
+  ctx.beginPath();
+  if (n > plotW * 1.2){
+    const [mn, mx] = envelope(blocks, getter);
+    for (let px = 0; px < plotW; px++){
+      if (mn[px] === Infinity) continue;
+      const x = GUT + px + 0.5;
+      ctx.moveTo(x, y(mn[px])); ctx.lineTo(x, y(mx[px] === mn[px] ? mn[px] + 1e-6 : mx[px]));
+    }
+  } else {
+    for (const b of blocks){
+      const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+      for (let p = a; p <= e; p++){
+        const xx = xOf(p), yy = y(getter(b, p - b.start));
+        if (p === a) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+      }
+    }
+  }
+}
+function areaSeries(ctx, blocks, getter, y){
+  const n = nView(), y0 = y(0);
+  ctx.beginPath();
+  if (n > plotW * 1.2){
+    const [, mx] = envelope(blocks, getter);
+    let open = false, last = 0;
+    for (let px = 0; px < plotW; px++){
+      const x = GUT + px + 0.5;
+      if (mx[px] === -Infinity){ if (open){ ctx.lineTo(last, y0); ctx.closePath(); open = false; } continue; }
+      if (!open){ ctx.moveTo(x, y0); open = true; }
+      ctx.lineTo(x, y(mx[px])); last = x;
+    }
+    if (open){ ctx.lineTo(last, y0); ctx.closePath(); }
+  } else {
+    for (const b of blocks){
+      const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+      if (a > e) continue;
+      ctx.moveTo(xOf(a), y0);
+      for (let p = a; p <= e; p++) ctx.lineTo(xOf(p), y(getter(b, p - b.start)));
+      ctx.lineTo(xOf(e), y0); ctx.closePath();
+    }
+  }
+}
+
+/* =============================== panels =============================== */
+let RD = [], SH = null;          // loaded run data for current chrom (parallel to V.runs), shared data
+
+function drawOver(){
+  const c = cv.cOver, ctx = c.getContext("2d"), h = H.cOver;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const X = p => GUT + (p - 1) / L * plotW;
+  ctx.fillStyle = css("--sunk"); ctx.fillRect(GUT, 8, plotW, 10);
+  if (SH) for (const b of SH.blocks){ ctx.fillStyle = css("--accent"); ctx.fillRect(X(b.start), 8, Math.max(2, X(b.start + b.len) - X(b.start)), 10); }
+  ctx.strokeStyle = css("--crosshair"); ctx.lineWidth = 1.5;
+  ctx.strokeRect(X(V.view.s), 5, Math.max(2, X(V.view.e + 1) - X(V.view.s)), 16);
+  ctx.fillStyle = css("--ink2"); ctx.font = "10.5px " + css("--mono"); ctx.textAlign = "right";
+  ctx.fillText(`${V.chrom} · ${fmt(L)} bp`, GUT - 8, 17);
+}
+
+function laneFactors(d){
+  if (!d || d.missing) return [];
+  return d.cols.filter(c => V.checked.has(c) && c !== "nucleosome");
+}
+function drawLanes(){
+  const c = cv.cLanes, ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = V.overlay ? 1 : V.runs.length;
+  for (let li = 0; li < n; li++){
+    const y0 = li * (LANE_H + LANE_GAP) + (li === 0 ? 0 : 0), h = LANE_H;
+    const y = v => y0 + h - 4 - v * (h - 14);
+    const runsHere = V.overlay ? V.runs.map((_, i) => i) : [li];
+    // gutter label
+    ctx.textAlign = "right"; ctx.font = "600 11px " + css("--sans"); ctx.fillStyle = css("--ink");
+    if (!V.overlay){
+      const r = BYID[V.runs[li]];
+      const lab = r ? r.label : V.runs[li];
+      ctx.fillText(lab.length > 26 ? lab.slice(0, 25) + "…" : lab, GUT - 8, y0 + 16);
+      ctx.font = "10px " + css("--mono"); ctx.fillStyle = css("--ink3");
+      if (r){
+        const sub = [r.seq_layer === "on" ? "seq" : r.seq_layer === "off" ? "" : "seq?", r.fiber_layer === "on" ? "fib" : r.fiber_layer === "off" ? "" : "fib?"].filter(Boolean).join("+");
+        ctx.fillText(`${sub}${r.mask && r.mask !== "none" ? " · mask " + r.mask : ""}`.slice(0, 30), GUT - 8, y0 + 30);
+        if (r.campaign) ctx.fillText(`${r.campaign} r${String(r.round).padStart(2, "0")}`, GUT - 8, y0 + 43);
+      }
+    } else {
+      V.runs.forEach((id, i) => {
+        ctx.strokeStyle = css("--ink2"); ctx.setLineDash(DASH[i] || []); ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(8, y0 + 12 + i * 14); ctx.lineTo(30, y0 + 12 + i * 14); ctx.stroke();
+        ctx.setLineDash([]); ctx.textAlign = "left"; ctx.font = "10.5px " + css("--sans"); ctx.fillStyle = css("--ink");
+        const lab = (BYID[id] || {}).label || id;
+        ctx.fillText(lab.length > 20 ? lab.slice(0, 19) + "…" : lab, 34, y0 + 16 + i * 14);
+      });
+    }
+    // y grid
+    ctx.strokeStyle = css("--line2"); ctx.lineWidth = 1; ctx.beginPath();
+    for (const v of [0, 0.5, 1]){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+    ctx.stroke();
+    ctx.fillStyle = css("--ink3"); ctx.font = "9.5px " + css("--mono"); ctx.textAlign = "left";
+    ctx.fillText("1", GUT + plotW + 2, y(1) + 3); ctx.fillText("0", GUT + plotW + 2, y(0) + 3);
+    gridX(ctx, y0, h);
+    clip(ctx, y0, h);
+    const d0 = RD[runsHere[0]];
+    if (!V.overlay && (!d0 || d0.missing)){
+      ctx.fillStyle = css("--noext"); ctx.fillRect(GUT, y0, plotW, h);
+      ctx.fillStyle = css("--ink3"); ctx.font = "11px " + css("--sans"); ctx.textAlign = "center";
+      ctx.fillText(d0 ? d0.missing : "loading…", GUT + plotW / 2, y0 + h / 2 + 4);
+    } else {
+      if (!V.overlay) shadeGaps(ctx, d0.blocks, y0, h, "not extracted");
+      else if (SH) shadeGaps(ctx, SH.blocks, y0, h, "not extracted");
+      // reference-site bands for the highlighted (or ABF1) group, behind the curves
+      drawRefBands(ctx, y0, h);
+      ctx.lineJoin = "round"; ctx.lineCap = "round";
+      for (let k = 0; k < runsHere.length; k++){
+        const d = RD[runsHere[k]];
+        if (!d || d.missing) continue;
+        const q = d.q;
+        if (V.checked.has("nucleosome") && d.blocks.length && d.blocks[0].cols.nucleosome){
+          ctx.fillStyle = css("--nuc"); ctx.globalAlpha = V.overlay ? 0.25 : 0.55;
+          areaSeries(ctx, d.blocks, (b, i) => b.cols.nucleosome[i] / q, y); ctx.fill(); ctx.globalAlpha = 1;
+        }
+        for (const f of laneFactors(d)){
+          const dim = V.hl && V.hl !== f;
+          ctx.globalAlpha = dim ? 0.18 : 1;
+          ctx.strokeStyle = color(f); ctx.lineWidth = V.hl === f ? 2.2 : 1.4;
+          ctx.setLineDash(V.overlay ? (DASH[k] || []) : []);
+          pathSeries(ctx, d.blocks, (b, i) => b.cols[f][i] / q, y); ctx.stroke();
+        }
+        ctx.setLineDash([]); ctx.globalAlpha = 1;
+      }
+    }
+    ctx.restore();
+    frame(ctx, y0, h);
+  }
+}
+function hlGroup(){ const f = V.hl || "Abf1_murphy"; return COLORS.groups[f] || null; }
+// Locus-slide style (presentation/templates/locus_slide/README.md): reference sites are drawn ON the
+// run rows -- MacIsaac as a tinted band with a top bar, Rossi _CX summits as small triangles on the
+// top edge -- not only in the separate strip below.
+function drawRefBands(ctx, y0, h){
+  if (!SH) return;
+  const g = hlGroup();
+  if (V.refMac){
+    for (const [key, t] of Object.entries(SH.refs)){
+      const isBed = t.kind === "interval" && t.group === g;
+      const isC1 = key === "mac_" + g;
+      if (!isBed && !isC1) continue;
+      for (const st of t.sites){
+        const a = isBed ? st[0] : st, b = isBed ? st[1] : st;
+        if (b < V.view.s || a > V.view.e) continue;
+        const x0 = xOf(a) - 0.5 * plotW / nView(), x1 = xOf(b) + 0.5 * plotW / nView();
+        const w = Math.max(3, x1 - x0), xc = x0 - (w > x1 - x0 ? (w - (x1 - x0)) / 2 : 0);
+        ctx.fillStyle = t.color + "22"; ctx.fillRect(xc, y0, w, h);            // tinted band
+        ctx.fillStyle = t.color;       ctx.fillRect(xc, y0, w, 3);             // top bar
+      }
+    }
+  }
+  if (V.refCx){
+    const t = SH.refs["cx_" + g];
+    if (t) for (const p of t.sites){
+      if (p < V.view.s || p > V.view.e) continue;
+      const x = xOf(p);
+      ctx.fillStyle = t.color;
+      ctx.beginPath(); ctx.moveTo(x, y0 + 1); ctx.lineTo(x - 4, y0 + 8); ctx.lineTo(x + 4, y0 + 8);
+      ctx.closePath(); ctx.fill();                                            // Rossi summit triangle
+    }
+  }
+}
+function sharedBlocks(){ return SH ? SH.blocks : []; }
+function drawMeth(){
+  const c = cv.cMeth, ctx = c.getContext("2d"), h = H.cMeth;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const y = v => h - 6 - Math.min(v, 1) * (h - 18);
+  ctx.strokeStyle = css("--line2"); ctx.beginPath();
+  for (const v of [0, 0.5, 1]){ const yy = Math.round(y(v)) + 0.5; ctx.moveTo(GUT, yy); ctx.lineTo(GUT + plotW, yy); }
+  ctx.stroke();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  for (const v of [0, 0.5, 1]) ctx.fillText(v.toFixed(2), GUT - 6, y(v) + 3);
+  gridX(ctx, 0, h); clip(ctx, 0, h);
+  shadeGaps(ctx, sharedBlocks(), 0, h, "not extracted");
+  const n = nView();
+  for (const [mk, ak, col] of [["mw", "aw", css("--wat")], ["mc", "ac", css("--cri")]]){
+    ctx.fillStyle = col;
+    if (n > plotW * 2){                  // aggregate per pixel: sum m6A / sum A
+      const km = new Float64Array(plotW), ka = new Float64Array(plotW);
+      for (const b of sharedBlocks()){
+        const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+        for (let p = a; p <= e; p++){
+          const k = Math.min(plotW - 1, Math.floor((p - V.view.s) * plotW / n));
+          km[k] += b[mk][p - b.start]; ka[k] += b[ak][p - b.start];
+        }
+      }
+      for (let px = 0; px < plotW; px++) if (ka[px] > 0){ ctx.fillRect(GUT + px, y(km[px] / ka[px]) - 1, 1.2, 2); }
+    } else {
+      const r = n > plotW ? 1 : (n > plotW / 3 ? 1.6 : 2.6);
+      for (const b of sharedBlocks()){
+        const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+        for (let p = a; p <= e; p++){
+          const A_ = b[ak][p - b.start]; if (!A_) continue;
+          ctx.beginPath(); ctx.arc(xOf(p), y(b[mk][p - b.start] / A_), r, 0, 6.2832); ctx.fill();
+        }
+      }
+    }
+  }
+  ctx.restore(); frame(ctx, 0, h);
+}
+function drawDep(){
+  const c = cv.cDep, ctx = c.getContext("2d"), h = H.cDep;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), col = new Float32Array(plotW);
+  let mx = 1;
+  for (const b of sharedBlocks()){
+    const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+    for (let p = a; p <= e; p++){
+      const v = b.aw[p - b.start] + b.ac[p - b.start]; if (!v) continue;
+      const k = Math.min(plotW - 1, Math.floor((p - V.view.s) * plotW / n));
+      if (v > col[k]) col[k] = v; if (v > mx) mx = v;
+    }
+  }
+  const y = v => h - 4 - (v / mx) * (h - 14), y0 = y(0);
+  clip(ctx, 0, h); shadeGaps(ctx, sharedBlocks(), 0, h, "");
+  ctx.fillStyle = css("--depth");
+  const perBase = plotW / n;
+  if (perBase >= 2.5){
+    $("deplab").textContent = "A-trials per base";
+    const w = Math.max(1, perBase - (perBase >= 6 ? 1 : 0));
+    for (const b of sharedBlocks()){
+      const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1);
+      for (let p = a; p <= e; p++){ const v = b.aw[p - b.start] + b.ac[p - b.start]; if (v) ctx.fillRect(xOf(p) - w / 2, y(v), w, y0 - y(v)); }
+    }
+  } else {
+    $("deplab").textContent = "A-trials (max per px)";
+    for (let px = 0; px < plotW; px++) if (col[px]) ctx.fillRect(GUT + px, y(col[px]), 1, y0 - y(col[px]));
+  }
+  ctx.restore();
+  ctx.fillStyle = css("--ink3"); ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+  ctx.fillText(String(Math.round(mx)), GUT - 6, y(mx) + 8); ctx.fillText("0", GUT - 6, y0);
+  frame(ctx, 0, h);
+}
+function seqAt(p){
+  for (const b of sharedBlocks()) if (p >= b.start && p < b.start + b.len) return b.seq[p - b.start];
+  return null;
+}
+function drawSeq(){
+  const c = cv.cSeq, ctx = c.getContext("2d"), h = H.cSeq;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), perBase = plotW / n;
+  clip(ctx, 0, h); shadeGaps(ctx, sharedBlocks(), 0, h, "");
+  if (n <= 200 && perBase >= 5){
+    $("seqlab").textContent = "sequence";
+    ctx.font = "bold " + Math.min(13, Math.max(8, perBase * 0.85)).toFixed(1) + "px " + css("--mono");
+    ctx.textAlign = "center";
+    const cols = {A: css("--A"), T: css("--T"), C: css("--C"), G: css("--G")};
+    for (let p = V.view.s; p <= V.view.e; p++){
+      const bch = seqAt(p); if (!bch) continue;
+      ctx.fillStyle = cols[bch] || css("--ink3");
+      ctx.fillText(bch, xOf(p), h / 2 + 5);
+    }
+  } else {
+    $("seqlab").textContent = "AT fraction (7 bp)";
+    const y = v => h - 5 - v * (h - 14);
+    ctx.strokeStyle = css("--T"); ctx.lineWidth = 1.2; ctx.beginPath();
+    for (const b of sharedBlocks()){
+      let started = false;
+      const a = Math.max(V.view.s, b.start + 3), e = Math.min(V.view.e, b.start + b.len - 4);
+      if (a > e) continue;
+      const step = Math.max(1, Math.floor(n / plotW));
+      for (let p = a; p <= e; p += step){
+        let at = 0; for (let k = -3; k <= 3; k++){ const ch = b.seq[p - b.start + k]; if (ch === "A" || ch === "T") at++; }
+        const xx = xOf(p), yy = y(at / 7);
+        if (!started){ ctx.moveTo(xx, yy); started = true; } else ctx.lineTo(xx, yy);
+      }
+    }
+    ctx.stroke();
+  }
+  ctx.restore(); frame(ctx, 0, h);
+}
+function drawGene(){
+  const c = cv.cGene, ctx = c.getContext("2d"), h = H.cGene;
+  ctx.clearRect(0, 0, c.width, c.height);
+  gridX(ctx, 0, h); clip(ctx, 0, h);
+  ctx.font = "11px " + css("--mono"); ctx.textAlign = "left";
+  for (const g of (SH ? SH.genes : [])){
+    if (g.end < V.view.s || g.start > V.view.e) continue;
+    const x0 = Math.max(GUT, xOf(g.start)), x1 = Math.min(GUT + plotW, xOf(g.end));
+    const plus = g.strand === "+";
+    ctx.fillStyle = plus ? css("--plus") : css("--minus");
+    ctx.fillRect(x0, plus ? 12 : 28, Math.max(2, x1 - x0), 10);
+    if (x1 - x0 > 24 || nView() < 20000){ ctx.fillStyle = css("--ink2"); ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(GUT + 3, x0 + 3), plus ? 10 : 50); }
+  }
+  ctx.restore(); frame(ctx, 0, h);
+}
+function refFamily(key){ return key.startsWith("cx_") ? "cx" : "mac"; }   // interval beds are MacIsaac
+function refTracksShown(){
+  if (!SH) return [];
+  const g = hlGroup();
+  return Object.entries(SH.refs).filter(([k, t]) => {
+    const fam = refFamily(k);
+    if (fam === "cx" && !V.refCx) return false;
+    if (fam === "mac" && !V.refMac) return false;
+    return t.kind === "interval" || t.group === g;   // beds always; per-factor centres follow the highlight
+  });
+}
+function drawRef(){
+  const c = cv.cRef, ctx = c.getContext("2d");
+  const tr = refTracksShown();
+  const h = H.cRef;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const rowH = Math.max(10, Math.floor((h - 4) / Math.max(1, tr.length)));
+  if (!tr.length){
+    ctx.fillStyle = css("--ink3"); ctx.font = "11px " + css("--mono"); ctx.textAlign = "left";
+    ctx.fillText("reference sites: both toggles are off", GUT + 6, 18);
+  }
+  tr.forEach(([key, t], i) => {
+    const y0 = 2 + i * rowH;
+    const inView = t.sites.filter(st => {
+      const a = t.kind === "interval" ? st[0] : st, b = t.kind === "interval" ? st[1] : st;
+      return b >= V.view.s && a <= V.view.e;
+    });
+    ctx.fillStyle = inView.length ? css("--ink2") : css("--ink3");
+    ctx.font = "10px " + css("--mono"); ctx.textAlign = "right";
+    ctx.fillText((t.label + " (" + inView.length + ")").slice(0, 30), GUT - 6, y0 + rowH / 2 + 3);
+    ctx.save(); ctx.beginPath(); ctx.rect(GUT, y0, plotW, rowH); ctx.clip();
+    ctx.fillStyle = t.color;
+    // A 1 bp centre is sub-pixel across a 30 kb view, so give every mark a visible floor width.
+    const MINW = t.kind === "interval" ? 4 : 3;
+    for (const st of inView){
+      const a = t.kind === "interval" ? st[0] : st, b = t.kind === "interval" ? st[1] : st;
+      const x0 = xOf(a) - 0.5 * plotW / nView(), x1 = xOf(b) + 0.5 * plotW / nView();
+      const w = Math.max(MINW, x1 - x0);
+      ctx.fillRect(x0 - (w > x1 - x0 ? (w - (x1 - x0)) / 2 : 0), y0 + 2, w, rowH - 4);
+    }
+    ctx.restore();
+  });
+  $("reflab").textContent = "";
+  frame(ctx, 0, h);
+}
+function drawAxis(){
+  const c = cv.cAxis, ctx = c.getContext("2d"), h = H.cAxis;
+  ctx.clearRect(0, 0, c.width, c.height);
+  const n = nView(), step = ticks(n, 8);
+  ctx.strokeStyle = css("--line"); ctx.beginPath(); ctx.moveTo(GUT, 0.5); ctx.lineTo(GUT + plotW, 0.5); ctx.stroke();
+  ctx.fillStyle = css("--ink2"); ctx.font = "10.5px " + css("--mono"); ctx.textAlign = "center";
+  ctx.strokeStyle = css("--ink3"); ctx.beginPath();
+  for (let p = Math.ceil(V.view.s / step) * step; p <= V.view.e; p += step){
+    const x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, 5); ctx.fillText(fmt(p), x, 17);
+  }
+  ctx.stroke();
+  ctx.textAlign = "left"; ctx.fillStyle = css("--ink3"); ctx.fillText(V.chrom || "", 4, 17);
+}
+
+/* =============================== sidebar =============================== */
+function allFactors(){
+  const s = new Set();
+  RD.forEach(d => { if (d && !d.missing) d.cols.forEach(c => s.add(c)); });
+  return [...s];
+}
+function maxInView(f){
+  let mx = 0;
+  for (const d of RD){
+    if (!d || d.missing || !d.cols.includes(f)) continue;
+    for (const b of d.blocks){
+      const a = Math.max(V.view.s, b.start), e = Math.min(V.view.e, b.start + b.len - 1), col = b.cols[f];
+      for (let p = a; p <= e; p++){ const v = col[p - b.start] / d.q; if (v > mx) mx = v; }
+    }
+  }
+  return mx;
+}
+function defaultChecked(){
+  const fs = allFactors(), on = new Set(["nucleosome"]);
+  // live motifs of masked runs; for unmasked runs, the 8 largest by max in view
+  const masked = V.runs.some(id => (BYID[id] || {}).mask && !["none", "?"].includes(BYID[id].mask));
+  const motifs = fs.filter(f => !["nucleosome", "background", "nuc_center", "unknown", "other TFs"].includes(f));
+  if (masked && motifs.length <= 12) motifs.forEach(f => on.add(f));
+  else motifs.map(f => [f, maxInView(f)]).sort((a, b) => b[1] - a[1]).slice(0, 8).forEach(([f]) => on.add(f));
+  if (fs.includes("Abf1_murphy")) on.add("Abf1_murphy");
+  return on;
+}
+function buildSidebar(){
+  const fs = allFactors();
+  const mx = {}; fs.forEach(f => mx[f] = maxInView(f));
+  const fixed = ["nucleosome", "background", "nuc_center", "unknown", "other TFs"];
+  const rest = fs.filter(f => !fixed.includes(f)).sort((a, b) => mx[b] - mx[a] || a.localeCompare(b));
+  const order = fixed.filter(f => fs.includes(f)).concat(rest);
+  const q = V.filter.toLowerCase();
+  $("flist").innerHTML = order.filter(f => !q || f.toLowerCase().includes(q)).map(f => `
+    <div class="frow${V.hl === f ? " hl" : ""}" data-f="${esc(f)}">
+      <input type="checkbox" ${V.checked.has(f) ? "checked" : ""}>
+      <span class="sw" style="background:${f === "nucleosome" ? css("--nuc") : color(f)}"></span>
+      <span class="fname" title="${esc(f)}${COLORS.groups[f] ? " · group " + COLORS.groups[f] : ""}">${esc(f)}</span>
+      <span class="fmax">${mx[f] < 0.01 ? "·" : mx[f].toFixed(2)}</span></div>`).join("");
+}
+
+/* =============================== control =============================== */
+function draw(skipSidebar){
+  if (!V.chrom) return;
+  drawOver(); drawLanes(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawRef(); drawAxis();
+  if (!skipSidebar) buildSidebar();
+  $("coord").value = `${V.chrom}:${V.view.s}-${V.view.e}`;
+  writeHash();
+}
+function setView(s, e, push = true){
+  s = Math.round(s); e = Math.round(e);
+  if (e - s < 19){ const c = (s + e) / 2; s = Math.round(c - 10); e = s + 20; }
+  if (s < 1){ e += 1 - s; s = 1; }
+  if (e > L){ s -= e - L; e = L; }
+  s = Math.max(1, s); e = Math.min(L, e);
+  if (push) V.hist.push({...V.view});
+  V.view = {s, e};
+  draw();
+}
+function zoom(f, anchor){
+  const n = nView(), c = anchor === undefined ? (V.view.s + V.view.e) / 2 : anchor;
+  const nn = Math.max(20, Math.round(n * f)), frac = (c - V.view.s) / n;
+  setView(c - frac * nn, c - frac * nn + nn - 1);
+}
+function windowView(){ return SH && SH.blocks.length ? [SH.blocks[0].start, SH.blocks[0].start + SH.blocks[0].len - 1] : [1, Math.min(L, 30000)]; }
+function coveredChroms(){
+  const s = new Set(); V.runs.forEach(id => (BYID[id] ? BYID[id].chroms : []).forEach(c => s.add(c)));
+  const order = ["chrI","chrII","chrIII","chrIV","chrV","chrVI","chrVII","chrVIII","chrIX","chrX","chrXI","chrXII","chrXIII","chrXIV","chrXV","chrXVI","chrM"];
+  return [...s].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+}
+function writeHash(){
+  const h = `#view?runs=${V.runs.map(encodeURIComponent).join(",")}&chrom=${V.chrom}&s=${V.view.s}&e=${V.view.e}` +
+            (V.overlay ? "&overlay=1" : "") + (V.hl ? "&hl=" + encodeURIComponent(V.hl) : "") +
+            (V.refMac ? "" : "&mac=0") + (V.refCx ? "" : "&cx=0");
+  if (location.hash !== h) history.replaceState(null, "", h);
+}
+async function mountChrom(chrom, view){
+  V.chrom = chrom;
+  $("chromSel").value = chrom;
+  const [sh, ...rd] = await Promise.all([loadShared(chrom), ...V.runs.map(id => loadRun(id, chrom))]);
+  if (V.chrom !== chrom) return;            // superseded
+  SH = sh; RD = rd;
+  const sizes = BUILD.chrom_sizes || {};
+  L = (SH && SH.length) || sizes[chrom] || 1;
+  $("geneList").innerHTML = (SH ? SH.genes : []).map(g => `<option value="${esc(g.name)}">`).join("");
+  if (!V.userTouched) V.checked = defaultChecked();
+  const [ws, we] = view || windowView();
+  V.view = {s: Math.max(1, ws), e: Math.min(L, we)};
+  V.hist.length = 0;
+  resize();
+  if (!SH) flash(`no shared tracks for ${chrom} (only the windows in windows.tsv are extracted)`);
+}
+function renderChips(){
+  $("chips").innerHTML = V.runs.map((id, i) => `<span class="chipsel" title="${esc(id)}">${V.overlay ? `<svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="currentColor" stroke-width="1.5" stroke-dasharray="${(DASH[i] || []).join(",")}"/></svg>` : ""}<b>${esc((BYID[id] || {}).label || id)}</b><button data-rm="${esc(id)}" title="remove">×</button></span>`).join("");
+  const opts = RUNS.slice().sort((a, b) => a.label.localeCompare(b.label, "en", {numeric: true}));
+  $("quick").innerHTML = `<option value="">quick switch…</option>` + opts.map(r => `<option value="${esc(r.run_id)}">${esc(r.label)}</option>`).join("");
+  $("addRun").innerHTML = `<option value="">+ add run…</option>` + opts.filter(r => !V.runs.includes(r.run_id)).map(r => `<option value="${esc(r.run_id)}">${esc(r.label)}</option>`).join("");
+  const cs = coveredChroms();
+  $("chromSel").innerHTML = cs.map(c => `<option value="${c}">${c}${WINDOW_CHROMS.has(c) ? "" : " (not extracted)"}</option>`).join("");
+  $("ovlab").style.display = V.runs.length > 1 && V.runs.length <= 4 ? "" : "none";
+  if (V.runs.length > 4) V.overlay = false;
+  $("overlay").checked = V.overlay;
+  $("refMac").checked = V.refMac;
+  $("refCx").checked = V.refCx;
+}
+async function setRuns(ids, chrom, view){
+  V.runs = ids.filter(id => BYID[id]);
+  renderChips();
+  const cs = coveredChroms();
+  let c = chrom && cs.includes(chrom) ? chrom : (cs.includes(V.chrom) ? V.chrom : (cs.find(x => WINDOW_CHROMS.has(x)) || cs[0]));
+  const keepView = c === V.chrom && !view ? {...V.view} : null;
+  await mountChrom(c, view || (keepView ? [keepView.s, keepView.e] : null));
+}
+let flashT = null;
+function flash(t){ const m = $("msg"); m.textContent = t; clearTimeout(flashT); flashT = setTimeout(() => { if (m.textContent === t) m.textContent = ""; }, 3500); }
+
+function jump(){
+  let t = $("coord").value.trim().replace(/,/g, "");
+  const mc = t.match(/^(chr[\w]+)\s*:/i);
+  if (mc && mc[1] !== V.chrom){ const cs = coveredChroms(); if (cs.includes(mc[1])) { const rest = t.slice(mc[0].length); mountChrom(mc[1]).then(() => { $("coord").value = rest; jump(); }); return; } }
+  t = t.replace(/^[A-Za-z_0-9]+\s*:\s*/, "");
+  const m = t.match(/^(\d+)\s*(?:-|\.\.|to)\s*(\d+)$/);
+  let s, e;
+  if (m){ s = +m[1]; e = +m[2]; if (s > e) [s, e] = [e, s]; }
+  else if (/^\d+$/.test(t)){ s = +t - 200; e = +t + 199; }
+  else { flash("could not parse that"); return; }
+  setView(s, e);
+}
+function geneJump(){
+  const name = $("gene").value.trim().toUpperCase(); if (!name || !SH) return;
+  const g = SH.genes.find(x => x.name.toUpperCase() === name);
+  if (!g){ flash(`${name} is not on ${V.chrom}`); return; }
+  const pad = Math.round((g.end - g.start) * 0.4) + 300;
+  setView(g.start - pad, g.end + pad);
+}
+
+/* =============================== mouse / tooltip =============================== */
+function initMouse(){
+  const stage = $("stage"), ov = $("ovl"), octx = ov.getContext("2d");
+  const clear = () => octx.clearRect(0, 0, ov.width, ov.height);
+  let drag = null;
+  stage.addEventListener("mousedown", e => {
+    const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (y < H.cOver){                         // overview strip: click to centre
+      const p = Math.round(1 + (x - GUT) / plotW * L), n = nView();
+      setView(p - n / 2, p + n / 2); return;
+    }
+    drag = {x0: x, pan: e.shiftKey, s0: V.view.s, e0: V.view.e};
+  });
+  addEventListener("mousemove", e => {
+    if ($("viewerView").hidden) return;
+    const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (drag){
+      if (drag.pan){
+        const d = (drag.x0 - x) / plotW * (drag.e0 - drag.s0 + 1);
+        let s = Math.round(drag.s0 + d), en = Math.round(drag.e0 + d);
+        if (s < 1){ en += 1 - s; s = 1; } if (en > L){ s -= en - L; en = L; }
+        V.view = {s, e: en}; draw(true);
+      } else {
+        clear(); octx.fillStyle = css("--sel");
+        octx.fillRect(Math.min(drag.x0, x), 0, Math.abs(x - drag.x0), ov.height / DPR);
+      }
+      return;
+    }
+    if (x < GUT || x > GUT + plotW || y < 0 || y > ov.height / DPR){ hideTip(); clear(); return; }
+    clear();
+    octx.strokeStyle = css("--crosshair"); octx.lineWidth = 1; octx.setLineDash([3, 3]);
+    octx.beginPath(); octx.moveTo(Math.round(x) + 0.5, 0); octx.lineTo(Math.round(x) + 0.5, ov.height / DPR); octx.stroke(); octx.setLineDash([]);
+    showTip(e, posOf(x));
+  });
+  addEventListener("mouseup", e => {
+    if (!drag) return;
+    const r = stage.getBoundingClientRect(), x = e.clientX - r.left;
+    if (!drag.pan && Math.abs(x - drag.x0) > 4) setView(posOf(Math.min(drag.x0, x)), posOf(Math.max(drag.x0, x)));
+    else if (drag.pan){ V.hist.push({s: drag.s0, e: drag.e0}); buildSidebar(); }
+    drag = null; clear();
+  });
+  stage.addEventListener("dblclick", () => zoom(2));
+  stage.addEventListener("wheel", e => {
+    e.preventDefault(); const r = stage.getBoundingClientRect();
+    zoom(e.deltaY > 0 ? 1.25 : 0.8, posOf(e.clientX - r.left));
+  }, {passive: false});
+  stage.addEventListener("mouseleave", () => { hideTip(); clear(); });
+}
+function valAt(d, f, p){
+  if (!d || d.missing || !d.cols.includes(f)) return null;
+  for (const b of d.blocks) if (p >= b.start && p < b.start + b.len) return b.cols[f][p - b.start] / d.q;
+  return null;
+}
+function hideTip(){ $("tip").style.display = "none"; }
+function showTip(ev, p){
+  const tip = $("tip");
+  let fib = "";
+  for (const b of sharedBlocks()) if (p >= b.start && p < b.start + b.len){
+    const i = p - b.start, nW = b.aw[i], nC = b.ac[i], kW = b.mw[i], kC = b.mc[i];
+    fib = `<tr><td>m6A W / C</td><td class="v">${kW}/${nW} · ${kC}/${nC}</td></tr>`;
+  }
+  const rows = V.runs.map((id, k) => {
+    const d = RD[k];
+    if (!d || d.missing) return `<tr><td>${esc((BYID[id] || {}).label || id)}</td><td class="v">–</td></tr>`;
+    const nuc = valAt(d, "nucleosome", p);
+    const top = d.cols.filter(f => !["nucleosome", "background", "nuc_center"].includes(f))
+      .map(f => [f, valAt(d, f, p)]).filter(x => x[1] !== null && x[1] >= 0.02).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    return `<tr><td>${esc(((BYID[id] || {}).label || id).slice(0, 22))}</td><td class="v">${nuc === null ? "not extracted" :
+      "nuc " + nuc.toFixed(2) + (top.length ? " · " + top.map(([f, v]) => `<span class="sw" style="background:${color(f)}"></span> ${esc(f)} ${v.toFixed(2)}`).join(" · ") : "")}</td></tr>`;
+  }).join("");
+  tip.innerHTML = `<div class="c">${V.chrom}:${fmt(p)} <span style="color:var(--T)">${seqAt(p) || ""}</span></div><table>${fib}${rows}</table>`;
+  tip.style.display = "block";
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.min(innerWidth - w - 8, ev.clientX + 14) + "px";
+  tip.style.top = Math.min(innerHeight - h - 8, ev.clientY + 14) + "px";
+}
+
+/* =============================== routing =============================== */
+function openViewer(ids, chrom, view){
+  location.hash = `#view?runs=${ids.map(encodeURIComponent).join(",")}` + (chrom ? `&chrom=${chrom}` : "");
+}
+async function route(){
+  const h = location.hash;
+  if (h.startsWith("#view?")){
+    const p = new URLSearchParams(h.slice(6));
+    const ids = (p.get("runs") || "").split(",").map(decodeURIComponent).filter(Boolean);
+    $("matrixView").hidden = true; $("viewerView").hidden = false;
+    V.overlay = p.get("overlay") === "1";
+    V.refMac = p.get("mac") !== "0";
+    V.refCx  = p.get("cx")  !== "0";
+    V.hl = p.get("hl") || null;
+    const s = +p.get("s"), e = +p.get("e");
+    const same = ids.join(",") === V.runs.join(",") && p.get("chrom") === V.chrom;
+    if (!same) await setRuns(ids, p.get("chrom"), s && e ? [s, e] : null);
+    else if (s && e && (s !== V.view.s || e !== V.view.e)) setView(s, e, false);
+  } else {
+    $("viewerView").hidden = true; $("matrixView").hidden = false;
+    renderTable();
+  }
+}
+function initViewer(){
+  for (const id of Object.keys(H)) cv[id] = $(id);
+  $("toMatrix").onclick = () => { location.hash = "#matrix"; };
+  $("quick").onchange = e => { if (e.target.value) setRuns([e.target.value], V.chrom, [V.view.s, V.view.e]); };
+  $("addRun").onchange = e => { if (e.target.value) setRuns(V.runs.concat([e.target.value]), V.chrom, [V.view.s, V.view.e]); };
+  $("chips").onclick = e => { const b = e.target.closest("button[data-rm]"); if (b && V.runs.length > 1) setRuns(V.runs.filter(x => x !== b.dataset.rm), V.chrom, [V.view.s, V.view.e]); };
+  $("chromSel").onchange = e => mountChrom(e.target.value);
+  $("go").onclick = jump; $("coord").addEventListener("keydown", e => { if (e.key === "Enter") jump(); });
+  $("gene").addEventListener("change", geneJump); $("gene").addEventListener("keydown", e => { if (e.key === "Enter") geneJump(); });
+  $("zin").onclick = () => zoom(0.5); $("zout").onclick = () => zoom(2);
+  $("back").onclick = () => { const h = V.hist.pop(); if (h) setView(h.s, h.e, false); };
+  $("win").onclick = () => { const [s, e] = windowView(); setView(s, e); };
+  $("whole").onclick = () => setView(1, L);
+  $("overlay").onchange = e => { V.overlay = e.target.checked; renderChips(); resize(); };
+  $("refMac").onchange = e => { V.refMac = e.target.checked; resize(); };
+  $("refCx").onchange  = e => { V.refCx  = e.target.checked; resize(); };
+  $("fsearch").oninput = e => { V.filter = e.target.value; buildSidebar(); };
+  $("flist").onchange = e => {
+    const r = e.target.closest(".frow"); if (!r) return;
+    V.userTouched = true;
+    if (e.target.checked) V.checked.add(r.dataset.f); else V.checked.delete(r.dataset.f);
+    draw(true);
+  };
+  $("flist").onclick = e => {
+    const n = e.target.closest(".fname"); if (!n) return;
+    const f = n.parentElement.dataset.f;
+    V.hl = V.hl === f ? null : f;
+    if (V.hl){ V.checked.add(f); V.userTouched = true; }
+    draw();
+  };
+  document.querySelectorAll("#viewerView .sbtn button").forEach(b => b.onclick = () => {
+    const a = b.dataset.a, fs = allFactors();
+    V.userTouched = a !== "live";
+    if (a === "live") V.checked = defaultChecked();
+    else if (a === "all") V.checked = new Set(fs);
+    else if (a === "none") V.checked = new Set();
+    else if (a === "top") V.checked = new Set(["nucleosome"].concat(fs.filter(f => !["nucleosome", "background", "nuc_center"].includes(f)).map(f => [f, maxInView(f)]).sort((x, y) => y[1] - x[1]).slice(0, 10).map(x => x[0])));
+    draw();
+  });
+  addEventListener("keydown", e => {
+    if ($("viewerView").hidden || ["INPUT", "SELECT"].includes(e.target.tagName)) return;
+    const n = nView();
+    if (e.key === "ArrowLeft") setView(V.view.s - n * 0.1, V.view.e - n * 0.1);
+    else if (e.key === "ArrowRight") setView(V.view.s + n * 0.1, V.view.e + n * 0.1);
+    else if (e.key === "+" || e.key === "=") zoom(0.5);
+    else if (e.key === "-") zoom(2);
+  });
+  addEventListener("resize", () => { if (!$("viewerView").hidden) resize(); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(true));
+  initMouse();
+  $("vFoot").innerHTML = `<p><b>Reading this.</b> One lane per run: grey = nucleosome occupancy, lines = the ticked factors'
+    posterior (per-factor columns of RoboCOP's optable, stored at 0.01 resolution). Shaded = not extracted (only the
+    windows in <code>windows.tsv</code> are, for now). Drag to zoom, shift-drag to pan, wheel to zoom, double-click to
+    zoom out; click the strip at the top to jump along the chromosome. m6A, depth, sequence and genes come from one
+    reference decode and are drawn once: <code>fiber_check.json</code> verifies every run used the same Fiber-seq counts.
+    Reference sites: MacIsaac ABF1/REB1 bed as shipped, plus MacIsaac c1 and Rossi _CX sites for the highlighted
+    factor's group (ABF1 by default).</p>`;
+}
+
+async function main(){
+  try {
+    [REG, BUILD] = await Promise.all([getJSON("runs.json"), getJSON("build_info.json").catch(() => ({}))]);
+  } catch (e){ document.body.innerHTML = `<p style="padding:20px">Could not load runs.json: ${esc(e.message)}</p>`; return; }
+  FIBER = await getJSON("fiber_check.json").catch(() => null);
+  COLORS = await getJSON("colors.json").catch(() => ({colors: {}, groups: {}}));
+  RUNS = REG.runs; RUNS.forEach(r => BYID[r.run_id] = r);
+  (BUILD.windows || []).forEach(w => WINDOW_CHROMS.add(w.chrom));
+  if (FIBER && FIBER.differing && FIBER.differing.length){
+    const b = $("banner"); b.hidden = false;
+    b.textContent = `Fiber-seq input differs from the shared reference (${FIBER.reference ? Object.values(FIBER.reference)[0] : "?"}) for: ` +
+      FIBER.differing.join(", ") + ". Their m6A panel would not be the data they were decoded with.";
+  }
+  initMatrix(); initViewer();
+  addEventListener("hashchange", route);
+  route();
+}
+main();

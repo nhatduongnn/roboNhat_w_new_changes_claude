@@ -50,6 +50,7 @@ analysis/**/negParamsMNase.pkl
 # the rest of the dir (config.ini, coords.tsv, pwm.p, figures/, score_report.json) is
 # small and IS tracked, so a run stays reproducible from what is committed.
 analysis/**/tmpDir/
+analysis/**/factor_tables/
 # Full FIMO placement tables (--thresh 1 --text over a whole chromosome, 33 MB each).
 # The filtered fimo_out/ results next to them are tracked.
 analysis/**/fimo_all.tsv
@@ -87,3 +88,5 @@ analysis/conc_tuning/counts_tw_*/calls/
 analysis/overnight/counts_*/
 # Superseded viewer build; the live page is tuned_occupancy_viewer_tempered.html
 presentation/tuned_occupancy_viewer.html
+# Superseded first decoy trainings (rebuilt seeded from the comparators nucleosome model)
+analysis/robocop_train_*.unseeded_nucmodel/

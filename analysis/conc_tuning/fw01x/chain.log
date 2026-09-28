@@ -1,0 +1,30 @@
+2026-09-20 00:16:44  iter 00  submitted decode 12649568 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_00) count 12649569 next 12649570
+2026-09-20 00:17:00  iter 00  holdout submitter twHS_fw01x_00 job 12649572 (runs 'tune_w.py holdout --iter 0' after next 12649570; staggered round-0 holdout)
+2026-09-20 06:21:24  iter 01  submitted decode 12650333 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_01) count 12650334 next 12650335
+2026-09-20 06:21:52  iter 00  holdout: decode 12650337 (robocop_chrIV_tw_fw01x_00) count 12650338 validate 12650339
+2026-09-20 08:03:06  iter 02  submitted decode 12650800 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_02) count 12650801 next 12650802
+2026-09-20 09:15:43  iter 03  submitted decode 12651309 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_03) count 12651310 next 12651311
+2026-09-20 10:13:17  iter 04  submitted decode 12651852 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_04) count 12651853 next 12651854
+2026-09-20 11:00:50  iter 05  submitted decode 12652228 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_05) count 12652229 next 12652230
+2026-09-20 11:38:53  iter 06  submitted decode 12652581 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_06) count 12652582 next 12652583
+2026-09-20 12:09:54  iter 07  submitted decode 12652910 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_07) count 12652911 next 12652912
+2026-09-20 12:41:27  iter 08  submitted decode 12653296 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_08) count 12653297 next 12653298
+2026-09-20 13:12:30  iter 09  submitted decode 12653659 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_09) count 12653660 next 12653661
+2026-09-20 13:28:29  iter 09  STOPPED: error: RuntimeError('missing count table /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/conc_tuning/counts_tw_fw01x_09/chrXIV.tsv')
+resume 2026-09-21: round 9 decode failed 40/40 on rpy2 startup in the original mr58 tree. User decision: switch to the lazy-import copy (pkgvar/*_maskoff_mr58lazy; only parameters.py differs, no numeric effect) from round 9 on. Backup state_before_lazytree_09.json. Resubmitting round 9.
+2026-09-21 11:19:15  iter 09  submitted decode 12664973 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_09) count 12664974 next 12664975
+2026-09-21 12:26:49  iter 10  submitted decode 12665865 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_10) count 12665866 next 12665867
+2026-09-21 13:00:43  iter 11  submitted decode 12666421 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_11) count 12666422 next 12666423
+2026-09-21 13:17:13  iter 12  submitted decode 12666707 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_12) count 12666708 next 12666709
+2026-09-21 13:33:13  iter 13  submitted decode 12667043 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_13) count 12667044 next 12667045
+2026-09-21 13:51:14  iter 14  submitted decode 12667180 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_14) count 12667181 next 12667182
+2026-09-21 14:08:32  iter 15  submitted decode 12668037 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_15) count 12668038 next 12668039
+2026-09-21 14:24:46  iter 16  submitted decode 12668742 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_16) count 12668743 next 12668744
+2026-09-21 14:41:27  iter 17  submitted decode 12669353 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_17) count 12669354 next 12669355
+2026-09-21 14:59:19  iter 18  submitted decode 12669571 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_18) count 12669572 next 12669573
+2026-09-21 15:17:50  iter 19  submitted decode 12669859 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_19) count 12669860 next 12669861
+2026-09-21 15:36:54  iter 20  submitted decode 12670121 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_20) count 12670122 next 12670123
+2026-09-21 15:54:27  iter 21  submitted decode 12670537 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_21) count 12670538 next 12670539
+2026-09-21 16:11:30  iter 22  submitted decode 12670983 (40 tasks, robocop_chrXIV_chrII_tw_fw01x_22) count 12670984 next 12670985
+2026-09-21 16:53:34  iter 22  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-21 16:53:35  iter 22  holdout: decode 12672234 (robocop_chrIV_tw_fw01x_22) count 12672235 validate 12672236

@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrI_seq_maskoff_lowabf1",
+ "original_outdir": "robocop_chrI_seq_maskoff_lowabf1",
+ "driver": "run_split_variant_lowabf1.py",
+ "pkg_tree": "pkgvar/seq_maskoff_lowabf1",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_fiberonly",
+ "traindir_exists": true,
+ "coords": "coord_chrI_full.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:10",
+ "slurm_job_id": null,
+ "source": "backfill:log"
+}

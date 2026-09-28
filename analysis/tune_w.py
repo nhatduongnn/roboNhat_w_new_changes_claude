@@ -29,6 +29,14 @@ Update rule (per tuned group; `propose`)
             clipped to +-ln 10 (1 decade)
     bisection: if th_under < th_over and the new delta leaves (th_under, th_over): midpoint,
                re-clipped to 1 decade from the current delta
+    bracket expiry (2026-09-18; campaigns whose state has `bracket_max_age`, i.e. every campaign
+               init'd from now on): an end not re-confirmed by a measurement for more than
+               bracket_max_age updates is dropped. Without it an end is kept forever, and because
+               a group's count at a fixed delta drifts as the OTHER groups' weights move, a stale
+               end pinned 3 bw01 and 13 fw01 groups off target: e.g. bw01 BAS1 was under target
+               at delta 0 in round 0 (E 4.77), over at the same delta from round 3 on (E 14.3,
+               2.05x), and bisection halved its distance to 0 every round until the 25-round
+               cap (steps ~1e-8 decade, which also blocked the zero-step convergence stop).
     cap: new delta <= group per-bp cap
     flags: capped_under  = at the per-bp cap and still under target (gap > ln 1.25)
            falling_over  = delta fell in each of the last FALL_ROUNDS updates and still over target
@@ -41,12 +49,43 @@ chrIV holdout decode of the last decoded round.
 Commands
 --------
     python tune_w.py init    --run fw01 --driver run_split_revfix_fiber_maskoff_mr58.py
+    python tune_w.py init    --run ba01 --driver run_split_revfix_seq_maskoff_abf1only.py --config both \
+                             --factor-set abf1only --max-rounds 25 --deadband 1.1   # masked campaign
     python tune_w.py build   --run fw01 --iter 0
     python tune_w.py submit  --run fw01 --iter 0 --chain
     python tune_w.py holdout --run fw01 --iter 0
     python tune_w.py update  --run fw01 --iter 0          # normally run by the chain (`next`)
     python tune_w.py status  --run fw01
     python tune_w.py stop    --run fw01                   # scancel the campaign's jobs + STOPPED
+
+Widened-motif campaigns (added 2026-09-19; every flag is opt-in, defaults unchanged)
+----------------------------------------------------------------------------------
+    python tune_w.py init --run bp20 --driver run_split_revfix_seq_maskoff_abf1w20.py --config both \
+        --factor-set abf1only --max-rounds 50 --deadband 1.1 \
+        --src-traindir robocop_train_abf1_pm20 --cap-core-traindir robocop_train_fiberonly \
+        --summary wide_summary.py
+  --src-traindir      trainDir every round is built from (default robocop_train_fiberonly); Kd and L
+                      come from ITS pwm.p, so lambda 1 is that model's own default.
+  --cap-core-traindir judge the per-bp cap on the CORE motif: cap_delta and every rho test use
+                      (Kd_core * lambda)^(1/L_core) with Kd_core/L_core from that trainDir's pwm.p
+                      (state key cap_basis). Needed because a padded motif's own rho at lambda 1 is
+                      already over 0.70 (ABF1 +/-20: 0.719, +/-100: 0.867).
+  --summary           script the on-stop refresh runs (default masked_summary.py for factor sets).
+
+Tied motifs (added 2026-09-21 for the ABF1-decoy campaigns bd14/fd14/sd14/bd72/fd72/sd72; opt-in,
+a state without the key `tied` behaves exactly as before)
+----------------------------------------------------------------------------------------------
+    python tune_w.py init --run bd14 --driver run_split_revfix_seq_maskoff_decoy14.py --config both \
+        --factor-set abf1only --max-rounds 50 --deadband 1.1 --src-traindir robocop_train_decoy14 \
+        --tie Zz_decoy_abf1=ABF1 --summary decoy_summary.py
+  --tie MOTIF=GROUP[:RATIO]  MOTIF is live (the driver keeps it) but is NOT a tuned group and has no
+                      target: every round its weight is w_MOTIF = RATIO * w_target, where target is
+                      GROUP's single motif, i.e. lambda_MOTIF = RATIO * Kd_target * lambda_target / Kd_MOTIF
+                      (lam_vector). Its per-bp cap is judged on the target's basis (the core basis
+                      under --cap-core-traindir), scaled by RATIO. Its occupancy and fixed-threshold
+                      calls are recorded in history["tied"] and written to <run>/tied_NN.tsv (not to
+                      report_NN.tsv, whose rows other scripts read as groups). It never enters the
+                      rule, the targets, the stop rule, or tw_validate's scoring.
 """
 import argparse
 import csv
@@ -74,6 +113,7 @@ RHO_MAX = 0.70                  # per-bp weight cap: w^(1/L) <= 0.70 (the ONLY b
 E_MIN = 0.5                     # copies; below this E carries no slope
 DEADBAND = math.log(1.25)       # the default; a campaign's state.json may override (apply_settings)
 SECANT_MIN_DDELTA = 0.1
+BRACKET_MAX_AGE = 3             # updates; new campaigns only (state key bracket_max_age)
 FALL_ROUNDS = 3
 MAX_ROUNDS = 8                  # rounds 0..7; default, overridable per campaign
 DEFAULT_DEADBAND, DEFAULT_MAX_ROUNDS = DEADBAND, MAX_ROUNDS
@@ -123,8 +163,9 @@ def group_cap(motifs, kd, L, rho_max=RHO_MAX):
     return min(L[m] * math.log(rho_max) - math.log(kd[m]) for m in motifs)
 
 
-def propose(T, E, delta, hi, gs):
-    """One group's update. gs is the group's mutable rule state. Returns (new_delta, info)."""
+def propose(T, E, delta, hi, gs, max_age=None):
+    """One group's update. gs is the group's mutable rule state. Returns (new_delta, info).
+    max_age None keeps the original bracket (ends kept forever); an int enables expiry."""
     _finite(T, E, delta, hi)
     if T < 0 or E < -1e-6:
         raise ValueError("negative T %r or E %r" % (T, E))
@@ -135,10 +176,27 @@ def propose(T, E, delta, hi, gs):
     gap = yT - y
     censored = E < E_MIN
     tu, to = gs.get("th_under"), gs.get("th_over")
-    if gap > 0:
-        tu = delta if tu is None else max(tu, delta)
-    elif gap < 0:
-        to = delta if to is None else min(to, delta)
+    expired = []
+    if max_age is None:
+        if gap > 0:
+            tu = delta if tu is None else max(tu, delta)
+        elif gap < 0:
+            to = delta if to is None else min(to, delta)
+    else:
+        n = gs.get("n_upd", 0)                       # updates applied before this one
+        tu_n, to_n = gs.get("th_under_n", n), gs.get("th_over_n", n)
+        if tu is not None and n - tu_n > max_age:
+            expired.append("under")
+            tu = None
+        if to is not None and n - to_n > max_age:
+            expired.append("over")
+            to = None
+        if gap > 0 and (tu is None or delta >= tu):  # a new or re-confirmed end restarts its age
+            tu, tu_n = delta, n
+        elif gap < 0 and (to is None or delta <= to):
+            to, to_n = delta, n
+        gs.update(n_upd=n + 1, th_under_n=tu_n if tu is not None else None,
+                  th_over_n=to_n if to is not None else None)
     slope = None
     dp, Ep = gs.get("delta_prev"), gs.get("E_prev")
     if dp is not None and not censored and Ep >= E_MIN and abs(delta - dp) >= SECANT_MIN_DDELTA:
@@ -167,6 +225,8 @@ def propose(T, E, delta, hi, gs):
     if new > hi:
         new = hi
         why += "+rho-cap"
+    if expired:
+        why += "+expired-" + "-".join(expired)
     _finite(new, beta, alpha)
     at_cap = new >= hi - 1e-9
     gs.update(delta_prev=delta, E_prev=E, gap_prev=gap, beta=beta, alpha=alpha,
@@ -235,8 +295,25 @@ def write_stop(run, t, reason):
 
 
 # ================================================================ init
-def factor_set():
-    """The 58 MacIsaac-and-Rossi groups -> motifs, targets on the tuning chromosomes."""
+# Named factor sets (added 2026-09-16, masked campaigns). Each is a subset of the default 58-group
+# set; a group maps to the motifs that stay LIVE (e.g. fit9's RAP1 is Rap1_telomeric only).
+# The expected targets and frozen groups are asserted by cmd_init, so a changed input is caught.
+FACTOR_SETS = {
+    "abf1only": {"ABF1": ["Abf1_murphy"]},
+    "fit9": {"ABF1": ["Abf1_murphy"], "CIN5": ["Cin5_murphy"], "FHL1": ["Fhl1_zhu"],
+             "FKH1": ["Fkh1_zhu"], "MCM1": ["Mcm1_zhu"], "RAP1": ["Rap1_telomeric"],
+             "REB1": ["Reb1_badis"], "SKO1": ["Sko1_murphy"], "UME6": ["Ume6_zhu"]},
+}
+EXPECT_T = {
+    "abf1only": {"ABF1": 58},
+    "fit9": {"ABF1": 58, "CIN5": 49, "FHL1": 21, "FKH1": 23, "MCM1": 11, "RAP1": 29, "REB1": 44,
+             "SKO1": 5, "UME6": 19},
+}
+
+
+def factor_set(name=None):
+    """The 58 MacIsaac-and-Rossi groups -> motifs, targets on the tuning chromosomes.
+    With `name` (a FACTOR_SETS key): that subset only, `fitted` recomputed over its live motifs."""
     import rossi_validate as RV
     groups = RV.load_groups()
     _, meta = RV.load_references(groups)
@@ -248,7 +325,17 @@ def factor_set():
             if r["group"] in G:
                 T.setdefault(r["group"], sum(int(r[c]) for c in TUNE_CHROMS))
     fitted = {m["group"]: int(m["fitted"]) for m in meta if m["group"] in G}
-    return G, T, fitted
+    if name is None:
+        return G, T, fitted
+    if name not in FACTOR_SETS:
+        raise ValueError("unknown factor set %r (known: %s)" % (name, sorted(FACTOR_SETS)))
+    sub = FACTOR_SETS[name]
+    for g, ms in sub.items():
+        if g not in G or not set(ms) <= set(G[g]):
+            raise ValueError("factor set %s: %s %s is not within the 58-group set (%s)"
+                             % (name, g, ms, G.get(g)))
+    return ({g: list(ms) for g, ms in sub.items()}, {g: T[g] for g in sub},
+            {g: int(any(m in RV.FITTED for m in ms)) for g, ms in sub.items()})
 
 
 def driver_keep(driver):
@@ -257,59 +344,213 @@ def driver_keep(driver):
     if not m:
         raise ValueError("cannot find the pkgvar path in %s" % driver)
     extras = os.path.join(HERE, m.group(1), "robocop", "utils", "robocopExtras.py")
-    body = open(extras).read().split("KEEP_MR58 = {")[1].split("}")[0]
-    return m.group(1), set(re.findall(r"'([^']+)'", body))
+    blocks = re.findall(r"^\s*KEEP_[A-Z0-9_]+ = \{([^}]*)\}", open(extras).read(), re.M)
+    if len(blocks) != 1:
+        raise ValueError("%s has %d KEEP_* sets, expected exactly 1" % (extras, len(blocks)))
+    return m.group(1), set(re.findall(r"'([^']+)'", blocks[0]))
 
 
-def cmd_init(run, driver, config):
+def rho_basis(st, m):
+    """(Kd, L) that motif m's per-bp cap is judged on: the core motif's (state key cap_basis, set by
+    init --cap-core-traindir) when present, else the campaign's own Kd/L (the original behaviour)."""
+    cb = st.get("cap_basis")
+    if cb and m in cb["kd"]:
+        return cb["kd"][m], cb["L"][m]
+    return st["kd"][m], st["L"][m]
+
+
+def core_rho(cb, m, lam_m):
+    """Per-bp weight of motif m judged on its core: (Kd_core * lambda)^(1/L_core)."""
+    return math.exp((math.log(cb["kd"][m]) + math.log(lam_m)) / cb["L"][m])
+
+
+def parse_tie(spec):
+    """'MOTIF=GROUP[:RATIO]' -> (motif, group, ratio)."""
+    m = re.fullmatch(r"([^=:\s]+)=([^=:\s]+)(?::([^=:\s]+))?", spec)
+    if not m:
+        raise ValueError("bad --tie %r (expected MOTIF=GROUP[:RATIO])" % spec)
+    ratio = 1.0 if m.group(3) is None else float(m.group(3))
+    if not (math.isfinite(ratio) and ratio > 0):
+        raise ValueError("bad --tie ratio in %r" % spec)
+    return m.group(1), m.group(2), ratio
+
+
+def tied_lam(st, lam):
+    """lambda of every tied motif from its target's lambda (in `lam`): w_tied = ratio * w_target."""
+    out = {}
+    for d, tv in st["tied"].items():
+        tgt = tv["target"]
+        out[d] = math.exp(math.log(tv["ratio"]) + math.log(st["kd"][tgt]) + math.log(lam[tgt])
+                          - math.log(tv["kd"]))
+    return out
+
+
+def tied_rho(st, d, lam_target):
+    """Per-bp weight of tied motif d, judged on its target's rho basis (core basis if cap_basis
+    covers the target), with the target's weight scaled by the tie ratio."""
+    tv = st["tied"][d]
+    kd_b, L_b = rho_basis(st, tv["target"])
+    return math.exp((math.log(kd_b) + math.log(lam_target) + math.log(tv["ratio"])) / L_b)
+
+
+def cmd_init(run, driver, config, set_name=None, max_rounds=None, deadband_fold=None,
+             src_traindir=None, cap_core_traindir=None, summary=None, tie=None):
+    """set_name None = the default 58 groups / 61 motifs + unknown live (unchanged behaviour).
+    A named set (FACTOR_SETS) expects `unknown` MASKED by the driver, no frozen groups, and the
+    EXPECT_T targets. max_rounds / deadband_fold, when given, are written into the state.
+    src_traindir (default SRC_TRAINDIR), cap_core_traindir and summary: see the module docstring;
+    each is opt-in and, when None, leaves the state exactly as before."""
     if load_state(run):
         sys.exit("campaign %s already exists" % run)
+    if summary is not None and set_name is None:
+        sys.exit("--summary only applies to a --factor-set campaign (it sets on_stop.summary)")
+    src_td = SRC_TRAINDIR if src_traindir is None else src_traindir
+    for td in [src_td] + ([cap_core_traindir] if cap_core_traindir else []):
+        for fn in ("pwm.p", "HMMconfig.pkl"):
+            if not os.path.isfile(os.path.join(HERE, td, fn)):
+                sys.exit("%s has no %s" % (td, fn))
+    if summary is not None and not os.path.isfile(os.path.join(HERE, summary)):
+        sys.exit("--summary %s not found" % summary)
     import pickle
     sys.path.insert(0, os.path.join(HERE, "../pkg/"))
-    from robocop.utils.parameterize import calculateKD
+    from robocop_kd import calculateKD   # R-free copy; see robocop_kd.py
     import make_w_trainDir as MW
-    G, T, fitted = factor_set()
+    G, T, fitted = factor_set(set_name)
     motifs = [m for g in G for m in G[g]]
-    if (len(G), len(motifs)) != (58, 61):
-        sys.exit("factor set is %d groups / %d motifs, expected 58 / 61" % (len(G), len(motifs)))
+    if set_name is None:
+        want_shape, want_keep, want_frozen = (58, 61), set(motifs) | {"unknown"}, EXPECT_FROZEN
+    else:
+        want_shape, want_keep, want_frozen = (len(FACTOR_SETS[set_name]),) * 2, set(motifs), set()
+        if T != EXPECT_T[set_name]:
+            sys.exit("factor set %s targets %s != expected %s" % (set_name, T, EXPECT_T[set_name]))
+    if (len(G), len(motifs)) != want_shape:
+        sys.exit("factor set is %d groups / %d motifs, expected %d / %d" % ((len(G), len(motifs)) + want_shape))
+    ties = {}
+    for spec in (tie or []):
+        try:
+            d, g, ratio = parse_tie(spec)
+        except ValueError as e:
+            sys.exit(str(e))
+        if d in ties or d in motifs or d == "unknown":
+            sys.exit("--tie %s: %s is already a group motif, unknown, or tied twice" % (spec, d))
+        if g not in G:
+            sys.exit("--tie %s: %s is not a group of this campaign (%s)" % (spec, g, sorted(G)))
+        if len(G[g]) != 1:
+            sys.exit("--tie %s: group %s has %d motifs; a tie needs a single-motif target" % (spec, g, len(G[g])))
+        ties[d] = dict(group=g, target=G[g][0], ratio=ratio)
+    if ties:
+        want_keep = want_keep | set(ties)
     pkgvar, keep = driver_keep(driver)
-    if keep != set(motifs) | {"unknown"}:
-        sys.exit("driver %s keeps %d names that differ from the 61 motifs + unknown: %s"
-                 % (driver, len(keep), sorted(keep ^ (set(motifs) | {"unknown"}))))
+    if keep != want_keep:
+        sys.exit("driver %s keeps %d names that differ from the %d motifs%s: %s"
+                 % (driver, len(keep), len(motifs), " + unknown" if set_name is None else "",
+                    sorted(keep ^ want_keep)))
     frozen = sorted(g for g in G if T[g] == 0)
-    if set(frozen) != EXPECT_FROZEN:
-        sys.exit("frozen groups %s != expected %s" % (frozen, sorted(EXPECT_FROZEN)))
-    pwm = pickle.load(open(os.path.join(HERE, SRC_TRAINDIR, "pwm.p"), "rb"))
+    if set(frozen) != want_frozen:
+        sys.exit("frozen groups %s != expected %s" % (frozen, sorted(want_frozen)))
+    if max_rounds is not None and max_rounds < 1:
+        sys.exit("bad --max-rounds %r" % max_rounds)
+    if deadband_fold is not None and not (math.isfinite(deadband_fold) and deadband_fold > 1.0):
+        sys.exit("bad --deadband %r" % deadband_fold)
+    mr = MAX_ROUNDS if max_rounds is None else int(max_rounds)
+    db = DEADBAND if deadband_fold is None else math.log(deadband_fold)
+    pwm = pickle.load(open(os.path.join(HERE, src_td, "pwm.p"), "rb"))
     kd = {m: float(calculateKD(pwm, m)) for m in motifs}
     L = {m: int(pwm[m].shape[1]) for m in motifs}
-    cap = {g: group_cap(G[g], kd, L) for g in G}
+    cap_basis = None
+    if cap_core_traindir is None:
+        cap = {g: group_cap(G[g], kd, L) for g in G}
+    else:
+        import numpy as np
+        pwm_core = pickle.load(open(os.path.join(HERE, cap_core_traindir, "pwm.p"), "rb"))
+        kd_core = {m: float(calculateKD(pwm_core, m)) for m in motifs}
+        L_core = {m: int(pwm_core[m].shape[1]) for m in motifs}
+        for m in motifs:        # the core must sit verbatim inside the campaign's (widened) motif
+            wide, core = np.asarray(pwm[m])[:4], np.asarray(pwm_core[m])[:4]
+            offs = [o for o in range(wide.shape[1] - core.shape[1] + 1)
+                    if np.array_equal(wide[:, o:o + core.shape[1]], core)]
+            if not offs:
+                sys.exit("%s: the %s core (L %d) is not contained verbatim in the %s motif (L %d)"
+                         % (m, cap_core_traindir, core.shape[1], src_td, wide.shape[1]))
+        cap = {g: group_cap(G[g], kd_core, L_core) for g in G}
+        own = {g: group_cap(G[g], kd, L) for g in G}
+        cap_basis = dict(traindir=cap_core_traindir, kd=kd_core, L=L_core,
+                         own_cap_delta=own,
+                         note="per-bp cap judged on the core motif: rho = (Kd_core*lambda)^(1/L_core); "
+                              "lambda multiplies the campaign's own Kd (from %s)" % src_td)
     over = [g for g in G if cap[g] < 0]
     if over:
         sys.exit("pristine lambda 1 already exceeds the rho cap for %s" % over)
-    st = dict(run=run, config=config, driver=driver, pkgvar=pkgvar, src_traindir=SRC_TRAINDIR,
+    for d, tv in ties.items():
+        if d not in pwm:
+            sys.exit("--tie: %s is not in %s/pwm.p" % (d, src_td))
+        tv["kd"] = float(calculateKD(pwm, d))
+        tv["L"] = int(pwm[d].shape[1])
+        if not (tv["kd"] > 0 and math.isfinite(tv["kd"])):
+            sys.exit("--tie: Kd of %s is %r" % (d, tv["kd"]))
+        if tv["ratio"] > 1.0:     # then the target's cap would not bound the tied motif's rho
+            sys.exit("--tie %s: ratio %g > 1 is not supported (the tied rho would exceed the target's)"
+                     % (d, tv["ratio"]))
+        tv["note"] = ("w_%s = ratio * w_%s every round (lambda = ratio*Kd_target*lambda_target/Kd); "
+                      "live, untargeted, never tuned; rho judged on the target's basis" % (d, tv["target"]))
+    st = dict(run=run, config=config, driver=driver, pkgvar=pkgvar, src_traindir=src_td,
               tune_chroms=TUNE_CHROMS, holdout_chrom=HOLDOUT_CHROM,
               coords_tune=COORDS_TUNE, coords_holdout=COORDS_HOLDOUT, ntask=NTASK,
               groups=G, target=T, fitted=fitted, frozen=frozen,
               tuned=sorted(g for g in G if g not in frozen), kd=kd, L=L, cap_delta=cap,
               rule=dict(ALPHA0=ALPHA0, ALPHA_FLOOR=ALPHA_FLOOR, BETA0=BETA0, BETA_LO=BETA_LO,
                         BETA_HI=BETA_HI, STEP_CAP_DECADES=STEP_CAP / LN10, RHO_MAX=RHO_MAX,
-                        E_MIN=E_MIN, DEADBAND=DEADBAND, SECANT_MIN_DDELTA=SECANT_MIN_DDELTA,
-                        FALL_ROUNDS=FALL_ROUNDS, MAX_ROUNDS=MAX_ROUNDS, NUC_WARN=NUC_WARN,
+                        E_MIN=E_MIN, DEADBAND=db, SECANT_MIN_DDELTA=SECANT_MIN_DDELTA,
+                        FALL_ROUNDS=FALL_ROUNDS, MAX_ROUNDS=mr, NUC_WARN=NUC_WARN,
                         lambda_bounds="NONE (only the per-bp cap)"),
               unknown=dict(base=MW.UNKNOWN_BASE, lam=LAM_UNKNOWN, w=MW.UNKNOWN_BASE * LAM_UNKNOWN,
                            fixed=True,
                            note="w_unknown = 1e-3 is identical to the legacy lambda 0.01 x base 0.1"),
               nucleosome=dict(w=MW.NUC_BASE, hold=False, stop_rule=False),
               delta={g: 0.0 for g in G}, rule_state={g: {} for g in G},
-              iter=0, history=[], built={}, jobs={})
+              iter=0, history=[], built={}, jobs={}, bracket_max_age=BRACKET_MAX_AGE)
+    if max_rounds is not None:
+        st["max_rounds"] = mr
+    if deadband_fold is not None:
+        st["deadband"] = db
+    if set_name is not None:
+        st["factor_set"] = set_name
+        st["unknown"]["masked"] = True
+        st["unknown"]["note"] = "unknown is hard-masked by the driver (%s); w_unknown 1e-3 is pure gauge" % pkgvar
+        # on stop: chrIV holdout (as always) + Chereji nucleosomes + masked_summary.py (on_stop_refresh)
+        st["on_stop"] = dict(chereji=True, summary="masked_summary.py" if summary is None else summary)
+    if cap_basis is not None:
+        st["cap_basis"] = cap_basis
+    if ties:
+        st["tied"] = ties
     save_state(st)
     print("init %s: config %s, driver %s (%s)" % (run, config, driver, pkgvar))
-    print("  58 groups / 61 motifs; frozen (T=0 on %s): %s; tuned %d"
-          % ("+".join(TUNE_CHROMS), ", ".join(frozen), len(st["tuned"])))
+    print("  %s: %d groups / %d motifs; frozen (T=0 on %s): %s; tuned %d"
+          % (set_name or "default set", len(G), len(motifs), "+".join(TUNE_CHROMS), ", ".join(frozen) or "none",
+             len(st["tuned"])))
+    if set_name:
+        print("  targets T: " + ", ".join("%s %d" % (g, T[g]) for g in sorted(G)))
+    print("  stop settings: max_rounds %d, deadband %.4gx%s" % (mr, math.exp(db), "" if (max_rounds or deadband_fold) else " (defaults)"))
     print("  unknown: base %g x lambda %g = w %g (fixed)" % (MW.UNKNOWN_BASE, LAM_UNKNOWN,
                                                               MW.UNKNOWN_BASE * LAM_UNKNOWN))
     tight = sorted(G, key=lambda g: cap[g])[:5]
     print("  tightest per-bp caps (lambda): " + ", ".join("%s %.3g" % (g, math.exp(cap[g])) for g in tight))
+    if src_traindir is not None:
+        print("  src trainDir: %s (Kd/L from its pwm.p: %s)"
+              % (src_td, ", ".join("%s Kd %.4g L %d" % (m, kd[m], L[m]) for m in motifs[:5])))
+    if cap_basis is not None:
+        print("  cap basis: CORE motif from %s: %s" % (cap_core_traindir, ", ".join(
+            "%s Kd %.4g L %d" % (m, cap_basis["kd"][m], cap_basis["L"][m]) for m in motifs[:5])))
+        print("  cap_delta (core): %s | own-motif cap_delta would be: %s | own rho at lambda 1: %s"
+              % (", ".join("%s %.4f" % (g, cap[g]) for g in sorted(G)[:5]),
+                 ", ".join("%s %.4f" % (g, cap_basis["own_cap_delta"][g]) for g in sorted(G)[:5]),
+                 ", ".join("%s %.4f" % (m, kd[m] ** (1.0 / L[m])) for m in motifs[:5])))
+    if summary is not None:
+        print("  on-stop summary: %s" % summary)
+    for d, tv in ties.items():
+        print("  tied: %s (Kd %.17g, L %d) = %g x w_%s (Kd %.6g, L %d); lambda_%s at round 0 = %.6g"
+              % (d, tv["kd"], tv["L"], tv["ratio"], tv["target"], kd[tv["target"]], L[tv["target"]], d,
+                 tied_lam(st, {x["target"]: 1.0 for x in ties.values()})[d]))
     return st
 
 
@@ -317,6 +558,8 @@ def cmd_init(run, driver, config):
 def lam_vector(st):
     lam = {m: math.exp(st["delta"][g]) for g, ms in st["groups"].items() for m in ms}
     lam["unknown"] = st["unknown"]["lam"]
+    if st.get("tied"):
+        lam.update(tied_lam(st, lam))
     return lam
 
 
@@ -346,6 +589,10 @@ def verify_traindir(st, t):
     dw = max(abs(back[k] - th[k]) for k in list(cfg["tfs"]) + ["nucleosome"])
     lens = {x: int(cfg["tf_lens"][i]) for i, x in enumerate(cfg["tfs"])}
     rho = max(math.exp(back[m] / lens[m]) for m in cfg["tfs"] if m != "unknown")
+    cb = st.get("cap_basis")
+    if cb:      # core basis for the cap_basis motifs, the built model's own rho for every other TF
+        rho = max(core_rho(cb, m, lam[m]) if m in cb["kd"] else math.exp(back[m] / lens[m])
+                  for m in cfg["tfs"] if m != "unknown")
     w_unk = math.exp(back["unknown"])
     w_nuc = math.exp(back["nucleosome"])
     a = open(os.path.join(HERE, st["src_traindir"], "config.ini")).read()
@@ -353,11 +600,27 @@ def verify_traindir(st, t):
     cfg_diff = [(x, y) for x, y in zip(a.splitlines(), b.splitlines()) if x != y]
     if len(a.splitlines()) != len(b.splitlines()):
         cfg_diff.append(("<len>", "<len>"))
+    tied = st.get("tied")
+    if tied:    # a tied motif is judged on its target's basis (tied_rho); every other TF as above
+        rho = max(tied_rho(st, m, lam[tied[m]["target"]]) if m in tied
+                  else (core_rho(cb, m, lam[m]) if (cb and m in cb["kd"]) else math.exp(back[m] / lens[m]))
+                  for m in cfg["tfs"] if m != "unknown")
+        # the tie itself, read back from the BUILT model: ln w_tied - ln w_target - ln ratio
+        tie_dw = {d: back[d] - back[tv["target"]] - math.log(tv["ratio"]) for d, tv in tied.items()}
     ok = dw <= 1e-9 and rho <= RHO_MAX + 1e-9 and abs(w_unk / 1e-3 - 1) < 1e-9 \
         and abs(w_nuc / 35 - 1) < 1e-9 and not cfg_diff
+    if tied:
+        ok = ok and all(abs(v) <= 1e-9 for v in tie_dw.values())
     msg = ("verify %s: max|ln w - req| %.2e, max TF rho %.4f, w_unknown %.6g, w_nuc %.6g, "
            "config.ini diff vs src: %s" % (os.path.basename(td), dw, rho, w_unk, w_nuc,
                                             cfg_diff or "none"))
+    if cb:
+        msg += " [rho on core basis for %s from %s]" % (",".join(sorted(cb["kd"])), cb["traindir"])
+    if tied:
+        msg += " [tied: %s]" % "; ".join(
+            "w_%s %.17g = %g x w_%s %.17g, ln-diff %.2e, rho on %s basis %.4f"
+            % (d, math.exp(back[d]), tv["ratio"], tv["target"], math.exp(back[tv["target"]]), tie_dw[d],
+               tv["target"], tied_rho(st, d, lam[tv["target"]])) for d, tv in sorted(tied.items()))
     print(msg)
     if not ok:
         raise RuntimeError("TRAINDIR VERIFY FAILED: " + msg)
@@ -372,7 +635,23 @@ def cmd_build(st, t):
         print("%s exists; not rebuilding" % td)
     else:
         lam = lam_vector(st)
-        patch = MW.build(os.path.join(HERE, st["src_traindir"]), lam, tdp, rho_check=True)
+        cb = st.get("cap_basis")
+        if cb:
+            # the padded motif's own rho is over 0.70 by construction, so make_w_trainDir's rho
+            # gate is off and the cap is checked here on the core; verify_traindir re-checks it
+            # (core basis) together with every other TF's own rho after the build.
+            over = {m: core_rho(cb, m, lam[m]) for m in cb["kd"]
+                    if (math.log(cb["kd"][m]) + math.log(lam[m])) / cb["L"][m] > math.log(RHO_MAX) + 1e-12}
+            if over:
+                raise RuntimeError("RHO CAP (core basis, %s): rho > %.2f for %s" % (
+                    cb["traindir"], RHO_MAX, ", ".join("%s %.3f" % kv for kv in sorted(over.items()))))
+        if st.get("tied"):
+            over = {d: tied_rho(st, d, lam[tv["target"]]) for d, tv in st["tied"].items()}
+            over = {d: r for d, r in over.items() if r > RHO_MAX * (1 + 1e-12)}
+            if over:
+                raise RuntimeError("RHO CAP (tied, target basis): rho > %.2f for %s" % (
+                    RHO_MAX, ", ".join("%s %.3f" % kv for kv in sorted(over.items()))))
+        patch = MW.build(os.path.join(HERE, st["src_traindir"]), lam, tdp, rho_check=not cb)
         st["built"][str(t)] = dict(lam=lam, traindir=td,
                                    nucleosome_prob=patch["nucleosome_prob_after"],
                                    background_prob=patch["background_prob_after"],
@@ -394,6 +673,11 @@ def sbatch(args, env_extra, run, t):
         chain_log(run, t, "DRY sbatch %s  env %s -> %s" % (" ".join(args), env_extra, fake))
         print("DRY:", " ".join(cmd), env_extra)
         return fake
+    if "sbatch_genome_decode.sh" in args:
+        # Provenance for the decode's RUN_INFO.json (write_run_info.py). Added to the job env only,
+        # never to env_extra, so DRY chain.log text and every replayed state stay byte-identical.
+        env["TW_RUN"], env["TW_ITER"] = str(run), str(t)
+        env["TW_ROLE"] = "holdout" if any(x.startswith("--job-name=twHD_") for x in args) else "tune"
     r = subprocess.run(cmd, cwd=HERE, env=env, capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError("sbatch failed: %s %s" % (" ".join(args), r.stderr))
@@ -442,6 +726,9 @@ def cmd_submit(st, t, chain):
 
 def cmd_holdout(st, t):
     run = st["run"]
+    prev = st["jobs"].get(str(t), {}).get("holdout_decode")
+    if prev and not DRY:                 # added 2026-09-16: a round's holdout is submitted once
+        raise RuntimeError("round %d already has a holdout decode (job %s); refusing to submit another" % (t, prev))
     td = traindir(run, t)
     if not os.path.isdir(td if os.path.isabs(td) else os.path.join(HERE, td)):
         raise RuntimeError("%s missing" % td)
@@ -484,6 +771,53 @@ def read_counts(st, t, counts_from=None):
     return occ, match, invalid
 
 
+def tied_record(st, t, occ, rec, match, counts_from=None):
+    """history["tied"] for a campaign with tied motifs: each tied motif's occupancy and fixed-threshold
+    calls (count_calls n_pred_fixed, summed over the tuning chromosomes) next to its target's, and its
+    lambda/w this round and next. Recording only: nothing here feeds the rule or the stop rule."""
+    import count_calls as CC
+    d = counts_from or counts_dir(st["run"], t)
+    calls = {}
+    for c in st["tune_chroms"]:
+        for r in CC.read(os.path.join(d, c + ".tsv")):
+            calls[r["factor"]] = calls.get(r["factor"], 0) + r["n_pred_fixed"]
+    lam_now = {tv["target"]: math.exp(rec[tv["group"]]["delta"]) for tv in st["tied"].values()}
+    lam_nxt = {tv["target"]: math.exp(rec[tv["group"]]["new"]) for tv in st["tied"].values()}
+    tl_now, tl_nxt = tied_lam(st, lam_now), tied_lam(st, lam_nxt)
+    out = {}
+    for m, tv in st["tied"].items():
+        if m not in occ or m not in calls:
+            raise RuntimeError("count tables lack the tied motif %s" % m)
+        _finite(occ[m])
+        g, tgt = tv["group"], tv["target"]
+        out[m] = dict(target=tgt, group=g, ratio=tv["ratio"], occ=occ[m], calls=calls[m],
+                      target_occ=occ[tgt], target_calls=calls.get(tgt),
+                      target_calls_macisaac_rows=match.get(g, {}).get("n_calls"),
+                      lam=tl_now[m], lam_next=tl_nxt[m], w=tv["kd"] * tl_now[m], w_next=tv["kd"] * tl_nxt[m],
+                      w_target=st["kd"][tgt] * lam_now[tgt], w_target_next=st["kd"][tgt] * lam_nxt[tgt])
+    return out
+
+
+def tied_report(st, t, rec):
+    rep = os.path.join(run_dir(st["run"]), "tied_%02d.tsv" % t)
+    cols = ["motif", "tied_to", "ratio", "occ", "calls", "target_occ", "target_calls", "lambda", "lambda_next",
+            "w", "w_target", "w_next", "w_target_next"]
+    with open(rep, "w") as fh:
+        fh.write("\t".join(cols) + "\n")
+        for m in sorted(rec):
+            r = rec[m]
+            fh.write("\t".join(str(x) for x in [
+                m, r["target"], "%g" % r["ratio"], "%.6g" % r["occ"], r["calls"], "%.6g" % r["target_occ"],
+                r["target_calls"], "%.6g" % r["lam"], "%.6g" % r["lam_next"], "%.17g" % r["w"],
+                "%.17g" % r["w_target"], "%.17g" % r["w_next"], "%.17g" % r["w_target_next"]]) + "\n")
+    for m in sorted(rec):
+        r = rec[m]
+        print("  tied %s (= %g x %s, untuned): occ %.2f calls %d | %s occ %.2f calls %s | w %.6g -> %.6g"
+              % (m, r["ratio"], r["target"], r["occ"], r["calls"], r["target"], r["target_occ"],
+                 r["target_calls"], r["w"], r["w_next"]))
+    print("  wrote %s" % rep)
+
+
 def cmd_update(st, t, counts_from=None, snapshot=True):
     run = st["run"]
     if any(h["iter"] == t for h in st["history"]):
@@ -515,12 +849,12 @@ def cmd_update(st, t, counts_from=None, snapshot=True):
                                     why="frozen(T=0)", beta=float("nan"), alpha=float("nan"),
                                     slope=None, step=0.0, at_cap=False, capped_under=False)
         else:
-            new, info = propose(T, E, delta, hi, st["rule_state"][g])
+            new, info = propose(T, E, delta, hi, st["rule_state"][g], st.get("bracket_max_age"))
         moves = prev_moves[g] + [new - delta]
         falling = (len(moves) >= FALL_ROUNDS and all(x < 0 for x in moves[-FALL_ROUNDS:])
                    and info["gap"] < -DEADBAND)
         info["falling_over"] = falling
-        rho = max(math.exp((math.log(st["kd"][m]) + new) / st["L"][m]) for m in ms)
+        rho = max(math.exp((math.log(kd_m) + new) / L_m) for kd_m, L_m in (rho_basis(st, m) for m in ms))
         rec[g] = dict(T=T, E=E, delta=delta, new=new, rho_next=rho, **info)
     for g, r in rec.items():
         st["delta"][g] = r["new"]
@@ -544,6 +878,8 @@ def cmd_update(st, t, counts_from=None, snapshot=True):
                 n_zero_step=len(zero), n_censored=sum(1 for g in tuned if rec[g]["censored"]),
                 nucleosome_copies=nuc, nucleosome_rel_r0=nuc_rel, unknown_occ=occ.get("unknown", float("nan")),
                 invalid_positions=invalid, macisaac=mac)
+    if st.get("tied"):
+        hist["tied"] = tied_record(st, t, occ, rec, match, counts_from)
     st["history"].append(hist)
     st["iter"] = t + 1
     save_state(st)
@@ -566,8 +902,8 @@ def cmd_update(st, t, counts_from=None, snapshot=True):
     print("  within 2x (T>=%d): %d/%d | zero steps %d | censored %d | step-capped %d | bisect %d"
           % (WITHIN2X_MIN_T, len(w2), len(t5), len(zero), hist["n_censored"],
              sum("step-cap" in rec[g]["why"] for g in tuned), sum("bisect" in rec[g]["why"] for g in tuned)))
-    print("  MacIsaac (58 groups, %s): sites %d calls %d matched %d  P %.3f R %.3f"
-          % ("+".join(st["tune_chroms"]), mac["n_macisaac"], mac["n_calls"], mac["n_matched"],
+    print("  MacIsaac (%d groups, %s): sites %d calls %d matched %d  P %.3f R %.3f"
+          % (len(st["groups"]), "+".join(st["tune_chroms"]), mac["n_macisaac"], mac["n_calls"], mac["n_matched"],
              mac["n_matched"] / max(mac["n_calls"], 1), mac["n_matched"] / max(mac["n_macisaac"], 1)))
     warn = "  ** WARN: nucleosome copies moved more than 10%% from round 0 **" if abs(nuc_rel) > NUC_WARN else ""
     print("  nucleosome copies %.0f (r0 %.0f, %+.2f%%)%s" % (nuc, nuc0, 100 * nuc_rel, warn))
@@ -581,6 +917,8 @@ def cmd_update(st, t, counts_from=None, snapshot=True):
         print("    %-8s T %4d  E %9.2f  lambda %9.3g -> %-9.3g (%+.2f dec, %s)"
               % (g, r["T"], r["E"], math.exp(r["delta"]), math.exp(r["new"]), r["step"] / LN10, r["why"]))
     print("  wrote %s" % rep)
+    if st.get("tied"):
+        tied_report(st, t, hist["tied"])
     return hist
 
 
@@ -612,11 +950,14 @@ def bracket_report(st, h=None):
 
 
 def on_stop_refresh(st, t):
-    """Continued campaigns only: when the chain stops, score Chereji nucleosomes on the final chrXIV
-    decode (overnight_launch.submit_chereji's job pattern) and refresh continue_summary.py after the
-    holdout validation and that job. Failures are logged, never raised (the stop already happened)."""
-    if not st.get("settings_history"):
+    """Continued campaigns, and campaigns whose state carries `on_stop` (masked campaigns, 2026-09-16):
+    when the chain stops, score Chereji nucleosomes on the final chrXIV decode
+    (overnight_launch.submit_chereji's job pattern) and refresh the summary after the holdout
+    validation and that job -- continue_summary.py, or st["on_stop"]["summary"] when set.
+    Failures are logged, never raised (the stop already happened)."""
+    if not (st.get("settings_history") or st.get("on_stop")):
         return
+    summary = (st.get("on_stop") or {}).get("summary") or "continue_summary.py"
     run = st["run"]
     try:
         rec, deps = {}, []
@@ -634,7 +975,7 @@ def on_stop_refresh(st, t):
             deps.append(hv)
         rec["summary"] = sbatch(["--job-name=twSUM_%s_%02d" % (run, t), "--mem=8G", "--time=0:30:00"]
                                 + (["--dependency=afterany:%s" % ":".join(deps)] if deps else [])
-                                + ["sbatch_overnight_py.sh"], dict(PYARGS="continue_summary.py"), run, t)
+                                + ["sbatch_overnight_py.sh"], dict(PYARGS=summary), run, t)
         st["jobs"].setdefault(str(t), {}).update(rec)
         save_state(st)
         chain_log(run, t, "on-stop refresh: %s" % rec)
@@ -783,7 +1124,17 @@ def cmd_status(st):
              "".join("; changed at r%02d %s: %gx/%d -> %gx/%d (%s)"
                      % (s["from_round"], s["date"], s["previous"]["deadband_fold"], s["previous"]["max_rounds"],
                         s["deadband_fold"], s["max_rounds"], s["reason"]) for s in st.get("settings_history", []))
-             or " (defaults)"))
+             or (" (set at init)" if ("max_rounds" in st or "deadband" in st) else " (defaults)")))
+    if st.get("factor_set"):
+        print("factor set %s: %s | unknown masked | on stop: %s"
+              % (st["factor_set"], ", ".join("%s=%s" % (g, "+".join(ms)) for g, ms in sorted(st["groups"].items())),
+                 st.get("on_stop")))
+    if st.get("tied"):
+        print("tied (untuned, w = ratio x target's w): %s | per round: %s" % (
+            ", ".join("%s=%s:%g" % (d, tv["group"], tv["ratio"]) for d, tv in sorted(st["tied"].items())),
+            "; ".join("r%02d %s" % (h["iter"], ", ".join("%s occ %.1f calls %d" % (d, x["occ"], x["calls"])
+                                                        for d, x in sorted(h.get("tied", {}).items())))
+                      for h in st["history"]) or "none yet"))
     print("STOPPED: %s" % (stopped(run) or "no"))
     print("iter (next to update) %d" % st["iter"])
     for h in st["history"]:
@@ -833,17 +1184,29 @@ def main():
                          "trainDirs go under it and sbatch is only logged")
     ap.add_argument("--counts-from", default=None, help="dry runs: read count tables from here")
     ap.add_argument("--calls-from", default=None, help="dry runs: read calls/<chrom>.tsv from here")
-    ap.add_argument("--max-rounds", type=int, default=None, help="continue: new total round limit")
-    ap.add_argument("--deadband", type=float, default=None, help="continue: new deadband as a fold, e.g. 1.1")
+    ap.add_argument("--max-rounds", type=int, default=None, help="init/continue: total round limit")
+    ap.add_argument("--deadband", type=float, default=None, help="init/continue: deadband as a fold, e.g. 1.1")
+    ap.add_argument("--factor-set", default=None, choices=sorted(FACTOR_SETS),
+                    help="init: a named live factor set (default: the 58 groups / 61 motifs + unknown)")
     ap.add_argument("--reason", default="user decision 2026-09-15: tighten target 1.25x -> 1.1x, up to 15 rounds")
     ap.add_argument("--submit", action="store_true", help="continue: also submit the next round with the chain")
+    ap.add_argument("--src-traindir", default=None,
+                    help="init: trainDir every round is built from (default %s)" % SRC_TRAINDIR)
+    ap.add_argument("--cap-core-traindir", default=None,
+                    help="init: judge the per-bp cap on the core motif taken from this trainDir's pwm.p")
+    ap.add_argument("--summary", default=None,
+                    help="init (factor-set campaigns): on-stop summary script (default masked_summary.py)")
+    ap.add_argument("--tie", action="append", default=None, metavar="MOTIF=GROUP[:RATIO]",
+                    help="init: keep MOTIF live, untuned, with w = RATIO (default 1) x the weight of GROUP's "
+                         "single motif every round (repeatable)")
     a = ap.parse_args()
     if a.root and os.path.abspath(a.root) != os.path.abspath(ROOT):
         ROOT, DRY = os.path.abspath(a.root), True
     if a.cmd == "init":
         if not (a.driver and a.config):
             sys.exit("init needs --driver and --config")
-        return cmd_init(a.run, a.driver, a.config)
+        return cmd_init(a.run, a.driver, a.config, a.factor_set, a.max_rounds, a.deadband,
+                        a.src_traindir, a.cap_core_traindir, a.summary, a.tie)
     st = load_state(a.run)
     if st is None:
         sys.exit("no campaign %s under %s; run init" % (a.run, ROOT))

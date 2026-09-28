@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_chrII_tw_bw01x_11",
+ "original_outdir": "robocop_chrXIV_chrII_tw_bw01x_11",
+ "driver": "run_split_revfix_seq_maskoff_mr58lazy.py",
+ "pkg_tree": "pkgvar/seq_maskoff_mr58lazy",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bw01x_11",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrXIV_chrII.tsv",
+ "campaign": "bw01x",
+ "round": 11,
+ "role": "tune",
+ "git_head": "26f1c2d02e4e0882a988a06d2f4f1a99534f3951",
+ "git_dirty": true,
+ "written": "2026-09-22T01:08:16",
+ "slurm_job_id": null,
+ "source": "backfill:state"
+}
