@@ -228,18 +228,87 @@ void posterior_decoding(
     double *f_table, double *b_table, 
     double *sb, long double *sr, 
     int n_states, int n_obs,
+    // silent_states_begin: normalise over EMITTING states only, matching normalize() above
+    int silent_states_begin,
     // output
     double* posterior_table
     ) {
 
-   int i,j;
+   int i, j;
+   double lg, mx, acc;
+
+   /* ------------------------------------------------------------------------------------
+      2026-10-04: log-space posterior decoding.
+
+      gamma_t(i) = alpha_t(i)*beta_t(i) / sum_j alpha_t(j)*beta_t(j).  Any per-position scaling
+      of alpha and beta cancels in that ratio, so the scale factors sb and sr are not needed to
+      recover the posterior -- and neither is calc_sr(), whose ~5000-term running product of
+      sb[i]/sf[i] (with its isinf guard commented out) is what produced row sums of 1.02705e13
+      across 1407 consecutive positions in a Fiber-seq decode.
+
+      This computes the ratio in LOG space and normalises with log-sum-exp, so neither the
+      product nor the sum can overflow or underflow regardless of how small alpha and beta get.
+      Fiber-seq emissions reach 1e-90 per channel and two channels multiply at every position,
+      against a double floor of 4.9e-324, so that headroom is the point.
+
+      This is the authors' own abandoned direction: calc_sr() still carries the commented-out
+      line `sr[i-1] = sr[i] + log(sb[i]) - log(sf[i])`.
+
+      OLD CODE, kept for reference:
+
+      for(i = 0; i < n_obs; i++) {
+       for(j = 0; j < n_states; j++) {
+           posterior_table[I(i,j,n_states)] =
+             (sb[i] * b_table[Ir(i,j,n_obs,n_states)]) * (sr[i] * f_table[I(i,j,n_states)]);
+       }
+      }
+      ------------------------------------------------------------------------------------ */
 
    for(i = 0; i < n_obs; i++) {
+
+    /* 1. log(alpha*beta) per state; a zero in either factor means log = -inf, carried as such. */
     for(j = 0; j < n_states; j++) {
-        posterior_table[I(i,j,n_states)] = 
-	  (sb[i] * b_table[Ir(i,j,n_obs,n_states)]) * (sr[i] * f_table[I(i,j,n_states)]);
+        double fv = f_table[I(i,j,n_states)];
+        double bv = b_table[Ir(i,j,n_obs,n_states)];
+        if(fv > 0.0 && bv > 0.0) {
+            posterior_table[I(i,j,n_states)] = log(fv) + log(bv);
+        } else {
+            posterior_table[I(i,j,n_states)] = -INFINITY;
+        }
+    }
+
+    /* 2. max over EMITTING states, for a numerically safe log-sum-exp. */
+    mx = -INFINITY;
+    for(j = 0; j < silent_states_begin; j++) {
+        lg = posterior_table[I(i,j,n_states)];
+        if(lg > mx) mx = lg;
+    }
+
+    if(!isfinite(mx)) {
+        /* every emitting state has zero mass: leave the row at zero rather than divide by it.
+           A caller seeing an all-zero row should treat the position as undecodable. */
+        for(j = 0; j < n_states; j++) posterior_table[I(i,j,n_states)] = 0.0;
+        continue;
+    }
+
+    /* 3. log( sum_j exp(lg_j - mx) ) over emitting states. */
+    acc = 0.0;
+    for(j = 0; j < silent_states_begin; j++) {
+        acc += exp(posterior_table[I(i,j,n_states)] - mx);
+    }
+    acc = mx + log(acc);
+
+    /* 4. exponentiate the normalised log-posterior. */
+    for(j = 0; j < n_states; j++) {
+        lg = posterior_table[I(i,j,n_states)] - acc;
+        posterior_table[I(i,j,n_states)] = isfinite(lg) ? exp(lg) : 0.0;
     }
    }
+
+   /* `sb` and `sr` are unused here; kept in the signature so the ctypes binding and the
+      calc_sr() call site stay unchanged for reviewers. */
+   (void) sb;
+   (void) sr;
 }
 
 void update_data_emission_matrix_with_discrete_pmf(double* pmf, long* data, long max_count, long nrow, long ncol, long col_start, long col_end, double* emission_matrix) {
