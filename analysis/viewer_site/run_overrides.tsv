@@ -68,3 +68,34 @@ pwmfile:inputs/motifs_meme_abf1_pm100.txt	pads_table	tf_pads_abf1_pm100.tsv
 pwmfile:inputs/motifs_meme_wide12.txt	pads_table	tf_pads_wide12.tsv	
 pwmfile:inputs/motifs_meme_wide150.txt	pads_table	tf_pads_wide150.tsv	
 pwmfile:inputs/motifs_meme_wide10all.txt	pads_table	tf_pads_wide10all.tsv	
+
+# ---- posterior-normalisation ablation (2026-10-05) -------------------------------
+# family_of() returns "tuner" whenever provenance carries a campaign (build_run_matrix.py:483).
+# The *_A_both / *_Afix_both arms symlink the campaign decode's tmpDir, so they inherit its
+# campaign and landed in family "tuner" while their own _fib/_seq siblings (fresh decodes, no
+# campaign) landed in "other".  The picker sorts by family (app.js:44), so the fib+seq arm sat
+# in a different block from the two single-layer arms of the same fix.  Pin all 24 to one family.
+w30k_bv75_49_A_both	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_A_fib	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_A_seq	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_Afix_both	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_Afix_fib	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_Afix_seq	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_B_both	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_B_fib	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_B_seq	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_C_both	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_C_fib	family	posterior fix ablation	one family so all 24 arms sort together
+w30k_bv75_49_C_seq	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_A_both	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_A_fib	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_A_seq	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_Afix_both	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_Afix_fib	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_Afix_seq	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_B_both	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_B_fib	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_B_seq	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_C_both	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_C_fib	family	posterior fix ablation	one family so all 24 arms sort together
+rpc19_bo09_48_C_seq	family	posterior fix ablation	one family so all 24 arms sort together

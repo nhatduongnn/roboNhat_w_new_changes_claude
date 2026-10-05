@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_rpc19_bo09_48_C_seq",
+ "original_outdir": "robocop_rpc19_bo09_48_C_seq",
+ "driver": "run_split_seqonly_maskoff_fit9_bgopen_logspace.py",
+ "pkg_tree": "pkgvar/seqonly_maskoff_fit9_bgopen_logspace",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bo09_48",
+ "traindir_exists": true,
+ "coords": "coord_rpc19.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "0548ad9bcffa3223d504c01fc00c81072d2cbf40",
+ "git_dirty": true,
+ "written": "2026-10-05T17:02:30",
+ "slurm_job_id": "12818263",
+ "source": "decode-time"
+}

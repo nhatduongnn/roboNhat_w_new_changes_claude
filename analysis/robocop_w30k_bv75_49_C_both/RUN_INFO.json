@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_w30k_bv75_49_C_both",
+ "original_outdir": "robocop_w30k_bv75_49_C_both",
+ "driver": "run_split_seq_maskoff_tune75_logspace.py",
+ "pkg_tree": "pkgvar/seq_maskoff_tune75_logspace",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bv75_49",
+ "traindir_exists": true,
+ "coords": "coord_w30k_chrXIV.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "0548ad9bcffa3223d504c01fc00c81072d2cbf40",
+ "git_dirty": true,
+ "written": "2026-10-04T01:52:32",
+ "slurm_job_id": "12773083",
+ "source": "decode-time"
+}

@@ -130,6 +130,18 @@ NTASK = 40
 DECODE_MEM = "24G"
 EXCLUDE = "linux[31-40]"
 EXPECT_FROZEN = {"ARO80", "RFX1", "RPH1"}
+# all153 campaigns (bu01, 2026-09-30): every group with no MacIsaac site on chrXIV+chrII.
+# 69 have no target at all; 6 are targeted but have zero sites on this pair. Asserted at init
+# so a changed input is caught, exactly as EXPECT_FROZEN is for the 58-group set.
+EXPECT_FROZEN_ALL153 = {
+    "ABF2", "AFT1", "ARO80", "ASG1", "CAT8", "CEP3", "CRZ1", "CUP9", "ECM22", "ECM23", "FZF1",
+    "GAT4", "GIS1", "GSM1", "HAC1", "HAL9", "HCM1", "HMLALPHA2", "HMRA2", "LYS14", "MATALPHA2",
+    "MGA1", "MIG2", "MIG3", "MSN1", "NDT80", "NHP10", "NHP6A", "NHP6B", "NRG2", "OAF1", "PBF1",
+    "PBF2", "PDR8", "RDR1", "RDS2", "REI1", "RFX1", "RGM1", "RPH1", "RSC3", "RSC30", "SFL1",
+    "SIG1", "SMP1", "SPT15", "SRD1", "STB3", "STP2", "STP3", "SUT2", "TBF1", "TBS1", "TEA1",
+    "TOS8", "UPC2", "USV1", "VHR1", "YBR033W", "YBR239C", "YER064C", "YER130C", "YER184C",
+    "YGR067C", "YKL222C", "YLL054C", "YLR278C", "YNR063W", "YOX1", "YPR013C", "YPR015C",
+    "YPR022C", "YPR196W", "YRM1", "ZMS1"}
 LAM_UNKNOWN = 1.0               # x UNKNOWN_BASE 0.001 -> w 1e-3
 SLURM_STRIP = ("SLURM_JOB_ID", "SLURM_JOBID", "SLURM_STEP_ID", "SLURM_NODELIST",
                "SLURM_JOB_NODELIST", "SLURM_NTASKS", "SLURM_NPROCS", "SLURM_TASKS_PER_NODE",
@@ -303,11 +315,51 @@ FACTOR_SETS = {
     "fit9": {"ABF1": ["Abf1_murphy"], "CIN5": ["Cin5_murphy"], "FHL1": ["Fhl1_zhu"],
              "FKH1": ["Fkh1_zhu"], "MCM1": ["Mcm1_zhu"], "RAP1": ["Rap1_telomeric"],
              "REB1": ["Reb1_badis"], "SKO1": ["Sko1_murphy"], "UME6": ["Ume6_zhu"]},
+    # bv75 (2026-10-01): the 75 groups with a MacIsaac target on chrXIV+chrII -- exactly what
+    # tune_w can tune. The 78 untunable motifs and `unknown` are masked by the tune75 tree,
+    # because frozen-at-lambda=1 states took the calls in bu01 (unknown 3109.7 on chrXIV).
+    "tune75": {"ABF1": ["Abf1_murphy"], "ACE2": ["Ace2_badis"], "ADR1": ["Adr1_badis"], "AFT2":
+                ["Aft2_badis"], "AZF1": ["Azf1_badis"], "BAS1": ["Bas1_zhu"], "CAD1":
+                ["Cad1_murphy"], "CBF1": ["Cbf1_zhu"], "CHA4": ["Cha4_zhu"], "CIN5":
+                ["Cin5_murphy"], "CST6": ["Cst6_murphy"], "DAL80": ["Dal80_badis"], "DAL82":
+                ["Dal82_badis"], "FHL1": ["Fhl1_zhu"], "FKH1": ["Fkh1_zhu"], "FKH2":
+                ["Fkh2_zhu"], "GAL4": ["Gal4_zhu"], "GAT1": ["Gat1_zhu"], "GAT3":
+                ["Gat3_zhu"], "GCN4": ["Gcn4_zhu"], "GCR1": ["Gcr1_murphy"], "GLN3":
+                ["Gln3_badis"], "GZF3": ["Gzf3_zhu"], "HAP1": ["Hap1_murphy"], "HSF1":
+                ["Hsf1_badis"], "LEU3": ["Leu3_zhu"], "MBP1": ["Mbp1_zhu"], "MCM1":
+                ["Mcm1_zhu"], "MET31": ["Met31_badis"], "MET32": ["Met32_badis"], "MIG1":
+                ["Mig1_zhu"], "MOT3": ["Mot3_murphy"], "MSN2": ["Msn2_badis"], "MSN4":
+                ["Msn4_badis"], "NRG1": ["Nrg1_zhu"], "PDR1": ["Pdr1_badis"], "PDR3":
+                ["Pdr3_murphy"], "PHD1": ["Phd1_zhu"], "PHO2": ["Pho2_badis"], "PHO4":
+                ["Pho4_zhu"], "PUT3": ["Put3_badis"], "RAP1": ["Rap1_telomeric"], "RDS1":
+                ["Rds1_zhu"], "REB1": ["Reb1_badis"], "RGT1": ["Rgt1_badis"], "RIM101":
+                ["Rim101_badis"], "ROX1": ["Rox1_badis"], "RPN4": ["Rpn4_badis"], "RTG3":
+                ["Rtg3_zhu"], "SFP1": ["Sfp1_zhu"], "SIP4": ["Sip4_badis"], "SKN7":
+                ["Skn7_badis"], "SKO1": ["Sko1_murphy"], "SOK2": ["Sok2_badis"], "STB4":
+                ["Stb4_murphy"], "STB5": ["Stb5_murphy"], "STE12": ["Ste12_murphy"], "STP1":
+                ["Stp1_murphy"], "STP4": ["Stp4_zhu"], "SUM1": ["Sum1_zhu"], "SUT1":
+                ["Sut1_murphy"], "SWI4": ["Swi4_badis"], "SWI5": ["Swi5_badis"], "TEC1":
+                ["Tec1_badis"], "TYE7": ["Tye7_zhu"], "UGA3": ["Uga3_badis"], "UME6":
+                ["Ume6_zhu"], "XBP1": ["Xbp1_badis"], "YAP1": ["Yap1_zhu"], "YAP3":
+                ["Yap3_murphy"], "YAP6": ["Yap6_zhu"], "YDR520C": ["Ydr520c_badis"],
+                "YML081W": ["Yml081w_zhu"], "YRR1": ["Yrr1_zhu"], "ZAP1": ["Zap1_murphy"]},
 }
 EXPECT_T = {
     "abf1only": {"ABF1": 58},
     "fit9": {"ABF1": 58, "CIN5": 49, "FHL1": 21, "FKH1": 23, "MCM1": 11, "RAP1": 29, "REB1": 44,
              "SKO1": 5, "UME6": 19},
+    "tune75": {"ABF1": 58, "ACE2": 41, "ADR1": 22, "AFT2": 49, "AZF1": 10, "BAS1": 7, "CAD1": 3, "CBF1":
+                25, "CHA4": 8, "CIN5": 49, "CST6": 25, "DAL80": 25, "DAL82": 15, "FHL1": 21,
+                "FKH1": 23, "FKH2": 38, "GAL4": 5, "GAT1": 14, "GAT3": 10, "GCN4": 45,
+                "GCR1": 15, "GLN3": 25, "GZF3": 10, "HAP1": 19, "HSF1": 12, "LEU3": 4,
+                "MBP1": 36, "MCM1": 11, "MET31": 34, "MET32": 1, "MIG1": 1, "MOT3": 71,
+                "MSN2": 75, "MSN4": 71, "NRG1": 33, "PDR1": 4, "PDR3": 2, "PHD1": 88,
+                "PHO2": 207, "PHO4": 6, "PUT3": 1, "RAP1": 29, "RDS1": 2, "REB1": 44,
+                "RGT1": 3, "RIM101": 1, "ROX1": 40, "RPN4": 15, "RTG3": 27, "SFP1": 15,
+                "SIP4": 1, "SKN7": 50, "SKO1": 5, "SOK2": 32, "STB4": 3, "STB5": 3, "STE12":
+                195, "STP1": 7, "STP4": 1, "SUM1": 13, "SUT1": 26, "SWI4": 39, "SWI5": 110,
+                "TEC1": 51, "TYE7": 19, "UGA3": 1, "UME6": 19, "XBP1": 25, "YAP1": 8,
+                "YAP3": 2, "YAP6": 71, "YDR520C": 2, "YML081W": 1, "YRR1": 1, "ZAP1": 1},
 }
 
 
@@ -327,11 +379,38 @@ def factor_set(name=None):
     fitted = {m["group"]: int(m["fitted"]) for m in meta if m["group"] in G}
     if name is None:
         return G, T, fitted
+    if name == "all153":
+        # Every motif in the model, targeted or not. RV.load_groups() filters on
+        # has_target == "1" (rossi_validate.py:146-151), so the path above can never return an
+        # untargeted motif; read the targets table directly instead. Untargeted groups get T = 0
+        # and are frozen, exactly like a targeted group with no site on this pair.
+        GA, TA = {}, {}
+        with open(os.path.join(HERE, "inputs", "conc_targets_macisaac_c1.tsv")) as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                GA.setdefault(r["group"], []).append(r["motif"])
+                TA.setdefault(r["group"], sum(int(r[c]) for c in TUNE_CHROMS))
+        return GA, TA, {g: int(any(m in RV.FITTED for m in ms)) for g, ms in GA.items()}
     if name not in FACTOR_SETS:
         raise ValueError("unknown factor set %r (known: %s)" % (name, sorted(FACTOR_SETS)))
     sub = FACTOR_SETS[name]
+    if not set(sub) <= set(G):
+        # A named set may reach outside the 58 MacIsaac-AND-Rossi groups (tune75 does: e.g. ADR1
+        # has a MacIsaac target but no Rossi _CX file, so load_groups keeps it while the
+        # n_cx > 0 filter above drops it). Validate against the full motif table instead, and
+        # take targets from it. EXPECT_T still pins every value in cmd_init.
+        GA, TA = {}, {}
+        with open(os.path.join(HERE, "inputs", "conc_targets_macisaac_c1.tsv")) as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                GA.setdefault(r["group"], []).append(r["motif"])
+                TA.setdefault(r["group"], sum(int(r[c]) for c in TUNE_CHROMS))
+        for g, ms in sub.items():
+            if g not in GA or not set(ms) <= set(GA[g]):
+                raise ValueError("factor set %s: %s %s is not a real group/motif (%s)"
+                                 % (name, g, ms, GA.get(g)))
+        return ({g: list(ms) for g, ms in sub.items()}, {g: TA[g] for g in sub},
+                {g: int(any(m in RV.FITTED for m in ms)) for g, ms in sub.items()})
     for g, ms in sub.items():
-        if g not in G or not set(ms) <= set(G[g]):
+        if not set(ms) <= set(G[g]):
             raise ValueError("factor set %s: %s %s is not within the 58-group set (%s)"
                              % (name, g, ms, G.get(g)))
     return ({g: list(ms) for g, ms in sub.items()}, {g: T[g] for g in sub},
@@ -419,6 +498,10 @@ def cmd_init(run, driver, config, set_name=None, max_rounds=None, deadband_fold=
     motifs = [m for g in G for m in G[g]]
     if set_name is None:
         want_shape, want_keep, want_frozen = (58, 61), set(motifs) | {"unknown"}, EXPECT_FROZEN
+    elif set_name == "all153":
+        # nothing masked: the tree keeps all 153 motifs + unknown, and 75 groups are frozen
+        # because they have no MacIsaac site on chrXIV+chrII.
+        want_shape, want_keep, want_frozen = (150, 153), set(motifs) | {"unknown"}, EXPECT_FROZEN_ALL153
     else:
         want_shape, want_keep, want_frozen = (len(FACTOR_SETS[set_name]),) * 2, set(motifs), set()
         if T != EXPECT_T[set_name]:
@@ -1186,7 +1269,7 @@ def main():
     ap.add_argument("--calls-from", default=None, help="dry runs: read calls/<chrom>.tsv from here")
     ap.add_argument("--max-rounds", type=int, default=None, help="init/continue: total round limit")
     ap.add_argument("--deadband", type=float, default=None, help="init/continue: deadband as a fold, e.g. 1.1")
-    ap.add_argument("--factor-set", default=None, choices=sorted(FACTOR_SETS),
+    ap.add_argument("--factor-set", default=None, choices=sorted(set(FACTOR_SETS) | {"all153"}),
                     help="init: a named live factor set (default: the 58 groups / 61 motifs + unknown)")
     ap.add_argument("--reason", default="user decision 2026-09-15: tighten target 1.25x -> 1.1x, up to 15 rounds")
     ap.add_argument("--submit", action="store_true", help="continue: also submit the next round with the chain")

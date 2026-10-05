@@ -196,6 +196,25 @@ def region_optable(dec, chrm, start, end):
             if k not in f.keys():
                 continue
             dp = _get_sparse_todense(f, k + "/posterior")
+            # NORMALISE PER POSITION (2026-10-04). The decoder does not do this:
+            # pkg/robocop/algo.c:233-243 writes (sb*b)*(sr*f) with no row normalisation, and
+            # `sr` is a ~5000-term running product of sb[i]/sf[i] (calc_sr, :207-222) whose
+            # overflow guard is commented out at :216. One bad ratio scales every position
+            # upstream of it by a constant -- measured on bo09 segment 307, row sums are a step
+            # function: 1.02705e13 for 1407 positions, then exactly 1.0.
+            #
+            # gamma = a*b / sum_j(a*b) cancels any per-position scaling of a and b identically,
+            # so dividing by the row sum recovers the true posterior. Sum EMITTING states only,
+            # matching the decoder's own convention at algo.c:19 (normalize() sums the first
+            # silent_states_begin columns). Silent states carry no mass in practice -- the
+            # stored matrix declares n_states columns but tops out at silent_states_begin-1 --
+            # but slice explicitly so this does not depend on that.
+            #
+            # Must happen BEFORE the overlap average below: averaging a scaled segment with a
+            # clean one is what produced the viewer's spurious 0.50 at chrXIV:412,651.
+            _sb = int(dshared["silent_states_begin"])
+            _rs = dp[:, :_sb].sum(axis=1, keepdims=True)
+            dp = np.divide(dp, _rs, out=np.zeros_like(dp), where=_rs > 0)
             seg_start = coords.loc[idx]["start"]
             seg_end = coords.loc[idx]["end"]
             ds = max(0, start - seg_start)

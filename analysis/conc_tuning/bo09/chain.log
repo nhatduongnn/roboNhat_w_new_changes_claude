@@ -1,0 +1,53 @@
+2026-09-29 00:58:29  iter 00  submitted decode 12716516 (40 tasks, robocop_chrXIV_chrII_tw_bo09_00) count 12716517 next 12716518
+2026-09-29 00:58:32  iter 00  holdout: decode 12716519 (robocop_chrIV_tw_bo09_00) count 12716520 validate 12716521
+2026-09-29 01:57:31  iter 01  submitted decode 12716753 (40 tasks, robocop_chrXIV_chrII_tw_bo09_01) count 12716754 next 12716755
+2026-09-29 02:24:30  iter 02  submitted decode 12716835 (40 tasks, robocop_chrXIV_chrII_tw_bo09_02) count 12716836 next 12716837
+2026-09-29 02:49:02  iter 03  submitted decode 12716945 (40 tasks, robocop_chrXIV_chrII_tw_bo09_03) count 12716946 next 12716947
+2026-09-29 03:13:04  iter 04  submitted decode 12717040 (40 tasks, robocop_chrXIV_chrII_tw_bo09_04) count 12717041 next 12717042
+2026-09-29 03:37:07  iter 05  submitted decode 12717140 (40 tasks, robocop_chrXIV_chrII_tw_bo09_05) count 12717141 next 12717142
+2026-09-29 04:01:38  iter 06  submitted decode 12717210 (40 tasks, robocop_chrXIV_chrII_tw_bo09_06) count 12717211 next 12717212
+2026-09-29 04:18:40  iter 07  submitted decode 12717280 (40 tasks, robocop_chrXIV_chrII_tw_bo09_07) count 12717281 next 12717282
+2026-09-29 04:43:09  iter 08  submitted decode 12717334 (40 tasks, robocop_chrXIV_chrII_tw_bo09_08) count 12717335 next 12717336
+2026-09-29 05:06:10  iter 09  submitted decode 12717386 (40 tasks, robocop_chrXIV_chrII_tw_bo09_09) count 12717387 next 12717388
+2026-09-29 05:23:09  iter 10  submitted decode 12717441 (40 tasks, robocop_chrXIV_chrII_tw_bo09_10) count 12717442 next 12717443
+2026-09-29 05:40:10  iter 11  submitted decode 12717495 (40 tasks, robocop_chrXIV_chrII_tw_bo09_11) count 12717496 next 12717497
+2026-09-29 05:57:40  iter 12  submitted decode 12717552 (40 tasks, robocop_chrXIV_chrII_tw_bo09_12) count 12717553 next 12717554
+2026-09-29 06:14:43  iter 13  submitted decode 12717599 (40 tasks, robocop_chrXIV_chrII_tw_bo09_13) count 12717600 next 12717601
+2026-09-29 06:31:11  iter 14  submitted decode 12717654 (40 tasks, robocop_chrXIV_chrII_tw_bo09_14) count 12717655 next 12717656
+2026-09-29 06:48:11  iter 15  submitted decode 12717767 (40 tasks, robocop_chrXIV_chrII_tw_bo09_15) count 12717768 next 12717769
+2026-09-29 07:05:11  iter 16  submitted decode 12717829 (40 tasks, robocop_chrXIV_chrII_tw_bo09_16) count 12717830 next 12717831
+2026-09-29 07:22:12  iter 17  submitted decode 12717882 (40 tasks, robocop_chrXIV_chrII_tw_bo09_17) count 12717883 next 12717884
+2026-09-29 07:40:14  iter 18  submitted decode 12717939 (40 tasks, robocop_chrXIV_chrII_tw_bo09_18) count 12717940 next 12717941
+2026-09-29 07:56:43  iter 19  submitted decode 12717994 (40 tasks, robocop_chrXIV_chrII_tw_bo09_19) count 12717995 next 12717996
+2026-09-29 08:13:13  iter 20  submitted decode 12718045 (40 tasks, robocop_chrXIV_chrII_tw_bo09_20) count 12718046 next 12718047
+2026-09-29 08:30:13  iter 21  submitted decode 12718103 (40 tasks, robocop_chrXIV_chrII_tw_bo09_21) count 12718104 next 12718105
+2026-09-29 08:47:13  iter 22  submitted decode 12718153 (40 tasks, robocop_chrXIV_chrII_tw_bo09_22) count 12718154 next 12718155
+2026-09-29 09:04:13  iter 23  submitted decode 12718294 (40 tasks, robocop_chrXIV_chrII_tw_bo09_23) count 12718295 next 12718296
+2026-09-29 09:20:43  iter 24  submitted decode 12718346 (40 tasks, robocop_chrXIV_chrII_tw_bo09_24) count 12718347 next 12718348
+2026-09-29 09:37:44  iter 25  submitted decode 12718424 (40 tasks, robocop_chrXIV_chrII_tw_bo09_25) count 12718425 next 12718426
+2026-09-29 10:01:44  iter 26  submitted decode 12718508 (40 tasks, robocop_chrXIV_chrII_tw_bo09_26) count 12718509 next 12718510
+2026-09-29 10:25:44  iter 27  submitted decode 12718631 (40 tasks, robocop_chrXIV_chrII_tw_bo09_27) count 12718632 next 12718633
+2026-09-29 10:50:15  iter 28  submitted decode 12718803 (40 tasks, robocop_chrXIV_chrII_tw_bo09_28) count 12718804 next 12718805
+2026-09-29 11:14:45  iter 29  submitted decode 12718916 (40 tasks, robocop_chrXIV_chrII_tw_bo09_29) count 12718917 next 12718918
+2026-09-29 11:39:15  iter 30  submitted decode 12719243 (40 tasks, robocop_chrXIV_chrII_tw_bo09_30) count 12719244 next 12719245
+2026-09-29 12:04:16  iter 31  submitted decode 12719860 (40 tasks, robocop_chrXIV_chrII_tw_bo09_31) count 12719861 next 12719862
+2026-09-29 12:29:17  iter 32  submitted decode 12720164 (40 tasks, robocop_chrXIV_chrII_tw_bo09_32) count 12720165 next 12720166
+2026-09-29 12:53:17  iter 33  submitted decode 12720267 (40 tasks, robocop_chrXIV_chrII_tw_bo09_33) count 12720268 next 12720269
+2026-09-29 13:18:18  iter 34  submitted decode 12720353 (40 tasks, robocop_chrXIV_chrII_tw_bo09_34) count 12720354 next 12720355
+2026-09-29 13:43:48  iter 35  submitted decode 12720435 (40 tasks, robocop_chrXIV_chrII_tw_bo09_35) count 12720436 next 12720437
+2026-09-29 14:08:47  iter 36  submitted decode 12720566 (40 tasks, robocop_chrXIV_chrII_tw_bo09_36) count 12720567 next 12720568
+2026-09-29 14:32:17  iter 37  submitted decode 12720665 (40 tasks, robocop_chrXIV_chrII_tw_bo09_37) count 12720666 next 12720667
+2026-09-29 14:56:18  iter 38  submitted decode 12720773 (40 tasks, robocop_chrXIV_chrII_tw_bo09_38) count 12720774 next 12720775
+2026-09-29 15:20:19  iter 39  submitted decode 12720876 (40 tasks, robocop_chrXIV_chrII_tw_bo09_39) count 12720877 next 12720878
+2026-09-29 15:45:20  iter 40  submitted decode 12720985 (40 tasks, robocop_chrXIV_chrII_tw_bo09_40) count 12720986 next 12720987
+2026-09-29 16:08:19  iter 41  submitted decode 12721075 (40 tasks, robocop_chrXIV_chrII_tw_bo09_41) count 12721076 next 12721077
+2026-09-29 16:24:49  iter 42  submitted decode 12721146 (40 tasks, robocop_chrXIV_chrII_tw_bo09_42) count 12721147 next 12721148
+2026-09-29 16:41:20  iter 43  submitted decode 12721235 (40 tasks, robocop_chrXIV_chrII_tw_bo09_43) count 12721236 next 12721237
+2026-09-29 16:57:51  iter 44  submitted decode 12721329 (40 tasks, robocop_chrXIV_chrII_tw_bo09_44) count 12721330 next 12721331
+2026-09-29 17:14:20  iter 45  submitted decode 12721415 (40 tasks, robocop_chrXIV_chrII_tw_bo09_45) count 12721416 next 12721417
+2026-09-29 17:31:20  iter 46  submitted decode 12721640 (40 tasks, robocop_chrXIV_chrII_tw_bo09_46) count 12721641 next 12721642
+2026-09-29 17:55:20  iter 47  submitted decode 12721732 (40 tasks, robocop_chrXIV_chrII_tw_bo09_47) count 12721733 next 12721734
+2026-09-29 18:11:52  iter 48  submitted decode 12721788 (40 tasks, robocop_chrXIV_chrII_tw_bo09_48) count 12721789 next 12721790
+2026-09-29 18:28:51  iter 48  STOPPED: converged: every tuned group took a zero step (deadband or held at the per-bp cap) [deadband 1.1x]
+2026-09-29 18:28:52  iter 48  holdout: decode 12721865 (robocop_chrIV_tw_bo09_48) count 12721866 validate 12721867
+2026-09-29 18:28:52  iter 48  on-stop refresh: {'chereji': '12721868', 'summary': '12721869'}

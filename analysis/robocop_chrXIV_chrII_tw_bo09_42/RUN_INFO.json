@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_chrXIV_chrII_tw_bo09_42",
+ "original_outdir": "robocop_chrXIV_chrII_tw_bo09_42",
+ "driver": "run_split_revfix_seq_maskoff_fit9_bgopen.py",
+ "pkg_tree": "pkgvar/seq_maskoff_fit9_bgopen",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bo09_42",
+ "traindir_exists": true,
+ "coords": "coord_tw_chrXIV_chrII.tsv",
+ "campaign": "bo09",
+ "round": 42,
+ "role": "tune",
+ "git_head": "0548ad9bcffa3223d504c01fc00c81072d2cbf40",
+ "git_dirty": false,
+ "written": "2026-09-29T16:32:49",
+ "slurm_job_id": "12721146",
+ "source": "decode-time"
+}

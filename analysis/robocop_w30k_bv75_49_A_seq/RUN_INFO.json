@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_w30k_bv75_49_A_seq",
+ "original_outdir": "robocop_w30k_bv75_49_A_seq",
+ "driver": "run_split_seqonly_maskoff_tune75.py",
+ "pkg_tree": "pkgvar/seqonly_maskoff_tune75",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bv75_49",
+ "traindir_exists": true,
+ "coords": "coord_w30k_chrXIV.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "0548ad9bcffa3223d504c01fc00c81072d2cbf40",
+ "git_dirty": true,
+ "written": "2026-10-04T01:44:24",
+ "slurm_job_id": "12773079",
+ "source": "decode-time"
+}

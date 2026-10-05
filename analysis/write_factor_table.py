@@ -91,6 +91,13 @@ def main(argv=None):
     ap.add_argument("--segments", default="all")
     ap.add_argument("--windows", default=os.path.join(HERE, "viewer_site", "windows.tsv"))
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--normalise", action="store_true",
+                    help="divide each position by its EMITTING-state row sum before collapsing, "
+                         "i.e. apply the same fix as score_robocop.region_optable. The decoder "
+                         "does not normalise (algo.c posterior_decoding), so without this the "
+                         "stored table is whatever scale `sr` left behind and the clip below "
+                         "turns an out-of-range value into a confident 1.0. OFF by default so "
+                         "existing tables stay byte-identical.")
     a = ap.parse_args(argv)
     t0 = time.time()
 
@@ -146,6 +153,14 @@ def main(argv=None):
         dp = S._get_sparse_todense(g, "posterior")
         if dp.ndim == 1:
             dp = dp[np.newaxis, :]
+        if a.normalise:
+            # Same formula as score_robocop.region_optable: gamma = a*b / sum_j(a*b), summed over
+            # EMITTING states only (algo.c normalize() uses the same convention). Silent states
+            # carry real mass -- up to 0.296 of a row in sequence-only decodes -- so the slice
+            # matters. Must run BEFORE the clip below, which is what turns 3.84e8 into 1.0.
+            _sb = int(dshared["silent_states_begin"])
+            _rs = dp[:, :_sb].sum(axis=1, keepdims=True)
+            dp = np.divide(dp, _rs, out=np.zeros_like(dp), where=_rs > 0)
         t1 = time.time()
         with open(os.devnull, "w") as dn, contextlib.redirect_stdout(dn):
             o = S.get_posterior_binding_probability_df(dshared, dp)

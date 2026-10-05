@@ -1,0 +1,3207 @@
+run	round	set	ref	group	fitted	sites	calls	matched	P	R	F1	T_tune	E
+bu01	0	tune	macisaac	ABF1	1	58	9	1	0.111111	0.0172414	0.0298507	58	7.02003
+bu01	0	tune	macisaac	ABF2	0	0	410	0	0	nan	nan	0	197.304
+bu01	0	tune	macisaac	ACE2	0	41	10	0	0	0	0	41	5.65636
+bu01	0	tune	macisaac	ADR1	0	22	354	0	0	0	0	22	151.751
+bu01	0	tune	macisaac	AFT1	0	0	13	0	0	nan	nan	0	6.71899
+bu01	0	tune	macisaac	AFT2	0	49	185	6	0.0324324	0.122449	0.0512821	49	88.5437
+bu01	0	tune	macisaac	ARO80	0	0	106	0	0	nan	nan	0	50.7585
+bu01	0	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0445258
+bu01	0	tune	macisaac	AZF1	0	10	1079	5	0.00463392	0.5	0.00918274	10	544.829
+bu01	0	tune	macisaac	BAS1	0	7	14	0	0	0	0	7	6.07434
+bu01	0	tune	macisaac	CAD1	0	3	30	0	0	0	0	3	13.6507
+bu01	0	tune	macisaac	CAT8	0	0	696	0	0	nan	nan	0	287.091
+bu01	0	tune	macisaac	CBF1	0	25	53	0	0	0	0	25	24.0609
+bu01	0	tune	macisaac	CEP3	0	0	110	0	0	nan	nan	0	48.1801
+bu01	0	tune	macisaac	CHA4	0	8	12	0	0	0	0	8	6.76184
+bu01	0	tune	macisaac	CIN5	1	49	108	3	0.0277778	0.0612245	0.0382166	49	65.8683
+bu01	0	tune	macisaac	CRZ1	0	0	2	0	0	nan	nan	0	0.477376
+bu01	0	tune	macisaac	CST6	0	25	11	0	0	0	0	25	5.57
+bu01	0	tune	macisaac	CUP9	0	0	12	0	0	nan	nan	0	5.93317
+bu01	0	tune	macisaac	DAL80	0	25	139	0	0	0	0	25	55.581
+bu01	0	tune	macisaac	DAL82	0	15	36	1	0.0277778	0.0666667	0.0392157	15	14.9882
+bu01	0	tune	macisaac	ECM22	0	0	12	0	0	nan	nan	0	4.17943
+bu01	0	tune	macisaac	ECM23	0	0	25	0	0	nan	nan	0	9.59823
+bu01	0	tune	macisaac	FHL1	1	21	180	0	0	0	0	21	97.7994
+bu01	0	tune	macisaac	FKH1	1	23	504	6	0.0119048	0.26087	0.0227704	23	381.524
+bu01	0	tune	macisaac	FKH2	0	38	36	0	0	0	0	38	17.2543
+bu01	0	tune	macisaac	FZF1	0	0	333	0	0	nan	nan	0	160.246
+bu01	0	tune	macisaac	GAL4	0	5	41	0	0	0	0	5	18.3111
+bu01	0	tune	macisaac	GAT1	0	14	15	0	0	0	0	14	7.02969
+bu01	0	tune	macisaac	GAT3	0	10	37	0	0	0	0	10	14.897
+bu01	0	tune	macisaac	GAT4	0	0	81	0	0	nan	nan	0	32.6389
+bu01	0	tune	macisaac	GCN4	0	45	27	2	0.0740741	0.0444444	0.0555556	45	11.2613
+bu01	0	tune	macisaac	GCR1	0	15	100	0	0	0	0	15	47.5113
+bu01	0	tune	macisaac	GIS1	0	0	38	0	0	nan	nan	0	16.9235
+bu01	0	tune	macisaac	GLN3	0	25	131	2	0.0152672	0.08	0.025641	25	59.0757
+bu01	0	tune	macisaac	GSM1	0	0	4	0	0	nan	nan	0	2.70184
+bu01	0	tune	macisaac	GZF3	0	10	9	0	0	0	0	10	5.38655
+bu01	0	tune	macisaac	HAC1	0	0	59	0	0	nan	nan	0	30.5973
+bu01	0	tune	macisaac	HAL9	0	0	227	0	0	nan	nan	0	90.8959
+bu01	0	tune	macisaac	HAP1	0	19	0	0	nan	0	nan	19	0.111189
+bu01	0	tune	macisaac	HCM1	0	0	147	0	0	nan	nan	0	66.0784
+bu01	0	tune	macisaac	HMLALPHA2	0	0	52	0	0	nan	nan	0	21.1676
+bu01	0	tune	macisaac	HMRA2	0	0	25	0	0	nan	nan	0	14.2134
+bu01	0	tune	macisaac	HSF1	0	12	413	0	0	0	0	12	179.158
+bu01	0	tune	macisaac	LEU3	0	4	17	0	0	0	0	4	6.67274
+bu01	0	tune	macisaac	LYS14	0	0	10	0	0	nan	nan	0	4.40304
+bu01	0	tune	macisaac	MATALPHA2	0	0	111	0	0	nan	nan	0	54.2556
+bu01	0	tune	macisaac	MBP1	0	36	5	0	0	0	0	36	1.75994
+bu01	0	tune	macisaac	MCM1	1	11	507	4	0.00788955	0.363636	0.015444	11	343.435
+bu01	0	tune	macisaac	MET31	0	34	1	0	0	0	0	34	0.562808
+bu01	0	tune	macisaac	MET32	0	1	437	0	0	0	0	1	203.361
+bu01	0	tune	macisaac	MGA1	0	0	349	0	0	nan	nan	0	164.285
+bu01	0	tune	macisaac	MIG1	0	1	0	0	nan	0	nan	1	0.332861
+bu01	0	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.754583
+bu01	0	tune	macisaac	MIG3	0	0	1	0	0	nan	nan	0	1.07195
+bu01	0	tune	macisaac	MOT3	0	71	29	0	0	0	0	71	14.2884
+bu01	0	tune	macisaac	MSN1	0	0	22	0	0	nan	nan	0	9.69286
+bu01	0	tune	macisaac	MSN2	0	75	637	17	0.0266876	0.226667	0.0477528	75	236.976
+bu01	0	tune	macisaac	MSN4	0	71	450	12	0.0266667	0.169014	0.0460653	71	162.312
+bu01	0	tune	macisaac	NDT80	0	0	94	0	0	nan	nan	0	42.9266
+bu01	0	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.08254
+bu01	0	tune	macisaac	NHP6A	1	0	2494	0	0	nan	nan	0	1399.29
+bu01	0	tune	macisaac	NHP6B	0	0	5904	0	0	nan	nan	0	2530.17
+bu01	0	tune	macisaac	NRG1	0	33	11	0	0	0	0	33	4.09124
+bu01	0	tune	macisaac	NRG2	0	0	36	0	0	nan	nan	0	15.1545
+bu01	0	tune	macisaac	OAF1	0	0	99	0	0	nan	nan	0	40.8538
+bu01	0	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.71304
+bu01	0	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.65034
+bu01	0	tune	macisaac	PDR1	0	4	46	0	0	0	0	4	22.9947
+bu01	0	tune	macisaac	PDR3	0	2	1	0	0	0	0	2	1.08625
+bu01	0	tune	macisaac	PDR8	0	0	44	0	0	nan	nan	0	23.1009
+bu01	0	tune	macisaac	PHD1	0	88	89	3	0.0337079	0.0340909	0.0338983	88	41.2269
+bu01	0	tune	macisaac	PHO2	0	207	1372	23	0.0167638	0.111111	0.0291324	207	585.45
+bu01	0	tune	macisaac	PHO4	0	6	12	0	0	0	0	6	5.34972
+bu01	0	tune	macisaac	PUT3	0	1	27	0	0	0	0	1	14.3761
+bu01	0	tune	macisaac	RAP1	1	29	26	2	0.0769231	0.0689655	0.0727273	29	14.3046
+bu01	0	tune	macisaac	RDR1	0	0	122	0	0	nan	nan	0	50.3738
+bu01	0	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.19559
+bu01	0	tune	macisaac	RDS2	0	0	110	0	0	nan	nan	0	52.9677
+bu01	0	tune	macisaac	REB1	1	44	1177	37	0.0314359	0.840909	0.0606061	44	907.362
+bu01	0	tune	macisaac	REI1	0	0	39	0	0	nan	nan	0	19.2724
+bu01	0	tune	macisaac	RFX1	0	0	260	0	0	nan	nan	0	121.559
+bu01	0	tune	macisaac	RGM1	0	0	22	0	0	nan	nan	0	10.23
+bu01	0	tune	macisaac	RGT1	0	3	409	0	0	0	0	3	186.718
+bu01	0	tune	macisaac	RIM101	0	1	87	1	0.0114943	1	0.0227273	1	42.2443
+bu01	0	tune	macisaac	ROX1	0	40	1697	5	0.00294638	0.125	0.00575705	40	808.171
+bu01	0	tune	macisaac	RPH1	0	0	25	0	0	nan	nan	0	11.1102
+bu01	0	tune	macisaac	RPN4	0	15	22	0	0	0	0	15	14.5115
+bu01	0	tune	macisaac	RSC3	0	0	18	0	0	nan	nan	0	7.00883
+bu01	0	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.466804
+bu01	0	tune	macisaac	RTG3	0	27	12	0	0	0	0	27	4.78584
+bu01	0	tune	macisaac	SFL1	0	0	638	0	0	nan	nan	0	282.867
+bu01	0	tune	macisaac	SFP1	0	15	480	1	0.00208333	0.0666667	0.0040404	15	216.08
+bu01	0	tune	macisaac	SIG1	0	0	3049	0	0	nan	nan	0	1658.68
+bu01	0	tune	macisaac	SIP4	0	1	144	0	0	0	0	1	66.868
+bu01	0	tune	macisaac	SKN7	0	50	28	3	0.107143	0.06	0.0769231	50	13.0602
+bu01	0	tune	macisaac	SKO1	1	5	51	1	0.0196078	0.2	0.0357143	5	28.3207
+bu01	0	tune	macisaac	SMP1	0	0	842	0	0	nan	nan	0	361.802
+bu01	0	tune	macisaac	SOK2	0	32	57	0	0	0	0	32	25.7741
+bu01	0	tune	macisaac	SPT15	1	0	120	0	0	nan	nan	0	57.8324
+bu01	0	tune	macisaac	SRD1	0	0	997	0	0	nan	nan	0	485.674
+bu01	0	tune	macisaac	STB3	0	0	63	0	0	nan	nan	0	31.3713
+bu01	0	tune	macisaac	STB4	0	3	44	0	0	0	0	3	17.6433
+bu01	0	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.84646
+bu01	0	tune	macisaac	STE12	0	195	91	1	0.010989	0.00512821	0.00699301	195	40.4025
+bu01	0	tune	macisaac	STP1	0	7	9	0	0	0	0	7	4.69015
+bu01	0	tune	macisaac	STP2	0	0	15	0	0	nan	nan	0	7.14011
+bu01	0	tune	macisaac	STP3	0	0	20	0	0	nan	nan	0	8.47144
+bu01	0	tune	macisaac	STP4	0	1	15	0	0	0	0	1	6.88418
+bu01	0	tune	macisaac	SUM1	0	13	1709	1	0.000585138	0.0769231	0.00116144	13	795.574
+bu01	0	tune	macisaac	SUT1	0	26	4	0	0	0	0	26	1.64659
+bu01	0	tune	macisaac	SUT2	0	0	4	0	0	nan	nan	0	1.62937
+bu01	0	tune	macisaac	SWI4	0	39	72	1	0.0138889	0.025641	0.018018	39	36.4643
+bu01	0	tune	macisaac	SWI5	0	110	179	4	0.0223464	0.0363636	0.0276817	110	82.4616
+bu01	0	tune	macisaac	TBF1	1	0	29	0	0	nan	nan	0	12.5101
+bu01	0	tune	macisaac	TBS1	0	0	0	0	nan	nan	nan	0	0.200005
+bu01	0	tune	macisaac	TEA1	0	0	4	0	0	nan	nan	0	2.55683
+bu01	0	tune	macisaac	TEC1	0	51	223	2	0.00896861	0.0392157	0.0145985	51	97.8503
+bu01	0	tune	macisaac	TOS8	0	0	1017	0	0	nan	nan	0	516.733
+bu01	0	tune	macisaac	TYE7	0	19	12	0	0	0	0	19	6.53963
+bu01	0	tune	macisaac	UGA3	0	1	59	0	0	0	0	1	25.8683
+bu01	0	tune	macisaac	UME6	1	19	160	4	0.025	0.210526	0.0446927	19	99.3912
+bu01	0	tune	macisaac	UPC2	0	0	14	0	0	nan	nan	0	7.29495
+bu01	0	tune	macisaac	USV1	0	0	7	0	0	nan	nan	0	2.3569
+bu01	0	tune	macisaac	VHR1	0	0	7	0	0	nan	nan	0	3.07974
+bu01	0	tune	macisaac	XBP1	0	25	470	1	0.00212766	0.04	0.0040404	25	231.802
+bu01	0	tune	macisaac	YAP1	0	8	4	0	0	0	0	8	1.38046
+bu01	0	tune	macisaac	YAP3	0	2	8	0	0	0	0	2	3.65996
+bu01	0	tune	macisaac	YAP6	0	71	187	5	0.026738	0.0704225	0.0387597	71	89.4802
+bu01	0	tune	macisaac	YBR033W	0	0	48	0	0	nan	nan	0	21.8023
+bu01	0	tune	macisaac	YBR239C	0	0	4	0	0	nan	nan	0	1.88914
+bu01	0	tune	macisaac	YDR520C	0	2	2	0	0	0	0	2	1.55718
+bu01	0	tune	macisaac	YER064C	0	0	7	0	0	nan	nan	0	2.34131
+bu01	0	tune	macisaac	YER130C	0	0	24	0	0	nan	nan	0	10.7633
+bu01	0	tune	macisaac	YER184C	0	0	1	0	0	nan	nan	0	1.51824
+bu01	0	tune	macisaac	YGR067C	0	0	14	0	0	nan	nan	0	7.70302
+bu01	0	tune	macisaac	YKL222C	0	0	43	0	0	nan	nan	0	20.1382
+bu01	0	tune	macisaac	YLL054C	0	0	352	0	0	nan	nan	0	139.499
+bu01	0	tune	macisaac	YLR278C	0	0	7	0	0	nan	nan	0	2.75383
+bu01	0	tune	macisaac	YML081W	0	1	3	0	0	0	0	1	1.41494
+bu01	0	tune	macisaac	YNR063W	0	0	36	0	0	nan	nan	0	18.4284
+bu01	0	tune	macisaac	YOX1	0	0	793	0	0	nan	nan	0	364.633
+bu01	0	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.07761
+bu01	0	tune	macisaac	YPR015C	0	0	2	0	0	nan	nan	0	1.20237
+bu01	0	tune	macisaac	YPR022C	0	0	122	0	0	nan	nan	0	51.0331
+bu01	0	tune	macisaac	YPR196W	0	0	25	0	0	nan	nan	0	12.9122
+bu01	0	tune	macisaac	YRM1	0	0	211	0	0	nan	nan	0	99.428
+bu01	0	tune	macisaac	YRR1	0	1	4	0	0	0	0	1	2.33977
+bu01	0	tune	macisaac	ZAP1	0	1	1	0	0	0	0	1	0.578481
+bu01	0	tune	macisaac	ZMS1	0	0	48	0	0	nan	nan	0	22.3542
+bu01	0	tune	rossi_cx	ABF1	1	98	9	2	0.222222	0.0204082	0.0373832	58	7.02003
+bu01	0	tune	rossi_cx	ACE2	0	13	10	0	0	0	0	41	5.65636
+bu01	0	tune	rossi_cx	AFT2	0	4	185	0	0	0	0	49	88.5437
+bu01	0	tune	rossi_cx	ARO80	0	3	106	0	0	0	0	0	50.7585
+bu01	0	tune	rossi_cx	AZF1	0	9	1079	3	0.00278035	0.333333	0.00551471	10	544.829
+bu01	0	tune	rossi_cx	BAS1	0	11	14	0	0	0	0	7	6.07434
+bu01	0	tune	rossi_cx	CAD1	0	14	30	0	0	0	0	3	13.6507
+bu01	0	tune	rossi_cx	CBF1	0	29	53	1	0.0188679	0.0344828	0.0243902	25	24.0609
+bu01	0	tune	rossi_cx	CHA4	0	9	12	0	0	0	0	8	6.76184
+bu01	0	tune	rossi_cx	CIN5	1	67	108	1	0.00925926	0.0149254	0.0114286	49	65.8683
+bu01	0	tune	rossi_cx	CRZ1	0	6	2	1	0.5	0.166667	0.25	0	0.477376
+bu01	0	tune	rossi_cx	CUP9	0	11	12	0	0	0	0	0	5.93317
+bu01	0	tune	rossi_cx	ECM22	0	15	12	0	0	0	0	0	4.17943
+bu01	0	tune	rossi_cx	FHL1	1	78	180	3	0.0166667	0.0384615	0.0232558	21	97.7994
+bu01	0	tune	rossi_cx	FKH1	1	80	504	17	0.0337302	0.2125	0.0582192	23	381.524
+bu01	0	tune	rossi_cx	FKH2	0	32	36	0	0	0	0	38	17.2543
+bu01	0	tune	rossi_cx	FZF1	0	12	333	0	0	0	0	0	160.246
+bu01	0	tune	rossi_cx	GAL4	0	6	41	0	0	0	0	5	18.3111
+bu01	0	tune	rossi_cx	GCN4	0	5	27	0	0	0	0	45	11.2613
+bu01	0	tune	rossi_cx	GCR1	0	13	100	0	0	0	0	15	47.5113
+bu01	0	tune	rossi_cx	GIS1	0	17	38	0	0	0	0	0	16.9235
+bu01	0	tune	rossi_cx	GLN3	0	13	131	0	0	0	0	25	59.0757
+bu01	0	tune	rossi_cx	GZF3	0	36	9	0	0	0	0	10	5.38655
+bu01	0	tune	rossi_cx	HAL9	0	6	227	0	0	0	0	0	90.8959
+bu01	0	tune	rossi_cx	HAP1	0	10	0	0	nan	0	nan	19	0.111189
+bu01	0	tune	rossi_cx	HSF1	0	29	413	1	0.00242131	0.0344828	0.00452489	12	179.158
+bu01	0	tune	rossi_cx	LEU3	0	8	17	0	0	0	0	4	6.67274
+bu01	0	tune	rossi_cx	LYS14	0	9	10	0	0	0	0	0	4.40304
+bu01	0	tune	rossi_cx	MATALPHA2	0	5	111	0	0	0	0	0	54.2556
+bu01	0	tune	rossi_cx	MBP1	0	15	5	0	0	0	0	36	1.75994
+bu01	0	tune	rossi_cx	MCM1	1	51	507	11	0.0216963	0.215686	0.0394265	11	343.435
+bu01	0	tune	rossi_cx	MET31	0	15	1	0	0	0	0	34	0.562808
+bu01	0	tune	rossi_cx	MET32	0	6	437	0	0	0	0	1	203.361
+bu01	0	tune	rossi_cx	MIG1	0	35	0	0	nan	0	nan	1	0.332861
+bu01	0	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.754583
+bu01	0	tune	rossi_cx	MSN2	0	3	637	0	0	0	0	75	236.976
+bu01	0	tune	rossi_cx	NHP6A	1	53	2494	10	0.00400962	0.188679	0.00785238	0	1399.29
+bu01	0	tune	rossi_cx	NRG1	0	8	11	0	0	0	0	33	4.09124
+bu01	0	tune	rossi_cx	NRG2	0	13	36	1	0.0277778	0.0769231	0.0408163	0	15.1545
+bu01	0	tune	rossi_cx	PDR1	0	42	46	0	0	0	0	4	22.9947
+bu01	0	tune	rossi_cx	PDR3	0	6	1	0	0	0	0	2	1.08625
+bu01	0	tune	rossi_cx	PHD1	0	34	89	0	0	0	0	88	41.2269
+bu01	0	tune	rossi_cx	PUT3	0	4	27	0	0	0	0	1	14.3761
+bu01	0	tune	rossi_cx	RAP1	1	44	26	7	0.269231	0.159091	0.2	29	14.3046
+bu01	0	tune	rossi_cx	RDS2	0	2	110	0	0	0	0	0	52.9677
+bu01	0	tune	rossi_cx	REB1	1	138	1177	74	0.0628717	0.536232	0.112548	44	907.362
+bu01	0	tune	rossi_cx	RFX1	0	8	260	1	0.00384615	0.125	0.00746269	0	121.559
+bu01	0	tune	rossi_cx	ROX1	0	42	1697	7	0.00412493	0.166667	0.0080506	40	808.171
+bu01	0	tune	rossi_cx	RPH1	0	10	25	0	0	0	0	0	11.1102
+bu01	0	tune	rossi_cx	RPN4	0	16	22	0	0	0	0	15	14.5115
+bu01	0	tune	rossi_cx	RSC3	0	32	18	3	0.166667	0.09375	0.12	0	7.00883
+bu01	0	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.466804
+bu01	0	tune	rossi_cx	RTG3	0	1	12	0	0	0	0	27	4.78584
+bu01	0	tune	rossi_cx	SFL1	0	22	638	1	0.0015674	0.0454545	0.0030303	0	282.867
+bu01	0	tune	rossi_cx	SFP1	0	25	480	1	0.00208333	0.04	0.0039604	15	216.08
+bu01	0	tune	rossi_cx	SKN7	0	10	28	0	0	0	0	50	13.0602
+bu01	0	tune	rossi_cx	SKO1	1	27	51	1	0.0196078	0.037037	0.025641	5	28.3207
+bu01	0	tune	rossi_cx	SOK2	0	58	57	1	0.0175439	0.0172414	0.0173913	32	25.7741
+bu01	0	tune	rossi_cx	SPT15	1	253	120	9	0.075	0.0355731	0.0482574	0	57.8324
+bu01	0	tune	rossi_cx	STB3	0	22	63	0	0	0	0	0	31.3713
+bu01	0	tune	rossi_cx	STB4	0	22	44	0	0	0	0	3	17.6433
+bu01	0	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.84646
+bu01	0	tune	rossi_cx	STE12	0	20	91	0	0	0	0	195	40.4025
+bu01	0	tune	rossi_cx	STP1	0	18	9	0	0	0	0	7	4.69015
+bu01	0	tune	rossi_cx	STP2	0	27	15	0	0	0	0	0	7.14011
+bu01	0	tune	rossi_cx	STP4	0	11	15	0	0	0	0	1	6.88418
+bu01	0	tune	rossi_cx	SUM1	0	30	1709	4	0.00234055	0.133333	0.00460035	13	795.574
+bu01	0	tune	rossi_cx	SUT1	0	15	4	0	0	0	0	26	1.64659
+bu01	0	tune	rossi_cx	SWI4	0	20	72	1	0.0138889	0.05	0.0217391	39	36.4643
+bu01	0	tune	rossi_cx	SWI5	0	6	179	0	0	0	0	110	82.4616
+bu01	0	tune	rossi_cx	TBF1	1	32	29	5	0.172414	0.15625	0.163934	0	12.5101
+bu01	0	tune	rossi_cx	TBS1	0	0	0	0	nan	nan	nan	0	0.200005
+bu01	0	tune	rossi_cx	TEA1	0	3	4	0	0	0	0	0	2.55683
+bu01	0	tune	rossi_cx	UME6	1	43	160	9	0.05625	0.209302	0.08867	19	99.3912
+bu01	0	tune	rossi_cx	YAP1	0	21	4	0	0	0	0	8	1.38046
+bu01	0	tune	rossi_cx	YDR520C	0	11	2	0	0	0	0	2	1.55718
+bu01	0	tune	rossi_cx	YML081W	0	18	3	0	0	0	0	1	1.41494
+bu01	0	tune	rossi_cx	YRR1	0	16	4	0	0	0	0	1	2.33977
+bu01	0	tune	rossi_cx	ZAP1	0	10	1	0	0	0	0	1	0.578481
+bu01	0	holdout	macisaac	ABF1	1	44	11	2	0.181818	0.0454545	0.0727273		
+bu01	0	holdout	macisaac	ABF2	0	0	381	0	0	nan	nan		
+bu01	0	holdout	macisaac	ACE2	0	21	7	0	0	0	0		
+bu01	0	holdout	macisaac	ADR1	0	41	375	0	0	0	0		
+bu01	0	holdout	macisaac	AFT1	0	0	11	0	0	nan	nan		
+bu01	0	holdout	macisaac	AFT2	0	28	167	4	0.0239521	0.142857	0.0410256		
+bu01	0	holdout	macisaac	ARO80	0	1	88	1	0.0113636	1	0.0224719		
+bu01	0	holdout	macisaac	ASG1	0	0	0	0	nan	nan	nan		
+bu01	0	holdout	macisaac	AZF1	0	7	986	3	0.0030426	0.428571	0.0060423		
+bu01	0	holdout	macisaac	BAS1	0	7	7	1	0.142857	0.142857	0.142857		
+bu01	0	holdout	macisaac	CAD1	0	2	27	0	0	0	0		
+bu01	0	holdout	macisaac	CAT8	0	0	663	0	0	nan	nan		
+bu01	0	holdout	macisaac	CBF1	0	18	55	0	0	0	0		
+bu01	0	holdout	macisaac	CEP3	0	0	106	0	0	nan	nan		
+bu01	0	holdout	macisaac	CHA4	0	4	10	0	0	0	0		
+bu01	0	holdout	macisaac	CIN5	1	41	126	1	0.00793651	0.0243902	0.011976		
+bu01	0	holdout	macisaac	CRZ1	0	0	0	0	nan	nan	nan		
+bu01	0	holdout	macisaac	CST6	0	47	10	0	0	0	0		
+bu01	0	holdout	macisaac	CUP9	0	0	12	0	0	nan	nan		
+bu01	0	holdout	macisaac	DAL80	0	29	148	0	0	0	0		
+bu01	0	holdout	macisaac	DAL82	0	42	18	0	0	0	0		
+bu01	0	holdout	macisaac	ECM22	0	0	6	0	0	nan	nan		
+bu01	0	holdout	macisaac	ECM23	0	0	15	0	0	nan	nan		
+bu01	0	holdout	macisaac	FHL1	1	20	168	2	0.0119048	0.1	0.0212766		
+bu01	0	holdout	macisaac	FKH1	1	30	512	12	0.0234375	0.4	0.0442804		
+bu01	0	holdout	macisaac	FKH2	0	34	41	1	0.0243902	0.0294118	0.0266667		
+bu01	0	holdout	macisaac	FZF1	0	0	418	0	0	nan	nan		
+bu01	0	holdout	macisaac	GAL4	0	2	52	0	0	0	0		
+bu01	0	holdout	macisaac	GAT1	0	15	13	0	0	0	0		
+bu01	0	holdout	macisaac	GAT3	0	21	32	0	0	0	0		
+bu01	0	holdout	macisaac	GAT4	0	0	80	0	0	nan	nan		
+bu01	0	holdout	macisaac	GCN4	0	24	32	0	0	0	0		
+bu01	0	holdout	macisaac	GCR1	0	6	129	0	0	0	0		
+bu01	0	holdout	macisaac	GIS1	0	0	56	0	0	nan	nan		
+bu01	0	holdout	macisaac	GLN3	0	39	147	0	0	0	0		
+bu01	0	holdout	macisaac	GSM1	0	0	5	0	0	nan	nan		
+bu01	0	holdout	macisaac	GZF3	0	9	8	0	0	0	0		
+bu01	0	holdout	macisaac	HAC1	0	1	78	0	0	0	0		
+bu01	0	holdout	macisaac	HAL9	0	0	270	0	0	nan	nan		
+bu01	0	holdout	macisaac	HAP1	0	9	0	0	nan	0	nan		
+bu01	0	holdout	macisaac	HCM1	0	0	161	0	0	nan	nan		
+bu01	0	holdout	macisaac	HMLALPHA2	0	0	54	0	0	nan	nan		
+bu01	0	holdout	macisaac	HMRA2	0	0	31	0	0	nan	nan		
+bu01	0	holdout	macisaac	HSF1	0	13	396	0	0	0	0		
+bu01	0	holdout	macisaac	LEU3	0	1	19	0	0	0	0		
+bu01	0	holdout	macisaac	LYS14	0	0	10	0	0	nan	nan		
+bu01	0	holdout	macisaac	MATALPHA2	0	0	119	0	0	nan	nan		
+bu01	0	holdout	macisaac	MBP1	0	47	4	0	0	0	0		
+bu01	0	holdout	macisaac	MCM1	1	6	486	2	0.00411523	0.333333	0.00813008		
+bu01	0	holdout	macisaac	MET31	0	45	1	0	0	0	0		
+bu01	0	holdout	macisaac	MET32	0	1	449	1	0.00222717	1	0.00444444		
+bu01	0	holdout	macisaac	MGA1	0	0	343	0	0	nan	nan		
+bu01	0	holdout	macisaac	MIG1	0	3	0	0	nan	0	nan		
+bu01	0	holdout	macisaac	MIG2	0	0	1	0	0	nan	nan		
+bu01	0	holdout	macisaac	MIG3	0	0	2	0	0	nan	nan		
+bu01	0	holdout	macisaac	MOT3	0	64	26	0	0	0	0		
+bu01	0	holdout	macisaac	MSN1	0	0	16	0	0	nan	nan		
+bu01	0	holdout	macisaac	MSN2	0	73	601	7	0.0116473	0.0958904	0.0207715		
+bu01	0	holdout	macisaac	MSN4	0	79	445	3	0.00674157	0.0379747	0.0114504		
+bu01	0	holdout	macisaac	NDT80	0	0	83	0	0	nan	nan		
+bu01	0	holdout	macisaac	NHP10	0	0	4	0	0	nan	nan		
+bu01	0	holdout	macisaac	NHP6A	1	0	2301	0	0	nan	nan		
+bu01	0	holdout	macisaac	NHP6B	0	0	5823	0	0	nan	nan		
+bu01	0	holdout	macisaac	NRG1	0	25	6	0	0	0	0		
+bu01	0	holdout	macisaac	NRG2	0	0	32	0	0	nan	nan		
+bu01	0	holdout	macisaac	OAF1	0	0	90	0	0	nan	nan		
+bu01	0	holdout	macisaac	PBF1	0	0	7	0	0	nan	nan		
+bu01	0	holdout	macisaac	PBF2	0	0	19	0	0	nan	nan		
+bu01	0	holdout	macisaac	PDR1	0	6	47	0	0	0	0		
+bu01	0	holdout	macisaac	PDR3	0	0	2	0	0	nan	nan		
+bu01	0	holdout	macisaac	PDR8	0	0	47	0	0	nan	nan		
+bu01	0	holdout	macisaac	PHD1	0	67	89	0	0	0	0		
+bu01	0	holdout	macisaac	PHO2	0	247	1336	29	0.0217066	0.117409	0.0366393		
+bu01	0	holdout	macisaac	PHO4	0	6	16	0	0	0	0		
+bu01	0	holdout	macisaac	PUT3	0	1	20	0	0	0	0		
+bu01	0	holdout	macisaac	RAP1	1	30	13	3	0.230769	0.1	0.139535		
+bu01	0	holdout	macisaac	RDR1	0	0	100	0	0	nan	nan		
+bu01	0	holdout	macisaac	RDS1	0	1	4	0	0	0	0		
+bu01	0	holdout	macisaac	RDS2	0	0	99	0	0	nan	nan		
+bu01	0	holdout	macisaac	REB1	1	32	1197	28	0.0233918	0.875	0.0455655		
+bu01	0	holdout	macisaac	REI1	0	0	45	0	0	nan	nan		
+bu01	0	holdout	macisaac	RFX1	0	3	245	0	0	0	0		
+bu01	0	holdout	macisaac	RGM1	0	0	22	0	0	nan	nan		
+bu01	0	holdout	macisaac	RGT1	0	0	443	0	0	nan	nan		
+bu01	0	holdout	macisaac	RIM101	0	3	83	1	0.0120482	0.333333	0.0232558		
+bu01	0	holdout	macisaac	ROX1	0	34	1619	5	0.00308833	0.147059	0.00604961		
+bu01	0	holdout	macisaac	RPH1	0	1	29	0	0	0	0		
+bu01	0	holdout	macisaac	RPN4	0	15	27	0	0	0	0		
+bu01	0	holdout	macisaac	RSC3	0	0	5	0	0	nan	nan		
+bu01	0	holdout	macisaac	RSC30	0	0	1	0	0	nan	nan		
+bu01	0	holdout	macisaac	RTG3	0	44	12	0	0	0	0		
+bu01	0	holdout	macisaac	SFL1	0	0	633	0	0	nan	nan		
+bu01	0	holdout	macisaac	SFP1	0	17	465	2	0.00430108	0.117647	0.00829876		
+bu01	0	holdout	macisaac	SIG1	0	0	3005	0	0	nan	nan		
+bu01	0	holdout	macisaac	SIP4	0	0	129	0	0	nan	nan		
+bu01	0	holdout	macisaac	SKN7	0	49	18	0	0	0	0		
+bu01	0	holdout	macisaac	SKO1	1	5	40	0	0	0	0		
+bu01	0	holdout	macisaac	SMP1	0	0	894	0	0	nan	nan		
+bu01	0	holdout	macisaac	SOK2	0	60	47	1	0.0212766	0.0166667	0.0186916		
+bu01	0	holdout	macisaac	SPT15	1	0	99	0	0	nan	nan		
+bu01	0	holdout	macisaac	SRD1	0	0	989	0	0	nan	nan		
+bu01	0	holdout	macisaac	STB3	0	0	66	0	0	nan	nan		
+bu01	0	holdout	macisaac	STB4	0	2	31	0	0	0	0		
+bu01	0	holdout	macisaac	STB5	0	12	5	0	0	0	0		
+bu01	0	holdout	macisaac	STE12	0	104	93	0	0	0	0		
+bu01	0	holdout	macisaac	STP1	0	25	4	0	0	0	0		
+bu01	0	holdout	macisaac	STP2	0	0	12	0	0	nan	nan		
+bu01	0	holdout	macisaac	STP3	0	0	20	0	0	nan	nan		
+bu01	0	holdout	macisaac	STP4	0	0	16	0	0	nan	nan		
+bu01	0	holdout	macisaac	SUM1	0	20	1669	2	0.00119832	0.1	0.00236827		
+bu01	0	holdout	macisaac	SUT1	0	40	6	0	0	0	0		
+bu01	0	holdout	macisaac	SUT2	0	0	4	0	0	nan	nan		
+bu01	0	holdout	macisaac	SWI4	0	70	53	0	0	0	0		
+bu01	0	holdout	macisaac	SWI5	0	82	149	2	0.0134228	0.0243902	0.017316		
+bu01	0	holdout	macisaac	TBF1	1	0	27	0	0	nan	nan		
+bu01	0	holdout	macisaac	TBS1	0	0	0	0	nan	nan	nan		
+bu01	0	holdout	macisaac	TEA1	0	0	1	0	0	nan	nan		
+bu01	0	holdout	macisaac	TEC1	0	34	206	1	0.00485437	0.0294118	0.00833333		
+bu01	0	holdout	macisaac	TOS8	0	0	1090	0	0	nan	nan		
+bu01	0	holdout	macisaac	TYE7	0	8	13	0	0	0	0		
+bu01	0	holdout	macisaac	UGA3	0	2	52	0	0	0	0		
+bu01	0	holdout	macisaac	UME6	1	18	144	3	0.0208333	0.166667	0.037037		
+bu01	0	holdout	macisaac	UPC2	0	0	17	0	0	nan	nan		
+bu01	0	holdout	macisaac	USV1	0	0	2	0	0	nan	nan		
+bu01	0	holdout	macisaac	VHR1	0	0	8	0	0	nan	nan		
+bu01	0	holdout	macisaac	XBP1	0	10	474	0	0	0	0		
+bu01	0	holdout	macisaac	YAP1	0	15	4	0	0	0	0		
+bu01	0	holdout	macisaac	YAP3	0	0	10	0	0	nan	nan		
+bu01	0	holdout	macisaac	YAP6	0	47	199	0	0	0	0		
+bu01	0	holdout	macisaac	YBR033W	0	0	33	0	0	nan	nan		
+bu01	0	holdout	macisaac	YBR239C	0	0	3	0	0	nan	nan		
+bu01	0	holdout	macisaac	YDR520C	0	0	5	0	0	nan	nan		
+bu01	0	holdout	macisaac	YER064C	0	0	8	0	0	nan	nan		
+bu01	0	holdout	macisaac	YER130C	0	0	22	0	0	nan	nan		
+bu01	0	holdout	macisaac	YER184C	0	0	3	0	0	nan	nan		
+bu01	0	holdout	macisaac	YGR067C	0	0	11	0	0	nan	nan		
+bu01	0	holdout	macisaac	YKL222C	0	0	41	0	0	nan	nan		
+bu01	0	holdout	macisaac	YLL054C	0	0	302	0	0	nan	nan		
+bu01	0	holdout	macisaac	YLR278C	0	0	3	0	0	nan	nan		
+bu01	0	holdout	macisaac	YML081W	0	1	3	0	0	0	0		
+bu01	0	holdout	macisaac	YNR063W	0	0	40	0	0	nan	nan		
+bu01	0	holdout	macisaac	YOX1	0	1	816	0	0	0	0		
+bu01	0	holdout	macisaac	YPR013C	0	0	14	0	0	nan	nan		
+bu01	0	holdout	macisaac	YPR015C	0	0	0	0	nan	nan	nan		
+bu01	0	holdout	macisaac	YPR022C	0	0	94	0	0	nan	nan		
+bu01	0	holdout	macisaac	YPR196W	0	0	33	0	0	nan	nan		
+bu01	0	holdout	macisaac	YRM1	0	0	221	0	0	nan	nan		
+bu01	0	holdout	macisaac	YRR1	0	0	2	0	0	nan	nan		
+bu01	0	holdout	macisaac	ZAP1	0	0	2	0	0	nan	nan		
+bu01	0	holdout	macisaac	ZMS1	0	0	41	0	0	nan	nan		
+bu01	0	holdout	rossi_cx	ABF1	1	103	11	3	0.272727	0.0291262	0.0526316		
+bu01	0	holdout	rossi_cx	ACE2	0	10	7	0	0	0	0		
+bu01	0	holdout	rossi_cx	AFT2	0	7	167	1	0.00598802	0.142857	0.0114943		
+bu01	0	holdout	rossi_cx	ARO80	0	2	88	1	0.0113636	0.5	0.0222222		
+bu01	0	holdout	rossi_cx	AZF1	0	10	986	0	0	0	0		
+bu01	0	holdout	rossi_cx	BAS1	0	9	7	1	0.142857	0.111111	0.125		
+bu01	0	holdout	rossi_cx	CAD1	0	10	27	0	0	0	0		
+bu01	0	holdout	rossi_cx	CBF1	0	18	55	0	0	0	0		
+bu01	0	holdout	rossi_cx	CHA4	0	5	10	0	0	0	0		
+bu01	0	holdout	rossi_cx	CIN5	1	48	126	1	0.00793651	0.0208333	0.0114943		
+bu01	0	holdout	rossi_cx	CRZ1	0	6	0	0	nan	0	nan		
+bu01	0	holdout	rossi_cx	CUP9	0	13	12	0	0	0	0		
+bu01	0	holdout	rossi_cx	ECM22	0	9	6	0	0	0	0		
+bu01	0	holdout	rossi_cx	FHL1	1	44	168	2	0.0119048	0.0454545	0.0188679		
+bu01	0	holdout	rossi_cx	FKH1	1	61	512	25	0.0488281	0.409836	0.08726		
+bu01	0	holdout	rossi_cx	FKH2	0	41	41	1	0.0243902	0.0243902	0.0243902		
+bu01	0	holdout	rossi_cx	FZF1	0	4	418	0	0	0	0		
+bu01	0	holdout	rossi_cx	GAL4	0	2	52	0	0	0	0		
+bu01	0	holdout	rossi_cx	GCN4	0	7	32	0	0	0	0		
+bu01	0	holdout	rossi_cx	GCR1	0	12	129	1	0.00775194	0.0833333	0.0141844		
+bu01	0	holdout	rossi_cx	GIS1	0	21	56	0	0	0	0		
+bu01	0	holdout	rossi_cx	GLN3	0	8	147	0	0	0	0		
+bu01	0	holdout	rossi_cx	GZF3	0	31	8	0	0	0	0		
+bu01	0	holdout	rossi_cx	HAL9	0	5	270	0	0	0	0		
+bu01	0	holdout	rossi_cx	HAP1	0	12	0	0	nan	0	nan		
+bu01	0	holdout	rossi_cx	HSF1	0	27	396	0	0	0	0		
+bu01	0	holdout	rossi_cx	LEU3	0	2	19	0	0	0	0		
+bu01	0	holdout	rossi_cx	LYS14	0	7	10	0	0	0	0		
+bu01	0	holdout	rossi_cx	MATALPHA2	0	2	119	0	0	0	0		
+bu01	0	holdout	rossi_cx	MBP1	0	20	4	0	0	0	0		
+bu01	0	holdout	rossi_cx	MCM1	1	35	486	7	0.0144033	0.2	0.0268714		
+bu01	0	holdout	rossi_cx	MET31	0	10	1	0	0	0	0		
+bu01	0	holdout	rossi_cx	MET32	0	2	449	0	0	0	0		
+bu01	0	holdout	rossi_cx	MIG1	0	43	0	0	nan	0	nan		
+bu01	0	holdout	rossi_cx	MIG2	0	49	1	0	0	0	0		
+bu01	0	holdout	rossi_cx	MSN2	0	1	601	0	0	0	0		
+bu01	0	holdout	rossi_cx	NHP6A	1	47	2301	12	0.00521512	0.255319	0.0102215		
+bu01	0	holdout	rossi_cx	NRG1	0	11	6	0	0	0	0		
+bu01	0	holdout	rossi_cx	NRG2	0	23	32	0	0	0	0		
+bu01	0	holdout	rossi_cx	PDR1	0	35	47	2	0.0425532	0.0571429	0.0487805		
+bu01	0	holdout	rossi_cx	PDR3	0	3	2	0	0	0	0		
+bu01	0	holdout	rossi_cx	PHD1	0	33	89	0	0	0	0		
+bu01	0	holdout	rossi_cx	PUT3	0	3	20	0	0	0	0		
+bu01	0	holdout	rossi_cx	RAP1	1	44	13	4	0.307692	0.0909091	0.140351		
+bu01	0	holdout	rossi_cx	RDS2	0	0	99	0	0	nan	nan		
+bu01	0	holdout	rossi_cx	REB1	1	115	1197	77	0.0643275	0.669565	0.117378		
+bu01	0	holdout	rossi_cx	RFX1	0	20	245	0	0	0	0		
+bu01	0	holdout	rossi_cx	ROX1	0	40	1619	5	0.00308833	0.125	0.00602773		
+bu01	0	holdout	rossi_cx	RPH1	0	3	29	0	0	0	0		
+bu01	0	holdout	rossi_cx	RPN4	0	15	27	0	0	0	0		
+bu01	0	holdout	rossi_cx	RSC3	0	33	5	1	0.2	0.030303	0.0526316		
+bu01	0	holdout	rossi_cx	RSC30	0	1	1	0	0	0	0		
+bu01	0	holdout	rossi_cx	RTG3	0	4	12	0	0	0	0		
+bu01	0	holdout	rossi_cx	SFL1	0	29	633	0	0	0	0		
+bu01	0	holdout	rossi_cx	SFP1	0	19	465	1	0.00215054	0.0526316	0.00413223		
+bu01	0	holdout	rossi_cx	SKN7	0	9	18	0	0	0	0		
+bu01	0	holdout	rossi_cx	SKO1	1	31	40	2	0.05	0.0645161	0.056338		
+bu01	0	holdout	rossi_cx	SOK2	0	52	47	1	0.0212766	0.0192308	0.020202		
+bu01	0	holdout	rossi_cx	SPT15	1	241	99	8	0.0808081	0.033195	0.0470588		
+bu01	0	holdout	rossi_cx	STB3	0	20	66	0	0	0	0		
+bu01	0	holdout	rossi_cx	STB4	0	11	31	0	0	0	0		
+bu01	0	holdout	rossi_cx	STB5	0	30	5	0	0	0	0		
+bu01	0	holdout	rossi_cx	STE12	0	11	93	0	0	0	0		
+bu01	0	holdout	rossi_cx	STP1	0	21	4	1	0.25	0.047619	0.08		
+bu01	0	holdout	rossi_cx	STP2	0	24	12	0	0	0	0		
+bu01	0	holdout	rossi_cx	STP4	0	8	16	0	0	0	0		
+bu01	0	holdout	rossi_cx	SUM1	0	28	1669	5	0.00299581	0.178571	0.00589275		
+bu01	0	holdout	rossi_cx	SUT1	0	20	6	0	0	0	0		
+bu01	0	holdout	rossi_cx	SWI4	0	26	53	0	0	0	0		
+bu01	0	holdout	rossi_cx	SWI5	0	5	149	0	0	0	0		
+bu01	0	holdout	rossi_cx	TBF1	1	25	27	3	0.111111	0.12	0.115385		
+bu01	0	holdout	rossi_cx	TBS1	0	1	0	0	nan	0	nan		
+bu01	0	holdout	rossi_cx	TEA1	0	5	1	0	0	0	0		
+bu01	0	holdout	rossi_cx	UME6	1	28	144	10	0.0694444	0.357143	0.116279		
+bu01	0	holdout	rossi_cx	YAP1	0	20	4	0	0	0	0		
+bu01	0	holdout	rossi_cx	YDR520C	0	4	5	0	0	0	0		
+bu01	0	holdout	rossi_cx	YML081W	0	17	3	0	0	0	0		
+bu01	0	holdout	rossi_cx	YRR1	0	14	2	0	0	0	0		
+bu01	0	holdout	rossi_cx	ZAP1	0	4	2	0	0	0	0		
+bu01	1	tune	macisaac	ABF1	1	58	40	5	0.125	0.0862069	0.102041	58	18.1439
+bu01	1	tune	macisaac	ABF2	0	0	442	0	0	nan	nan	0	219.293
+bu01	1	tune	macisaac	ACE2	0	41	46	0	0	0	0	41	19.5921
+bu01	1	tune	macisaac	ADR1	0	22	71	0	0	0	0	22	35.7541
+bu01	1	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.36162
+bu01	1	tune	macisaac	AFT2	0	49	124	5	0.0403226	0.102041	0.0578035	49	64.7782
+bu01	1	tune	macisaac	ARO80	0	0	118	0	0	nan	nan	0	57.9142
+bu01	1	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0607634
+bu01	1	tune	macisaac	AZF1	0	10	406	3	0.00738916	0.3	0.0144231	10	199.967
+bu01	1	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.14167
+bu01	1	tune	macisaac	CAD1	0	3	12	0	0	0	0	3	3.84405
+bu01	1	tune	macisaac	CAT8	0	0	815	0	0	nan	nan	0	352.234
+bu01	1	tune	macisaac	CBF1	0	25	66	0	0	0	0	25	28.5393
+bu01	1	tune	macisaac	CEP3	0	0	129	0	0	nan	nan	0	60.3491
+bu01	1	tune	macisaac	CHA4	0	8	14	0	0	0	0	8	9.21822
+bu01	1	tune	macisaac	CIN5	1	49	117	3	0.025641	0.0612245	0.0361446	49	68.9404
+bu01	1	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.752163
+bu01	1	tune	macisaac	CST6	0	25	33	0	0	0	0	25	16.2015
+bu01	1	tune	macisaac	CUP9	0	0	19	0	0	nan	nan	0	6.94818
+bu01	1	tune	macisaac	DAL80	0	25	68	0	0	0	0	25	28.8395
+bu01	1	tune	macisaac	DAL82	0	15	36	1	0.0277778	0.0666667	0.0392157	15	15.9459
+bu01	1	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.54476
+bu01	1	tune	macisaac	ECM23	0	0	24	0	0	nan	nan	0	9.53553
+bu01	1	tune	macisaac	FHL1	1	21	94	0	0	0	0	21	51.8565
+bu01	1	tune	macisaac	FKH1	1	23	390	6	0.0153846	0.26087	0.0290557	23	294.068
+bu01	1	tune	macisaac	FKH2	0	38	102	1	0.00980392	0.0263158	0.0142857	38	41.7059
+bu01	1	tune	macisaac	FZF1	0	0	363	0	0	nan	nan	0	172.901
+bu01	1	tune	macisaac	GAL4	0	5	16	0	0	0	0	5	8.56046
+bu01	1	tune	macisaac	GAT1	0	14	38	0	0	0	0	14	15.7621
+bu01	1	tune	macisaac	GAT3	0	10	23	0	0	0	0	10	10.1585
+bu01	1	tune	macisaac	GAT4	0	0	87	0	0	nan	nan	0	35.9231
+bu01	1	tune	macisaac	GCN4	0	45	69	3	0.0434783	0.0666667	0.0526316	45	33.8127
+bu01	1	tune	macisaac	GCR1	0	15	41	0	0	0	0	15	19.7657
+bu01	1	tune	macisaac	GIS1	0	0	49	0	0	nan	nan	0	21.3705
+bu01	1	tune	macisaac	GLN3	0	25	66	1	0.0151515	0.04	0.021978	25	29.4123
+bu01	1	tune	macisaac	GSM1	0	0	8	0	0	nan	nan	0	3.37737
+bu01	1	tune	macisaac	GZF3	0	10	19	0	0	0	0	10	10.1408
+bu01	1	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	30.9359
+bu01	1	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.718
+bu01	1	tune	macisaac	HAP1	0	19	4	0	0	0	0	19	0.880581
+bu01	1	tune	macisaac	HCM1	0	0	165	0	0	nan	nan	0	74.6194
+bu01	1	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.4921
+bu01	1	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9371
+bu01	1	tune	macisaac	HSF1	0	12	81	0	0	0	0	12	42.0624
+bu01	1	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.48752
+bu01	1	tune	macisaac	LYS14	0	0	13	0	0	nan	nan	0	5.74395
+bu01	1	tune	macisaac	MATALPHA2	0	0	129	0	0	nan	nan	0	62.4251
+bu01	1	tune	macisaac	MBP1	0	36	25	0	0	0	0	36	10.3127
+bu01	1	tune	macisaac	MCM1	1	11	355	3	0.0084507	0.272727	0.0163934	11	237.322
+bu01	1	tune	macisaac	MET31	0	34	6	1	0.166667	0.0294118	0.05	34	3.1098
+bu01	1	tune	macisaac	MET32	0	1	132	0	0	0	0	1	57.2734
+bu01	1	tune	macisaac	MGA1	0	0	391	0	0	nan	nan	0	183.399
+bu01	1	tune	macisaac	MIG1	0	1	13	0	0	0	0	1	3.96459
+bu01	1	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.752165
+bu01	1	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	0.951473
+bu01	1	tune	macisaac	MOT3	0	71	85	0	0	0	0	71	45.9741
+bu01	1	tune	macisaac	MSN1	0	0	32	0	0	nan	nan	0	11
+bu01	1	tune	macisaac	MSN2	0	75	268	9	0.0335821	0.12	0.0524781	75	100.822
+bu01	1	tune	macisaac	MSN4	0	71	266	6	0.0225564	0.084507	0.0356083	71	111.184
+bu01	1	tune	macisaac	NDT80	0	0	97	0	0	nan	nan	0	47.0873
+bu01	1	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.57154
+bu01	1	tune	macisaac	NHP6A	1	0	2731	0	0	nan	nan	0	1555.65
+bu01	1	tune	macisaac	NHP6B	0	0	6626	0	0	nan	nan	0	3100.73
+bu01	1	tune	macisaac	NRG1	0	33	42	3	0.0714286	0.0909091	0.08	33	19.6184
+bu01	1	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.9181
+bu01	1	tune	macisaac	OAF1	0	0	126	0	0	nan	nan	0	53.0655
+bu01	1	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.74465
+bu01	1	tune	macisaac	PBF2	0	0	20	0	0	nan	nan	0	7.84562
+bu01	1	tune	macisaac	PDR1	0	4	9	0	0	0	0	4	5.17692
+bu01	1	tune	macisaac	PDR3	0	2	3	0	0	0	0	2	1.47379
+bu01	1	tune	macisaac	PDR8	0	0	50	0	0	nan	nan	0	25.132
+bu01	1	tune	macisaac	PHD1	0	88	181	4	0.0220994	0.0454545	0.0297398	88	81.0931
+bu01	1	tune	macisaac	PHO2	0	207	574	11	0.0191638	0.0531401	0.028169	207	255.134
+bu01	1	tune	macisaac	PHO4	0	6	14	0	0	0	0	6	6.02712
+bu01	1	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	2.22441
+bu01	1	tune	macisaac	RAP1	1	29	41	3	0.0731707	0.103448	0.0857143	29	23.8535
+bu01	1	tune	macisaac	RDR1	0	0	136	0	0	nan	nan	0	59.8589
+bu01	1	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.82458
+bu01	1	tune	macisaac	RDS2	0	0	149	0	0	nan	nan	0	68.7727
+bu01	1	tune	macisaac	REB1	1	44	899	34	0.0378198	0.772727	0.0721103	44	684.065
+bu01	1	tune	macisaac	REI1	0	0	68	0	0	nan	nan	0	25.7412
+bu01	1	tune	macisaac	RFX1	0	0	275	0	0	nan	nan	0	132.927
+bu01	1	tune	macisaac	RGM1	0	0	23	0	0	nan	nan	0	10.7671
+bu01	1	tune	macisaac	RGT1	0	3	88	0	0	0	0	3	40.3376
+bu01	1	tune	macisaac	RIM101	0	1	22	0	0	0	0	1	11.0141
+bu01	1	tune	macisaac	ROX1	0	40	534	1	0.00187266	0.025	0.00348432	40	276.856
+bu01	1	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.5875
+bu01	1	tune	macisaac	RPN4	0	15	41	0	0	0	0	15	19.4866
+bu01	1	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	7.41939
+bu01	1	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.430213
+bu01	1	tune	macisaac	RTG3	0	27	57	0	0	0	0	27	26.1978
+bu01	1	tune	macisaac	SFL1	0	0	727	0	0	nan	nan	0	317.28
+bu01	1	tune	macisaac	SFP1	0	15	162	0	0	0	0	15	67.9963
+bu01	1	tune	macisaac	SIG1	0	0	3438	0	0	nan	nan	0	1923.98
+bu01	1	tune	macisaac	SIP4	0	1	22	0	0	0	0	1	11.7487
+bu01	1	tune	macisaac	SKN7	0	50	82	3	0.0365854	0.06	0.0454545	50	39.0397
+bu01	1	tune	macisaac	SKO1	1	5	30	1	0.0333333	0.2	0.0571429	5	15.3129
+bu01	1	tune	macisaac	SMP1	0	0	1038	0	0	nan	nan	0	450.445
+bu01	1	tune	macisaac	SOK2	0	32	68	1	0.0147059	0.03125	0.02	32	30.0151
+bu01	1	tune	macisaac	SPT15	1	0	131	0	0	nan	nan	0	64.8832
+bu01	1	tune	macisaac	SRD1	0	0	1093	0	0	nan	nan	0	529.458
+bu01	1	tune	macisaac	STB3	0	0	76	0	0	nan	nan	0	35.3565
+bu01	1	tune	macisaac	STB4	0	3	6	0	0	0	0	3	4.34826
+bu01	1	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.59826
+bu01	1	tune	macisaac	STE12	0	195	287	8	0.0278746	0.0410256	0.033195	195	139.975
+bu01	1	tune	macisaac	STP1	0	7	13	0	0	0	0	7	6.81172
+bu01	1	tune	macisaac	STP2	0	0	15	0	0	nan	nan	0	7.47783
+bu01	1	tune	macisaac	STP3	0	0	20	0	0	nan	nan	0	8.74891
+bu01	1	tune	macisaac	STP4	0	1	4	0	0	0	0	1	1.56668
+bu01	1	tune	macisaac	SUM1	0	13	604	0	0	0	0	13	225.103
+bu01	1	tune	macisaac	SUT1	0	26	20	0	0	0	0	26	9.66749
+bu01	1	tune	macisaac	SUT2	0	0	2	0	0	nan	nan	0	0.938484
+bu01	1	tune	macisaac	SWI4	0	39	83	1	0.0120482	0.025641	0.0163934	39	38.7137
+bu01	1	tune	macisaac	SWI5	0	110	251	5	0.0199203	0.0454545	0.0277008	110	110.093
+bu01	1	tune	macisaac	TBF1	1	0	32	0	0	nan	nan	0	14.8948
+bu01	1	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.256414
+bu01	1	tune	macisaac	TEA1	0	0	5	0	0	nan	nan	0	3.04079
+bu01	1	tune	macisaac	TEC1	0	51	133	2	0.0150376	0.0392157	0.0217391	51	63.3172
+bu01	1	tune	macisaac	TOS8	0	0	1055	0	0	nan	nan	0	556.992
+bu01	1	tune	macisaac	TYE7	0	19	45	0	0	0	0	19	17.302
+bu01	1	tune	macisaac	UGA3	0	1	13	0	0	0	0	1	6.20417
+bu01	1	tune	macisaac	UME6	1	19	97	2	0.0206186	0.105263	0.0344828	19	67.9101
+bu01	1	tune	macisaac	UPC2	0	0	15	0	0	nan	nan	0	7.68542
+bu01	1	tune	macisaac	USV1	0	0	4	0	0	nan	nan	0	2.06308
+bu01	1	tune	macisaac	VHR1	0	0	4	0	0	nan	nan	0	1.94744
+bu01	1	tune	macisaac	XBP1	0	25	158	0	0	0	0	25	69.7087
+bu01	1	tune	macisaac	YAP1	0	8	10	0	0	0	0	8	5.40603
+bu01	1	tune	macisaac	YAP3	0	2	3	0	0	0	0	2	1.65882
+bu01	1	tune	macisaac	YAP6	0	71	145	3	0.0206897	0.0422535	0.0277778	71	71.5956
+bu01	1	tune	macisaac	YBR033W	0	0	58	0	0	nan	nan	0	26.3605
+bu01	1	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.50995
+bu01	1	tune	macisaac	YDR520C	0	2	4	0	0	0	0	2	2.03395
+bu01	1	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.29718
+bu01	1	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.0126
+bu01	1	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.05185
+bu01	1	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	9.174
+bu01	1	tune	macisaac	YKL222C	0	0	54	0	0	nan	nan	0	23.9733
+bu01	1	tune	macisaac	YLL054C	0	0	386	0	0	nan	nan	0	157.298
+bu01	1	tune	macisaac	YLR278C	0	0	4	0	0	nan	nan	0	3.00036
+bu01	1	tune	macisaac	YML081W	0	1	2	0	0	0	0	1	1.16722
+bu01	1	tune	macisaac	YNR063W	0	0	37	0	0	nan	nan	0	20.0988
+bu01	1	tune	macisaac	YOX1	0	0	908	0	0	nan	nan	0	422.959
+bu01	1	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.70991
+bu01	1	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.25011
+bu01	1	tune	macisaac	YPR022C	0	0	151	0	0	nan	nan	0	71.8281
+bu01	1	tune	macisaac	YPR196W	0	0	33	0	0	nan	nan	0	14.9656
+bu01	1	tune	macisaac	YRM1	0	0	245	0	0	nan	nan	0	114.119
+bu01	1	tune	macisaac	YRR1	0	1	2	0	0	0	0	1	1.38521
+bu01	1	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	0.964336
+bu01	1	tune	macisaac	ZMS1	0	0	49	0	0	nan	nan	0	23.7558
+bu01	1	tune	rossi_cx	ABF1	1	98	40	9	0.225	0.0918367	0.130435	58	18.1439
+bu01	1	tune	rossi_cx	ACE2	0	13	46	0	0	0	0	41	19.5921
+bu01	1	tune	rossi_cx	AFT2	0	4	124	0	0	0	0	49	64.7782
+bu01	1	tune	rossi_cx	ARO80	0	3	118	0	0	0	0	0	57.9142
+bu01	1	tune	rossi_cx	AZF1	0	9	406	1	0.00246305	0.111111	0.00481928	10	199.967
+bu01	1	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.14167
+bu01	1	tune	rossi_cx	CAD1	0	14	12	0	0	0	0	3	3.84405
+bu01	1	tune	rossi_cx	CBF1	0	29	66	1	0.0151515	0.0344828	0.0210526	25	28.5393
+bu01	1	tune	rossi_cx	CHA4	0	9	14	1	0.0714286	0.111111	0.0869565	8	9.21822
+bu01	1	tune	rossi_cx	CIN5	1	67	117	1	0.00854701	0.0149254	0.0108696	49	68.9404
+bu01	1	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.752163
+bu01	1	tune	rossi_cx	CUP9	0	11	19	0	0	0	0	0	6.94818
+bu01	1	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.54476
+bu01	1	tune	rossi_cx	FHL1	1	78	94	1	0.0106383	0.0128205	0.0116279	21	51.8565
+bu01	1	tune	rossi_cx	FKH1	1	80	390	14	0.0358974	0.175	0.0595745	23	294.068
+bu01	1	tune	rossi_cx	FKH2	0	32	102	0	0	0	0	38	41.7059
+bu01	1	tune	rossi_cx	FZF1	0	12	363	0	0	0	0	0	172.901
+bu01	1	tune	rossi_cx	GAL4	0	6	16	0	0	0	0	5	8.56046
+bu01	1	tune	rossi_cx	GCN4	0	5	69	1	0.0144928	0.2	0.027027	45	33.8127
+bu01	1	tune	rossi_cx	GCR1	0	13	41	0	0	0	0	15	19.7657
+bu01	1	tune	rossi_cx	GIS1	0	17	49	0	0	0	0	0	21.3705
+bu01	1	tune	rossi_cx	GLN3	0	13	66	0	0	0	0	25	29.4123
+bu01	1	tune	rossi_cx	GZF3	0	36	19	0	0	0	0	10	10.1408
+bu01	1	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.718
+bu01	1	tune	rossi_cx	HAP1	0	10	4	0	0	0	0	19	0.880581
+bu01	1	tune	rossi_cx	HSF1	0	29	81	0	0	0	0	12	42.0624
+bu01	1	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.48752
+bu01	1	tune	rossi_cx	LYS14	0	9	13	0	0	0	0	0	5.74395
+bu01	1	tune	rossi_cx	MATALPHA2	0	5	129	0	0	0	0	0	62.4251
+bu01	1	tune	rossi_cx	MBP1	0	15	25	0	0	0	0	36	10.3127
+bu01	1	tune	rossi_cx	MCM1	1	51	355	9	0.0253521	0.176471	0.044335	11	237.322
+bu01	1	tune	rossi_cx	MET31	0	15	6	0	0	0	0	34	3.1098
+bu01	1	tune	rossi_cx	MET32	0	6	132	0	0	0	0	1	57.2734
+bu01	1	tune	rossi_cx	MIG1	0	35	13	0	0	0	0	1	3.96459
+bu01	1	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.752165
+bu01	1	tune	rossi_cx	MSN2	0	3	268	0	0	0	0	75	100.822
+bu01	1	tune	rossi_cx	NHP6A	1	53	2731	12	0.00439399	0.226415	0.00862069	0	1555.65
+bu01	1	tune	rossi_cx	NRG1	0	8	42	1	0.0238095	0.125	0.04	33	19.6184
+bu01	1	tune	rossi_cx	NRG2	0	13	34	1	0.0294118	0.0769231	0.0425532	0	14.9181
+bu01	1	tune	rossi_cx	PDR1	0	42	9	0	0	0	0	4	5.17692
+bu01	1	tune	rossi_cx	PDR3	0	6	3	0	0	0	0	2	1.47379
+bu01	1	tune	rossi_cx	PHD1	0	34	181	1	0.00552486	0.0294118	0.00930233	88	81.0931
+bu01	1	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	2.22441
+bu01	1	tune	rossi_cx	RAP1	1	44	41	8	0.195122	0.181818	0.188235	29	23.8535
+bu01	1	tune	rossi_cx	RDS2	0	2	149	0	0	0	0	0	68.7727
+bu01	1	tune	rossi_cx	REB1	1	138	899	67	0.0745273	0.485507	0.129219	44	684.065
+bu01	1	tune	rossi_cx	RFX1	0	8	275	1	0.00363636	0.125	0.00706714	0	132.927
+bu01	1	tune	rossi_cx	ROX1	0	42	534	1	0.00187266	0.0238095	0.00347222	40	276.856
+bu01	1	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.5875
+bu01	1	tune	rossi_cx	RPN4	0	16	41	0	0	0	0	15	19.4866
+bu01	1	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	7.41939
+bu01	1	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.430213
+bu01	1	tune	rossi_cx	RTG3	0	1	57	0	0	0	0	27	26.1978
+bu01	1	tune	rossi_cx	SFL1	0	22	727	2	0.00275103	0.0909091	0.00534045	0	317.28
+bu01	1	tune	rossi_cx	SFP1	0	25	162	0	0	0	0	15	67.9963
+bu01	1	tune	rossi_cx	SKN7	0	10	82	0	0	0	0	50	39.0397
+bu01	1	tune	rossi_cx	SKO1	1	27	30	1	0.0333333	0.037037	0.0350877	5	15.3129
+bu01	1	tune	rossi_cx	SOK2	0	58	68	1	0.0147059	0.0172414	0.015873	32	30.0151
+bu01	1	tune	rossi_cx	SPT15	1	253	131	9	0.0687023	0.0355731	0.046875	0	64.8832
+bu01	1	tune	rossi_cx	STB3	0	22	76	0	0	0	0	0	35.3565
+bu01	1	tune	rossi_cx	STB4	0	22	6	0	0	0	0	3	4.34826
+bu01	1	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.59826
+bu01	1	tune	rossi_cx	STE12	0	20	287	0	0	0	0	195	139.975
+bu01	1	tune	rossi_cx	STP1	0	18	13	0	0	0	0	7	6.81172
+bu01	1	tune	rossi_cx	STP2	0	27	15	0	0	0	0	0	7.47783
+bu01	1	tune	rossi_cx	STP4	0	11	4	0	0	0	0	1	1.56668
+bu01	1	tune	rossi_cx	SUM1	0	30	604	0	0	0	0	13	225.103
+bu01	1	tune	rossi_cx	SUT1	0	15	20	0	0	0	0	26	9.66749
+bu01	1	tune	rossi_cx	SWI4	0	20	83	1	0.0120482	0.05	0.0194175	39	38.7137
+bu01	1	tune	rossi_cx	SWI5	0	6	251	0	0	0	0	110	110.093
+bu01	1	tune	rossi_cx	TBF1	1	32	32	6	0.1875	0.1875	0.1875	0	14.8948
+bu01	1	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.256414
+bu01	1	tune	rossi_cx	TEA1	0	3	5	0	0	0	0	0	3.04079
+bu01	1	tune	rossi_cx	UME6	1	43	97	6	0.0618557	0.139535	0.0857143	19	67.9101
+bu01	1	tune	rossi_cx	YAP1	0	21	10	0	0	0	0	8	5.40603
+bu01	1	tune	rossi_cx	YDR520C	0	11	4	0	0	0	0	2	2.03395
+bu01	1	tune	rossi_cx	YML081W	0	18	2	0	0	0	0	1	1.16722
+bu01	1	tune	rossi_cx	YRR1	0	16	2	0	0	0	0	1	1.38521
+bu01	1	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	0.964336
+bu01	2	tune	macisaac	ABF1	1	58	73	8	0.109589	0.137931	0.122137	58	39.3802
+bu01	2	tune	macisaac	ABF2	0	0	467	0	0	nan	nan	0	225.153
+bu01	2	tune	macisaac	ACE2	0	41	72	0	0	0	0	41	33.9618
+bu01	2	tune	macisaac	ADR1	0	22	49	0	0	0	0	22	24.4636
+bu01	2	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.40101
+bu01	2	tune	macisaac	AFT2	0	49	106	4	0.0377358	0.0816327	0.0516129	49	54.2802
+bu01	2	tune	macisaac	ARO80	0	0	118	0	0	nan	nan	0	59.6988
+bu01	2	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0630635
+bu01	2	tune	macisaac	AZF1	0	10	126	1	0.00793651	0.1	0.0147059	10	57.8486
+bu01	2	tune	macisaac	BAS1	0	7	21	0	0	0	0	7	7.10567
+bu01	2	tune	macisaac	CAD1	0	3	10	0	0	0	0	3	3.0631
+bu01	2	tune	macisaac	CAT8	0	0	869	0	0	nan	nan	0	384.121
+bu01	2	tune	macisaac	CBF1	0	25	66	0	0	0	0	25	29.1225
+bu01	2	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.3582
+bu01	2	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	9.16072
+bu01	2	tune	macisaac	CIN5	1	49	105	3	0.0285714	0.0612245	0.038961	49	66.6198
+bu01	2	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.854459
+bu01	2	tune	macisaac	CST6	0	25	45	0	0	0	0	25	21.7098
+bu01	2	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	7.90505
+bu01	2	tune	macisaac	DAL80	0	25	67	0	0	0	0	25	26.8364
+bu01	2	tune	macisaac	DAL82	0	15	37	1	0.027027	0.0666667	0.0384615	15	16.0153
+bu01	2	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.41424
+bu01	2	tune	macisaac	ECM23	0	0	24	0	0	nan	nan	0	9.61918
+bu01	2	tune	macisaac	FHL1	1	21	60	0	0	0	0	21	32.2142
+bu01	2	tune	macisaac	FKH1	1	23	301	5	0.0166113	0.217391	0.0308642	23	217.315
+bu01	2	tune	macisaac	FKH2	0	38	103	1	0.00970874	0.0263158	0.0141844	38	43.3407
+bu01	2	tune	macisaac	FZF1	0	0	372	0	0	nan	nan	0	178.28
+bu01	2	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	6.12565
+bu01	2	tune	macisaac	GAT1	0	14	37	0	0	0	0	14	15.5902
+bu01	2	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.97425
+bu01	2	tune	macisaac	GAT4	0	0	83	0	0	nan	nan	0	36.3987
+bu01	2	tune	macisaac	GCN4	0	45	83	3	0.0361446	0.0666667	0.046875	45	41.092
+bu01	2	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	16.1282
+bu01	2	tune	macisaac	GIS1	0	0	55	0	0	nan	nan	0	23.0992
+bu01	2	tune	macisaac	GLN3	0	25	55	2	0.0363636	0.08	0.05	25	26.4937
+bu01	2	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.32308
+bu01	2	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.3431
+bu01	2	tune	macisaac	HAC1	0	0	60	0	0	nan	nan	0	29.939
+bu01	2	tune	macisaac	HAL9	0	0	265	0	0	nan	nan	0	104.826
+bu01	2	tune	macisaac	HAP1	0	19	10	0	0	0	0	19	4.54602
+bu01	2	tune	macisaac	HCM1	0	0	169	0	0	nan	nan	0	76.0882
+bu01	2	tune	macisaac	HMLALPHA2	0	0	54	0	0	nan	nan	0	22.461
+bu01	2	tune	macisaac	HMRA2	0	0	28	0	0	nan	nan	0	14.9831
+bu01	2	tune	macisaac	HSF1	0	12	29	0	0	0	0	12	13.5573
+bu01	2	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.50854
+bu01	2	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	6.2762
+bu01	2	tune	macisaac	MATALPHA2	0	0	135	0	0	nan	nan	0	65.7992
+bu01	2	tune	macisaac	MBP1	0	36	56	0	0	0	0	36	27.0019
+bu01	2	tune	macisaac	MCM1	1	11	242	3	0.0123967	0.272727	0.0237154	11	153.185
+bu01	2	tune	macisaac	MET31	0	34	21	1	0.047619	0.0294118	0.0363636	34	11.9783
+bu01	2	tune	macisaac	MET32	0	1	23	0	0	0	0	1	13.0386
+bu01	2	tune	macisaac	MGA1	0	0	398	0	0	nan	nan	0	188.091
+bu01	2	tune	macisaac	MIG1	0	1	5	0	0	0	0	1	2.57804
+bu01	2	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.810516
+bu01	2	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.04846
+bu01	2	tune	macisaac	MOT3	0	71	123	0	0	0	0	71	61.5186
+bu01	2	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.2044
+bu01	2	tune	macisaac	MSN2	0	75	237	7	0.0295359	0.0933333	0.0448718	75	92.5563
+bu01	2	tune	macisaac	MSN4	0	71	197	5	0.0253807	0.0704225	0.0373134	71	72.7354
+bu01	2	tune	macisaac	NDT80	0	0	100	0	0	nan	nan	0	47.9592
+bu01	2	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.71236
+bu01	2	tune	macisaac	NHP6A	1	0	2840	0	0	nan	nan	0	1631.23
+bu01	2	tune	macisaac	NHP6B	0	0	6743	0	0	nan	nan	0	3289.28
+bu01	2	tune	macisaac	NRG1	0	33	60	4	0.0666667	0.121212	0.0860215	33	28.6865
+bu01	2	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6215
+bu01	2	tune	macisaac	OAF1	0	0	131	0	0	nan	nan	0	56.7426
+bu01	2	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.68932
+bu01	2	tune	macisaac	PBF2	0	0	20	0	0	nan	nan	0	7.74696
+bu01	2	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.42651
+bu01	2	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.74908
+bu01	2	tune	macisaac	PDR8	0	0	51	0	0	nan	nan	0	25.6388
+bu01	2	tune	macisaac	PHD1	0	88	182	4	0.021978	0.0454545	0.0296296	88	80.8883
+bu01	2	tune	macisaac	PHO2	0	207	493	11	0.0223124	0.0531401	0.0314286	207	218.589
+bu01	2	tune	macisaac	PHO4	0	6	14	0	0	0	0	6	5.93105
+bu01	2	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.40884
+bu01	2	tune	macisaac	RAP1	1	29	48	5	0.104167	0.172414	0.12987	29	27.1805
+bu01	2	tune	macisaac	RDR1	0	0	143	0	0	nan	nan	0	62.4925
+bu01	2	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.85509
+bu01	2	tune	macisaac	RDS2	0	0	172	0	0	nan	nan	0	73.1021
+bu01	2	tune	macisaac	REB1	1	44	662	33	0.0498489	0.75	0.0934844	44	512.305
+bu01	2	tune	macisaac	REI1	0	0	74	0	0	nan	nan	0	27.7882
+bu01	2	tune	macisaac	RFX1	0	0	288	0	0	nan	nan	0	135.3
+bu01	2	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.0126
+bu01	2	tune	macisaac	RGT1	0	3	4	0	0	0	0	3	5.59446
+bu01	2	tune	macisaac	RIM101	0	1	5	0	0	0	0	1	1.86444
+bu01	2	tune	macisaac	ROX1	0	40	170	1	0.00588235	0.025	0.00952381	40	72.0873
+bu01	2	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.8615
+bu01	2	tune	macisaac	RPN4	0	15	45	0	0	0	0	15	19.3706
+bu01	2	tune	macisaac	RSC3	0	0	21	0	0	nan	nan	0	8.00639
+bu01	2	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426434
+bu01	2	tune	macisaac	RTG3	0	27	62	0	0	0	0	27	26.7934
+bu01	2	tune	macisaac	SFL1	0	0	742	0	0	nan	nan	0	326.012
+bu01	2	tune	macisaac	SFP1	0	15	37	0	0	0	0	15	17.5223
+bu01	2	tune	macisaac	SIG1	0	0	3566	0	0	nan	nan	0	2051.97
+bu01	2	tune	macisaac	SIP4	0	1	1	0	0	0	0	1	1.62685
+bu01	2	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.8187
+bu01	2	tune	macisaac	SKO1	1	5	18	1	0.0555556	0.2	0.0869565	5	9.21621
+bu01	2	tune	macisaac	SMP1	0	0	1084	0	0	nan	nan	0	472.187
+bu01	2	tune	macisaac	SOK2	0	32	71	1	0.0140845	0.03125	0.0194175	32	29.9819
+bu01	2	tune	macisaac	SPT15	1	0	140	0	0	nan	nan	0	68.9999
+bu01	2	tune	macisaac	SRD1	0	0	1116	0	0	nan	nan	0	543.997
+bu01	2	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.0444
+bu01	2	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.42231
+bu01	2	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.12462
+bu01	2	tune	macisaac	STE12	0	195	357	11	0.0308123	0.0564103	0.0398551	195	174.616
+bu01	2	tune	macisaac	STP1	0	7	11	0	0	0	0	7	6.66994
+bu01	2	tune	macisaac	STP2	0	0	16	0	0	nan	nan	0	7.53274
+bu01	2	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.68146
+bu01	2	tune	macisaac	STP4	0	1	2	0	0	0	0	1	1.15655
+bu01	2	tune	macisaac	SUM1	0	13	94	0	0	0	0	13	38.8272
+bu01	2	tune	macisaac	SUT1	0	26	51	0	0	0	0	26	20.4843
+bu01	2	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.591047
+bu01	2	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.3465
+bu01	2	tune	macisaac	SWI5	0	110	250	6	0.024	0.0545455	0.0333333	110	111.723
+bu01	2	tune	macisaac	TBF1	1	0	38	0	0	nan	nan	0	16.8078
+bu01	2	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.264114
+bu01	2	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.18093
+bu01	2	tune	macisaac	TEC1	0	51	121	2	0.0165289	0.0392157	0.0232558	51	55.6011
+bu01	2	tune	macisaac	TOS8	0	0	1083	0	0	nan	nan	0	571.513
+bu01	2	tune	macisaac	TYE7	0	19	46	0	0	0	0	19	17.0515
+bu01	2	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.78091
+bu01	2	tune	macisaac	UME6	1	19	66	1	0.0151515	0.0526316	0.0235294	19	44.9603
+bu01	2	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.62601
+bu01	2	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.94358
+bu01	2	tune	macisaac	VHR1	0	0	3	0	0	nan	nan	0	1.71032
+bu01	2	tune	macisaac	XBP1	0	25	68	0	0	0	0	25	29.309
+bu01	2	tune	macisaac	YAP1	0	8	12	0	0	0	0	8	7.123
+bu01	2	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.58541
+bu01	2	tune	macisaac	YAP6	0	71	142	3	0.0211268	0.0422535	0.028169	71	70.8861
+bu01	2	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.9838
+bu01	2	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62081
+bu01	2	tune	macisaac	YDR520C	0	2	4	0	0	0	0	2	1.97692
+bu01	2	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.11827
+bu01	2	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.6946
+bu01	2	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.12359
+bu01	2	tune	macisaac	YGR067C	0	0	21	0	0	nan	nan	0	9.84463
+bu01	2	tune	macisaac	YKL222C	0	0	54	0	0	nan	nan	0	23.9288
+bu01	2	tune	macisaac	YLL054C	0	0	386	0	0	nan	nan	0	158.013
+bu01	2	tune	macisaac	YLR278C	0	0	4	0	0	nan	nan	0	2.79875
+bu01	2	tune	macisaac	YML081W	0	1	2	0	0	0	0	1	1.21053
+bu01	2	tune	macisaac	YNR063W	0	0	39	0	0	nan	nan	0	20.1904
+bu01	2	tune	macisaac	YOX1	0	0	929	0	0	nan	nan	0	435.254
+bu01	2	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.87817
+bu01	2	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.27076
+bu01	2	tune	macisaac	YPR022C	0	0	174	0	0	nan	nan	0	77.4581
+bu01	2	tune	macisaac	YPR196W	0	0	32	0	0	nan	nan	0	14.9462
+bu01	2	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	119.109
+bu01	2	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.04494
+bu01	2	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.03848
+bu01	2	tune	macisaac	ZMS1	0	0	52	0	0	nan	nan	0	24.3613
+bu01	2	tune	rossi_cx	ABF1	1	98	73	13	0.178082	0.132653	0.152047	58	39.3802
+bu01	2	tune	rossi_cx	ACE2	0	13	72	0	0	0	0	41	33.9618
+bu01	2	tune	rossi_cx	AFT2	0	4	106	0	0	0	0	49	54.2802
+bu01	2	tune	rossi_cx	ARO80	0	3	118	0	0	0	0	0	59.6988
+bu01	2	tune	rossi_cx	AZF1	0	9	126	1	0.00793651	0.111111	0.0148148	10	57.8486
+bu01	2	tune	rossi_cx	BAS1	0	11	21	0	0	0	0	7	7.10567
+bu01	2	tune	rossi_cx	CAD1	0	14	10	0	0	0	0	3	3.0631
+bu01	2	tune	rossi_cx	CBF1	0	29	66	1	0.0151515	0.0344828	0.0210526	25	29.1225
+bu01	2	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	9.16072
+bu01	2	tune	rossi_cx	CIN5	1	67	105	3	0.0285714	0.0447761	0.0348837	49	66.6198
+bu01	2	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.854459
+bu01	2	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	7.90505
+bu01	2	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.41424
+bu01	2	tune	rossi_cx	FHL1	1	78	60	1	0.0166667	0.0128205	0.0144928	21	32.2142
+bu01	2	tune	rossi_cx	FKH1	1	80	301	14	0.0465116	0.175	0.0734908	23	217.315
+bu01	2	tune	rossi_cx	FKH2	0	32	103	0	0	0	0	38	43.3407
+bu01	2	tune	rossi_cx	FZF1	0	12	372	1	0.00268817	0.0833333	0.00520833	0	178.28
+bu01	2	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	6.12565
+bu01	2	tune	rossi_cx	GCN4	0	5	83	1	0.0120482	0.2	0.0227273	45	41.092
+bu01	2	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	16.1282
+bu01	2	tune	rossi_cx	GIS1	0	17	55	0	0	0	0	0	23.0992
+bu01	2	tune	rossi_cx	GLN3	0	13	55	0	0	0	0	25	26.4937
+bu01	2	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.3431
+bu01	2	tune	rossi_cx	HAL9	0	6	265	0	0	0	0	0	104.826
+bu01	2	tune	rossi_cx	HAP1	0	10	10	0	0	0	0	19	4.54602
+bu01	2	tune	rossi_cx	HSF1	0	29	29	0	0	0	0	12	13.5573
+bu01	2	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.50854
+bu01	2	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	6.2762
+bu01	2	tune	rossi_cx	MATALPHA2	0	5	135	0	0	0	0	0	65.7992
+bu01	2	tune	rossi_cx	MBP1	0	15	56	1	0.0178571	0.0666667	0.028169	36	27.0019
+bu01	2	tune	rossi_cx	MCM1	1	51	242	8	0.0330579	0.156863	0.0546075	11	153.185
+bu01	2	tune	rossi_cx	MET31	0	15	21	0	0	0	0	34	11.9783
+bu01	2	tune	rossi_cx	MET32	0	6	23	0	0	0	0	1	13.0386
+bu01	2	tune	rossi_cx	MIG1	0	35	5	0	0	0	0	1	2.57804
+bu01	2	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.810516
+bu01	2	tune	rossi_cx	MSN2	0	3	237	0	0	0	0	75	92.5563
+bu01	2	tune	rossi_cx	NHP6A	1	53	2840	14	0.00492958	0.264151	0.00967853	0	1631.23
+bu01	2	tune	rossi_cx	NRG1	0	8	60	1	0.0166667	0.125	0.0294118	33	28.6865
+bu01	2	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6215
+bu01	2	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.42651
+bu01	2	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.74908
+bu01	2	tune	rossi_cx	PHD1	0	34	182	1	0.00549451	0.0294118	0.00925926	88	80.8883
+bu01	2	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.40884
+bu01	2	tune	rossi_cx	RAP1	1	44	48	10	0.208333	0.227273	0.217391	29	27.1805
+bu01	2	tune	rossi_cx	RDS2	0	2	172	0	0	0	0	0	73.1021
+bu01	2	tune	rossi_cx	REB1	1	138	662	63	0.0951662	0.456522	0.1575	44	512.305
+bu01	2	tune	rossi_cx	RFX1	0	8	288	1	0.00347222	0.125	0.00675676	0	135.3
+bu01	2	tune	rossi_cx	ROX1	0	42	170	1	0.00588235	0.0238095	0.00943396	40	72.0873
+bu01	2	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.8615
+bu01	2	tune	rossi_cx	RPN4	0	16	45	0	0	0	0	15	19.3706
+bu01	2	tune	rossi_cx	RSC3	0	32	21	3	0.142857	0.09375	0.113208	0	8.00639
+bu01	2	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426434
+bu01	2	tune	rossi_cx	RTG3	0	1	62	0	0	0	0	27	26.7934
+bu01	2	tune	rossi_cx	SFL1	0	22	742	2	0.00269542	0.0909091	0.0052356	0	326.012
+bu01	2	tune	rossi_cx	SFP1	0	25	37	0	0	0	0	15	17.5223
+bu01	2	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.8187
+bu01	2	tune	rossi_cx	SKO1	1	27	18	1	0.0555556	0.037037	0.0444444	5	9.21621
+bu01	2	tune	rossi_cx	SOK2	0	58	71	1	0.0140845	0.0172414	0.0155039	32	29.9819
+bu01	2	tune	rossi_cx	SPT15	1	253	140	9	0.0642857	0.0355731	0.0458015	0	68.9999
+bu01	2	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.0444
+bu01	2	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.42231
+bu01	2	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.12462
+bu01	2	tune	rossi_cx	STE12	0	20	357	0	0	0	0	195	174.616
+bu01	2	tune	rossi_cx	STP1	0	18	11	0	0	0	0	7	6.66994
+bu01	2	tune	rossi_cx	STP2	0	27	16	0	0	0	0	0	7.53274
+bu01	2	tune	rossi_cx	STP4	0	11	2	0	0	0	0	1	1.15655
+bu01	2	tune	rossi_cx	SUM1	0	30	94	0	0	0	0	13	38.8272
+bu01	2	tune	rossi_cx	SUT1	0	15	51	0	0	0	0	26	20.4843
+bu01	2	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.3465
+bu01	2	tune	rossi_cx	SWI5	0	6	250	0	0	0	0	110	111.723
+bu01	2	tune	rossi_cx	TBF1	1	32	38	6	0.157895	0.1875	0.171429	0	16.8078
+bu01	2	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.264114
+bu01	2	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.18093
+bu01	2	tune	rossi_cx	UME6	1	43	66	3	0.0454545	0.0697674	0.0550459	19	44.9603
+bu01	2	tune	rossi_cx	YAP1	0	21	12	0	0	0	0	8	7.123
+bu01	2	tune	rossi_cx	YDR520C	0	11	4	0	0	0	0	2	1.97692
+bu01	2	tune	rossi_cx	YML081W	0	18	2	0	0	0	0	1	1.21053
+bu01	2	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.04494
+bu01	2	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.03848
+bu01	3	tune	macisaac	ABF1	1	58	98	9	0.0918367	0.155172	0.115385	58	50.8972
+bu01	3	tune	macisaac	ABF2	0	0	469	0	0	nan	nan	0	225.284
+bu01	3	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.4646
+bu01	3	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	22.6717
+bu01	3	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.32922
+bu01	3	tune	macisaac	AFT2	0	49	94	3	0.0319149	0.0612245	0.041958	49	50.7059
+bu01	3	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	60.3315
+bu01	3	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.062317
+bu01	3	tune	macisaac	AZF1	0	10	30	1	0.0333333	0.1	0.05	10	13.7951
+bu01	3	tune	macisaac	BAS1	0	7	21	0	0	0	0	7	7.09723
+bu01	3	tune	macisaac	CAD1	0	3	10	0	0	0	0	3	3.0424
+bu01	3	tune	macisaac	CAT8	0	0	894	0	0	nan	nan	0	398.279
+bu01	3	tune	macisaac	CBF1	0	25	64	0	0	0	0	25	27.7154
+bu01	3	tune	macisaac	CEP3	0	0	134	0	0	nan	nan	0	63.4842
+bu01	3	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.90767
+bu01	3	tune	macisaac	CIN5	1	49	97	3	0.0309278	0.0612245	0.0410959	49	59.0664
+bu01	3	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.877966
+bu01	3	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.9115
+bu01	3	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.15437
+bu01	3	tune	macisaac	DAL80	0	25	70	0	0	0	0	25	27.0066
+bu01	3	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0264
+bu01	3	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.36458
+bu01	3	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.63161
+bu01	3	tune	macisaac	FHL1	1	21	45	0	0	0	0	21	24.9594
+bu01	3	tune	macisaac	FKH1	1	23	213	5	0.0234742	0.217391	0.0423729	23	154.049
+bu01	3	tune	macisaac	FKH2	0	38	100	1	0.01	0.0263158	0.0144928	38	41.965
+bu01	3	tune	macisaac	FZF1	0	0	375	0	0	nan	nan	0	179.876
+bu01	3	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.41264
+bu01	3	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0449
+bu01	3	tune	macisaac	GAT3	0	10	23	0	0	0	0	10	9.90301
+bu01	3	tune	macisaac	GAT4	0	0	83	0	0	nan	nan	0	36.3523
+bu01	3	tune	macisaac	GCN4	0	45	81	3	0.037037	0.0666667	0.047619	45	40.5848
+bu01	3	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	16.1
+bu01	3	tune	macisaac	GIS1	0	0	57	0	0	nan	nan	0	23.5816
+bu01	3	tune	macisaac	GLN3	0	25	55	2	0.0363636	0.08	0.05	25	26.5754
+bu01	3	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27461
+bu01	3	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4089
+bu01	3	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.5355
+bu01	3	tune	macisaac	HAL9	0	0	263	0	0	nan	nan	0	103.827
+bu01	3	tune	macisaac	HAP1	0	19	22	0	0	0	0	19	10.8491
+bu01	3	tune	macisaac	HCM1	0	0	170	0	0	nan	nan	0	76.2782
+bu01	3	tune	macisaac	HMLALPHA2	0	0	52	0	0	nan	nan	0	22.4643
+bu01	3	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9542
+bu01	3	tune	macisaac	HSF1	0	12	25	0	0	0	0	12	12.2616
+bu01	3	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.01454
+bu01	3	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	6.13994
+bu01	3	tune	macisaac	MATALPHA2	0	0	138	0	0	nan	nan	0	66.4938
+bu01	3	tune	macisaac	MBP1	0	36	71	0	0	0	0	36	32.5677
+bu01	3	tune	macisaac	MCM1	1	11	149	3	0.0201342	0.272727	0.0375	11	94.6966
+bu01	3	tune	macisaac	MET31	0	34	67	1	0.0149254	0.0294118	0.019802	34	26.832
+bu01	3	tune	macisaac	MET32	0	1	4	0	0	0	0	1	2.0807
+bu01	3	tune	macisaac	MGA1	0	0	392	0	0	nan	nan	0	188.126
+bu01	3	tune	macisaac	MIG1	0	1	4	0	0	0	0	1	1.87742
+bu01	3	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.831604
+bu01	3	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.09279
+bu01	3	tune	macisaac	MOT3	0	71	137	0	0	0	0	71	67.6231
+bu01	3	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0608
+bu01	3	tune	macisaac	MSN2	0	75	179	7	0.0391061	0.0933333	0.0551181	75	69.7517
+bu01	3	tune	macisaac	MSN4	0	71	209	5	0.0239234	0.0704225	0.0357143	71	81.4582
+bu01	3	tune	macisaac	NDT80	0	0	98	0	0	nan	nan	0	48.2001
+bu01	3	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.74087
+bu01	3	tune	macisaac	NHP6A	1	0	2899	0	0	nan	nan	0	1672.97
+bu01	3	tune	macisaac	NHP6B	0	0	6745	0	0	nan	nan	0	3321.53
+bu01	3	tune	macisaac	NRG1	0	33	63	4	0.0634921	0.121212	0.0833333	33	31.5429
+bu01	3	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.5979
+bu01	3	tune	macisaac	OAF1	0	0	133	0	0	nan	nan	0	57.0703
+bu01	3	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.68079
+bu01	3	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.70816
+bu01	3	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.84272
+bu01	3	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75071
+bu01	3	tune	macisaac	PDR8	0	0	51	0	0	nan	nan	0	25.8636
+bu01	3	tune	macisaac	PHD1	0	88	178	4	0.0224719	0.0454545	0.0300752	88	80.4832
+bu01	3	tune	macisaac	PHO2	0	207	496	11	0.0221774	0.0531401	0.0312945	207	220.454
+bu01	3	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86644
+bu01	3	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.19741
+bu01	3	tune	macisaac	RAP1	1	29	48	5	0.104167	0.172414	0.12987	29	27.1763
+bu01	3	tune	macisaac	RDR1	0	0	143	0	0	nan	nan	0	62.7027
+bu01	3	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86395
+bu01	3	tune	macisaac	RDS2	0	0	175	0	0	nan	nan	0	74.3993
+bu01	3	tune	macisaac	REB1	1	44	491	30	0.0610998	0.681818	0.11215	44	385.99
+bu01	3	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.1705
+bu01	3	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.48
+bu01	3	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1768
+bu01	3	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.44465
+bu01	3	tune	macisaac	RIM101	0	1	3	0	0	0	0	1	1.29379
+bu01	3	tune	macisaac	ROX1	0	40	106	1	0.00943396	0.025	0.0136986	40	43.0374
+bu01	3	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9102
+bu01	3	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0941
+bu01	3	tune	macisaac	RSC3	0	0	21	0	0	nan	nan	0	8.32206
+bu01	3	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426666
+bu01	3	tune	macisaac	RTG3	0	27	62	0	0	0	0	27	27.0452
+bu01	3	tune	macisaac	SFL1	0	0	744	0	0	nan	nan	0	327.605
+bu01	3	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4193
+bu01	3	tune	macisaac	SIG1	0	0	3639	0	0	nan	nan	0	2104.1
+bu01	3	tune	macisaac	SIP4	0	1	1	0	0	0	0	1	1.22793
+bu01	3	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5685
+bu01	3	tune	macisaac	SKO1	1	5	14	0	0	0	0	5	6.98577
+bu01	3	tune	macisaac	SMP1	0	0	1079	0	0	nan	nan	0	474.268
+bu01	3	tune	macisaac	SOK2	0	32	71	1	0.0140845	0.03125	0.0194175	32	29.8784
+bu01	3	tune	macisaac	SPT15	1	0	143	0	0	nan	nan	0	71.3426
+bu01	3	tune	macisaac	SRD1	0	0	1128	0	0	nan	nan	0	547.02
+bu01	3	tune	macisaac	STB3	0	0	78	0	0	nan	nan	0	37.1237
+bu01	3	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.07477
+bu01	3	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.1194
+bu01	3	tune	macisaac	STE12	0	195	383	12	0.0313316	0.0615385	0.0415225	195	187.541
+bu01	3	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.59073
+bu01	3	tune	macisaac	STP2	0	0	16	0	0	nan	nan	0	7.49622
+bu01	3	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.71809
+bu01	3	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.16023
+bu01	3	tune	macisaac	SUM1	0	13	18	0	0	0	0	13	13.7334
+bu01	3	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.1351
+bu01	3	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.525075
+bu01	3	tune	macisaac	SWI4	0	39	87	1	0.0114943	0.025641	0.015873	39	38.1481
+bu01	3	tune	macisaac	SWI5	0	110	244	6	0.0245902	0.0545455	0.0338983	110	112.027
+bu01	3	tune	macisaac	TBF1	1	0	40	0	0	nan	nan	0	18.4644
+bu01	3	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.269591
+bu01	3	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.18977
+bu01	3	tune	macisaac	TEC1	0	51	121	2	0.0165289	0.0392157	0.0232558	51	56.2754
+bu01	3	tune	macisaac	TOS8	0	0	1100	0	0	nan	nan	0	576.794
+bu01	3	tune	macisaac	TYE7	0	19	49	0	0	0	0	19	18.4756
+bu01	3	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.26744
+bu01	3	tune	macisaac	UME6	1	19	45	0	0	0	0	19	29.6773
+bu01	3	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61539
+bu01	3	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92927
+bu01	3	tune	macisaac	VHR1	0	0	3	0	0	nan	nan	0	1.69422
+bu01	3	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.2808
+bu01	3	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.74854
+bu01	3	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.64006
+bu01	3	tune	macisaac	YAP6	0	71	141	3	0.0212766	0.0422535	0.0283019	71	70.3498
+bu01	3	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.6492
+bu01	3	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62368
+bu01	3	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.8855
+bu01	3	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.11306
+bu01	3	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.7964
+bu01	3	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.1457
+bu01	3	tune	macisaac	YGR067C	0	0	20	0	0	nan	nan	0	10.2738
+bu01	3	tune	macisaac	YKL222C	0	0	54	0	0	nan	nan	0	23.5774
+bu01	3	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	156.374
+bu01	3	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.71425
+bu01	3	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.08752
+bu01	3	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0258
+bu01	3	tune	macisaac	YOX1	0	0	930	0	0	nan	nan	0	436.947
+bu01	3	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.87197
+bu01	3	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.27396
+bu01	3	tune	macisaac	YPR022C	0	0	174	0	0	nan	nan	0	78.5244
+bu01	3	tune	macisaac	YPR196W	0	0	31	0	0	nan	nan	0	14.8238
+bu01	3	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	119.911
+bu01	3	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.02629
+bu01	3	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04472
+bu01	3	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.5014
+bu01	3	tune	rossi_cx	ABF1	1	98	98	14	0.142857	0.142857	0.142857	58	50.8972
+bu01	3	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.4646
+bu01	3	tune	rossi_cx	AFT2	0	4	94	0	0	0	0	49	50.7059
+bu01	3	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	60.3315
+bu01	3	tune	rossi_cx	AZF1	0	9	30	1	0.0333333	0.111111	0.0512821	10	13.7951
+bu01	3	tune	rossi_cx	BAS1	0	11	21	0	0	0	0	7	7.09723
+bu01	3	tune	rossi_cx	CAD1	0	14	10	0	0	0	0	3	3.0424
+bu01	3	tune	rossi_cx	CBF1	0	29	64	1	0.015625	0.0344828	0.0215054	25	27.7154
+bu01	3	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.90767
+bu01	3	tune	rossi_cx	CIN5	1	67	97	3	0.0309278	0.0447761	0.0365854	49	59.0664
+bu01	3	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.877966
+bu01	3	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.15437
+bu01	3	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.36458
+bu01	3	tune	rossi_cx	FHL1	1	78	45	1	0.0222222	0.0128205	0.0162602	21	24.9594
+bu01	3	tune	rossi_cx	FKH1	1	80	213	13	0.0610329	0.1625	0.0887372	23	154.049
+bu01	3	tune	rossi_cx	FKH2	0	32	100	0	0	0	0	38	41.965
+bu01	3	tune	rossi_cx	FZF1	0	12	375	1	0.00266667	0.0833333	0.00516796	0	179.876
+bu01	3	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.41264
+bu01	3	tune	rossi_cx	GCN4	0	5	81	1	0.0123457	0.2	0.0232558	45	40.5848
+bu01	3	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	16.1
+bu01	3	tune	rossi_cx	GIS1	0	17	57	0	0	0	0	0	23.5816
+bu01	3	tune	rossi_cx	GLN3	0	13	55	0	0	0	0	25	26.5754
+bu01	3	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4089
+bu01	3	tune	rossi_cx	HAL9	0	6	263	0	0	0	0	0	103.827
+bu01	3	tune	rossi_cx	HAP1	0	10	22	0	0	0	0	19	10.8491
+bu01	3	tune	rossi_cx	HSF1	0	29	25	0	0	0	0	12	12.2616
+bu01	3	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.01454
+bu01	3	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	6.13994
+bu01	3	tune	rossi_cx	MATALPHA2	0	5	138	0	0	0	0	0	66.4938
+bu01	3	tune	rossi_cx	MBP1	0	15	71	1	0.0140845	0.0666667	0.0232558	36	32.5677
+bu01	3	tune	rossi_cx	MCM1	1	51	149	7	0.0469799	0.137255	0.07	11	94.6966
+bu01	3	tune	rossi_cx	MET31	0	15	67	0	0	0	0	34	26.832
+bu01	3	tune	rossi_cx	MET32	0	6	4	0	0	0	0	1	2.0807
+bu01	3	tune	rossi_cx	MIG1	0	35	4	0	0	0	0	1	1.87742
+bu01	3	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.831604
+bu01	3	tune	rossi_cx	MSN2	0	3	179	0	0	0	0	75	69.7517
+bu01	3	tune	rossi_cx	NHP6A	1	53	2899	16	0.00551914	0.301887	0.0108401	0	1672.97
+bu01	3	tune	rossi_cx	NRG1	0	8	63	1	0.015873	0.125	0.028169	33	31.5429
+bu01	3	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.5979
+bu01	3	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.84272
+bu01	3	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75071
+bu01	3	tune	rossi_cx	PHD1	0	34	178	1	0.00561798	0.0294118	0.00943396	88	80.4832
+bu01	3	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.19741
+bu01	3	tune	rossi_cx	RAP1	1	44	48	10	0.208333	0.227273	0.217391	29	27.1763
+bu01	3	tune	rossi_cx	RDS2	0	2	175	0	0	0	0	0	74.3993
+bu01	3	tune	rossi_cx	REB1	1	138	491	55	0.112016	0.398551	0.174881	44	385.99
+bu01	3	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.48
+bu01	3	tune	rossi_cx	ROX1	0	42	106	1	0.00943396	0.0238095	0.0135135	40	43.0374
+bu01	3	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9102
+bu01	3	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0941
+bu01	3	tune	rossi_cx	RSC3	0	32	21	3	0.142857	0.09375	0.113208	0	8.32206
+bu01	3	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426666
+bu01	3	tune	rossi_cx	RTG3	0	1	62	0	0	0	0	27	27.0452
+bu01	3	tune	rossi_cx	SFL1	0	22	744	2	0.00268817	0.0909091	0.00522193	0	327.605
+bu01	3	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4193
+bu01	3	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5685
+bu01	3	tune	rossi_cx	SKO1	1	27	14	1	0.0714286	0.037037	0.0487805	5	6.98577
+bu01	3	tune	rossi_cx	SOK2	0	58	71	1	0.0140845	0.0172414	0.0155039	32	29.8784
+bu01	3	tune	rossi_cx	SPT15	1	253	143	9	0.0629371	0.0355731	0.0454545	0	71.3426
+bu01	3	tune	rossi_cx	STB3	0	22	78	0	0	0	0	0	37.1237
+bu01	3	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.07477
+bu01	3	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.1194
+bu01	3	tune	rossi_cx	STE12	0	20	383	0	0	0	0	195	187.541
+bu01	3	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.59073
+bu01	3	tune	rossi_cx	STP2	0	27	16	0	0	0	0	0	7.49622
+bu01	3	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.16023
+bu01	3	tune	rossi_cx	SUM1	0	30	18	0	0	0	0	13	13.7334
+bu01	3	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.1351
+bu01	3	tune	rossi_cx	SWI4	0	20	87	1	0.0114943	0.05	0.0186916	39	38.1481
+bu01	3	tune	rossi_cx	SWI5	0	6	244	0	0	0	0	110	112.027
+bu01	3	tune	rossi_cx	TBF1	1	32	40	6	0.15	0.1875	0.166667	0	18.4644
+bu01	3	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.269591
+bu01	3	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.18977
+bu01	3	tune	rossi_cx	UME6	1	43	45	1	0.0222222	0.0232558	0.0227273	19	29.6773
+bu01	3	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.74854
+bu01	3	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.8855
+bu01	3	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.08752
+bu01	3	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.02629
+bu01	3	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04472
+bu01	4	tune	macisaac	ABF1	1	58	100	9	0.09	0.155172	0.113924	58	56.0123
+bu01	4	tune	macisaac	ABF2	0	0	467	0	0	nan	nan	0	225.127
+bu01	4	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.7254
+bu01	4	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	22.8981
+bu01	4	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30508
+bu01	4	tune	macisaac	AFT2	0	49	95	3	0.0315789	0.0612245	0.0416667	49	51.0625
+bu01	4	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	60.8961
+bu01	4	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.061682
+bu01	4	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7556
+bu01	4	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.10111
+bu01	4	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.01917
+bu01	4	tune	macisaac	CAT8	0	0	910	0	0	nan	nan	0	407.035
+bu01	4	tune	macisaac	CBF1	0	25	63	0	0	0	0	25	26.5768
+bu01	4	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4448
+bu01	4	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.69289
+bu01	4	tune	macisaac	CIN5	1	49	92	3	0.0326087	0.0612245	0.0425532	49	55.0286
+bu01	4	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874843
+bu01	4	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8488
+bu01	4	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.13469
+bu01	4	tune	macisaac	DAL80	0	25	71	0	0	0	0	25	27.0268
+bu01	4	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0394
+bu01	4	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34523
+bu01	4	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62758
+bu01	4	tune	macisaac	FHL1	1	21	44	0	0	0	0	21	22.6249
+bu01	4	tune	macisaac	FKH1	1	23	153	5	0.0326797	0.217391	0.0568182	23	107.949
+bu01	4	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	40.6786
+bu01	4	tune	macisaac	FZF1	0	0	377	0	0	nan	nan	0	180.426
+bu01	4	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.41834
+bu01	4	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0383
+bu01	4	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.89878
+bu01	4	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.339
+bu01	4	tune	macisaac	GCN4	0	45	87	3	0.0344828	0.0666667	0.0454545	45	43.2481
+bu01	4	tune	macisaac	GCR1	0	15	33	0	0	0	0	15	16.0735
+bu01	4	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	23.946
+bu01	4	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.5982
+bu01	4	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27321
+bu01	4	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4117
+bu01	4	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.5121
+bu01	4	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.664
+bu01	4	tune	macisaac	HAP1	0	19	28	0	0	0	0	19	15.2966
+bu01	4	tune	macisaac	HCM1	0	0	170	0	0	nan	nan	0	76.4239
+bu01	4	tune	macisaac	HMLALPHA2	0	0	52	0	0	nan	nan	0	22.5253
+bu01	4	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.979
+bu01	4	tune	macisaac	HSF1	0	12	26	0	0	0	0	12	12.3379
+bu01	4	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.00549
+bu01	4	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	6.0227
+bu01	4	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.6134
+bu01	4	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.8661
+bu01	4	tune	macisaac	MCM1	1	11	92	3	0.0326087	0.272727	0.0582524	11	54.7508
+bu01	4	tune	macisaac	MET31	0	34	79	1	0.0126582	0.0294118	0.0176991	34	31.7423
+bu01	4	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.33399
+bu01	4	tune	macisaac	MGA1	0	0	391	0	0	nan	nan	0	188.38
+bu01	4	tune	macisaac	MIG1	0	1	4	0	0	0	0	1	1.53192
+bu01	4	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.842476
+bu01	4	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.11503
+bu01	4	tune	macisaac	MOT3	0	71	136	0	0	0	0	71	67.8139
+bu01	4	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0198
+bu01	4	tune	macisaac	MSN2	0	75	190	7	0.0368421	0.0933333	0.0528302	75	73.8857
+bu01	4	tune	macisaac	MSN4	0	71	184	5	0.0271739	0.0704225	0.0392157	71	71.4429
+bu01	4	tune	macisaac	NDT80	0	0	98	0	0	nan	nan	0	48.193
+bu01	4	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.75753
+bu01	4	tune	macisaac	NHP6A	1	0	2918	0	0	nan	nan	0	1700.03
+bu01	4	tune	macisaac	NHP6B	0	0	6762	0	0	nan	nan	0	3325.44
+bu01	4	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5261
+bu01	4	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6704
+bu01	4	tune	macisaac	OAF1	0	0	131	0	0	nan	nan	0	57.2969
+bu01	4	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.67821
+bu01	4	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.70618
+bu01	4	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.38369
+bu01	4	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75357
+bu01	4	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.1722
+bu01	4	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.3183
+bu01	4	tune	macisaac	PHO2	0	207	496	11	0.0221774	0.0531401	0.0312945	207	220.847
+bu01	4	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86984
+bu01	4	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.24764
+bu01	4	tune	macisaac	RAP1	1	29	48	5	0.104167	0.172414	0.12987	29	27.1292
+bu01	4	tune	macisaac	RDR1	0	0	143	0	0	nan	nan	0	62.7047
+bu01	4	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86306
+bu01	4	tune	macisaac	RDS2	0	0	175	0	0	nan	nan	0	74.705
+bu01	4	tune	macisaac	REB1	1	44	374	26	0.0695187	0.590909	0.124402	44	288.212
+bu01	4	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.4685
+bu01	4	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.597
+bu01	4	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1867
+bu01	4	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.12849
+bu01	4	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09548
+bu01	4	tune	macisaac	ROX1	0	40	107	1	0.00934579	0.025	0.0136054	40	43.3974
+bu01	4	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9225
+bu01	4	tune	macisaac	RPN4	0	15	38	0	0	0	0	15	16.407
+bu01	4	tune	macisaac	RSC3	0	0	21	0	0	nan	nan	0	8.36215
+bu01	4	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426576
+bu01	4	tune	macisaac	RTG3	0	27	62	0	0	0	0	27	27.078
+bu01	4	tune	macisaac	SFL1	0	0	743	0	0	nan	nan	0	328.025
+bu01	4	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4027
+bu01	4	tune	macisaac	SIG1	0	0	3671	0	0	nan	nan	0	2135.45
+bu01	4	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.08838
+bu01	4	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5583
+bu01	4	tune	macisaac	SKO1	1	5	9	0	0	0	0	5	6.10952
+bu01	4	tune	macisaac	SMP1	0	0	1081	0	0	nan	nan	0	474.749
+bu01	4	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8384
+bu01	4	tune	macisaac	SPT15	1	0	145	0	0	nan	nan	0	72.4882
+bu01	4	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	548.651
+bu01	4	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.2378
+bu01	4	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.07472
+bu01	4	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11759
+bu01	4	tune	macisaac	STE12	0	195	382	12	0.0314136	0.0615385	0.0415945	195	187.012
+bu01	4	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.56971
+bu01	4	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	7.62172
+bu01	4	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.76036
+bu01	4	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15805
+bu01	4	tune	macisaac	SUM1	0	13	18	0	0	0	0	13	13.7387
+bu01	4	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0729
+bu01	4	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.52334
+bu01	4	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.122
+bu01	4	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	112.725
+bu01	4	tune	macisaac	TBF1	1	0	43	0	0	nan	nan	0	20.346
+bu01	4	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271691
+bu01	4	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19151
+bu01	4	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	50.9092
+bu01	4	tune	macisaac	TOS8	0	0	1105	0	0	nan	nan	0	580.284
+bu01	4	tune	macisaac	TYE7	0	19	49	0	0	0	0	19	18.4455
+bu01	4	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.09823
+bu01	4	tune	macisaac	UME6	1	19	37	0	0	0	0	19	23.8904
+bu01	4	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61502
+bu01	4	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.93008
+bu01	4	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61308
+bu01	4	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.5666
+bu01	4	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73245
+bu01	4	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73576
+bu01	4	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2705
+bu01	4	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.523
+bu01	4	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62368
+bu01	4	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.8303
+bu01	4	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05381
+bu01	4	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8136
+bu01	4	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14201
+bu01	4	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.2348
+bu01	4	tune	macisaac	YKL222C	0	0	54	0	0	nan	nan	0	23.4828
+bu01	4	tune	macisaac	YLL054C	0	0	382	0	0	nan	nan	0	155.857
+bu01	4	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70748
+bu01	4	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09725
+bu01	4	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0302
+bu01	4	tune	macisaac	YOX1	0	0	929	0	0	nan	nan	0	437.616
+bu01	4	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.8879
+bu01	4	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26404
+bu01	4	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.6964
+bu01	4	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.777
+bu01	4	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.254
+bu01	4	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.0331
+bu01	4	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.0446
+bu01	4	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4727
+bu01	4	tune	rossi_cx	ABF1	1	98	100	14	0.14	0.142857	0.141414	58	56.0123
+bu01	4	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.7254
+bu01	4	tune	rossi_cx	AFT2	0	4	95	0	0	0	0	49	51.0625
+bu01	4	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	60.8961
+bu01	4	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7556
+bu01	4	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.10111
+bu01	4	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.01917
+bu01	4	tune	rossi_cx	CBF1	0	29	63	1	0.015873	0.0344828	0.0217391	25	26.5768
+bu01	4	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.69289
+bu01	4	tune	rossi_cx	CIN5	1	67	92	3	0.0326087	0.0447761	0.0377358	49	55.0286
+bu01	4	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874843
+bu01	4	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.13469
+bu01	4	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34523
+bu01	4	tune	rossi_cx	FHL1	1	78	44	1	0.0227273	0.0128205	0.0163934	21	22.6249
+bu01	4	tune	rossi_cx	FKH1	1	80	153	12	0.0784314	0.15	0.103004	23	107.949
+bu01	4	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	40.6786
+bu01	4	tune	rossi_cx	FZF1	0	12	377	1	0.00265252	0.0833333	0.00514139	0	180.426
+bu01	4	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.41834
+bu01	4	tune	rossi_cx	GCN4	0	5	87	1	0.0114943	0.2	0.0217391	45	43.2481
+bu01	4	tune	rossi_cx	GCR1	0	13	33	0	0	0	0	15	16.0735
+bu01	4	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	23.946
+bu01	4	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.5982
+bu01	4	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4117
+bu01	4	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.664
+bu01	4	tune	rossi_cx	HAP1	0	10	28	0	0	0	0	19	15.2966
+bu01	4	tune	rossi_cx	HSF1	0	29	26	0	0	0	0	12	12.3379
+bu01	4	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.00549
+bu01	4	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	6.0227
+bu01	4	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.6134
+bu01	4	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.8661
+bu01	4	tune	rossi_cx	MCM1	1	51	92	6	0.0652174	0.117647	0.0839161	11	54.7508
+bu01	4	tune	rossi_cx	MET31	0	15	79	0	0	0	0	34	31.7423
+bu01	4	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.33399
+bu01	4	tune	rossi_cx	MIG1	0	35	4	0	0	0	0	1	1.53192
+bu01	4	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.842476
+bu01	4	tune	rossi_cx	MSN2	0	3	190	0	0	0	0	75	73.8857
+bu01	4	tune	rossi_cx	NHP6A	1	53	2918	16	0.00548321	0.301887	0.0107708	0	1700.03
+bu01	4	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5261
+bu01	4	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6704
+bu01	4	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.38369
+bu01	4	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75357
+bu01	4	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.3183
+bu01	4	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.24764
+bu01	4	tune	rossi_cx	RAP1	1	44	48	10	0.208333	0.227273	0.217391	29	27.1292
+bu01	4	tune	rossi_cx	RDS2	0	2	175	0	0	0	0	0	74.705
+bu01	4	tune	rossi_cx	REB1	1	138	374	48	0.128342	0.347826	0.1875	44	288.212
+bu01	4	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.597
+bu01	4	tune	rossi_cx	ROX1	0	42	107	1	0.00934579	0.0238095	0.0134228	40	43.3974
+bu01	4	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9225
+bu01	4	tune	rossi_cx	RPN4	0	16	38	0	0	0	0	15	16.407
+bu01	4	tune	rossi_cx	RSC3	0	32	21	3	0.142857	0.09375	0.113208	0	8.36215
+bu01	4	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426576
+bu01	4	tune	rossi_cx	RTG3	0	1	62	0	0	0	0	27	27.078
+bu01	4	tune	rossi_cx	SFL1	0	22	743	2	0.00269179	0.0909091	0.00522876	0	328.025
+bu01	4	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4027
+bu01	4	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5583
+bu01	4	tune	rossi_cx	SKO1	1	27	9	1	0.111111	0.037037	0.0555556	5	6.10952
+bu01	4	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8384
+bu01	4	tune	rossi_cx	SPT15	1	253	145	9	0.062069	0.0355731	0.0452261	0	72.4882
+bu01	4	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.2378
+bu01	4	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.07472
+bu01	4	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11759
+bu01	4	tune	rossi_cx	STE12	0	20	382	0	0	0	0	195	187.012
+bu01	4	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.56971
+bu01	4	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	7.62172
+bu01	4	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15805
+bu01	4	tune	rossi_cx	SUM1	0	30	18	0	0	0	0	13	13.7387
+bu01	4	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0729
+bu01	4	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.122
+bu01	4	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	112.725
+bu01	4	tune	rossi_cx	TBF1	1	32	43	7	0.162791	0.21875	0.186667	0	20.346
+bu01	4	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271691
+bu01	4	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19151
+bu01	4	tune	rossi_cx	UME6	1	43	37	1	0.027027	0.0232558	0.025	19	23.8904
+bu01	4	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73245
+bu01	4	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.8303
+bu01	4	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09725
+bu01	4	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.0331
+bu01	4	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.0446
+bu01	5	tune	macisaac	ABF1	1	58	100	9	0.09	0.155172	0.113924	58	56.1705
+bu01	5	tune	macisaac	ABF2	0	0	471	0	0	nan	nan	0	225.145
+bu01	5	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8473
+bu01	5	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	22.9829
+bu01	5	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30456
+bu01	5	tune	macisaac	AFT2	0	49	95	3	0.0315789	0.0612245	0.0416667	49	50.9412
+bu01	5	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.0474
+bu01	5	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612232
+bu01	5	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7431
+bu01	5	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.11499
+bu01	5	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.01991
+bu01	5	tune	macisaac	CAT8	0	0	922	0	0	nan	nan	0	412.51
+bu01	5	tune	macisaac	CBF1	0	25	63	0	0	0	0	25	26.6551
+bu01	5	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4452
+bu01	5	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70074
+bu01	5	tune	macisaac	CIN5	1	49	84	2	0.0238095	0.0408163	0.0300752	49	52.1522
+bu01	5	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.87476
+bu01	5	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8426
+bu01	5	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.13425
+bu01	5	tune	macisaac	DAL80	0	25	71	0	0	0	0	25	27.0292
+bu01	5	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0401
+bu01	5	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34191
+bu01	5	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62586
+bu01	5	tune	macisaac	FHL1	1	21	46	0	0	0	0	21	23.4488
+bu01	5	tune	macisaac	FKH1	1	23	106	4	0.0377358	0.173913	0.0620155	23	76.1128
+bu01	5	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	40.7993
+bu01	5	tune	macisaac	FZF1	0	0	379	0	0	nan	nan	0	180.56
+bu01	5	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.41226
+bu01	5	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0342
+bu01	5	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90677
+bu01	5	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.3506
+bu01	5	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.116
+bu01	5	tune	macisaac	GCR1	0	15	33	0	0	0	0	15	15.931
+bu01	5	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.3038
+bu01	5	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.6139
+bu01	5	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.2729
+bu01	5	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4086
+bu01	5	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4979
+bu01	5	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.657
+bu01	5	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6472
+bu01	5	tune	macisaac	HCM1	0	0	170	0	0	nan	nan	0	76.5055
+bu01	5	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5416
+bu01	5	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9844
+bu01	5	tune	macisaac	HSF1	0	12	26	0	0	0	0	12	12.3701
+bu01	5	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.01306
+bu01	5	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.95513
+bu01	5	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.6249
+bu01	5	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9039
+bu01	5	tune	macisaac	MCM1	1	11	48	2	0.0416667	0.181818	0.0677966	11	31.2559
+bu01	5	tune	macisaac	MET31	0	34	79	1	0.0126582	0.0294118	0.0176991	34	31.6961
+bu01	5	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13021
+bu01	5	tune	macisaac	MGA1	0	0	392	0	0	nan	nan	0	188.477
+bu01	5	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.33954
+bu01	5	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.849273
+bu01	5	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.1284
+bu01	5	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.0263
+bu01	5	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.02
+bu01	5	tune	macisaac	MSN2	0	75	190	7	0.0368421	0.0933333	0.0528302	75	74.6848
+bu01	5	tune	macisaac	MSN4	0	71	187	5	0.026738	0.0704225	0.0387597	71	72.1675
+bu01	5	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2393
+bu01	5	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.7608
+bu01	5	tune	macisaac	NHP6A	1	0	2929	0	0	nan	nan	0	1716.61
+bu01	5	tune	macisaac	NHP6B	0	0	6759	0	0	nan	nan	0	3327.02
+bu01	5	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5014
+bu01	5	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6856
+bu01	5	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.4255
+bu01	5	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.6749
+bu01	5	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.70078
+bu01	5	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.44287
+bu01	5	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75359
+bu01	5	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4137
+bu01	5	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.2376
+bu01	5	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.833
+bu01	5	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86695
+bu01	5	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.06004
+bu01	5	tune	macisaac	RAP1	1	29	48	5	0.104167	0.172414	0.12987	29	27.0685
+bu01	5	tune	macisaac	RDR1	0	0	143	0	0	nan	nan	0	62.7804
+bu01	5	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86293
+bu01	5	tune	macisaac	RDS2	0	0	175	0	0	nan	nan	0	74.8632
+bu01	5	tune	macisaac	REB1	1	44	269	24	0.0892193	0.545455	0.153355	44	215.894
+bu01	5	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.4846
+bu01	5	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.589
+bu01	5	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1825
+bu01	5	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.12776
+bu01	5	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09514
+bu01	5	tune	macisaac	ROX1	0	40	108	1	0.00925926	0.025	0.0135135	40	43.6437
+bu01	5	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9292
+bu01	5	tune	macisaac	RPN4	0	15	38	0	0	0	0	15	16.8857
+bu01	5	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.31362
+bu01	5	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426578
+bu01	5	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	27.012
+bu01	5	tune	macisaac	SFL1	0	0	745	0	0	nan	nan	0	328.151
+bu01	5	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4102
+bu01	5	tune	macisaac	SIG1	0	0	3699	0	0	nan	nan	0	2157.9
+bu01	5	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.08899
+bu01	5	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5578
+bu01	5	tune	macisaac	SKO1	1	5	8	0	0	0	0	5	5.54878
+bu01	5	tune	macisaac	SMP1	0	0	1079	0	0	nan	nan	0	475.235
+bu01	5	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8256
+bu01	5	tune	macisaac	SPT15	1	0	148	0	0	nan	nan	0	73.0817
+bu01	5	tune	macisaac	SRD1	0	0	1131	0	0	nan	nan	0	549.555
+bu01	5	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.2007
+bu01	5	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.07163
+bu01	5	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11676
+bu01	5	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.885
+bu01	5	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.56784
+bu01	5	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.05105
+bu01	5	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.78807
+bu01	5	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15768
+bu01	5	tune	macisaac	SUM1	0	13	18	0	0	0	0	13	13.6777
+bu01	5	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0713
+bu01	5	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523342
+bu01	5	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1331
+bu01	5	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.184
+bu01	5	tune	macisaac	TBF1	1	0	45	0	0	nan	nan	0	21.7791
+bu01	5	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271717
+bu01	5	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19172
+bu01	5	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	50.9463
+bu01	5	tune	macisaac	TOS8	0	0	1113	0	0	nan	nan	0	583.001
+bu01	5	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.4593
+bu01	5	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.10533
+bu01	5	tune	macisaac	UME6	1	19	28	0	0	0	0	19	21.4638
+bu01	5	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61692
+bu01	5	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92984
+bu01	5	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61293
+bu01	5	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6445
+bu01	5	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73182
+bu01	5	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73559
+bu01	5	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.252
+bu01	5	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4566
+bu01	5	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62368
+bu01	5	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80729
+bu01	5	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05377
+bu01	5	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8179
+bu01	5	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14179
+bu01	5	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.2048
+bu01	5	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4725
+bu01	5	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.784
+bu01	5	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70488
+bu01	5	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.0982
+bu01	5	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0212
+bu01	5	tune	macisaac	YOX1	0	0	929	0	0	nan	nan	0	437.358
+bu01	5	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90248
+bu01	5	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26271
+bu01	5	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.7465
+bu01	5	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.7499
+bu01	5	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.394
+bu01	5	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.0328
+bu01	5	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04516
+bu01	5	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4754
+bu01	5	tune	rossi_cx	ABF1	1	98	100	14	0.14	0.142857	0.141414	58	56.1705
+bu01	5	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8473
+bu01	5	tune	rossi_cx	AFT2	0	4	95	0	0	0	0	49	50.9412
+bu01	5	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.0474
+bu01	5	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7431
+bu01	5	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.11499
+bu01	5	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.01991
+bu01	5	tune	rossi_cx	CBF1	0	29	63	1	0.015873	0.0344828	0.0217391	25	26.6551
+bu01	5	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70074
+bu01	5	tune	rossi_cx	CIN5	1	67	84	2	0.0238095	0.0298507	0.0264901	49	52.1522
+bu01	5	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.87476
+bu01	5	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.13425
+bu01	5	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34191
+bu01	5	tune	rossi_cx	FHL1	1	78	46	1	0.0217391	0.0128205	0.016129	21	23.4488
+bu01	5	tune	rossi_cx	FKH1	1	80	106	11	0.103774	0.1375	0.11828	23	76.1128
+bu01	5	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	40.7993
+bu01	5	tune	rossi_cx	FZF1	0	12	379	1	0.00263852	0.0833333	0.00511509	0	180.56
+bu01	5	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.41226
+bu01	5	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.116
+bu01	5	tune	rossi_cx	GCR1	0	13	33	0	0	0	0	15	15.931
+bu01	5	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.3038
+bu01	5	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.6139
+bu01	5	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4086
+bu01	5	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.657
+bu01	5	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6472
+bu01	5	tune	rossi_cx	HSF1	0	29	26	0	0	0	0	12	12.3701
+bu01	5	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.01306
+bu01	5	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.95513
+bu01	5	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.6249
+bu01	5	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9039
+bu01	5	tune	rossi_cx	MCM1	1	51	48	3	0.0625	0.0588235	0.0606061	11	31.2559
+bu01	5	tune	rossi_cx	MET31	0	15	79	0	0	0	0	34	31.6961
+bu01	5	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13021
+bu01	5	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.33954
+bu01	5	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.849273
+bu01	5	tune	rossi_cx	MSN2	0	3	190	0	0	0	0	75	74.6848
+bu01	5	tune	rossi_cx	NHP6A	1	53	2929	16	0.00546262	0.301887	0.0107311	0	1716.61
+bu01	5	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5014
+bu01	5	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6856
+bu01	5	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.44287
+bu01	5	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75359
+bu01	5	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.2376
+bu01	5	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.06004
+bu01	5	tune	rossi_cx	RAP1	1	44	48	10	0.208333	0.227273	0.217391	29	27.0685
+bu01	5	tune	rossi_cx	RDS2	0	2	175	0	0	0	0	0	74.8632
+bu01	5	tune	rossi_cx	REB1	1	138	269	42	0.156134	0.304348	0.206388	44	215.894
+bu01	5	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.589
+bu01	5	tune	rossi_cx	ROX1	0	42	108	1	0.00925926	0.0238095	0.0133333	40	43.6437
+bu01	5	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9292
+bu01	5	tune	rossi_cx	RPN4	0	16	38	0	0	0	0	15	16.8857
+bu01	5	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.31362
+bu01	5	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426578
+bu01	5	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	27.012
+bu01	5	tune	rossi_cx	SFL1	0	22	745	2	0.00268456	0.0909091	0.00521512	0	328.151
+bu01	5	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4102
+bu01	5	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5578
+bu01	5	tune	rossi_cx	SKO1	1	27	8	1	0.125	0.037037	0.0571429	5	5.54878
+bu01	5	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8256
+bu01	5	tune	rossi_cx	SPT15	1	253	148	9	0.0608108	0.0355731	0.0448878	0	73.0817
+bu01	5	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.2007
+bu01	5	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.07163
+bu01	5	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11676
+bu01	5	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.885
+bu01	5	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.56784
+bu01	5	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.05105
+bu01	5	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15768
+bu01	5	tune	rossi_cx	SUM1	0	30	18	0	0	0	0	13	13.6777
+bu01	5	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0713
+bu01	5	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1331
+bu01	5	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.184
+bu01	5	tune	rossi_cx	TBF1	1	32	45	7	0.155556	0.21875	0.181818	0	21.7791
+bu01	5	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271717
+bu01	5	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19172
+bu01	5	tune	rossi_cx	UME6	1	43	28	0	0	0	0	19	21.4638
+bu01	5	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73182
+bu01	5	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80729
+bu01	5	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.0982
+bu01	5	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.0328
+bu01	5	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04516
+bu01	6	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.2983
+bu01	6	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.128
+bu01	6	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8758
+bu01	6	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.0683
+bu01	6	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30565
+bu01	6	tune	macisaac	AFT2	0	49	95	3	0.0315789	0.0612245	0.0416667	49	50.9022
+bu01	6	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.0698
+bu01	6	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612183
+bu01	6	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7409
+bu01	6	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13064
+bu01	6	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.01986
+bu01	6	tune	macisaac	CAT8	0	0	931	0	0	nan	nan	0	415.526
+bu01	6	tune	macisaac	CBF1	0	25	63	0	0	0	0	25	26.6592
+bu01	6	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4746
+bu01	6	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70564
+bu01	6	tune	macisaac	CIN5	1	49	87	2	0.0229885	0.0408163	0.0294118	49	55.1178
+bu01	6	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874776
+bu01	6	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8415
+bu01	6	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.13527
+bu01	6	tune	macisaac	DAL80	0	25	71	0	0	0	0	25	27.0945
+bu01	6	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0417
+bu01	6	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34076
+bu01	6	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62695
+bu01	6	tune	macisaac	FHL1	1	21	43	0	0	0	0	21	21.3611
+bu01	6	tune	macisaac	FKH1	1	23	70	4	0.0571429	0.173913	0.0860215	23	55.1055
+bu01	6	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	40.8704
+bu01	6	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.488
+bu01	6	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.41228
+bu01	6	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0371
+bu01	6	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90402
+bu01	6	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.3702
+bu01	6	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.0991
+bu01	6	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6712
+bu01	6	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.4086
+bu01	6	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.7403
+bu01	6	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27311
+bu01	6	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4095
+bu01	6	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4908
+bu01	6	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.665
+bu01	6	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.646
+bu01	6	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.554
+bu01	6	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5427
+bu01	6	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9842
+bu01	6	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3818
+bu01	6	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.01964
+bu01	6	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.95599
+bu01	6	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.6297
+bu01	6	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9288
+bu01	6	tune	macisaac	MCM1	1	11	28	1	0.0357143	0.0909091	0.0512821	11	18.0161
+bu01	6	tune	macisaac	MET31	0	34	79	1	0.0126582	0.0294118	0.0176991	34	31.7486
+bu01	6	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13472
+bu01	6	tune	macisaac	MGA1	0	0	392	0	0	nan	nan	0	188.537
+bu01	6	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.22109
+bu01	6	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.853442
+bu01	6	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.13664
+bu01	6	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.0763
+bu01	6	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0225
+bu01	6	tune	macisaac	MSN2	0	75	191	8	0.0418848	0.106667	0.0601504	75	75.0594
+bu01	6	tune	macisaac	MSN4	0	71	189	5	0.026455	0.0704225	0.0384615	71	72.4656
+bu01	6	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2556
+bu01	6	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.7628
+bu01	6	tune	macisaac	NHP6A	1	0	2937	0	0	nan	nan	0	1725.75
+bu01	6	tune	macisaac	NHP6B	0	0	6762	0	0	nan	nan	0	3327.51
+bu01	6	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.4991
+bu01	6	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6892
+bu01	6	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.6167
+bu01	6	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.675
+bu01	6	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.70102
+bu01	6	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.46425
+bu01	6	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75365
+bu01	6	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4635
+bu01	6	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.1896
+bu01	6	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.767
+bu01	6	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86818
+bu01	6	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.07331
+bu01	6	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9809
+bu01	6	tune	macisaac	RDR1	0	0	145	0	0	nan	nan	0	63.1261
+bu01	6	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86309
+bu01	6	tune	macisaac	RDS2	0	0	177	0	0	nan	nan	0	75.0323
+bu01	6	tune	macisaac	REB1	1	44	209	21	0.100478	0.477273	0.166008	44	161.232
+bu01	6	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.503
+bu01	6	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.619
+bu01	6	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1864
+bu01	6	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.12103
+bu01	6	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09614
+bu01	6	tune	macisaac	ROX1	0	40	109	1	0.00917431	0.025	0.0134228	40	43.8719
+bu01	6	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9305
+bu01	6	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0526
+bu01	6	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28865
+bu01	6	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426609
+bu01	6	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9505
+bu01	6	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.606
+bu01	6	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4136
+bu01	6	tune	macisaac	SIG1	0	0	3714	0	0	nan	nan	0	2170.65
+bu01	6	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.08942
+bu01	6	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5724
+bu01	6	tune	macisaac	SKO1	1	5	11	0	0	0	0	5	6.53985
+bu01	6	tune	macisaac	SMP1	0	0	1079	0	0	nan	nan	0	475.269
+bu01	6	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8347
+bu01	6	tune	macisaac	SPT15	1	0	149	0	0	nan	nan	0	73.4619
+bu01	6	tune	macisaac	SRD1	0	0	1133	0	0	nan	nan	0	549.999
+bu01	6	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1811
+bu01	6	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.07658
+bu01	6	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11695
+bu01	6	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.859
+bu01	6	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.57134
+bu01	6	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.24987
+bu01	6	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.79922
+bu01	6	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	6	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5717
+bu01	6	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0725
+bu01	6	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523368
+bu01	6	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1465
+bu01	6	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.291
+bu01	6	tune	macisaac	TBF1	1	0	47	0	0	nan	nan	0	22.5163
+bu01	6	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.27171
+bu01	6	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19273
+bu01	6	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	50.9528
+bu01	6	tune	macisaac	TOS8	0	0	1114	0	0	nan	nan	0	584.851
+bu01	6	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.461
+bu01	6	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11107
+bu01	6	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.0373
+bu01	6	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61793
+bu01	6	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.93009
+bu01	6	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61328
+bu01	6	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6642
+bu01	6	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73218
+bu01	6	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73588
+bu01	6	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2395
+bu01	6	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4355
+bu01	6	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62374
+bu01	6	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80752
+bu01	6	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05376
+bu01	6	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8216
+bu01	6	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14211
+bu01	6	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1859
+bu01	6	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4951
+bu01	6	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.802
+bu01	6	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70528
+bu01	6	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09763
+bu01	6	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0236
+bu01	6	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.012
+bu01	6	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90902
+bu01	6	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26311
+bu01	6	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.8085
+bu01	6	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.7482
+bu01	6	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.473
+bu01	6	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03351
+bu01	6	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04543
+bu01	6	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4793
+bu01	6	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.2983
+bu01	6	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8758
+bu01	6	tune	rossi_cx	AFT2	0	4	95	0	0	0	0	49	50.9022
+bu01	6	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.0698
+bu01	6	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7409
+bu01	6	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13064
+bu01	6	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.01986
+bu01	6	tune	rossi_cx	CBF1	0	29	63	1	0.015873	0.0344828	0.0217391	25	26.6592
+bu01	6	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70564
+bu01	6	tune	rossi_cx	CIN5	1	67	87	2	0.0229885	0.0298507	0.025974	49	55.1178
+bu01	6	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874776
+bu01	6	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.13527
+bu01	6	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34076
+bu01	6	tune	rossi_cx	FHL1	1	78	43	1	0.0232558	0.0128205	0.0165289	21	21.3611
+bu01	6	tune	rossi_cx	FKH1	1	80	70	8	0.114286	0.1	0.106667	23	55.1055
+bu01	6	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	40.8704
+bu01	6	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.488
+bu01	6	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.41228
+bu01	6	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.0991
+bu01	6	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6712
+bu01	6	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.4086
+bu01	6	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.7403
+bu01	6	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4095
+bu01	6	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.665
+bu01	6	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.646
+bu01	6	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3818
+bu01	6	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.01964
+bu01	6	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.95599
+bu01	6	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.6297
+bu01	6	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9288
+bu01	6	tune	rossi_cx	MCM1	1	51	28	1	0.0357143	0.0196078	0.0253165	11	18.0161
+bu01	6	tune	rossi_cx	MET31	0	15	79	0	0	0	0	34	31.7486
+bu01	6	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13472
+bu01	6	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.22109
+bu01	6	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.853442
+bu01	6	tune	rossi_cx	MSN2	0	3	191	0	0	0	0	75	75.0594
+bu01	6	tune	rossi_cx	NHP6A	1	53	2937	16	0.00544774	0.301887	0.0107023	0	1725.75
+bu01	6	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.4991
+bu01	6	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6892
+bu01	6	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.46425
+bu01	6	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75365
+bu01	6	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.1896
+bu01	6	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.07331
+bu01	6	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9809
+bu01	6	tune	rossi_cx	RDS2	0	2	177	0	0	0	0	0	75.0323
+bu01	6	tune	rossi_cx	REB1	1	138	209	38	0.181818	0.275362	0.21902	44	161.232
+bu01	6	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.619
+bu01	6	tune	rossi_cx	ROX1	0	42	109	1	0.00917431	0.0238095	0.013245	40	43.8719
+bu01	6	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9305
+bu01	6	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0526
+bu01	6	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28865
+bu01	6	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426609
+bu01	6	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9505
+bu01	6	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.606
+bu01	6	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4136
+bu01	6	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5724
+bu01	6	tune	rossi_cx	SKO1	1	27	11	1	0.0909091	0.037037	0.0526316	5	6.53985
+bu01	6	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8347
+bu01	6	tune	rossi_cx	SPT15	1	253	149	9	0.0604027	0.0355731	0.0447761	0	73.4619
+bu01	6	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1811
+bu01	6	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.07658
+bu01	6	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11695
+bu01	6	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.859
+bu01	6	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.57134
+bu01	6	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.24987
+bu01	6	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	6	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5717
+bu01	6	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0725
+bu01	6	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1465
+bu01	6	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.291
+bu01	6	tune	rossi_cx	TBF1	1	32	47	7	0.148936	0.21875	0.177215	0	22.5163
+bu01	6	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.27171
+bu01	6	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19273
+bu01	6	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.0373
+bu01	6	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73218
+bu01	6	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80752
+bu01	6	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09763
+bu01	6	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03351
+bu01	6	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04543
+bu01	7	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.4858
+bu01	7	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.149
+bu01	7	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8785
+bu01	7	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.1092
+bu01	7	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30568
+bu01	7	tune	macisaac	AFT2	0	49	95	3	0.0315789	0.0612245	0.0416667	49	50.8994
+bu01	7	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.0839
+bu01	7	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612189
+bu01	7	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7433
+bu01	7	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13426
+bu01	7	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.0199
+bu01	7	tune	macisaac	CAT8	0	0	936	0	0	nan	nan	0	417.17
+bu01	7	tune	macisaac	CBF1	0	25	63	0	0	0	0	25	26.7161
+bu01	7	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.5003
+bu01	7	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.7076
+bu01	7	tune	macisaac	CIN5	1	49	82	1	0.0121951	0.0204082	0.0152672	49	49.9611
+bu01	7	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.87478
+bu01	7	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8413
+bu01	7	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.13528
+bu01	7	tune	macisaac	DAL80	0	25	72	0	0	0	0	25	27.2306
+bu01	7	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.042
+bu01	7	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.33985
+bu01	7	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62709
+bu01	7	tune	macisaac	FHL1	1	21	42	0	0	0	0	21	21.5943
+bu01	7	tune	macisaac	FKH1	1	23	54	2	0.037037	0.0869565	0.0519481	23	39.753
+bu01	7	tune	macisaac	FKH2	0	38	96	1	0.0104167	0.0263158	0.0149254	38	41.0325
+bu01	7	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.425
+bu01	7	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.41229
+bu01	7	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0393
+bu01	7	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90396
+bu01	7	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.3782
+bu01	7	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.0977
+bu01	7	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6069
+bu01	7	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.4222
+bu01	7	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.8432
+bu01	7	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.2732
+bu01	7	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4096
+bu01	7	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4881
+bu01	7	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.666
+bu01	7	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6459
+bu01	7	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.5609
+bu01	7	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5464
+bu01	7	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9848
+bu01	7	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3878
+bu01	7	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.02174
+bu01	7	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.95689
+bu01	7	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.6382
+bu01	7	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9331
+bu01	7	tune	macisaac	MCM1	1	11	22	1	0.0454545	0.0909091	0.0606061	11	12.6462
+bu01	7	tune	macisaac	MET31	0	34	80	1	0.0125	0.0294118	0.0175439	34	31.8589
+bu01	7	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.1349
+bu01	7	tune	macisaac	MGA1	0	0	392	0	0	nan	nan	0	188.579
+bu01	7	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.14517
+bu01	7	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.856078
+bu01	7	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.14192
+bu01	7	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.076
+bu01	7	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0241
+bu01	7	tune	macisaac	MSN2	0	75	194	8	0.0412371	0.106667	0.0594796	75	75.4463
+bu01	7	tune	macisaac	MSN4	0	71	189	5	0.026455	0.0704225	0.0384615	71	72.745
+bu01	7	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2573
+bu01	7	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.76447
+bu01	7	tune	macisaac	NHP6A	1	0	2949	0	0	nan	nan	0	1734.09
+bu01	7	tune	macisaac	NHP6B	0	0	6762	0	0	nan	nan	0	3327.08
+bu01	7	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.4996
+bu01	7	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6891
+bu01	7	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.6585
+bu01	7	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.675
+bu01	7	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.70107
+bu01	7	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.47191
+bu01	7	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75366
+bu01	7	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4717
+bu01	7	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.1768
+bu01	7	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.717
+bu01	7	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86825
+bu01	7	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.08916
+bu01	7	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9579
+bu01	7	tune	macisaac	RDR1	0	0	146	0	0	nan	nan	0	63.5307
+bu01	7	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86303
+bu01	7	tune	macisaac	RDS2	0	0	178	0	0	nan	nan	0	75.1954
+bu01	7	tune	macisaac	REB1	1	44	156	17	0.108974	0.386364	0.17	44	115.966
+bu01	7	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.5065
+bu01	7	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.626
+bu01	7	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1866
+bu01	7	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.116
+bu01	7	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09614
+bu01	7	tune	macisaac	ROX1	0	40	110	1	0.00909091	0.025	0.0133333	40	44.1312
+bu01	7	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9307
+bu01	7	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0693
+bu01	7	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28589
+bu01	7	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426622
+bu01	7	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9388
+bu01	7	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.919
+bu01	7	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4157
+bu01	7	tune	macisaac	SIG1	0	0	3721	0	0	nan	nan	0	2179.69
+bu01	7	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.09034
+bu01	7	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5734
+bu01	7	tune	macisaac	SKO1	1	5	11	0	0	0	0	5	5.262
+bu01	7	tune	macisaac	SMP1	0	0	1079	0	0	nan	nan	0	475.219
+bu01	7	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8362
+bu01	7	tune	macisaac	SPT15	1	0	150	0	0	nan	nan	0	73.8537
+bu01	7	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	550.228
+bu01	7	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1834
+bu01	7	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.07929
+bu01	7	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11747
+bu01	7	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.856
+bu01	7	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.58105
+bu01	7	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.29891
+bu01	7	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.80083
+bu01	7	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	7	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5457
+bu01	7	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0731
+bu01	7	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523381
+bu01	7	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1505
+bu01	7	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.312
+bu01	7	tune	macisaac	TBF1	1	0	48	0	0	nan	nan	0	22.9907
+bu01	7	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	7	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19323
+bu01	7	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	50.9649
+bu01	7	tune	macisaac	TOS8	0	0	1115	0	0	nan	nan	0	585.713
+bu01	7	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.461
+bu01	7	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11147
+bu01	7	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.1868
+bu01	7	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61834
+bu01	7	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.93008
+bu01	7	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61328
+bu01	7	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6863
+bu01	7	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73232
+bu01	7	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73591
+bu01	7	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2406
+bu01	7	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4346
+bu01	7	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62377
+bu01	7	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80747
+bu01	7	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05376
+bu01	7	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8225
+bu01	7	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14226
+bu01	7	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1822
+bu01	7	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4883
+bu01	7	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.807
+bu01	7	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70549
+bu01	7	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09759
+bu01	7	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0237
+bu01	7	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.002
+bu01	7	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90983
+bu01	7	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26314
+bu01	7	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.8285
+bu01	7	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.7487
+bu01	7	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.532
+bu01	7	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03352
+bu01	7	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04559
+bu01	7	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4806
+bu01	7	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.4858
+bu01	7	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8785
+bu01	7	tune	rossi_cx	AFT2	0	4	95	0	0	0	0	49	50.8994
+bu01	7	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.0839
+bu01	7	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7433
+bu01	7	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13426
+bu01	7	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.0199
+bu01	7	tune	rossi_cx	CBF1	0	29	63	1	0.015873	0.0344828	0.0217391	25	26.7161
+bu01	7	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.7076
+bu01	7	tune	rossi_cx	CIN5	1	67	82	2	0.0243902	0.0298507	0.0268456	49	49.9611
+bu01	7	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.87478
+bu01	7	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.13528
+bu01	7	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.33985
+bu01	7	tune	rossi_cx	FHL1	1	78	42	1	0.0238095	0.0128205	0.0166667	21	21.5943
+bu01	7	tune	rossi_cx	FKH1	1	80	54	5	0.0925926	0.0625	0.0746269	23	39.753
+bu01	7	tune	rossi_cx	FKH2	0	32	96	0	0	0	0	38	41.0325
+bu01	7	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.425
+bu01	7	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.41229
+bu01	7	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.0977
+bu01	7	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6069
+bu01	7	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.4222
+bu01	7	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.8432
+bu01	7	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4096
+bu01	7	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.666
+bu01	7	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6459
+bu01	7	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3878
+bu01	7	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.02174
+bu01	7	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.95689
+bu01	7	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.6382
+bu01	7	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9331
+bu01	7	tune	rossi_cx	MCM1	1	51	22	1	0.0454545	0.0196078	0.0273973	11	12.6462
+bu01	7	tune	rossi_cx	MET31	0	15	80	0	0	0	0	34	31.8589
+bu01	7	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.1349
+bu01	7	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.14517
+bu01	7	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.856078
+bu01	7	tune	rossi_cx	MSN2	0	3	194	0	0	0	0	75	75.4463
+bu01	7	tune	rossi_cx	NHP6A	1	53	2949	16	0.00542557	0.301887	0.0106596	0	1734.09
+bu01	7	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.4996
+bu01	7	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6891
+bu01	7	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.47191
+bu01	7	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75366
+bu01	7	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.1768
+bu01	7	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.08916
+bu01	7	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9579
+bu01	7	tune	rossi_cx	RDS2	0	2	178	0	0	0	0	0	75.1954
+bu01	7	tune	rossi_cx	REB1	1	138	156	32	0.205128	0.231884	0.217687	44	115.966
+bu01	7	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.626
+bu01	7	tune	rossi_cx	ROX1	0	42	110	1	0.00909091	0.0238095	0.0131579	40	44.1312
+bu01	7	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9307
+bu01	7	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0693
+bu01	7	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28589
+bu01	7	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426622
+bu01	7	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9388
+bu01	7	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.919
+bu01	7	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4157
+bu01	7	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5734
+bu01	7	tune	rossi_cx	SKO1	1	27	11	1	0.0909091	0.037037	0.0526316	5	5.262
+bu01	7	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8362
+bu01	7	tune	rossi_cx	SPT15	1	253	150	9	0.06	0.0355731	0.044665	0	73.8537
+bu01	7	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1834
+bu01	7	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.07929
+bu01	7	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11747
+bu01	7	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.856
+bu01	7	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.58105
+bu01	7	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.29891
+bu01	7	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	7	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5457
+bu01	7	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0731
+bu01	7	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1505
+bu01	7	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.312
+bu01	7	tune	rossi_cx	TBF1	1	32	48	7	0.145833	0.21875	0.175	0	22.9907
+bu01	7	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	7	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19323
+bu01	7	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.1868
+bu01	7	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73232
+bu01	7	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80747
+bu01	7	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09759
+bu01	7	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03352
+bu01	7	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04559
+bu01	8	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.55
+bu01	8	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.228
+bu01	8	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8808
+bu01	8	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.1312
+bu01	8	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30662
+bu01	8	tune	macisaac	AFT2	0	49	96	3	0.03125	0.0612245	0.0413793	49	50.9159
+bu01	8	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.0847
+bu01	8	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612184
+bu01	8	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7516
+bu01	8	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13514
+bu01	8	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.0199
+bu01	8	tune	macisaac	CAT8	0	0	942	0	0	nan	nan	0	418.685
+bu01	8	tune	macisaac	CBF1	0	25	62	0	0	0	0	25	26.7432
+bu01	8	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4985
+bu01	8	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70831
+bu01	8	tune	macisaac	CIN5	1	49	84	1	0.0119048	0.0204082	0.0150376	49	52.0752
+bu01	8	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874856
+bu01	8	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8417
+bu01	8	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.15958
+bu01	8	tune	macisaac	DAL80	0	25	72	0	0	0	0	25	27.312
+bu01	8	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0418
+bu01	8	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.3401
+bu01	8	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62703
+bu01	8	tune	macisaac	FHL1	1	21	42	0	0	0	0	21	21.6827
+bu01	8	tune	macisaac	FKH1	1	23	37	2	0.0540541	0.0869565	0.0666667	23	27.1634
+bu01	8	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	41.1478
+bu01	8	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.483
+bu01	8	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.4125
+bu01	8	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0426
+bu01	8	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90398
+bu01	8	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.375
+bu01	8	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.089
+bu01	8	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6002
+bu01	8	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.4249
+bu01	8	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.8749
+bu01	8	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27334
+bu01	8	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4098
+bu01	8	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4867
+bu01	8	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.672
+bu01	8	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6466
+bu01	8	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.56
+bu01	8	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5529
+bu01	8	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9866
+bu01	8	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3869
+bu01	8	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.02296
+bu01	8	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.9564
+bu01	8	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.6898
+bu01	8	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9327
+bu01	8	tune	macisaac	MCM1	1	11	19	0	0	0	0	11	11.3386
+bu01	8	tune	macisaac	MET31	0	34	80	1	0.0125	0.0294118	0.0175439	34	32.0006
+bu01	8	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13415
+bu01	8	tune	macisaac	MGA1	0	0	393	0	0	nan	nan	0	188.608
+bu01	8	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.14527
+bu01	8	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.856164
+bu01	8	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.14196
+bu01	8	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.075
+bu01	8	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0209
+bu01	8	tune	macisaac	MSN2	0	75	195	8	0.0410256	0.106667	0.0592593	75	75.996
+bu01	8	tune	macisaac	MSN4	0	71	190	5	0.0263158	0.0704225	0.0383142	71	73.0682
+bu01	8	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.257
+bu01	8	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.76546
+bu01	8	tune	macisaac	NHP6A	1	0	2951	0	0	nan	nan	0	1736.96
+bu01	8	tune	macisaac	NHP6B	0	0	6763	0	0	nan	nan	0	3327
+bu01	8	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5036
+bu01	8	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6885
+bu01	8	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.665
+bu01	8	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.67487
+bu01	8	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.7009
+bu01	8	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.47517
+bu01	8	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75366
+bu01	8	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4747
+bu01	8	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.176
+bu01	8	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.726
+bu01	8	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86897
+bu01	8	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.0948
+bu01	8	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9545
+bu01	8	tune	macisaac	RDR1	0	0	146	0	0	nan	nan	0	63.7773
+bu01	8	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86404
+bu01	8	tune	macisaac	RDS2	0	0	178	0	0	nan	nan	0	75.2418
+bu01	8	tune	macisaac	REB1	1	44	114	14	0.122807	0.318182	0.177215	44	81.2196
+bu01	8	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.5104
+bu01	8	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.632
+bu01	8	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1864
+bu01	8	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.11485
+bu01	8	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09631
+bu01	8	tune	macisaac	ROX1	0	40	104	1	0.00961538	0.025	0.0138889	40	40.8243
+bu01	8	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9314
+bu01	8	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0724
+bu01	8	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28629
+bu01	8	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426624
+bu01	8	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9428
+bu01	8	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.975
+bu01	8	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4167
+bu01	8	tune	macisaac	SIG1	0	0	3722	0	0	nan	nan	0	2184.98
+bu01	8	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.0904
+bu01	8	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5714
+bu01	8	tune	macisaac	SKO1	1	5	11	0	0	0	0	5	5.51263
+bu01	8	tune	macisaac	SMP1	0	0	1080	0	0	nan	nan	0	475.295
+bu01	8	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8366
+bu01	8	tune	macisaac	SPT15	1	0	152	0	0	nan	nan	0	74.1954
+bu01	8	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	550.406
+bu01	8	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1997
+bu01	8	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.08069
+bu01	8	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.1176
+bu01	8	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.859
+bu01	8	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.59261
+bu01	8	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.33015
+bu01	8	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.80142
+bu01	8	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	8	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5434
+bu01	8	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0737
+bu01	8	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523401
+bu01	8	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1524
+bu01	8	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.332
+bu01	8	tune	macisaac	TBF1	1	0	50	0	0	nan	nan	0	23.4574
+bu01	8	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	8	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19392
+bu01	8	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	51.0388
+bu01	8	tune	macisaac	TOS8	0	0	1116	0	0	nan	nan	0	586.094
+bu01	8	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.4612
+bu01	8	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11153
+bu01	8	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.2136
+bu01	8	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61831
+bu01	8	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92963
+bu01	8	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61309
+bu01	8	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6928
+bu01	8	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73265
+bu01	8	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73595
+bu01	8	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2455
+bu01	8	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4339
+bu01	8	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62388
+bu01	8	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80685
+bu01	8	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05358
+bu01	8	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8237
+bu01	8	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14318
+bu01	8	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1815
+bu01	8	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4874
+bu01	8	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.813
+bu01	8	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70564
+bu01	8	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09758
+bu01	8	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0151
+bu01	8	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.063
+bu01	8	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90998
+bu01	8	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26324
+bu01	8	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.8712
+bu01	8	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.747
+bu01	8	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.568
+bu01	8	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03236
+bu01	8	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04579
+bu01	8	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4816
+bu01	8	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.55
+bu01	8	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8808
+bu01	8	tune	rossi_cx	AFT2	0	4	96	0	0	0	0	49	50.9159
+bu01	8	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.0847
+bu01	8	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7516
+bu01	8	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13514
+bu01	8	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.0199
+bu01	8	tune	rossi_cx	CBF1	0	29	62	1	0.016129	0.0344828	0.021978	25	26.7432
+bu01	8	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70831
+bu01	8	tune	rossi_cx	CIN5	1	67	84	2	0.0238095	0.0298507	0.0264901	49	52.0752
+bu01	8	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874856
+bu01	8	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.15958
+bu01	8	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.3401
+bu01	8	tune	rossi_cx	FHL1	1	78	42	1	0.0238095	0.0128205	0.0166667	21	21.6827
+bu01	8	tune	rossi_cx	FKH1	1	80	37	5	0.135135	0.0625	0.0854701	23	27.1634
+bu01	8	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	41.1478
+bu01	8	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.483
+bu01	8	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.4125
+bu01	8	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.089
+bu01	8	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6002
+bu01	8	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.4249
+bu01	8	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.8749
+bu01	8	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4098
+bu01	8	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.672
+bu01	8	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6466
+bu01	8	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3869
+bu01	8	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.02296
+bu01	8	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.9564
+bu01	8	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.6898
+bu01	8	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9327
+bu01	8	tune	rossi_cx	MCM1	1	51	19	1	0.0526316	0.0196078	0.0285714	11	11.3386
+bu01	8	tune	rossi_cx	MET31	0	15	80	0	0	0	0	34	32.0006
+bu01	8	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13415
+bu01	8	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.14527
+bu01	8	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.856164
+bu01	8	tune	rossi_cx	MSN2	0	3	195	0	0	0	0	75	75.996
+bu01	8	tune	rossi_cx	NHP6A	1	53	2951	16	0.00542189	0.301887	0.0106525	0	1736.96
+bu01	8	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5036
+bu01	8	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6885
+bu01	8	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.47517
+bu01	8	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75366
+bu01	8	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.176
+bu01	8	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.0948
+bu01	8	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9545
+bu01	8	tune	rossi_cx	RDS2	0	2	178	0	0	0	0	0	75.2418
+bu01	8	tune	rossi_cx	REB1	1	138	114	27	0.236842	0.195652	0.214286	44	81.2196
+bu01	8	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.632
+bu01	8	tune	rossi_cx	ROX1	0	42	104	1	0.00961538	0.0238095	0.0136986	40	40.8243
+bu01	8	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9314
+bu01	8	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0724
+bu01	8	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28629
+bu01	8	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426624
+bu01	8	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9428
+bu01	8	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.975
+bu01	8	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4167
+bu01	8	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5714
+bu01	8	tune	rossi_cx	SKO1	1	27	11	1	0.0909091	0.037037	0.0526316	5	5.51263
+bu01	8	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8366
+bu01	8	tune	rossi_cx	SPT15	1	253	152	9	0.0592105	0.0355731	0.0444444	0	74.1954
+bu01	8	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1997
+bu01	8	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.08069
+bu01	8	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.1176
+bu01	8	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.859
+bu01	8	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.59261
+bu01	8	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.33015
+bu01	8	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	8	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5434
+bu01	8	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0737
+bu01	8	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1524
+bu01	8	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.332
+bu01	8	tune	rossi_cx	TBF1	1	32	50	7	0.14	0.21875	0.170732	0	23.4574
+bu01	8	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	8	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19392
+bu01	8	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.2136
+bu01	8	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73265
+bu01	8	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80685
+bu01	8	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09758
+bu01	8	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03236
+bu01	8	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04579
+bu01	9	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.5577
+bu01	9	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.233
+bu01	9	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8808
+bu01	9	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.1425
+bu01	9	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30662
+bu01	9	tune	macisaac	AFT2	0	49	96	3	0.03125	0.0612245	0.0413793	49	50.9179
+bu01	9	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.085
+bu01	9	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612184
+bu01	9	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7583
+bu01	9	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13516
+bu01	9	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.0199
+bu01	9	tune	macisaac	CAT8	0	0	944	0	0	nan	nan	0	419.35
+bu01	9	tune	macisaac	CBF1	0	25	62	0	0	0	0	25	26.7434
+bu01	9	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4989
+bu01	9	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70832
+bu01	9	tune	macisaac	CIN5	1	49	84	1	0.0119048	0.0204082	0.0150376	49	52.6331
+bu01	9	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874856
+bu01	9	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8417
+bu01	9	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.15958
+bu01	9	tune	macisaac	DAL80	0	25	72	0	0	0	0	25	27.3162
+bu01	9	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0417
+bu01	9	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34014
+bu01	9	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62703
+bu01	9	tune	macisaac	FHL1	1	21	42	0	0	0	0	21	21.6859
+bu01	9	tune	macisaac	FKH1	1	23	34	2	0.0588235	0.0869565	0.0701754	23	24.1431
+bu01	9	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	41.1591
+bu01	9	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.522
+bu01	9	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.4125
+bu01	9	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0426
+bu01	9	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90398
+bu01	9	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.375
+bu01	9	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.089
+bu01	9	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6004
+bu01	9	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.425
+bu01	9	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.8749
+bu01	9	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27334
+bu01	9	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4098
+bu01	9	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4863
+bu01	9	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.672
+bu01	9	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6466
+bu01	9	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.5637
+bu01	9	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5544
+bu01	9	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9869
+bu01	9	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3872
+bu01	9	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.02314
+bu01	9	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.9564
+bu01	9	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.69
+bu01	9	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9327
+bu01	9	tune	macisaac	MCM1	1	11	19	0	0	0	0	11	11.3442
+bu01	9	tune	macisaac	MET31	0	34	80	1	0.0125	0.0294118	0.0175439	34	32.0323
+bu01	9	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13415
+bu01	9	tune	macisaac	MGA1	0	0	393	0	0	nan	nan	0	188.613
+bu01	9	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.14527
+bu01	9	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.856164
+bu01	9	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.14196
+bu01	9	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.0749
+bu01	9	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.021
+bu01	9	tune	macisaac	MSN2	0	75	195	8	0.0410256	0.106667	0.0592593	75	76.1308
+bu01	9	tune	macisaac	MSN4	0	71	190	5	0.0263158	0.0704225	0.0383142	71	73.1387
+bu01	9	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2565
+bu01	9	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.76559
+bu01	9	tune	macisaac	NHP6A	1	0	2955	0	0	nan	nan	0	1737.82
+bu01	9	tune	macisaac	NHP6B	0	0	6763	0	0	nan	nan	0	3327.09
+bu01	9	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5036
+bu01	9	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6885
+bu01	9	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.6648
+bu01	9	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.67487
+bu01	9	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.7009
+bu01	9	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.4767
+bu01	9	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75396
+bu01	9	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4749
+bu01	9	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.1759
+bu01	9	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.732
+bu01	9	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86897
+bu01	9	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.09626
+bu01	9	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9545
+bu01	9	tune	macisaac	RDR1	0	0	146	0	0	nan	nan	0	63.8403
+bu01	9	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86555
+bu01	9	tune	macisaac	RDS2	0	0	178	0	0	nan	nan	0	75.2627
+bu01	9	tune	macisaac	REB1	1	44	74	9	0.121622	0.204545	0.152542	44	59.6369
+bu01	9	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.5107
+bu01	9	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.632
+bu01	9	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1864
+bu01	9	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.11468
+bu01	9	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09631
+bu01	9	tune	macisaac	ROX1	0	40	104	1	0.00961538	0.025	0.0138889	40	40.8502
+bu01	9	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9314
+bu01	9	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0728
+bu01	9	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28638
+bu01	9	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426624
+bu01	9	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9427
+bu01	9	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.976
+bu01	9	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4167
+bu01	9	tune	macisaac	SIG1	0	0	3727	0	0	nan	nan	0	2185.69
+bu01	9	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.09041
+bu01	9	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5715
+bu01	9	tune	macisaac	SKO1	1	5	12	0	0	0	0	5	5.68497
+bu01	9	tune	macisaac	SMP1	0	0	1080	0	0	nan	nan	0	475.386
+bu01	9	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8374
+bu01	9	tune	macisaac	SPT15	1	0	152	0	0	nan	nan	0	74.2894
+bu01	9	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	550.446
+bu01	9	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1998
+bu01	9	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.08071
+bu01	9	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.1176
+bu01	9	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.866
+bu01	9	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.59541
+bu01	9	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.33689
+bu01	9	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.80141
+bu01	9	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	9	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5432
+bu01	9	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0737
+bu01	9	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523401
+bu01	9	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1525
+bu01	9	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.34
+bu01	9	tune	macisaac	TBF1	1	0	50	0	0	nan	nan	0	23.6639
+bu01	9	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	9	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19393
+bu01	9	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	51.0392
+bu01	9	tune	macisaac	TOS8	0	0	1116	0	0	nan	nan	0	586.178
+bu01	9	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.4612
+bu01	9	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11168
+bu01	9	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.2288
+bu01	9	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61831
+bu01	9	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92963
+bu01	9	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61309
+bu01	9	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6933
+bu01	9	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73265
+bu01	9	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73595
+bu01	9	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2454
+bu01	9	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4339
+bu01	9	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62388
+bu01	9	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80686
+bu01	9	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05358
+bu01	9	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8237
+bu01	9	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14514
+bu01	9	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1815
+bu01	9	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4877
+bu01	9	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.813
+bu01	9	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70564
+bu01	9	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09758
+bu01	9	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0151
+bu01	9	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.078
+bu01	9	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90998
+bu01	9	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26324
+bu01	9	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.9055
+bu01	9	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.747
+bu01	9	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.572
+bu01	9	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03237
+bu01	9	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04579
+bu01	9	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4816
+bu01	9	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.5577
+bu01	9	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8808
+bu01	9	tune	rossi_cx	AFT2	0	4	96	0	0	0	0	49	50.9179
+bu01	9	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.085
+bu01	9	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7583
+bu01	9	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13516
+bu01	9	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.0199
+bu01	9	tune	rossi_cx	CBF1	0	29	62	1	0.016129	0.0344828	0.021978	25	26.7434
+bu01	9	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70832
+bu01	9	tune	rossi_cx	CIN5	1	67	84	2	0.0238095	0.0298507	0.0264901	49	52.6331
+bu01	9	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874856
+bu01	9	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.15958
+bu01	9	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34014
+bu01	9	tune	rossi_cx	FHL1	1	78	42	1	0.0238095	0.0128205	0.0166667	21	21.6859
+bu01	9	tune	rossi_cx	FKH1	1	80	34	4	0.117647	0.05	0.0701754	23	24.1431
+bu01	9	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	41.1591
+bu01	9	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.522
+bu01	9	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.4125
+bu01	9	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.089
+bu01	9	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6004
+bu01	9	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.425
+bu01	9	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.8749
+bu01	9	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4098
+bu01	9	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.672
+bu01	9	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6466
+bu01	9	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3872
+bu01	9	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.02314
+bu01	9	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.9564
+bu01	9	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.69
+bu01	9	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9327
+bu01	9	tune	rossi_cx	MCM1	1	51	19	1	0.0526316	0.0196078	0.0285714	11	11.3442
+bu01	9	tune	rossi_cx	MET31	0	15	80	0	0	0	0	34	32.0323
+bu01	9	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13415
+bu01	9	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.14527
+bu01	9	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.856164
+bu01	9	tune	rossi_cx	MSN2	0	3	195	0	0	0	0	75	76.1308
+bu01	9	tune	rossi_cx	NHP6A	1	53	2955	16	0.00541455	0.301887	0.0106383	0	1737.82
+bu01	9	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5036
+bu01	9	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6885
+bu01	9	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.4767
+bu01	9	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75396
+bu01	9	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.1759
+bu01	9	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.09626
+bu01	9	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9545
+bu01	9	tune	rossi_cx	RDS2	0	2	178	0	0	0	0	0	75.2627
+bu01	9	tune	rossi_cx	REB1	1	138	74	19	0.256757	0.137681	0.179245	44	59.6369
+bu01	9	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.632
+bu01	9	tune	rossi_cx	ROX1	0	42	104	1	0.00961538	0.0238095	0.0136986	40	40.8502
+bu01	9	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9314
+bu01	9	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0728
+bu01	9	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28638
+bu01	9	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426624
+bu01	9	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9427
+bu01	9	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.976
+bu01	9	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4167
+bu01	9	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5715
+bu01	9	tune	rossi_cx	SKO1	1	27	12	1	0.0833333	0.037037	0.0512821	5	5.68497
+bu01	9	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8374
+bu01	9	tune	rossi_cx	SPT15	1	253	152	9	0.0592105	0.0355731	0.0444444	0	74.2894
+bu01	9	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1998
+bu01	9	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.08071
+bu01	9	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.1176
+bu01	9	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.866
+bu01	9	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.59541
+bu01	9	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.33689
+bu01	9	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	9	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5432
+bu01	9	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0737
+bu01	9	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1525
+bu01	9	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.34
+bu01	9	tune	rossi_cx	TBF1	1	32	50	7	0.14	0.21875	0.170732	0	23.6639
+bu01	9	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	9	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19393
+bu01	9	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.2288
+bu01	9	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73265
+bu01	9	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80686
+bu01	9	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09758
+bu01	9	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03237
+bu01	9	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04579
+bu01	10	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.5584
+bu01	10	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.233
+bu01	10	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8808
+bu01	10	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.1452
+bu01	10	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30661
+bu01	10	tune	macisaac	AFT2	0	49	96	3	0.03125	0.0612245	0.0413793	49	50.9201
+bu01	10	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.085
+bu01	10	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612184
+bu01	10	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7591
+bu01	10	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13516
+bu01	10	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.01991
+bu01	10	tune	macisaac	CAT8	0	0	944	0	0	nan	nan	0	419.53
+bu01	10	tune	macisaac	CBF1	0	25	62	0	0	0	0	25	26.7433
+bu01	10	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4995
+bu01	10	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70857
+bu01	10	tune	macisaac	CIN5	1	49	84	1	0.0119048	0.0204082	0.0150376	49	52.7427
+bu01	10	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874856
+bu01	10	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8417
+bu01	10	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.15958
+bu01	10	tune	macisaac	DAL80	0	25	72	0	0	0	0	25	27.3157
+bu01	10	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0417
+bu01	10	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34014
+bu01	10	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62705
+bu01	10	tune	macisaac	FHL1	1	21	42	0	0	0	0	21	21.6881
+bu01	10	tune	macisaac	FKH1	1	23	34	2	0.0588235	0.0869565	0.0701754	23	24.174
+bu01	10	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	41.1591
+bu01	10	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.525
+bu01	10	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.4125
+bu01	10	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0426
+bu01	10	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90398
+bu01	10	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.375
+bu01	10	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.089
+bu01	10	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6005
+bu01	10	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.425
+bu01	10	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.8748
+bu01	10	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27335
+bu01	10	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4098
+bu01	10	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4863
+bu01	10	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.672
+bu01	10	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6466
+bu01	10	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.5639
+bu01	10	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5544
+bu01	10	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9869
+bu01	10	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3872
+bu01	10	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.02317
+bu01	10	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.9564
+bu01	10	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.69
+bu01	10	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9326
+bu01	10	tune	macisaac	MCM1	1	11	19	0	0	0	0	11	11.4435
+bu01	10	tune	macisaac	MET31	0	34	80	1	0.0125	0.0294118	0.0175439	34	32.0354
+bu01	10	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13415
+bu01	10	tune	macisaac	MGA1	0	0	393	0	0	nan	nan	0	188.613
+bu01	10	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.14527
+bu01	10	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.856164
+bu01	10	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.14196
+bu01	10	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.0749
+bu01	10	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0208
+bu01	10	tune	macisaac	MSN2	0	75	195	8	0.0410256	0.106667	0.0592593	75	76.1345
+bu01	10	tune	macisaac	MSN4	0	71	190	5	0.0263158	0.0704225	0.0383142	71	73.1411
+bu01	10	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2564
+bu01	10	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.7656
+bu01	10	tune	macisaac	NHP6A	1	0	2956	0	0	nan	nan	0	1738.11
+bu01	10	tune	macisaac	NHP6B	0	0	6763	0	0	nan	nan	0	3327.11
+bu01	10	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5036
+bu01	10	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6885
+bu01	10	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.6648
+bu01	10	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.67487
+bu01	10	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.7009
+bu01	10	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.47707
+bu01	10	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75402
+bu01	10	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4749
+bu01	10	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.1758
+bu01	10	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.733
+bu01	10	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86897
+bu01	10	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.09657
+bu01	10	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9545
+bu01	10	tune	macisaac	RDR1	0	0	146	0	0	nan	nan	0	63.8469
+bu01	10	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86601
+bu01	10	tune	macisaac	RDS2	0	0	178	0	0	nan	nan	0	75.2685
+bu01	10	tune	macisaac	REB1	1	44	64	9	0.140625	0.204545	0.166667	44	50.0062
+bu01	10	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.5108
+bu01	10	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.632
+bu01	10	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1864
+bu01	10	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.11468
+bu01	10	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09631
+bu01	10	tune	macisaac	ROX1	0	40	104	1	0.00961538	0.025	0.0138889	40	40.8498
+bu01	10	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9314
+bu01	10	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0728
+bu01	10	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28639
+bu01	10	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426624
+bu01	10	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9427
+bu01	10	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.966
+bu01	10	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4167
+bu01	10	tune	macisaac	SIG1	0	0	3728	0	0	nan	nan	0	2185.62
+bu01	10	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.09041
+bu01	10	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5715
+bu01	10	tune	macisaac	SKO1	1	5	11	0	0	0	0	5	4.95843
+bu01	10	tune	macisaac	SMP1	0	0	1080	0	0	nan	nan	0	475.404
+bu01	10	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8375
+bu01	10	tune	macisaac	SPT15	1	0	152	0	0	nan	nan	0	74.2944
+bu01	10	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	550.445
+bu01	10	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1998
+bu01	10	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.08072
+bu01	10	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11771
+bu01	10	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.867
+bu01	10	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.59568
+bu01	10	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.33754
+bu01	10	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.80141
+bu01	10	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	10	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5434
+bu01	10	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0737
+bu01	10	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523401
+bu01	10	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1525
+bu01	10	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.342
+bu01	10	tune	macisaac	TBF1	1	0	50	0	0	nan	nan	0	23.7078
+bu01	10	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	10	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19393
+bu01	10	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	51.0392
+bu01	10	tune	macisaac	TOS8	0	0	1116	0	0	nan	nan	0	586.193
+bu01	10	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.4612
+bu01	10	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11171
+bu01	10	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.2313
+bu01	10	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61831
+bu01	10	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92964
+bu01	10	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61309
+bu01	10	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6934
+bu01	10	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73266
+bu01	10	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73595
+bu01	10	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2454
+bu01	10	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4339
+bu01	10	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62388
+bu01	10	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80686
+bu01	10	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05358
+bu01	10	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8237
+bu01	10	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14572
+bu01	10	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1815
+bu01	10	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4877
+bu01	10	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.813
+bu01	10	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70564
+bu01	10	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09758
+bu01	10	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0152
+bu01	10	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.088
+bu01	10	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90998
+bu01	10	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26324
+bu01	10	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.9221
+bu01	10	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.747
+bu01	10	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.572
+bu01	10	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03237
+bu01	10	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04579
+bu01	10	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4816
+bu01	10	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.5584
+bu01	10	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8808
+bu01	10	tune	rossi_cx	AFT2	0	4	96	0	0	0	0	49	50.9201
+bu01	10	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.085
+bu01	10	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7591
+bu01	10	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13516
+bu01	10	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.01991
+bu01	10	tune	rossi_cx	CBF1	0	29	62	1	0.016129	0.0344828	0.021978	25	26.7433
+bu01	10	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70857
+bu01	10	tune	rossi_cx	CIN5	1	67	84	2	0.0238095	0.0298507	0.0264901	49	52.7427
+bu01	10	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874856
+bu01	10	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.15958
+bu01	10	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34014
+bu01	10	tune	rossi_cx	FHL1	1	78	42	1	0.0238095	0.0128205	0.0166667	21	21.6881
+bu01	10	tune	rossi_cx	FKH1	1	80	34	4	0.117647	0.05	0.0701754	23	24.174
+bu01	10	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	41.1591
+bu01	10	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.525
+bu01	10	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.4125
+bu01	10	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.089
+bu01	10	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6005
+bu01	10	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.425
+bu01	10	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.8748
+bu01	10	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4098
+bu01	10	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.672
+bu01	10	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6466
+bu01	10	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3872
+bu01	10	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.02317
+bu01	10	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.9564
+bu01	10	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.69
+bu01	10	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9326
+bu01	10	tune	rossi_cx	MCM1	1	51	19	1	0.0526316	0.0196078	0.0285714	11	11.4435
+bu01	10	tune	rossi_cx	MET31	0	15	80	0	0	0	0	34	32.0354
+bu01	10	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13415
+bu01	10	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.14527
+bu01	10	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.856164
+bu01	10	tune	rossi_cx	MSN2	0	3	195	0	0	0	0	75	76.1345
+bu01	10	tune	rossi_cx	NHP6A	1	53	2956	16	0.00541272	0.301887	0.0106348	0	1738.11
+bu01	10	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5036
+bu01	10	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6885
+bu01	10	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.47707
+bu01	10	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75402
+bu01	10	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.1758
+bu01	10	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.09657
+bu01	10	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9545
+bu01	10	tune	rossi_cx	RDS2	0	2	178	0	0	0	0	0	75.2685
+bu01	10	tune	rossi_cx	REB1	1	138	64	18	0.28125	0.130435	0.178218	44	50.0062
+bu01	10	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.632
+bu01	10	tune	rossi_cx	ROX1	0	42	104	1	0.00961538	0.0238095	0.0136986	40	40.8498
+bu01	10	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9314
+bu01	10	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0728
+bu01	10	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28639
+bu01	10	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426624
+bu01	10	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9427
+bu01	10	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.966
+bu01	10	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4167
+bu01	10	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5715
+bu01	10	tune	rossi_cx	SKO1	1	27	11	1	0.0909091	0.037037	0.0526316	5	4.95843
+bu01	10	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8375
+bu01	10	tune	rossi_cx	SPT15	1	253	152	9	0.0592105	0.0355731	0.0444444	0	74.2944
+bu01	10	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1998
+bu01	10	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.08072
+bu01	10	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11771
+bu01	10	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.867
+bu01	10	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.59568
+bu01	10	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.33754
+bu01	10	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	10	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5434
+bu01	10	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0737
+bu01	10	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1525
+bu01	10	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.342
+bu01	10	tune	rossi_cx	TBF1	1	32	50	7	0.14	0.21875	0.170732	0	23.7078
+bu01	10	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	10	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19393
+bu01	10	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.2313
+bu01	10	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73266
+bu01	10	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80686
+bu01	10	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09758
+bu01	10	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03237
+bu01	10	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04579
+bu01	11	tune	macisaac	ABF1	1	58	101	10	0.0990099	0.172414	0.125786	58	56.5585
+bu01	11	tune	macisaac	ABF2	0	0	472	0	0	nan	nan	0	225.233
+bu01	11	tune	macisaac	ACE2	0	41	79	0	0	0	0	41	38.8808
+bu01	11	tune	macisaac	ADR1	0	22	39	0	0	0	0	22	23.1458
+bu01	11	tune	macisaac	AFT1	0	0	15	0	0	nan	nan	0	7.30661
+bu01	11	tune	macisaac	AFT2	0	49	96	3	0.03125	0.0612245	0.0413793	49	50.92
+bu01	11	tune	macisaac	ARO80	0	0	120	0	0	nan	nan	0	61.085
+bu01	11	tune	macisaac	ASG1	0	0	0	0	nan	nan	nan	0	0.0612184
+bu01	11	tune	macisaac	AZF1	0	10	27	1	0.037037	0.1	0.0540541	10	10.7592
+bu01	11	tune	macisaac	BAS1	0	7	20	0	0	0	0	7	7.13516
+bu01	11	tune	macisaac	CAD1	0	3	9	0	0	0	0	3	3.01991
+bu01	11	tune	macisaac	CAT8	0	0	945	0	0	nan	nan	0	419.605
+bu01	11	tune	macisaac	CBF1	0	25	62	0	0	0	0	25	26.7433
+bu01	11	tune	macisaac	CEP3	0	0	133	0	0	nan	nan	0	63.4996
+bu01	11	tune	macisaac	CHA4	0	8	13	0	0	0	0	8	8.70857
+bu01	11	tune	macisaac	CIN5	1	49	84	1	0.0119048	0.0204082	0.0150376	49	52.7435
+bu01	11	tune	macisaac	CRZ1	0	0	3	0	0	nan	nan	0	0.874856
+bu01	11	tune	macisaac	CST6	0	25	51	0	0	0	0	25	23.8417
+bu01	11	tune	macisaac	CUP9	0	0	20	0	0	nan	nan	0	8.15958
+bu01	11	tune	macisaac	DAL80	0	25	72	0	0	0	0	25	27.3156
+bu01	11	tune	macisaac	DAL82	0	15	38	1	0.0263158	0.0666667	0.0377358	15	16.0417
+bu01	11	tune	macisaac	ECM22	0	0	10	0	0	nan	nan	0	4.34014
+bu01	11	tune	macisaac	ECM23	0	0	23	0	0	nan	nan	0	9.62705
+bu01	11	tune	macisaac	FHL1	1	21	42	0	0	0	0	21	21.6885
+bu01	11	tune	macisaac	FKH1	1	23	34	2	0.0588235	0.0869565	0.0701754	23	24.1846
+bu01	11	tune	macisaac	FKH2	0	38	95	1	0.0105263	0.0263158	0.0150376	38	41.1591
+bu01	11	tune	macisaac	FZF1	0	0	380	0	0	nan	nan	0	180.526
+bu01	11	tune	macisaac	GAL4	0	5	8	0	0	0	0	5	5.4125
+bu01	11	tune	macisaac	GAT1	0	14	34	0	0	0	0	14	15.0426
+bu01	11	tune	macisaac	GAT3	0	10	22	0	0	0	0	10	9.90398
+bu01	11	tune	macisaac	GAT4	0	0	85	0	0	nan	nan	0	36.375
+bu01	11	tune	macisaac	GCN4	0	45	86	2	0.0232558	0.0444444	0.0305344	45	43.089
+bu01	11	tune	macisaac	GCR1	0	15	32	0	0	0	0	15	15.6005
+bu01	11	tune	macisaac	GIS1	0	0	59	0	0	nan	nan	0	24.425
+bu01	11	tune	macisaac	GLN3	0	25	56	2	0.0357143	0.08	0.0493827	25	26.8748
+bu01	11	tune	macisaac	GSM1	0	0	6	0	0	nan	nan	0	3.27335
+bu01	11	tune	macisaac	GZF3	0	10	23	0	0	0	0	10	10.4098
+bu01	11	tune	macisaac	HAC1	0	0	61	0	0	nan	nan	0	29.4863
+bu01	11	tune	macisaac	HAL9	0	0	262	0	0	nan	nan	0	103.672
+bu01	11	tune	macisaac	HAP1	0	19	35	0	0	0	0	19	17.6466
+bu01	11	tune	macisaac	HCM1	0	0	171	0	0	nan	nan	0	76.5639
+bu01	11	tune	macisaac	HMLALPHA2	0	0	53	0	0	nan	nan	0	22.5544
+bu01	11	tune	macisaac	HMRA2	0	0	29	0	0	nan	nan	0	14.9869
+bu01	11	tune	macisaac	HSF1	0	12	27	0	0	0	0	12	12.3872
+bu01	11	tune	macisaac	LEU3	0	4	9	0	0	0	0	4	4.02318
+bu01	11	tune	macisaac	LYS14	0	0	15	0	0	nan	nan	0	5.9564
+bu01	11	tune	macisaac	MATALPHA2	0	0	139	0	0	nan	nan	0	66.69
+bu01	11	tune	macisaac	MBP1	0	36	74	0	0	0	0	36	34.9326
+bu01	11	tune	macisaac	MCM1	1	11	19	0	0	0	0	11	11.4503
+bu01	11	tune	macisaac	MET31	0	34	80	1	0.0125	0.0294118	0.0175439	34	32.0358
+bu01	11	tune	macisaac	MET32	0	1	2	0	0	0	0	1	1.13415
+bu01	11	tune	macisaac	MGA1	0	0	393	0	0	nan	nan	0	188.614
+bu01	11	tune	macisaac	MIG1	0	1	2	0	0	0	0	1	1.14527
+bu01	11	tune	macisaac	MIG2	0	0	2	0	0	nan	nan	0	0.856164
+bu01	11	tune	macisaac	MIG3	0	0	2	0	0	nan	nan	0	1.14196
+bu01	11	tune	macisaac	MOT3	0	71	135	0	0	0	0	71	68.0749
+bu01	11	tune	macisaac	MSN1	0	0	28	0	0	nan	nan	0	11.0208
+bu01	11	tune	macisaac	MSN2	0	75	195	8	0.0410256	0.106667	0.0592593	75	76.1326
+bu01	11	tune	macisaac	MSN4	0	71	190	5	0.0263158	0.0704225	0.0383142	71	73.1406
+bu01	11	tune	macisaac	NDT80	0	0	99	0	0	nan	nan	0	48.2564
+bu01	11	tune	macisaac	NHP10	0	0	2	0	0	nan	nan	0	2.7656
+bu01	11	tune	macisaac	NHP6A	1	0	2956	0	0	nan	nan	0	1738.22
+bu01	11	tune	macisaac	NHP6B	0	0	6763	0	0	nan	nan	0	3327.11
+bu01	11	tune	macisaac	NRG1	0	33	64	4	0.0625	0.121212	0.0824742	33	31.5036
+bu01	11	tune	macisaac	NRG2	0	0	34	0	0	nan	nan	0	14.6885
+bu01	11	tune	macisaac	OAF1	0	0	132	0	0	nan	nan	0	57.6648
+bu01	11	tune	macisaac	PBF1	0	0	9	0	0	nan	nan	0	3.67487
+bu01	11	tune	macisaac	PBF2	0	0	21	0	0	nan	nan	0	7.7009
+bu01	11	tune	macisaac	PDR1	0	4	7	0	0	0	0	4	4.47713
+bu01	11	tune	macisaac	PDR3	0	2	4	0	0	0	0	2	1.75403
+bu01	11	tune	macisaac	PDR8	0	0	52	0	0	nan	nan	0	26.4749
+bu01	11	tune	macisaac	PHD1	0	88	176	4	0.0227273	0.0454545	0.030303	88	80.1758
+bu01	11	tune	macisaac	PHO2	0	207	497	11	0.0221328	0.0531401	0.03125	207	220.733
+bu01	11	tune	macisaac	PHO4	0	6	13	0	0	0	0	6	5.86897
+bu01	11	tune	macisaac	PUT3	0	1	0	0	nan	0	nan	1	1.09673
+bu01	11	tune	macisaac	RAP1	1	29	47	5	0.106383	0.172414	0.131579	29	26.9545
+bu01	11	tune	macisaac	RDR1	0	0	146	0	0	nan	nan	0	63.8478
+bu01	11	tune	macisaac	RDS1	0	2	4	0	0	0	0	2	1.86608
+bu01	11	tune	macisaac	RDS2	0	0	178	0	0	nan	nan	0	75.2699
+bu01	11	tune	macisaac	REB1	1	44	58	8	0.137931	0.181818	0.156863	44	46.098
+bu01	11	tune	macisaac	REI1	0	0	75	0	0	nan	nan	0	28.5108
+bu01	11	tune	macisaac	RFX1	0	0	284	0	0	nan	nan	0	135.632
+bu01	11	tune	macisaac	RGM1	0	0	25	0	0	nan	nan	0	11.1864
+bu01	11	tune	macisaac	RGT1	0	3	3	0	0	0	0	3	3.11468
+bu01	11	tune	macisaac	RIM101	0	1	2	0	0	0	0	1	1.09631
+bu01	11	tune	macisaac	ROX1	0	40	104	1	0.00961538	0.025	0.0138889	40	40.8495
+bu01	11	tune	macisaac	RPH1	0	0	26	0	0	nan	nan	0	12.9314
+bu01	11	tune	macisaac	RPN4	0	15	35	0	0	0	0	15	16.0728
+bu01	11	tune	macisaac	RSC3	0	0	20	0	0	nan	nan	0	8.28639
+bu01	11	tune	macisaac	RSC30	0	0	1	0	0	nan	nan	0	0.426624
+bu01	11	tune	macisaac	RTG3	0	27	61	0	0	0	0	27	26.9427
+bu01	11	tune	macisaac	SFL1	0	0	746	0	0	nan	nan	0	328.966
+bu01	11	tune	macisaac	SFP1	0	15	29	0	0	0	0	15	15.4167
+bu01	11	tune	macisaac	SIG1	0	0	3728	0	0	nan	nan	0	2185.52
+bu01	11	tune	macisaac	SIP4	0	1	0	0	nan	0	nan	1	1.09041
+bu01	11	tune	macisaac	SKN7	0	50	91	3	0.032967	0.06	0.0425532	50	45.5715
+bu01	11	tune	macisaac	SKO1	1	5	11	0	0	0	0	5	5.05091
+bu01	11	tune	macisaac	SMP1	0	0	1080	0	0	nan	nan	0	475.407
+bu01	11	tune	macisaac	SOK2	0	32	70	1	0.0142857	0.03125	0.0196078	32	29.8375
+bu01	11	tune	macisaac	SPT15	1	0	152	0	0	nan	nan	0	74.2981
+bu01	11	tune	macisaac	SRD1	0	0	1132	0	0	nan	nan	0	550.441
+bu01	11	tune	macisaac	STB3	0	0	81	0	0	nan	nan	0	37.1998
+bu01	11	tune	macisaac	STB4	0	3	5	0	0	0	0	3	3.08072
+bu01	11	tune	macisaac	STB5	0	3	6	0	0	0	0	3	3.11771
+bu01	11	tune	macisaac	STE12	0	195	381	12	0.0314961	0.0615385	0.0416667	195	186.867
+bu01	11	tune	macisaac	STP1	0	7	10	0	0	0	0	7	6.59572
+bu01	11	tune	macisaac	STP2	0	0	17	0	0	nan	nan	0	8.33763
+bu01	11	tune	macisaac	STP3	0	0	18	0	0	nan	nan	0	8.80141
+bu01	11	tune	macisaac	STP4	0	1	3	0	0	0	0	1	1.15774
+bu01	11	tune	macisaac	SUM1	0	13	17	0	0	0	0	13	13.5434
+bu01	11	tune	macisaac	SUT1	0	26	58	0	0	0	0	26	24.0737
+bu01	11	tune	macisaac	SUT2	0	0	0	0	nan	nan	nan	0	0.523401
+bu01	11	tune	macisaac	SWI4	0	39	86	1	0.0116279	0.025641	0.016	39	38.1525
+bu01	11	tune	macisaac	SWI5	0	110	246	6	0.0243902	0.0545455	0.0337079	110	113.342
+bu01	11	tune	macisaac	TBF1	1	0	50	0	0	nan	nan	0	23.7231
+bu01	11	tune	macisaac	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	11	tune	macisaac	TEA1	0	0	6	0	0	nan	nan	0	3.19393
+bu01	11	tune	macisaac	TEC1	0	51	103	2	0.0194175	0.0392157	0.025974	51	51.0392
+bu01	11	tune	macisaac	TOS8	0	0	1116	0	0	nan	nan	0	586.196
+bu01	11	tune	macisaac	TYE7	0	19	50	0	0	0	0	19	18.4612
+bu01	11	tune	macisaac	UGA3	0	1	2	0	0	0	0	1	1.11171
+bu01	11	tune	macisaac	UME6	1	19	26	0	0	0	0	19	20.2323
+bu01	11	tune	macisaac	UPC2	0	0	16	0	0	nan	nan	0	7.61831
+bu01	11	tune	macisaac	USV1	0	0	3	0	0	nan	nan	0	1.92964
+bu01	11	tune	macisaac	VHR1	0	0	2	0	0	nan	nan	0	1.61309
+bu01	11	tune	macisaac	XBP1	0	25	59	0	0	0	0	25	26.6934
+bu01	11	tune	macisaac	YAP1	0	8	14	0	0	0	0	8	7.73266
+bu01	11	tune	macisaac	YAP3	0	2	2	0	0	0	0	2	1.73595
+bu01	11	tune	macisaac	YAP6	0	71	140	3	0.0214286	0.0422535	0.028436	71	70.2454
+bu01	11	tune	macisaac	YBR033W	0	0	64	0	0	nan	nan	0	26.4339
+bu01	11	tune	macisaac	YBR239C	0	0	5	0	0	nan	nan	0	2.62388
+bu01	11	tune	macisaac	YDR520C	0	2	3	0	0	0	0	2	1.80686
+bu01	11	tune	macisaac	YER064C	0	0	4	0	0	nan	nan	0	1.05358
+bu01	11	tune	macisaac	YER130C	0	0	31	0	0	nan	nan	0	13.8237
+bu01	11	tune	macisaac	YER184C	0	0	2	0	0	nan	nan	0	2.14582
+bu01	11	tune	macisaac	YGR067C	0	0	19	0	0	nan	nan	0	10.1815
+bu01	11	tune	macisaac	YKL222C	0	0	55	0	0	nan	nan	0	23.4877
+bu01	11	tune	macisaac	YLL054C	0	0	381	0	0	nan	nan	0	155.813
+bu01	11	tune	macisaac	YLR278C	0	0	3	0	0	nan	nan	0	2.70564
+bu01	11	tune	macisaac	YML081W	0	1	1	0	0	0	0	1	1.09758
+bu01	11	tune	macisaac	YNR063W	0	0	40	0	0	nan	nan	0	20.0152
+bu01	11	tune	macisaac	YOX1	0	0	928	0	0	nan	nan	0	437.094
+bu01	11	tune	macisaac	YPR013C	0	0	18	0	0	nan	nan	0	8.90998
+bu01	11	tune	macisaac	YPR015C	0	0	3	0	0	nan	nan	0	1.26324
+bu01	11	tune	macisaac	YPR022C	0	0	176	0	0	nan	nan	0	78.9265
+bu01	11	tune	macisaac	YPR196W	0	0	30	0	0	nan	nan	0	14.747
+bu01	11	tune	macisaac	YRM1	0	0	248	0	0	nan	nan	0	120.572
+bu01	11	tune	macisaac	YRR1	0	1	1	0	0	0	0	1	1.03237
+bu01	11	tune	macisaac	ZAP1	0	1	3	0	0	0	0	1	1.04579
+bu01	11	tune	macisaac	ZMS1	0	0	53	0	0	nan	nan	0	24.4816
+bu01	11	tune	rossi_cx	ABF1	1	98	101	15	0.148515	0.153061	0.150754	58	56.5585
+bu01	11	tune	rossi_cx	ACE2	0	13	79	0	0	0	0	41	38.8808
+bu01	11	tune	rossi_cx	AFT2	0	4	96	0	0	0	0	49	50.92
+bu01	11	tune	rossi_cx	ARO80	0	3	120	0	0	0	0	0	61.085
+bu01	11	tune	rossi_cx	AZF1	0	9	27	1	0.037037	0.111111	0.0555556	10	10.7592
+bu01	11	tune	rossi_cx	BAS1	0	11	20	0	0	0	0	7	7.13516
+bu01	11	tune	rossi_cx	CAD1	0	14	9	0	0	0	0	3	3.01991
+bu01	11	tune	rossi_cx	CBF1	0	29	62	1	0.016129	0.0344828	0.021978	25	26.7433
+bu01	11	tune	rossi_cx	CHA4	0	9	13	1	0.0769231	0.111111	0.0909091	8	8.70857
+bu01	11	tune	rossi_cx	CIN5	1	67	84	2	0.0238095	0.0298507	0.0264901	49	52.7435
+bu01	11	tune	rossi_cx	CRZ1	0	6	3	1	0.333333	0.166667	0.222222	0	0.874856
+bu01	11	tune	rossi_cx	CUP9	0	11	20	0	0	0	0	0	8.15958
+bu01	11	tune	rossi_cx	ECM22	0	15	10	0	0	0	0	0	4.34014
+bu01	11	tune	rossi_cx	FHL1	1	78	42	1	0.0238095	0.0128205	0.0166667	21	21.6885
+bu01	11	tune	rossi_cx	FKH1	1	80	34	4	0.117647	0.05	0.0701754	23	24.1846
+bu01	11	tune	rossi_cx	FKH2	0	32	95	0	0	0	0	38	41.1591
+bu01	11	tune	rossi_cx	FZF1	0	12	380	1	0.00263158	0.0833333	0.00510204	0	180.526
+bu01	11	tune	rossi_cx	GAL4	0	6	8	0	0	0	0	5	5.4125
+bu01	11	tune	rossi_cx	GCN4	0	5	86	1	0.0116279	0.2	0.021978	45	43.089
+bu01	11	tune	rossi_cx	GCR1	0	13	32	0	0	0	0	15	15.6005
+bu01	11	tune	rossi_cx	GIS1	0	17	59	0	0	0	0	0	24.425
+bu01	11	tune	rossi_cx	GLN3	0	13	56	0	0	0	0	25	26.8748
+bu01	11	tune	rossi_cx	GZF3	0	36	23	0	0	0	0	10	10.4098
+bu01	11	tune	rossi_cx	HAL9	0	6	262	0	0	0	0	0	103.672
+bu01	11	tune	rossi_cx	HAP1	0	10	35	0	0	0	0	19	17.6466
+bu01	11	tune	rossi_cx	HSF1	0	29	27	0	0	0	0	12	12.3872
+bu01	11	tune	rossi_cx	LEU3	0	8	9	0	0	0	0	4	4.02318
+bu01	11	tune	rossi_cx	LYS14	0	9	15	0	0	0	0	0	5.9564
+bu01	11	tune	rossi_cx	MATALPHA2	0	5	139	0	0	0	0	0	66.69
+bu01	11	tune	rossi_cx	MBP1	0	15	74	1	0.0135135	0.0666667	0.0224719	36	34.9326
+bu01	11	tune	rossi_cx	MCM1	1	51	19	1	0.0526316	0.0196078	0.0285714	11	11.4503
+bu01	11	tune	rossi_cx	MET31	0	15	80	0	0	0	0	34	32.0358
+bu01	11	tune	rossi_cx	MET32	0	6	2	0	0	0	0	1	1.13415
+bu01	11	tune	rossi_cx	MIG1	0	35	2	0	0	0	0	1	1.14527
+bu01	11	tune	rossi_cx	MIG2	0	53	2	0	0	0	0	0	0.856164
+bu01	11	tune	rossi_cx	MSN2	0	3	195	0	0	0	0	75	76.1326
+bu01	11	tune	rossi_cx	NHP6A	1	53	2956	16	0.00541272	0.301887	0.0106348	0	1738.22
+bu01	11	tune	rossi_cx	NRG1	0	8	64	1	0.015625	0.125	0.0277778	33	31.5036
+bu01	11	tune	rossi_cx	NRG2	0	13	34	0	0	0	0	0	14.6885
+bu01	11	tune	rossi_cx	PDR1	0	42	7	0	0	0	0	4	4.47713
+bu01	11	tune	rossi_cx	PDR3	0	6	4	0	0	0	0	2	1.75403
+bu01	11	tune	rossi_cx	PHD1	0	34	176	1	0.00568182	0.0294118	0.00952381	88	80.1758
+bu01	11	tune	rossi_cx	PUT3	0	4	0	0	nan	0	nan	1	1.09673
+bu01	11	tune	rossi_cx	RAP1	1	44	47	10	0.212766	0.227273	0.21978	29	26.9545
+bu01	11	tune	rossi_cx	RDS2	0	2	178	0	0	0	0	0	75.2699
+bu01	11	tune	rossi_cx	REB1	1	138	58	16	0.275862	0.115942	0.163265	44	46.098
+bu01	11	tune	rossi_cx	RFX1	0	8	284	1	0.00352113	0.125	0.00684932	0	135.632
+bu01	11	tune	rossi_cx	ROX1	0	42	104	1	0.00961538	0.0238095	0.0136986	40	40.8495
+bu01	11	tune	rossi_cx	RPH1	0	10	26	0	0	0	0	0	12.9314
+bu01	11	tune	rossi_cx	RPN4	0	16	35	0	0	0	0	15	16.0728
+bu01	11	tune	rossi_cx	RSC3	0	32	20	3	0.15	0.09375	0.115385	0	8.28639
+bu01	11	tune	rossi_cx	RSC30	0	3	1	0	0	0	0	0	0.426624
+bu01	11	tune	rossi_cx	RTG3	0	1	61	0	0	0	0	27	26.9427
+bu01	11	tune	rossi_cx	SFL1	0	22	746	2	0.00268097	0.0909091	0.00520833	0	328.966
+bu01	11	tune	rossi_cx	SFP1	0	25	29	0	0	0	0	15	15.4167
+bu01	11	tune	rossi_cx	SKN7	0	10	91	0	0	0	0	50	45.5715
+bu01	11	tune	rossi_cx	SKO1	1	27	11	1	0.0909091	0.037037	0.0526316	5	5.05091
+bu01	11	tune	rossi_cx	SOK2	0	58	70	1	0.0142857	0.0172414	0.015625	32	29.8375
+bu01	11	tune	rossi_cx	SPT15	1	253	152	9	0.0592105	0.0355731	0.0444444	0	74.2981
+bu01	11	tune	rossi_cx	STB3	0	22	81	0	0	0	0	0	37.1998
+bu01	11	tune	rossi_cx	STB4	0	22	5	0	0	0	0	3	3.08072
+bu01	11	tune	rossi_cx	STB5	0	15	6	0	0	0	0	3	3.11771
+bu01	11	tune	rossi_cx	STE12	0	20	381	0	0	0	0	195	186.867
+bu01	11	tune	rossi_cx	STP1	0	18	10	0	0	0	0	7	6.59572
+bu01	11	tune	rossi_cx	STP2	0	27	17	0	0	0	0	0	8.33763
+bu01	11	tune	rossi_cx	STP4	0	11	3	0	0	0	0	1	1.15774
+bu01	11	tune	rossi_cx	SUM1	0	30	17	0	0	0	0	13	13.5434
+bu01	11	tune	rossi_cx	SUT1	0	15	58	0	0	0	0	26	24.0737
+bu01	11	tune	rossi_cx	SWI4	0	20	86	1	0.0116279	0.05	0.0188679	39	38.1525
+bu01	11	tune	rossi_cx	SWI5	0	6	246	0	0	0	0	110	113.342
+bu01	11	tune	rossi_cx	TBF1	1	32	50	7	0.14	0.21875	0.170732	0	23.7231
+bu01	11	tune	rossi_cx	TBS1	0	0	1	0	0	nan	nan	0	0.271707
+bu01	11	tune	rossi_cx	TEA1	0	3	6	0	0	0	0	0	3.19393
+bu01	11	tune	rossi_cx	UME6	1	43	26	0	0	0	0	19	20.2323
+bu01	11	tune	rossi_cx	YAP1	0	21	14	0	0	0	0	8	7.73266
+bu01	11	tune	rossi_cx	YDR520C	0	11	3	0	0	0	0	2	1.80686
+bu01	11	tune	rossi_cx	YML081W	0	18	1	0	0	0	0	1	1.09758
+bu01	11	tune	rossi_cx	YRR1	0	16	1	0	0	0	0	1	1.03237
+bu01	11	tune	rossi_cx	ZAP1	0	10	3	0	0	0	0	1	1.04579
+bu01	11	holdout	macisaac	ABF1	1	44	96	8	0.0833333	0.181818	0.114286		
+bu01	11	holdout	macisaac	ABF2	0	0	460	0	0	nan	nan		
+bu01	11	holdout	macisaac	ACE2	0	21	74	0	0	0	0		
+bu01	11	holdout	macisaac	ADR1	0	41	66	0	0	0	0		
+bu01	11	holdout	macisaac	AFT1	0	0	9	0	0	nan	nan		
+bu01	11	holdout	macisaac	AFT2	0	28	102	3	0.0294118	0.107143	0.0461538		
+bu01	11	holdout	macisaac	ARO80	0	1	92	1	0.0108696	1	0.0215054		
+bu01	11	holdout	macisaac	ASG1	0	0	0	0	nan	nan	nan		
+bu01	11	holdout	macisaac	AZF1	0	7	21	0	0	0	0		
+bu01	11	holdout	macisaac	BAS1	0	7	13	0	0	0	0		
+bu01	11	holdout	macisaac	CAD1	0	2	6	0	0	0	0		
+bu01	11	holdout	macisaac	CAT8	0	0	903	0	0	nan	nan		
+bu01	11	holdout	macisaac	CBF1	0	18	57	0	0	0	0		
+bu01	11	holdout	macisaac	CEP3	0	0	141	0	0	nan	nan		
+bu01	11	holdout	macisaac	CHA4	0	4	15	0	0	0	0		
+bu01	11	holdout	macisaac	CIN5	1	41	96	2	0.0208333	0.0487805	0.0291971		
+bu01	11	holdout	macisaac	CRZ1	0	0	0	0	nan	nan	nan		
+bu01	11	holdout	macisaac	CST6	0	47	60	0	0	0	0		
+bu01	11	holdout	macisaac	CUP9	0	0	10	0	0	nan	nan		
+bu01	11	holdout	macisaac	DAL80	0	29	61	0	0	0	0		
+bu01	11	holdout	macisaac	DAL82	0	42	25	0	0	0	0		
+bu01	11	holdout	macisaac	ECM22	0	0	7	0	0	nan	nan		
+bu01	11	holdout	macisaac	ECM23	0	0	17	0	0	nan	nan		
+bu01	11	holdout	macisaac	FHL1	1	20	47	1	0.0212766	0.05	0.0298507		
+bu01	11	holdout	macisaac	FKH1	1	30	34	5	0.147059	0.166667	0.15625		
+bu01	11	holdout	macisaac	FKH2	0	34	100	2	0.02	0.0588235	0.0298507		
+bu01	11	holdout	macisaac	FZF1	0	0	462	0	0	nan	nan		
+bu01	11	holdout	macisaac	GAL4	0	2	13	0	0	0	0		
+bu01	11	holdout	macisaac	GAT1	0	15	29	0	0	0	0		
+bu01	11	holdout	macisaac	GAT3	0	21	21	0	0	0	0		
+bu01	11	holdout	macisaac	GAT4	0	0	80	0	0	nan	nan		
+bu01	11	holdout	macisaac	GCN4	0	24	118	0	0	0	0		
+bu01	11	holdout	macisaac	GCR1	0	6	43	0	0	0	0		
+bu01	11	holdout	macisaac	GIS1	0	0	63	0	0	nan	nan		
+bu01	11	holdout	macisaac	GLN3	0	39	65	0	0	0	0		
+bu01	11	holdout	macisaac	GSM1	0	0	8	0	0	nan	nan		
+bu01	11	holdout	macisaac	GZF3	0	9	19	0	0	0	0		
+bu01	11	holdout	macisaac	HAC1	0	1	76	0	0	0	0		
+bu01	11	holdout	macisaac	HAL9	0	0	276	0	0	nan	nan		
+bu01	11	holdout	macisaac	HAP1	0	9	30	0	0	0	0		
+bu01	11	holdout	macisaac	HCM1	0	0	183	0	0	nan	nan		
+bu01	11	holdout	macisaac	HMLALPHA2	0	0	55	0	0	nan	nan		
+bu01	11	holdout	macisaac	HMRA2	0	0	30	0	0	nan	nan		
+bu01	11	holdout	macisaac	HSF1	0	13	41	0	0	0	0		
+bu01	11	holdout	macisaac	LEU3	0	1	9	0	0	0	0		
+bu01	11	holdout	macisaac	LYS14	0	0	12	0	0	nan	nan		
+bu01	11	holdout	macisaac	MATALPHA2	0	0	150	0	0	nan	nan		
+bu01	11	holdout	macisaac	MBP1	0	47	73	0	0	0	0		
+bu01	11	holdout	macisaac	MCM1	1	6	22	0	0	0	0		
+bu01	11	holdout	macisaac	MET31	0	45	53	0	0	0	0		
+bu01	11	holdout	macisaac	MET32	0	1	4	0	0	0	0		
+bu01	11	holdout	macisaac	MGA1	0	0	409	0	0	nan	nan		
+bu01	11	holdout	macisaac	MIG1	0	3	3	0	0	0	0		
+bu01	11	holdout	macisaac	MIG2	0	0	4	0	0	nan	nan		
+bu01	11	holdout	macisaac	MIG3	0	0	5	0	0	nan	nan		
+bu01	11	holdout	macisaac	MOT3	0	64	117	0	0	0	0		
+bu01	11	holdout	macisaac	MSN1	0	0	19	0	0	nan	nan		
+bu01	11	holdout	macisaac	MSN2	0	73	218	6	0.0275229	0.0821918	0.0412371		
+bu01	11	holdout	macisaac	MSN4	0	79	220	3	0.0136364	0.0379747	0.0200669		
+bu01	11	holdout	macisaac	NDT80	0	0	96	0	0	nan	nan		
+bu01	11	holdout	macisaac	NHP10	0	0	7	0	0	nan	nan		
+bu01	11	holdout	macisaac	NHP6A	1	0	2745	0	0	nan	nan		
+bu01	11	holdout	macisaac	NHP6B	0	0	6570	0	0	nan	nan		
+bu01	11	holdout	macisaac	NRG1	0	25	62	0	0	0	0		
+bu01	11	holdout	macisaac	NRG2	0	0	30	0	0	nan	nan		
+bu01	11	holdout	macisaac	OAF1	0	0	139	0	0	nan	nan		
+bu01	11	holdout	macisaac	PBF1	0	0	6	0	0	nan	nan		
+bu01	11	holdout	macisaac	PBF2	0	0	17	0	0	nan	nan		
+bu01	11	holdout	macisaac	PDR1	0	6	10	0	0	0	0		
+bu01	11	holdout	macisaac	PDR3	0	0	3	0	0	nan	nan		
+bu01	11	holdout	macisaac	PDR8	0	0	61	0	0	nan	nan		
+bu01	11	holdout	macisaac	PHD1	0	67	171	1	0.00584795	0.0149254	0.00840336		
+bu01	11	holdout	macisaac	PHO2	0	247	482	16	0.033195	0.0647773	0.0438957		
+bu01	11	holdout	macisaac	PHO4	0	6	21	0	0	0	0		
+bu01	11	holdout	macisaac	PUT3	0	1	0	0	nan	0	nan		
+bu01	11	holdout	macisaac	RAP1	1	30	36	4	0.111111	0.133333	0.121212		
+bu01	11	holdout	macisaac	RDR1	0	0	136	0	0	nan	nan		
+bu01	11	holdout	macisaac	RDS1	0	1	6	0	0	0	0		
+bu01	11	holdout	macisaac	RDS2	0	0	187	0	0	nan	nan		
+bu01	11	holdout	macisaac	REB1	1	32	61	6	0.0983607	0.1875	0.129032		
+bu01	11	holdout	macisaac	REI1	0	0	68	0	0	nan	nan		
+bu01	11	holdout	macisaac	RFX1	0	3	265	0	0	0	0		
+bu01	11	holdout	macisaac	RGM1	0	0	26	0	0	nan	nan		
+bu01	11	holdout	macisaac	RGT1	0	0	7	0	0	nan	nan		
+bu01	11	holdout	macisaac	RIM101	0	3	1	0	0	0	0		
+bu01	11	holdout	macisaac	ROX1	0	34	122	0	0	0	0		
+bu01	11	holdout	macisaac	RPH1	0	1	37	0	0	0	0		
+bu01	11	holdout	macisaac	RPN4	0	15	33	0	0	0	0		
+bu01	11	holdout	macisaac	RSC3	0	0	7	0	0	nan	nan		
+bu01	11	holdout	macisaac	RSC30	0	0	2	0	0	nan	nan		
+bu01	11	holdout	macisaac	RTG3	0	44	52	0	0	0	0		
+bu01	11	holdout	macisaac	SFL1	0	0	768	0	0	nan	nan		
+bu01	11	holdout	macisaac	SFP1	0	17	30	0	0	0	0		
+bu01	11	holdout	macisaac	SIG1	0	0	3647	0	0	nan	nan		
+bu01	11	holdout	macisaac	SIP4	0	0	0	0	nan	nan	nan		
+bu01	11	holdout	macisaac	SKN7	0	49	80	2	0.025	0.0408163	0.0310078		
+bu01	11	holdout	macisaac	SKO1	1	5	5	0	0	0	0		
+bu01	11	holdout	macisaac	SMP1	0	0	1132	0	0	nan	nan		
+bu01	11	holdout	macisaac	SOK2	0	60	54	1	0.0185185	0.0166667	0.0175439		
+bu01	11	holdout	macisaac	SPT15	1	0	134	0	0	nan	nan		
+bu01	11	holdout	macisaac	SRD1	0	0	1114	0	0	nan	nan		
+bu01	11	holdout	macisaac	STB3	0	0	86	0	0	nan	nan		
+bu01	11	holdout	macisaac	STB4	0	2	6	0	0	0	0		
+bu01	11	holdout	macisaac	STB5	0	12	5	0	0	0	0		
+bu01	11	holdout	macisaac	STE12	0	104	322	1	0.00310559	0.00961538	0.00469484		
+bu01	11	holdout	macisaac	STP1	0	25	8	0	0	0	0		
+bu01	11	holdout	macisaac	STP2	0	0	8	0	0	nan	nan		
+bu01	11	holdout	macisaac	STP3	0	0	18	0	0	nan	nan		
+bu01	11	holdout	macisaac	STP4	0	0	3	0	0	nan	nan		
+bu01	11	holdout	macisaac	SUM1	0	20	17	0	0	0	0		
+bu01	11	holdout	macisaac	SUT1	0	40	62	0	0	0	0		
+bu01	11	holdout	macisaac	SUT2	0	0	0	0	nan	nan	nan		
+bu01	11	holdout	macisaac	SWI4	0	70	65	0	0	0	0		
+bu01	11	holdout	macisaac	SWI5	0	82	209	2	0.00956938	0.0243902	0.0137457		
+bu01	11	holdout	macisaac	TBF1	1	0	53	0	0	nan	nan		
+bu01	11	holdout	macisaac	TBS1	0	0	0	0	nan	nan	nan		
+bu01	11	holdout	macisaac	TEA1	0	0	1	0	0	nan	nan		
+bu01	11	holdout	macisaac	TEC1	0	34	106	0	0	0	0		
+bu01	11	holdout	macisaac	TOS8	0	0	1240	0	0	nan	nan		
+bu01	11	holdout	macisaac	TYE7	0	8	35	0	0	0	0		
+bu01	11	holdout	macisaac	UGA3	0	2	4	0	0	0	0		
+bu01	11	holdout	macisaac	UME6	1	18	21	0	0	0	0		
+bu01	11	holdout	macisaac	UPC2	0	0	14	0	0	nan	nan		
+bu01	11	holdout	macisaac	USV1	0	0	1	0	0	nan	nan		
+bu01	11	holdout	macisaac	VHR1	0	0	3	0	0	nan	nan		
+bu01	11	holdout	macisaac	XBP1	0	10	67	0	0	0	0		
+bu01	11	holdout	macisaac	YAP1	0	15	22	0	0	0	0		
+bu01	11	holdout	macisaac	YAP3	0	0	4	0	0	nan	nan		
+bu01	11	holdout	macisaac	YAP6	0	47	160	0	0	0	0		
+bu01	11	holdout	macisaac	YBR033W	0	0	60	0	0	nan	nan		
+bu01	11	holdout	macisaac	YBR239C	0	0	5	0	0	nan	nan		
+bu01	11	holdout	macisaac	YDR520C	0	0	6	0	0	nan	nan		
+bu01	11	holdout	macisaac	YER064C	0	0	2	0	0	nan	nan		
+bu01	11	holdout	macisaac	YER130C	0	0	32	0	0	nan	nan		
+bu01	11	holdout	macisaac	YER184C	0	0	3	0	0	nan	nan		
+bu01	11	holdout	macisaac	YGR067C	0	0	12	0	0	nan	nan		
+bu01	11	holdout	macisaac	YKL222C	0	0	56	0	0	nan	nan		
+bu01	11	holdout	macisaac	YLL054C	0	0	362	0	0	nan	nan		
+bu01	11	holdout	macisaac	YLR278C	0	0	5	0	0	nan	nan		
+bu01	11	holdout	macisaac	YML081W	0	1	3	0	0	0	0		
+bu01	11	holdout	macisaac	YNR063W	0	0	38	0	0	nan	nan		
+bu01	11	holdout	macisaac	YOX1	0	1	979	0	0	0	0		
+bu01	11	holdout	macisaac	YPR013C	0	0	19	0	0	nan	nan		
+bu01	11	holdout	macisaac	YPR015C	0	0	2	0	0	nan	nan		
+bu01	11	holdout	macisaac	YPR022C	0	0	171	0	0	nan	nan		
+bu01	11	holdout	macisaac	YPR196W	0	0	37	0	0	nan	nan		
+bu01	11	holdout	macisaac	YRM1	0	0	260	0	0	nan	nan		
+bu01	11	holdout	macisaac	YRR1	0	0	1	0	0	nan	nan		
+bu01	11	holdout	macisaac	ZAP1	0	0	3	0	0	nan	nan		
+bu01	11	holdout	macisaac	ZMS1	0	0	50	0	0	nan	nan		
+bu01	11	holdout	rossi_cx	ABF1	1	103	96	17	0.177083	0.165049	0.170854		
+bu01	11	holdout	rossi_cx	ACE2	0	10	74	0	0	0	0		
+bu01	11	holdout	rossi_cx	AFT2	0	7	102	1	0.00980392	0.142857	0.0183486		
+bu01	11	holdout	rossi_cx	ARO80	0	2	92	1	0.0108696	0.5	0.0212766		
+bu01	11	holdout	rossi_cx	AZF1	0	10	21	0	0	0	0		
+bu01	11	holdout	rossi_cx	BAS1	0	9	13	0	0	0	0		
+bu01	11	holdout	rossi_cx	CAD1	0	10	6	0	0	0	0		
+bu01	11	holdout	rossi_cx	CBF1	0	18	57	0	0	0	0		
+bu01	11	holdout	rossi_cx	CHA4	0	5	15	0	0	0	0		
+bu01	11	holdout	rossi_cx	CIN5	1	48	96	2	0.0208333	0.0416667	0.0277778		
+bu01	11	holdout	rossi_cx	CRZ1	0	6	0	0	nan	0	nan		
+bu01	11	holdout	rossi_cx	CUP9	0	13	10	0	0	0	0		
+bu01	11	holdout	rossi_cx	ECM22	0	9	7	0	0	0	0		
+bu01	11	holdout	rossi_cx	FHL1	1	44	47	2	0.0425532	0.0454545	0.043956		
+bu01	11	holdout	rossi_cx	FKH1	1	61	34	7	0.205882	0.114754	0.147368		
+bu01	11	holdout	rossi_cx	FKH2	0	41	100	0	0	0	0		
+bu01	11	holdout	rossi_cx	FZF1	0	4	462	0	0	0	0		
+bu01	11	holdout	rossi_cx	GAL4	0	2	13	0	0	0	0		
+bu01	11	holdout	rossi_cx	GCN4	0	7	118	0	0	0	0		
+bu01	11	holdout	rossi_cx	GCR1	0	12	43	1	0.0232558	0.0833333	0.0363636		
+bu01	11	holdout	rossi_cx	GIS1	0	21	63	0	0	0	0		
+bu01	11	holdout	rossi_cx	GLN3	0	8	65	0	0	0	0		
+bu01	11	holdout	rossi_cx	GZF3	0	31	19	0	0	0	0		
+bu01	11	holdout	rossi_cx	HAL9	0	5	276	0	0	0	0		
+bu01	11	holdout	rossi_cx	HAP1	0	12	30	0	0	0	0		
+bu01	11	holdout	rossi_cx	HSF1	0	27	41	0	0	0	0		
+bu01	11	holdout	rossi_cx	LEU3	0	2	9	0	0	0	0		
+bu01	11	holdout	rossi_cx	LYS14	0	7	12	0	0	0	0		
+bu01	11	holdout	rossi_cx	MATALPHA2	0	2	150	0	0	0	0		
+bu01	11	holdout	rossi_cx	MBP1	0	20	73	0	0	0	0		
+bu01	11	holdout	rossi_cx	MCM1	1	35	22	0	0	0	0		
+bu01	11	holdout	rossi_cx	MET31	0	10	53	0	0	0	0		
+bu01	11	holdout	rossi_cx	MET32	0	2	4	0	0	0	0		
+bu01	11	holdout	rossi_cx	MIG1	0	43	3	0	0	0	0		
+bu01	11	holdout	rossi_cx	MIG2	0	49	4	0	0	0	0		
+bu01	11	holdout	rossi_cx	MSN2	0	1	218	0	0	0	0		
+bu01	11	holdout	rossi_cx	NHP6A	1	47	2745	15	0.00546448	0.319149	0.010745		
+bu01	11	holdout	rossi_cx	NRG1	0	11	62	0	0	0	0		
+bu01	11	holdout	rossi_cx	NRG2	0	23	30	0	0	0	0		
+bu01	11	holdout	rossi_cx	PDR1	0	35	10	1	0.1	0.0285714	0.0444444		
+bu01	11	holdout	rossi_cx	PDR3	0	3	3	0	0	0	0		
+bu01	11	holdout	rossi_cx	PHD1	0	33	171	0	0	0	0		
+bu01	11	holdout	rossi_cx	PUT3	0	3	0	0	nan	0	nan		
+bu01	11	holdout	rossi_cx	RAP1	1	44	36	8	0.222222	0.181818	0.2		
+bu01	11	holdout	rossi_cx	RDS2	0	0	187	0	0	nan	nan		
+bu01	11	holdout	rossi_cx	REB1	1	115	61	15	0.245902	0.130435	0.170455		
+bu01	11	holdout	rossi_cx	RFX1	0	20	265	0	0	0	0		
+bu01	11	holdout	rossi_cx	ROX1	0	40	122	0	0	0	0		
+bu01	11	holdout	rossi_cx	RPH1	0	3	37	0	0	0	0		
+bu01	11	holdout	rossi_cx	RPN4	0	15	33	0	0	0	0		
+bu01	11	holdout	rossi_cx	RSC3	0	33	7	2	0.285714	0.0606061	0.1		
+bu01	11	holdout	rossi_cx	RSC30	0	1	2	0	0	0	0		
+bu01	11	holdout	rossi_cx	RTG3	0	4	52	0	0	0	0		
+bu01	11	holdout	rossi_cx	SFL1	0	29	768	0	0	0	0		
+bu01	11	holdout	rossi_cx	SFP1	0	19	30	0	0	0	0		
+bu01	11	holdout	rossi_cx	SKN7	0	9	80	0	0	0	0		
+bu01	11	holdout	rossi_cx	SKO1	1	31	5	1	0.2	0.0322581	0.0555556		
+bu01	11	holdout	rossi_cx	SOK2	0	52	54	1	0.0185185	0.0192308	0.0188679		
+bu01	11	holdout	rossi_cx	SPT15	1	241	134	8	0.0597015	0.033195	0.0426667		
+bu01	11	holdout	rossi_cx	STB3	0	20	86	0	0	0	0		
+bu01	11	holdout	rossi_cx	STB4	0	11	6	0	0	0	0		
+bu01	11	holdout	rossi_cx	STB5	0	30	5	0	0	0	0		
+bu01	11	holdout	rossi_cx	STE12	0	11	322	0	0	0	0		
+bu01	11	holdout	rossi_cx	STP1	0	21	8	1	0.125	0.047619	0.0689655		
+bu01	11	holdout	rossi_cx	STP2	0	24	8	0	0	0	0		
+bu01	11	holdout	rossi_cx	STP4	0	8	3	0	0	0	0		
+bu01	11	holdout	rossi_cx	SUM1	0	28	17	0	0	0	0		
+bu01	11	holdout	rossi_cx	SUT1	0	20	62	0	0	0	0		
+bu01	11	holdout	rossi_cx	SWI4	0	26	65	0	0	0	0		
+bu01	11	holdout	rossi_cx	SWI5	0	5	209	0	0	0	0		
+bu01	11	holdout	rossi_cx	TBF1	1	25	53	5	0.0943396	0.2	0.128205		
+bu01	11	holdout	rossi_cx	TBS1	0	1	0	0	nan	0	nan		
+bu01	11	holdout	rossi_cx	TEA1	0	5	1	0	0	0	0		
+bu01	11	holdout	rossi_cx	UME6	1	28	21	1	0.047619	0.0357143	0.0408163		
+bu01	11	holdout	rossi_cx	YAP1	0	20	22	0	0	0	0		
+bu01	11	holdout	rossi_cx	YDR520C	0	4	6	0	0	0	0		
+bu01	11	holdout	rossi_cx	YML081W	0	17	3	0	0	0	0		
+bu01	11	holdout	rossi_cx	YRR1	0	14	1	0	0	0	0		
+bu01	11	holdout	rossi_cx	ZAP1	0	4	3	0	0	0	0		

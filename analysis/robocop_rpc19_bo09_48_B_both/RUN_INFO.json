@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "outdir": "robocop_rpc19_bo09_48_B_both",
+ "original_outdir": "robocop_rpc19_bo09_48_B_both",
+ "driver": "run_split_seq_maskoff_fit9_bgopen_norm.py",
+ "pkg_tree": "pkgvar/seq_maskoff_fit9_bgopen_norm",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bo09_48",
+ "traindir_exists": true,
+ "coords": "coord_rpc19.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "0548ad9bcffa3223d504c01fc00c81072d2cbf40",
+ "git_dirty": true,
+ "written": "2026-10-05T17:02:40",
+ "slurm_job_id": "12818258",
+ "source": "decode-time"
+}

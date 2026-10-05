@@ -1,6 +1,6 @@
 # Masked tuner-v2 campaigns: ABF1 only and the 9 fitted TFs vs the unmasked runs
 
-_generated 2026-09-19 19:09 by `analysis/masked_summary.py` (masked campaigns from `conc_tuning`); campaigns still running are marked **INCOMPLETE** — re-run `python masked_summary.py` to refresh._
+_generated 2026-10-02 15:47 by `analysis/masked_summary.py` (masked campaigns from `conc_tuning`); campaigns still running are marked **INCOMPLETE** — re-run `python masked_summary.py` to refresh._
 
 ### Rule 7 — what differs
 

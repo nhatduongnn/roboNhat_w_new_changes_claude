@@ -1,0 +1,202 @@
+{
+ "L": {
+  "Abf1_murphy": 14,
+  "Cin5_murphy": 11,
+  "Fhl1_zhu": 8,
+  "Fkh1_zhu": 10,
+  "Mcm1_zhu": 13,
+  "Rap1_telomeric": 20,
+  "Reb1_badis": 8,
+  "Sko1_murphy": 8,
+  "Ume6_zhu": 8
+ },
+ "bracket_max_age": 3,
+ "built": {
+  "0": {
+   "background_prob": 0.9528724274472661,
+   "lam": {
+    "Abf1_murphy": 1.0,
+    "Cin5_murphy": 1.0,
+    "Fhl1_zhu": 1.0,
+    "Fkh1_zhu": 1.0,
+    "Mcm1_zhu": 1.0,
+    "Rap1_telomeric": 1.0,
+    "Reb1_badis": 1.0,
+    "Sko1_murphy": 1.0,
+    "Ume6_zhu": 1.0,
+    "unknown": 1.0
+   },
+   "max_tf_rho": 0.6014125659624435,
+   "nucleosome_prob": 0.02898530035777643,
+   "traindir": "robocop_train_tw_bo09_00"
+  }
+ },
+ "cap_delta": {
+  "ABF1": 9.570930763295987,
+  "CIN5": 8.563093806952839,
+  "FHL1": 6.9129209029347685,
+  "FKH1": 7.745893739118147,
+  "MCM1": 7.983985459924827,
+  "RAP1": 18.81069013517541,
+  "REB1": 7.5490365918740725,
+  "SKO1": 7.6750840071638695,
+  "UME6": 8.162023458433447
+ },
+ "config": "both",
+ "coords_holdout": "coord_tw_chrIV.tsv",
+ "coords_tune": "coord_tw_chrXIV_chrII.tsv",
+ "deadband": 0.09531017980432493,
+ "delta": {
+  "ABF1": 0.0,
+  "CIN5": 0.0,
+  "FHL1": 0.0,
+  "FKH1": 0.0,
+  "MCM1": 0.0,
+  "RAP1": 0.0,
+  "REB1": 0.0,
+  "SKO1": 0.0,
+  "UME6": 0.0
+ },
+ "driver": "run_split_revfix_seq_maskoff_fit9_bgopen.py",
+ "factor_set": "fit9",
+ "fitted": {
+  "ABF1": 1,
+  "CIN5": 1,
+  "FHL1": 1,
+  "FKH1": 1,
+  "MCM1": 1,
+  "RAP1": 1,
+  "REB1": 1,
+  "SKO1": 1,
+  "UME6": 1
+ },
+ "frozen": [],
+ "groups": {
+  "ABF1": [
+   "Abf1_murphy"
+  ],
+  "CIN5": [
+   "Cin5_murphy"
+  ],
+  "FHL1": [
+   "Fhl1_zhu"
+  ],
+  "FKH1": [
+   "Fkh1_zhu"
+  ],
+  "MCM1": [
+   "Mcm1_zhu"
+  ],
+  "RAP1": [
+   "Rap1_telomeric"
+  ],
+  "REB1": [
+   "Reb1_badis"
+  ],
+  "SKO1": [
+   "Sko1_murphy"
+  ],
+  "UME6": [
+   "Ume6_zhu"
+  ]
+ },
+ "history": [],
+ "holdout_chrom": "chrIV",
+ "iter": 0,
+ "jobs": {
+  "0": {
+   "count": "12716517",
+   "decode": "12716516",
+   "holdout_count": "12716520",
+   "holdout_decode": "12716519",
+   "holdout_validate": "12716521",
+   "next": "12716518"
+  }
+ },
+ "kd": {
+  "Abf1_murphy": 4.7290090269997077e-07,
+  "Cin5_murphy": 3.777235404913863e-06,
+  "Fhl1_zhu": 5.7350989866346176e-05,
+  "Fkh1_zhu": 1.2217475922955295e-05,
+  "Mcm1_zhu": 3.30273471510521e-06,
+  "Rap1_telomeric": 5.402339508045131e-12,
+  "Reb1_badis": 3.0358435348246273e-05,
+  "Sko1_murphy": 2.6763178314187632e-05,
+  "Ume6_zhu": 1.644608653040048e-05
+ },
+ "max_rounds": 50,
+ "ntask": 40,
+ "nucleosome": {
+  "hold": false,
+  "stop_rule": false,
+  "w": 35.0
+ },
+ "on_stop": {
+  "chereji": true,
+  "summary": "masked_summary.py"
+ },
+ "pkgvar": "pkgvar/seq_maskoff_fit9_bgopen/",
+ "rule": {
+  "ALPHA0": 0.7,
+  "ALPHA_FLOOR": 0.2,
+  "BETA0": 0.5,
+  "BETA_HI": 1.0,
+  "BETA_LO": 0.1,
+  "DEADBAND": 0.09531017980432493,
+  "E_MIN": 0.5,
+  "FALL_ROUNDS": 3,
+  "MAX_ROUNDS": 50,
+  "NUC_WARN": 0.1,
+  "RHO_MAX": 0.7,
+  "SECANT_MIN_DDELTA": 0.1,
+  "STEP_CAP_DECADES": 1.0,
+  "lambda_bounds": "NONE (only the per-bp cap)"
+ },
+ "rule_state": {
+  "ABF1": {},
+  "CIN5": {},
+  "FHL1": {},
+  "FKH1": {},
+  "MCM1": {},
+  "RAP1": {},
+  "REB1": {},
+  "SKO1": {},
+  "UME6": {}
+ },
+ "run": "bo09",
+ "src_traindir": "robocop_train_fiberonly",
+ "target": {
+  "ABF1": 58,
+  "CIN5": 49,
+  "FHL1": 21,
+  "FKH1": 23,
+  "MCM1": 11,
+  "RAP1": 29,
+  "REB1": 44,
+  "SKO1": 5,
+  "UME6": 19
+ },
+ "tune_chroms": [
+  "chrXIV",
+  "chrII"
+ ],
+ "tuned": [
+  "ABF1",
+  "CIN5",
+  "FHL1",
+  "FKH1",
+  "MCM1",
+  "RAP1",
+  "REB1",
+  "SKO1",
+  "UME6"
+ ],
+ "unknown": {
+  "base": 0.001,
+  "fixed": true,
+  "lam": 1.0,
+  "masked": true,
+  "note": "unknown is hard-masked by the driver (pkgvar/seq_maskoff_fit9_bgopen/); w_unknown 1e-3 is pure gauge",
+  "w": 0.001
+ }
+}
