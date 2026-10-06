@@ -99,3 +99,18 @@ rpc19_bo09_48_B_seq	family	posterior fix ablation	one family so all 24 arms sort
 rpc19_bo09_48_C_both	family	posterior fix ablation	one family so all 24 arms sort together
 rpc19_bo09_48_C_fib	family	posterior fix ablation	one family so all 24 arms sort together
 rpc19_bo09_48_C_seq	family	posterior fix ablation	one family so all 24 arms sort together
+
+# ---- posterior fix Phase D (2026-10-06): production B vs full log-space, 2 windows x 3 layers --------
+# POSTERIOR_FIX_PLAN.md "Phase D" step 4. The gate-only *_logfullD0_* runs are deliberately NOT pinned.
+w30k_bv75_49_Bprod_both	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+w30k_bv75_49_Bprod_fib	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+w30k_bv75_49_Bprod_seq	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+w30k_bv75_49_logfull_both	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+w30k_bv75_49_logfull_fib	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+w30k_bv75_49_logfull_seq	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_Bprod_both	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_Bprod_fib	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_Bprod_seq	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_logfull_both	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_logfull_fib	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+rdna_chrXII_logfull_seq	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together

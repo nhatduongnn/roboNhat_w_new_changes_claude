@@ -57,7 +57,7 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 A = os.path.dirname(HERE)                       # analysis/
 sys.path.insert(0, A)
-from write_run_info import driver_tree  # noqa: E402
+from write_run_info import driver_tree, resolve_cshared  # noqa: E402
 
 SCRATCH = "/usr/project/xtmp/nd141/scratch_viewer"
 OUT_DEFAULT = "/usr/project/xtmp/nd141/viewer_site"
@@ -328,6 +328,57 @@ def active_src(path):
     return "\n".join(l.split("#", 1)[0] if not l.lstrip().startswith("#") else "" for l in lines)
 
 
+LIN_ONE = r"1\b"                                          # the original pattern, unchanged for linear trees
+LOG_ONE = r"(?:1\b|0(?:\.0*)?(?![\w.]))"                  # log tree: also `= 0` / `= 0.0` (log 1), not `= 0.5`
+LOG_ZERO = r"(?:-\s*(?:np\.)?inf\b|np\.NINF\b|-\s*float\(\s*['\"]inf['\"]\s*\)|float\(\s*['\"]-inf['\"]\s*\))"
+LOG_TREE_SUFFIX = "_logfull"
+LOG_TREE_MARKERS = ("librobocop_logfull", "fward_log", "posterior_decoding_log")
+
+
+def is_log_tree(tree):
+    """True for a log-space emission tree: name ends in _logfull, or its active (uncommented)
+    robocop_no_em.py / robocop/robocop.py names the log library or its log-space entry points."""
+    if not tree or tree == "../pkg":
+        return False
+    if os.path.basename(os.path.normpath(tree)).endswith(LOG_TREE_SUFFIX):
+        return True
+    root = os.path.join(A, tree)
+    for rel in ("robocop_no_em.py", os.path.join("robocop", "robocop.py")):
+        s = active_src(os.path.join(root, rel))
+        if s and any(m in s for m in LOG_TREE_MARKERS):
+            return True
+    return False
+
+
+def log_tree_parent(tree):
+    """pkgvar/<x>_logfull -> pkgvar/<x>_norm (the tree it was copied from), else None."""
+    if not tree:
+        return None
+    t = os.path.normpath(tree)
+    if t.endswith(LOG_TREE_SUFFIX):
+        return t[: -len(LOG_TREE_SUFFIX)] + "_norm"
+    return None
+
+
+def check_log_trees(trees):
+    """Every log tree's derived layers/mask must equal its _norm parent's (the regexes above are
+    the only thing standing between a `= 0` toggle and a misreported layer). -> list of problems."""
+    bad = []
+    for t in sorted({x for x in trees if x and is_log_tree(x)}):
+        par = log_tree_parent(t)
+        if not par:
+            bad.append("%s: log tree with no _logfull suffix, parent unknown -- cannot cross-check" % t)
+            continue
+        if not os.path.isdir(os.path.join(A, par)):
+            bad.append("%s: parent %s not on disk" % (t, par))
+            continue
+        ta, pa = tree_attrs(t), tree_attrs(par)
+        for f in ("seq_layer", "fiber_layer", "mask", "keep"):
+            if ta.get(f) != pa.get(f):
+                bad.append("%s: %s=%r but parent %s has %r" % (t, f, ta.get(f), par, pa.get(f)))
+    return bad
+
+
 def tree_attrs(tree):
     """layers, mask and phi from the tree's robocopExtras.py; emission pkls from robocop.py."""
     out = dict(seq_layer=Q, fiber_layer=Q, mask=Q, keep=None, phi=Q, emission_pkls=Q)
@@ -340,9 +391,15 @@ def tree_attrs(tree):
     if src is None:
         out["tree_note"] = "tree not on disk"
         return out
-    out["seq_layer"] = "off" if re.search(r"data_emission_matrix\[0\]\[:\]\s*=\s*1\b", src) else "on"
-    fib_off = re.search(r"data_emission_matrix\[5\]\[:\]\s*=\s*1\b", src) and \
-        re.search(r"data_emission_matrix\[6\]\[:\]\s*=\s*1\b", src)
+    # A layer is switched off by setting its emission to the multiplicative identity: `= 1` in a
+    # linear tree, `= 0` / `= 0.0` (log 1) in a log-space tree. `= 0` in a LINEAR tree means
+    # "forbidden", so the log form is accepted only when is_log_tree() says so.
+    log = is_log_tree(tree)
+    out["log_tree"] = log
+    one = LOG_ONE if log else LIN_ONE
+    out["seq_layer"] = "off" if re.search(r"data_emission_matrix\[0\]\[:\]\s*=\s*" + one, src) else "on"
+    fib_off = re.search(r"data_emission_matrix\[5\]\[:\]\s*=\s*" + one, src) and \
+        re.search(r"data_emission_matrix\[6\]\[:\]\s*=\s*" + one, src)
     out["fiber_layer"] = "off" if fib_off else "on"
     keep = None
     try:
@@ -359,7 +416,8 @@ def tree_attrs(tree):
     if keep:
         out["mask"] = keep[0].replace("KEEP_", "").lower()
         out["keep"] = keep[1]
-    elif re.search(r"data_emission_matrix\[[056]\]\[:,\s*29:dshared\['nuc_start'\]\]\s*=\s*0", src):
+    elif re.search(r"data_emission_matrix\[[056]\]\[:,\s*29:dshared\['nuc_start'\]\]\s*=\s*"
+                   + (LOG_ZERO if log else r"0"), src):
         out["mask"] = "abf1 (29:nuc_start)"
         out["keep"] = ["Abf1_murphy"]
     else:
@@ -461,6 +519,42 @@ def lam_str(lam):
     if len(lam) <= 3:
         return ", ".join("%s=%.3g" % (k, float(v)) for k, v in lam.items())
     return "%d factors patched" % len(lam)
+
+
+# ------------------------------------------------------------------ C library (so) provenance
+# md5 -> label. Pinned from `md5sum ../pkg/robocop/librobocop*.so` on 2026-10-06; the logfull
+# library is labelled by basename (its md5 is not fixed until it is built).
+SO_LABELS = {
+    "bf219a434d5125028e25f8798b0694c1": "B",          # librobocop.so, fix B, symbol posterior_decoding_v2
+    "c6dfe41c58427aa291e65acec263ccba": "B (pre-rename build)",  # first fix-B build, superseded
+    "6a0724bf6ef7b8bc4313927b931ac685": "prenorm",    # librobocop_prenorm.so (old librobocop.so)
+    "866ac296158cdaed008cfc9c0ee0a758": "norm",       # librobocop_norm.so (ablation arm B)
+    "bb8f037459d8dacd495530a42adb41e0": "logspace",   # librobocop_logspace.so (ablation arm C)
+}
+
+
+def so_of(d, tree=None):
+    """`<md5[:8]> <label>` from the decode's RUN_INFO.json (schema 2: so_md5, cshared).
+    No RUN_INFO.json => "?". RUN_INFO without so_md5 => predates the cutover => "prenorm"
+    (write_run_info.py schema-2 comment) -- unless the pkg tree overrides robocopC with a literal
+    path (the *_norm / *_logspace ablation trees, robocop_no_em.py:22-23), in which case that
+    library's name is shown, marked "unstamped" (the path is a fact; its md5 then is not)."""
+    ri = jload(os.path.join(A, d, "RUN_INFO.json"), None)
+    if ri is None:
+        return Q                          # no RUN_INFO at all (e.g. a decode still running): unknown
+    md5, path = ri.get("so_md5"), ri.get("cshared") or ""
+    if not md5:
+        if tree and tree != "../pkg":
+            opath, _, how = resolve_cshared(os.path.join(A, d), tree)
+            if opath and (how or "").startswith("override"):
+                lib = os.path.basename(opath)
+                return "%s (tree override, unstamped)" % (lib[len("librobocop_"):-3] if lib.startswith("librobocop_") else lib)
+        return "prenorm"
+    lab = SO_LABELS.get(md5)
+    if lab is None:
+        base = os.path.basename(path)
+        lab = "logfull" if base == "librobocop_logfull.so" else (base or Q)
+    return "%s %s" % (md5[:8], lab)
 
 
 # ------------------------------------------------------------------ labels
@@ -607,7 +701,7 @@ def main():
             decoy=("yes" if td.get("decoy") else "no") if td else Q, tie=tie_s,
             emission_pkls=tr["emission_pkls"], nuc_md5=td.get("nuc_md5", Q), pwm_file=td.get("pwm_file") or Q,
             traindir=p.get("traindir") or Q, pkgvar=p.get("tree") or Q, driver=p.get("driver") or Q,
-            provenance=p.get("source"), nstates_ok=nok,
+            provenance=p.get("source"), nstates_ok=nok, so=" | ".join(dict.fromkeys(so_of(dd, info[dd]["prov"].get("tree")) for dd in [r["primary"]] + sorted(set(r["dirs"].values())))),
             chroms=sorted(r["dirs"], key=lambda c: (len(c), c)),
             complete=all(all_ok), incomplete_dirs=[dd for dd in set(r["dirs"].values()) if not info[dd]["check"]["complete"]],
             legacy=(ov_r.get("legacy") or ov_d.get("legacy") or ("",))[0] or ("yes" if p.get("tree") == "../pkg" else ""),
@@ -619,12 +713,15 @@ def main():
                 r[f] = o[0]
         r["attr_source"] = "derived from (pkgvar tree, trainDir)"
     jsave(TDCACHE, tdc)
+    bad = check_log_trees(r["pkgvar"] for r in runs if r["pkgvar"] != Q)
+    if bad:
+        raise SystemExit("log-tree attribute check FAILED (runs.json not written):\n  " + "\n  ".join(bad))
 
     # ---- outputs
     cols = ["run_id", "label", "family", "campaign", "role", "round", "stop_reason", "converged", "in_progress",
             "seq_layer", "fiber_layer", "mask", "live_motifs", "unknown_live", "phi", "em_iters", "lam",
             "abf1_width", "abf1_pads", "decoy", "tie", "emission_pkls", "nuc_md5", "pwm_file", "traindir", "pkgvar",
-            "driver", "provenance", "nstates_ok", "chroms", "complete", "legacy", "notes"]
+            "driver", "provenance", "nstates_ok", "so", "chroms", "complete", "legacy", "notes"]
     meta = dict(built=time.strftime("%Y-%m-%d %H:%M:%S"), n_dirs=len(dirs), n_runs=len(runs),
                 n_campaign_dirs_not_shown=sum(1 for d in dirs if CAMPAIGN_RE.match(d) and d not in used
                                               and not d.startswith("robocop_genome_tw_")))

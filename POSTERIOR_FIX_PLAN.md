@@ -1,7 +1,7 @@
 # Plan: fix B to production, log-space reference, viewer confirmation, refit
 
-Approved 2026-10-05. **Status: Phase B landed locally 2026-10-06 (gate passed on the pre-rename build; re-confirm on `bf219a43` pending; chrXII rDNA `n_excluded` ≠ 0 is open)** — merged as `8b151c2`,
-not pushed; cutover record in `POSTERIOR_SCALING.md` "Binary cutover". Phases A, D, C not started.
+Approved 2026-10-05. **Status (2026-10-06): B, A and D done and committed locally (not pushed); C not
+started (user: decide after viewing).** See "Results, 2026-10-06" at the end of this file.
 
 **Run order: B → A → D → C.** B lands the production fix; A builds log-space against it; D puts both in
 the Run Browser so the agreement is visible; C refits once the arithmetic is settled.
@@ -351,3 +351,75 @@ update rule, or masking rDNA from the objective (offered, declined in favour of 
 - `POSTERIOR_SCALING.md` also carries the standing account of bug 1 (convention, symptoms, how to check
   row sums, what not to do) — draft written and verified, plus stitches into `CLAUDE.md`,
   `things_to_revisit_before_shipping.md` (beside `### 2.7`) and `HANDOFF.md` (beside `### 4.7`).
+
+---
+
+## Results, 2026-10-06
+
+Every number below was measured this day; scripts in `analysis/posterior_fix/`, viewer at
+`bash analysis/viewer_site/serve.sh 8765`.
+
+**Binaries.** `librobocop.so` bf219a43 (fix B; C symbol renamed `posterior_decoding_v2`, user
+decision, so 7-arg trees fail at lookup). `librobocop_prenorm.so` 6a0724bf (the old one).
+`librobocop_logfull.so` 88f86a35 (log-space reference). Decisions taken during the run: guard
+`abort()`s instead of `return` (p_table is np.zeros); new `pkgvar/seq_maskoff_abi8` +
+`run_split_revfix_seq_maskoff_abi8.py` as the tuner's default driver (user request).
+
+**Phase B gate — PASS.** Re-decode of chrXIV:396,001–433,000 with the stock tune75 drivers vs the
+`B` ablation arm: max abs diff **0** on every cell, 9 segments × 3 layers, log-likelihood identical.
+
+**Phase A Stage 1 (chrXIV) — PASS.**
+
+| gate | result |
+|---|---|
+| A1 old symbols, logfull.so vs librobocop.so | bit-identical (`gates_A1_A2_chrXIV_seg0.json`) |
+| A2 log vs linear, same emission | max abs 7.6e-14, max rel 8.6e-13 |
+| A3 D0 loglik, segment_0 | −489955.03749446274, Δ 0.0 |
+| D0 vs B, decoded, both / fib | emitting max abs 3.1e-13 / 2.3e-13 |
+| A5 seqonly null, chrXIV and chrXII | 9.1e-15 / 5.8e-15 |
+
+**Phase A Stage 2 (chrXII rDNA) — the predictions as written:**
+
+1. underflow present — **holds**: 8,456 strand-positions, 1 all-states position, max n 4,379.
+2. D1 ≫ D0 confidence at n>1000 — **does not hold**: mean max posterior both B 0.885 / D0 0.883 /
+   D1 0.892; fib 0.792 / 0.796 / 0.799. The exact emission moves calls; it does not sharpen them
+   on average.
+3. logL(D1) < logL(D0) — **not testable as stated**: D1 also turns the `:806` cells from log 1e-30
+   into 0, +~470,000 per segment (chrXII +2.35e6 over 5 segments; chrXIV +4.30e6 over 9).
+4. no invalid posterior — **holds for log arms** (`n_excluded` 0 for logfull both/fib/seq and
+   D0 both/fib). **Fails for B**: 2 (both) / 7 (fib) / 0 (seq) of 21,000 — see silent columns below.
+5. D0 ≡ B on chrXII — **does not hold**, and B is the one that is wrong. D0 − B loglik per segment
+   (both) −320, −452, −2318, −187, −989; 1,203 (both) / 773 (fib) rows differ by >0.01; 0 on chrXIV.
+
+**Why 5 fails — a third defect, in the linear recursion.** `normalize()` (`algo.c:23,26`) adds
+`DBL_MIN` to every cell, masked and unreachable states included. On rDNA the per-position scale is
+tiny (the non-A strand puts 1e-30 on every state) and coverage gives likelihood ratios beyond
+1e250, so that phantom mass outweighs true paths that float64 cannot hold. Proof (chrXII seg2 both,
+identical inputs, in-process): an 80-bit recursion **without** the `DBL_MIN` equals the log code
+(posterior 1.5e-13, loglik Δ 0.0); the same 80-bit recursion **with** it equals B (2.9e-15, Δ 0.0).
+Removing `DBL_MIN` in float64 does not fix it (NaN rows). No row sum is near 1e-305 (smallest exact
+offset e^-639), so this is not plain underflow. Files: `posterior_fix/replica_longdouble.py`,
+`underflow_scan.py`. **Consequence: log space is the correct decoder on high-coverage loci; fix B is
+right everywhere the recursion fits in float64, which includes all of chrXIV.**
+
+**Silent columns > 1 in B — separate, open.** At a few chrXII rows, silent column 3330 reaches
+1.7e17, even in the exact 80-bit run, so it is not the defect above. Likely a time-index mismatch:
+forward silent at i is "after i", backward silent at i is "before i" (`algo.c:187-198`), so
+f_sil(i)·b_sil(i) counts emission i twice; pairing f_sil(i)·b_sil(i+1)/bs[i] caps it at 1
+(checked on seg4 only — **unverified elsewhere**). It surfaces because `robocop.py:1191` with
+padding 0 makes `nuc_end` read column 3330, the first silent state. Log arms write silent = 0.
+
+**Phase D — viewer.** 12 runs in family "posterior fix ablation"; viewer payload (0.01 resolution):
+
+| window | both | fib | seq |
+|---|---|---|---|
+| chrXIV `Bprod` vs `logfull` | identical | identical | identical |
+| chrXII `Bprod` vs `logfull` | 7,849 positions differ ≥0.05 | 7,199 | identical |
+
+chrXII differences span 451,519–468,245, inside the predicted underflow stretch 451,435–468,729.
+Of the factor-table rows differing ≥0.05 (both), ~9% come from the recursion defect (B vs D0, 808)
+and the rest from the exact emission (D0 vs D1, 9,566).
+
+**Open, for the user:** Phase C (refit); whether log space should become the production decoder
+given defect 3; the silent-column index fix; `singlefiber/` and `permol_seq_maskoff` still carry
+the linear floor.

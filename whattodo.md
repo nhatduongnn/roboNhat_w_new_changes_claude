@@ -164,10 +164,10 @@ blocker the plan body does not mention.
 
 | phase | what | state |
 |---|---|---|
-| **B** | fix B becomes the production decoder: merge `normalise-posterior-c`, archive the old binary as `librobocop_prenorm.so`, **rebuild `pkg/robocop/librobocop.so`**, record the cutover | **landed locally 2026-10-06** — gate: chrXIV w30k identical to `_B_*` (max abs diff 0), re-confirm on renamed build pending; chrXII rDNA silent-column issue open — see `POSTERIOR_SCALING.md` "Binary cutover" |
-| **A** | full log-space as a **validated reference** (new `pkg/robocop/algo_log.c`, new `librobocop_logfull.so`, 3 new `_logfull` trees + 3 drivers). Fixes bug 1. | not started |
-| **D** | 12 runs in the posterior viewer proving B ≡ log-space on chrXIV and ≠ on chrXII | not started |
-| **C** | refit the tuning campaigns — Phase B makes chrXII's ~3M excluded factor-positions re-enter `occ`, so **every tuned λ/w stops being a fixed point** | not started |
+| **B** | fix B becomes the production decoder: merge `normalise-posterior-c`, archive the old binary as `librobocop_prenorm.so`, **rebuild `pkg/robocop/librobocop.so`**, record the cutover | **landed locally 2026-10-06** — gate: chrXIV w30k identical to `_B_*` (max abs diff 0), re-confirmed on the renamed build bf219a43; chrXII rDNA silent-column issue open — see `POSTERIOR_SCALING.md` "Binary cutover" |
+| **A** | full log-space as a **validated reference** (new `pkg/robocop/algo_log.c`, new `librobocop_logfull.so`, 3 new `_logfull` trees + 3 drivers). Fixes bug 1. | **done 2026-10-06** — Stage 1 passes (A1 bit-identical, A2 7.6e-14, A3 Δ0); Stage 2 found a THIRD defect (linear `normalize()` DBL_MIN phantom mass on rDNA; log space is correct). `POSTERIOR_FIX_PLAN.md` "Results" |
+| **D** | 12 runs in the posterior viewer proving B ≡ log-space on chrXIV and ≠ on chrXII | **done 2026-10-06** — chrXIV identical, chrXII 7,849 (both) / 7,199 (fib) positions differ ≥0.05, seq identical |
+| **C** | refit the tuning campaigns — Phase B makes chrXII's ~3M excluded factor-positions re-enter `occ`, so **every tuned λ/w stops being a fixed point** | not started — user decides after viewing D |
 
 **The four silent killers** (each would produce plausible, wrong output with no error — full detail in the
 plan):

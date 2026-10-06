@@ -1,0 +1,5 @@
+# Phase A log-space reference build (POSTERIOR_FIX_PLAN.md). Writes librobocop_logfull.so ONLY --
+# never librobocop.so. -ffp-contract=off: gcc defaults to fast and would contract a*b+c into FMA,
+# which would break gate A1 (bit-identity of the old symbols vs librobocop.so).
+# GSL is #included by algo.c but never called; on this cluster run with CPATH=$CONDA_PREFIX/include.
+gcc -O2 -ffp-contract=off -g -fPIC -Wall -Wextra -pedantic bc.c algo.c algo_log.c -shared -o librobocop_logfull.so

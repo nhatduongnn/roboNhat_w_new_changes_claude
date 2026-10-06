@@ -39,7 +39,7 @@ const COLS = [
   ["emission_pkls", "emission pkls", "mono", 1], ["chroms", "covers", "", 0], ["fiber", "fiber", "", 0],
   ["stop_reason", "stop reason", "wrap", 1], ["traindir", "trainDir", "mono", 1], ["pkgvar", "pkgvar", "mono", 1],
   ["driver", "driver", "mono", 1], ["nuc_md5", "nuc md5", "mono", 1], ["pwm_file", "pwm file", "mono", 1],
-  ["provenance", "provenance", "mono", 1], ["nstates_ok", "n_states ok", "", 1], ["notes", "notes", "wrap", 1],
+  ["provenance", "provenance", "mono", 1], ["nstates_ok", "n_states ok", "", 1], ["so", "C lib (so)", "mono", 1], ["notes", "notes", "wrap", 1],
 ];
 let sortKey = "family", sortAsc = true;
 

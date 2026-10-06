@@ -1,0 +1,166 @@
+{
+ "md5": {
+  "librobocop_so": "bf219a434d5125028e25f8798b0694c1",
+  "librobocop_logfull_so": "88f86a356aad55d466098d214b29ef06",
+  "librobocop_so_after": "bf219a434d5125028e25f8798b0694c1"
+ },
+ "inputs": {
+  "npz": "/tmp/claude-1395559/-usr-project-xtmp-nd141-programs-roboNhat-w-new-changes-claude/4a1e8e87-c56c-4373-90a5-0fe8d239c2e1/scratchpad/h/cap_stock_both.npz",
+  "robocopC_in_pipeline": "../pkg/robocop/librobocop.so",
+  "tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_tune75",
+  "n_obs": 5000,
+  "n_states": 3485,
+  "ssb": 3330,
+  "n_vars": 7,
+  "emission_min": 0.0,
+  "emission_max": 1.0,
+  "n_emission_zero": 16545890,
+  "n_emission_eq_1e30": 12812200,
+  "min_nonzero_transition": 1.5502310400265656e-39,
+  "silent_self_loops": 0,
+  "silent_to_silent_edges": 154,
+  "silent_to_higher_silent_edges": 154
+ },
+ "A1": {
+  "f": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "b": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "fs": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "bs": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "sr": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "p": {
+   "bit_identical": true,
+   "n_diff": 0
+  },
+  "parents": {
+   "bit_identical": true
+  },
+  "children": {
+   "bit_identical": true
+  },
+  "n_parents": {
+   "bit_identical": true
+  },
+  "n_children": {
+   "bit_identical": true
+  },
+  "loglik": {
+   "prod": -489955.03749446274,
+   "logfull": -489955.03749446274,
+   "bit_identical": true
+  },
+  "PASS": true
+ },
+ "A2": {
+  "posterior_log_vs_normlin": {
+   "max_abs": 7.643885524544203e-14,
+   "max_rel_ge_1e-4": 8.55578270305751e-13,
+   "n_cells_ge_1e-4": 21104,
+   "max_rel_ge_1e-12": 1.5904968384752138e-12,
+   "n_cells_ge_1e-12": 108770
+  },
+  "normlin_vs_B_emitting_bit_identical": true,
+  "normlin_vs_B_emitting_max_abs": 0.0,
+  "B_silent_nnz_raw": 510929,
+  "B_silent_nnz_ge_1e-4": 0,
+  "log_silent_nnz": 0,
+  "posterior_log_vs_B_emitting": {
+   "max_abs": 7.643885524544203e-14,
+   "max_rel_ge_1e-4": 8.55578270305751e-13
+  },
+  "loglik": {
+   "linear_calc_sr": -489955.03749446274,
+   "log": -489955.03749446274,
+   "abs_diff": 0.0
+  },
+  "log_scaling_vs_log_linear_scaling_max_abs": 2.9984903449076228e-12,
+  "emitting_rowsum_log_minmax": [
+   0.9999999999999725,
+   1.0000000000000204
+  ],
+  "log_add_check": [
+   0.0,
+   0.0,
+   -Infinity
+  ],
+  "PASS": true
+ },
+ "D0": {
+  "npz": "/tmp/claude-1395559/-usr-project-xtmp-nd141-programs-roboNhat-w-new-changes-claude/4a1e8e87-c56c-4373-90a5-0fe8d239c2e1/scratchpad/h/cap_logD0_both.npz",
+  "tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_tune75_logfull",
+  "robocopC": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/pkg/robocop/librobocop_logfull.so",
+  "per_channel_vs_log_of_stock": [
+   {
+    "channel": 0,
+    "neginf_pattern_identical": true,
+    "n_neginf": 2045890,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 1,
+    "neginf_pattern_identical": true,
+    "n_neginf": 0,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 2,
+    "neginf_pattern_identical": true,
+    "n_neginf": 0,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 3,
+    "neginf_pattern_identical": true,
+    "n_neginf": 0,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 4,
+    "neginf_pattern_identical": true,
+    "n_neginf": 0,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 5,
+    "neginf_pattern_identical": true,
+    "n_neginf": 7250000,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   },
+   {
+    "channel": 6,
+    "neginf_pattern_identical": true,
+    "n_neginf": 7250000,
+    "max_abs_finite": 0.0,
+    "bit_identical": true
+   }
+  ],
+  "nanmax": 0.0,
+  "n_eq_log1e-30": 12812200,
+  "stored_loglik": -489955.03749446274,
+  "stored_loglik_minus_linear_calc_sr_here": 0.0,
+  "stored_loglik_minus_B_both_stored": 0.0,
+  "stored_posterior_vs_B_emitting_max_abs": 7.643885524544203e-14,
+  "stored_posterior_silent_nnz": 0,
+  "stored_posterior_emitting_cells_crossing_1e-4_floor": 0
+ }
+}
