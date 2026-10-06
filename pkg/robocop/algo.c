@@ -228,18 +228,71 @@ void posterior_decoding(
     double *f_table, double *b_table, 
     double *sb, long double *sr, 
     int n_states, int n_obs,
+    // silent_states_begin: normalise over EMITTING states only, matching normalize() above
+    int silent_states_begin,
     // output
     double* posterior_table
     ) {
 
    int i,j;
+   double rowsum;
+
+   /* ------------------------------------------------------------------------------------
+      2026-10-04: normalise each position.
+
+      gamma_t(i) = alpha_t(i)*beta_t(i) / sum_j alpha_t(j)*beta_t(j).  If alpha and beta have
+      each been scaled by ANY positive per-position constant, those constants cancel in that
+      ratio identically.  So the row sum is all we need, and `sr` -- the ~5000-term running
+      product of sb[i]/sf[i] built in calc_sr() above, whose isinf guard is commented out --
+      is not needed to recover the posterior at all.
+
+      Without this, one bad sb/sf ratio rescales every position upstream of it by a constant.
+      Measured on a Fiber-seq decode: row sums were 1.02705e13 over 1407 consecutive positions,
+      then exactly 1.0 after a single step.  The paper (NAR 49:7925, Fig 2E) states the output
+      IS the probability, and the surrounding code assumes [0,1] -- robocop.py warns above
+      1.000000001, robocopExtras.py discards segments summing > 1e10, and getNucleosomesRoboCOP.py
+      clips "scores slightly > 1".
+
+      OLD CODE, kept for reference:
+
+      for(i = 0; i < n_obs; i++) {
+       for(j = 0; j < n_states; j++) {
+           posterior_table[I(i,j,n_states)] =
+             (sb[i] * b_table[Ir(i,j,n_obs,n_states)]) * (sr[i] * f_table[I(i,j,n_states)]);
+       }
+      }
+      ------------------------------------------------------------------------------------ */
 
    for(i = 0; i < n_obs; i++) {
+    /* unscaled product; the per-position scale factors cancel in the ratio below, so sb and
+       sr are deliberately NOT applied here. */
     for(j = 0; j < n_states; j++) {
-        posterior_table[I(i,j,n_states)] = 
-	  (sb[i] * b_table[Ir(i,j,n_obs,n_states)]) * (sr[i] * f_table[I(i,j,n_states)]);
+        posterior_table[I(i,j,n_states)] =
+          b_table[Ir(i,j,n_obs,n_states)] * f_table[I(i,j,n_states)];
+    }
+
+    rowsum = 0.0;
+    for(j = 0; j < silent_states_begin; j++) {
+        rowsum += posterior_table[I(i,j,n_states)];
+    }
+
+    if(rowsum > 0.0) {
+        for(j = 0; j < n_states; j++) {
+            posterior_table[I(i,j,n_states)] /= rowsum;
+        }
+    } else {
+        /* no emitting state has any mass: leave the row at zero rather than divide by 0.
+           A caller that sees an all-zero row should treat the position as undecodable. */
+        for(j = 0; j < n_states; j++) {
+            posterior_table[I(i,j,n_states)] = 0.0;
+        }
     }
    }
+
+   /* `sb` and `sr` are now unused by this function; kept in the signature so the ctypes
+      binding and calc_sr() call site stay unchanged for reviewers. */
+   (void) sb;
+   (void) sr;
 }
 
 void update_data_emission_matrix_with_discrete_pmf(double* pmf, long* data, long max_count, long nrow, long ncol, long col_start, long col_end, double* emission_matrix) {
