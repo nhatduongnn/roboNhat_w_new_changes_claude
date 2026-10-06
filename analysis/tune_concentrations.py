@@ -88,7 +88,8 @@ def state_path():
     return os.path.join(run_dir(), "state.json")
 
 SRC_TRAINDIR = "robocop_train_fiberonly"     # PRISTINE; never patch a patch (see below)
-DRIVER = "run_split_revfix_seq_maskoff.py"   # fib+seq, the baseline layer configuration
+# DRIVER = "run_split_revfix_seq_maskoff.py"   # pre-cutover; its tree binds the removed 7-arg symbol
+DRIVER = "run_split_revfix_seq_maskoff_abi8.py"   # fib+seq, the baseline layer configuration (8-arg ABI port, 2026-10-06)
 NTASK = 48
 
 ALPHA = 0.7          # damping; absorbs the sparse cross-TF coupling

@@ -138,6 +138,56 @@ metrics barely move.
 
 ## Open work
 
+### Tier −2 — CURRENT (2026-10-06): the posterior fix. **Read `POSTERIOR_FIX_PLAN.md` first.**
+
+**Phase B landed locally 2026-10-06 (gate passed on the pre-rename build; re-confirm on `bf219a43` pending); A, D, C not started.** Cutover record: `POSTERIOR_SCALING.md`. The full plan,
+with every line anchor, gate and threshold, is `POSTERIOR_FIX_PLAN.md` at the repo root — do not
+re-derive it, and do not start without reading its "Decided AFTER approval" section, which carries an ABI
+blocker the plan body does not mention.
+
+**The two bugs, so a new session knows what it is fixing:**
+
+0. **Posterior blow-up** (loud, rare, *already fixed three ways*). `posterior_decoding`
+   (`algo.c:239-240`) multiplies α·β by `sr` — a ~5,000-term running product whose overflow guard is
+   commented out at `algo.c:216` — with no per-position normalisation. 1 of 63 segments in a genome task;
+   chrXII `segment_1044` reaches row sums of 2.8e91. Fix **A** = read-side (on `main` now), **B** = linear
+   normalisation in C (branch `normalise-posterior-c`), **C** = log-sum-exp in C (branch
+   `logspace-posterior`). All three agree; 24 validation arms are already in the Run Browser.
+1. **Emission floor** (silent, NOT fixed by anything). `robocop.py:801` computes `binom.pmf` in linear
+   double; at high coverage it returns **exactly 0.0**, and `robocopExtras.py:104-106` replaces every zero
+   with `1e-30`. Row sums stay 1, so nothing detects it. It **inverts** the evidence: at n=4379, k=0 the
+   true log10 likelihood ratio protected:open is **+929** and the floored one is **−17**. ~8,479 decoded
+   positions, essentially all in chrXII's rDNA (451,435–468,729). `binom.logpmf` is exact there, but a log
+   emission matrix cannot feed a linear recursion — which is the only reason full log-space is wanted.
+
+**Four phases, run in this order (B → A → D → C):**
+
+| phase | what | state |
+|---|---|---|
+| **B** | fix B becomes the production decoder: merge `normalise-posterior-c`, archive the old binary as `librobocop_prenorm.so`, **rebuild `pkg/robocop/librobocop.so`**, record the cutover | **landed locally 2026-10-06** — gate: chrXIV w30k identical to `_B_*` (max abs diff 0), re-confirm on renamed build pending; chrXII rDNA silent-column issue open — see `POSTERIOR_SCALING.md` "Binary cutover" |
+| **A** | full log-space as a **validated reference** (new `pkg/robocop/algo_log.c`, new `librobocop_logfull.so`, 3 new `_logfull` trees + 3 drivers). Fixes bug 1. | not started |
+| **D** | 12 runs in the posterior viewer proving B ≡ log-space on chrXIV and ≠ on chrXII | not started |
+| **C** | refit the tuning campaigns — Phase B makes chrXII's ~3M excluded factor-positions re-enter `occ`, so **every tuned λ/w stops being a fixed point** | not started |
+
+**The four silent killers** (each would produce plausible, wrong output with no error — full detail in the
+plan):
+1. `robocop.py:806`'s literal `0` means *"no observation here"* → `0.0` (log 1), **never `-inf`**. Wrong
+   way round and ~60% of positions go all-`-inf` and save as all zeros, which `count_calls.py` will not
+   flag because 0 is inside [0,1].
+2. **Delete** the `1e-30` floor at `robocopExtras.py:104-106`; do **not** convert it to `-inf`. In a log
+   matrix `0.0` is log 1 and is everywhere, so `== 0 → -inf` hits all of them.
+3. Three more copies of the same code: `robocopExtras.py:101` (live in `fiber_` only) and `:110-111` (live
+   in `seqonly_`), plus the whole `analysis/singlefiber/` surface (two more copies of the floor).
+4. `build_run_matrix.py:343-345, :362` derive tree attributes by grepping for `= 1`; a log tree writes
+   `= 0`, so `seq_layer` / `fiber_layer` / `mask` would be misreported in `runs.json` and the viewer.
+
+Gate for 1–3: assert `np.nanmax(d['emission']) <= 0.0` before the C call, and assert no position has all
+emitting states `-inf`.
+
+**Also still open, deliberately not bundled:** the `config.ini`/trainDir label mismatch (prefer
+`RUN_INFO.json` in `score_robocop._resolve_train_dir`), and `POSTERIOR_SCALING.md` — the standing
+reference note on bug 0 that Phase B's cutover record goes into.
+
 ### Tier −1 — DONE 2026-09-04
 
 −1. ~~**Score the four `wide150` decodes.**~~ **DONE.** All four scored on chrI and chrXIV;
@@ -238,7 +288,11 @@ metrics barely move.
    phase being validated.
 
 ### Suggested order
-**Tier −1 first** — it only reads runs that already exist. Then Tier 2 (fast, removes the
+**Tier −2 first, and on its own** — the posterior fix changes the numbers every other tier is measured
+against, so anything scored before it lands has to be re-scored after. Read `POSTERIOR_FIX_PLAN.md`,
+run B → A → D → C. Then:
+
+**Tier −1** — it only reads runs that already exist. Then Tier 2 (fast, removes the
 `3330` crash risk and the path fragility), then **Tier 0 before Tier 1 #2** — there is no point retraining with the sequence layer on
 a matrix that is known to be wrong — then Tier 1 #3. Score with `score_robocop.py` after
 every change so regressions are visible immediately. Defer Tier 3 until Fiber-only +

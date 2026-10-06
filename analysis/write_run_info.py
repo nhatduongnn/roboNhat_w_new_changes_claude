@@ -59,6 +59,46 @@ def driver_tree(driver, argv6=None):
     return None, "no recognisable sys.path.insert in driver"
 
 
+def resolve_cshared(od, tree):
+    """The C library this decode loaded, and its md5 -- what dshared['robocopC'] ends up as.
+
+    robocop_no_em.py sets dshared['robocopC'] from config.ini's `cshared` (relative to analysis/,
+    the decode cwd), and a tree may then override it with a literal path (the *_norm / *_logspace
+    / *_logfull trees, robocop_no_em.py:23). Last literal assignment wins, as at runtime.
+    Returns (path, md5, how); md5 is None when the file is unreadable.
+    """
+    import configparser
+    import hashlib
+    path, how = None, None
+    try:
+        c = configparser.ConfigParser()
+        c.read(os.path.join(od, "config.ini"))
+        path, how = c.get("main", "cshared"), "config.ini cshared"
+    except Exception:
+        pass
+    if tree:
+        try:
+            src = active_lines(open(os.path.join(HERE, tree, "robocop_no_em.py")).read())
+            hits = re.findall(r"""dshared\[['"]robocopC['"]\]\s*=\s*['"]([^'"]+)['"]""", src)
+            if hits:
+                path, how = hits[-1], "override in %s/robocop_no_em.py" % tree
+        except OSError:
+            pass
+    if path is None:
+        return None, None, "no cshared found"
+    full = path if os.path.isabs(path) else os.path.normpath(os.path.join(HERE, path))
+    try:
+        md5 = hashlib.md5(open(full, "rb").read()).hexdigest()
+    except OSError:
+        md5 = None
+    return full, md5, how
+
+
+def active_lines(src):
+    """Source with whole-line comments removed, so commented-out overrides do not count."""
+    return "\n".join(l for l in src.splitlines() if not l.lstrip().startswith("#"))
+
+
 def git_info():
     try:
         head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True,
@@ -101,8 +141,9 @@ def main(argv=None):
     tree, how = driver_tree(a.driver, a.variant)
     head, dirty = git_info()
     td = a.traindir.rstrip("/")
+    so_path, so_md5, so_how = resolve_cshared(od, tree)
     info = dict(
-        schema=1,
+        schema=2,
         outdir=os.path.basename(od),
         original_outdir=a.original_outdir or os.path.basename(od),
         driver=os.path.basename(a.driver),
@@ -120,6 +161,13 @@ def main(argv=None):
         slurm_job_id=(os.environ.get("SLURM_ARRAY_JOB_ID") or os.environ.get("SLURM_JOB_ID"))
         if a.source == "decode-time" else None,
         source=a.source,
+        # schema 2 (2026-10-06): the binary. No so_md5 => predates the cutover => librobocop_prenorm.so
+        # (POSTERIOR_SCALING.md "Binary cutover"). Only trustworthy at decode-time; a backfill
+        # stamps whatever the path holds NOW, so it is not written there.
+        cshared=so_path if a.source == "decode-time" else None,
+        cshared_how=so_how if a.source == "decode-time" else None,
+        so_md5=so_md5 if a.source == "decode-time" else None,
+        log_emission=os.environ.get("ROBOCOP_LOG_EMISSION") or None,
     )
     if a.extra:
         info.update(json.loads(a.extra))

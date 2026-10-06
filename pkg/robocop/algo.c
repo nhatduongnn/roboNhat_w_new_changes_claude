@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <float.h>
 #include <assert.h>
@@ -224,9 +226,15 @@ double calc_sr(double *sf, double *sb, int len, long double *sr) {
   return log_sf_sum;
 }
 
-void posterior_decoding(
-    double *f_table, double *b_table, 
-    double *sb, long double *sr, 
+/* 2026-10-06: RENAMED from posterior_decoding when it gained the 8th argument
+   silent_states_begin. ~60 pkgvar/ trees still bind the old 7-arg name; with the old symbol gone
+   they fail at symbol lookup (AttributeError: undefined symbol: posterior_decoding) before any
+   call, instead of passing 7 args to an 8-arg function. To port a tree: call
+   posterior_decoding_v2, add one c_int to argtypes and dshared['silent_states_begin'] before
+   p_table. See POSTERIOR_SCALING.md "Binary cutover". */
+void posterior_decoding_v2(
+    double *f_table, double *b_table,
+    double *sb, long double *sr,
     int n_states, int n_obs,
     // silent_states_begin: normalise over EMITTING states only, matching normalize() above
     int silent_states_begin,
@@ -236,6 +244,19 @@ void posterior_decoding(
 
    int i,j;
    double rowsum;
+
+   /* Range guard, second line of defence behind the rename. A caller that binds this symbol
+      with too few argtypes leaves the low 32 bits of some stack word here -- effectively a
+      random int -- so the check catches it with probability ~1 - n_states/2^32, not certainty. */
+   if (silent_states_begin <= 0 || silent_states_begin > n_states) {
+       fprintf(stderr, "posterior_decoding_v2: silent_states_begin=%d out of range (n_states=%d)\n"
+                       "  -- the caller's argtypes do not match the 8-arg ABI. Pass\n"
+                       "     dshared['silent_states_begin'] before p_table\n"
+                       "     in that tree's robocop/robocop.py\n", silent_states_begin, n_states);
+       /* abort, not return: p_table arrives as np.zeros (robocop.py:919), so a plain return would
+          save an all-zero posterior that count_calls.py's [0,1] check cannot see. */
+       abort();
+   }
 
    /* ------------------------------------------------------------------------------------
       2026-10-04: normalise each position.

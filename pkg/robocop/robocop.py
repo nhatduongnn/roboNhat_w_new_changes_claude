@@ -970,10 +970,11 @@ def posterior_forward_backward_loop(d, dshared, segment):
         n_obs, scaling_factors)
 
     # posterior decoding
-    robocopC.posterior_decoding.argtypes = [ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.longdouble, flags = "C_CONTIGUOUS"), c_int, c_int, ndpointer(np.double, flags = "C_CONTIGUOUS")]
-    robocopC.posterior_decoding(
+    robocopC.posterior_decoding_v2.argtypes = [ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.double, flags = "C_CONTIGUOUS"), ndpointer(np.longdouble, flags = "C_CONTIGUOUS"), c_int, c_int, c_int, ndpointer(np.double, flags = "C_CONTIGUOUS")]
+    robocopC.posterior_decoding_v2(
         ftable, btable, bscaling_factors,
-        scaling_factors, dshared['n_states'], n_obs, 
+        scaling_factors, dshared['n_states'], n_obs,
+        dshared['silent_states_begin'],   # 2026-10-06: 8-arg ABI (fix B, POSTERIOR_SCALING.md)
         p_table)
 
     # import matplotlib.pyplot as plt

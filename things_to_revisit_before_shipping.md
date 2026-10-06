@@ -106,6 +106,9 @@ in principle, but the value is arbitrary and interacts with the ABF1 mask (which
 deliberately re-zeroes after the floor). Document the interaction.
 
 ### 2.7 [P2] Posterior storage silently truncates at 1e-4
+> See also `POSTERIOR_SCALING.md`: this 1e-4 floor is why emitting row sums read ~0.995–1.0, not exactly
+> 1. The separate per-position normalisation bug, and the 2026-10-06 binary cutover that fixes it, are there.
+
 `pkg/robocop/robocop.py:33`, `save_sparse_posterior`: `v[v < 1e-4] = 0`. **New in this
 fork.** This is a sparsity step on the **posterior** table on its way into `info.h5`, and it
 is unconditional — no flag, no state range, no relation to the ABF1 mask. It runs on every

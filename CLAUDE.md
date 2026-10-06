@@ -17,7 +17,15 @@ Slurm, partition `compsci`. A genome decode is 48 array tasks: ~45 min each on
 Decode outputs (20–630 MB each) live on this filesystem and are gitignored; the metadata
 (`config.ini`, `coords.tsv`, `pwm.p`, `conc_patch.json`) is committed.
 
-## Where things stand (2026-09-12)
+## Where things stand (2026-10-06)
+
+**Current work: the posterior fix. Read `POSTERIOR_FIX_PLAN.md`, then `whattodo.md` Tier −2.**
+Two defects in the numerical core — the posterior is never normalised per position, and the
+emission floor silently inverts the likelihood ratio at high coverage. Nothing implemented yet;
+the plan is approved and Phase B step 1 is the next action. Do this before other threads: it
+changes the numbers everything else is measured against.
+
+### Earlier (2026-09-12)
 
 Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
 
@@ -50,6 +58,11 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
    output, or a number read from a named file. If something has not been verified, say
    "unverified" and how to check it. Check agents' reports against the files before relaying
    them.
+9. **Always reply in concise, easy-to-understand text.** Short sentences, plain words, no
+   jargon unless it is defined on the spot. Lead with the answer, then the evidence. Prefer a
+   small table or a few bullets over a paragraph. If something is genuinely complex, explain it
+   in simple terms first and add the detail after — do not pad, and do not repeat context the
+   reader already has.
 
 ## Gotchas that have each cost a session
 
@@ -69,6 +82,20 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
   prior 21×. Use `make_conc_trainDir.py --hold-nucleosome` to pin it.
 - **chrXII's rDNA array emits invalid posteriors** (1e0–1e171, finite in float64). Validate
   the `[0,1]` bound, not finiteness; `count_calls.py` drops those positions loudly.
+- **The decoder never normalises the posterior, and the emission floor inverts evidence.**
+  `posterior_decoding` (`algo.c:239-240`) multiplies α·β by `sr`, a ~5,000-term product whose
+  `isinf` guard this fork commented out (`algo.c:216`); row sums reach 2.8e91. Separately,
+  `binom.pmf` (`robocop.py:801`) underflows to 0.0 at high coverage and
+  `robocopExtras.py:104-106` floors it to `1e-30`, which **flips** the likelihood ratio
+  (+929 → −17 in log10 at n=4379, k=0) with **no tripwire anywhere**. Normalise over
+  **emitting states only** (`[:silent_states_begin]`) on read — `score_robocop.region_optable`
+  does. Never clip or drop instead. See `POSTERIOR_FIX_PLAN.md` and HANDOFF §4.8.
+- **`librobocop.so` changed on 2026-10-06 (binary cutover, fix B).** No `so_md5` in a run's
+  `RUN_INFO.json` ⇒ it was made by the old `librobocop_prenorm.so`; runs either side are not
+  comparable. The C function is now `posterior_decoding_v2` (8 args); the ~63 trees still binding the
+  old name fail at lookup (`AttributeError: undefined symbol`), and so do old tuning campaigns, whose
+  `state.json` freezes a 7-arg driver (u001 froze none and would silently switch to `_abi8`). The
+  `algo.c` line numbers above are the pre-cutover file. See `POSTERIOR_SCALING.md` "Binary cutover".
 - **MacIsaac gff rows are redundant** — merge by interval union with 20 bp slop before
   counting (ABF1 315 rows → 300 sites). `make_conc_targets.py --verify` pins this.
 - **Decode with `run_robocop_without_em`** (keeps `tmpDir/info.h5`); `with_em` deletes tmpDir
@@ -120,6 +147,7 @@ and `README.md` covers inputs, sizing (3 rows fit 1600×900) and the hit/miss ru
 
 | file | what |
 |---|---|
+| `POSTERIOR_FIX_PLAN.md` | **current work.** The posterior-normalisation and emission-floor fixes: phases B→A→D→C, gates, and the ABI blocker |
 | `HANDOFF.md` | state, results, machinery, and where to pick each thread up |
 | `whattodo.md` | strategy and the open-work tiers |
 | `FIBERSEQ_CHANGES.md` | the full code diff against upstream |

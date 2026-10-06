@@ -5,9 +5,13 @@ the state of each thread and where to pick it up. `whattodo.md` holds strategy a
 open-work tiers; `FIBERSEQ_CHANGES.md` the code diff against upstream;
 `things_to_revisit_before_shipping.md` the debug leftovers and hardcoded knobs.
 
-Sections: **§1 concentration calibration (current)** · §2 what a concentration is ·
-§3 tools · §4 model mechanics · §5 ground truth · §6 motif audit · §7 widened footprints ·
-§8 earlier side experiments · §9 published artifacts · §10 standing constraints ·
+**CURRENT THREAD (2026-10-06): the posterior fix — see §4.8 and `POSTERIOR_FIX_PLAN.md`.** Two defects in
+the numerical core, one of them silent. Nothing implemented yet; `whattodo.md` Tier −2 is the entry point.
+It changes the numbers every other thread is measured against, so do it first.
+
+Sections: §1 concentration calibration · §2 what a concentration is ·
+§3 tools · §4 model mechanics (**§4.8 posterior scaling — current**) · §5 ground truth · §6 motif audit ·
+§7 widened footprints · §8 earlier side experiments · §9 published artifacts · §10 standing constraints ·
 §11 repo state.
 
 ---
@@ -294,6 +298,9 @@ pure FIMO scan only reaches 3/5 inside the decode. The emission layer also consu
 footprint. **Fixing this outranks any further PWM change** (`whattodo.md` Tier 1 #3).
 
 ### 4.7 Numeric limits
+> Posterior scaling (bug 1) and the 2026-10-06 `librobocop.so` cutover — which binary made a run, the
+> `posterior_decoding_v2` rename, rollback, the open chrXII silent-column issue — are in `POSTERIOR_SCALING.md` at the repo root. §4.8 below predates the cutover.
+
 `bc.c`'s index arithmetic is 32-bit: `n_states` ≤ 46,340. `wide150all` (all 153 motifs at
 ±150, `n_states` 95,285) overflows it — verified by calling the shipped `.so` directly — and
 its driver refuses to submit. ±70 across all 153 motifs (`n_states` 46,325) is the largest
@@ -301,6 +308,62 @@ uniform pad that fits and needs no code change; it was measured at ~295 GB to tr
 to decode, so only the 1,150,000 MB `compsci-cluster-fitz-*` nodes hold the training job.
 Widening the index type to `int64_t` in `bc.c`/`bc.h`/`algo.c` for a separate `.so` was scoped
 but not done; it changes the numerical core and must be re-validated against an existing run.
+
+### 4.8 The posterior is not normalised — and the emission floor inverts evidence (2026-10-06)
+
+Two separate defects in the numerical core. **The plan to fix both is `POSTERIOR_FIX_PLAN.md`; nothing is
+implemented yet.** `whattodo.md` Tier −2 is the entry point.
+
+**Defect 1 — posterior blow-up.** `posterior_decoding` (`algo.c:239-240`) writes
+`(sb[i]·b)·(sr[i]·f)` with **no per-position normalisation**. `sr` is a ~5,000-term running product
+(`algo.c:214`) whose `isinf` guard this fork commented out (`algo.c:216`). Stored row sums reach
+**2.8e91** on chrXII `segment_1044`, 4,707 of 5,000 rows. Rare — 1 of 63 segments in a genome task — but
+three pieces of fork code each coped differently (drop, clip, ignore), which is the tell. The paper says
+the output *is* the probability (NAR 49:7925, Fig 2E), so this is a bug, not a convention.
+
+Three fixes exist, all agreeing across 24 validation arms already in the Run Browser:
+`A` read-side in `score_robocop.region_optable` (**on `main`**, and it stays — it is the only way to read
+the ~1,600 pre-fix decodes); `B` linear normalisation in C (branch `normalise-posterior-c`, built as
+`librobocop_norm.so`); `C` log-sum-exp in C (branch `logspace-posterior`, `librobocop_logspace.so`).
+**Note both variant `.so` files are committed on `main` while `main`'s `algo.c` is pristine — a binary in
+`pkg/robocop/` does not necessarily match the `.c` beside it.**
+
+**Fix C is a hybrid and is not the one to adopt.** It is fed values `normalize()` has already made O(1),
+so its logs come out at ≈ −0.31 rather than ≈ −690: it buys no underflow headroom while costing ~11.8× in
+that function. **Fix B is the production choice.**
+
+**Defect 2 — the emission floor, silent and unfixed.** `robocop.py:801` computes `binom.pmf` in linear
+double. At high coverage it returns **exactly 0.0**, and `robocopExtras.py:104-106` replaces every zero
+with `epsilon = 1e-30`. Row sums stay 1, so **no tripwire anywhere detects it**. It does not blur the
+answer, it inverts it — at n=4379 the true log10 likelihood ratio protected:open is **+929 at k=0** and the
+floored one is **−17**; at k=n a true −5334 collapses to **exactly 0.0**, i.e. the observation is
+discarded and the posterior is decided by the transition prior alone.
+
+Extent, measured against real `(k,n)` pairs and the 545 fitted `p` values (not a worst-case bound):
+**18,396 rows underflow genome-wide, of which only 8,479 are on decoded chromosomes** — chrXII 8,456,
+chrVIII 23; chrM's 9,917 never decode (absent from every `coord_*.tsv`). Essentially one ~17 kb rDNA
+stretch, chrXII 451,435–468,729. "All states underflow" happens at **1 position** genome-wide.
+`binom.logpmf` is exact where `pmf` is zero, but a log emission matrix cannot feed a linear recursion
+(`algo.c:58, :85, :111, :159, :175, :190` all *multiply*) — **that is the only reason full log-space is
+wanted.** Note chrXIV, where every A/B/C arm was validated, is the genome's *lowest*-coverage chromosome
+(max n = 130) with zero at-risk positions, which is why this stayed invisible.
+
+**How to detect either on any decode** — row sums must be taken over **emitting states only**:
+
+```python
+import score_robocop as S
+dp = S._get_sparse_todense(h5grp, "posterior")
+rs = dp[:, :int(dshared["silent_states_begin"])].sum(axis=1)   # expect ~[0.995, 1.0]
+```
+
+The shortfall from 1.0 is the 1e-4 save-time floor at `robocop.py:33`, not a defect. A non-zero
+`n_excluded` from `count_calls.py` outside chrXII's rDNA is defect 1.
+
+**What NOT to do:** do not clip to 1.0 (`write_factor_table.py:175` turns a 1e13 artefact into a confident
+call); do not drop positions and call it fixed; do not normalise over all `n_states` (slice
+`[:silent_states_begin]`, matching `normalize()` at `algo.c:19` — silent states hold real mass, 44,957
+non-zero cells in one seq-only segment); do not reconstruct absolute α/β from `sr`, which is the damaged
+quantity — for the likelihood use `calc_sr`'s return value (`algo.c:224`), which is unaffected.
 
 ---
 
