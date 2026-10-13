@@ -1,0 +1,793 @@
+<title>Oct_6th_2026_lab_presentation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+/* Layout: full-bleed slide deck, one slide per screen; left rail holds the slide number,
+   content sits in a single measured column. Semantic colour marks valid vs out-of-range. */
+:root{
+  --bg:#f7f7f5; --panel:#ffffff; --ink:#15181c; --ink-2:#4a5058; --ink-3:#848c96;
+  --rule:#dfe0dc; --accent:#1c5f73; --ok:#1d6b4f; --bad:#a23b1e; --warn:#8a6417;
+  --mark:#eef3f4;
+  --rule-2:#ebebe8; --wat:#1f77b4; --cri:#ff7f0e; --bgline:#146b63;
+  --gene-plus:#87ceeb; --gene-minus:#f08080; --run-a:#a23b1e; --run-b:#1c5f73;
+  --display:"IBM Plex Serif",Georgia,serif;
+  --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101316; --panel:#171b1f; --ink:#e8eaec; --ink-2:#aeb5bd; --ink-3:#7d858e;
+  --rule:#2a3036; --accent:#6fb6cc; --ok:#5cc295; --bad:#e8866a; --warn:#d8ad4e;
+  --mark:#1b2328; --rule-2:#20262b; --wat:#5aa9e6; --cri:#ffa657; --bgline:#3fb3a6;
+  --gene-plus:#4f92b5; --gene-minus:#b56b6b; --run-a:#e8866a; --run-b:#6fb6cc; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#101316; --panel:#171b1f; --ink:#e8eaec; --ink-2:#aeb5bd; --ink-3:#7d858e;
+  --rule:#2a3036; --accent:#6fb6cc; --ok:#5cc295; --bad:#e8866a; --warn:#d8ad4e;
+  --mark:#1b2328; --rule-2:#20262b; --wat:#5aa9e6; --cri:#ffa657; --bgline:#3fb3a6;
+  --gene-plus:#4f92b5; --gene-minus:#b56b6b; --run-a:#e8866a; --run-b:#6fb6cc; color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-size:clamp(15px,1.15vw,18px);line-height:1.55;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+
+.deck{height:100%;display:grid;grid-template-rows:1fr auto}
+.stage{position:relative;overflow-y:auto;overflow-x:hidden}
+.slide{min-height:100%;display:none;padding-block:clamp(28px,5vh,64px);padding-inline:clamp(16px,6vw,96px)}
+.slide.on{display:block}
+.wrap{max-width:62rem;margin:0 auto}
+.wrap.wide{max-width:76rem}
+.num{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--ink-3);
+  text-transform:uppercase;margin:0 0 1.4rem}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5.2vw,3.6rem);
+  line-height:1.08;margin:0 0 1rem;text-wrap:balance;letter-spacing:-.015em}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.45rem,3.1vw,2.3rem);
+  line-height:1.15;margin:0 0 1.1rem;text-wrap:balance;letter-spacing:-.01em}
+h3.sub{font-family:var(--body);font-weight:600;font-size:1rem;margin:1.2rem 0 .5rem;color:var(--ink)}
+p{margin:0 0 1rem;max-width:62ch;color:var(--ink-2)}
+p strong,li strong{color:var(--ink);font-weight:600}
+.lede{font-size:1.12em;color:var(--ink)}
+ul{margin:0 0 1rem;padding-left:1.1rem;max-width:62ch;color:var(--ink-2)}
+li{margin-bottom:.5rem}
+code,.m{font-family:var(--mono);font-size:.88em;background:var(--mark);
+  padding:.1em .34em;border-radius:3px;color:var(--ink)}
+pre{font-family:var(--mono);font-size:clamp(.72rem,1.05vw,.86rem);line-height:1.6;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+  padding:1rem 1.1rem;overflow-x:auto;margin:0 0 1.2rem;color:var(--ink)}
+pre .c{color:var(--ink-3)}
+pre .hl{color:var(--bad);font-weight:600}
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 .6rem}
+.rule{height:1px;background:var(--rule);border:0;margin:1.6rem 0}
+
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;margin:0 0 1.1rem}
+th,td{text-align:left;padding:.56rem .7rem;border-bottom:1px solid var(--rule);font-size:.95em}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500}
+td.n,th.n{text-align:right;font-family:var(--mono)}
+tr.key td{background:var(--mark);font-weight:600;color:var(--ink)}
+.tw{overflow-x:auto;margin-bottom:1.1rem}
+.ok{color:var(--ok);font-weight:600}
+.bad{color:var(--bad);font-weight:600}
+.warnc{color:var(--warn);font-weight:600}
+.note{font-size:.84em;color:var(--ink-3);max-width:none}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.1rem;margin-bottom:1.1rem}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:1.05rem 1.15rem;min-width:0}
+.card h3{margin:0 0 .5rem;font-size:1rem;font-family:var(--body);font-weight:600;color:var(--ink)}
+.card p{margin:0;font-size:.93em}
+.card.flag{border-left:3px solid var(--accent)}
+
+.formula{font-family:var(--mono);font-size:clamp(.82rem,1.4vw,1.05rem);background:var(--panel);
+  border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:6px;
+  padding:1.1rem 1.2rem;margin:0 0 1.2rem;overflow-x:auto;color:var(--ink);line-height:1.9}
+.quote{border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1.1rem;margin:0 0 1.2rem;
+  font-family:var(--display);font-size:1.06em;color:var(--ink)}
+.quote cite{display:block;font-family:var(--body);font-size:.8rem;font-style:normal;
+  color:var(--ink-3);margin-top:.5rem}
+
+/* bridge: three-step chain from "looked wrong" to the bug */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:.5rem;margin:0 0 1rem}
+.chain span{flex:1 1 12rem;min-width:0;background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+  padding:.55rem .8rem;font-size:.92em;color:var(--ink)}
+.chain span b{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.chain i{align-self:center;font-style:normal;color:var(--ink-3);font-family:var(--mono)}
+
+/* ---------- locus panel: occupancy-browser tracks (presentation/templates/locus_slide) ---------- */
+.locus{margin:0 0 1.1rem}
+.locus-h{font-family:var(--mono);font-size:.78rem;color:var(--ink-2);margin:0 0 .35rem;letter-spacing:.02em}
+.legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.82rem;color:var(--ink-2);align-items:center;margin:0 0 .5rem}
+.legend .lk{display:inline-block;vertical-align:middle;margin-right:6px}
+.legend .lk.ln{width:20px;height:0;border-top:3px solid}
+.legend .lk.ar{width:20px;height:11px;background:rgba(179,179,179,.45);border-top:2px solid #b3b3b3}
+.legend .lk.band{width:11px;height:14px;background:rgba(212,20,90,.16);border-top:3px solid #d4145a}
+.legend .lk.dot{width:8px;height:8px;border-radius:50%}
+.legend .lk.dash{width:20px;height:0;border-top:2px dashed var(--bgline)}
+.legend .lk.rossi{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--ink)}
+.legend .lk.tract{width:16px;height:7px;background:var(--ink-2)}
+.trk{display:grid;grid-template-columns:120px minmax(0,1fr);column-gap:10px;row-gap:4px;min-height:0}
+.trk canvas{display:block;width:100%;height:auto}
+.trk-lab{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:1px;text-align:right;min-width:0}
+.trk-lab .rn{font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.trk-lab .rd{font-size:.72rem;color:var(--ink-3);line-height:1.2}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:0}
+.sw.a{background:var(--run-a)} .sw.b{background:var(--run-b)}
+.trk-sites{position:relative;height:26px}
+.trk-hl{position:relative;pointer-events:none}
+.trk-chip{position:absolute;bottom:3px;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:.72rem;font-weight:600;color:#fff;background:#d4145a;padding:2px 8px;border-radius:4px;line-height:1.25}
+.trk-chip i{font-style:normal;font-weight:400;opacity:.92}
+.trk-band{position:absolute;top:-5px;bottom:0;border:2px solid #d4145a;border-radius:3px}
+.trk-tail{position:absolute;bottom:-5px;width:2px;height:8px;margin-left:-1px;background:#d4145a}
+.lfoot{font-size:.76rem;color:var(--ink-3);margin:.45rem 0 0;max-width:none}
+@media (max-width:760px){
+  .trk{grid-template-columns:58px minmax(0,1fr);column-gap:6px;row-gap:3px}
+  .trk-lab .rd{display:none}
+  .trk-lab .rn{font-size:.66rem;white-space:normal}
+  .trk-lab .rn .sw{display:none}
+  .trk-chip{font-size:.6rem;padding:2px 5px}
+  .trk-chip i{display:none}
+}
+
+.bar{display:flex;align-items:center;gap:.9rem;padding:.6rem clamp(16px,6vw,96px);
+  padding-bottom:calc(.6rem + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--rule);background:var(--bg)}
+.dots{display:flex;gap:5px;flex:1;flex-wrap:wrap;min-width:0}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--rule);border:0;padding:0;cursor:pointer}
+.dot[aria-current="true"]{background:var(--accent);transform:scale(1.3)}
+.dot:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nav{display:flex;gap:.4rem;align-items:center}
+.nav button{font-family:var(--mono);font-size:.78rem;background:var(--panel);color:var(--ink);
+  border:1px solid var(--rule);border-radius:5px;padding:.3rem .62rem;cursor:pointer}
+.nav button:hover{border-color:var(--accent);color:var(--accent)}
+.nav button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.count{font-family:var(--mono);font-size:.76rem;color:var(--ink-3);min-width:3.4rem;text-align:right}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="deck">
+<div class="stage" id="stage">
+
+<section class="slide on"><div class="wrap">
+  <p class="num">Lab meeting · 6 October 2026</p>
+  <h1>Posteriors above one</h1>
+  <p class="lede">RoboCOP's decoder reports a probability of 1.027&nbsp;×&nbsp;10<sup>13</sup> at some
+  positions. Three parts of our pipeline each cope with that differently, and all three are wrong
+  in at least one case.</p>
+  <p>What follows: the tuning runs that raised the background emission, the one locus that looked
+  wrong, how posterior decoding is supposed to work and what our code does instead, the fix, and a
+  check that the fix works.</p>
+</div></section>
+
+<!-- ===================== NEW 1: tuning with the background raised ===================== -->
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Tuning campaigns · late September</p>
+  <h2>Raising the background to the open-DNA level</h2>
+  <p>The background state's m6A rate was fit to <strong>linker DNA beside nucleosomes</strong>: 0.138.
+  We raised it to <strong>0.249 (Watson) / 0.265 (Crick)</strong>, the rate of
+  <span class="m">combined_low_count</span>, the default footprint for TFs with no fitted footprint
+  of their own. Now background means open, unbound DNA.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Campaign</th><th class="n">Background m6A</th><th class="n">Default TF footprint</th><th>Motifs live</th><th>"unknown" state</th><th class="n">Rounds</th><th>Stopped</th></tr></thead>
+    <tbody>
+      <tr><td class="m">bo09</td><td class="n">0.249 / 0.265</td><td class="n">0.249 / 0.265</td><td>9 fitted TFs</td><td>masked</td><td class="n">0–48</td><td>converged</td></tr>
+      <tr><td class="m">bu01</td><td class="n">0.249 / 0.265</td><td class="n bad">0.08</td><td>all 153</td><td>live</td><td class="n">0–11</td><td>converged</td></tr>
+      <tr><td class="m">bv75</td><td class="n">0.249 / 0.265</td><td class="n bad">0.08</td><td>75 with a MacIsaac target</td><td>masked</td><td class="n">0–49</td><td>50-round limit</td></tr>
+    </tbody>
+  </table></div>
+  <p>bu01 and bv75 also lowered the default footprint to 0.08, so a bound TF reads as
+  <em>protected</em>. Before, it sat 1.8× above background. <strong>bv75 differs from bu01 only
+  in which motifs are live.</strong></p>
+  <p class="note">All three: fiber + sequence, tuned on chrXIV + chrII, chrIV held out, no retrain (the
+  fiber parameter files are read at decode time). The 9 fitted TFs in bo09: Abf1, Cin5, Fhl1, Fkh1,
+  Mcm1, Rap1, Reb1, Sko1, Ume6.</p>
+</div></section>
+
+<!-- ===================== NEW 2: results ===================== -->
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Tuning campaigns · results</p>
+  <h2>Counts converge, site accuracy does not</h2>
+  <p>Each round sets every TF's concentration so its call count meets its MacIsaac site count. First
+  round → last round, chrXIV + chrII, scored against MacIsaac:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Campaign</th><th class="n">TFs within 2× of target</th><th class="n">Calls</th><th class="n">Calls on a site</th><th class="n">F1</th><th class="n">F1, held-out chrIV</th></tr></thead>
+    <tbody>
+      <tr><td class="m">bo09</td><td class="n">0/9 → <span class="ok">9/9</span></td><td class="n">14,228 → 396</td><td class="n">117 → 17</td><td class="n">0.016 → 0.052</td><td class="n">0.015 → 0.039</td></tr>
+      <tr><td class="m">bu01</td><td class="n">17/55 → <span class="ok">55/55</span></td><td class="n">35,358 → 28,840</td><td class="n">154 → 98</td><td class="n">0.008 → 0.006</td><td class="n">0.006 → 0.004</td></tr>
+      <tr><td class="m">bv75</td><td class="n">11/55 → <span class="ok">51/55</span></td><td class="n">39,743 → 6,308</td><td class="n">221 → 57</td><td class="n">0.011 → 0.014</td><td class="n">0.009 → 0.011</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">ABF1 at the last round (58 MacIsaac sites; 44 held out)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Campaign</th><th class="n">Concentration λ</th><th class="n">Calls</th><th class="n">On a site</th><th class="n">F1</th><th class="n">F1, held out</th></tr></thead>
+    <tbody>
+      <tr><td class="m">bo09</td><td class="n">5.8 × 10<sup>-45</sup></td><td class="n">87</td><td class="n">9</td><td class="n">0.124</td><td class="n">0.064</td></tr>
+      <tr><td class="m">bu01</td><td class="n">139</td><td class="n">101</td><td class="n">10</td><td class="n">0.126</td><td class="n">0.114</td></tr>
+      <tr><td class="m">bv75</td><td class="n">2.5 × 10<sup>-22</sup></td><td class="n">126</td><td class="n">11</td><td class="n">0.120</td><td class="n">0.022</td></tr>
+    </tbody>
+  </table></div>
+  <p>ABF1's concentration differs by about 10<sup>46</sup> between bo09 and bu01, yet F1 lands in the
+  same place. <strong>One warning sign:</strong> at bo09's last round the counter dropped
+  <strong>7,138 positions</strong> (6,671 on chrXIV, 467 on chrII) because their posterior was
+  outside [0, 1]. bu01 dropped none; bv75 dropped 50.</p>
+  <p class="note">"Within 2×": tuned TFs with at least 5 MacIsaac sites. bu01 scores 150 groups and
+  tunes 75. A call matches a site within 30 bp. Source: <span class="m">conc_tuning/&lt;run&gt;/validation.tsv</span>,
+  <span class="m">validation_groups.tsv</span>, last <span class="m">report_NN.tsv</span>.</p>
+</div></section>
+
+<!-- ===================== NEW 3: different ABF1 sites ===================== -->
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Same F1, different sites</p>
+  <h2>bo09 and bu01 call almost entirely different ABF1 sites</h2>
+  <p>ABF1 calls with posterior ≥ 0.5 on chrXIV, chrII and chrIV: <strong>bo09 99, bu01 88, shared 3.</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th></th><th class="n">bo09 only · 96</th><th class="n">bu01 only · 85</th></tr></thead>
+    <tbody>
+      <tr class="key"><td>At least 12 of the 14 bases are A or T</td><td class="n bad">71 (74%)</td><td class="n">0</td></tr>
+      <tr><td>ABF1 motif score, median (bits)</td><td class="n bad">−14.4</td><td class="n ok">+5.6</td></tr>
+      <tr><td>Fiber evidence vs background, median (nats)</td><td class="n">158</td><td class="n">56</td></tr>
+      <tr><td>m6A fraction over the 14 bp, median</td><td class="n">0.035</td><td class="n">0.091</td></tr>
+    </tbody>
+  </table></div>
+  <p>With λ = 5.8 × 10<sup>-45</sup>, bo09's ABF1 can only fire where protection is overwhelming.
+  The fiber emission scores <strong>only A (Watson) and T (Crick)</strong>, so a poly-dA:dT tract gives
+  14 scorable bases out of 14, and those tracts carry little m6A. bo09's ABF1 became a
+  poly-A/T detector.</p>
+  <p class="note">Source: <span class="m">analysis/abf1_bo09_bu01_calls.tsv</span> (184 rows); A/T-only emission at
+  <span class="m">robocop.py:792</span>.</p>
+</div></section>
+
+<!-- ===================== NEW 4: RPC19 locus ===================== -->
+<section class="slide"><div class="wrap wide">
+  <p class="eyebrow">One locus up close · RPC19, chrXIV</p>
+  <h2>bo09 puts ABF1 on a 26 bp poly-T</h2>
+  <p>bo09 calls ABF1 at the MacIsaac site, on the poly-T at 413,461–413,474, and just before it at
+  413,418–413,431 (12 of 14 bases A or T). bu01 calls nothing here.</p>
+  <div class="locus">
+    <div class="legend">
+      <span><span class="lk ln" style="border-color:#17ef13"></span>ABF1 posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>MacIsaac ABF1 site</span>
+      <span><span class="lk rossi"></span>Rossi ABF1 summit</span>
+      <span><span class="lk dot" style="background:var(--wat)"></span>m6A Watson</span>
+      <span><span class="lk dot" style="background:var(--cri)"></span>m6A Crick</span>
+      <span><span class="lk dash"></span>background 0.249</span>
+      <span><span class="lk tract"></span>A or T run ≥ 10 bp</span>
+    </div>
+    <div class="trk" data-locus="locus-rpc19" role="img" aria-label="chrXIV 412,201 to 414,200. ABF1 posterior and nucleosome occupancy for bo09 round 48 and bu01 round 11, m6A per A, A/T runs, genes YNL114C, RPC19 and DBP2. bo09 calls ABF1 at 412,619 to 412,632, 413,418 to 413,431 and 413,461 to 413,474; bu01 calls none.">
+      <div class="trk-sites"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>bo09_48</span><span class="rd">9 TFs live</span></div>
+      <canvas data-trk="post" data-run="bo09_48" data-h="86"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>bu01_11</span><span class="rd">153 TFs live</span></div>
+      <canvas data-trk="post" data-run="bu01_11" data-h="86"></canvas>
+      <div class="trk-lab"><span class="rn">m6A per A</span><span class="rd">same reads</span></div>
+      <canvas data-trk="meth" data-h="86"></canvas>
+      <div class="trk-lab"><span class="rn">A/T runs</span></div>
+      <canvas data-trk="tract" data-h="24"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="48"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="24"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+    <p class="lfoot">chrXIV:412,201–414,200. Posterior read with <span class="m">score_robocop.region_optable</span>,
+    normalised per position, never clipped. Chip: hit if bo09's ABF1 posterior reaches ≥ 0.10 within ±20 bp
+    of the site. Site from MacIsaac c1 (merged, 20 bp slop).</p>
+  </div>
+  <div class="chain">
+    <span><b>1 · This looked wrong</b>Our viewer showed ABF1 at 0.50 on the poly-A at 412,655, where it is really 0.00004.</span>
+    <i>→</i>
+    <span><b>2 · Checked the plotting</b>The posterior's row sum there was 1.03 × 10<sup>13</sup>, not 1. The plot only clipped it.</span>
+    <i>→</i>
+    <span><b>3 · Found the bug</b>The decoder never normalises the posterior per position.</span>
+  </div>
+</div></section>
+
+<!-- ===================== existing slides 2-12, unchanged ===================== -->
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Background</p>
+  <h2>What posterior decoding computes</h2>
+  <p>At every base, we want the probability that the genome is in each hidden state, given
+  <em>all</em> the data — not just the data to the left.</p>
+  <div class="grid2">
+    <div class="card"><h3>Forward · α</h3><p>Probability of everything seen up to position
+      <span class="m">t</span>, ending in state <span class="m">i</span>.</p></div>
+    <div class="card"><h3>Backward · β</h3><p>Probability of everything after position
+      <span class="m">t</span>, given you start in state <span class="m">i</span>.</p></div>
+  </div>
+  <div class="formula">γ<sub>t</sub>(i)  =  α<sub>t</sub>(i) · β<sub>t</sub>(i)  /  Σ<sub>j</sub> α<sub>t</sub>(j) · β<sub>t</sub>(j)</div>
+  <p><strong>γ is what we plot and score.</strong> "ABF1 bound here with probability 0.95" is a γ
+  value. By construction it sums to 1 across states at every position.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">The classic problem</p>
+  <h2>α and β underflow</h2>
+  <p>Each step multiplies by more probabilities, all below 1. After a few hundred positions the
+  numbers fall below what a double can hold and become exactly zero.</p>
+  <div class="formula">α after 500 positions  ≈  10<sup>-400</sup>   →   0.0 in double precision
+<span style="color:var(--ink-3)">double precision bottoms out at 4.9 × 10<sup>-324</sup></span></div>
+  <p>Every HMM implementation has to deal with this. <strong>It is underflow, not overflow</strong>
+  — and RoboCOP does handle it.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">The two standard cures</p>
+  <h2>Scaling, or logs</h2>
+  <div class="grid2">
+    <div class="card flag"><h3>1 · Scaling &nbsp;<span class="m">← RoboCOP</span></h3>
+      <p>After each step, divide the row by its sum so it adds to 1. Remember the divisor. The
+      numbers stay near 1, and you undo the scaling at the end.</p></div>
+    <div class="card"><h3>2 · Log space</h3>
+      <p>Store logarithms and add instead of multiplying. Nothing ever underflows, and there is
+      nothing to undo.</p></div>
+  </div>
+  <p>RoboCOP uses scaling — <span class="m">normalize()</span> in <span class="m">algo.c</span>,
+  applied to the forward table and the backward table.</p>
+  <p><strong>The bug is not in the scaling. It is in the undo.</strong></p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Why the textbook form is safe</p>
+  <h2>The scale factors cancel</h2>
+  <p>Suppose we scaled the forward row by any number <span class="m">A</span> and the backward row
+  by any number <span class="m">B</span>:</p>
+  <div class="formula">α̂ = α / A        β̂ = β / B
+
+α̂·β̂ /  Σ α̂·β̂   =   (α·β / AB)  /  (Σ α·β / AB)   =   α·β / Σ α·β   =   γ</div>
+  <p><strong>A and B cancel exactly, whatever they were.</strong> Dividing each position by its own
+  row sum gives the right answer without ever needing to know the scale factors.</p>
+  <p>This is an identity, not an approximation.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Worked example</p>
+  <h2>Two states, simple numbers</h2>
+  <p>Say the true (unscaled) α·β at one position is 0.3 and 0.1.</p>
+  <div class="tw"><table>
+    <thead><tr><th></th><th class="n">State 1</th><th class="n">State 2</th><th class="n">Sum</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>True α·β</td><td class="n">0.3</td><td class="n">0.1</td><td class="n">0.4</td><td></td></tr>
+      <tr class="key"><td>Correct γ (÷ sum)</td><td class="n">0.75</td><td class="n">0.25</td><td class="n">1.00</td><td></td></tr>
+      <tr><td>What we store (drift ×1000)</td><td class="n">300</td><td class="n">100</td><td class="n">400</td><td></td></tr>
+      <tr><td>÷ row sum</td><td class="n ok">0.75</td><td class="n ok">0.25</td><td class="n">1.00</td><td class="ok">recovered exactly</td></tr>
+      <tr><td>Clip to [0,1]</td><td class="n bad">1.00</td><td class="n bad">1.00</td><td class="n">—</td><td class="bad">both now certain</td></tr>
+      <tr><td>Drop the position</td><td class="n bad">—</td><td class="n bad">—</td><td class="n">—</td><td class="bad">a real call is lost</td></tr>
+    </tbody>
+  </table></div>
+  <p>The drift scales <em>every</em> entry by the same factor, so the shape survives.
+  <strong>Dividing by the row sum is the only one of the three that recovers it.</strong></p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">What our code does</p>
+  <h2>It rebuilds the scale instead of cancelling it</h2>
+  <p>Rather than dividing by the row sum, RoboCOP reconstructs the undo factor by multiplying
+  ratios along the whole segment:</p>
+  <pre><span class="c">/* algo.c — calc_sr */</span>
+sr[len-1] = 1;
+for (i = len-1; i &gt; 0; i--) {
+    sr[i-1] = sr[i] * (sb[i] / sf[i]);          <span class="c">← 5,000 multiplications</span>
+<span class="hl">//  if (isinf(sr[i-1])) sr[i-1] = DBL_MAX;      ← guard, commented out</span>
+<span class="hl">//  sr[i-1] = sr[i] + log(sb[i]) - log(sf[i]);  ← log version, abandoned</span>
+}</pre>
+  <p>Then <span class="m">posterior = (sb·β) · (sr·α)</span>, with no normalisation anywhere.</p>
+  <p><strong>One bad ratio contaminates every position upstream of it.</strong> Note
+  <span class="m">sr</span> is declared <span class="m">long double</span> while everything else is
+  <span class="m">double</span> — the type was widened on purpose to delay this.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">What it looks like in our data</p>
+  <h2>One bad ratio, 1,407 poisoned positions</h2>
+  <p>Row sums from a single segment of chrXIV in the <span class="m">bo09</span> decode:</p>
+  <div class="formula">chrXIV 412,001 – 413,407   →   <span style="color:var(--bad)">1.02705 × 10<sup>13</sup></span>   (constant)
+chrXIV 413,408             →   <span style="color:var(--warn)">5.09657 × 10<sup>12</sup></span>
+chrXIV 413,409 onward      →   <span style="color:var(--ok)">1.0</span>   (correct)</div>
+  <p><strong>Three values, one jump.</strong> Not gradual noise — a single constant applied to a
+  whole run of positions, exactly as the <span class="m">sr</span> product predicts. Which is also
+  why dividing by the row sum recovers it perfectly.</p>
+  <p>Across the run: <strong>20 of 400 segments affected, 7,139 positions.</strong> Other campaigns
+  with milder weights: 14 positions, or zero.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">The consequence</p>
+  <h2>Three parts of the pipeline, three different answers</h2>
+  <div class="tw"><table>
+    <thead><tr><th></th><th class="n">ABF1 at 412,625</th><th class="n">Poly-A at 412,655</th></tr></thead>
+    <tbody>
+      <tr class="key"><td>True value</td><td class="n ok">1.000000</td><td class="n ok">0.000037</td></tr>
+      <tr><td><span class="m">score_robocop</span> — uses as-is</td><td class="n bad">1.027 × 10<sup>13</sup></td><td class="n bad">3.84 × 10<sup>8</sup></td></tr>
+      <tr><td><span class="m">write_factor_table</span> — clips</td><td class="n ok">1.000000</td><td class="n bad">→ viewer shows 0.50</td></tr>
+      <tr><td><span class="m">count_calls</span> — drops</td><td class="n bad">excluded</td><td class="n ok">excluded</td></tr>
+    </tbody>
+  </table></div>
+  <p>Clipping happens to be right at the real site and wrong at the poly-A. Dropping is the
+  reverse — and it <strong>throws away a genuine ABF1 call 4 bp from a MacIsaac site</strong>.</p>
+  <p>Every one of these is a patch on a symptom.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Why now</p>
+  <h2>Fiber-seq exercises what MNase never did</h2>
+  <p>A single Fiber-seq emission term, binomial at 67 reads:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Model</th><th class="n">k = 0</th><th class="n">k = 34</th><th class="n">k = 67</th></tr></thead>
+    <tbody>
+      <tr><td>Nucleosome · p = 0.046</td><td class="n">4.2 × 10<sup>-2</sup></td><td class="n">1.3 × 10<sup>-27</sup></td><td class="n bad">3.9 × 10<sup>-90</sup></td></tr>
+      <tr><td>Background · p = 0.249</td><td class="n">4.7 × 10<sup>-9</sup></td><td class="n">3.3 × 10<sup>-6</sup></td><td class="n">3.5 × 10<sup>-41</sup></td></tr>
+    </tbody>
+  </table></div>
+  <p>Two channels multiply at every position: worst case <strong>1.5 × 10<sup>-179</sup></strong>
+  at a single base, against a floating-point floor of 4.9 × 10<sup>-324</sup>.</p>
+  <p>Extreme tuned concentrations widen it further. Upstream, with MNase, only ever saw values
+  <em>slightly</em> above 1 — which is exactly what their code comments say.</p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">Is it a bug, or intended?</p>
+  <h2>The paper says probability</h2>
+  <div class="quote">"RoboCOP performs posterior decoding and yields the probability of each DBF at
+  every position in the genome. The score on the y-axis <strong>is the probability</strong> of that
+  location being bound by a given DBF."
+  <cite>Mitra, Zhong, Tran, MacAlpine &amp; Hartemink · NAR 49:7925 (2021) · Figure 2E</cite></div>
+  <p>Nothing in the paper or supplement says the output may exceed 1, is unnormalised, or is a
+  relative score. And the code carries the authors' own tripwires:</p>
+  <ul>
+    <li>A warning that fires above <span class="m">1.000000001</span> — nine decimal places of tolerance.</li>
+    <li><span class="m">if np.sum(p_table) &gt; 1e10: continue</span> — upstream <strong>discards</strong> exactly our case.</li>
+    <li><span class="m">// some scores are slightly &gt; 1 due to numerical issues</span> — "slightly" is the tell.</li>
+    <li>Plot axes pinned to <span class="m">ylim(0, 1)</span>.</li>
+  </ul>
+  <p><strong>Verdict: a latent upstream defect, and our emissions are what woke it up.</strong></p>
+</div></section>
+
+<section class="slide"><div class="wrap">
+  <p class="eyebrow">The fix</p>
+  <h2>Divide by the row sum</h2>
+  <div class="formula">rs = dp[:, :silent_states_begin].sum(axis=1, keepdims=True)
+dp = dp / rs</div>
+  <p>Three places it can go, and we are testing all three against each other on the same run:</p>
+  <div class="grid2">
+    <div class="card"><h3>A · on read</h3><p>Patch where the posterior is loaded. Fixes every
+      <em>existing</em> decode, no recompile. Temporary.</p></div>
+    <div class="card"><h3>B · in C, on write</h3><p>Same formula where the posterior is produced.
+      Reaches every consumer, including upstream's own plotting.</p></div>
+    <div class="card"><h3>C · log space</h3><p>Finish the rewrite the authors abandoned. Nothing to
+      undo, nothing to drift. The real repair.</p></div>
+  </div>
+  <p>Each on its own branch, each decoding the same <span class="m">bv75</span> run in all three
+  layer configurations. <strong>If the three disagree beyond rounding, the assumption that this is
+  a clean scale factor is wrong</strong> — and that is worth knowing before we trust the retrofit.</p>
+</div></section>
+
+<!-- ===================== NEW 5: the fix works ===================== -->
+<section class="slide"><div class="wrap wide">
+  <p class="eyebrow">Does it work? · decoded 6 October</p>
+  <h2>Fix B vs log space: same at normal coverage, different on rDNA</h2>
+  <p>Same model (bv75 round 49, fiber + sequence), two decoders: <strong>fix B</strong>, the production
+  decoder that normalises per position, and a <strong>full log-space</strong> decoder with exact emissions.</p>
+  <div class="locus">
+    <p class="locus-h">chrXIV:412,201–414,200 · RPC19 again · coverage ≤ 104 reads per A</p>
+    <div class="trk" data-locus="locus-fixXIV" role="img" aria-label="chrXIV 412,201 to 414,200. ABF1 posterior and nucleosome occupancy from fix B and from log space. The two rows are identical; both call ABF1 at 412,621 to 412,634 with posterior 0.65.">
+      <div class="trk-sites"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>fix B</span><span class="rd">production</span></div>
+      <canvas data-trk="post" data-run="B" data-h="64"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>log space</span><span class="rd">exact emissions</span></div>
+      <canvas data-trk="post" data-run="log" data-h="64"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="48"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="24"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+  </div>
+  <div class="locus">
+    <p class="locus-h">chrXII:452,401–454,400 · rDNA array · coverage up to 4,054 reads per A</p>
+    <div class="trk" data-locus="locus-fixXII" role="img" aria-label="chrXII 452,401 to 454,400 in the rDNA array. ABF1 posterior from fix B and from log space. The two rows differ: ABF1 differs by at least 0.05 at 411 of 2,000 positions.">
+      <div class="trk-sites"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>fix B</span><span class="rd">production</span></div>
+      <canvas data-trk="post" data-run="B" data-h="64"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>log space</span><span class="rd">exact emissions</span></div>
+      <canvas data-trk="post" data-run="log" data-h="64"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="48"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="24"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Window</th><th class="n">Largest difference, TF or nucleosome</th><th class="n">Positions differing ≥ 0.05</th></tr></thead>
+    <tbody>
+      <tr><td>chrXIV 396,001–433,000 (37 kb)</td><td class="n ok">3.2 × 10<sup>-13</sup></td><td class="n ok">0</td></tr>
+      <tr><td>chrXII 450,001–471,000 (rDNA, 21 kb)</td><td class="n bad">1.0</td><td class="n bad">7,838 · span 451,519–468,245</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Why rDNA differs:</strong> at thousands of reads the binomial emission underflows to 0, and
+  the code floors it to 10<sup>-30</sup>. That flips the evidence: at 4,379 reads with no m6A, the
+  most-protected state should win by 10<sup>929</sup>; after the floor it loses by 10<sup>17</sup>.
+  Log space computes the emission exactly.</p>
+  <p><strong>Takeaway: where coverage is normal, the two decoders agree. On high-coverage rDNA, only
+  log space is exact.</strong> Neither rDNA row is a believable ABF1 map; the point is that they disagree.</p>
+  <p class="note">Posteriors read with <span class="m">score_robocop.region_optable</span>, never clipped.
+  Decodes <span class="m">robocop_w30k_bv75_49_{Bprod,logfull}_both</span> and
+  <span class="m">robocop_rdna_chrXII_{Bprod,logfull}_both</span>. Positions are counted over all states. Gene RDN37-1 (35S precursor) contains
+  RDN25-1; drawn as one. 4,379 reads and the 10<sup>929</sup> / 10<sup>17</sup> figures:
+  <span class="m">POSTERIOR_FIX_PLAN.md</span>.</p>
+</div></section>
+
+</div>
+
+<div class="bar">
+  <div class="dots" id="dots"></div>
+  <div class="nav">
+    <button id="prev" aria-label="Previous slide">←</button>
+    <button id="next" aria-label="Next slide">→</button>
+  </div>
+  <div class="count" id="count">1 / 17</div>
+</div>
+</div>
+
+<script type="application/json" id="locus-rpc19">%%RPC19%%</script>
+<script type="application/json" id="locus-fixXIV">%%FIXXIV%%</script>
+<script type="application/json" id="locus-fixXII">%%FIXXII%%</script>
+
+<script>
+/* ---------- locus panels: adapted from presentation/templates/locus_slide/locus_slide_snippet.html ----------
+   Posteriors stored as round(p*1000). Adds a "tract" track (A/T homopolymer runs) and draws only
+   the visible slide, since hidden slides have no width. */
+var TRK_GUT = 46, TRK_RPAD = 8;
+function trkTicks(span, target){
+  var raw = span/target, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  var ms = [1,2,5,10];
+  for (var k=0;k<ms.length;k++) if (raw <= ms[k]*mag) return ms[k]*mag;
+  return 10*mag;
+}
+function trkFmt(v){ return v.toLocaleString("en-US"); }
+var LOCUS_DATA = {};
+function locusData(id){
+  if (!(id in LOCUS_DATA)){
+    try { LOCUS_DATA[id] = JSON.parse(document.getElementById(id).textContent); } catch(e){ LOCUS_DATA[id] = null; }
+  }
+  return LOCUS_DATA[id];
+}
+function drawLocus(root, T){
+  if (!root || !T) return;
+  var n = T.e - T.s + 1;
+  var call = T.call || {run:"fib+seq", thr:0.10, tol:20};
+  var rs = getComputedStyle(document.documentElement);
+  var tok = function(k){ return rs.getPropertyValue(k).trim(); };
+  var mono = tok("--mono") || "monospace";
+  var labs = root.querySelectorAll(".trk-lab"), cvs = root.querySelectorAll("canvas");
+  root.querySelector(".trk-sites").style.gridArea = "1 / 2 / 2 / 3";
+  var nPost = 0;
+  for (var r=0;r<cvs.length;r++){
+    labs[r].style.gridArea = (r+2)+" / 1 / "+(r+3)+" / 2";
+    cvs[r].style.gridArea = (r+2)+" / 2 / "+(r+3)+" / 3";
+    if (cvs[r].dataset.trk === "post" || cvs[r].dataset.trk === "meth") nPost = r + 1;
+  }
+  var hl = root.querySelector(".trk-hl");
+  hl.style.gridArea = "2 / 2 / "+(nPost+2)+" / 3";
+  var W = Math.max(160, Math.floor(cvs[0].clientWidth || 0));
+  var plotW = Math.max(100, W - TRK_GUT - TRK_RPAD);
+  var ratio = Math.min(4, Math.max(2, 2*(window.devicePixelRatio||1)));
+  var xOf = function(p){ return TRK_GUT + (p - T.s + 0.5)/n*plotW; };
+  var line2 = tok("--rule-2"), line = tok("--rule"), ink3 = tok("--ink-3"), ink2 = tok("--ink-2");
+  var fpx = W < 500 ? 10 : 12;
+
+  function setup(c){
+    var h = +c.dataset.h;
+    c.width = Math.round(W*ratio); c.height = Math.round(h*ratio);
+    var ctx = c.getContext("2d");
+    ctx.setTransform(ratio,0,0,ratio,0,0); ctx.clearRect(0,0,W,h);
+    return {ctx:ctx, h:h};
+  }
+  function gridX(ctx, h){
+    var step = trkTicks(n, 8);
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,h);
+    }
+    ctx.stroke();
+  }
+  function frame(ctx, h){ ctx.strokeStyle = line; ctx.lineWidth = 1; ctx.strokeRect(TRK_GUT+0.5, 0.5, plotW-1, h-1); }
+  function yGrid(ctx, y, labels){
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    [0,0.25,0.5,0.75,1].forEach(function(v){ var yy = Math.round(y(v))+0.5; ctx.moveTo(TRK_GUT,yy); ctx.lineTo(TRK_GUT+plotW,yy); });
+    ctx.stroke();
+    ctx.fillStyle = ink3; ctx.font = fpx + "px " + mono; ctx.textAlign = "right";
+    labels.forEach(function(v){ ctx.fillText(v.toFixed(1), TRK_GUT-5, y(v)+4); });
+  }
+  function pathSeries(ctx, arr, y){
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW));
+        var mn = Infinity, mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v<mn) mn=v; if (v>mx) mx=v; }
+        if (mn === Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        ctx.moveTo(x, y(mn)); ctx.lineTo(x, y(mx === mn ? mn + 1e-6 : mx));
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p), yy = y(arr[p]/1000); if (p===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+    }
+  }
+  function areaSeries(ctx, arr, y){
+    var y0 = y(0), x0 = null, x1 = null;
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW)), mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v>mx) mx=v; }
+        if (mx === -Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+        ctx.lineTo(x, y(mx)); x1 = x;
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p); if (x0 === null){ x0 = xx; ctx.moveTo(xx, y0); } ctx.lineTo(xx, y(arr[p]/1000)); x1 = xx; }
+    }
+    if (x0 === null) return;
+    ctx.lineTo(x1, y0); ctx.closePath();
+  }
+  function drawPost(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, run = T.runs[c.dataset.run];
+    var y = function(v){ return h - 5 - v*(h - 16); };
+    yGrid(ctx, y, [0,1]); gridX(ctx, h);
+    T.sites.forEach(function(st){
+      var a = Math.max(st[0], T.s), b = Math.min(st[1], T.e);
+      var x0 = xOf(a), w = Math.max(2, xOf(b) - x0);
+      ctx.fillStyle = T.colors.ref + "22"; ctx.fillRect(x0, 0, w, h);
+      ctx.fillStyle = T.colors.ref; ctx.fillRect(x0, 0, w, 3);
+    });
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    ctx.fillStyle = T.colors.nuc + "55"; areaSeries(ctx, run.nuc, y); ctx.fill();
+    ctx.strokeStyle = T.colors.nuc; ctx.lineWidth = 1.4; pathSeries(ctx, run.nuc, y); ctx.stroke();
+    ctx.strokeStyle = T.colors.tf; ctx.lineWidth = 2; pathSeries(ctx, run.tf, y); ctx.stroke();
+    if (T.rossi){
+      ctx.fillStyle = tok("--ink");
+      T.rossi.forEach(function(p){ var x = xOf(p); ctx.beginPath(); ctx.moveTo(x-5,0); ctx.lineTo(x+5,0); ctx.lineTo(x,8); ctx.closePath(); ctx.fill(); });
+    }
+    frame(ctx, h);
+  }
+  function drawMeth(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, F = T.fiber;
+    var y = function(v){ return h - 5 - Math.min(v,1)*(h - 16); };
+    yGrid(ctx, y, [0,1]); gridX(ctx, h);
+    var yy = Math.round(y(T.bg)) + 0.5, rc = tok("--bgline");
+    ctx.setLineDash([4,3]); ctx.strokeStyle = rc; ctx.lineWidth = 1.2; ctx.beginPath();
+    ctx.moveTo(TRK_GUT, yy); ctx.lineTo(TRK_GUT+plotW, yy); ctx.stroke(); ctx.setLineDash([]);
+    var rad = n > plotW ? 1.3 : (n > plotW/3 ? 1.7 : 2.6);
+    [["mw","aw",tok("--wat")],["mc","ac",tok("--cri")]].forEach(function(t){
+      ctx.fillStyle = t[2];
+      for (var i=0;i<n;i++){
+        var a = F[t[1]][i]; if (!a) continue;
+        ctx.beginPath(); ctx.arc(xOf(T.s+i), y(F[t[0]][i]/a), rad, 0, 6.2832); ctx.fill();
+      }
+    });
+    frame(ctx, h);
+  }
+  function drawTract(c){
+    var s = setup(c), ctx = s.ctx, h = s.h;
+    gridX(ctx, h);
+    ctx.font = fpx + "px " + mono; ctx.textAlign = "left";
+    (T.tracts || []).forEach(function(t){
+      var x0 = xOf(t[0]) - 0.5, x1 = xOf(t[1]) + 0.5;
+      ctx.fillStyle = ink2; ctx.fillRect(x0, 8, Math.max(3, x1 - x0), 9);
+      ctx.fillText("poly-" + t[2] + " " + (t[1]-t[0]+1) + " bp", x1 + 5, 17);
+    });
+    frame(ctx, h);
+  }
+  function drawGene(c){
+    var s = setup(c), ctx = s.ctx, h = s.h;
+    gridX(ctx, h);
+    ctx.font = fpx + "px " + mono; ctx.textAlign = "left";
+    T.genes.forEach(function(g){
+      var x0 = Math.max(TRK_GUT, xOf(Math.max(g.start, T.s))), x1 = Math.min(TRK_GUT+plotW, xOf(Math.min(g.end, T.e)));
+      var plus = g.strand === "+";
+      ctx.fillStyle = tok(plus ? "--gene-plus" : "--gene-minus");
+      ctx.fillRect(x0, plus ? 15 : 26, Math.max(2, x1 - x0), 8);
+      ctx.fillStyle = ink2;
+      ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(TRK_GUT+3, x0+3), plus ? 12 : 45);
+    });
+    frame(ctx, h);
+  }
+  function drawAxis(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, step = trkTicks(n, W < 500 ? 4 : 8);
+    ctx.strokeStyle = line; ctx.beginPath(); ctx.moveTo(TRK_GUT, 0.5); ctx.lineTo(TRK_GUT+plotW, 0.5); ctx.stroke();
+    ctx.fillStyle = ink2; ctx.font = fpx + "px " + mono; ctx.textAlign = "center";
+    ctx.strokeStyle = ink3; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,5); ctx.fillText(trkFmt(p), x, 18);
+    }
+    ctx.stroke();
+    ctx.textAlign = "left"; ctx.fillStyle = ink3; ctx.fillText(T.chrom, 0, 18);
+  }
+  cvs.forEach(function(c){
+    var k = c.dataset.trk;
+    if (k === "post") drawPost(c); else if (k === "meth") drawMeth(c); else if (k === "tract") drawTract(c);
+    else if (k === "gene") drawGene(c); else drawAxis(c);
+  });
+
+  /* reference sites: band across run rows + chip with the call run's max posterior within +-tol bp */
+  var chips = root.querySelector(".trk-sites"), bands = hl;
+  chips.innerHTML = ""; bands.innerHTML = "";
+  var fs = T.runs[call.run].tf, placed = [];
+  T.sites.forEach(function(st){
+    var mx = 0;
+    for (var p = st[0]-call.tol; p <= st[1]+call.tol; p++){ var i = p - T.s; if (i>=0 && i<n && fs[i] > mx) mx = fs[i]; }
+    mx = mx/1000;
+    var hit = mx >= call.thr;
+    var xa = xOf(st[0]) - 4, xb = xOf(st[1]) + 4, cx = (xa + xb)/2;
+    var band = document.createElement("div"); band.className = "trk-band";
+    band.style.left = xa + "px"; band.style.width = Math.max(10, xb - xa) + "px";
+    bands.appendChild(band);
+    var chip = document.createElement("span"); chip.className = "trk-chip";
+    chip.innerHTML = "<b></b> <i></i>";
+    chip.querySelector("b").textContent = (hit ? "hit" : "miss") + " · " + trkFmt(st[0]) + "–" + trkFmt(st[1]);
+    var txt = "· " + (call.label || call.run) + " " + mx.toFixed(2);
+    (call.also || []).forEach(function(ar){
+      var a2 = T.runs[ar].tf, m2 = 0;
+      for (var p2 = st[0]-call.tol; p2 <= st[1]+call.tol; p2++){ var i2 = p2 - T.s; if (i2>=0 && i2<n && a2[i2] > m2) m2 = a2[i2]; }
+      txt += " · " + ((call.alsoLabel || {})[ar] || ar) + " " + (m2/1000).toFixed(2);
+    });
+    chip.querySelector("i").textContent = txt;
+    chips.appendChild(chip);
+    var cw = chip.offsetWidth || 0;
+    var lo = cw/2 + 2, hi = W - cw/2 - 2;
+    var x = hi > lo ? Math.min(hi, Math.max(lo, cx)) : cx;
+    chip.style.left = x + "px";
+    placed.push({chip:chip, cx:cx, w:cw, x:x});
+  });
+}
+function drawAllLoci(){
+  document.querySelectorAll('#stage .slide.on .trk[data-locus]').forEach(function(root){
+    try { drawLocus(root, locusData(root.dataset.locus)); } catch(e){ if (window.console) console.error(e); }
+  });
+}
+
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dots = document.getElementById('dots');
+  var count = document.getElementById('count');
+  var stage = document.getElementById('stage');
+  var i = 0;
+  slides.forEach(function(_, k){
+    var b = document.createElement('button');
+    b.className = 'dot'; b.type = 'button';
+    b.setAttribute('aria-label', 'Slide ' + (k+1));
+    b.addEventListener('click', function(){ go(k); });
+    dots.appendChild(b);
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+  function go(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function(s, k){ s.classList.toggle('on', k === i); });
+    dotEls.forEach(function(d, k){ d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    count.textContent = (i+1) + ' / ' + slides.length;
+    stage.scrollTop = 0;
+    try { location.hash = 's' + (i+1); } catch(e){}
+    drawAllLoci();
+  }
+  document.getElementById('prev').addEventListener('click', function(){ go(i-1); });
+  document.getElementById('next').addEventListener('click', function(){ go(i+1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { go(i+1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(i-1); e.preventDefault(); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(slides.length-1); }
+  });
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  go(m ? parseInt(m[1],10) - 1 : 0);
+  try {
+    window.addEventListener("resize", drawAllLoci);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAllLoci);
+    if (window.matchMedia){
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (mq.addEventListener) mq.addEventListener("change", drawAllLoci); else if (mq.addListener) mq.addListener(drawAllLoci);
+    }
+    if (window.MutationObserver) new MutationObserver(drawAllLoci).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+  } catch(err){}
+})();
+</script>

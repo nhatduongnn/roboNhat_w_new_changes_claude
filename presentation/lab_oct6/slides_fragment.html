@@ -1,0 +1,661 @@
+<!-- ======================= T TITLE ======================= -->
+<section class="slide title-slide" data-id="T" data-kind="main" data-sec="0" data-steps="1" data-title="Posteriors above one">
+  <p class="eyebrow">Lab meeting · 6 October 2026</p>
+  <h1>Posteriors above one</h1>
+  <p class="sub" style="font-size:32px;max-width:52ch;line-height:1.25">RoboCOP's decoder reports a probability of 1.027&nbsp;×&nbsp;10<sup>13</sup> at some
+  positions. Three parts of our pipeline each cope with that differently, and all three are wrong
+  in at least one case.</p>
+  <div class="ruler" aria-hidden="true"></div>
+  <p class="msg" style="max-width:70ch">What follows: the tuning runs that raised the background emission, the one locus that looked
+  wrong, how posterior decoding is supposed to work and what our code does instead, the fix, and a
+  check that the fix works.</p>
+</section>
+
+<!-- ======================= 1 RAISING THE BACKGROUND ======================= -->
+<section class="slide" data-id="O" data-kind="main" data-sec="0" data-steps="1" data-title="Outline">
+  <span class="slide-no">1</span>
+  <header class="sh">
+    <p class="eyebrow">Outline</p>
+    <h2>Today</h2>
+  </header>
+  <div class="body stack">
+    <ul class="pts" style="font-size:34px;gap:28px">
+      <li>No Q1 and Q5 significance in non-XL data</li>
+      <li>New tuned data on a raised background methylation rate (emission)</li>
+      <li>A bug in the C code</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-id="1" data-kind="main" data-sec="1" data-steps="1" data-title="Raising the background to the open-DNA level">
+  <span class="slide-no">2</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Tuning runs · late September</p>
+    <h2>Raising the background to the open-DNA level</h2>
+    <p class="msg">The background state's m6A rate was fit to <strong>linker DNA beside nucleosomes</strong>: 0.138.
+    We raised it to <strong>0.249 (Watson) / 0.265 (Crick)</strong>, the rate of
+    <span class="m">combined_low_count</span>, the default footprint for TFs with no fitted footprint
+    of their own. Now background means open, unbound DNA.</p>
+  </header>
+  <div class="body stack">
+    <div class="tbl-wrap"><table class="tbl compact">
+      <thead><tr><th>Campaign</th><th class="r">Background m6A</th><th class="r">Default TF footprint</th><th>Motifs live</th><th>"unknown" state</th><th class="r">Rounds</th><th>Stopped</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">bo09</td><td class="n r">0.249 / 0.265</td><td class="n r">0.249 / 0.265</td><td>9 fitted TFs</td><td>masked</td><td class="n r">0–48</td><td>converged</td></tr>
+        <tr><td class="mono">bu01</td><td class="n r">0.249 / 0.265</td><td class="n r bad">0.08</td><td>all 153</td><td>live</td><td class="n r">0–11</td><td>converged</td></tr>
+        <tr><td class="mono">bv75</td><td class="n r">0.249 / 0.265</td><td class="n r bad">0.08</td><td>75 with a MacIsaac target</td><td>masked</td><td class="n r">0–49</td><td>50-round limit</td></tr>
+      </tbody>
+    </table></div>
+    <p>bu01 and bv75 also lowered the default footprint to 0.08, so a bound TF reads as
+    <em>protected</em>. Before, it sat 1.8× above background. <strong>bv75 differs from bu01 only
+    in which motifs are live.</strong></p>
+    <p class="foot txt">All three: fiber + sequence, tuned on chrXIV + chrII, chrIV held out, no retrain (the
+    fiber parameter files are read at decode time). The 9 fitted TFs in bo09: Abf1, Cin5, Fhl1, Fkh1,
+    Mcm1, Rap1, Reb1, Sko1, Ume6.</p>
+  </div>
+</section>
+
+<!-- ======================= 2 RESULTS ======================= -->
+<section class="slide" data-id="2" data-kind="hidden" data-sec="1" data-steps="1" data-title="Counts converge, site accuracy does not">
+  <span class="slide-no">H12</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Tuning runs · results</p>
+    <h2>Counts converge, site accuracy does not</h2>
+    <p class="msg">Each round sets every TF's concentration so its call count meets its MacIsaac site count. First
+    round → last round, chrXIV + chrII, scored against MacIsaac:</p>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <div class="tbl-wrap"><table class="tbl compact" style="font-size:21px">
+      <thead><tr><th>Campaign</th><th class="r">TFs within 2× of target</th><th class="r">Calls</th><th class="r">Calls on a site</th><th class="r">F1</th><th class="r">F1, held-out chrIV</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">bo09</td><td class="n r">0/9 → <span class="ok">9/9</span></td><td class="n r">14,228 → 396</td><td class="n r">117 → 17</td><td class="n r">0.016 → 0.052</td><td class="n r">0.015 → 0.039</td></tr>
+        <tr><td class="mono">bu01</td><td class="n r">17/55 → <span class="ok">55/55</span></td><td class="n r">35,358 → 28,840</td><td class="n r">154 → 98</td><td class="n r">0.008 → 0.006</td><td class="n r">0.006 → 0.004</td></tr>
+        <tr><td class="mono">bv75</td><td class="n r">11/55 → <span class="ok">51/55</span></td><td class="n r">39,743 → 6,308</td><td class="n r">221 → 57</td><td class="n r">0.011 → 0.014</td><td class="n r">0.009 → 0.011</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cols" style="grid-template-columns:1.25fr 1fr;gap:36px;align-items:start">
+      <div>
+        <p class="panel-t">ABF1 at the last round (58 MacIsaac sites; 44 held out)</p>
+        <div class="tbl-wrap"><table class="tbl compact" style="font-size:20px">
+          <thead><tr><th>Campaign</th><th class="r">Concentration λ</th><th class="r">Calls</th><th class="r">On a site</th><th class="r">F1</th><th class="r">F1, held out</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">bo09</td><td class="n r">5.8 × 10<sup>-45</sup></td><td class="n r">87</td><td class="n r">9</td><td class="n r">0.124</td><td class="n r">0.064</td></tr>
+            <tr><td class="mono">bu01</td><td class="n r">139</td><td class="n r">101</td><td class="n r">10</td><td class="n r">0.126</td><td class="n r">0.114</td></tr>
+            <tr><td class="mono">bv75</td><td class="n r">2.5 × 10<sup>-22</sup></td><td class="n r">126</td><td class="n r">11</td><td class="n r">0.120</td><td class="n r">0.022</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="stack" style="font-size:22px;gap:12px">
+        <p>ABF1's concentration differs by about 10<sup>46</sup> between bo09 and bu01, yet F1 lands in the
+        same place.</p>
+        <p class="callout"><span class="lab">One warning sign</span>At bo09's last round the counter dropped
+        <strong>7,138 positions</strong> (6,671 on chrXIV, 467 on chrII) because their posterior was
+        outside [0, 1]. bu01 dropped none; bv75 dropped 50.</p>
+      </div>
+    </div>
+    <p class="foot txt" style="font-size:16px">"Within 2×": tuned TFs with at least 5 MacIsaac sites. bu01 scores 150 groups and
+    tunes 75. A call matches a site within 30 bp. Source: <span class="m">conc_tuning/&lt;run&gt;/validation.tsv</span>,
+    <span class="m">validation_groups.tsv</span>, last <span class="m">report_NN.tsv</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 DIFFERENT ABF1 SITES ======================= -->
+<section class="slide" data-id="3" data-kind="hidden" data-sec="1" data-steps="1" data-title="bo09 and bu01 call almost entirely different ABF1 sites">
+  <span class="slide-no">H13</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Same F1, different sites</p>
+    <h2>bo09 and bu01 call almost entirely different ABF1 sites</h2>
+    <p class="msg">ABF1 calls with posterior ≥ 0.5 on chrXIV, chrII and chrIV: <strong>bo09 99, bu01 88, shared 3.</strong></p>
+  </header>
+  <div class="body stack">
+    <div class="cols" style="grid-template-columns:1.15fr 1fr;gap:44px;align-items:start">
+      <div class="tbl-wrap"><table class="tbl">
+        <thead><tr><th></th><th class="r">bo09 only · 96</th><th class="r">bu01 only · 85</th></tr></thead>
+        <tbody>
+          <tr class="key"><td>At least 12 of the 14 bases are A or T</td><td class="n r bad">71 (74%)</td><td class="n r">0</td></tr>
+          <tr><td>ABF1 motif score, median (bits)</td><td class="n r bad">−14.4</td><td class="n r ok">+5.6</td></tr>
+          <tr><td>Fiber evidence vs background, median (nats)</td><td class="n r">158</td><td class="n r">56</td></tr>
+          <tr><td>m6A fraction over the 14 bp, median</td><td class="n r">0.035</td><td class="n r">0.091</td></tr>
+        </tbody>
+      </table></div>
+      <p>With λ = 5.8 × 10<sup>-45</sup>, bo09's ABF1 can only fire where protection is overwhelming.
+      The fiber emission scores <strong>only A (Watson) and T (Crick)</strong>, so a poly-dA:dT tract gives
+      14 scorable bases out of 14, and those tracts carry little m6A. bo09's ABF1 became a
+      poly-A/T detector.</p>
+    </div>
+    <p class="foot txt">Source: <span class="m">analysis/abf1_bo09_bu01_calls.tsv</span> (184 rows); A/T-only emission at
+    <span class="m">robocop.py:792</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 RPC19 PROMOTER ======================= -->
+<section class="slide" data-id="4" data-kind="main" data-sec="2" data-steps="1" data-title="RPC19 promoter: the known ABF1 site and a poly-A">
+  <span class="slide-no">3</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> One locus up close · RPC19 promoter, chrXIV <span class="tag caveat">As the viewer drew it before the fix · clipped, not normalised</span></p>
+    <h2>RPC19 promoter: the known ABF1 site and a poly-A</h2>
+    <p class="msg">RPC19 is on the + strand and starts at 412,771. At the MacIsaac ABF1 site, bo09 reaches 1.00,
+    bv75 0.65 and bu01 0.00. On the poly-A at 412,654–412,665 the viewer showed bo09 at <strong>0.50</strong>;
+    the corrected value is 0.00002 (fix A, <span class="m">region_optable</span>).</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;gap:8px">
+    <div class="legend" style="font-size:17px">
+      <span><span class="lk ln" style="border-color:#17ef13"></span>ABF1 posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>MacIsaac ABF1 site</span>
+      <span><span class="lk rossi"></span>Rossi ABF1 summit</span>
+      <span><span class="lk dot" style="background:var(--wat)"></span>m6A Watson</span>
+      <span><span class="lk dot" style="background:var(--cri)"></span>m6A Crick</span>
+      <span><span class="lk dash"></span>background 0.249</span>
+      <span><span class="lk tract"></span>A or T run ≥ 10 bp</span>
+    </div>
+    <div class="trk" id="trk4" data-locus="locus-rpc19-up" role="img" aria-label="chrXIV 412,410 to 412,909, the RPC19 promoter and the start of RPC19. ABF1 posterior and nucleosome occupancy for bo09 round 48, bu01 round 11 and bv75 round 49, m6A per A, A/T runs, genes YNL114C and RPC19. Drawn as the viewer did before the fix. On the poly-A at 412,654 to 412,665 bo09 shows ABF1 0.50; the corrected value is 0.00002. At the MacIsaac ABF1 site 412,615 to 412,627 the ABF1 posterior reaches 1.00 in bo09, 0.00 in bu01 and 0.65 in bv75.">
+      <div class="trk-sites"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>bo09_48</span><span class="rd">9 TFs live</span></div>
+      <canvas data-trk="post" data-run="bo09_48" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>bu01_11</span><span class="rd">153 TFs live</span></div>
+      <canvas data-trk="post" data-run="bu01_11" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw c"></span>bv75_49</span><span class="rd">75 TFs live</span></div>
+      <canvas data-trk="post" data-run="bv75_49" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn">m6A per A</span><span class="rd">same reads</span></div>
+      <canvas data-trk="meth" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn">A/T runs</span></div>
+      <canvas data-trk="tract" data-h="26"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="52"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="28"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+    <p class="foot" style="flex-direction:row;flex-wrap:wrap;gap:2px 22px;font-size:15px"><span>chrXIV:412,410–412,909, 500 bp centred on the poly-A (412,654–412,665). Old viewer reader: each run's
+    <span class="m">factor_tables</span> (each segment clipped to [0, 1], not normalised), overlapping segments averaged, as in
+    <span class="m">viewer_site/extract_run.py</span>. At 412,655 bo09's two segments give 0.0 and 1.0, shown as 0.50.
+    Only bo09 differs from the corrected reader here; bu01 and bv75 match it.</span><span>Chip: hit if bo09's ABF1 posterior reaches ≥ 0.10 within ±20 bp
+    of the site; the other runs' maxima follow. Site from MacIsaac c1 (merged, 20 bp slop). Genes: <span class="m">inputs/sacCer3.gtf</span>.</span></p>
+  </div>
+</section>
+
+<!-- ======================= 5 RPC19 DOWNSTREAM ======================= -->
+<section class="slide" data-id="5" data-kind="main" data-sec="2" data-steps="1" data-title="Downstream of RPC19: bo09 puts ABF1 on a 26 bp poly-T">
+  <span class="slide-no">4</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> One locus up close · downstream of RPC19, chrXIV <span class="tag caveat">As the viewer drew it before the fix · clipped, not normalised</span></p>
+    <h2>Downstream of RPC19: bo09 puts ABF1 on a 26 bp poly-T</h2>
+    <p class="msg">bo09 calls ABF1 on the poly-T at 413,461–413,474 and just before it at 413,418–413,431
+    (12 of 14 bases A or T). bu01 and bv75 stay below 0.03 here.</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;gap:8px">
+    <div class="legend" style="font-size:17px">
+      <span><span class="lk ln" style="border-color:#17ef13"></span>ABF1 posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>MacIsaac ABF1 site</span>
+      <span><span class="lk rossi"></span>Rossi ABF1 summit</span>
+      <span><span class="lk dot" style="background:var(--wat)"></span>m6A Watson</span>
+      <span><span class="lk dot" style="background:var(--cri)"></span>m6A Crick</span>
+      <span><span class="lk dash"></span>background 0.249</span>
+      <span><span class="lk tract"></span>A or T run ≥ 10 bp</span>
+    </div>
+    <div class="trk" id="trk5" data-locus="locus-rpc19-down" role="img" aria-label="chrXIV 413,212 to 413,711, downstream of RPC19. ABF1 posterior and nucleosome occupancy for bo09 round 48, bu01 round 11 and bv75 round 49, m6A per A, A/T runs, gene DBP2. bo09 calls ABF1 at 413,418 to 413,431 and 413,461 to 413,474 with posterior 1.00; bu01 peaks at 0.022 and bv75 at 0.002. Drawn as the viewer did before the fix.">
+      <div class="trk-sites" style="height:4px"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>bo09_48</span><span class="rd">9 TFs live</span></div>
+      <canvas data-trk="post" data-run="bo09_48" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>bu01_11</span><span class="rd">153 TFs live</span></div>
+      <canvas data-trk="post" data-run="bu01_11" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw c"></span>bv75_49</span><span class="rd">75 TFs live</span></div>
+      <canvas data-trk="post" data-run="bv75_49" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn">m6A per A</span><span class="rd">same reads</span></div>
+      <canvas data-trk="meth" data-h="62"></canvas>
+      <div class="trk-lab"><span class="rn">A/T runs</span></div>
+      <canvas data-trk="tract" data-h="26"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="52"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="28"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+    <div class="chain">
+      <span><b>1 · This looked wrong</b>Our viewer showed ABF1 at 0.50 on the poly-A at 412,655, where it is really 0.00004.</span>
+      <i>→</i>
+      <span><b>2 · Checked the plotting</b>The posterior's row sum there was 1.03 × 10<sup>13</sup>, not 1. The plot only clipped it.</span>
+      <i>→</i>
+      <span><b>3 · Found the bug</b>The decoder never normalises the posterior per position.</span>
+    </div>
+    <p class="foot txt" style="font-size:15px">chrXIV:413,212–413,711, 500 bp centred on the poly-T (413,449–413,474), past RPC19's end at 413,199. No MacIsaac ABF1 site in this window. Same old viewer reader as the previous slide. The ABF1
+    values match the corrected reader; only bo09's nucleosome track differs, at 413,304–413,315 (1.00 shown, 0.13 corrected).</p>
+  </div>
+</section>
+
+<!-- ======================= 6 SUMMARY: TWO WAYS TO STOP UNDERFLOW ======================= -->
+<section class="slide" data-id="6" data-kind="main" data-sec="3" data-steps="1" data-title="Two ways to stop underflow in the C code">
+  <span class="slide-no">5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> The posterior bug, in short</p>
+    <h2>Two ways to stop underflow in the C code</h2>
+    <p class="msg">α and β are products of thousands of small probabilities. Left alone, they drop below the
+    smallest number a double can hold (4.9 × 10<sup>-324</sup>) and become 0.</p>
+  </header>
+  <div class="body stack" style="gap:18px">
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card flag"><h3>1 · Scaling &nbsp;<span class="m">← RoboCOP</span></h3>
+        <p>Rescale every position so the numbers stay near 1, then undo the scaling at the end.</p></div>
+      <div class="card"><h3>2 · Log space</h3>
+        <p>Store log p and add instead of multiplying. Nothing underflows, and there is nothing to undo.</p></div>
+    </div>
+    <p><strong>Where it went wrong.</strong> Before today's fix, RoboCOP undid the scaling by multiplying
+    about 5,000 ratios along the segment, instead of dividing each position by its row sum. A leftover
+    factor stayed in the stored posterior: in bo09, rows over chrXIV 412,001–413,407 summed to
+    <span class="bad">1.03 × 10<sup>13</sup></span>, not 1. The viewer then clipped each value to [0, 1],
+    which drew the 0.50 on slide 3.</p>
+    <div class="formula" style="font-size:21px;padding:12px 20px">sr[i-1] = sr[i] * (sb[i] / sf[i]);   <span style="color:var(--muted)">← algo.c calc_sr: ~5,000 multiplications, no per-position normalisation</span></div>
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card"><h3>Fix B · production</h3><p>Divide each position by its row sum. Now in
+        <span class="m">librobocop.so</span>.</p></div>
+      <div class="card"><h3>Log space · reference</h3><p>Exact, including the emissions. Compared with fix B on
+        slides 7–9.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7 SUMMARY: WORKED EXAMPLE ======================= -->
+<section class="slide" data-id="7" data-kind="main" data-sec="3" data-steps="1" data-title="Two states, simple numbers">
+  <span class="slide-no">6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Worked example</p>
+    <h2>Two states, simple numbers</h2>
+    <p class="msg">Say the true (unscaled) α·β at one position is 0.3 and 0.1.</p>
+  </header>
+  <div class="body stack">
+    <div class="tbl-wrap"><table class="tbl compact">
+      <thead><tr><th></th><th class="r">State 1</th><th class="r">State 2</th><th class="r">Sum</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>True α·β</td><td class="n r">0.3</td><td class="n r">0.1</td><td class="n r">0.4</td><td></td></tr>
+        <tr class="key"><td>Correct γ (÷ sum)</td><td class="n r">0.75</td><td class="n r">0.25</td><td class="n r">1.00</td><td></td></tr>
+        <tr><td>What we store (drift ×1000)</td><td class="n r">300</td><td class="n r">100</td><td class="n r">400</td><td></td></tr>
+        <tr><td>÷ row sum</td><td class="n r ok">0.75</td><td class="n r ok">0.25</td><td class="n r">1.00</td><td class="ok">recovered exactly</td></tr>
+      </tbody>
+    </table></div>
+    <p class="callout"><span class="lab">What the ×1000 means</span>0.3 and 0.1 are two states at the same position,
+    not multiplied together. ×1000 stands for the leftover scale factor, which is the same for every state at that
+    position. Real ones reached about 10<sup>13</sup>.</p>
+    <p><strong>Dividing by the row sum recovers the answer exactly — that is fix B.</strong></p>
+  </div>
+</section>
+
+<!-- ======================= H1 (hidden) WHAT POSTERIOR DECODING COMPUTES ======================= -->
+<section class="slide" data-id="H1" data-kind="hidden" data-sec="3" data-steps="1" data-title="What posterior decoding computes">
+  <span class="slide-no">H1</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Background</p>
+    <h2>What posterior decoding computes</h2>
+    <p class="msg">At every base, we want the probability that the genome is in each hidden state, given
+    <em>all</em> the data — not just the data to the left.</p>
+  </header>
+  <div class="body stack">
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card"><h3>Forward · α</h3><p>Probability of everything seen up to position
+        <span class="m">t</span>, ending in state <span class="m">i</span>.</p></div>
+      <div class="card"><h3>Backward · β</h3><p>Probability of everything after position
+        <span class="m">t</span>, given you start in state <span class="m">i</span>.</p></div>
+    </div>
+    <div class="formula">γ<sub>t</sub>(i)  =  α<sub>t</sub>(i) · β<sub>t</sub>(i)  /  Σ<sub>j</sub> α<sub>t</sub>(j) · β<sub>t</sub>(j)</div>
+    <p><strong>γ is what we plot and score.</strong> "ABF1 bound here with probability 0.95" is a γ
+    value. By construction it sums to 1 across states at every position.</p>
+  </div>
+</section>
+
+<!-- ======================= H2 (hidden) UNDERFLOW ======================= -->
+<section class="slide" data-id="H2" data-kind="hidden" data-sec="3" data-steps="1" data-title="α and β underflow">
+  <span class="slide-no">H2</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> The classic problem</p>
+    <h2>α and β underflow</h2>
+    <p class="msg">Each step multiplies by more probabilities, all below 1. After a few hundred positions the
+    numbers fall below what a double can hold and become exactly zero.</p>
+  </header>
+  <div class="body stack">
+    <div class="formula">α after 500 positions  ≈  10<sup>-400</sup>   →   0.0 in double precision
+<span style="color:var(--muted)">double precision bottoms out at 4.9 × 10<sup>-324</sup></span></div>
+    <p>Every HMM implementation has to deal with this. <strong>It is underflow, not overflow</strong>
+    — and RoboCOP does handle it.</p>
+  </div>
+</section>
+
+<!-- ======================= H3 (hidden) SCALING OR LOGS ======================= -->
+<section class="slide" data-id="H3" data-kind="hidden" data-sec="3" data-steps="1" data-title="Scaling, or logs">
+  <span class="slide-no">H3</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> The two standard cures</p>
+    <h2>Scaling, or logs</h2>
+  </header>
+  <div class="body stack">
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card flag"><h3>1 · Scaling &nbsp;<span class="m">← RoboCOP</span></h3>
+        <p>After each step, divide the row by its sum so it adds to 1. Remember the divisor. The
+        numbers stay near 1, and you undo the scaling at the end.</p></div>
+      <div class="card"><h3>2 · Log space</h3>
+        <p>Store logarithms and add instead of multiplying. Nothing ever underflows, and there is
+        nothing to undo.</p></div>
+    </div>
+    <p>RoboCOP uses scaling — <span class="m">normalize()</span> in <span class="m">algo.c</span>,
+    applied to the forward table and the backward table.</p>
+    <p><strong>The bug is not in the scaling. It is in the undo.</strong></p>
+  </div>
+</section>
+
+<!-- ======================= H4 (hidden) SCALE FACTORS CANCEL ======================= -->
+<section class="slide" data-id="H4" data-kind="hidden" data-sec="3" data-steps="1" data-title="The scale factors cancel">
+  <span class="slide-no">H4</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Why the textbook form is safe</p>
+    <h2>The scale factors cancel</h2>
+    <p class="msg">Suppose we scaled the forward row by any number <span class="m">A</span> and the backward row
+    by any number <span class="m">B</span>:</p>
+  </header>
+  <div class="body stack">
+    <div class="formula">α̂ = α / A        β̂ = β / B
+
+α̂·β̂ /  Σ α̂·β̂   =   (α·β / AB)  /  (Σ α·β / AB)   =   α·β / Σ α·β   =   γ</div>
+    <p><strong>A and B cancel exactly, whatever they were.</strong> Dividing each position by its own
+    row sum gives the right answer without ever needing to know the scale factors.</p>
+    <p>This is an identity, not an approximation.</p>
+  </div>
+</section>
+
+<!-- ======================= H5 (hidden) WORKED EXAMPLE ======================= -->
+<section class="slide" data-id="H5" data-kind="hidden" data-sec="3" data-steps="1" data-title="Two states, simple numbers">
+  <span class="slide-no">H5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Worked example</p>
+    <h2>Two states, simple numbers</h2>
+    <p class="msg">Say the true (unscaled) α·β at one position is 0.3 and 0.1.</p>
+  </header>
+  <div class="body stack">
+    <div class="tbl-wrap"><table class="tbl compact">
+      <thead><tr><th></th><th class="r">State 1</th><th class="r">State 2</th><th class="r">Sum</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>True α·β</td><td class="n r">0.3</td><td class="n r">0.1</td><td class="n r">0.4</td><td></td></tr>
+        <tr class="key"><td>Correct γ (÷ sum)</td><td class="n r">0.75</td><td class="n r">0.25</td><td class="n r">1.00</td><td></td></tr>
+        <tr><td>What we store (drift ×1000)</td><td class="n r">300</td><td class="n r">100</td><td class="n r">400</td><td></td></tr>
+        <tr><td>÷ row sum</td><td class="n r ok">0.75</td><td class="n r ok">0.25</td><td class="n r">1.00</td><td class="ok">recovered exactly</td></tr>
+        <tr><td>Clip to [0,1]</td><td class="n r bad">1.00</td><td class="n r bad">1.00</td><td class="n r">—</td><td class="bad">both now certain</td></tr>
+        <tr><td>Drop the position</td><td class="n r bad">—</td><td class="n r bad">—</td><td class="n r">—</td><td class="bad">a real call is lost</td></tr>
+      </tbody>
+    </table></div>
+    <p>The drift scales <em>every</em> entry by the same factor, so the shape survives.
+    <strong>Dividing by the row sum is the only one of the three that recovers it.</strong></p>
+  </div>
+</section>
+
+<!-- ======================= H6 (hidden) WHAT OUR CODE DOES ======================= -->
+<section class="slide" data-id="H6" data-kind="hidden" data-sec="3" data-steps="1" data-title="It rebuilds the scale instead of cancelling it">
+  <span class="slide-no">H6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> What our code does</p>
+    <h2>It rebuilds the scale instead of cancelling it</h2>
+    <p class="msg">Rather than dividing by the row sum, RoboCOP reconstructs the undo factor by multiplying
+    ratios along the whole segment:</p>
+  </header>
+  <div class="body stack">
+    <pre><span class="c">/* algo.c — calc_sr */</span>
+sr[len-1] = 1;
+for (i = len-1; i &gt; 0; i--) {
+    sr[i-1] = sr[i] * (sb[i] / sf[i]);          <span class="c">← 5,000 multiplications</span>
+<span class="hl">//  if (isinf(sr[i-1])) sr[i-1] = DBL_MAX;      ← guard, commented out</span>
+<span class="hl">//  sr[i-1] = sr[i] + log(sb[i]) - log(sf[i]);  ← log version, abandoned</span>
+}</pre>
+    <p>Then <span class="m">posterior = (sb·β) · (sr·α)</span>, with no normalisation anywhere.</p>
+    <p><strong>One bad ratio contaminates every position upstream of it.</strong> Note
+    <span class="m">sr</span> is declared <span class="m">long double</span> while everything else is
+    <span class="m">double</span> — the type was widened on purpose to delay this.</p>
+  </div>
+</section>
+
+<!-- ======================= H7 (hidden) ONE BAD RATIO ======================= -->
+<section class="slide" data-id="H7" data-kind="hidden" data-sec="3" data-steps="1" data-title="One bad ratio, 1,407 poisoned positions">
+  <span class="slide-no">H7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> What it looks like in our data</p>
+    <h2>One bad ratio, 1,407 poisoned positions</h2>
+    <p class="msg">Row sums from a single segment of chrXIV in the <span class="m">bo09</span> decode:</p>
+  </header>
+  <div class="body stack">
+    <div class="formula">chrXIV 412,001 – 413,407   →   <span class="bad">1.02705 × 10<sup>13</sup></span>   (constant)
+chrXIV 413,408             →   <span class="warnc">5.09657 × 10<sup>12</sup></span>
+chrXIV 413,409 onward      →   <span class="ok">1.0</span>   (correct)</div>
+    <p><strong>Three values, one jump.</strong> Not gradual noise — a single constant applied to a
+    whole run of positions, exactly as the <span class="m">sr</span> product predicts. Which is also
+    why dividing by the row sum recovers it perfectly.</p>
+    <p>Across the run: <strong>20 of 400 segments affected, 7,139 positions.</strong> Other campaigns
+    with milder weights: 14 positions, or zero.</p>
+  </div>
+</section>
+
+<!-- ======================= H8 (hidden) CONSEQUENCE ======================= -->
+<section class="slide" data-id="H8" data-kind="hidden" data-sec="3" data-steps="1" data-title="Three parts of the pipeline, three different answers">
+  <span class="slide-no">H8</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> The consequence</p>
+    <h2>Three parts of the pipeline, three different answers</h2>
+  </header>
+  <div class="body stack">
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th></th><th class="r">ABF1 at 412,625</th><th class="r">Poly-A at 412,655</th></tr></thead>
+      <tbody>
+        <tr class="key"><td>True value</td><td class="n r ok">1.000000</td><td class="n r ok">0.000037</td></tr>
+        <tr><td><span class="m">score_robocop</span> — uses as-is</td><td class="n r bad">1.027 × 10<sup>13</sup></td><td class="n r bad">3.84 × 10<sup>8</sup></td></tr>
+        <tr><td><span class="m">write_factor_table</span> — clips</td><td class="n r ok">1.000000</td><td class="n r bad">→ viewer shows 0.50</td></tr>
+        <tr><td><span class="m">count_calls</span> — drops</td><td class="n r bad">excluded</td><td class="n r ok">excluded</td></tr>
+      </tbody>
+    </table></div>
+    <p>Clipping happens to be right at the real site and wrong at the poly-A. Dropping is the
+    reverse — and it <strong>throws away a genuine ABF1 call 4 bp from a MacIsaac site</strong>.</p>
+    <p>Every one of these is a patch on a symptom.</p>
+  </div>
+</section>
+
+<!-- ======================= H9 (hidden) WHY NOW ======================= -->
+<section class="slide" data-id="H9" data-kind="hidden" data-sec="3" data-steps="1" data-title="Fiber-seq exercises what MNase never did">
+  <span class="slide-no">H9</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Why now</p>
+    <h2>Fiber-seq exercises what MNase never did</h2>
+    <p class="msg">A single Fiber-seq emission term, binomial at 67 reads:</p>
+  </header>
+  <div class="body stack">
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Model</th><th class="r">k = 0</th><th class="r">k = 34</th><th class="r">k = 67</th></tr></thead>
+      <tbody>
+        <tr><td>Nucleosome · p = 0.046</td><td class="n r">4.2 × 10<sup>-2</sup></td><td class="n r">1.3 × 10<sup>-27</sup></td><td class="n r bad">3.9 × 10<sup>-90</sup></td></tr>
+        <tr><td>Background · p = 0.249</td><td class="n r">4.7 × 10<sup>-9</sup></td><td class="n r">3.3 × 10<sup>-6</sup></td><td class="n r">3.5 × 10<sup>-41</sup></td></tr>
+      </tbody>
+    </table></div>
+    <p>Two channels multiply at every position: worst case <strong>1.5 × 10<sup>-179</sup></strong>
+    at a single base, against a floating-point floor of 4.9 × 10<sup>-324</sup>.</p>
+    <p>Extreme tuned concentrations widen it further. Upstream, with MNase, only ever saw values
+    <em>slightly</em> above 1 — which is exactly what their code comments say.</p>
+  </div>
+</section>
+
+<!-- ======================= H10 (hidden) THE PAPER SAYS PROBABILITY ======================= -->
+<section class="slide" data-id="H10" data-kind="hidden" data-sec="3" data-steps="1" data-title="The paper says probability">
+  <span class="slide-no">H10</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Is it a bug, or intended?</p>
+    <h2>The paper says probability</h2>
+  </header>
+  <div class="body stack">
+    <div class="cols" style="grid-template-columns:1fr 1.1fr;gap:44px;align-items:start">
+      <div class="quote">"RoboCOP performs posterior decoding and yields the probability of each DBF at
+      every position in the genome. The score on the y-axis <strong>is the probability</strong> of that
+      location being bound by a given DBF."
+      <cite>Mitra, Zhong, Tran, MacAlpine &amp; Hartemink · NAR 49:7925 (2021) · Figure 2E</cite></div>
+      <div class="stack" style="gap:14px">
+        <p>Nothing in the paper or supplement says the output may exceed 1, is unnormalised, or is a
+        relative score. And the code carries the authors' own tripwires:</p>
+        <ul class="pts" style="gap:10px;font-size:24px">
+          <li>A warning that fires above <span class="m">1.000000001</span> — nine decimal places of tolerance.</li>
+          <li><span class="m">if np.sum(p_table) &gt; 1e10: continue</span> — upstream <strong>discards</strong> exactly our case.</li>
+          <li><span class="m">// some scores are slightly &gt; 1 due to numerical issues</span> — "slightly" is the tell.</li>
+          <li>Plot axes pinned to <span class="m">ylim(0, 1)</span>.</li>
+        </ul>
+      </div>
+    </div>
+    <p><strong>Verdict: a latent upstream defect, and our emissions are what woke it up.</strong></p>
+  </div>
+</section>
+
+<!-- ======================= H11 (hidden) THE FIX ======================= -->
+<section class="slide" data-id="H11" data-kind="hidden" data-sec="4" data-steps="1" data-title="Divide by the row sum">
+  <span class="slide-no">H11</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> The fix</p>
+    <h2>Divide by the row sum</h2>
+  </header>
+  <div class="body stack">
+    <div class="formula">rs = dp[:, :silent_states_begin].sum(axis=1, keepdims=True)
+dp = dp / rs</div>
+    <p>Three places it can go, and we are testing all three against each other on the same run:</p>
+    <div class="cols" style="grid-template-columns:repeat(3,1fr);gap:24px">
+      <div class="card"><h3>A · on read</h3><p>Patch where the posterior is loaded. Fixes every
+        <em>existing</em> decode, no recompile. Temporary.</p></div>
+      <div class="card"><h3>B · in C, on write</h3><p>Same formula where the posterior is produced.
+        Reaches every consumer, including upstream's own plotting.</p></div>
+      <div class="card"><h3>C · log space</h3><p>Finish the rewrite the authors abandoned. Nothing to
+        undo, nothing to drift. The real repair.</p></div>
+    </div>
+    <p>Each on its own branch, each decoding the same <span class="m">bv75</span> run in all three
+    layer configurations. <strong>If the three disagree beyond rounding, the assumption that this is
+    a clean scale factor is wrong</strong> — and that is worth knowing before we trust the retrofit.</p>
+  </div>
+</section>
+
+<!-- ======================= 8 FIX CHECK: RPC19 PROMOTER ======================= -->
+<section class="slide" data-id="8" data-kind="main" data-sec="4" data-steps="1" data-title="Fix B vs log space at the RPC19 promoter: identical">
+  <span class="slide-no">7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> Does it work? · same window as slide 3</p>
+    <h2>Fix B vs log space at the RPC19 promoter: identical</h2>
+    <p class="msg">Same model as the bv75 row on slides 3–4 (bv75 round 49, fiber + sequence), decoded twice:
+    <strong>fix B</strong>, the production decoder that normalises per position, and a
+    <strong>full log-space</strong> decoder with exact emissions.</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;gap:10px">
+    <div class="legend" style="font-size:17px">
+      <span><span class="lk ln" style="border-color:#17ef13"></span>ABF1 posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>MacIsaac ABF1 site</span>
+      <span><span class="lk rossi"></span>Rossi ABF1 summit</span>
+      <span><span class="lk tract"></span>A or T run ≥ 10 bp</span>
+    </div>
+    <div class="trk" id="trk17" data-locus="locus-fixXIVup" role="img" aria-label="chrXIV 412,410 to 412,909, the RPC19 promoter. ABF1 posterior and nucleosome occupancy for the bv75 round 49 model from fix B and from log space. The rows are identical: largest difference 2.1e-14; ABF1 at the MacIsaac site 0.652 in both.">
+      <div class="trk-sites"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>fix B</span><span class="rd">production</span></div>
+      <canvas data-trk="post" data-run="B" data-h="96"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>log space</span><span class="rd">exact emissions</span></div>
+      <canvas data-trk="post" data-run="log" data-h="96"></canvas>
+      <div class="trk-lab"><span class="rn">A/T runs</span></div>
+      <canvas data-trk="tract" data-h="26"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="52"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="28"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+    <div class="emline">
+      <span class="k">chrXIV:412,410–412,909</span>
+      <span class="v">largest difference, any of 160 states <b>2.1 × 10<sup>-14</sup></b></span>
+      <span class="v">ABF1 at the MacIsaac site <b>0.652</b> in both</span>
+      <span class="v">coverage ≤ <b>95</b> reads per A</span>
+    </div>
+    <p class="foot txt" style="font-size:15px">Decodes <span class="m">robocop_w30k_bv75_49_Bprod_both</span> and
+    <span class="m">robocop_w30k_bv75_49_logfull_both</span>, read with <span class="m">score_robocop.region_optable</span>, never clipped.
+    Chip rule as on slide 3. Numbers: <span class="m">presentation/lab_oct6/compare_fix_windows.py</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 9 FIX CHECK: DOWNSTREAM ======================= -->
+<section class="slide" data-id="9" data-kind="main" data-sec="4" data-steps="1" data-title="Fix B vs log space downstream of RPC19: identical">
+  <span class="slide-no">8</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> Does it work? · same window as slide 4</p>
+    <h2>Fix B vs log space downstream of RPC19: identical</h2>
+    <p class="msg">The same bv75 model, both decoders, at the poly-T where bo09 called ABF1. Neither decoder calls ABF1 here.</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;gap:10px">
+    <div class="legend" style="font-size:17px">
+      <span><span class="lk ln" style="border-color:#17ef13"></span>ABF1 posterior</span>
+      <span><span class="lk ar"></span>nucleosome occupancy</span>
+      <span><span class="lk band"></span>MacIsaac ABF1 site</span>
+      <span><span class="lk rossi"></span>Rossi ABF1 summit</span>
+      <span><span class="lk tract"></span>A or T run ≥ 10 bp</span>
+    </div>
+    <div class="trk" id="trk18" data-locus="locus-fixXIVdown" role="img" aria-label="chrXIV 413,212 to 413,711, downstream of RPC19. ABF1 posterior and nucleosome occupancy for the bv75 round 49 model from fix B and from log space. The rows are identical: largest difference 1.9e-14; ABF1 0.000 at 413,418 to 413,431 and 0.002 at 413,461 to 413,474 in both.">
+      <div class="trk-sites" style="height:4px"></div>
+      <div class="trk-lab"><span class="rn"><span class="sw a"></span>fix B</span><span class="rd">production</span></div>
+      <canvas data-trk="post" data-run="B" data-h="96"></canvas>
+      <div class="trk-lab"><span class="rn"><span class="sw b"></span>log space</span><span class="rd">exact emissions</span></div>
+      <canvas data-trk="post" data-run="log" data-h="96"></canvas>
+      <div class="trk-lab"><span class="rn">A/T runs</span></div>
+      <canvas data-trk="tract" data-h="26"></canvas>
+      <div class="trk-lab"><span class="rn">genes</span></div>
+      <canvas data-trk="gene" data-h="52"></canvas>
+      <div class="trk-lab"></div>
+      <canvas data-trk="axis" data-h="28"></canvas>
+      <div class="trk-hl"></div>
+    </div>
+    <div class="emline">
+      <span class="k">chrXIV:413,212–413,711</span>
+      <span class="v">largest difference, any of 160 states <b>1.9 × 10<sup>-14</sup></b></span>
+      <span class="v">ABF1 at 413,418–413,431 <b>0.000</b> · at 413,461–413,474 <b>0.002</b>, both decoders</span>
+      <span class="v">coverage ≤ <b>103</b> reads per A</span>
+    </div>
+    <p class="foot txt" style="font-size:15px">Across the whole decoded chrXIV window, 396,001–433,000 (37 kb): largest difference
+    3.2 × 10<sup>-13</sup>, 0 positions differing by ≥ 0.05. Same decodes and reading as the previous slide.</p>
+  </div>
+</section>
+
+<!-- ======================= 10 FIX CHECK: rDNA ======================= -->
+<section class="slide" data-id="10" data-kind="main" data-sec="4" data-steps="1" data-title="Fix B vs log space: same at normal coverage, different on rDNA">
+  <span class="slide-no">9</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> Does it work? · decoded 6 October</p>
+    <h2 style="font-size:46px">Fix B vs log space: same at normal coverage, different on rDNA</h2>
+  </header>
+  <div class="body" style="display:grid;grid-template-columns:1.45fr 1fr;gap:36px;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+      <p class="panel-t" style="font-size:17px">chrXII:452,401–454,400 · rDNA array · coverage up to 4,054 reads per A · bv75 model</p>
+  <div class="trk" id="trk19" data-locus="locus-fixXII" role="img" aria-label="chrXII 452,401 to 454,400 in the rDNA array. ABF1 posterior from fix B and from log space. The two rows differ: ABF1 differs by at least 0.05 at 411 of 2,000 positions.">
+        <div class="trk-sites" style="height:4px"></div>
+        <div class="trk-lab"><span class="rn"><span class="sw a"></span>fix B</span><span class="rd">production</span></div>
+        <canvas data-trk="post" data-run="B" data-h="110"></canvas>
+        <div class="trk-lab"><span class="rn"><span class="sw b"></span>log space</span><span class="rd">exact emissions</span></div>
+        <canvas data-trk="post" data-run="log" data-h="110"></canvas>
+        <div class="trk-lab"><span class="rn">genes</span></div>
+        <canvas data-trk="gene" data-h="52"></canvas>
+        <div class="trk-lab"></div>
+        <canvas data-trk="axis" data-h="28"></canvas>
+        <div class="trk-hl"></div>
+      </div>
+    </div>
+    <div class="stack" style="font-size:19px;gap:14px;min-width:0;line-height:1.32">
+      <div class="tbl-wrap"><table class="tbl compact" style="font-size:17px">
+        <thead><tr><th>Window</th><th class="r">Largest difference, TF or nucleosome</th><th class="r">Positions differing ≥ 0.05</th></tr></thead>
+        <tbody>
+          <tr><td>chrXIV 396,001–433,000 (37 kb)</td><td class="n r ok">3.2 × 10<sup>-13</sup></td><td class="n r ok">0</td></tr>
+          <tr><td>chrXII 450,001–471,000 (rDNA, 21 kb)</td><td class="n r bad">1.0</td><td class="n r bad">7,838<br><span style="font-size:.85em">451,519–468,245</span></td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Why rDNA differs:</strong> at thousands of reads the binomial emission underflows to 0, and
+      the code floors it to 10<sup>-30</sup>. That flips the evidence: at 4,379 reads with no m6A, the
+      most-protected state should win by 10<sup>929</sup>; after the floor it loses by 10<sup>17</sup>.
+      Log space computes the emission exactly.</p>
+      <p class="callout" style="font-size:19px"><span class="lab">Takeaway</span>Where coverage is normal, the two decoders agree. On high-coverage rDNA, only
+      log space is exact. Neither rDNA row is a believable ABF1 map; the point is that they disagree.</p>
+    </div>
+  </div>
+  <p class="foot txt" style="font-size:14px">Posteriors read with <span class="m">score_robocop.region_optable</span>, never clipped.
+  Decodes <span class="m">robocop_rdna_chrXII_{Bprod,logfull}_both</span> (bv75 round 49 model) and, for the chrXIV row,
+  <span class="m">robocop_w30k_bv75_49_{Bprod,logfull}_both</span>. Positions are counted over all states. Gene RDN37-1 (35S precursor) contains
+  RDN25-1; drawn as one. 4,379 reads and the 10<sup>929</sup> / 10<sup>17</sup> figures:
+  <span class="m">POSTERIOR_FIX_PLAN.md</span>.</p>
+</section>

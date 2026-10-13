@@ -1,0 +1,39 @@
+/* ---------- Oct 6 deck additions, in talk.html's vocabulary (tokens, sizes) ---------- */
+.body.stack,.stack{display:flex;flex-direction:column;gap:20px}
+.body p{max-width:70ch;text-wrap:pretty}
+.m{font-family:var(--f-mono);font-size:.84em;letter-spacing:-.01em;background:var(--accent-soft);color:var(--accent-ink);padding:.04em .32em;border-radius:3px}
+.formula{font-family:var(--f-mono);font-size:24px;line-height:1.75;white-space:pre-wrap;background:var(--surface);border:1px solid var(--rule-2);border-left:5px solid var(--accent);border-radius:5px;padding:18px 24px;color:var(--ink)}
+.body pre{font-family:var(--f-mono);font-size:20px;line-height:1.6;background:var(--surface);border:1px solid var(--rule-2);border-radius:5px;padding:16px 22px;margin:0;overflow-x:auto;color:var(--ink)}
+.body pre .c{color:var(--muted)}
+.body pre .hl{color:var(--pending-ink);font-weight:600}
+.card{background:var(--surface);border:1px solid var(--rule-2);border-radius:6px;padding:20px 24px;min-width:0}
+.card h3{margin:0 0 8px;font-family:var(--f-display);font-stretch:90%;font-size:28px;font-weight:700;line-height:1.1}
+.card p{font-size:23px;color:var(--ink-2)}
+.card.flag{border-left:5px solid var(--accent)}
+.quote{font-family:var(--f-display);font-stretch:95%;font-size:30px;line-height:1.3;border-left:5px solid var(--accent);padding:4px 0 4px 24px;color:var(--ink)}
+.quote cite{display:block;margin-top:12px;font-family:var(--f-mono);font-size:16px;font-style:normal;color:var(--muted)}
+.tbl th.r,.tbl td.r{text-align:right}
+.tbl tr.key td{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+.ok{color:var(--both);font-weight:700}
+.bad{color:var(--pending-ink);font-weight:700}
+.warnc{color:var(--caveat-ink);font-weight:700}
+.callout{margin:0}
+.chain{display:flex;align-items:stretch;gap:10px}
+.chain span{flex:1 1 0;min-width:0;background:var(--surface);border:1px solid var(--rule-2);border-radius:5px;padding:8px 14px;font-size:19px;line-height:1.3;color:var(--ink)}
+.chain span b{display:block;font-family:var(--f-mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2px}
+.chain i{align-self:center;font-style:normal;color:var(--muted);font-family:var(--f-mono);font-size:22px}
+.sw.a{background:var(--pending-line)} .sw.b{background:var(--accent)}
+.legend .lk.tract{width:18px;height:8px;background:var(--ink-2)}
+@media (max-width:760px){
+  #stage .formula{font-size:13px;padding:10px 12px}
+  #stage .body pre{font-size:11px;padding:10px}
+  #stage .card h3{font-size:18px}
+  #stage .card p,#stage .quote{font-size:15px}
+  #stage .quote cite{font-size:12px}
+  #stage .chain{flex-direction:column}
+  #stage .chain i{display:none}
+  #stage .chain span{font-size:14px}
+  #stage .body[style*="grid-template-columns"]{display:flex!important;flex-direction:column}
+}
+p.foot.txt{display:block}
+.sw.c{background:var(--caveat-line)}

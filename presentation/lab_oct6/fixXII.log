@@ -1,0 +1,12 @@
+region chrXII:452401-454400  (2000 bp), 2 run(s)
+  loading B        /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_rdna_chrXII_Bprod_both
+     covered 2000/2000 bp
+  loading log      /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_rdna_chrXII_logfull_both
+     covered 2000/2000 bp
+  keeping 73 of 160 factors (max >= 0.001)
+  macisaac_abf1  0 site(s) in region
+  macisaac_reb1  0 site(s) in region
+  encode round-trip OK (max error <= 0.0005)
+  42 sites of interest (Nhp6a/Abf1 >= 0.30)
+  4 genes in region
+wrote fixXII.json (58.1 KB)

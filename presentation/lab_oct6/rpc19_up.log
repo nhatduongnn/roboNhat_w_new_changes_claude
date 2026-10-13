@@ -1,0 +1,15 @@
+region chrXIV:412410-412909  (500 bp), 3 run(s)
+  loading bo09_48  /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_chrII_tw_bo09_48
+     covered 500/500 bp
+  loading bu01_11  /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_chrII_tw_bu01_11
+     covered 500/500 bp
+  loading bv75_49  /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_chrII_tw_bv75_49
+     covered 500/500 bp
+  keeping 72 of 160 factors (max >= 0.001)
+  macisaac_abf1  0 site(s) in region
+  macisaac_reb1  1 site(s) in region
+  encode round-trip OK (max error <= 0.0005)
+  7 sites of interest (Nhp6a/Abf1 >= 0.30)
+  2 genes in region
+  site chrXIV:412615-412627  bo09_48 ABF1 max(+-20) = 1.000  -> hit
+wrote rpc19_up.json (18.1 KB)
