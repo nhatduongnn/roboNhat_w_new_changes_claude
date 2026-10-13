@@ -5,9 +5,10 @@ the state of each thread and where to pick it up. `whattodo.md` holds strategy a
 open-work tiers; `FIBERSEQ_CHANGES.md` the code diff against upstream;
 `things_to_revisit_before_shipping.md` the debug leftovers and hardcoded knobs.
 
-**CURRENT THREAD (2026-10-06): the posterior fix — see §4.8 and `POSTERIOR_FIX_PLAN.md`.** Two defects in
-the numerical core, one of them silent. Nothing implemented yet; `whattodo.md` Tier −2 is the entry point.
-It changes the numbers every other thread is measured against, so do it first.
+**CURRENT THREAD (updated 2026-10-12): the posterior fix — see §4.8 and `POSTERIOR_FIX_PLAN.md`
+"Handoff, 2026-10-12".** Phases B, A and D are done and pushed: fix B is the production decoder, a
+log-space decoder is validated beside it, and both are in the Run Browser. Phase C (refit) and three other
+decisions wait on the user. Anything scored on a pre-cutover decode should be re-scored once those land.
 
 Sections: §1 concentration calibration · §2 what a concentration is ·
 §3 tools · §4 model mechanics (**§4.8 posterior scaling — current**) · §5 ground truth · §6 motif audit ·
@@ -311,8 +312,15 @@ but not done; it changes the numerical core and must be re-validated against an 
 
 ### 4.8 The posterior is not normalised — and the emission floor inverts evidence (2026-10-06)
 
-Two separate defects in the numerical core. **The plan to fix both is `POSTERIOR_FIX_PLAN.md`; nothing is
-implemented yet.** `whattodo.md` Tier −2 is the entry point.
+> **Status 2026-10-12 — this section is the pre-fix account, kept as history.** Defect 1 is fixed in
+> production (fix B, `librobocop.so` `bf219a43`, cutover 2026-10-06). Defect 2 is fixed only in the
+> log-space decoder (`librobocop_logfull.so`, `pkgvar/*_maskoff_tune75_logfull`). The work found a third
+> defect — `normalize()` adds `DBL_MIN` to every cell (`algo.c:22,26`), wrong at ~1,200 rDNA positions in
+> fix B — and a fourth, silent columns > 1 in fix B. Fix C below was dropped; log space replaced it.
+> Current state and open decisions: `POSTERIOR_FIX_PLAN.md` "Results, 2026-10-06" and "Handoff,
+> 2026-10-12"; binaries and rollback: `POSTERIOR_SCALING.md`. Line numbers below are pre-cutover.
+
+Two separate defects in the numerical core.
 
 **Defect 1 — posterior blow-up.** `posterior_decoding` (`algo.c:239-240`) writes
 `(sb[i]·b)·(sr[i]·f)` with **no per-position normalisation**. `sr` is a ~5,000-term running product
@@ -580,7 +588,7 @@ only faidx users were.
 
 This is the one list of the user's published artifacts; keep it current when one is published.
 Edit the source file and re-publish **to the same URL** (pass it as `url`), or a second artifact
-is created instead of updating the first. Updated 2026-09-16.
+is created instead of updating the first. Updated 2026-10-12.
 
 **Run Browser (local site, 2026-09-22) replaces the per-window browsers for everyday use.** One static
 site lists every decode run (run matrix: layers, mask, phi, EM, lambda, ABF1 width/pads, decoy,
@@ -601,6 +609,7 @@ they start with `presentation/`.
 
 | artifact | URL | old id | built from |
 |---|---|---|---|
+| **Oct_6th_2026_lab_presentation** (posterior bug + fix B vs log space, version 11) | https://claude.ai/artifact/AJojw8M1SkhzVbsJnud6Pa | — | `presentation/lab_oct6/`: `python make_template.py && python build_deck.py --reader viewer`, publish `lab_oct6_deck.html` to the same URL. Hidden slides H1–H13 hold the old bug explanation |
 | **RoboCOP Meets Fiber-seq** (the talk deck) | https://claude.ai/artifact/1vT1DuTfTbuYvFzTyjwMmy | — | `presentation/talk.html` (offline copy `talk_offline.html`); plan and change log `presentation/PLAN.md`; locus slides from `presentation/templates/locus_slide/` |
 | Tuner Continuation Board (status + held-out F1 of the six campaigns after the 1.25× → 1.1× continuation) | https://claude.ai/artifact/MNuieUxLJJNMZMKXvaPQGV | — | scratchpad `tuning_status/tuning_status.html` (numbers from `conc_tuning/<run>/validation.tsv`, `presentation/continue_results.md`); rebuild by hand |
 | Tuned Occupancy Browser (fw01 / sw01 / bw01 r0 + final, bt02/05/10 finals, u001 r7; 42 windows on chrXIV, chrII, chrIV) | https://claude.ai/artifact/55vxej7MWpqoQN7hfdfB6h | — | `presentation/tuned_occupancy_viewer_tempered.html` ← `presentation/build_layer_viewers.py tempered` (wraps `build_tuned_viewer.py`) |
@@ -647,6 +656,14 @@ Also listed in `CLAUDE.md`:
 ---
 
 ## 11. Repo state
+
+**2026-10-12:** `main` is pushed to `origin` at `36da3eb` (commits `8b151c2` merge of fix B, `1fc47cb`
+binary cutover, `6f806ff` log-space decoder + viewer runs, `36da3eb` Oct 6 deck). PR #1
+(`logspace-posterior`, the abandoned fix C) is still open and untouched. Untracked on purpose:
+`analysis/_trash/` (superseded binaries and decodes — the user's rule is to move things there, never
+`rm`) and the 16 `analysis/robocop_{w30k_bv75_49,rdna_chrXII}_*` decode outputs. The text below is the
+2026-09 state, kept as history.
+
 
 Committed through `918effb` ("Add widened-footprint runs, concentration sweep, and the Rossi
 genic/intergenic target"), which included `analysis/pkgvar/` (28 frozen variants; the 40 KB

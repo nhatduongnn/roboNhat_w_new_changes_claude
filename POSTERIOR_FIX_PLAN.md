@@ -1,7 +1,8 @@
 # Plan: fix B to production, log-space reference, viewer confirmation, refit
 
-Approved 2026-10-05. **Status (2026-10-06): B, A and D done and committed locally (not pushed); C not
-started (user: decide after viewing).** See "Results, 2026-10-06" at the end of this file.
+Approved 2026-10-05. **Status (2026-10-12): B, A and D done, committed and pushed (`origin/main` = `36da3eb`). C not
+started. Four decisions are open — see "Handoff, 2026-10-12" at the end of this file.** Results are in
+"Results, 2026-10-06".
 
 **Run order: B → A → D → C.** B lands the production fix; A builds log-space against it; D puts both in
 the Run Browser so the agreement is visible; C refits once the arithmetic is settled.
@@ -391,7 +392,7 @@ decision, so 7-arg trees fail at lookup). `librobocop_prenorm.so` 6a0724bf (the 
 5. D0 ≡ B on chrXII — **does not hold**, and B is the one that is wrong. D0 − B loglik per segment
    (both) −320, −452, −2318, −187, −989; 1,203 (both) / 773 (fib) rows differ by >0.01; 0 on chrXIV.
 
-**Why 5 fails — a third defect, in the linear recursion.** `normalize()` (`algo.c:23,26`) adds
+**Why 5 fails — a third defect, in the linear recursion.** `normalize()` (`algo.c:22,26`) adds
 `DBL_MIN` to every cell, masked and unreachable states included. On rDNA the per-position scale is
 tiny (the non-A strand puts 1e-30 on every state) and coverage gives likelihood ratios beyond
 1e250, so that phantom mass outweighs true paths that float64 cannot hold. Proof (chrXII seg2 both,
@@ -423,3 +424,51 @@ and the rest from the exact emission (D0 vs D1, 9,566).
 **Open, for the user:** Phase C (refit); whether log space should become the production decoder
 given defect 3; the silent-column index fix; `singlefiber/` and `permol_seq_maskoff` still carry
 the linear floor.
+
+---
+
+## Handoff, 2026-10-12
+
+For a new session picking up the posterior work. Everything above is history; this is what is left.
+
+### What is in place
+
+| thing | where | note |
+|---|---|---|
+| production decoder (fix B) | `pkg/robocop/librobocop.so`, md5 `bf219a434d5125028e25f8798b0694c1` | symbol `posterior_decoding_v2`, 8 args, `abort()`s on a bad `silent_states_begin` |
+| old binary | `pkg/robocop/librobocop_prenorm.so`, md5 `6a0724bf…` | kept for rollback (`POSTERIOR_SCALING.md` "Rollback") |
+| log-space reference | `pkg/robocop/algo_log.c` → `librobocop_logfull.so` (md5 `88f86a35…`) via `gccCompile_logfull` | trees `pkgvar/{seq,fiber,seqonly}_maskoff_tune75_logfull`, drivers `analysis/run_split_*_maskoff_tune75_logfull.py`; env `ROBOCOP_LOG_EMISSION={floored,exact}` is **required** (no default; `exact` = the fix, `floored` = arm D0), recorded in `RUN_INFO.json` |
+| ported trees (8-arg) | `pkg/`, `pkgvar/{seq,fiber,seqonly}_maskoff_tune75`, `pkgvar/seq_maskoff_abi8` | ~63 other trees still bind the old symbol and fail at lookup — by design |
+| tuner default driver | `analysis/tune_concentrations.py:92` = `run_split_revfix_seq_maskoff_abi8.py` | `conc_tuning/u001/state.json` has no `driver` key, so resuming u001 silently uses `_abi8` |
+| provenance | `analysis/write_run_info.py`, schema 2: `so_md5`, `cshared`, `cshared_how`, `log_emission` | no `so_md5` ⇒ pre-cutover run |
+| gate/diagnosis scripts | `analysis/posterior_fix/` | `harness_capture.py` + `harness_gates.py` (A1/A2), `replica_longdouble.py` + `replica_eps.py` (defect 3 proof), `divergence_chrXII.py` (B vs D0 vs D1, silent > 1 rows), `underflow_scan.py`, `stage2_pred1_underflow_count.py` |
+| 12 comparison decodes | `analysis/robocop_{w30k_bv75_49,rdna_chrXII}_{Bprod,logfull}_{both,fib,seq}` (+ `_logfullD0_{both,fib}` = log recursion with floored emission) | untracked (decode outputs); viewer family "posterior fix ablation" |
+| Run Browser | `bash analysis/viewer_site/serve.sh 8765` (site `/usr/project/xtmp/nd141/viewer_site`) | not running; relaunch to view |
+
+### Open problems (the user decides which to take; do not start unasked)
+
+1. **Make log space the production decoder?** It is the only decoder correct on high-coverage rDNA
+   (fixes defects 2, 3 and 4 together). To do it: switch default drivers (incl. `tune_concentrations.py:92`)
+   to `_logfull` trees, or build log-space into `librobocop.so` itself. **Unmeasured:** log-space runtime
+   vs fix B on a full genome task — time one before proposing it. Upstream `normalize()`'s `DBL_MIN`
+   (defect 3) is in the repo's first commit, so it is an upstream bug too.
+2. **Silent columns > 1 in fix B (defect 4).** Up to 1.7e17 at 2 (both) / 7 (fib) of 21,000 rDNA
+   positions, present even in the exact 80-bit replica, so not caused by `DBL_MIN`. Hypothesis: forward
+   silent at i means "after emission i", backward silent at i means "before emission i"
+   (`algo.c:187-198`), so f_sil(i)·b_sil(i) counts emission i twice; pairing f_sil(i)·b_sil(i+1)/bs[i]
+   caps it at 1. **Checked on chrXII seg4 only, and that check is not saved as a script** — redo it
+   (start from `replica_longdouble.py`, which already computes the silent columns) on all 5 rDNA
+   segments before changing C. It reaches the factor table because `robocop.py:1191` with padding 0
+   reads column 3330 (first silent state) as "nuc_end". Log arms write silent = 0, so this is moot if
+   (1) is taken.
+3. **Phase C (refit).** See "Phase C" above. Corrected chrXII occupancies change the tuner's objective,
+   so tuned λ/w are no longer at their fixed point. Should wait for (1): the refit should run on the
+   decoder that will be kept.
+4. **Remaining linear-floor copies.** `analysis/singlefiber/` and `pkgvar/permol_seq_maskoff` still
+   floor at `1e-30` (silent killer 3 above). Only matters if single-fiber work resumes.
+
+Smaller loose ends: the Oct 6 deck (artifact `AJojw8M1SkhzVbsJnud6Pa`) has two unanswered questions —
+whether to label the two fixes "fix B vs log space" or "B vs C", and whether to drop the title slide's
+"What follows" sentence (it repeats the outline); it has not been checked rendered. `analysis/_trash/`
+holds superseded binaries and decodes and is deliberately uncommitted — never `rm` anything, move it
+there (user rule).

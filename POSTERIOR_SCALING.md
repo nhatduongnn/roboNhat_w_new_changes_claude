@@ -6,7 +6,9 @@ made after the binary cutover do. To tell them apart, look for `so_md5` in the r
 The silent columns are **not** bounded by the fix; on chrXII rDNA a few still blow up (§5, open issue).
 
 This note covers bug 1 (the posterior is not normalised). Bug 2 (the emission floor inverts evidence) is
-**not** fixed by the cutover; see HANDOFF §4.8 and `POSTERIOR_FIX_PLAN.md` Phase A.
+**not** fixed by the cutover; it is fixed only in the log-space decoder (`_logfull` trees), which also
+avoids bug 3 (`normalize()`'s `+DBL_MIN`, `algo.c:22,26`, wrong at ~1,200 rDNA positions). See HANDOFF §4.8
+and `POSTERIOR_FIX_PLAN.md` "Results" and "Handoff, 2026-10-12".
 
 Line numbers below were read on 2026-10-06. "Pre-cutover" anchors are in
 `git show 8b151c2^1:pkg/robocop/algo.c`; "current" anchors are in the working-tree `pkg/robocop/algo.c`.
@@ -86,8 +88,9 @@ it divides by ~1, so it is harmless.
 
 ## 5. Open issue: silent columns are not bounded (chrXII rDNA)
 
-**Status: open, cause located, link to bug 2 unverified.** Measured by the manager 2026-10-06; I re-read the
-code path below but could not re-read the h5 files (locked by running re-decodes).
+**Status (2026-10-12): open, not fixed.** Not caused by `normalize()`'s `DBL_MIN` (bug 3): it is also present in the exact 80-bit replica (`analysis/posterior_fix/replica_longdouble.py`). Likely a
+forward/backward time-index mismatch in the silent states — see `POSTERIOR_FIX_PLAN.md` "Handoff,
+2026-10-12", open problem 2. The log-space decoder writes silent = 0, so it does not have this issue.
 
 - **What:** after fix B, `count_calls.py` `n_excluded` on `coord_rdna_chrXII.tsv` is **not** 0:
   `both` 2, `fib` 7, `seq` 0 positions, of 21,000.
@@ -99,7 +102,7 @@ code path below but could not re-read the h5 files (locked by running re-decodes
   `robocop_train_fiberonly/HMMconfig.pkl` that is 2799 + 531 = **3330 = `silent_states_begin`**, the first
   silent state. `posterior_table[i, actual_nuc_end]` (`:1225`) is then read as "nuc_end".
 - **Not a fix-B regression:** fix A and fix B both keep the pre-fix silent:emitting ratio; they only rescale.
-- **Link to bug 2 — UNVERIFIED.** All 7 positions lie within ±1 of a high-coverage underflowing base,
+- **Link to bug 2 (the floor) — still UNVERIFIED.** All 7 positions lie within ±1 of a high-coverage underflowing base,
   but 91% of the stretch does, so that says nothing.
 - **On chrXIV:** every silent cell is 0 after the 1e-4 save floor, so the issue does not show there.
 
@@ -122,8 +125,9 @@ shared library now gets a per-position normalised posterior (emitting states). L
 **Gate (manager-measured, 2026-10-06):** re-decode of `coord_w30k_chrXIV.tsv` with the stock tune75
 drivers vs `robocop_w30k_bv75_49_B_{both,fib,seq}` (made with `librobocop_norm.so`): max abs diff **0** on
 every cell, all 9 segments, all 3 layers; log-likelihood identical; emitting row sums 0.9968–1.0. This was
-measured on the superseded `c6dfe41c` build. The rename changes no arithmetic; re-decodes on `bf219a43`
-are running, **confirmation pending**.
+measured on the superseded `c6dfe41c` build. **Re-confirmed on `bf219a43`**: the
+`robocop_w30k_bv75_49_Bprod_*` re-decodes carry `so_md5 = bf219a43…` in `RUN_INFO.json` and match the
+`B` arm (`POSTERIOR_FIX_PLAN.md` "Results, 2026-10-06").
 
 | | file | md5 | compiler (`strings`) |
 |---|---|---|---|

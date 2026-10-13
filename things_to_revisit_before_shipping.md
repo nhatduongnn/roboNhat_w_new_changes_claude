@@ -105,6 +105,12 @@ state. It is also **exempt from the constrained-EM cap** (`adjustEM` loops
 in principle, but the value is arbitrary and interacts with the ABF1 mask (which
 deliberately re-zeroes after the floor). Document the interaction.
 
+> **2026-10-12:** this floor is not harmless — at high coverage `binom.pmf` underflows to 0 and the floor
+> **inverts** the evidence (chrXII rDNA, ~8,456 positions; HANDOFF §4.8). It is removed only in the
+> log-space trees `pkgvar/*_maskoff_tune75_logfull` (`ROBOCOP_LOG_EMISSION=exact`); production fix B still
+> floors. Also note `normalize()`'s `+DBL_MIN` in `pkg/robocop/algo.c:22,26` (upstream) — a second
+> arbitrary floor, inside the C recursion. See `POSTERIOR_FIX_PLAN.md` "Handoff, 2026-10-12".
+
 ### 2.7 [P2] Posterior storage silently truncates at 1e-4
 > See also `POSTERIOR_SCALING.md`: this 1e-4 floor is why emitting row sums read ~0.995–1.0, not exactly
 > 1. The separate per-position normalisation bug, and the 2026-10-06 binary cutover that fixes it, are there.

@@ -138,12 +138,14 @@ metrics barely move.
 
 ## Open work
 
-### Tier −2 — CURRENT (2026-10-06): the posterior fix. **Read `POSTERIOR_FIX_PLAN.md` first.**
+### Tier −2 — CURRENT: the posterior fix. **Read `POSTERIOR_FIX_PLAN.md` "Handoff, 2026-10-12" first.**
 
-**Phase B landed locally 2026-10-06 (gate passed on the pre-rename build; re-confirm on `bf219a43` pending); A, D, C not started.** Cutover record: `POSTERIOR_SCALING.md`. The full plan,
-with every line anchor, gate and threshold, is `POSTERIOR_FIX_PLAN.md` at the repo root — do not
-re-derive it, and do not start without reading its "Decided AFTER approval" section, which carries an ABI
-blocker the plan body does not mention.
+**Status 2026-10-12: B, A, D done and pushed (`36da3eb`); C not started.** Fix B is production and
+correct wherever the recursion fits in float64 (all of chrXIV). Log space is the only correct decoder on
+chrXII rDNA. Four decisions wait on the user, in this order: (1) log space as production? (2) fix the
+silent-column index in fix B? (3) Phase C refit (after 1)? (4) port `singlefiber/` and
+`permol_seq_maskoff` off the linear floor? Do not start them unasked. The text below is the
+pre-implementation brief, kept so the reasoning is not lost.
 
 **The two bugs, so a new session knows what it is fixing:**
 
@@ -167,7 +169,7 @@ blocker the plan body does not mention.
 | **B** | fix B becomes the production decoder: merge `normalise-posterior-c`, archive the old binary as `librobocop_prenorm.so`, **rebuild `pkg/robocop/librobocop.so`**, record the cutover | **landed locally 2026-10-06** — gate: chrXIV w30k identical to `_B_*` (max abs diff 0), re-confirmed on the renamed build bf219a43; chrXII rDNA silent-column issue open — see `POSTERIOR_SCALING.md` "Binary cutover" |
 | **A** | full log-space as a **validated reference** (new `pkg/robocop/algo_log.c`, new `librobocop_logfull.so`, 3 new `_logfull` trees + 3 drivers). Fixes bug 1. | **done 2026-10-06** — Stage 1 passes (A1 bit-identical, A2 7.6e-14, A3 Δ0); Stage 2 found a THIRD defect (linear `normalize()` DBL_MIN phantom mass on rDNA; log space is correct). `POSTERIOR_FIX_PLAN.md` "Results" |
 | **D** | 12 runs in the posterior viewer proving B ≡ log-space on chrXIV and ≠ on chrXII | **done 2026-10-06** — chrXIV identical, chrXII 7,849 (both) / 7,199 (fib) positions differ ≥0.05, seq identical |
-| **C** | refit the tuning campaigns — Phase B makes chrXII's ~3M excluded factor-positions re-enter `occ`, so **every tuned λ/w stops being a fixed point** | not started — user decides after viewing D |
+| **C** | refit the tuning campaigns — Phase B makes chrXII's ~3M excluded factor-positions re-enter `occ`, so **every tuned λ/w stops being a fixed point** | not started — user decides; should follow the log-space-as-production decision |
 
 **The four silent killers** (each would produce plausible, wrong output with no error — full detail in the
 plan):
@@ -289,8 +291,8 @@ reference note on bug 0 that Phase B's cutover record goes into.
 
 ### Suggested order
 **Tier −2 first, and on its own** — the posterior fix changes the numbers every other tier is measured
-against, so anything scored before it lands has to be re-scored after. Read `POSTERIOR_FIX_PLAN.md`,
-run B → A → D → C. Then:
+against, so anything scored before it lands has to be re-scored after. B, A, D are done; the open
+decisions are in `POSTERIOR_FIX_PLAN.md` "Handoff, 2026-10-12". Then:
 
 **Tier −1** — it only reads runs that already exist. Then Tier 2 (fast, removes the
 `3330` crash risk and the path fragility), then **Tier 0 before Tier 1 #2** — there is no point retraining with the sequence layer on

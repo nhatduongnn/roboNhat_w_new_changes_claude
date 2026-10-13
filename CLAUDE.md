@@ -17,13 +17,30 @@ Slurm, partition `compsci`. A genome decode is 48 array tasks: ~45 min each on
 Decode outputs (20–630 MB each) live on this filesystem and are gitignored; the metadata
 (`config.ini`, `coords.tsv`, `pwm.p`, `conc_patch.json`) is committed.
 
-## Where things stand (2026-10-06)
+## Where things stand (2026-10-12) — start here
 
-**Current work: the posterior fix. Read `POSTERIOR_FIX_PLAN.md`, then `whattodo.md` Tier −2.**
-Two defects in the numerical core — the posterior is never normalised per position, and the
-emission floor silently inverts the likelihood ratio at high coverage. Nothing implemented yet;
-the plan is approved and Phase B step 1 is the next action. Do this before other threads: it
-changes the numbers everything else is measured against.
+**Current work: the posterior fix. Phases B, A, D are done and pushed (`origin/main` = `36da3eb`).
+Four decisions are open (below). Read `POSTERIOR_FIX_PLAN.md` "Results, 2026-10-06" and
+"Handoff, 2026-10-12" first, then `POSTERIOR_SCALING.md`.**
+
+| defect | what | status |
+|---|---|---|
+| 1 | posterior not normalised per position (row sums to 2.8e91) | **fixed in production** — fix B, `pkg/robocop/librobocop.so` md5 `bf219a43` |
+| 2 | `binom.pmf` underflows at high coverage, the `1e-30` floor inverts the evidence | fixed **only** in the log-space decoder (`librobocop_logfull.so`, `_logfull` trees) |
+| 3 | `normalize()` adds `DBL_MIN` to every cell (`pkg/robocop/algo.c:22,26`); on rDNA that phantom mass wins | found 2026-10-06; fixed **only** in log space; upstream code (first commit `5e6fa4e`) |
+| 4 | silent columns > 1 in fix B (to 1.7e17) at 2–7 rDNA positions, leaks into "nuc_end" | cause located (likely fwd/bwd silent-state time index, `algo.c:187-198`), **not fixed** |
+
+Bottom line: on normal coverage (all of chrXIV, most of the genome) production fix B is correct
+and identical to log space. On chrXII rDNA (451,435–468,729) only log space is right.
+
+**Open decisions (the user's, asked 2026-10-06, not yet answered):**
+1. Make log space the production decoder? (fixes 2–4 at once)
+2. Fix the silent-state index in fix B, or drop it if log space becomes production?
+3. Phase C: refit the tuning campaigns on corrected occupancies? (after 1)
+4. Port `analysis/singlefiber/` and `pkgvar/permol_seq_maskoff`, which still carry the linear floor?
+
+Do not start any of these without the user's go-ahead. The Oct 6 lab deck (artifact
+`AJojw8M1SkhzVbsJnud6Pa`, source `presentation/lab_oct6/`) summarises the fix for the lab.
 
 ### Earlier (2026-09-12)
 
@@ -80,22 +97,21 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
 - **Lowering a small prior inflates the nucleosome.** All priors share one normalisation and
   the 147 bp nucleosome amplifies it as `p^147`: λ_unknown = 0.01 alone raises the nucleosome
   prior 21×. Use `make_conc_trainDir.py --hold-nucleosome` to pin it.
-- **chrXII's rDNA array emits invalid posteriors** (1e0–1e171, finite in float64). Validate
-  the `[0,1]` bound, not finiteness; `count_calls.py` drops those positions loudly.
-- **The decoder never normalises the posterior, and the emission floor inverts evidence.**
-  `posterior_decoding` (`algo.c:239-240`) multiplies α·β by `sr`, a ~5,000-term product whose
-  `isinf` guard this fork commented out (`algo.c:216`); row sums reach 2.8e91. Separately,
-  `binom.pmf` (`robocop.py:801`) underflows to 0.0 at high coverage and
+- **chrXII's rDNA array.** Before 2026-10-06 it emitted invalid posteriors (1e0–1e171, finite in
+  float64). After the cutover only silent columns can exceed 1 (defect 4 above). Validate the `[0,1]`
+  bound, not finiteness; `count_calls.py` drops bad positions loudly.
+- **Old decodes are not normalised, and production still floors emissions.** Runs made before the
+  cutover (no `so_md5` in `RUN_INFO.json`) have un-normalised rows: normalise over **emitting states
+  only** (`[:silent_states_begin]`) on read — `score_robocop.region_optable` does. Never clip or drop.
+  Separately, `binom.pmf` (`robocop.py:801`) underflows to 0.0 at high coverage and
   `robocopExtras.py:104-106` floors it to `1e-30`, which **flips** the likelihood ratio
-  (+929 → −17 in log10 at n=4379, k=0) with **no tripwire anywhere**. Normalise over
-  **emitting states only** (`[:silent_states_begin]`) on read — `score_robocop.region_optable`
-  does. Never clip or drop instead. See `POSTERIOR_FIX_PLAN.md` and HANDOFF §4.8.
+  (+929 → −17 in log10 at n=4379, k=0) with no tripwire. Only the `_logfull` trees remove this
+  (`ROBOCOP_LOG_EMISSION=exact`). See `POSTERIOR_SCALING.md` and HANDOFF §4.8.
 - **`librobocop.so` changed on 2026-10-06 (binary cutover, fix B).** No `so_md5` in a run's
   `RUN_INFO.json` ⇒ it was made by the old `librobocop_prenorm.so`; runs either side are not
   comparable. The C function is now `posterior_decoding_v2` (8 args); the ~63 trees still binding the
   old name fail at lookup (`AttributeError: undefined symbol`), and so do old tuning campaigns, whose
-  `state.json` freezes a 7-arg driver (u001 froze none and would silently switch to `_abi8`). The
-  `algo.c` line numbers above are the pre-cutover file. See `POSTERIOR_SCALING.md` "Binary cutover".
+  `state.json` freezes a 7-arg driver (u001 froze none and would silently switch to `_abi8`). See `POSTERIOR_SCALING.md` "Binary cutover".
 - **MacIsaac gff rows are redundant** — merge by interval union with 20 bp slop before
   counting (ABF1 315 rows → 300 sites). `make_conc_targets.py --verify` pins this.
 - **Decode with `run_robocop_without_em`** (keeps `tmpDir/info.h5`); `with_em` deletes tmpDir
@@ -147,7 +163,8 @@ and `README.md` covers inputs, sizing (3 rows fit 1600×900) and the hit/miss ru
 
 | file | what |
 |---|---|
-| `POSTERIOR_FIX_PLAN.md` | **current work.** The posterior-normalisation and emission-floor fixes: phases B→A→D→C, gates, and the ABI blocker |
+| `POSTERIOR_FIX_PLAN.md` | **current work.** The posterior fix: phases B→A→D→C, gates, results (2026-10-06) and the handoff with open problems (2026-10-12) |
+| `POSTERIOR_SCALING.md` | the posterior convention, how to check any decode, the binary cutover (which `.so` made a run, rollback), the silent-column issue |
 | `HANDOFF.md` | state, results, machinery, and where to pick each thread up |
 | `whattodo.md` | strategy and the open-work tiers |
 | `FIBERSEQ_CHANGES.md` | the full code diff against upstream |
