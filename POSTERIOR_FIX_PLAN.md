@@ -472,3 +472,25 @@ whether to label the two fixes "fix B vs log space" or "B vs C", and whether to 
 "What follows" sentence (it repeats the outline); it has not been checked rendered. `analysis/_trash/`
 holds superseded binaries and decodes and is deliberately uncommitted — never `rm` anything, move it
 there (user rule).
+
+## Results and decisions, 2026-10-20 → 10-26
+
+**Decision (user, 2026-10-23): log space is the way forward** (`_logfull` trees, `ROBOCOP_LOG_EMISSION=exact`).
+This answers open problem 1 in principle; switching the default drivers and the tuner is not done yet.
+Open problem 2 (silent index in fix B) is moot in log space. Open problem 4 is done for single-fiber
+(`analysis/singlefiber/LOGFULL_PORT.md`, `SINGLEFIBER_PLAN.md`). Phase C is still open.
+
+| result | evidence |
+|---|---|
+| **C1 is real in FiberCOP**, through DBL_MIN padding on silent cells divided by a tiny row sum (not the MNase "e_t*e_{t+1} < DBL_MIN" route; that bound is 1e-120 at the real event). bo09 chrXIV:413,386 rescales 1,408 rows by 1.03e13 — the RPC19 poly-A "call" | `analysis/posterior_fix/fibercop_audit/c1scan/README.md`, `c1_trace.py` |
+| Genome scan, original vs C1-fixed C code, 3,021 segments (chrM excluded): bo09 122,382 C1 rows in 217 segments; bv75 17,689 in 59; bu01 13,798, all rDNA | `c1scan/summary_c1_rows.tsv`; artifact `AwK7rW3xjbYVzBUP8dE8dY` |
+| Downstream reach in the old bo09 decodes: Run Browser clipped+averaged values off by >= 0.1 at 703 tune / 643 holdout positions; `count_calls.py` dropped 7,138 / 4,597 positions; rows start at a segment's first base (prefix), not its end | `fibercop_audit/extent/` |
+| **Defect 3 (DBL_MIN padding) breaks fix B outside rDNA:** bo09 chrIV:1,200,001-1,205,000, 147 rows off by up to 1.0 and loglik off 6.74 nats; the C1 fix does not help; the same algo.c without DBL_MIN, the 80-bit replica and log space all agree | `posterior_fix/dblmin_history/REPORT.md`, `fibercop_audit/logcompare/seg300/` |
+| DBL_MIN history: added upstream by Sneha Mitra in `c6a8727` (2021-08-31), absent in v1.0.0; it stops 0/0 when a row has no possible state, at the cost of hiding impossible data. Log space drops it and fails loudly instead (rc -2 + Python assert) | `dblmin_history/REPORT.md` |
+| **Log-space review: safe to decode.** Faithful log twin of algo.c; brute force on 3,840 tiny HMMs <= 1.7e-12; 80-bit reference on rDNA 9.2e-14. Should-fix but inactive: end_probs counted twice on the last row (all end_probs = 1 here), n_obs = 0 writes out of bounds (unreachable) | `posterior_fix/logspace_review/REPORT.md` |
+| Log-space re-decodes `robocop_tw3_{bo09_48,bu01_11,bv75_49}_logfull` (783 segments each, chrXIV+chrII+chrIV): 0 rows where any posterior-> 1 guard can fire; exact emission changes nothing at ordinary coverage (old intact rows differ by exactly 0) | `fibercop_audit/guards/`, `fibercop_audit/logcompare/old_vs_log_windows.tsv`; Oct 27 deck artifact `2TCJW7cRfv87hivaFSchu9` |
+
+New trees: `pkgvar/seq_maskoff_fit9_bgopen_logfull` (bo09), `pkgvar/seq_maskoff_all153_logfull` (bu01),
+drivers `analysis/run_split_seq_maskoff_{fit9_bgopen,all153}_logfull.py`; coords
+`analysis/coord_tw_chrXIV_chrII_chrIV.tsv`. Guards that become dead once only log-space decodes are in use:
+`things_to_revisit_before_shipping.md` §8 (documented, not removed).

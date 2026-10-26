@@ -1,0 +1,19 @@
+{
+ "eps": 0.0,
+ "loglik": -486267.708292105,
+ "loglik_minus_log": 0.0,
+ "loglik_minus_C": -6.740937849681359,
+ "post_maxabs_vs_log": 7.938094626069869e-14,
+ "post_rows_gt_1em6_vs_log": 0,
+ "post_maxabs_vs_C": 1.0,
+ "post_rows_gt_0p01_vs_C": 147,
+ "n_zero_rowsum": 0,
+ "min_fs": -80.11093169576743,
+ "min_bs": -79.41675718568122,
+ "silent_max": 6.03248438719975e-31,
+ "silent_rows_gt1": [],
+ "silent_max_C": 6.032484387199753e-31,
+ "silent_rows_gt1_C": [],
+ "silent_maxabs_vs_C": 7.080389562038262e-32,
+ "log10_fs_vs_lfs_maxabs": 3.410605131648481e-13
+}

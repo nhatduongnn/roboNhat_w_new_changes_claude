@@ -1,0 +1,67 @@
+  <div id="tab-flbl" role="tabpanel" aria-labelledby="tabFLBL" hidden>
+    <p class="eqintro" id="fblIntro"></p>
+    <div class="syncbar" id="fbsBar">
+      <label class="linkt"><input type="checkbox" id="fbsLink" checked> Link the two panels</label>
+      <div class="controls" id="fbsCtl">
+        <button id="fbsPrev" type="button">◀ Prev</button>
+        <button id="fbsPlay" type="button" class="primary">▶ Play</button>
+        <button id="fbsNext" type="button">Next ▶</button>
+        <label for="fbsSpeed" class="muted">speed</label>
+        <select id="fbsSpeed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+        <span class="count" id="fbsCount"></span>
+      </div>
+      <div class="jumps" id="fbsJumps"></div>
+      <p class="muted synote" id="fbsNote">Linked: a step that updates the same cell on both sides moves both panels. When one side rescales, only that side moves and the other waits.</p>
+    </div>
+    <div class="lblpair">
+      <section class="lblside now" aria-label="fiberCOP C code as written">
+        <div class="lblhead">
+          <h3>Now: original RoboCOP and fix B (same bward) <span class="wait" id="fblWait"></span></h3>
+          <p class="who">Silent states read their children <b>before</b> the row is rescaled (line @@L:201@@ comes last).</p>
+        </div>
+        <div class="lblbar">
+          <div class="controls">
+            <button id="fblPrev" type="button">◀ Prev</button>
+            <button id="fblPlay" type="button" class="primary">▶ Play</button>
+            <button id="fblNext" type="button">Next ▶</button>
+            <label for="fblSpeed" class="muted">speed</label>
+            <select id="fblSpeed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+            <span class="count" id="fblCount"></span>
+          </div>
+          <div class="jumps" id="fblJumps"></div>
+        </div>
+        <div class="code lcode" id="fblCodeB"></div>
+        <details class="ncode-wrap"><summary class="phase">normalize() · fork algo.c:@@L:8@@-@@L:28@@</summary><div class="code lcode" id="fblCodeN"></div></details>
+        <div class="vars mono" id="fblVars"></div>
+        <div class="card lexp" id="fblExp"></div>
+        <div class="gridbox"><table class="grid" id="fblGrid"></table></div>
+      </section>
+      <section class="lblside fixs" aria-label="Corrected order">
+        <div class="lblhead">
+          <h3>Should be: rescale before the silent states <span class="wait" id="fbkWait"></span></h3>
+          <p class="who">Same loops, but normalize runs between the emitting cells and the silent cells, so silent states read <b>rescaled</b> children.</p>
+        </div>
+        <div class="lblbar">
+          <div class="controls">
+            <button id="fbkPrev" type="button">◀ Prev</button>
+            <button id="fbkPlay" type="button" class="primary">▶ Play</button>
+            <button id="fbkNext" type="button">Next ▶</button>
+            <label for="fbkSpeed" class="muted">speed</label>
+            <select id="fbkSpeed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+            <span class="count" id="fbkCount"></span>
+          </div>
+          <div class="jumps" id="fbkJumps"></div>
+        </div>
+        <div class="code lcode" id="fbkCodeB"></div>
+        <div class="vars mono" id="fbkVars"></div>
+        <div class="card lexp" id="fbkExp"></div>
+        <div class="gridbox"><table class="grid" id="fbkGrid"></table></div>
+      </section>
+    </div>
+    <div class="legend">
+      <span style="--sw: var(--accent-soft)">cell being written</span>
+      <span style="--sw: var(--warn-soft)">cell being read</span>
+      <span style="--sw: var(--bad-soft)">wrong vs. the correct value, or below DBL_MIN</span>
+      <span style="--sw: var(--zone-normal)">italic = not rescaled yet</span>
+    </div>
+  </div>

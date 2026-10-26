@@ -1,0 +1,27 @@
+n_obs 5000 n_states 3485 ssb 3330 n_vars 7 nuc_start 2799 nuc_len 531
+forward: rows with some real cell inflated >10x: 2790
+  first (in pass direction) at position 71, state state17, log10 inflation 7.36
+   pos 67  max log10(A/L) 0.00  at state18  log10 S_f -31.90
+   pos 68  max log10(A/L) 0.00  at state19  log10 S_f -31.47
+   pos 69  max log10(A/L) 0.00  at state465  log10 S_f -60.73
+   pos 70  max log10(A/L) 0.00  at state20  log10 S_f -60.91
+   pos 71  max log10(A/L) 7.36  at state17  log10 S_f -31.46
+   pos 72  max log10(A/L) 7.36  at state18  log10 S_f -31.03
+   pos 73  max log10(A/L) 7.36  at state19  log10 S_f -31.03
+   pos 74  max log10(A/L) 7.36  at state20  log10 S_f -31.30
+   pos 75  max log10(A/L) 0.00  at state2240  log10 S_f -60.68
+   pos 76  max log10(A/L) 32.29  at state16  log10 S_f -31.29
+  max inflation anywhere 463.30 at pos 1991 (nuc_pos522)
+backward(by position): rows with some real cell inflated >10x: 2142
+  first (in pass direction) at position 4021, state state0, log10 inflation 13.62
+   pos 4017  max log10(A/L) 13.91  at tf15_col7  log10 S_f -60.70
+   pos 4018  max log10(A/L) 13.91  at state446  log10 S_f -31.06
+   pos 4019  max log10(A/L) 13.91  at tf24_col8  log10 S_f -31.17
+   pos 4020  max log10(A/L) 13.91  at state0  log10 S_f -31.56
+   pos 4021  max log10(A/L) 13.62  at state0  log10 S_f -60.68
+   pos 4022  max log10(A/L) 0.00  at nuc_pos482  log10 S_f -60.74
+   pos 4023  max log10(A/L) 0.00  at nuc_pos487  log10 S_f -60.81
+   pos 4024  max log10(A/L) 0.00  at nuc_pos485  log10 S_f -31.17
+   pos 4025  max log10(A/L) 0.00  at nuc_pos490  log10 S_f -60.67
+   pos 4026  max log10(A/L) 0.00  at nuc_pos496  log10 S_f -31.36
+  max inflation anywhere 163.41 at pos 1250 (tf24_col6)

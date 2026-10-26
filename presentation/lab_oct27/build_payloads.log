@@ -1,0 +1,76 @@
+  crosscheck chrXIV:400001-430000   bo09  mine  338  tsv  338  OK
+  crosscheck chrXIV:400001-430000   bu01  mine    0  tsv    0  OK
+  crosscheck chrXIV:400001-430000   bv75  mine    0  tsv    0  OK
+  crosscheck chrXIV:436001-466000   bo09  mine  277  tsv  277  OK
+  crosscheck chrXIV:436001-466000   bu01  mine    0  tsv    0  OK
+  crosscheck chrXIV:436001-466000   bv75  mine   23  tsv   23  OK
+  crosscheck chrXIV:715001-745000   bo09  mine  140  tsv  140  OK
+  crosscheck chrXIV:715001-745000   bu01  mine    0  tsv    0  OK
+  crosscheck chrXIV:715001-745000   bv75  mine    0  tsv    0  OK
+  crosscheck chrIV:1190001-1220000  bo09  mine  569  tsv  569  OK
+  crosscheck chrIV:1190001-1220000  bu01  mine    0  tsv    0  OK
+  crosscheck chrIV:1190001-1220000  bv75  mine    0  tsv    0  OK
+== rpc19 chrXIV:412400-412900
+  bo09 any>=0.1 132  >=0.5 107  max 0.5000  spans [[412406, 412413], [412424, 412431], [412497, 412498], [412500, 412504], [412571, 412577], [412609, 412639]]
+     top columns [['background', 45, 0.5], ['Fhl1_zhu', 40, 0.5], ['Reb1_badis', 37, 0.5], ['Cin5_murphy', 36, 0.5], ['nuc_start', 36, 0.5], ['Mcm1_zhu', 33, 0.5], ['Ume6_zhu', 29, 0.5], ['Abf1_murphy', 24, 0.5]]
+     old broken rows [{'segment': 307, 'rows': [412001, 413408], 'n_bad': 1408, 'rs_max': 10270463420455.15}]  >=0.1 in/outside broken 132 0 []
+  bu01 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  bv75 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  live-motif ranking (positions >= 0.1 summed over models, max): [('Fhl1_zhu', [40, 0.5]), ('Reb1_badis', [37, 0.5]), ('Cin5_murphy', [36, 0.5]), ('Mcm1_zhu', [33, 0.5]), ('Ume6_zhu', [29, 0.5]), ('Abf1_murphy', [24, 0.5])]
+  factor: Abf1_murphy
+  MacIsaac c1 ABF1 sites: [[412615, 412627, '.']]  colour #17ef13
+  412,655 bo09 before: Abf1_murphy 0.500
+  412,655 bo09 after: Abf1_murphy 0.000
+  412,655 bu01 before: Abf1_murphy 0.000
+  412,655 bu01 after: Abf1_murphy 0.000
+  412,655 bv75 before: Abf1_murphy 0.000
+  412,655 bv75 after: Abf1_murphy 0.000
+  site maxima {'412615-412627': {'bo09 before': 1.0, 'bo09 after': 1.0, 'bu01 before': 0.0, 'bu01 after': 0.0, 'bv75 before': 0.652, 'bv75 after': 0.652}}
+  wrote locus_rpc19.json
+== xiv440 chrXIV:440001-445000
+  bo09 any>=0.1 177  >=0.5 82  max 0.5000  spans [[441322, 441322], [441395, 441395], [441469, 441469], [441820, 441822], [441895, 441895], [441967, 441968]]
+     top columns [['nucleosome', 114, 0.5], ['background', 111, 0.5], ['Abf1_murphy', 42, 0.4999], ['nuc_center', 16, 0.5], ['nuc_start', 14, 0.5], ['Cin5_murphy', 12, 0.5], ['Fhl1_zhu', 12, 0.5], ['Fkh1_zhu', 12, 0.5]]
+     old broken rows [{'segment': 314, 'rows': [440001, 442954], 'n_bad': 2954, 'rs_max': 1.2424894684238663}, {'segment': 315, 'rows': [444001, 444147], 'n_bad': 147, 'rs_max': 1.5163814877585721e+60}]  >=0.1 in/outside broken 144 33 [[444166, 444167], [444221, 444233], [444240, 444243], [444305, 444306], [444316, 444316], [444379, 444389]]
+  bu01 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  bv75 any>=0.1 12  >=0.5 5  max 0.5000  spans [[444001, 444012]]
+     top columns [['Ace2_badis', 9, 0.3155], ['Gcn4_zhu', 9, 0.1586], ['Leu3_zhu', 9, 0.2685], ['Mbp1_zhu', 9, 0.2789], ['Nrg1_zhu', 9, 0.3973], ['Cbf1_zhu', 6, 0.4056], ['background', 5, 0.4998], ['Msn2_badis', 5, 0.5]]
+     old broken rows [{'segment': 315, 'rows': [444001, 444012], 'n_bad': 12, 'rs_max': 1.2781864225730206e+24}]  >=0.1 in/outside broken 12 0 []
+  live-motif ranking (positions >= 0.1 summed over models, max): [('Abf1_murphy', [42, 0.4998931884765625]), ('Cin5_murphy', [12, 0.5]), ('Fhl1_zhu', [12, 0.5]), ('Fkh1_zhu', [12, 0.5]), ('Reb1_badis', [12, 0.5]), ('Sko1_murphy', [12, 0.5])]
+  factor: Abf1_murphy
+  MacIsaac c1 ABF1 sites: []  colour #17ef13
+  wrote locus_xiv440.json
+== xiv724 chrXIV:724001-727000
+  bo09 any>=0.1 140  >=0.5 75  max 1.0000  spans [[724049, 724051], [724122, 724124], [724196, 724197], [724457, 724457], [724530, 724530], [724604, 724604]]
+     top columns [['background', 90, 1.0], ['nucleosome', 36, 0.8985], ['nuc_center', 26, 0.8988], ['nuc_start', 26, 0.8988]]
+     old broken rows [{'segment': 385, 'rows': [724001, 726207], 'n_bad': 2207, 'rs_max': 13.274187354829}]  >=0.1 in/outside broken 140 0 []
+  bu01 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  bv75 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  live-motif ranking (positions >= 0.1 summed over models, max): [('Abf1_murphy', [0, 0.002830548561178148]), ('Cin5_murphy', [0, 0.00055694580078125]), ('Mcm1_zhu', [0, 0.00021362630650401115]), ('Fhl1_zhu', [0, 0.00020599679555743933]), ('Fkh1_zhu', [0, 0.0]), ('Rap1_telomeric', [0, 0.0])]
+  factor: background
+  MacIsaac c1 BACKGROUND sites: []  colour #9aa7b4
+  wrote locus_xiv724.json
+== iv1200 chrIV:1200001-1202000
+  bo09 any>=0.1 569  >=0.5 546  max 1.0000  spans [[1200001, 1200019], [1200074, 1200075], [1200077, 1200092], [1200148, 1200167], [1200221, 1200222], [1200224, 1200240]]
+     top columns [['background', 295, 1.0], ['nuc_start', 209, 1.0], ['nuc_center', 207, 1.0], ['Fhl1_zhu', 151, 1.0], ['Reb1_badis', 143, 1.0], ['nucleosome', 129, 1.0], ['Sko1_murphy', 120, 1.0], ['Cin5_murphy', 116, 1.0]]
+     old broken rows [{'segment': 300, 'rows': [1200001, 1201697], 'n_bad': 1697, 'rs_max': 3.91480039454918e+30}]  >=0.1 in/outside broken 502 67 [[1201756, 1201756], [1201764, 1201829]]
+  bu01 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  bv75 any>=0.1 0  >=0.5 0  max 0.0000  spans []
+     top columns []
+     old broken rows []  >=0.1 in/outside broken 0 0 []
+  live-motif ranking (positions >= 0.1 summed over models, max): [('Fhl1_zhu', [151, 1.0]), ('Reb1_badis', [143, 1.0]), ('Sko1_murphy', [120, 1.0]), ('Cin5_murphy', [116, 1.0]), ('Ume6_zhu', [93, 1.0]), ('Fkh1_zhu', [80, 1.0])]
+  factor: Fhl1_zhu
+  MacIsaac c1 FHL1 sites: []  colour #42230b
+  wrote locus_iv1200.json
+wrote numbers.json

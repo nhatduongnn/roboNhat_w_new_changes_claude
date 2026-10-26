@@ -1,0 +1,147 @@
+{
+ "capture": "posterior_fix/logspace_review/scratch/cap_lin_408001.npz",
+ "tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_fit9_bgopen",
+ "n_obs": 5000,
+ "n_states": 3485,
+ "ssb": 3330,
+ "n_vars": 7,
+ "md5": {
+  "ORIG": "6a0724bf6ef7b8bc4313927b931ac685",
+  "FIXB": "bf219a434d5125028e25f8798b0694c1",
+  "C1FIX": "6dbd5e6d95be5c06c16d868c8bc633c5",
+  "LOG": "88f86a356aad55d466098d214b29ef06"
+ },
+ "emission_zero_cells": 28026838,
+ "emission_floor_cells": 5104236,
+ "variants": {
+  "ORIG": {
+   "seconds": 6.4,
+   "loglik": {
+    "loglik_calc_sr": -500199.1792971137,
+    "loglik_sum_log_bs": -499642.6979980302
+   },
+   "loglik_minus_logD0": -2.9103830456733704e-10,
+   "max_abs_vs_logD0": 1.2156942119645464e-13,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999998817,
+   "rowsum_max": 1.0,
+   "silent_max": 4.1030908343958345e-32,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "ORIG+B": {
+   "seconds": null,
+   "loglik": {
+    "loglik_calc_sr": -500199.1792971137,
+    "loglik_sum_log_bs": -499642.6979980302
+   },
+   "loglik_minus_logD0": -2.9103830456733704e-10,
+   "max_abs_vs_logD0": 6.294964549624638e-14,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999998,
+   "rowsum_max": 1.0000000000000002,
+   "silent_max": 4.103090834395899e-32,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "FIXB": {
+   "seconds": 5.0,
+   "loglik": {
+    "loglik_calc_sr": -500199.1792971137,
+    "loglik_sum_log_bs": -499642.6979980302
+   },
+   "loglik_minus_logD0": -2.9103830456733704e-10,
+   "max_abs_vs_logD0": 6.283862319378386e-14,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999989,
+   "rowsum_max": 1.0000000000000009,
+   "silent_max": 4.103090834395899e-32,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "C1FIX": {
+   "seconds": 5.0,
+   "loglik": {
+    "loglik_calc_sr": -500199.1792971137,
+    "loglik_sum_log_bs": -499642.6979980302
+   },
+   "loglik_minus_logD0": -2.9103830456733704e-10,
+   "max_abs_vs_logD0": 1.2323475573339238e-13,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999998778,
+   "rowsum_max": 1.0,
+   "silent_max": 4.1030908343958515e-32,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "C1FIX+B": {
+   "seconds": null,
+   "loglik": {
+    "loglik_calc_sr": -500199.1792971137,
+    "loglik_sum_log_bs": -499642.6979980302
+   },
+   "loglik_minus_logD0": -2.9103830456733704e-10,
+   "max_abs_vs_logD0": 6.339373470609644e-14,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999998,
+   "rowsum_max": 1.0000000000000002,
+   "silent_max": 4.1030908343958986e-32,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "LOG-D0": {
+   "seconds": 2.6,
+   "loglik": {
+    "loglik_sum_log_offsets_fwd": -500199.1792971134,
+    "loglik_sum_log_offsets_bwd": -499642.6979980302,
+    "rc": [
+     20261005,
+     20261005,
+     20261005
+    ]
+   },
+   "loglik_minus_logD0": 0.0,
+   "max_abs_vs_logD0": 0.0,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999855,
+   "rowsum_max": 1.0000000000000142,
+   "silent_max": 0.0,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  }
+ },
+ "pairwise_emitting_max_abs": {
+  "ORIG+B vs FIXB": 8.881784197001252e-16,
+  "ORIG+B vs C1FIX+B": 6.938893903907228e-16,
+  "ORIG+B vs LOG-D0": 6.294964549624638e-14,
+  "FIXB vs C1FIX+B": 1.1102230246251565e-15,
+  "FIXB vs LOG-D0": 6.283862319378386e-14,
+  "C1FIX+B vs LOG-D0": 6.339373470609644e-14
+ },
+ "pairwise_rows_gt_0p01": {
+  "ORIG+B vs FIXB": 0,
+  "ORIG+B vs C1FIX+B": 0,
+  "ORIG+B vs LOG-D0": 0,
+  "FIXB vs C1FIX+B": 0,
+  "FIXB vs LOG-D0": 0,
+  "C1FIX+B vs LOG-D0": 0
+ },
+ "md5_after": {
+  "ORIG": "6a0724bf6ef7b8bc4313927b931ac685",
+  "FIXB": "bf219a434d5125028e25f8798b0694c1",
+  "C1FIX": "6dbd5e6d95be5c06c16d868c8bc633c5",
+  "LOG": "88f86a356aad55d466098d214b29ef06"
+ }
+}

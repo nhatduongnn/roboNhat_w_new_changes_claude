@@ -5,10 +5,16 @@ the state of each thread and where to pick it up. `whattodo.md` holds strategy a
 open-work tiers; `FIBERSEQ_CHANGES.md` the code diff against upstream;
 `things_to_revisit_before_shipping.md` the debug leftovers and hardcoded knobs.
 
-**CURRENT THREAD (updated 2026-10-12): the posterior fix — see §4.8 and `POSTERIOR_FIX_PLAN.md`
-"Handoff, 2026-10-12".** Phases B, A and D are done and pushed: fix B is the production decoder, a
-log-space decoder is validated beside it, and both are in the Run Browser. Phase C (refit) and three other
-decisions wait on the user. Anything scored on a pre-cutover decode should be re-scored once those land.
+**CURRENT THREAD (updated 2026-10-26): single-fiber (per-read) decoding — read `SINGLEFIBER_PLAN.md`.**
+The per-read decoder is ported to log space and validated on ERV46; the next step is a per-site
+mixture model there.
+
+**Posterior fix (2026-10-20 → 10-26):** the user chose **log space** as the way forward. The log decoder
+was reviewed (safe), the C1 bug was scanned genome-wide, DBL_MIN padding (defect 3) was shown to break
+fix B outside rDNA too, and bo09/bu01/bv75 were re-decoded in log space and put in the Run Browser. All in
+`POSTERIOR_FIX_PLAN.md` "Results and decisions, 2026-10-20 → 10-26". Still open: switching default
+drivers / tuner to log space, and Phase C. Anything scored on a pre-cutover or fix-B decode of a
+bo09-like model should be re-scored on a log-space decode.
 
 Sections: §1 concentration calibration · §2 what a concentration is ·
 §3 tools · §4 model mechanics (**§4.8 posterior scaling — current**) · §5 ground truth · §6 motif audit ·
@@ -609,6 +615,8 @@ they start with `presentation/`.
 
 | artifact | URL | old id | built from |
 |---|---|---|---|
+| **Oct_27th_lab_meeting** (bo09/bu01/bv75 before vs after the log-space fix at 4 loci; hidden slides on C1, DBL_MIN, review, guards) | https://claude.ai/artifact/2TCJW7cRfv87hivaFSchu9 | — | `presentation/lab_oct27/`: from `analysis/`: `python ../presentation/lab_oct27/build_payloads.py && python ../presentation/lab_oct27/span_checks.py > ../presentation/lab_oct27/span_checks.out`; then in `lab_oct27/`: `make_fragment.py`, `make_template.py`, `build_deck.py`; publish `lab_oct27_deck.html` to the same URL |
+| **FiberCOP C1 Check** (original vs C1-fixed C code, genome-wide, bo09/bu01/bv75; 2026-10-23) | https://claude.ai/artifact/AwK7rW3xjbYVzBUP8dE8dY | — | `analysis/posterior_fix/fibercop_audit/c1scan/report/`: `python make_report.py` (from `analysis/`, reads `c1scan/summary_c1_rows.tsv`), publish `c1_report.html` to the same URL |
 | **Oct_6th_2026_lab_presentation** (posterior bug + fix B vs log space, version 11) | https://claude.ai/artifact/AJojw8M1SkhzVbsJnud6Pa | — | `presentation/lab_oct6/`: `python make_template.py && python build_deck.py --reader viewer`, publish `lab_oct6_deck.html` to the same URL. Hidden slides H1–H13 hold the old bug explanation |
 | **RoboCOP Meets Fiber-seq** (the talk deck) | https://claude.ai/artifact/1vT1DuTfTbuYvFzTyjwMmy | — | `presentation/talk.html` (offline copy `talk_offline.html`); plan and change log `presentation/PLAN.md`; locus slides from `presentation/templates/locus_slide/` |
 | Tuner Continuation Board (status + held-out F1 of the six campaigns after the 1.25× → 1.1× continuation) | https://claude.ai/artifact/MNuieUxLJJNMZMKXvaPQGV | — | scratchpad `tuning_status/tuning_status.html` (numbers from `conc_tuning/<run>/validation.tsv`, `presentation/continue_results.md`); rebuild by hand |
@@ -656,6 +664,15 @@ Also listed in `CLAUDE.md`:
 ---
 
 ## 11. Repo state
+
+**2026-10-26:** committed on top of `57257b8`: the C1 genome scan and report
+(`analysis/posterior_fix/fibercop_audit/`), the log-space review (`posterior_fix/logspace_review/`),
+the DBL_MIN investigation (`posterior_fix/dblmin_history/`), log-space trees for bo09/bu01
+(`pkgvar/seq_maskoff_{fit9_bgopen,all153}_logfull`) and single-fiber (`pkgvar/permol_seq_maskoff_logfull`,
+`pkgvar/seq_maskoff_logfull`), their drivers, the `robocop_tw3_*_logfull` decode metadata, the viewer
+changes (3 windows, `build_run_matrix.py` log-tree parent fallback), the Oct 27 deck, the single-fiber
+review and port, and these docs. Not committed on purpose: `analysis/_trash/`, the `c1scan/work_*`
+pipeline leftovers, `logspace_review/scratch/`, and the `*.pre_tw3_logfull` backups (now gitignored).
 
 **2026-10-12:** `main` is pushed to `origin` at `36da3eb` (commits `8b151c2` merge of fix B, `1fc47cb`
 binary cutover, `6f806ff` log-space decoder + viewer runs, `36da3eb` Oct 6 deck). PR #1

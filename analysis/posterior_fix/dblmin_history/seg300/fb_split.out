@@ -1,0 +1,6 @@
+n_obs 5000 n_states 3485 ssb 3330 n_vars 7 nuc_start 2799 nuc_len 531
+f=A b=A (fix B)  rows>0.01 vs log: whole seg  147, inside 1682-1828 147, max 1.000
+f=A b=L          rows>0.01 vs log: whole seg  139, inside 1682-1828 139, max 0.999
+f=L b=A          rows>0.01 vs log: whole seg   16, inside 1682-1828  16, max 1.000
+normalised backward rows differing >0.01: 68 (positions 1599..1666)
+normalised forward  rows differing >0.01: 51 (positions 1789..1841)

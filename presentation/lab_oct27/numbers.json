@@ -1,0 +1,1603 @@
+{
+ "crosscheck": [
+  {
+   "window": "chrXIV:400001-430000",
+   "model": "bo09",
+   "mine": 338,
+   "tsv": 338,
+   "match": true
+  },
+  {
+   "window": "chrXIV:400001-430000",
+   "model": "bu01",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrXIV:400001-430000",
+   "model": "bv75",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrXIV:436001-466000",
+   "model": "bo09",
+   "mine": 277,
+   "tsv": 277,
+   "match": true
+  },
+  {
+   "window": "chrXIV:436001-466000",
+   "model": "bu01",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrXIV:436001-466000",
+   "model": "bv75",
+   "mine": 23,
+   "tsv": 23,
+   "match": true
+  },
+  {
+   "window": "chrXIV:715001-745000",
+   "model": "bo09",
+   "mine": 140,
+   "tsv": 140,
+   "match": true
+  },
+  {
+   "window": "chrXIV:715001-745000",
+   "model": "bu01",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrXIV:715001-745000",
+   "model": "bv75",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrIV:1190001-1220000",
+   "model": "bo09",
+   "mine": 569,
+   "tsv": 569,
+   "match": true
+  },
+  {
+   "window": "chrIV:1190001-1220000",
+   "model": "bu01",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  },
+  {
+   "window": "chrIV:1190001-1220000",
+   "model": "bv75",
+   "mine": 0,
+   "tsv": 0,
+   "match": true
+  }
+ ],
+ "loci": {
+  "rpc19": {
+   "chrom": "chrXIV",
+   "s": 412400,
+   "e": 412900,
+   "factor": "Abf1_murphy",
+   "ranking": [
+    [
+     "Fhl1_zhu",
+     40,
+     0.5
+    ],
+    [
+     "Reb1_badis",
+     37,
+     0.5
+    ],
+    [
+     "Cin5_murphy",
+     36,
+     0.5
+    ],
+    [
+     "Mcm1_zhu",
+     33,
+     0.5
+    ],
+    [
+     "Ume6_zhu",
+     29,
+     0.5
+    ],
+    [
+     "Abf1_murphy",
+     24,
+     0.5
+    ],
+    [
+     "Fkh1_zhu",
+     15,
+     0.5
+    ],
+    [
+     "Sko1_murphy",
+     13,
+     0.5
+    ]
+   ],
+   "models": {
+    "bo09": {
+     "before": "robocop_chrXIV_chrII_tw_bo09_48",
+     "after": "robocop_tw3_bo09_48_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 9,
+     "any_ge_0p1": 132,
+     "any_ge_0p5": 107,
+     "max_diff": 0.5,
+     "spans_ge_0p1": [
+      [
+       412406,
+       412413
+      ],
+      [
+       412424,
+       412431
+      ],
+      [
+       412497,
+       412498
+      ],
+      [
+       412500,
+       412504
+      ],
+      [
+       412571,
+       412577
+      ],
+      [
+       412609,
+       412639
+      ],
+      [
+       412651,
+       412673
+      ],
+      [
+       412708,
+       412722
+      ],
+      [
+       412781,
+       412788
+      ],
+      [
+       412790,
+       412795
+      ],
+      [
+       412855,
+       412873
+      ]
+     ],
+     "nuc_ge_0p1": 15,
+     "bg_ge_0p1": 45,
+     "old_segments": [
+      [
+       408001,
+       413000
+      ],
+      [
+       412001,
+       417000
+      ]
+     ],
+     "old_broken": [
+      {
+       "segment": 307,
+       "rows": [
+        412001,
+        413408
+       ],
+       "n_bad": 1408,
+       "rs_max": 10270463420455.15
+      }
+     ],
+     "ge_0p1_in_broken": 132,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [
+      [
+       412424,
+       412425
+      ],
+      [
+       412573,
+       412577
+      ],
+      [
+       412708,
+       412715
+      ]
+     ],
+     "top_cols": [
+      [
+       "background",
+       45,
+       0.5
+      ],
+      [
+       "Fhl1_zhu",
+       40,
+       0.5
+      ],
+      [
+       "Reb1_badis",
+       37,
+       0.5
+      ],
+      [
+       "Cin5_murphy",
+       36,
+       0.5
+      ],
+      [
+       "nuc_start",
+       36,
+       0.5
+      ],
+      [
+       "Mcm1_zhu",
+       33,
+       0.5
+      ],
+      [
+       "Ume6_zhu",
+       29,
+       0.5
+      ],
+      [
+       "Abf1_murphy",
+       24,
+       0.5
+      ]
+     ],
+     "factor_ge_0p1": 24,
+     "factor_max_before": 0.9999923706054688,
+     "factor_max_after": 0.9999847412109375,
+     "nuc_mean_before": 0.6690796939142609,
+     "nuc_mean_after": 0.6539818970268098
+    },
+    "bu01": {
+     "before": "robocop_chrXIV_chrII_tw_bu01_11",
+     "after": "robocop_tw3_bu01_11_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 153,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       408001,
+       413000
+      ],
+      [
+       412001,
+       417000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.0,
+     "factor_max_after": 0.0,
+     "nuc_mean_before": 0.6535372989486434,
+     "nuc_mean_after": 0.6535372989486434
+    },
+    "bv75": {
+     "before": "robocop_chrXIV_chrII_tw_bv75_49",
+     "after": "robocop_tw3_bv75_49_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 75,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       408001,
+       413000
+      ],
+      [
+       412001,
+       417000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.65169757604599,
+     "factor_max_after": 0.65169757604599,
+     "nuc_mean_before": 0.6539811356041484,
+     "nuc_mean_after": 0.6539811356041484
+    },
+    "at_412655": {
+     "bo09 before": 0.5,
+     "bo09 after": 0.0,
+     "bu01 before": 0.0,
+     "bu01 after": 0.0,
+     "bv75 before": 0.0,
+     "bv75 after": 0.0
+    },
+    "site_max_pm20": {
+     "412615-412627": {
+      "bo09 before": 1.0,
+      "bo09 after": 1.0,
+      "bu01 before": 0.0,
+      "bu01 after": 0.0,
+      "bv75 before": 0.652,
+      "bv75 after": 0.652
+     }
+    }
+   }
+  },
+  "xiv440": {
+   "chrom": "chrXIV",
+   "s": 440001,
+   "e": 445000,
+   "factor": "Abf1_murphy",
+   "ranking": [
+    [
+     "Abf1_murphy",
+     42,
+     0.4999
+    ],
+    [
+     "Cin5_murphy",
+     12,
+     0.5
+    ],
+    [
+     "Fhl1_zhu",
+     12,
+     0.5
+    ],
+    [
+     "Fkh1_zhu",
+     12,
+     0.5
+    ],
+    [
+     "Reb1_badis",
+     12,
+     0.5
+    ],
+    [
+     "Sko1_murphy",
+     12,
+     0.5
+    ],
+    [
+     "Ume6_zhu",
+     12,
+     0.5
+    ],
+    [
+     "Nrg1_zhu",
+     9,
+     0.3973
+    ]
+   ],
+   "models": {
+    "bo09": {
+     "before": "robocop_chrXIV_chrII_tw_bo09_48",
+     "after": "robocop_tw3_bo09_48_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 9,
+     "any_ge_0p1": 177,
+     "any_ge_0p5": 82,
+     "max_diff": 0.5,
+     "spans_ge_0p1": [
+      [
+       441322,
+       441322
+      ],
+      [
+       441395,
+       441395
+      ],
+      [
+       441469,
+       441469
+      ],
+      [
+       441820,
+       441822
+      ],
+      [
+       441895,
+       441895
+      ],
+      [
+       441967,
+       441968
+      ],
+      [
+       442004,
+       442005
+      ],
+      [
+       442078,
+       442078
+      ],
+      [
+       442151,
+       442152
+      ],
+      [
+       442158,
+       442160
+      ],
+      [
+       442233,
+       442233
+      ],
+      [
+       442305,
+       442306
+      ],
+      [
+       442340,
+       442343
+      ],
+      [
+       442413,
+       442413
+      ],
+      [
+       442487,
+       442490
+      ],
+      [
+       442620,
+       442620
+      ],
+      [
+       442693,
+       442693
+      ],
+      [
+       442767,
+       442767
+      ],
+      [
+       442777,
+       442785
+      ],
+      [
+       442858,
+       442858
+      ],
+      [
+       442924,
+       442925
+      ],
+      [
+       442932,
+       442954
+      ],
+      [
+       444001,
+       444074
+      ],
+      [
+       444093,
+       444094
+      ],
+      [
+       444147,
+       444147
+      ],
+      [
+       444166,
+       444167
+      ],
+      [
+       444221,
+       444233
+      ],
+      [
+       444240,
+       444243
+      ],
+      [
+       444305,
+       444306
+      ],
+      [
+       444316,
+       444316
+      ],
+      [
+       444379,
+       444389
+      ]
+     ],
+     "nuc_ge_0p1": 114,
+     "bg_ge_0p1": 111,
+     "old_segments": [
+      [
+       436001,
+       441000
+      ],
+      [
+       440001,
+       445000
+      ],
+      [
+       444001,
+       449000
+      ]
+     ],
+     "old_broken": [
+      {
+       "segment": 314,
+       "rows": [
+        440001,
+        442954
+       ],
+       "n_bad": 2954,
+       "rs_max": 1.2424894684238663
+      },
+      {
+       "segment": 315,
+       "rows": [
+        444001,
+        444147
+       ],
+       "n_bad": 147,
+       "rs_max": 1.5163814877585721e+60
+      }
+     ],
+     "ge_0p1_in_broken": 144,
+     "ge_0p1_outside_broken": 33,
+     "spans_outside_broken": [
+      [
+       444166,
+       444167
+      ],
+      [
+       444221,
+       444233
+      ],
+      [
+       444240,
+       444243
+      ],
+      [
+       444305,
+       444306
+      ],
+      [
+       444316,
+       444316
+      ],
+      [
+       444379,
+       444389
+      ]
+     ],
+     "nuc_spans_ge_0p1": [
+      [
+       441322,
+       441322
+      ],
+      [
+       441967,
+       441968
+      ],
+      [
+       442005,
+       442005
+      ],
+      [
+       442151,
+       442151
+      ],
+      [
+       442159,
+       442159
+      ],
+      [
+       442305,
+       442306
+      ],
+      [
+       442340,
+       442343
+      ],
+      [
+       442620,
+       442620
+      ],
+      [
+       442924,
+       442925
+      ],
+      [
+       444001,
+       444073
+      ],
+      [
+       444221,
+       444232
+      ],
+      [
+       444240,
+       444242
+      ],
+      [
+       444379,
+       444389
+      ]
+     ],
+     "top_cols": [
+      [
+       "nucleosome",
+       114,
+       0.5
+      ],
+      [
+       "background",
+       111,
+       0.5
+      ],
+      [
+       "Abf1_murphy",
+       42,
+       0.4999
+      ],
+      [
+       "nuc_center",
+       16,
+       0.5
+      ],
+      [
+       "nuc_start",
+       14,
+       0.5
+      ],
+      [
+       "Cin5_murphy",
+       12,
+       0.5
+      ],
+      [
+       "Fhl1_zhu",
+       12,
+       0.5
+      ],
+      [
+       "Fkh1_zhu",
+       12,
+       0.5
+      ]
+     ],
+     "factor_ge_0p1": 42,
+     "factor_max_before": 0.0,
+     "factor_max_after": 0.4998931884765625,
+     "nuc_mean_before": 0.7531436500908574,
+     "nuc_mean_after": 0.7428795213894686
+    },
+    "bu01": {
+     "before": "robocop_chrXIV_chrII_tw_bu01_11",
+     "after": "robocop_tw3_bu01_11_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 153,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       436001,
+       441000
+      ],
+      [
+       440001,
+       445000
+      ],
+      [
+       444001,
+       449000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.998779296875,
+     "factor_max_after": 0.998779296875,
+     "nuc_mean_before": 0.6290142027395544,
+     "nuc_mean_after": 0.6290142027395544
+    },
+    "bv75": {
+     "before": "robocop_chrXIV_chrII_tw_bv75_49",
+     "after": "robocop_tw3_bv75_49_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 75,
+     "any_ge_0p1": 12,
+     "any_ge_0p5": 5,
+     "max_diff": 0.5,
+     "spans_ge_0p1": [
+      [
+       444001,
+       444012
+      ]
+     ],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 5,
+     "old_segments": [
+      [
+       436001,
+       441000
+      ],
+      [
+       440001,
+       445000
+      ],
+      [
+       444001,
+       449000
+      ]
+     ],
+     "old_broken": [
+      {
+       "segment": 315,
+       "rows": [
+        444001,
+        444012
+       ],
+       "n_bad": 12,
+       "rs_max": 1.2781864225730206e+24
+      }
+     ],
+     "ge_0p1_in_broken": 12,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [
+      [
+       "Ace2_badis",
+       9,
+       0.3155
+      ],
+      [
+       "Gcn4_zhu",
+       9,
+       0.1586
+      ],
+      [
+       "Leu3_zhu",
+       9,
+       0.2685
+      ],
+      [
+       "Mbp1_zhu",
+       9,
+       0.2789
+      ],
+      [
+       "Nrg1_zhu",
+       9,
+       0.3973
+      ],
+      [
+       "Cbf1_zhu",
+       6,
+       0.4056
+      ],
+      [
+       "background",
+       5,
+       0.4998
+      ],
+      [
+       "Msn2_badis",
+       5,
+       0.5
+      ]
+     ],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.39050889015197754,
+     "factor_max_after": 0.39050889015197754,
+     "nuc_mean_before": 0.6976625291567295,
+     "nuc_mean_after": 0.6976625291567295
+    }
+   }
+  },
+  "xiv724": {
+   "chrom": "chrXIV",
+   "s": 724001,
+   "e": 727000,
+   "factor": "background",
+   "ranking": [
+    [
+     "Abf1_murphy",
+     0,
+     0.0028
+    ],
+    [
+     "Cin5_murphy",
+     0,
+     0.0006
+    ],
+    [
+     "Mcm1_zhu",
+     0,
+     0.0002
+    ],
+    [
+     "Fhl1_zhu",
+     0,
+     0.0002
+    ],
+    [
+     "Fkh1_zhu",
+     0,
+     0.0
+    ],
+    [
+     "Rap1_telomeric",
+     0,
+     0.0
+    ],
+    [
+     "Reb1_badis",
+     0,
+     0.0
+    ],
+    [
+     "Sko1_murphy",
+     0,
+     0.0
+    ]
+   ],
+   "models": {
+    "bo09": {
+     "before": "robocop_chrXIV_chrII_tw_bo09_48",
+     "after": "robocop_tw3_bo09_48_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 9,
+     "any_ge_0p1": 140,
+     "any_ge_0p5": 75,
+     "max_diff": 1.0,
+     "spans_ge_0p1": [
+      [
+       724049,
+       724051
+      ],
+      [
+       724122,
+       724124
+      ],
+      [
+       724196,
+       724197
+      ],
+      [
+       724457,
+       724457
+      ],
+      [
+       724530,
+       724530
+      ],
+      [
+       724604,
+       724604
+      ],
+      [
+       724623,
+       724629
+      ],
+      [
+       724702,
+       724702
+      ],
+      [
+       724770,
+       724777
+      ],
+      [
+       724847,
+       724850
+      ],
+      [
+       724921,
+       724923
+      ],
+      [
+       724957,
+       724958
+      ],
+      [
+       725030,
+       725031
+      ],
+      [
+       725104,
+       725104
+      ],
+      [
+       725113,
+       725117
+      ],
+      [
+       725187,
+       725187
+      ],
+      [
+       725189,
+       725190
+      ],
+      [
+       725260,
+       725263
+      ],
+      [
+       725415,
+       725417
+      ],
+      [
+       725488,
+       725490
+      ],
+      [
+       725562,
+       725563
+      ],
+      [
+       725570,
+       725575
+      ],
+      [
+       725643,
+       725644
+      ],
+      [
+       725646,
+       725648
+      ],
+      [
+       725717,
+       725721
+      ],
+      [
+       725725,
+       725727
+      ],
+      [
+       725798,
+       725798
+      ],
+      [
+       725800,
+       725800
+      ],
+      [
+       725872,
+       725873
+      ],
+      [
+       725905,
+       725906
+      ],
+      [
+       725978,
+       725979
+      ],
+      [
+       726052,
+       726053
+      ],
+      [
+       726156,
+       726207
+      ]
+     ],
+     "nuc_ge_0p1": 36,
+     "bg_ge_0p1": 90,
+     "old_segments": [
+      [
+       720001,
+       725000
+      ],
+      [
+       724001,
+       729000
+      ]
+     ],
+     "old_broken": [
+      {
+       "segment": 385,
+       "rows": [
+        724001,
+        726207
+       ],
+       "n_bad": 2207,
+       "rs_max": 13.274187354829
+      }
+     ],
+     "ge_0p1_in_broken": 140,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [
+      [
+       724049,
+       724050
+      ],
+      [
+       724196,
+       724197
+      ],
+      [
+       724457,
+       724457
+      ],
+      [
+       724623,
+       724626
+      ],
+      [
+       724774,
+       724775
+      ],
+      [
+       724921,
+       724923
+      ],
+      [
+       724957,
+       724957
+      ],
+      [
+       725104,
+       725104
+      ],
+      [
+       725260,
+       725263
+      ],
+      [
+       725415,
+       725416
+      ],
+      [
+       725563,
+       725563
+      ],
+      [
+       725570,
+       725574
+      ],
+      [
+       725718,
+       725721
+      ],
+      [
+       725725,
+       725725
+      ],
+      [
+       725873,
+       725873
+      ],
+      [
+       725905,
+       725906
+      ]
+     ],
+     "top_cols": [
+      [
+       "background",
+       90,
+       1.0
+      ],
+      [
+       "nucleosome",
+       36,
+       0.8985
+      ],
+      [
+       "nuc_center",
+       26,
+       0.8988
+      ],
+      [
+       "nuc_start",
+       26,
+       0.8988
+      ]
+     ],
+     "factor_ge_0p1": 90,
+     "factor_max_before": 1.0,
+     "factor_max_after": 1.0,
+     "nuc_mean_before": 0.8719392895373749,
+     "nuc_mean_after": 0.8671212867196882
+    },
+    "bu01": {
+     "before": "robocop_chrXIV_chrII_tw_bu01_11",
+     "after": "robocop_tw3_bu01_11_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 153,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       720001,
+       725000
+      ],
+      [
+       724001,
+       729000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 1.0,
+     "factor_max_after": 1.0,
+     "nuc_mean_before": 0.8094434407679364,
+     "nuc_mean_after": 0.8094434407679364
+    },
+    "bv75": {
+     "before": "robocop_chrXIV_chrII_tw_bv75_49",
+     "after": "robocop_tw3_bv75_49_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 75,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       720001,
+       725000
+      ],
+      [
+       724001,
+       729000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 1.0,
+     "factor_max_after": 1.0,
+     "nuc_mean_before": 0.8157457624153078,
+     "nuc_mean_after": 0.8157457624153078
+    }
+   }
+  },
+  "iv1200": {
+   "chrom": "chrIV",
+   "s": 1200001,
+   "e": 1202000,
+   "factor": "Fhl1_zhu",
+   "ranking": [
+    [
+     "Fhl1_zhu",
+     151,
+     1.0
+    ],
+    [
+     "Reb1_badis",
+     143,
+     1.0
+    ],
+    [
+     "Sko1_murphy",
+     120,
+     1.0
+    ],
+    [
+     "Cin5_murphy",
+     116,
+     1.0
+    ],
+    [
+     "Ume6_zhu",
+     93,
+     1.0
+    ],
+    [
+     "Fkh1_zhu",
+     80,
+     1.0
+    ],
+    [
+     "Mcm1_zhu",
+     75,
+     1.0
+    ],
+    [
+     "Abf1_murphy",
+     42,
+     1.0
+    ]
+   ],
+   "models": {
+    "bo09": {
+     "before": "robocop_chrIV_tw_bo09_48",
+     "after": "robocop_tw3_bo09_48_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 9,
+     "any_ge_0p1": 569,
+     "any_ge_0p5": 546,
+     "max_diff": 1.0,
+     "spans_ge_0p1": [
+      [
+       1200001,
+       1200019
+      ],
+      [
+       1200074,
+       1200075
+      ],
+      [
+       1200077,
+       1200092
+      ],
+      [
+       1200148,
+       1200167
+      ],
+      [
+       1200221,
+       1200222
+      ],
+      [
+       1200224,
+       1200240
+      ],
+      [
+       1200295,
+       1200314
+      ],
+      [
+       1200368,
+       1200369
+      ],
+      [
+       1200371,
+       1200387
+      ],
+      [
+       1200442,
+       1200461
+      ],
+      [
+       1200515,
+       1200516
+      ],
+      [
+       1200518,
+       1200534
+      ],
+      [
+       1200589,
+       1200608
+      ],
+      [
+       1200662,
+       1200663
+      ],
+      [
+       1200665,
+       1200681
+      ],
+      [
+       1200736,
+       1200755
+      ],
+      [
+       1200809,
+       1200810
+      ],
+      [
+       1200812,
+       1200828
+      ],
+      [
+       1200883,
+       1200902
+      ],
+      [
+       1200956,
+       1200957
+      ],
+      [
+       1200959,
+       1200975
+      ],
+      [
+       1201030,
+       1201050
+      ],
+      [
+       1201103,
+       1201104
+      ],
+      [
+       1201106,
+       1201123
+      ],
+      [
+       1201177,
+       1201199
+      ],
+      [
+       1201250,
+       1201263
+      ],
+      [
+       1201265,
+       1201272
+      ],
+      [
+       1201324,
+       1201373
+      ],
+      [
+       1201431,
+       1201446
+      ],
+      [
+       1201505,
+       1201536
+      ],
+      [
+       1201593,
+       1201602
+      ],
+      [
+       1201604,
+       1201609
+      ],
+      [
+       1201667,
+       1201697
+      ],
+      [
+       1201756,
+       1201756
+      ],
+      [
+       1201764,
+       1201829
+      ]
+     ],
+     "nuc_ge_0p1": 129,
+     "bg_ge_0p1": 295,
+     "old_segments": [
+      [
+       1196001,
+       1201000
+      ],
+      [
+       1200001,
+       1205000
+      ]
+     ],
+     "old_broken": [
+      {
+       "segment": 300,
+       "rows": [
+        1200001,
+        1201697
+       ],
+       "n_bad": 1697,
+       "rs_max": 3.91480039454918e+30
+      }
+     ],
+     "ge_0p1_in_broken": 502,
+     "ge_0p1_outside_broken": 67,
+     "spans_outside_broken": [
+      [
+       1201756,
+       1201756
+      ],
+      [
+       1201764,
+       1201829
+      ]
+     ],
+     "nuc_spans_ge_0p1": [
+      [
+       1200001,
+       1200002
+      ],
+      [
+       1201179,
+       1201190
+      ],
+      [
+       1201338,
+       1201345
+      ],
+      [
+       1201358,
+       1201363
+      ],
+      [
+       1201509,
+       1201529
+      ],
+      [
+       1201677,
+       1201690
+      ],
+      [
+       1201764,
+       1201829
+      ]
+     ],
+     "top_cols": [
+      [
+       "background",
+       295,
+       1.0
+      ],
+      [
+       "nuc_start",
+       209,
+       1.0
+      ],
+      [
+       "nuc_center",
+       207,
+       1.0
+      ],
+      [
+       "Fhl1_zhu",
+       151,
+       1.0
+      ],
+      [
+       "Reb1_badis",
+       143,
+       1.0
+      ],
+      [
+       "nucleosome",
+       129,
+       1.0
+      ],
+      [
+       "Sko1_murphy",
+       120,
+       1.0
+      ],
+      [
+       "Cin5_murphy",
+       116,
+       1.0
+      ]
+     ],
+     "factor_ge_0p1": 151,
+     "factor_max_before": 1.0,
+     "factor_max_after": 0.0019531548023223877,
+     "nuc_mean_before": 0.8575481729556341,
+     "nuc_mean_after": 0.8682907610697439
+    },
+    "bu01": {
+     "before": "robocop_chrIV_tw_bu01_11",
+     "after": "robocop_tw3_bu01_11_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 153,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       1196001,
+       1201000
+      ],
+      [
+       1200001,
+       1205000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.0,
+     "factor_max_after": 0.0,
+     "nuc_mean_before": 0.7368860850621132,
+     "nuc_mean_after": 0.7368860850621132
+    },
+    "bv75": {
+     "before": "robocop_chrIV_tw_bv75_49",
+     "after": "robocop_tw3_bv75_49_logfull",
+     "n_cols_compared": 160,
+     "live_motifs": 75,
+     "any_ge_0p1": 0,
+     "any_ge_0p5": 0,
+     "max_diff": 0.0,
+     "spans_ge_0p1": [],
+     "nuc_ge_0p1": 0,
+     "bg_ge_0p1": 0,
+     "old_segments": [
+      [
+       1196001,
+       1201000
+      ],
+      [
+       1200001,
+       1205000
+      ]
+     ],
+     "old_broken": [],
+     "ge_0p1_in_broken": 0,
+     "ge_0p1_outside_broken": 0,
+     "spans_outside_broken": [],
+     "nuc_spans_ge_0p1": [],
+     "top_cols": [],
+     "factor_ge_0p1": 0,
+     "factor_max_before": 0.0033264667727053165,
+     "factor_max_after": 0.0033264667727053165,
+     "nuc_mean_before": 0.7947752044932568,
+     "nuc_mean_after": 0.7947752044932568
+    }
+   }
+  }
+ }
+}

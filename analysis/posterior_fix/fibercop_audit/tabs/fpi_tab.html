@@ -1,0 +1,107 @@
+  <div id="tab-fpi" role="tabpanel" aria-labelledby="tabFPI" hidden>
+    <h2 class="pititle">Underflow problem in fiberCOP (RoboCOP + Fiber-seq)</h2>
+
+    <section class="pisec pitake">
+      <div class="pinum">Takeaway <span class="pitag">C1 = the backward-pass underflow</span></div>
+      <ol class="fpilist" id="fpiTake"></ol>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Background: what a double can store</div>
+      <div class="vchart"><svg id="fpiLine" viewBox="0 0 760 112" role="img" aria-label="Storage limit of a double-precision number"></svg></div>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Simpler example model <span class="pinote">(2 bp TF model (forward and reverse), background state, nucleosome model, 2 silent states)</span></div>
+      <figure class="pifig">
+        <svg id="fpiHmm" viewBox="0 0 1000 440" role="img" aria-label="HMM design: every feature returns to the CENTRAL silent state, which chooses the next feature"></svg>
+        <figcaption>Every feature ends by returning to CENTRAL; CENTRAL then picks the next feature. Arrows show transition probabilities. Same model as the MNase tabs; only the data layers change.</figcaption>
+      </figure>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Fiber-seq data</div>
+      <p id="fpiDataNote"></p>
+      <div class="gridbox"><table class="mini pit" id="fpiData"></table></div>
+      <h3 class="sub3">Methylation probability p of each state (fitted, as in fiberCOP)</h3>
+      <div class="gridbox"><table class="mini pit pimat" id="fpiP"></table></div>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum pibadh">Problematic section: backward algorithm</div>
+      <h3 class="sub3">Transition matrix T(from → to)</h3>
+      <div class="gridbox"><table class="mini pit pimat" id="fpiT"></table></div>
+      <h3 class="sub3">Emission matrix e<sub>t</sub>(j) = PWM × Binom(Watson) × Binom(Crick), after the floor</h3>
+      <p id="fpiENote"></p>
+      <div class="gridbox"><table class="mini pit pimat" id="fpiE"></table></div>
+
+      <div class="syncbar" id="fpsBar">
+        <label class="linkt"><input type="checkbox" id="fpsLink" checked> Link the two panels</label>
+        <div class="controls" id="fpsCtl">
+          <button id="fpsPrev" type="button">◀ Prev</button>
+          <button id="fpsPlay" type="button" class="primary">▶ Play</button>
+          <button id="fpsNext" type="button">Next ▶</button>
+          <label for="fpsSpeed" class="muted">speed</label>
+          <select id="fpsSpeed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+          <span class="count" id="fpsCount"></span>
+        </div>
+        <div class="jumps" id="fpsJumps"></div>
+        <p class="muted synote" id="fpsNote">Same-cell steps move both panels; when one side rescales, the other waits.</p>
+      </div>
+      <div class="lblpair">
+        <section class="lblside now" aria-label="Original RoboCOP and fix B">
+          <div class="lblhead"><h3>Now: original RoboCOP and fix B <span class="wait" id="fplWait"></span></h3><p class="who">Same backward code in both. Silent states use children <b>before</b> the row is rescaled.</p></div>
+          <div class="lblbar">
+            <div class="controls">
+              <button id="fplPrev" type="button">◀ Prev</button>
+              <button id="fplPlay" type="button" class="primary">▶ Play</button>
+              <button id="fplNext" type="button">Next ▶</button>
+              <select id="fplSpeed" aria-label="speed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+              <span class="count" id="fplCount"></span>
+            </div>
+            <div class="jumps" id="fplJumps"></div>
+          </div>
+          <div class="vars mono" id="fplVars"></div>
+          <div class="card lexp" id="fplExp"></div>
+          <div class="gridbox"><table class="grid" id="fplGrid"></table></div>
+        </section>
+        <section class="lblside fixs" aria-label="Should be">
+          <div class="lblhead"><h3>Should be <span class="wait" id="fpkWait"></span></h3><p class="who">Rescale the emitting cells first, then compute silent states.</p></div>
+          <div class="lblbar">
+            <div class="controls">
+              <button id="fpkPrev" type="button">◀ Prev</button>
+              <button id="fpkPlay" type="button" class="primary">▶ Play</button>
+              <button id="fpkNext" type="button">Next ▶</button>
+              <select id="fpkSpeed" aria-label="speed"><option value="2600">slow</option><option value="1300" selected>normal</option><option value="450">fast</option></select>
+              <span class="count" id="fpkCount"></span>
+            </div>
+            <div class="jumps" id="fpkJumps"></div>
+          </div>
+          <div class="vars mono" id="fpkVars"></div>
+          <div class="card lexp" id="fpkExp"></div>
+          <div class="gridbox"><table class="grid" id="fpkGrid"></table></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Output: what RoboCOP plots</div>
+      <p>Occupancy per base (background + TF1 + nucleosome = 1). Three rows: the exact truth, the truth for the floored model, and production fix B.</p>
+      <div class="viz"><div class="vlegend" id="fpiOccLeg"></div><div class="vchart"><svg id="fpiOcc" viewBox="0 0 760 330" role="img" aria-label="Occupancy per position: exact truth, floored-model truth, fix B"></svg></div></div>
+      <p id="fpiOccNote"></p>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Five decoders vs. brute force</div>
+      <p id="fpiMatNote"></p>
+      <div class="gridbox"><table class="mini pit" id="fpiMat"></table></div>
+    </section>
+
+    <section class="pisec">
+      <div class="pinum">Where our Fiber-seq data lies</div>
+      <div class="viz fviz"><div class="vlegend" id="fpiDepLeg"></div><div class="vchart"><svg id="fpiDep" viewBox="0 0 760 420" role="img" aria-label="Largest posterior error versus reads at four neighbouring positions, all methylated, with our data marked"></svg><div class="vtip" id="fpiTip" hidden></div></div></div>
+      <p id="fpiConc"></p>
+      <p class="muted" id="fpiCap"></p>
+    </section>
+@@SEG_PI@@
+  </div>

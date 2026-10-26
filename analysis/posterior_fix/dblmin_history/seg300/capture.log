@@ -1,0 +1,566 @@
+RoboCOP: model fitting ...
+Coordinates: posterior_fix/fibercop_audit/logcompare/seg300/coord.tsv
+Config file: posterior_fix/dblmin_history/seg300/out/config.ini
+Train dir: robocop_train_tw_bo09_48
+Output dir: posterior_fix/dblmin_history/seg300/out/
+Config sections: ['main'] posterior_fix/dblmin_history/seg300/out/config.ini
+Segment: 0
+segment_0/Fiber_count_meth_watson
+['Abf1_murphy', 'Cin5_murphy', 'Fhl1_zhu', 'Fkh1_zhu', 'Mcm1_zhu', 'Nhp6a_zhu', 'Rap1_telomeric', 'Reb1_badis', 'Sko1_murphy', 'Spt15_zhu', 'Tbf1_zhu', 'Ume6_zhu', 'combined_low_count']
+okay we plottinggg
+Okay we finished plotting
+
+---- TF 0 ----
+dshare tfs is: Abf1_murphy
+tf_name: Abf1_murphy
+tf_start: 1 tf_end: 29
+p_forward shape: (14,)
+p_reverse shape: (14,)
+Concatenated shape: 28
+ps slice length: 28
+p_forward[:5]: [0.10580982 0.05590062 0.02875817 0.10334572 0.12720848]
+p_reverse[:5]: [0.10832587 0.07377049 0.0493992  0.08571429 0.07723976]
+Abf2_badis not in loaded_params['p'], using combined_low_count
+Ace2_badis not in loaded_params['p'], using combined_low_count
+Adr1_badis not in loaded_params['p'], using combined_low_count
+Aft1_zhu not in loaded_params['p'], using combined_low_count
+Aft2_badis not in loaded_params['p'], using combined_low_count
+Aro80_zhu not in loaded_params['p'], using combined_low_count
+Asg1_zhu not in loaded_params['p'], using combined_low_count
+Azf1_badis not in loaded_params['p'], using combined_low_count
+Bas1_zhu not in loaded_params['p'], using combined_low_count
+Cad1_murphy not in loaded_params['p'], using combined_low_count
+Cat8_badis not in loaded_params['p'], using combined_low_count
+Cbf1_zhu not in loaded_params['p'], using combined_low_count
+Cep3_badis not in loaded_params['p'], using combined_low_count
+Cha4_zhu not in loaded_params['p'], using combined_low_count
+
+---- TF 15 ----
+dshare tfs is: Cin5_murphy
+tf_name: Cin5_murphy
+tf_start: 267 tf_end: 289
+p_forward shape: (11,)
+p_reverse shape: (11,)
+Concatenated shape: 22
+ps slice length: 22
+p_forward[:5]: [0.23683688 0.17886179 0.19583333 0.13495131 0.25879682]
+p_reverse[:5]: [0.05042017 0.20758405 0.08333333 0.0982659  0.21355443]
+Crz1_badis not in loaded_params['p'], using combined_low_count
+Cst6_murphy not in loaded_params['p'], using combined_low_count
+Cup9_badis not in loaded_params['p'], using combined_low_count
+Dal80_badis not in loaded_params['p'], using combined_low_count
+Dal82_badis not in loaded_params['p'], using combined_low_count
+Ecm22_murphy not in loaded_params['p'], using combined_low_count
+Ecm23_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 23 ----
+dshare tfs is: Fhl1_zhu
+tf_name: Fhl1_zhu
+tf_start: 433 tf_end: 449
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.07060185 0.24022521 0.18793706 0.24964937 0.20492866]
+p_reverse[:5]: [0.33125    0.14777328 0.26960784 0.09765625 0.1163522 ]
+
+---- TF 24 ----
+dshare tfs is: Fkh1_zhu
+tf_name: Fkh1_zhu
+tf_start: 449 tf_end: 469
+p_forward shape: (10,)
+p_reverse shape: (10,)
+Concatenated shape: 20
+ps slice length: 20
+p_forward[:5]: [0.12628958 0.07612457 0.08285714 0.02481193 0.12000592]
+p_reverse[:5]: [0.21623861 0.23267839 0.22       0.25044092 0.06153846]
+Fkh2_zhu not in loaded_params['p'], using combined_low_count
+Fzf1_badis not in loaded_params['p'], using combined_low_count
+Gal4_zhu not in loaded_params['p'], using combined_low_count
+Gat1_zhu not in loaded_params['p'], using combined_low_count
+Gat3_zhu not in loaded_params['p'], using combined_low_count
+Gat4_zhu not in loaded_params['p'], using combined_low_count
+Gcn4_zhu not in loaded_params['p'], using combined_low_count
+Gcr1_murphy not in loaded_params['p'], using combined_low_count
+Gis1_badis not in loaded_params['p'], using combined_low_count
+Gln3_badis not in loaded_params['p'], using combined_low_count
+Gsm1_zhu not in loaded_params['p'], using combined_low_count
+Gzf3_zhu not in loaded_params['p'], using combined_low_count
+Hac1_badis not in loaded_params['p'], using combined_low_count
+Hal9_zhu not in loaded_params['p'], using combined_low_count
+Hap1_murphy not in loaded_params['p'], using combined_low_count
+Hcm1_badis not in loaded_params['p'], using combined_low_count
+Hmlalpha2_murphy not in loaded_params['p'], using combined_low_count
+Hmra2_badis not in loaded_params['p'], using combined_low_count
+Hsf1_badis not in loaded_params['p'], using combined_low_count
+Leu3_zhu not in loaded_params['p'], using combined_low_count
+Lys14_zhu not in loaded_params['p'], using combined_low_count
+Matalpha2_zhu not in loaded_params['p'], using combined_low_count
+Mbp1_zhu not in loaded_params['p'], using combined_low_count
+
+---- TF 48 ----
+dshare tfs is: Mcm1_zhu
+tf_name: Mcm1_zhu
+tf_start: 905 tf_end: 931
+p_forward shape: (13,)
+p_reverse shape: (13,)
+Concatenated shape: 26
+ps slice length: 26
+p_forward[:5]: [0.06521739 0.27329193 0.20945946 0.04210526 0.17083333]
+p_reverse[:5]: [0.30305403 0.15770609 0.2393617  0.14116095 0.17261752]
+Met31_badis not in loaded_params['p'], using combined_low_count
+Met32_badis not in loaded_params['p'], using combined_low_count
+Mga1_zhu not in loaded_params['p'], using combined_low_count
+Mig1_zhu not in loaded_params['p'], using combined_low_count
+Mig2_zhu not in loaded_params['p'], using combined_low_count
+Mig3_zhu not in loaded_params['p'], using combined_low_count
+Mot3_murphy not in loaded_params['p'], using combined_low_count
+Msn1_murphy not in loaded_params['p'], using combined_low_count
+Msn2_badis not in loaded_params['p'], using combined_low_count
+Msn4_badis not in loaded_params['p'], using combined_low_count
+Ndt80_zhu not in loaded_params['p'], using combined_low_count
+Nhp10_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 61 ----
+dshare tfs is: Nhp6a_zhu
+tf_name: Nhp6a_zhu
+tf_start: 1137 tf_end: 1151
+p_forward shape: (7,)
+p_reverse shape: (7,)
+Concatenated shape: 14
+ps slice length: 14
+p_forward[:5]: [0.05070994 0.13016596 0.13688213 0.13116842 0.05714286]
+p_reverse[:5]: [0.09984026 0.15903614 0.10622593 0.14285714 0.12303547]
+Nhp6b_zhu not in loaded_params['p'], using combined_low_count
+Nrg1_zhu not in loaded_params['p'], using combined_low_count
+Nrg2_murphy not in loaded_params['p'], using combined_low_count
+Oaf1_badis not in loaded_params['p'], using combined_low_count
+Pbf1_zhu not in loaded_params['p'], using combined_low_count
+Pbf2_zhu not in loaded_params['p'], using combined_low_count
+Pdr1_badis not in loaded_params['p'], using combined_low_count
+Pdr3_murphy not in loaded_params['p'], using combined_low_count
+Pdr8_badis not in loaded_params['p'], using combined_low_count
+Phd1_zhu not in loaded_params['p'], using combined_low_count
+Pho2_badis not in loaded_params['p'], using combined_low_count
+Pho4_zhu not in loaded_params['p'], using combined_low_count
+Put3_badis not in loaded_params['p'], using combined_low_count
+Rap1_motif1 not in loaded_params['p'], using combined_low_count
+Rap1_motif2 not in loaded_params['p'], using combined_low_count
+
+---- TF 77 ----
+dshare tfs is: Rap1_telomeric
+tf_name: Rap1_telomeric
+tf_start: 1417 tf_end: 1457
+p_forward shape: (20,)
+p_reverse shape: (20,)
+Concatenated shape: 40
+ps slice length: 40
+p_forward[:5]: [0.08081353 0.06358475 0.0462439  0.07560375 0.08653846]
+p_reverse[:5]: [0.06013054 0.03458213 0.04045878 0.05472716 0.06307385]
+Rap1_zhu not in loaded_params['p'], using combined_low_count
+Rdr1_zhu not in loaded_params['p'], using combined_low_count
+Rds1_zhu not in loaded_params['p'], using combined_low_count
+Rds2_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 82 ----
+dshare tfs is: Reb1_badis
+tf_name: Reb1_badis
+tf_start: 1519 tf_end: 1535
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.24512272 0.25531915 0.20922747 0.40138861 0.28158845]
+p_reverse[:5]: [0.264345   0.14184898 0.11693548 0.19675676 0.19487179]
+Rei1_badis not in loaded_params['p'], using combined_low_count
+Rfx1_badis not in loaded_params['p'], using combined_low_count
+Rgm1_badis not in loaded_params['p'], using combined_low_count
+Rgt1_badis not in loaded_params['p'], using combined_low_count
+Rim101_badis not in loaded_params['p'], using combined_low_count
+Rox1_badis not in loaded_params['p'], using combined_low_count
+Rph1_badis not in loaded_params['p'], using combined_low_count
+Rpn4_badis not in loaded_params['p'], using combined_low_count
+Rsc30_zhu not in loaded_params['p'], using combined_low_count
+Rsc3_zhu not in loaded_params['p'], using combined_low_count
+Rtg3_zhu not in loaded_params['p'], using combined_low_count
+Sfl1_zhu not in loaded_params['p'], using combined_low_count
+Sfp1_zhu not in loaded_params['p'], using combined_low_count
+Sig1_badis not in loaded_params['p'], using combined_low_count
+Sip4_badis not in loaded_params['p'], using combined_low_count
+Skn7_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 99 ----
+dshare tfs is: Sko1_murphy
+tf_name: Sko1_murphy
+tf_start: 1785 tf_end: 1801
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.21738338 0.16580311 0.09683099 0.22194079 0.04      ]
+p_reverse[:5]: [0.31929047 0.2372367  0.08333333 0.14655172 0.22608696]
+Smp1_zhu not in loaded_params['p'], using combined_low_count
+Sok2_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 102 ----
+dshare tfs is: Spt15_zhu
+tf_name: Spt15_zhu
+tf_start: 1843 tf_end: 1861
+p_forward shape: (9,)
+p_reverse shape: (9,)
+Concatenated shape: 18
+ps slice length: 18
+p_forward[:5]: [0.08491646 0.11889898 0.1144528  0.13476436 0.11586453]
+p_reverse[:5]: [0.13276836 0.11497326 0.12385972 0.10779817 0.11867905]
+Srd1_badis not in loaded_params['p'], using combined_low_count
+Stb3_zhu not in loaded_params['p'], using combined_low_count
+Stb4_murphy not in loaded_params['p'], using combined_low_count
+Stb5_murphy not in loaded_params['p'], using combined_low_count
+Ste12_murphy not in loaded_params['p'], using combined_low_count
+Stp1_murphy not in loaded_params['p'], using combined_low_count
+Stp2_zhu not in loaded_params['p'], using combined_low_count
+Stp3_badis not in loaded_params['p'], using combined_low_count
+Stp4_zhu not in loaded_params['p'], using combined_low_count
+Sum1_zhu not in loaded_params['p'], using combined_low_count
+Sut1_murphy not in loaded_params['p'], using combined_low_count
+Sut2_zhu not in loaded_params['p'], using combined_low_count
+Swi4_badis not in loaded_params['p'], using combined_low_count
+Swi5_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 117 ----
+dshare tfs is: Tbf1_zhu
+tf_name: Tbf1_zhu
+tf_start: 2105 tf_end: 2121
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.20676692 0.26279338 0.17967914 0.29234973 0.14895397]
+p_reverse[:5]: [0.21040189 0.13892365 0.20951888 0.14826255 0.1694291 ]
+Tbs1_zhu not in loaded_params['p'], using combined_low_count
+Tea1_zhu not in loaded_params['p'], using combined_low_count
+Tec1_badis not in loaded_params['p'], using combined_low_count
+Tos8_badis not in loaded_params['p'], using combined_low_count
+Tye7_zhu not in loaded_params['p'], using combined_low_count
+Uga3_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 124 ----
+dshare tfs is: Ume6_zhu
+tf_name: Ume6_zhu
+tf_start: 2225 tf_end: 2241
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.26383764 0.08235294 0.06944444 0.03435115 0.07777778]
+p_reverse[:5]: [0.10126582 0.11417173 0.35846373 0.05263158 0.06818182]
+Upc2_murphy not in loaded_params['p'], using combined_low_count
+Usv1_zhu not in loaded_params['p'], using combined_low_count
+Vhr1_murphy not in loaded_params['p'], using combined_low_count
+Xbp1_badis not in loaded_params['p'], using combined_low_count
+Yap1_zhu not in loaded_params['p'], using combined_low_count
+Yap3_murphy not in loaded_params['p'], using combined_low_count
+Yap6_zhu not in loaded_params['p'], using combined_low_count
+Ybr033w_murphy not in loaded_params['p'], using combined_low_count
+Ybr239c_zhu not in loaded_params['p'], using combined_low_count
+Ydr520c_badis not in loaded_params['p'], using combined_low_count
+Yer064c_murphy not in loaded_params['p'], using combined_low_count
+Yer130c_badis not in loaded_params['p'], using combined_low_count
+Yer184c_murphy not in loaded_params['p'], using combined_low_count
+Ygr067c_badis not in loaded_params['p'], using combined_low_count
+Ykl222c_zhu not in loaded_params['p'], using combined_low_count
+Yll054c_zhu not in loaded_params['p'], using combined_low_count
+Ylr278c_murphy not in loaded_params['p'], using combined_low_count
+Yml081w_zhu not in loaded_params['p'], using combined_low_count
+Ynr063w_badis not in loaded_params['p'], using combined_low_count
+Yox1_badis not in loaded_params['p'], using combined_low_count
+Ypr013c_zhu not in loaded_params['p'], using combined_low_count
+Ypr015c_zhu not in loaded_params['p'], using combined_low_count
+Ypr022c_badis not in loaded_params['p'], using combined_low_count
+Ypr196w_badis not in loaded_params['p'], using combined_low_count
+Yrm1_badis not in loaded_params['p'], using combined_low_count
+Yrr1_zhu not in loaded_params['p'], using combined_low_count
+Zap1_murphy not in loaded_params['p'], using combined_low_count
+Zms1_badis not in loaded_params['p'], using combined_low_count
+unknown not in loaded_params['p'], using combined_low_count
+['Abf1_murphy', 'Cin5_murphy', 'Fhl1_zhu', 'Fkh1_zhu', 'Mcm1_zhu', 'Nhp6a_zhu', 'Rap1_telomeric', 'Reb1_badis', 'Sko1_murphy', 'Spt15_zhu', 'Tbf1_zhu', 'Ume6_zhu', 'combined_low_count']
+okay we plottinggg
+Okay we finished plotting
+
+---- TF 0 ----
+dshare tfs is: Abf1_murphy
+tf_name: Abf1_murphy
+tf_start: 1 tf_end: 29
+p_forward shape: (14,)
+p_reverse shape: (14,)
+Concatenated shape: 28
+ps slice length: 28
+p_forward[:5]: [0.06644518 0.08151509 0.02424242 0.09022556 0.0896143 ]
+p_reverse[:5]: [0.13698811 0.03196347 0.13513514 0.11344039 0.05758976]
+Abf2_badis not in loaded_params['p'], using combined_low_count
+Ace2_badis not in loaded_params['p'], using combined_low_count
+Adr1_badis not in loaded_params['p'], using combined_low_count
+Aft1_zhu not in loaded_params['p'], using combined_low_count
+Aft2_badis not in loaded_params['p'], using combined_low_count
+Aro80_zhu not in loaded_params['p'], using combined_low_count
+Asg1_zhu not in loaded_params['p'], using combined_low_count
+Azf1_badis not in loaded_params['p'], using combined_low_count
+Bas1_zhu not in loaded_params['p'], using combined_low_count
+Cad1_murphy not in loaded_params['p'], using combined_low_count
+Cat8_badis not in loaded_params['p'], using combined_low_count
+Cbf1_zhu not in loaded_params['p'], using combined_low_count
+Cep3_badis not in loaded_params['p'], using combined_low_count
+Cha4_zhu not in loaded_params['p'], using combined_low_count
+
+---- TF 15 ----
+dshare tfs is: Cin5_murphy
+tf_name: Cin5_murphy
+tf_start: 267 tf_end: 289
+p_forward shape: (11,)
+p_reverse shape: (11,)
+Concatenated shape: 22
+ps slice length: 22
+p_forward[:5]: [0.20445609 0.18421449 0.08715596 0.06289308 0.19809524]
+p_reverse[:5]: [0.30307692 0.33372093 0.23512706 0.10297591 0.07951807]
+Crz1_badis not in loaded_params['p'], using combined_low_count
+Cst6_murphy not in loaded_params['p'], using combined_low_count
+Cup9_badis not in loaded_params['p'], using combined_low_count
+Dal80_badis not in loaded_params['p'], using combined_low_count
+Dal82_badis not in loaded_params['p'], using combined_low_count
+Ecm22_murphy not in loaded_params['p'], using combined_low_count
+Ecm23_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 23 ----
+dshare tfs is: Fhl1_zhu
+tf_name: Fhl1_zhu
+tf_start: 433 tf_end: 449
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.15729167 0.14754098 0.16608997 0.1163522  0.09765625]
+p_reverse[:5]: [0.2440239  0.21770228 0.16775457 0.20492866 0.24964937]
+
+---- TF 24 ----
+dshare tfs is: Fkh1_zhu
+tf_name: Fkh1_zhu
+tf_start: 449 tf_end: 469
+p_forward shape: (10,)
+p_reverse shape: (10,)
+Concatenated shape: 20
+ps slice length: 20
+p_forward[:5]: [0.22288976 0.13356164 0.23528029 0.07142857 0.18256131]
+p_reverse[:5]: [0.14121511 0.13105218 0.11463626 0.11309524 0.33828792]
+Fkh2_zhu not in loaded_params['p'], using combined_low_count
+Fzf1_badis not in loaded_params['p'], using combined_low_count
+Gal4_zhu not in loaded_params['p'], using combined_low_count
+Gat1_zhu not in loaded_params['p'], using combined_low_count
+Gat3_zhu not in loaded_params['p'], using combined_low_count
+Gat4_zhu not in loaded_params['p'], using combined_low_count
+Gcn4_zhu not in loaded_params['p'], using combined_low_count
+Gcr1_murphy not in loaded_params['p'], using combined_low_count
+Gis1_badis not in loaded_params['p'], using combined_low_count
+Gln3_badis not in loaded_params['p'], using combined_low_count
+Gsm1_zhu not in loaded_params['p'], using combined_low_count
+Gzf3_zhu not in loaded_params['p'], using combined_low_count
+Hac1_badis not in loaded_params['p'], using combined_low_count
+Hal9_zhu not in loaded_params['p'], using combined_low_count
+Hap1_murphy not in loaded_params['p'], using combined_low_count
+Hcm1_badis not in loaded_params['p'], using combined_low_count
+Hmlalpha2_murphy not in loaded_params['p'], using combined_low_count
+Hmra2_badis not in loaded_params['p'], using combined_low_count
+Hsf1_badis not in loaded_params['p'], using combined_low_count
+Leu3_zhu not in loaded_params['p'], using combined_low_count
+Lys14_zhu not in loaded_params['p'], using combined_low_count
+Matalpha2_zhu not in loaded_params['p'], using combined_low_count
+Mbp1_zhu not in loaded_params['p'], using combined_low_count
+
+---- TF 48 ----
+dshare tfs is: Mcm1_zhu
+tf_name: Mcm1_zhu
+tf_start: 905 tf_end: 931
+p_forward shape: (13,)
+p_reverse shape: (13,)
+Concatenated shape: 26
+ps slice length: 26
+p_forward[:5]: [0.19788546 0.21138429 0.14045802 0.17670683 0.10760668]
+p_reverse[:5]: [0.25255973 0.12254902 0.08009153 0.15307635 0.21363953]
+Met31_badis not in loaded_params['p'], using combined_low_count
+Met32_badis not in loaded_params['p'], using combined_low_count
+Mga1_zhu not in loaded_params['p'], using combined_low_count
+Mig1_zhu not in loaded_params['p'], using combined_low_count
+Mig2_zhu not in loaded_params['p'], using combined_low_count
+Mig3_zhu not in loaded_params['p'], using combined_low_count
+Mot3_murphy not in loaded_params['p'], using combined_low_count
+Msn1_murphy not in loaded_params['p'], using combined_low_count
+Msn2_badis not in loaded_params['p'], using combined_low_count
+Msn4_badis not in loaded_params['p'], using combined_low_count
+Ndt80_zhu not in loaded_params['p'], using combined_low_count
+Nhp10_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 61 ----
+dshare tfs is: Nhp6a_zhu
+tf_name: Nhp6a_zhu
+tf_start: 1137 tf_end: 1151
+p_forward shape: (7,)
+p_reverse shape: (7,)
+Concatenated shape: 14
+ps slice length: 14
+p_forward[:5]: [0.11299286 0.07305936 0.12303547 0.14285714 0.10622593]
+p_reverse[:5]: [0.08438819 0.12995246 0.05714286 0.13116842 0.13688213]
+Nhp6b_zhu not in loaded_params['p'], using combined_low_count
+Nrg1_zhu not in loaded_params['p'], using combined_low_count
+Nrg2_murphy not in loaded_params['p'], using combined_low_count
+Oaf1_badis not in loaded_params['p'], using combined_low_count
+Pbf1_zhu not in loaded_params['p'], using combined_low_count
+Pbf2_zhu not in loaded_params['p'], using combined_low_count
+Pdr1_badis not in loaded_params['p'], using combined_low_count
+Pdr3_murphy not in loaded_params['p'], using combined_low_count
+Pdr8_badis not in loaded_params['p'], using combined_low_count
+Phd1_zhu not in loaded_params['p'], using combined_low_count
+Pho2_badis not in loaded_params['p'], using combined_low_count
+Pho4_zhu not in loaded_params['p'], using combined_low_count
+Put3_badis not in loaded_params['p'], using combined_low_count
+Rap1_motif1 not in loaded_params['p'], using combined_low_count
+Rap1_motif2 not in loaded_params['p'], using combined_low_count
+
+---- TF 77 ----
+dshare tfs is: Rap1_telomeric
+tf_name: Rap1_telomeric
+tf_start: 1417 tf_end: 1457
+p_forward shape: (20,)
+p_reverse shape: (20,)
+Concatenated shape: 40
+ps slice length: 40
+p_forward[:5]: [0.11627907 0.0691618  0.0354232  0.10967742 0.0780729 ]
+p_reverse[:5]: [0.14957826 0.10177388 0.08057041 0.08716094 0.12379467]
+Rap1_zhu not in loaded_params['p'], using combined_low_count
+Rdr1_zhu not in loaded_params['p'], using combined_low_count
+Rds1_zhu not in loaded_params['p'], using combined_low_count
+Rds2_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 82 ----
+dshare tfs is: Reb1_badis
+tf_name: Reb1_badis
+tf_start: 1519 tf_end: 1535
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.39947951 0.45925484 0.13451741 0.19487179 0.19675676]
+p_reverse[:5]: [0.09685963 0.12195122 0.12007168 0.28158845 0.40138861]
+Rei1_badis not in loaded_params['p'], using combined_low_count
+Rfx1_badis not in loaded_params['p'], using combined_low_count
+Rgm1_badis not in loaded_params['p'], using combined_low_count
+Rgt1_badis not in loaded_params['p'], using combined_low_count
+Rim101_badis not in loaded_params['p'], using combined_low_count
+Rox1_badis not in loaded_params['p'], using combined_low_count
+Rph1_badis not in loaded_params['p'], using combined_low_count
+Rpn4_badis not in loaded_params['p'], using combined_low_count
+Rsc30_zhu not in loaded_params['p'], using combined_low_count
+Rsc3_zhu not in loaded_params['p'], using combined_low_count
+Rtg3_zhu not in loaded_params['p'], using combined_low_count
+Sfl1_zhu not in loaded_params['p'], using combined_low_count
+Sfp1_zhu not in loaded_params['p'], using combined_low_count
+Sig1_badis not in loaded_params['p'], using combined_low_count
+Sip4_badis not in loaded_params['p'], using combined_low_count
+Skn7_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 99 ----
+dshare tfs is: Sko1_murphy
+tf_name: Sko1_murphy
+tf_start: 1785 tf_end: 1801
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.35164835 0.20289855 0.09252218 0.22608696 0.14655172]
+p_reverse[:5]: [0.1596206  0.25628141 0.02647059 0.04       0.22194079]
+Smp1_zhu not in loaded_params['p'], using combined_low_count
+Sok2_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 102 ----
+dshare tfs is: Spt15_zhu
+tf_name: Spt15_zhu
+tf_start: 1843 tf_end: 1861
+p_forward shape: (9,)
+p_reverse shape: (9,)
+Concatenated shape: 18
+ps slice length: 18
+p_forward[:5]: [0.1305136  0.08151261 0.12769312 0.12268103 0.11867905]
+p_reverse[:5]: [0.1373494  0.09924242 0.06782609 0.11724374 0.11586453]
+Srd1_badis not in loaded_params['p'], using combined_low_count
+Stb3_zhu not in loaded_params['p'], using combined_low_count
+Stb4_murphy not in loaded_params['p'], using combined_low_count
+Stb5_murphy not in loaded_params['p'], using combined_low_count
+Ste12_murphy not in loaded_params['p'], using combined_low_count
+Stp1_murphy not in loaded_params['p'], using combined_low_count
+Stp2_zhu not in loaded_params['p'], using combined_low_count
+Stp3_badis not in loaded_params['p'], using combined_low_count
+Stp4_zhu not in loaded_params['p'], using combined_low_count
+Sum1_zhu not in loaded_params['p'], using combined_low_count
+Sut1_murphy not in loaded_params['p'], using combined_low_count
+Sut2_zhu not in loaded_params['p'], using combined_low_count
+Swi4_badis not in loaded_params['p'], using combined_low_count
+Swi5_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 117 ----
+dshare tfs is: Tbf1_zhu
+tf_name: Tbf1_zhu
+tf_start: 2105 tf_end: 2121
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.22044888 0.25348189 0.22045028 0.1694291  0.14826255]
+p_reverse[:5]: [0.29955778 0.19646799 0.11521548 0.14895397 0.29234973]
+Tbs1_zhu not in loaded_params['p'], using combined_low_count
+Tea1_zhu not in loaded_params['p'], using combined_low_count
+Tec1_badis not in loaded_params['p'], using combined_low_count
+Tos8_badis not in loaded_params['p'], using combined_low_count
+Tye7_zhu not in loaded_params['p'], using combined_low_count
+Uga3_badis not in loaded_params['p'], using combined_low_count
+
+---- TF 124 ----
+dshare tfs is: Ume6_zhu
+tf_name: Ume6_zhu
+tf_start: 2225 tf_end: 2241
+p_forward shape: (8,)
+p_reverse shape: (8,)
+Concatenated shape: 16
+ps slice length: 16
+p_forward[:5]: [0.09923664 0.30128205 0.04104478 0.06818182 0.05263158]
+p_reverse[:5]: [0.19875206 0.17047817 0.05882353 0.07777778 0.03435115]
+Upc2_murphy not in loaded_params['p'], using combined_low_count
+Usv1_zhu not in loaded_params['p'], using combined_low_count
+Vhr1_murphy not in loaded_params['p'], using combined_low_count
+Xbp1_badis not in loaded_params['p'], using combined_low_count
+Yap1_zhu not in loaded_params['p'], using combined_low_count
+Yap3_murphy not in loaded_params['p'], using combined_low_count
+Yap6_zhu not in loaded_params['p'], using combined_low_count
+Ybr033w_murphy not in loaded_params['p'], using combined_low_count
+Ybr239c_zhu not in loaded_params['p'], using combined_low_count
+Ydr520c_badis not in loaded_params['p'], using combined_low_count
+Yer064c_murphy not in loaded_params['p'], using combined_low_count
+Yer130c_badis not in loaded_params['p'], using combined_low_count
+Yer184c_murphy not in loaded_params['p'], using combined_low_count
+Ygr067c_badis not in loaded_params['p'], using combined_low_count
+Ykl222c_zhu not in loaded_params['p'], using combined_low_count
+Yll054c_zhu not in loaded_params['p'], using combined_low_count
+Ylr278c_murphy not in loaded_params['p'], using combined_low_count
+Yml081w_zhu not in loaded_params['p'], using combined_low_count
+Ynr063w_badis not in loaded_params['p'], using combined_low_count
+Yox1_badis not in loaded_params['p'], using combined_low_count
+Ypr013c_zhu not in loaded_params['p'], using combined_low_count
+Ypr015c_zhu not in loaded_params['p'], using combined_low_count
+Ypr022c_badis not in loaded_params['p'], using combined_low_count
+Ypr196w_badis not in loaded_params['p'], using combined_low_count
+Yrm1_badis not in loaded_params['p'], using combined_low_count
+Yrr1_zhu not in loaded_params['p'], using combined_low_count
+Zap1_murphy not in loaded_params['p'], using combined_low_count
+Zms1_badis not in loaded_params['p'], using combined_low_count
+unknown not in loaded_params['p'], using combined_low_count
+bob
+fit9 mask: kept 9 (incl 'unknown': False) | masked 145
+captured segment 0 -> posterior_fix/dblmin_history/seg300/cap.npz  emission (7, 5000, 3485)  robocopC=../pkg/robocop/librobocop.so
+done

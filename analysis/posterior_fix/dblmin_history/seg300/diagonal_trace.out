@@ -1,0 +1,44 @@
+n_obs 5000 n_states 3485 ssb 3330 n_vars 7 nuc_start 2799 nuc_len 531
+/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/posterior_fix/dblmin_history/seg300_diagonal_trace.py:24: RuntimeWarning: divide by zero encountered in log10
+  em = np.log10(np.prod(E[:, i, j])); emmax = np.log10(np.max(np.prod(E[:, i, :ssb], axis=0)))
+parents of nuc_pos5: ['nuc_pos4']
+parents of nuc_pos0: ['silent_0'] ... n = 1
+
+== diagonal ending at row 1789 nuc_pos9   (row, state, log10 fA, log10 fL, log10 floor=DBL_MIN/S, log10 emission[row,state], log10 emission max over emitting)
+  1780 nuc_pos0   fA   -32.64  fL   -58.21  floor  -246.78  emis   -60.73  emis_max   -60.00
+  1781 nuc_pos1   fA   -25.44  fL   -51.01  floor  -268.37  emis   -32.08  emis_max   -31.00
+  1782 nuc_pos2   fA   -25.28  fL   -50.84  floor  -246.73  emis   -60.76  emis_max   -60.00
+  1783 nuc_pos3   fA   -15.79  fL   -41.35  floor  -265.33  emis   -32.84  emis_max   -31.00
+  1784 nuc_pos4   fA   -12.21  fL   -37.77  floor  -272.65  emis   -31.42  emis_max   -30.92
+  1785 nuc_pos5   fA   -12.98  fL   -38.55  floor  -276.50  emis   -31.93  emis_max   -30.56
+  1786 nuc_pos6   fA    -6.48  fL   -32.05  floor  -265.02  emis   -36.13  emis_max   -31.03
+  1787 nuc_pos7   fA    -4.99  fL   -30.56  floor  -274.73  emis   -31.43  emis_max   -30.86
+  1788 nuc_pos8   fA    -5.09  fL   -30.66  floor  -246.99  emis   -60.76  emis_max   -60.00
+  1789 nuc_pos9   fA    -1.45  fL   -26.98  floor  -270.69  emis   -32.82  emis_max   -30.99
+
+== diagonal ending at row 1789 nuc_pos5   (row, state, log10 fA, log10 fL, log10 floor=DBL_MIN/S, log10 emission[row,state], log10 emission max over emitting)
+  1784 nuc_pos0   fA   -11.41  fL   -36.98  floor  -272.65  emis   -31.47  emis_max   -30.92
+  1785 nuc_pos1   fA   -12.65  fL   -38.21  floor  -276.50  emis   -32.39  emis_max   -30.56
+  1786 nuc_pos2   fA    -5.97  fL   -31.53  floor  -265.02  emis   -35.95  emis_max   -31.03
+  1787 nuc_pos3   fA    -4.60  fL   -30.16  floor  -274.73  emis   -31.55  emis_max   -30.86
+  1788 nuc_pos4   fA    -4.71  fL   -30.28  floor  -246.99  emis   -60.78  emis_max   -60.00
+  1789 nuc_pos5   fA    -1.53  fL   -27.06  floor  -270.69  emis   -33.78  emis_max   -30.99
+
+== diagonal ending at row 1790 nuc_pos16   (row, state, log10 fA, log10 fL, log10 floor=DBL_MIN/S, log10 emission[row,state], log10 emission max over emitting)
+  1774 nuc_pos0   fA  -133.07  fL  -158.63  floor  -246.89  emis   -60.73  emis_max   -60.00
+  1775 nuc_pos1   fA  -112.65  fL  -138.22  floor  -246.44  emis   -40.80  emis_max   -31.12
+  1776 nuc_pos2   fA   -91.45  fL  -117.02  floor  -231.20  emis   -55.26  emis_max   -31.30
+  1777 nuc_pos3   fA   -83.45  fL  -109.02  floor  -267.42  emis   -32.23  emis_max   -30.99
+  1778 nuc_pos4   fA   -83.55  fL  -109.11  floor  -246.99  emis   -60.75  emis_max   -60.00
+  1779 nuc_pos5   fA   -71.10  fL   -96.66  floor  -249.06  emis   -46.14  emis_max   -31.12
+  1780 nuc_pos6   fA   -71.00  fL   -96.57  floor  -246.78  emis   -60.78  emis_max   -60.00
+  1781 nuc_pos7   fA   -63.85  fL   -89.42  floor  -268.37  emis   -32.13  emis_max   -31.00
+  1782 nuc_pos8   fA   -63.69  fL   -89.26  floor  -246.73  emis   -60.76  emis_max   -60.00
+  1783 nuc_pos9   fA  -265.33  fL     -inf  floor  -265.33  emis     -inf  emis_max   -31.00
+  1784 nuc_pos10  fA  -272.65  fL     -inf  floor  -272.65  emis     -inf  emis_max   -30.92
+  1785 nuc_pos11  fA  -276.50  fL     -inf  floor  -276.50  emis     -inf  emis_max   -30.56
+  1786 nuc_pos12  fA  -265.02  fL     -inf  floor  -265.02  emis     -inf  emis_max   -31.03
+  1787 nuc_pos13  fA  -274.73  fL     -inf  floor  -274.73  emis     -inf  emis_max   -30.86
+  1788 nuc_pos14  fA   -14.96  fL   -40.52  floor  -246.99  emis   -60.00  emis_max   -60.00
+  1789 nuc_pos15  fA  -270.69  fL     -inf  floor  -270.69  emis     -inf  emis_max   -30.99
+  1790 nuc_pos16  fA    -3.36  fL   -28.92  floor  -276.39  emis   -32.59  emis_max   -30.58

@@ -114,3 +114,12 @@ rdna_chrXII_Bprod_seq	family	posterior fix ablation	Phase D: one family so all 1
 rdna_chrXII_logfull_both	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
 rdna_chrXII_logfull_fib	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
 rdna_chrXII_logfull_seq	family	posterior fix ablation	Phase D: one family so all 12 Bprod/logfull arms sort together
+# 2026-10-23: log-space (exact emission) re-decodes of the three tuner-v2 finals on the same 783 segments
+# (chrXIV+chrII tune + chrIV holdout in ONE dir each). Compare against bo09_final / bu01_final / bv75_final,
+# which were decoded by the original librobocop_prenorm.so and are shown clipped (factor tables not normalised).
+tw3_bo09_48_logfull	label	bo09 r48 log space	pkgvar/seq_maskoff_fit9_bgopen_logfull, ROBOCOP_LOG_EMISSION=exact
+tw3_bo09_48_logfull	family	posterior fix: log space	vs bo09_final
+tw3_bu01_11_logfull	label	bu01 r11 log space	pkgvar/seq_maskoff_all153_logfull, ROBOCOP_LOG_EMISSION=exact
+tw3_bu01_11_logfull	family	posterior fix: log space	vs bu01_final
+tw3_bv75_49_logfull	label	bv75 r49 log space	pkgvar/seq_maskoff_tune75_logfull, ROBOCOP_LOG_EMISSION=exact
+tw3_bv75_49_logfull	family	posterior fix: log space	vs bv75_final

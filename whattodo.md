@@ -286,8 +286,11 @@ reference note on bug 0 that Phase B's cutover record goes into.
 8. **Single-fiber decoding.** Everything today is aggregate: the modkit pileup gives
    per-position `(k methylated, n A trials)` summed over reads, and the binomial treats those
    reads as exchangeable. Per-read decoding needs a different ingestion path (read-level m6A
-   calls, not pileup) and a per-molecule state chain. Not started; blocked on the aggregate
-   phase being validated.
+   calls, not pileup) and a per-molecule state chain.
+   **Status 2026-10-26: started, and now the current thread — see `SINGLEFIBER_PLAN.md`.** A per-read
+   prototype exists (`analysis/singlefiber/`), is ported to log space and validated on ERV46. Nucleosomes
+   per read work; TF calls per read are capped by the data (~5 informative bases per read in a motif).
+   Next: a per-site mixture model. User directive: fiber + sequence first, MNase later.
 
 ### Suggested order
 **Tier −2 first, and on its own** — the posterior fix changes the numbers every other tier is measured

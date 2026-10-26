@@ -1,0 +1,14 @@
+{
+ "T": "Same three tuned models as on Oct 6. Today: what the Run Browser showed before the fix, next to the log-space decoder.",
+ "O": "Three parts. Hidden slides (h) carry the mechanism and the review.",
+ "W": "Plain version: the old decoder multiplied tiny numbers and its undo step left a factor; some rows summed far above 1 and the viewer clipped them. Log space adds logs, so nothing underflows and every row sums to 1.",
+ "HA": "C1 is the ordering bug in the backward pass. bo09 is hit hardest because its concentrations are extreme.",
+ "HB": "DBL_MIN padding is the second cause. Rows sum to 1 but are wrong. This is the tail on the chrIV slide.",
+ "L1": "Rows in pairs: before, then after. bo09's 0.50 on the poly-A goes to 0.00; the real ABF1 site stays at 1.00. bu01 and bv75 do not change.",
+ "L2": "Two broken old segments overlap here. bo09 changes mostly in nucleosome and background; bv75 changes at 12 positions at 444,001.",
+ "L3": "No TF changes here; bo09 shifts between background and nucleosome inside the old broken rows.",
+ "L4": "bo09 called FHL1 at 1.00 in the broken rows; log space gives 0.002. Past the broken rows, log space has a full nucleosome where the old view shows half background.",
+ "S": "bu01 never changes; bv75 barely; bo09 changes where its old rows were broken, plus short tails after them.",
+ "HC": "Independent review of the log-space C code: safe to decode, no blockers.",
+ "HD": "Guards that clip or drop rows above 1 cannot fire on log-space decodes. Keep them until old decodes are retired."
+}

@@ -1,0 +1,196 @@
+<title>FiberCOP C1 Check</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column (~68ch); the results table and two small tables may run wider, each in its own scroller. */
+:root {
+  --bg: #f6f7f8; --surface: #ffffff; --ink: #1c2329; --muted: #5b6670; --rule: #d7dde2;
+  --accent: #1f6f78;           /* teal-slate: the "fixed" side */
+  --bad: #b3412e; --bad-1: #f6e3de; --bad-2: #eebcb0; --bad-3: #d9846f;
+  --ok: #2f7d4f;
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12171b; --surface: #182026; --ink: #e3e8ec; --muted: #9aa6b0; --rule: #2c363e;
+  --accent: #5fb7bf; --bad: #ec8a74; --bad-1: #3a2420; --bad-2: #5a2e25; --bad-3: #84402f; --ok: #6cc08d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12171b; --surface: #182026; --ink: #e3e8ec; --muted: #9aa6b0; --rule: #2c363e;
+  --accent: #5fb7bf; --bad: #ec8a74; --bad-1: #3a2420; --bad-2: #5a2e25; --bad-3: #84402f; --ok: #6cc08d; color-scheme: dark }
+
+body { background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem 4rem; }
+main { max-width: 68ch; margin: 0 auto; display: flex; flex-direction: column; gap: 2.25rem; }
+h1, h2 { font-family: var(--f-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; font-weight: 700; }
+section { display: flex; flex-direction: column; gap: 0.8rem; min-width: 0; }
+p { margin: 0; }
+.eyebrow { font: 600 0.75rem/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lead { font-size: 1.2rem; line-height: 1.5; }
+.mono, code { font-family: var(--f-mono); font-size: 0.88em; }
+.muted { color: var(--muted); }
+ul { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.answer { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--bad); padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; width: 100%; }
+th, td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { font: 600 0.8rem/1.3 var(--f-mono); color: var(--muted); letter-spacing: 0.02em; border-bottom: 2px solid var(--ink); }
+thead th small { display: block; font: 400 0.72rem/1.3 var(--f-body); letter-spacing: 0; }
+.kv td:last-child, .kv th:last-child { text-align: right; font-family: var(--f-mono); font-size: 0.9rem; }
+.res { min-width: 34rem; }
+.res tbody th { font: 600 0.9rem var(--f-mono); white-space: nowrap; }
+.res td { font-family: var(--f-mono); font-size: 0.9rem; }
+.res td .r { display: block; font-weight: 600; }
+.res td .s, .res td .oth { display: block; font: 400 0.75rem/1.3 var(--f-body); color: var(--muted); }
+.res td .oth { color: var(--ink); font-style: italic; }
+.res td .z { color: var(--muted); }
+.res .l1 { background: var(--bad-1); } .res .l2 { background: var(--bad-2); } .res .l3 { background: var(--bad-3); }
+.res tr.rd th { color: var(--accent); }
+.res tr.tot th, .res tr.tot td { border-top: 2px solid var(--ink); border-bottom: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); align-items: center; }
+.sw { display: inline-block; width: 0.9rem; height: 0.9rem; vertical-align: -0.15rem; margin-right: 0.3rem; border: 1px solid var(--rule); }
+.steps { counter-reset: s; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 1.8rem 1fr; gap: 0.4rem; }
+.steps li::before { content: counter(s); font: 600 0.85rem/1.6 var(--f-mono); color: var(--accent); }
+.steps li > div { min-width: 0; }
+.bad { color: var(--bad); font-weight: 600; } .ok { color: var(--ok); font-weight: 600; }
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+footer code { word-break: break-all; }
+</style>
+
+<main>
+  <header style="display:flex;flex-direction:column;gap:0.6rem">
+    <span class="eyebrow">RoboCOP + Fiber-seq &middot; posterior fix &middot; 2026-10-20</span>
+    <h1>FiberCOP C1 Check</h1>
+    <p class="lead">Does the backward-pass bug C1 fire in FiberCOP, and where? Yes. It fires in every model we tested, on chromosomes with ordinary coverage, through a route the MNase check cannot see.</p>
+  </header>
+
+  <div class="answer">
+    <p><strong>Answer.</strong> We ran the original C code and the audit's C1-fixed C code on the same inputs for every segment of the nuclear genome, for three models.</p>
+    <ul>
+      <li><strong>bo09 r48:</strong> <span class="bad">122,382</span> posterior rows broken by C1, in 217 of 3,021 segments, on all 16 chromosomes.</li>
+      <li><strong>bv75 r49:</strong> <span class="bad">17,689</span> rows in 59 segments; 13,794 of them in rDNA.</li>
+      <li><strong>bu01 r11:</strong> <span class="bad">13,798</span> rows, all in the chrXII rDNA array. Clean everywhere else.</li>
+    </ul>
+    <p class="muted">These are rows of the <em>original</em> decoder, the one that produced every bo09, bu01 and bv75 decode and the viewer tracks.</p>
+  </div>
+
+  <section>
+    <span class="eyebrow">What C1 is</span>
+    <h2>The backward pass builds its silent states before rescaling the row</h2>
+    <p>RoboCOP's HMM has <em>silent</em> states: junctions between features (a TF, a nucleosome, background) that emit nothing. In the backward pass, <code>bward</code> (<code>pkg/robocop/algo.c:185-198</code>) fills the silent states of a row from the row's emitting cells <em>before</em> the row is rescaled. The audit's fix moves the rescale first. That one reordering is the only difference between the two C libraries compared here.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">Why the MNase check does not carry over</span>
+    <h2>The emission bound says &ldquo;safe&rdquo; exactly where C1 fired</h2>
+    <p>For MNase, C1 was ruled out with a bound: the best emission at position <i>t</i> times the best at <i>t</i>+1 must stay above the smallest double, 2.2&times;10<sup>&minus;308</sup>. On the real bo09 event at <code>chrXIV:413,386</code> that bound is nowhere near the line:</p>
+    <div class="scroll"><table class="kv">
+      <tbody>
+        <tr><th scope="row">smallest pair product anywhere in segment 307 (chrXIV:412,001&ndash;417,000)</th><td>1&times;10<sup>&minus;120</sup></td></tr>
+        <tr><th scope="row">pair product at the event, 413,386</th><td>4.5&times;10<sup>&minus;73</sup></td></tr>
+        <tr><th scope="row">danger line used for MNase</th><td>2.2&times;10<sup>&minus;308</sup></td></tr>
+        <tr><th scope="row">what actually happened at 413,386</th><td class="bad">scale off by 29.96 nats = 1.03&times;10<sup>13</sup></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <span class="eyebrow">The mechanism in FiberCOP</span>
+    <h2>DBL_MIN padding on silent cells, divided by a tiny row sum</h2>
+    <ol class="steps">
+      <li><div><code>normalize()</code> (<code>algo.c:10-30</code>) adds DBL_MIN (2.2&times;10<sup>&minus;308</sup>) to <em>every</em> cell of the row, silent cells included, then divides the whole row by the emitting sum <i>S</i>.</div></li>
+      <li><div>Because the original code fills silent cells before that step, they are still <i>S</i> times too small. The padding swamps them: every silent cell becomes DBL_MIN&nbsp;/&nbsp;<i>S</i> (all 155 of 155 silent cells at the row before the event).</div></li>
+      <li><div>With MNase, <i>S</i> is about 10<sup>&minus;2</sup>, so the fake mass is about 10<sup>&minus;306</sup> and harmless. With Fiber-seq, the 1&times;10<sup>&minus;30</sup> floor on each unscored strand makes <i>S</i> between 10<sup>&minus;31</sup> and 10<sup>&minus;99</sup>, so the fake mass is 10<sup>&minus;277</sup> to 10<sup>&minus;209</sup> per row.</div></li>
+      <li><div>The fake mass does damage where a later row's real mass falls below it. At 413,386 the true emitting sum is 1.07&times;10<sup>&minus;99</sup>; the fake mass wins and rescales every position upstream of it.</div></li>
+    </ol>
+    <p>Proof, from a numpy replay of both backward passes that reproduces the C tables to within 10<sup>&minus;14</sup>:</p>
+    <div class="scroll"><table class="kv">
+      <thead><tr><th scope="col">backward pass</th><th scope="col">scale at 413,386</th></tr></thead>
+      <tbody>
+        <tr><td>original C code</td><td class="bad">1.097&times;10<sup>&minus;86</sup></td></tr>
+        <tr><td>original order, silent-cell padding removed</td><td class="ok">1.069&times;10<sup>&minus;99</sup></td></tr>
+        <tr><td>C1-fixed C code</td><td class="ok">1.068&times;10<sup>&minus;99</sup></td></tr>
+      </tbody>
+    </table></div>
+    <p>So no bound on emissions alone can stand in for running the recursion: the trigger depends on the floors, the masks, the tuned priors (down to 1.4&times;10<sup>&minus;51</sup> in bo09) and the recursion itself.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">Method</span>
+    <h2>Run both C libraries on every segment</h2>
+    <p><code>c1scan/scan_genome.py</code>, one Slurm array of 48 tasks per model (jobs 13070845, 13070895, 13070896; all 144 tasks completed). For each of the 3,021 windows in <code>coord_genome_full.tsv</code> (5 kb, stepping 4 kb, chrI&ndash;chrXVI end to end; chrM is not in the file):</p>
+    <ul>
+      <li>Build the emission and transition matrices with that model's own package copy and trainDir, by the real decode pipeline, stopping just before its C step.</li>
+      <li>Run the forward pass once, then the backward pass and posterior twice: <code>librobocop_prenorm.so</code> (md5 6a0724bf, the original) and the audit's <code>librobocop_fixed.so</code> (md5 6dbd5e6d, C1 fixed).</li>
+      <li>A <strong>C1 row</strong> is a position whose posterior row sum is off by more than 10<sup>&minus;4</sup> with the original library and correct with the fixed one. Rows wrong under both are counted separately as &ldquo;not C1&rdquo;.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="eyebrow">Results</span>
+    <h2>C1 rows per chromosome</h2>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--bad-1)"></span>1&ndash;99 rows</span>
+      <span><span class="sw" style="background:var(--bad-2)"></span>100&ndash;1,999</span>
+      <span><span class="sw" style="background:var(--bad-3)"></span>2,000 or more</span>
+      <span>Rows are counted per segment; segments overlap by 1,000 bp.</span>
+    </div>
+    <div class="scroll"><table class="res"><thead><tr><th scope="col">chromosome</th><th scope="col">bo09 r48<small>9 motifs live, ABF1 &lambda; 5.8e-45</small></th><th scope="col">bu01 r11<small>all 153 motifs live</small></th><th scope="col">bv75 r49<small>75 motifs live</small></th></tr></thead><tbody><tr><th scope="row">chrI</th><td class="l1"><span class="r">1</span><span class="s">1 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l0"><span class="z">0</span></td></tr>
+<tr><th scope="row">chrII</th><td class="l2"><span class="r">485</span><span class="s">6 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">18</span><span class="s">2 seg</span></td></tr>
+<tr><th scope="row">chrIII</th><td class="l2"><span class="r">154</span><span class="s">1 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l0"><span class="z">0</span></td></tr>
+<tr><th scope="row">chrIV</th><td class="l3"><span class="r">5,016</span><span class="s">27 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">21</span><span class="s">6 seg</span></td></tr>
+<tr><th scope="row">chrV</th><td class="l3"><span class="r">13,129</span><span class="s">14 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">32</span><span class="s">4 seg</span></td></tr>
+<tr><th scope="row">chrVI</th><td class="l1"><span class="r">31</span><span class="s">3 seg</span><span class="oth">+2,763 not C1</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">10</span><span class="s">2 seg</span></td></tr>
+<tr><th scope="row">chrVII</th><td class="l3"><span class="r">15,905</span><span class="s">21 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">14</span><span class="s">2 seg</span></td></tr>
+<tr><th scope="row">chrVIII</th><td class="l2"><span class="r">664</span><span class="s">13 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l2"><span class="r">502</span><span class="s">5 seg</span></td></tr>
+<tr><th scope="row">chrIX</th><td class="l3"><span class="r">6,410</span><span class="s">7 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">18</span><span class="s">2 seg</span></td></tr>
+<tr><th scope="row">chrX</th><td class="l3"><span class="r">13,991</span><span class="s">20 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l3"><span class="r">3,069</span><span class="s">4 seg</span></td></tr>
+<tr><th scope="row">chrXI</th><td class="l3"><span class="r">2,808</span><span class="s">9 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">14</span><span class="s">2 seg</span></td></tr>
+<tr class="rd"><th scope="row">chrXII (no rDNA)</th><td class="l3"><span class="r">17,879</span><span class="s">26 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">56</span><span class="s">6 seg</span></td></tr>
+<tr class="rd"><th scope="row">chrXII rDNA</th><td class="l3"><span class="r">13,408</span><span class="s">5 seg</span><span class="oth">+9,100 not C1</span></td><td class="l3"><span class="r">13,798</span><span class="s">5 seg</span></td><td class="l3"><span class="r">13,794</span><span class="s">5 seg</span></td></tr>
+<tr><th scope="row">chrXIII</th><td class="l3"><span class="r">11,618</span><span class="s">17 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">26</span><span class="s">5 seg</span></td></tr>
+<tr><th scope="row">chrXIV</th><td class="l3"><span class="r">6,804</span><span class="s">15 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">45</span><span class="s">6 seg</span></td></tr>
+<tr><th scope="row">chrXV</th><td class="l3"><span class="r">13,587</span><span class="s">19 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">56</span><span class="s">5 seg</span></td></tr>
+<tr><th scope="row">chrXVI</th><td class="l2"><span class="r">492</span><span class="s">13 seg</span></td><td class="l0"><span class="z">0</span></td><td class="l1"><span class="r">14</span><span class="s">3 seg</span></td></tr>
+<tr class="tot"><th scope="row">total</th><td class="l3"><span class="r">122,382</span><span class="s">217 seg</span></td><td class="l3"><span class="r">13,798</span><span class="s">5 seg</span></td><td class="l3"><span class="r">17,689</span><span class="s">59 seg</span></td></tr></tbody></table></div>
+    <ul>
+      <li>bv75's hits outside rDNA are mostly 2&ndash;15 rows at a segment start, but large: those rows reach row sums of 10<sup>42</sup> in the stored decodes. Two are longer: chrX:540,001 (3,038 rows) and chrVIII:212,001 (477 rows).</li>
+      <li>In rDNA every model has about 13,800 C1 rows. The C1 fix makes those rows sum to 1, but they remain wrong because of the DBL_MIN padding in the forward pass and the emission floor.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="eyebrow">Cross-checks</span>
+    <h2>The scan reproduces the stored decodes</h2>
+    <div class="scroll"><table class="kv">
+      <thead><tr><th scope="col">check</th><th scope="col">stored decode</th><th scope="col">this scan</th></tr></thead>
+      <tbody>
+        <tr><td>bo09 r48, bad rows on chrXIV + chrII</td><td>7,289</td><td>6,804 + 485 = 7,289</td></tr>
+        <tr><td>bu01 r11, chrXIV + chrII + chrIV</td><td>0</td><td>0</td></tr>
+        <tr><td>bo09 segment 307</td><td>1,408 rows off by 1.03&times;10<sup>13</sup></td><td>1,408 rows; event at 413,386</td></tr>
+        <tr><td>bv75 r49, chrXIV / chrII / chrIV</td><td>35 / 18 / 18 (&gt;1%)</td><td>45 / 18 / 21 (&gt;10<sup>&minus;4</sup>)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted">The bv75 rows differ slightly because the thresholds differ and the stored decodes zero values below 10<sup>&minus;4</sup> when saving.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">Limits</span>
+    <h2>What this check does not cover</h2>
+    <ul>
+      <li>chrM is not covered (not in the genome coordinate file).</li>
+      <li>bo09 chrVI:208,001&ndash;213,000 has 2,763 rows wrong under both libraries, so not C1. The cause is not established.</li>
+      <li>The C1-fixed library is a way to assign blame, not ground truth: it keeps the DBL_MIN padding in the forward pass.</li>
+      <li>Production fix B renormalises every row, which hides C1. On segment 307 that brought it within 4.8&times;10<sup>&minus;9</sup> of log space; other segments are unverified.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Code and per-segment results: <code>analysis/posterior_fix/fibercop_audit/c1scan/</code> (<code>README.md</code>, <code>scan_genome.py</code>, <code>c1_trace.py</code>, <code>summary_c1_rows.tsv</code>).</span>
+    <span>Models: bo09 = <code>pkgvar/seq_maskoff_fit9_bgopen</code> + <code>robocop_train_tw_bo09_48</code>; bu01 = <code>seq_maskoff_all153</code> + <code>robocop_train_tw_bu01_11</code>; bv75 = <code>seq_maskoff_tune75</code> + <code>robocop_train_tw_bv75_49</code>.</span>
+  </footer>
+</main>

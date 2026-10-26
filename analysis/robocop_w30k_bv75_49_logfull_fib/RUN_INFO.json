@@ -1,0 +1,23 @@
+{
+ "schema": 2,
+ "outdir": "robocop_w30k_bv75_49_logfull_fib",
+ "original_outdir": "robocop_w30k_bv75_49_logfull_fib",
+ "driver": "run_split_fiber_maskoff_tune75_logfull.py",
+ "pkg_tree": "pkgvar/fiber_maskoff_tune75_logfull",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bv75_49",
+ "traindir_exists": true,
+ "coords": "coord_w30k_chrXIV.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "1fc47cb265e9dfdc25386aa83ec5a69b50f5e52a",
+ "git_dirty": true,
+ "written": "2026-10-06T01:44:24",
+ "slurm_job_id": "12825308",
+ "source": "decode-time",
+ "cshared": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/pkg/robocop/librobocop_logfull.so",
+ "cshared_how": "override in pkgvar/fiber_maskoff_tune75_logfull/robocop_no_em.py",
+ "so_md5": "88f86a356aad55d466098d214b29ef06",
+ "log_emission": "exact"
+}

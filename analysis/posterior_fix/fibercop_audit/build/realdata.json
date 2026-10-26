@@ -1,0 +1,676 @@
+{
+ "method": "Pileup parsed as pkg/robocop/utils/getReads.py:188-218: whitespace-split columns; col0 chrom, col1 0-based start, col3 mod code (keep upper()=='A'), col5 strand ('+'=Watson, '-'=Crick), n=int(col9) valid coverage, k=int(col11) modified count. Rows with the same (chrom,start,strand) are summed, as getReads does with +=. Rows are then kept only if the reference base (analysis/inputs/SacCer3.fa via Bio.SeqIO) is A for Watson or T for Crick: robocop.py's fiber emission scores only those positions and zeroes the rest (nucleotide_ref 0/3), so mismatched rows (~30%, mostly n=1) never reach binom.pmf; their count is reported under rows_dropped_ref_base_mismatch. 'Scored base' = one (chrom,pos,strand) with n>0 (n=0 rows are counted separately; they carry no evidence). 1-based pos = col1+1. rDNA = chrXII 1-based 451,435-468,729 inclusive; 'genome_ex_rdna' = all chromosomes in the file (incl. chrM) minus rDNA. Runs: per position keep the strand with larger n (Watson on tie); a run is a maximal stretch of consecutive positions each with a scored base. A 4-window is any 4 consecutive positions inside a run (overlapping windows all counted); its min_n is the min of the 4 n values; 'kn>=0.8' requires all four k/n>=0.8. 'runs_with' counts maximal runs containing >=1 qualifying window. Underflow: scipy.stats.binom.pmf(k,n,p)==0.0 in float64 for p=0.0242 or p=0.2647 (either one => at least one state floored to 1e-30). Quantiles use numpy linear interpolation; n histogram bins are [lo,hi) with a final [10000,inf).",
+ "pileup": "/usr/xtmp/nd141/projects/Fiber_seq/process_nanopore_sequencing/combine_sequencing_runs/merged_Mar20_barcode01_Jun25_barcode21-24_May07_barcode03-04_sup_model_sorted_pileup_all_chr",
+ "pileup_rows_total": 11414910,
+ "n_scored_rows_after_ref_filter": 7491343,
+ "rows_dropped_ref_base_mismatch": {
+  "rows": 3923567,
+  "rows_n_ge_20": 32032,
+  "n_quantiles": {
+   "p50": 1.0,
+   "p99": 16.0,
+   "max": 1145
+  }
+ },
+ "underflow_min_n_seen": {
+  "p0.0242": 419,
+  "p0.2647": 1115
+ },
+ "n_unique_kn_pairs_underflowing": 11532,
+ "regions": {
+  "genome_ex_rdna": {
+   "n_scored_bases": 7481649,
+   "n_rows_with_n0": 0,
+   "watson": 3747726,
+   "crick": 3733923,
+   "coverage_n": {
+    "p50": 78.0,
+    "p90": 96.0,
+    "p99": 329.0,
+    "p99.9": 1146.0,
+    "p99.99": 1374.0,
+    "max": 1976.0,
+    "mean": 86.56860085256606
+   },
+   "k_over_n": {
+    "p50": 0.0410958904109589,
+    "p90": 0.16279069767441862,
+    "p99": 0.475,
+    "p99.9": 0.696969696969697,
+    "p99.99": 0.8409090909090909,
+    "max": 1.0,
+    "mean": 0.06986650075987612
+   },
+   "n_hist": {
+    "[1,2)": 4035,
+    "[2,5)": 5869,
+    "[5,10)": 8490,
+    "[10,20)": 16757,
+    "[20,50)": 161191,
+    "[50,100)": 6790586,
+    "[100,200)": 409789,
+    "[200,500)": 12578,
+    "[500,1000)": 49116,
+    "[1000,2000)": 23238,
+    "[2000,5000)": 0,
+    "[5000,10000)": 0,
+    "[10000,inf)": 0
+   },
+   "n_ge": {
+    "100": 494721,
+    "200": 84932,
+    "230": 80799,
+    "500": 72354,
+    "1000": 23238,
+    "4000": 0
+   },
+   "n_ge_230_and_kn_ge_0.8": 15,
+   "underflow_bases": 9466,
+   "underflow_bases_p0.0242": 9466,
+   "underflow_bases_p0.2647": 9,
+   "runs": {
+    "positions_with_both_strands": 0,
+    "n_4windows": 1745464,
+    "run_length_hist": {
+     ">=1": 2871567,
+     ">=2": 1805286,
+     ">=4": 652310,
+     ">=6": 240902,
+     ">=8": 95428,
+     ">=10": 38430,
+     ">=15": 6272,
+     ">=20": 2086
+    },
+    "max_run_length": 236,
+    "windows_min_n_ge": {
+     "1": 1745464,
+     "10": 1737587,
+     "50": 1658168,
+     "100": 81318,
+     "200": 52734,
+     "300": 51592,
+     "500": 50736,
+     "1000": 6198
+    },
+    "runs_with_min_n_ge": {
+     "1": 652310,
+     "10": 650152,
+     "50": 623902,
+     "100": 18647,
+     "200": 4868,
+     "300": 4395,
+     "500": 4180,
+     "1000": 819
+    },
+    "windows_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "runs_with_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "max_window_min_n": {
+     "min_n": 1664,
+     "chrom": "chrM",
+     "pos_1based": [
+      43807,
+      43808,
+      43809,
+      43810
+     ],
+     "n": [
+      1688,
+      1688,
+      1685,
+      1664
+     ],
+     "k_over_n": [
+      0.0024,
+      0.0071,
+      0.0107,
+      0.024
+     ]
+    }
+   }
+  },
+  "rdna_chrXII_451435_468729": {
+   "n_scored_bases": 9694,
+   "n_rows_with_n0": 0,
+   "watson": 4887,
+   "crick": 4807,
+   "coverage_n": {
+    "p50": 3381.0,
+    "p90": 3860.0,
+    "p99": 4181.0,
+    "p99.9": 4324.307000000001,
+    "p99.99": 4375.122799999997,
+    "max": 4379.0,
+    "mean": 3279.540746853724
+   },
+   "k_over_n": {
+    "p50": 0.08681251989812161,
+    "p90": 0.21671165092217742,
+    "p99": 0.45709042191295884,
+    "p99.9": 0.6554128967093757,
+    "p99.99": 0.7661125814504092,
+    "max": 0.7822832189644416,
+    "mean": 0.10919980371703922
+   },
+   "n_hist": {
+    "[1,2)": 0,
+    "[2,5)": 0,
+    "[5,10)": 0,
+    "[10,20)": 0,
+    "[20,50)": 0,
+    "[50,100)": 0,
+    "[100,200)": 1,
+    "[200,500)": 4,
+    "[500,1000)": 43,
+    "[1000,2000)": 291,
+    "[2000,5000)": 9355,
+    "[5000,10000)": 0,
+    "[10000,inf)": 0
+   },
+   "n_ge": {
+    "100": 9694,
+    "200": 9693,
+    "230": 9692,
+    "500": 9689,
+    "1000": 9646,
+    "4000": 445
+   },
+   "n_ge_230_and_kn_ge_0.8": 0,
+   "underflow_bases": 2408,
+   "underflow_bases_p0.0242": 1370,
+   "underflow_bases_p0.2647": 1061,
+   "runs": {
+    "positions_with_both_strands": 0,
+    "n_4windows": 1718,
+    "run_length_hist": {
+     ">=1": 4179,
+     ">=2": 2417,
+     ">=4": 751,
+     ">=6": 189,
+     ">=8": 68,
+     ">=10": 28,
+     ">=15": 11,
+     ">=20": 6
+    },
+    "max_run_length": 29,
+    "windows_min_n_ge": {
+     "1": 1718,
+     "10": 1718,
+     "50": 1718,
+     "100": 1718,
+     "200": 1717,
+     "300": 1716,
+     "500": 1713,
+     "1000": 1686
+    },
+    "runs_with_min_n_ge": {
+     "1": 751,
+     "10": 751,
+     "50": 751,
+     "100": 751,
+     "200": 751,
+     "300": 751,
+     "500": 751,
+     "1000": 749
+    },
+    "windows_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "runs_with_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "max_window_min_n": {
+     "min_n": 4064,
+     "chrom": "chrXII",
+     "pos_1based": [
+      459582,
+      459583,
+      459584,
+      459585
+     ],
+     "n": [
+      4068,
+      4064,
+      4097,
+      4078
+     ],
+     "k_over_n": [
+      0.03,
+      0.0209,
+      0.0142,
+      0.0564
+     ]
+    }
+   }
+  },
+  "chrXIV": {
+   "n_scored_bases": 471486,
+   "n_rows_with_n0": 0,
+   "watson": 236812,
+   "crick": 234674,
+   "coverage_n": {
+    "p50": 76.0,
+    "p90": 92.0,
+    "p99": 105.0,
+    "p99.9": 116.0,
+    "p99.99": 123.0,
+    "max": 130.0,
+    "mean": 75.64637338118204
+   },
+   "k_over_n": {
+    "p50": 0.04,
+    "p90": 0.15789473684210525,
+    "p99": 0.46153846153846156,
+    "p99.9": 0.6883116883116883,
+    "p99.99": 0.8571428571428571,
+    "max": 1.0,
+    "mean": 0.06766498533578601
+   },
+   "n_hist": {
+    "[1,2)": 749,
+    "[2,5)": 1051,
+    "[5,10)": 1124,
+    "[10,20)": 718,
+    "[20,50)": 9974,
+    "[50,100)": 445230,
+    "[100,200)": 12640,
+    "[200,500)": 0,
+    "[500,1000)": 0,
+    "[1000,2000)": 0,
+    "[2000,5000)": 0,
+    "[5000,10000)": 0,
+    "[10000,inf)": 0
+   },
+   "n_ge": {
+    "100": 12640,
+    "200": 0,
+    "230": 0,
+    "500": 0,
+    "1000": 0,
+    "4000": 0
+   },
+   "n_ge_230_and_kn_ge_0.8": 0,
+   "underflow_bases": 0,
+   "underflow_bases_p0.0242": 0,
+   "underflow_bases_p0.2647": 0,
+   "runs": {
+    "positions_with_both_strands": 0,
+    "n_4windows": 104901,
+    "run_length_hist": {
+     ">=1": 184300,
+     ">=2": 115194,
+     ">=4": 40860,
+     ">=6": 14793,
+     ">=8": 5596,
+     ">=10": 2173,
+     ">=15": 274,
+     ">=20": 59
+    },
+    "max_run_length": 40,
+    "windows_min_n_ge": {
+     "1": 104901,
+     "10": 104047,
+     "50": 99096,
+     "100": 382,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "runs_with_min_n_ge": {
+     "1": 40860,
+     "10": 40583,
+     "50": 38904,
+     "100": 244,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "windows_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "runs_with_min_n_ge_and_all_kn_ge_0.8": {
+     "1": 0,
+     "10": 0,
+     "50": 0,
+     "100": 0,
+     "200": 0,
+     "300": 0,
+     "500": 0,
+     "1000": 0
+    },
+    "max_window_min_n": {
+     "min_n": 120,
+     "chrom": "chrXIV",
+     "pos_1based": [
+      524667,
+      524668,
+      524669,
+      524670
+     ],
+     "n": [
+      121,
+      120,
+      125,
+      124
+     ],
+     "k_over_n": [
+      0.0165,
+      0.0167,
+      0.008,
+      0.0081
+     ]
+    }
+   }
+  }
+ },
+ "per_chrom": {
+  "chrI": {
+   "n_scored_bases": 136220,
+   "max_n": 244,
+   "max_n_pos_1based": 609,
+   "max_n_strand": "-",
+   "p99.99_n": 236.0,
+   "max_4window_min_n": 229,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrII": {
+   "n_scored_bases": 500355,
+   "max_n": 330,
+   "max_n_pos_1based": 541473,
+   "max_n_strand": "+",
+   "p99.99_n": 148.0,
+   "max_4window_min_n": 137,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrIII": {
+   "n_scored_bases": 192611,
+   "max_n": 292,
+   "max_n_pos_1based": 487,
+   "max_n_strand": "-",
+   "p99.99_n": 239.21699999991688,
+   "max_4window_min_n": 188,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrIV": {
+   "n_scored_bases": 950787,
+   "max_n": 217,
+   "max_n_pos_1based": 1528091,
+   "max_n_strand": "+",
+   "p99.99_n": 203.0,
+   "max_4window_min_n": 199,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrIX": {
+   "n_scored_bases": 267699,
+   "max_n": 336,
+   "max_n_pos_1based": 147,
+   "max_n_strand": "-",
+   "p99.99_n": 298.2301999999909,
+   "max_4window_min_n": 282,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrM": {
+   "n_scored_bases": 71063,
+   "max_n": 1976,
+   "max_n_pos_1based": 43471,
+   "max_n_strand": "+",
+   "p99.99_n": 1801.7875999999815,
+   "max_4window_min_n": 1664,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 9442
+  },
+  "chrV": {
+   "n_scored_bases": 354676,
+   "max_n": 381,
+   "max_n_pos_1based": 447139,
+   "max_n_strand": "+",
+   "p99.99_n": 370.0,
+   "max_4window_min_n": 362,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrVI": {
+   "n_scored_bases": 165505,
+   "max_n": 148,
+   "max_n_pos_1based": 3853,
+   "max_n_strand": "-",
+   "p99.99_n": 143.0,
+   "max_4window_min_n": 142,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrVII": {
+   "n_scored_bases": 671576,
+   "max_n": 185,
+   "max_n_pos_1based": 569621,
+   "max_n_strand": "-",
+   "p99.99_n": 176.0,
+   "max_4window_min_n": 174,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrVIII": {
+   "n_scored_bases": 345578,
+   "max_n": 1221,
+   "max_n_pos_1based": 562399,
+   "max_n_strand": "+",
+   "p99.99_n": 1021.442299999937,
+   "max_4window_min_n": 932,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 23
+  },
+  "chrX": {
+   "n_scored_bases": 458958,
+   "max_n": 344,
+   "max_n_pos_1based": 4199,
+   "max_n_strand": "-",
+   "p99.99_n": 326.0,
+   "max_4window_min_n": 312,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrXI": {
+   "n_scored_bases": 412647,
+   "max_n": 170,
+   "max_n_pos_1based": 666275,
+   "max_n_strand": "+",
+   "p99.99_n": 156.0,
+   "max_4window_min_n": 151,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrXII": {
+   "n_scored_bases": 663081,
+   "max_n": 4379,
+   "max_n_pos_1based": 459525,
+   "max_n_strand": "+",
+   "p99.99_n": 4218.075999999768,
+   "max_4window_min_n": 4064,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 2409
+  },
+  "chrXIII": {
+   "n_scored_bases": 567147,
+   "max_n": 218,
+   "max_n_pos_1based": 186805,
+   "max_n_strand": "-",
+   "p99.99_n": 205.0,
+   "max_4window_min_n": 202,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrXIV": {
+   "n_scored_bases": 471486,
+   "max_n": 130,
+   "max_n_pos_1based": 524728,
+   "max_n_strand": "+",
+   "p99.99_n": 123.0,
+   "max_4window_min_n": 120,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrXV": {
+   "n_scored_bases": 674783,
+   "max_n": 380,
+   "max_n_pos_1based": 1089887,
+   "max_n_strand": "+",
+   "p99.99_n": 357.0,
+   "max_4window_min_n": 340,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  },
+  "chrXVI": {
+   "n_scored_bases": 587171,
+   "max_n": 213,
+   "max_n_pos_1based": 945800,
+   "max_n_strand": "+",
+   "p99.99_n": 203.0,
+   "max_4window_min_n": 202,
+   "max_4window_min_n_all_kn_ge_0.8": 0,
+   "underflow_bases": 0
+  }
+ },
+ "mnase_reference": {
+  "source": "/usr/project/xtmp/nd141/programs/robocop_c_code_test/robocop_c_audit/walkthrough/variants/depth.json",
+  "field": "reads",
+  "reads": {
+   "segments": {
+    "long": {
+     "mean": 0.97376,
+     "median": 0.0,
+     "p99": 8.0,
+     "p999": 14.0,
+     "max": 26,
+     "adjmax": 16,
+     "n": 50000
+    },
+    "short": {
+     "mean": 0.16294,
+     "median": 0.0,
+     "p99": 3.0,
+     "p999": 7.0,
+     "max": 14,
+     "adjmax": 11,
+     "n": 50000
+    },
+    "n_segments": 10
+   },
+   "chroms": {
+    "chrI": {
+     "length": 230218,
+     "long": {
+      "mean": 0.8759404048301624,
+      "median": 0.0,
+      "p99": 8.0,
+      "p999": 13.0,
+      "max": 26,
+      "adjmax": 22,
+      "n": 230220
+     },
+     "short": {
+      "mean": 0.11275301885153331,
+      "median": 0.0,
+      "p99": 2.0,
+      "p999": 5.0,
+      "max": 15,
+      "adjmax": 12,
+      "n": 230220
+     }
+    },
+    "chrII": {
+     "length": 813184,
+     "long": {
+      "mean": 1.0142636493987844,
+      "median": 0.0,
+      "p99": 8.0,
+      "p999": 13.0,
+      "max": 33,
+      "adjmax": 21,
+      "n": 813186
+     },
+     "short": {
+      "mean": 0.1443458200214957,
+      "median": 0.0,
+      "p99": 2.0,
+      "p999": 6.0,
+      "max": 18,
+      "adjmax": 16,
+      "n": 813186
+     }
+    },
+    "chrXV": {
+     "length": 1091291,
+     "long": {
+      "mean": 1.0265620690318733,
+      "median": 0.0,
+      "p99": 8.0,
+      "p999": 13.0,
+      "max": 27,
+      "adjmax": 23,
+      "n": 1091293
+     },
+     "short": {
+      "mean": 0.14781548126855024,
+      "median": 0.0,
+      "p99": 2.0,
+      "p999": 6.0,
+      "max": 21,
+      "adjmax": 15,
+      "n": 1091293
+     }
+    }
+   },
+   "mapped_chroms": [
+    "chrI",
+    "chrII",
+    "chrXV"
+   ]
+  },
+  "note": "original audit: real MNase data peaks at 22 reads at two neighbouring positions (chrI long-fragment adjmax=22)"
+ }
+}

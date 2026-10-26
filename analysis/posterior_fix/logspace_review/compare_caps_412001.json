@@ -1,0 +1,99 @@
+{
+ "lin": "posterior_fix/logspace_review/scratch/cap_lin_412001.npz",
+ "log": "posterior_fix/logspace_review/scratch/cap_logfloored_412001.npz",
+ "lin_tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_fit9_bgopen",
+ "log_tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_fit9_bgopen_logfull",
+ "log_env": "floored",
+ "lin_lib": "../pkg/robocop/librobocop.so",
+ "log_lib": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/pkg/robocop/librobocop_logfull.so",
+ "same_n_states": true,
+ "same_silent_states_begin": true,
+ "same_n_vars": true,
+ "same_n_tfs": true,
+ "same_nuc_present": true,
+ "same_nuc_start": true,
+ "same_nuc_len": true,
+ "same_timepoints": true,
+ "same_n_obs": true,
+ "same_initial_probs": true,
+ "same_end_probs": true,
+ "same_transition_matrix": true,
+ "same_tf_starts": true,
+ "same_tf_lens": true,
+ "shape": [
+  7,
+  5000,
+  3485
+ ],
+ "log_nan": 0,
+ "log_posinf": 0,
+ "log_max": 0.0,
+ "layers": [
+  {
+   "layer": 0,
+   "lin_zero": 2045830,
+   "log_neginf": 2045830,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 1.7763568394002505e-15,
+   "lin_floor_cells": 0
+  },
+  {
+   "layer": 1,
+   "lin_zero": 0,
+   "log_neginf": 0,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 0
+  },
+  {
+   "layer": 2,
+   "lin_zero": 0,
+   "log_neginf": 0,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 0
+  },
+  {
+   "layer": 3,
+   "lin_zero": 0,
+   "log_neginf": 0,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 0
+  },
+  {
+   "layer": 4,
+   "lin_zero": 0,
+   "log_neginf": 0,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 0
+  },
+  {
+   "layer": 5,
+   "lin_zero": 12990000,
+   "log_neginf": 12990000,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 2499048
+  },
+  {
+   "layer": 6,
+   "lin_zero": 12990000,
+   "log_neginf": 12990000,
+   "zero_mismatch": 0,
+   "max_abs_diff_finite": 0.0,
+   "lin_floor_cells": 2482212
+  }
+ ],
+ "collapsed": {
+  "neginf_lin": 14995830,
+  "neginf_log": 14995830,
+  "mismatch": 0,
+  "max_abs_diff": 2.842170943040401e-14,
+  "max_rel_diff": 3.911899737628119e-16,
+  "linear_product_underflow_cells": 0,
+  "silent_cols_log_all_zero": true,
+  "emitting_neginf_cols": 2598
+ }
+}

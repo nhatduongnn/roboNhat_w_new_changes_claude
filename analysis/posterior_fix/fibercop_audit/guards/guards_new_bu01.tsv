@@ -1,0 +1,2 @@
+dir	so_md5	log_emission	rows	rowsum_max	rows_gt1	rows_lt099	silent_max	guard_possible	normalise_maxshift	ft_n_invalid
+robocop_tw3_bu01_11_logfull	88f86a356aad55d466098d214b29ef06	exact	3909450	1.0000000000000049	0	0	0.0	0	0.00887742575611572	0

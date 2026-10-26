@@ -1,0 +1,23 @@
+{
+ "schema": 2,
+ "outdir": "robocop_rdna_chrXII_Bprod_seq",
+ "original_outdir": "robocop_rdna_chrXII_Bprod_seq",
+ "driver": "run_split_seqonly_maskoff_tune75.py",
+ "pkg_tree": "pkgvar/seqonly_maskoff_tune75",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_tw_bv75_49",
+ "traindir_exists": true,
+ "coords": "coord_rdna_chrXII.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "8b151c257fcfeca52296a86510be2b4aa7ec7cb3",
+ "git_dirty": true,
+ "written": "2026-10-06T01:40:34",
+ "slurm_job_id": "12825304",
+ "source": "decode-time",
+ "cshared": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/pkg/robocop/librobocop.so",
+ "cshared_how": "config.ini cshared",
+ "so_md5": "bf219a434d5125028e25f8798b0694c1",
+ "log_emission": null
+}

@@ -242,5 +242,33 @@ two motifs (0.890 / 0.910 per site; 0.877 / 0.868 using the max over the motif),
 the ~0.84 the isolated LLR analysis predicted, and 0.35 at the shifted controls. Per-
 molecule chromatin state survives the HMM's transition priors.
 
-**Arms B and C were not run**, per the plan's stop rule on check 1. Everything is in place:
+**[SUPERSEDED 2026-10-25: arms B and C were run afterwards; results in `/usr/project/xtmp/nd141/permol_proto/checks_arm*.json` and `analysis/singlefiber_review/REPORT.md`.]** ~~Arms B and C were not run~~, per the plan's stop rule on check 1. Everything is in place:
 `sbatch --array=1-9%5 singlefiber/sbatch_permol_window.sh`.
+
+## Log-space port (2026-10-25)
+
+Full detail: `LOGFULL_PORT.md`. Old files and outputs are unchanged; everything below is new.
+
+* Tree `pkgvar/permol_seq_maskoff_logfull` = `permol_seq_maskoff` + the same three logfull edits as
+  `seq_maskoff_tune75_logfull` (cshared -> `pkg/robocop/librobocop_logfull.so`, md5 88f86a35; log path in
+  `robocop.py`; 1e-30 floor deleted in `robocopExtras.py`). The Bernoulli emission now ADDS `log(ps)` /
+  `log1p(-ps)`; "no call" stays 0.0 (log 1). Needs `ROBOCOP_LOG_EMISSION` = `floored` or `exact`.
+* Aggregate reference tree `pkgvar/seq_maskoff_logfull` (= `seq_maskoff` + the same edits), driver
+  `run_split_seq_maskoff_logfull.py`.
+* New scripts: `run_permol_window_logfull.py`, `pooled_emission_check_logfull.py`,
+  `test_logfull_permol.py`, `compare_permol_runs.py`, `sbatch_permol_window_logfull.sh`,
+  `sbatch_agg_baseline_logfull.sh`. Outputs in `/usr/project/xtmp/nd141/permol_proto_logfull/`.
+* Result (arm A, efficiency off, 439 reads): same per-read posteriors as the linear prototype to float32
+  storage precision (max |d| 3e-8, 0 cells > 0.01); checks 1-4 unchanged; pooled check vs the log aggregate
+  max |d| 9e-14 after the same 1e-4 truncation, log-likelihood identity residual 1e-10; 7/7 unit tests for
+  no-information / forbidden / impossible rows pass; 0.79 s/read (old 0.69).
+
+```bash
+ROBOCOP_LOG_EMISSION=exact sbatch --export=ALL singlefiber/sbatch_agg_baseline_logfull.sh
+ROBOCOP_LOG_EMISSION=exact sbatch --export=ALL --array=0 singlefiber/sbatch_permol_window_logfull.sh
+ROBOCOP_LOG_EMISSION=exact python singlefiber/pooled_emission_check_logfull.py \
+    --agg /usr/project/xtmp/nd141/permol_proto_logfull/agg_logfull_exact --out /usr/project/xtmp/nd141/permol_proto_logfull/pooled_check
+ROBOCOP_LOG_EMISSION=exact python singlefiber/test_logfull_permol.py --out /usr/project/xtmp/nd141/permol_proto_logfull/unit_tests_exact.json
+python singlefiber/checks.py --runs-root /usr/project/xtmp/nd141/permol_proto_logfull --agg agg_logfull_exact \
+    --primary armA_effoff_exact --out /usr/project/xtmp/nd141/permol_proto_logfull/checks_armA_effoff_exact.json
+```

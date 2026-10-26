@@ -17,30 +17,32 @@ Slurm, partition `compsci`. A genome decode is 48 array tasks: ~45 min each on
 Decode outputs (20–630 MB each) live on this filesystem and are gitignored; the metadata
 (`config.ini`, `coords.tsv`, `pwm.p`, `conc_patch.json`) is committed.
 
-## Where things stand (2026-10-12) — start here
+## Where things stand (2026-10-26) — start here
 
-**Current work: the posterior fix. Phases B, A, D are done and pushed (`origin/main` = `36da3eb`).
-Four decisions are open (below). Read `POSTERIOR_FIX_PLAN.md` "Results, 2026-10-06" and
-"Handoff, 2026-10-12" first, then `POSTERIOR_SCALING.md`.**
+**Current work: single-fiber (per-read) decoding. Read `SINGLEFIBER_PLAN.md` first.** The per-read
+decoder runs in log space and is validated; per-read TF calls are limited by the data (~5 informative
+bases per read in a motif), so the next step is a per-site mixture model at ERV46 (chrI:60,001-65,000).
+User decisions there: log space, fiber + sequence first (MNase later), ERV46 as the test locus,
+footprints may be fitted on all 7 barcodes.
+
+**Decoder: log space is the way forward (user, 2026-10-23).** Use the `_logfull` trees with
+`ROBOCOP_LOG_EMISSION=exact` (`pkg/robocop/librobocop_logfull.so`, md5 `88f86a35`). It was reviewed and
+is safe (`analysis/posterior_fix/logspace_review/REPORT.md`). Fix B (`librobocop.so`, md5 `bf219a43`) is
+still the shared default binary, but it is **not** correct everywhere:
 
 | defect | what | status |
 |---|---|---|
-| 1 | posterior not normalised per position (row sums to 2.8e91) | **fixed in production** — fix B, `pkg/robocop/librobocop.so` md5 `bf219a43` |
-| 2 | `binom.pmf` underflows at high coverage, the `1e-30` floor inverts the evidence | fixed **only** in the log-space decoder (`librobocop_logfull.so`, `_logfull` trees) |
-| 3 | `normalize()` adds `DBL_MIN` to every cell (`pkg/robocop/algo.c:22,26`); on rDNA that phantom mass wins | found 2026-10-06; fixed **only** in log space; upstream code (first commit `5e6fa4e`) |
-| 4 | silent columns > 1 in fix B (to 1.7e17) at 2–7 rDNA positions, leaks into "nuc_end" | cause located (likely fwd/bwd silent-state time index, `algo.c:187-198`), **not fixed** |
+| 1 | posterior not normalised per position | fix B normalises rows; log space correct |
+| 2 | `binom.pmf` underflows at high coverage, the `1e-30` floor inverts the evidence | fixed only in log space (exact emission) |
+| 3 | `normalize()` adds `DBL_MIN` to every cell (`pkg/robocop/algo.c:21-27`, upstream since `c6a8727`, 2021) | fixed only in log space. **Not rDNA-only:** bo09 chrIV:1,200,001-1,205,000 has 147 rows wrong under fix B (`analysis/posterior_fix/dblmin_history/REPORT.md`) |
+| C1 | backward pass builds silent cells before rescaling; with DBL_MIN padding this rescales whole segment prefixes | genome scan: bo09 122,382 rows / 217 segments, bv75 17,689 / 59, bu01 rDNA only (`analysis/posterior_fix/fibercop_audit/c1scan/`, artifact `AwK7rW3xjbYVzBUP8dE8dY`); fix B hides it by renormalising; log space has none |
+| 4 | silent columns > 1 in fix B | moot in log space (silent columns written 0) |
 
-Bottom line: on normal coverage (all of chrXIV, most of the genome) production fix B is correct
-and identical to log space. On chrXII rDNA (451,435–468,729) only log space is right.
-
-**Open decisions (the user's, asked 2026-10-06, not yet answered):**
-1. Make log space the production decoder? (fixes 2–4 at once)
-2. Fix the silent-state index in fix B, or drop it if log space becomes production?
-3. Phase C: refit the tuning campaigns on corrected occupancies? (after 1)
-4. Port `analysis/singlefiber/` and `pkgvar/permol_seq_maskoff`, which still carry the linear floor?
-
-Do not start any of these without the user's go-ahead. The Oct 6 lab deck (artifact
-`AJojw8M1SkhzVbsJnud6Pa`, source `presentation/lab_oct6/`) summarises the fix for the lab.
+Log-space re-decodes of the three tuner-v2 finals exist on chrXIV+chrII+chrIV
+(`robocop_tw3_{bo09_48,bu01_11,bv75_49}_logfull`) and are in the Run Browser beside the old runs
+(Oct 27 deck: artifact `2TCJW7cRfv87hivaFSchu9`). Still open (user's call): switching the default
+drivers / tuner to log space, Phase C refit, and retiring the guards for posterior > 1 listed in
+`things_to_revisit_before_shipping.md` §8.
 
 ### Earlier (2026-09-12)
 
@@ -103,6 +105,8 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
 - **Old decodes are not normalised, and production still floors emissions.** Runs made before the
   cutover (no `so_md5` in `RUN_INFO.json`) have un-normalised rows: normalise over **emitting states
   only** (`[:silent_states_begin]`) on read — `score_robocop.region_optable` does. Never clip or drop.
+  Renormalising does **not** repair every bad row: DBL_MIN padding (defect 3) leaves rows that sum to 1
+  but are wrong (bo09 chrIV seg 300), and no row-sum test detects them. Only log space is fully right.
   Separately, `binom.pmf` (`robocop.py:801`) underflows to 0.0 at high coverage and
   `robocopExtras.py:104-106` floors it to `1e-30`, which **flips** the likelihood ratio
   (+929 → −17 in log10 at n=4379, k=0) with no tripwire. Only the `_logfull` trees remove this
@@ -163,7 +167,8 @@ and `README.md` covers inputs, sizing (3 rows fit 1600×900) and the hit/miss ru
 
 | file | what |
 |---|---|
-| `POSTERIOR_FIX_PLAN.md` | **current work.** The posterior fix: phases B→A→D→C, gates, results (2026-10-06) and the handoff with open problems (2026-10-12) |
+| `SINGLEFIBER_PLAN.md` | **current work.** Single-fiber (per-read) decoding: what exists, the model, why per-read TF calls fail, decisions, next steps |
+| `POSTERIOR_FIX_PLAN.md` | The posterior fix: phases B→A→D→C, gates, results (2026-10-06), handoff (2026-10-12), and "Results and decisions, 2026-10-20 → 10-26" (C1 scan, log-space review, DBL_MIN outside rDNA, log-space re-decodes) |
 | `POSTERIOR_SCALING.md` | the posterior convention, how to check any decode, the binary cutover (which `.so` made a run, rollback), the silent-column issue |
 | `HANDOFF.md` | state, results, machinery, and where to pick each thread up |
 | `whattodo.md` | strategy and the open-work tiers |

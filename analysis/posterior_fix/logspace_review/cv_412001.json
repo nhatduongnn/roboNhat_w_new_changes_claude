@@ -1,0 +1,158 @@
+{
+ "capture": "posterior_fix/logspace_review/scratch/cap_lin_412001.npz",
+ "tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_fit9_bgopen",
+ "n_obs": 5000,
+ "n_states": 3485,
+ "ssb": 3330,
+ "n_vars": 7,
+ "md5": {
+  "ORIG": "6a0724bf6ef7b8bc4313927b931ac685",
+  "FIXB": "bf219a434d5125028e25f8798b0694c1",
+  "C1FIX": "6dbd5e6d95be5c06c16d868c8bc633c5",
+  "LOG": "88f86a356aad55d466098d214b29ef06"
+ },
+ "emission_zero_cells": 28025830,
+ "emission_floor_cells": 4981260,
+ "variants": {
+  "ORIG": {
+   "seconds": 6.4,
+   "loglik": {
+    "loglik_calc_sr": -489923.37587425904,
+    "loglik_sum_log_bs": -489747.71328196855
+   },
+   "loglik_minus_logD0": -7.566995918750763e-10,
+   "max_abs_vs_logD0": 10270463420454.15,
+   "rows_gt_0p01": 1408,
+   "rows_gt_1em6": 1408,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999375,
+   "rowsum_max": 10270463420455.15,
+   "silent_max": 4.214064432546675e-19,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "ORIG+B": {
+   "seconds": null,
+   "loglik": {
+    "loglik_calc_sr": -489923.37587425904,
+    "loglik_sum_log_bs": -489747.71328196855
+   },
+   "loglik_minus_logD0": -7.566995918750763e-10,
+   "max_abs_vs_logD0": 4.78445372209535e-09,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999996,
+   "rowsum_max": 1.0000000000000004,
+   "silent_max": 3.212622247983867e-31,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "FIXB": {
+   "seconds": 5.0,
+   "loglik": {
+    "loglik_calc_sr": -489923.37587425904,
+    "loglik_sum_log_bs": -489747.71328196855
+   },
+   "loglik_minus_logD0": -7.566995918750763e-10,
+   "max_abs_vs_logD0": 4.78445372209535e-09,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999993,
+   "rowsum_max": 1.0000000000000009,
+   "silent_max": 3.2126222479838674e-31,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "C1FIX": {
+   "seconds": 4.9,
+   "loglik": {
+    "loglik_calc_sr": -489923.37587425904,
+    "loglik_sum_log_bs": -489777.6735752311
+   },
+   "loglik_minus_logD0": -7.566995918750763e-10,
+   "max_abs_vs_logD0": 1.0902390101819037e-13,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999998883,
+   "rowsum_max": 1.000000000000001,
+   "silent_max": 3.2126222479837942e-31,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "C1FIX+B": {
+   "seconds": null,
+   "loglik": {
+    "loglik_calc_sr": -489923.37587425904,
+    "loglik_sum_log_bs": -489777.6735752311
+   },
+   "loglik_minus_logD0": -7.566995918750763e-10,
+   "max_abs_vs_logD0": 8.770761894538737e-14,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999998,
+   "rowsum_max": 1.0000000000000002,
+   "silent_max": 3.2126222479838695e-31,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  },
+  "LOG-D0": {
+   "seconds": 2.6,
+   "loglik": {
+    "loglik_sum_log_offsets_fwd": -489923.3758742583,
+    "loglik_sum_log_offsets_bwd": -489777.6735752311,
+    "rc": [
+     20261005,
+     20261005,
+     20261005
+    ]
+   },
+   "loglik_minus_logD0": 0.0,
+   "max_abs_vs_logD0": 0.0,
+   "rows_gt_0p01": 0,
+   "rows_gt_1em6": 0,
+   "rows_nonfinite": 0,
+   "rowsum_min": 0.9999999999999719,
+   "rowsum_max": 1.0000000000000282,
+   "silent_max": 0.0,
+   "silent_rows_gt1": 0,
+   "rows_gt_0p01_idx_first10": []
+  }
+ },
+ "pairwise_emitting_max_abs": {
+  "ORIG+B vs FIXB": 7.771561172376096e-16,
+  "ORIG+B vs C1FIX+B": 4.784444840311153e-09,
+  "ORIG+B vs LOG-D0": 4.78445372209535e-09,
+  "FIXB vs C1FIX+B": 4.784444840311153e-09,
+  "FIXB vs LOG-D0": 4.78445372209535e-09,
+  "C1FIX+B vs LOG-D0": 8.770761894538737e-14
+ },
+ "pairwise_rows_gt_0p01": {
+  "ORIG+B vs FIXB": 0,
+  "ORIG+B vs C1FIX+B": 0,
+  "ORIG+B vs LOG-D0": 0,
+  "FIXB vs C1FIX+B": 0,
+  "FIXB vs LOG-D0": 0,
+  "C1FIX+B vs LOG-D0": 0
+ },
+ "md5_after": {
+  "ORIG": "6a0724bf6ef7b8bc4313927b931ac685",
+  "FIXB": "bf219a434d5125028e25f8798b0694c1",
+  "C1FIX": "6dbd5e6d95be5c06c16d868c8bc633c5",
+  "LOG": "88f86a356aad55d466098d214b29ef06"
+ }
+}

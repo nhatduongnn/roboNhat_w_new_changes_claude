@@ -1,0 +1,60 @@
+  <div id="tab-femp" role="tabpanel" aria-labelledby="tabFEMP" hidden>
+    <section class="bfsec">
+      <div class="phase">Five decoders, two truths</div>
+      <h2 class="bfh">Which ones match brute force on Fiber-seq data?</h2>
+      <p>Same 12-state toy model as the other tabs, sequence AATTAA, but the data are Fiber-seq m6A counts: at each base, n reads cover the scored strand and k of them are methylated. Each state's emission is Binom(k; n, p) with that state's fitted methylation probability p.</p>
+      <div class="gridbox"><table class="mini cmp">
+        <thead><tr><th>method</th><th>what it is</th></tr></thead>
+        <tbody>
+          <tr><th>original RoboCOP</th><td>fiberCOP's original <span class="mono">algo.c</span> (<span class="mono">librobocop_prenorm.so</span>), floored emission.</td></tr>
+          <tr><th>fix B (production)</th><td>Today's <span class="mono">librobocop.so</span>: rescales each posterior row to sum to 1. Its backward pass is the original one, so C1 is still in it.</td></tr>
+          <tr><th>C1 fix (audit)</th><td>The audit's <span class="mono">librobocop_fixed.so</span>: rescales each row's emitting cells before computing its silent cells.</td></tr>
+          <tr><th>log space, floored emission</th><td>The fork's log-space decoder, fed the log of the same floored emission. No underflow anywhere, but the input is already wrong.</td></tr>
+          <tr><th>log space, exact emission</th><td>Same decoder fed the exact <span class="mono">binom.logpmf</span> (<span class="mono">ROBOCOP_LOG_EMISSION=exact</span>). No floor.</td></tr>
+          <tr><th>truth: floored model</th><td>Brute force (every path added up, in logs) on the floored emission: the right answer for the model production actually builds.</td></tr>
+          <tr><th>truth: exact model</th><td>Brute force on the exact emission: the right answer for the real data.</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Floor</b> = when <span class="mono">binom.pmf</span> underflows to 0 (too small for a double), production replaces it with a fixed small number. That number can be far <i>larger</i> than the true value, so it can flip which state the data favour.</p>
+      <div class="scen" id="feScen" role="tablist" aria-label="Dataset"></div>
+      <div class="card" id="feDesc"></div>
+      <div class="gridbox"><table class="mini cmp score" id="feScore"></table></div>
+    </section>
+
+    <section class="bfsec">
+      <div class="phase">The posterior tables (what C returns)</div>
+      <h2 class="bfh">Cell by cell against a truth</h2>
+      <div class="scen" id="feTruth" role="tablist" aria-label="Compare with"></div>
+      <p id="feGridNote"></p>
+      <div class="egrids" id="feGrids"></div>
+    </section>
+
+    <section class="bfsec">
+      <div class="phase">What reaches the results</div>
+      <h2 class="bfh">Occupancy and training weights</h2>
+      <p>Each posterior table after the 1e-4 cut-off and <span class="mono">robocop.sum_for_dbf_probs</span>, compared with the truth chosen above. nuc_end is left out: it reads the silent CENTRAL column, which the methods fill with different conventions.</p>
+      <div class="egrids" id="feDbf"></div>
+      <h3 class="sub3">EM weights α (normalised start-state sums: background, TF1, nucleosome)</h3>
+      <div class="gridbox"><table class="mini cmp" id="feEM"></table></div>
+    </section>
+
+    <section class="bfsec">
+      <div class="phase">Where real data falls</div>
+      <h2 class="bfh">Error vs. coverage, with our Fiber-seq data marked</h2>
+      <p>Toy model, n reads at positions 1–4 (k = the methylated share of n); the other positions keep the ordinary counts. Vertical lines mark real coverage. Toy model: the failure points depend on its parameters.</p>
+      <div class="scen" id="fdFrac" role="tablist" aria-label="Methylated share"></div>
+      <div class="scen" id="fdTruth" role="tablist" aria-label="Truth"></div>
+      <div class="viz fviz">
+        <div class="vlegend" id="fdLegend"></div>
+        <div class="vchart"><svg id="fdChart" viewBox="0 0 760 420" role="img" aria-label="Largest posterior error versus reads at four neighbouring positions, for five decoders"></svg><div class="vtip" id="fdTip" hidden></div></div>
+      </div>
+      <p id="fdNote"></p>
+      <details><summary class="phase">Data table for the chart</summary><div class="gridbox"><table class="mini" id="fdTable"></table></div></details>
+      <h3 class="sub3">Our Fiber-seq data, counted the way RoboCOP counts</h3>
+      <div class="gridbox"><table class="mini cmp" id="fdReal"></table></div>
+      <details><summary class="phase">Per chromosome</summary><div class="gridbox"><table class="mini cmp" id="fdChrom"></table></div></details>
+      <details><summary class="phase">How these were counted</summary><p class="muted" id="fdMethod"></p></details>
+      <p id="fdConclusion"></p>
+    </section>
+@@SEG_EMP@@
+  </div>

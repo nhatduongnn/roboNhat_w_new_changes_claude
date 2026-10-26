@@ -287,3 +287,47 @@ Not part of the model, but new relative to the paper, and worth deciding whether
 
 *Last updated 2026-08-24. Line numbers are against `pkg/` at HEAD; the `pkgvar/*` copies
 carry the same code at the same lines unless noted.*
+
+---
+
+## 8. Guards for posterior > 1: dead once log space is production (added 2026-10-23)
+
+The original decoder (`librobocop_prenorm.so`) could write posterior rows summing far above 1 (C1 + `DBL_MIN`
+padding, up to 1e60 in bo09). Downstream code grew guards for it. The log-space decoder
+(`librobocop_logfull.so`, `ROBOCOP_LOG_EMISSION=exact`) cannot produce such rows. **Do not delete these yet**:
+old decodes on disk still need them. Comment them out once every decode in use is log space.
+
+**Measured** with `analysis/posterior_fix/fibercop_audit/guards/check_guards.py` (`guards_old.tsv`,
+`guards_new.tsv`). "Rows where a guard can fire" counts rows whose emitting row sum or any silent cell
+exceeds 1 + 1e-4. Every factor column is a sum over a subset of those cells, so 0 proves no guard below can fire.
+
+| decode (783 segments: chrXIV + chrII + chrIV) | rows where a guard can fire | max row sum | `n_invalid` in factor tables |
+|---|---|---|---|
+| bo09 r48, original `.so` | 7,289 + 5,015 = 12,304 | 3.6e60 | 7,218 + 5,060 |
+| bu01 r11, original `.so` | 0 | 1.0000000000000722 | 0 |
+| bv75 r49, original `.so` | 63 + 21 = 84 | 7.1e42 | 54 + 19 |
+| bo09 r48, log space (`robocop_tw3_bo09_48_logfull`) | **0** | 1.000000000000048 | **0** |
+| bu01 r11, log space (`robocop_tw3_bu01_11_logfull`) | **0** | 1.0000000000000049 | **0** |
+| bv75 r49, log space (`robocop_tw3_bv75_49_logfull`) | **0** | 1.0000000000000269 | **0** |
+
+Silent columns are 0 in every log-space row (they are written as 0 by `posterior_decoding_log`).
+
+**Guards that become unreachable** (error handling for rows > 1):
+
+| file:line | what it does | tolerance |
+|---|---|---|
+| `analysis/write_factor_table.py:174-175` | counts `n_invalid`, then clips every column to [0, 1] (this turned 3.84e8 into 1.0 at the RPC19 poly-A) | 1 + 1e-6 |
+| `analysis/count_calls.py:66, 146-170, 183` | validity mask: drops positions with any column outside [0, 1 + 1e-4], warns, reports `n_excluded` | `VALID_TOL` 1e-4 |
+| `analysis/abf1_stack_extract.py:50, 118-123` | same mask on raw (un-normalised) values; feeds `abf1_stack_sets.py:32-39`, `abf1_stack_profile.py:187`, `abf1_stack_refstats.py:55-64` | 1e-4 |
+| `presentation/build_tuned_viewer.py:90-93` | zeroes invalid rows, counts them (already dead: it reads `region_optable`, which normalises) | 1e-6 |
+| `analysis/singlefiber/run_permol_window.py:263-269` | counts `n_invalid_posterior` (report only) | 1e-6 |
+| reporters of the counts above: `tw_validate.py`, `tune_w.py`, `overnight_score.py`, `overnight_summary.py`, `conc_tuning/make_conc_sheet.py`, `viewer_site/extract_run.py` (`n_invalid` header) | pass `n_excluded` / `invalid_positions` / `n_invalid` through | inherited |
+| upstream `pkg/robocop/utils/getNucleosomesRoboCOP.py:80-86`, `gettfsRoboCOP.py:68-77`, `robocopExtras.py:40-41`, the "GREATER" prints in `robocop.py` | clip > 1 to 1 / skip segments with sum > 1e10 / print a warning | 1, 1e10 |
+
+**Not dead, keep:**
+- `analysis/score_robocop.py:216-217` (`region_optable` divides each row by its emitting sum) and
+  `write_factor_table.py --normalise`. On log-space rows they shift values by at most 0.9% (`normalise_maxshift`
+  0.0024 / 0.0089 / 0.0040). That is the save-time floor `v[v < 1e-4] = 0` (`pkg/robocop/robocop.py:33`), not
+  an error. They also keep old decodes readable.
+- `viewer_site/extract_run.py:140` (`other TFs` = sum of columns, clipped at 1) and `:141` (uint8 quantisation):
+  these are legitimate clips, not error guards.

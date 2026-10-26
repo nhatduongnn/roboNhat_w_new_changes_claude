@@ -10,6 +10,11 @@ This note covers bug 1 (the posterior is not normalised). Bug 2 (the emission fl
 avoids bug 3 (`normalize()`'s `+DBL_MIN`, `algo.c:22,26`, wrong at ~1,200 rDNA positions). See HANDOFF §4.8
 and `POSTERIOR_FIX_PLAN.md` "Results" and "Handoff, 2026-10-12".
 
+**Update 2026-10-26.** Bug 3 is not rDNA-only: on bo09 chrIV:1,200,001-1,205,000 fix B has 147 rows wrong
+(rows sum to 1, so no row-sum check sees them). The user chose log space as the way forward. See
+`POSTERIOR_FIX_PLAN.md` "Results and decisions, 2026-10-20 → 10-26" and
+`analysis/posterior_fix/dblmin_history/REPORT.md`.
+
 Line numbers below were read on 2026-10-06. "Pre-cutover" anchors are in
 `git show 8b151c2^1:pkg/robocop/algo.c`; "current" anchors are in the working-tree `pkg/robocop/algo.c`.
 

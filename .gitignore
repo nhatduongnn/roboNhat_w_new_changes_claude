@@ -90,3 +90,9 @@ analysis/overnight/counts_*/
 presentation/tuned_occupancy_viewer.html
 # Superseded first decoy trainings (rebuilt seeded from the comparators nucleosome model)
 analysis/robocop_train_*.unseeded_nucmodel/
+
+# 2026-10-26: local-only scratch from the posterior / single-fiber work (never commit)
+analysis/_trash/
+analysis/posterior_fix/fibercop_audit/c1scan/work_*/
+analysis/posterior_fix/logspace_review/scratch/
+*.pre_tw3_logfull

@@ -351,12 +351,17 @@ def is_log_tree(tree):
 
 
 def log_tree_parent(tree):
-    """pkgvar/<x>_logfull -> pkgvar/<x>_norm (the tree it was copied from), else None."""
+    """pkgvar/<x>_logfull -> pkgvar/<x>_norm (the tree it was copied from), else None.
+    2026-10-23: falls back to pkgvar/<x> when no _norm copy exists (seq_maskoff_all153_logfull was
+    copied from seq_maskoff_all153; there is no all153_norm)."""
     if not tree:
         return None
     t = os.path.normpath(tree)
     if t.endswith(LOG_TREE_SUFFIX):
-        return t[: -len(LOG_TREE_SUFFIX)] + "_norm"
+        base = t[: -len(LOG_TREE_SUFFIX)]
+        if not os.path.isdir(os.path.join(A, base + "_norm")) and os.path.isdir(os.path.join(A, base)):
+            return base
+        return base + "_norm"
     return None
 
 

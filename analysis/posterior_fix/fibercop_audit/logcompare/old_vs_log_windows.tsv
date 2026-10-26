@@ -1,0 +1,37 @@
+model	window	rows	positions	diff_ge_0p1	diff_ge_0p5	abf1_diff_ge_0p1	nuc_diff_ge_0p1	motif_call_only_old	motif_call_only_log	max_diff
+bo09	chrII:136001-166000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bo09	chrII:136001-166000	old row fine	30000	0	0	0	0	0	0	0.0
+bo09	chrIV:1267001-1297000	old row broken (C1)	2765	0	0	0	0	0	0	0.0007324814796447754
+bo09	chrIV:1267001-1297000	old row fine	27235	0	0	0	0	0	0	0.0
+bo09	chrXIV:400001-430000	old row broken (C1)	1408	338	260	24	49	93	0	1.0
+bo09	chrXIV:400001-430000	old row fine	28592	0	0	0	0	0	0	0.0
+bo09	chrXIV:436001-466000	old row broken (C1)	3123	163	89	42	107	27	0	0.5
+bo09	chrXIV:436001-466000	old row fine	26877	114	8	0	107	0	0	0.5
+bo09	chrXIV:715001-745000	old row broken (C1)	2207	140	75	0	36	0	0	1.0
+bo09	chrXIV:715001-745000	old row fine	27793	0	0	0	0	0	0	0.0
+bo09	chrIV:1190001-1220000	old row broken (C1)	1698	502	479	42	63	160	0	1.0
+bo09	chrIV:1190001-1220000	old row fine	28302	67	67	0	66	0	0	0.9988250732421875
+bu01	chrII:136001-166000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrII:136001-166000	old row fine	30000	0	0	0	0	0	0	0.0
+bu01	chrIV:1267001-1297000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrIV:1267001-1297000	old row fine	30000	0	0	0	0	0	0	0.0
+bu01	chrXIV:400001-430000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrXIV:400001-430000	old row fine	30000	0	0	0	0	0	0	0.0
+bu01	chrXIV:436001-466000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrXIV:436001-466000	old row fine	30000	0	0	0	0	0	0	0.0
+bu01	chrXIV:715001-745000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrXIV:715001-745000	old row fine	30000	0	0	0	0	0	0	0.0
+bu01	chrIV:1190001-1220000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bu01	chrIV:1190001-1220000	old row fine	30000	0	0	0	0	0	0	0.0
+bv75	chrII:136001-166000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bv75	chrII:136001-166000	old row fine	30000	0	0	0	0	0	0	0.0
+bv75	chrIV:1267001-1297000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bv75	chrIV:1267001-1297000	old row fine	30000	0	0	0	0	0	0	0.0
+bv75	chrXIV:400001-430000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bv75	chrXIV:400001-430000	old row fine	30000	0	0	0	0	0	0	0.0
+bv75	chrXIV:436001-466000	old row broken (C1)	23	23	15	0	0	22	0	0.5
+bv75	chrXIV:436001-466000	old row fine	29977	0	0	0	0	0	0	0.0
+bv75	chrXIV:715001-745000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bv75	chrXIV:715001-745000	old row fine	30000	0	0	0	0	0	0	0.0
+bv75	chrIV:1190001-1220000	old row broken (C1)	0	0	0	0	0	0	0	0.0
+bv75	chrIV:1190001-1220000	old row fine	30000	0	0	0	0	0	0	0.0

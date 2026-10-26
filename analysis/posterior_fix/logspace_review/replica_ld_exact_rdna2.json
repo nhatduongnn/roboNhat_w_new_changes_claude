@@ -1,0 +1,28 @@
+{
+ "cap": "posterior_fix/logspace_review/scratch/cap_logexact_rdna2.npz",
+ "tree": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/pkgvar/seq_maskoff_fit9_bgopen_logfull",
+ "env": "exact",
+ "n_obs": 5000,
+ "min_log_emis_finite": -7675.580803808157,
+ "min_rowmax_log_emis": -704.8830757752994,
+ "rc": [
+  20261005,
+  20261005,
+  20261005
+ ],
+ "loglik_C": -200546.34252680867,
+ "Ep_zero_cells_not_neginf": 0,
+ "loglik_LD": -200546.34252680867,
+ "loglik_diff": 0.0,
+ "post_maxabs": 9.192646643896296e-14,
+ "post_rows_gt_1e6": 0,
+ "post_rows_gt_1e9": 0,
+ "ld_zero_rowsum": 0,
+ "min_log10_fs": -475.75581520071137,
+ "C_rowsum_range": [
+  0.9999999999999081,
+  1.000000000000066
+ ],
+ "C_silent_max": 0.0,
+ "C_nan": 0
+}
