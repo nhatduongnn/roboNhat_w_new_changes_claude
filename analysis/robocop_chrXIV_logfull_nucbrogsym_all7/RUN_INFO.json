@@ -1,0 +1,23 @@
+{
+ "schema": 2,
+ "outdir": "robocop_chrXIV_logfull_nucbrogsym_all7",
+ "original_outdir": "robocop_chrXIV_logfull_nucbrogsym_all7",
+ "driver": "run_split_seq_maskoff_logfull_nucbrogsym_all7.py",
+ "pkg_tree": "pkgvar/seq_maskoff_logfull_nucbrogsym_all7",
+ "pkg_tree_how": "literal sys.path.insert",
+ "traindir": "robocop_train_fiberonly_nucbrogsym",
+ "traindir_exists": true,
+ "coords": "coord_chrXIV_full.tsv",
+ "campaign": null,
+ "round": null,
+ "role": null,
+ "git_head": "3bb52b061a8443fc60b0d8dbf699a1c1c77eb8c8",
+ "git_dirty": true,
+ "written": "2026-10-30T19:35:53",
+ "slurm_job_id": "13197470",
+ "source": "decode-time",
+ "cshared": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/pkg/robocop/librobocop_logfull.so",
+ "cshared_how": "override in pkgvar/seq_maskoff_logfull_nucbrogsym_all7/robocop_no_em.py",
+ "so_md5": "88f86a356aad55d466098d214b29ef06",
+ "log_emission": "exact"
+}

@@ -25,6 +25,7 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "pkg"))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import score_robocop as S
+import flagged_positions as FP
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, "posterior_viewer_template.html")
@@ -205,7 +206,7 @@ def intervals(mask, positions_start, gap=20):
     return [(int(a) + positions_start, int(b) + positions_start) for a, b in zip(starts, ends)]
 
 
-def build_region(region, view, runs, title=None):
+def build_region(region, view, runs, title=None, flags_dir=FP.FLAGS_DIR):
     """Assemble one region's payload: posteriors, Fiber-seq, sequence, genes, annotations.
 
     `region` and `view` are "chrom:start-end" strings; `runs` a list of (label, outDir).
@@ -328,6 +329,16 @@ def build_region(region, view, runs, title=None):
     genes = load_genes(chrom, start, end)
     print("  %d genes in region" % len(genes))
 
+    # --- flagged positions (reads disagree with the reference; flagged_positions.py) ---
+    # Drawn as a strip under the genes and as a hatch where a called TF (>= TF_CALL) sits
+    # on a flagged base. An empty payload leaves the page exactly as before (no strip, no
+    # legend), so regions without flags render unchanged.
+    fdf = FP.load_flags(chrom, start, end, flags_dir) if flags_dir else None
+    if flags_dir and fdf is None:
+        print("  WARNING: no flags file %s -- no flag track" % FP.flags_path(chrom, flags_dir))
+    flags = FP.flags_payload(fdf)
+    print("  flagged positions: %s" % ", ".join("%s %d" % kv for kv in FP.counts(flags).items()))
+
     # --- reference lines for the m6A panel ---
     refs = [{"label": "Nhp6a fitted %.3f" % NHP6A_RATE, "value": NHP6A_RATE,
              "tone": "tf", "run": None}]
@@ -346,6 +357,9 @@ def build_region(region, view, runs, title=None):
         "runOrder": [label for label, _ in runs],
         "runs": payload_runs, "seq": seq, "genes": genes, "sites": sites, "refs": refs,
         "refSites": ref_sites,
+        "flags": flags,
+        "flagKinds": [lab for _, lab in FP.KINDS],
+        "nonTF": [f for f in factors if f in SPECIAL or f in ref_sites],
         "title": title or ("%s Occupancy Browser" % chrom),
         "subtitle": "%s:%s–%s loaded · %s bp · %d factors · %d runs · fiber + sequence layers"
                     % (chrom, f"{start:,}", f"{end:,}", f"{n:,}",
@@ -419,6 +433,9 @@ def main():
     ap.add_argument("--pkg", default=None,
                     help="RoboCOP package copy used to collapse posteriors "
                          "(default $ROBOCOP_PKG, else ../pkg)")
+    ap.add_argument("--flags-dir", default=FP.FLAGS_DIR,
+                    help="consensus scan folder holding per_chrom/<chrom>.flags.tsv "
+                         "(default %(default)s); pass '' to draw no flags")
     args = ap.parse_args()
     if args.pkg:
         print("collapsing posteriors with %s" % S.use_pkg(args.pkg))
@@ -440,7 +457,8 @@ def main():
         built, order, labels = {}, [], {}
         for spec in specs:
             print("=== %s (%s) ===" % (spec["key"], spec["label"]))
-            built[spec["key"]] = build_region(spec["region"], spec["view"], spec["runs"])
+            built[spec["key"]] = build_region(spec["region"], spec["view"], spec["runs"],
+                                              flags_dir=args.flags_dir)
             order.append(spec["key"])
             labels[spec["key"]] = spec["label"]
         emit(built, order, labels, args.out,
@@ -450,7 +468,7 @@ def main():
             sys.exit("--region needs at least one --run")
         runs = [tuple(r.split("=", 1)) for r in args.run]
         chrom = parse_region(args.region)[0]
-        d = build_region(args.region, args.view, runs, args.title)
+        d = build_region(args.region, args.view, runs, args.title, flags_dir=args.flags_dir)
         emit({"main": d}, ["main"], {"main": "%s:%s" % (chrom, args.region.split(":")[1])},
              args.out, args.title or ("%s Occupancy Browser" % chrom))
 

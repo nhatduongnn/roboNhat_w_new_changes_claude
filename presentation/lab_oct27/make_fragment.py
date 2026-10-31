@@ -53,10 +53,10 @@ def locus(sid, no, k, data_id, title, eyebrow, msg, nums, foot, aria, tf_label, 
     leg_site = '      <span><span class="lk band"></span>MacIsaac ABF1 site</span>\n' if sites else ""
     return f'''
 <!-- ======================= {sid} {html.escape(title)} ======================= -->
-<section class="slide locus6" data-id="{sid}" data-kind="main" data-sec="2" data-steps="1" data-title="{html.escape(title)}">
+<section class="slide locus6" data-id="{sid}" data-kind="{'hidden' if str(no).startswith('H') else 'main'}" data-sec="1" data-steps="1" data-title="{html.escape(title)}">
   <span class="slide-no">{no}</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 2</span> {eyebrow}</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> {eyebrow}</p>
     <h2>{title}</h2>
     <p class="msg">{msg}</p>
   </header>
@@ -126,12 +126,13 @@ slides.append('''<!-- ======================= T TITLE ======================= --
     <p class="eyebrow">Outline</p>
     <h2>Today</h2>
   </header>
-  <div class="body stack">
-    <ul class="pts" style="font-size:34px;gap:28px">
-      <li>What changed in the decoder</li>
-      <li>Four loci, six rows each: every model before and after</li>
-      <li>Where the two disagree, by model</li>
-    </ul>
+  <div class="body stack" style="gap:40px">
+    <ol class="outline">
+      <li><span class="k">Part 1</span><span class="t">The log-space fix</span><span class="s">What changed · four loci before and after · where they differ</span></li>
+      <li><span class="k">Part 2</span><span class="t">single-fiberCOP</span><span class="s">Decoding one read at a time · four problems we found</span></li>
+      <li><span class="k">Part 3</span><span class="t">Strahl lab's results</span><span class="s">&nbsp;</span></li>
+      <li><span class="k">Part 4</span><span class="t">Timeline</span><span class="s">Now to March 2027</span></li>
+    </ol>
     <p class="foot txt">Details are on hidden slides (press <span class="m">h</span>): the C1 bug, the DBL_MIN padding,
     the log-space review, and the guards that no longer fire.</p>
   </div>
@@ -141,8 +142,8 @@ slides.append('''<!-- ======================= T TITLE ======================= --
 G = {}   # guards table numbers are quoted from things_to_revisit_before_shipping.md section 8
 slides.append('''
 <!-- ======================= W WHAT CHANGED ======================= -->
-<section class="slide" data-id="W" data-kind="main" data-sec="1" data-steps="1" data-title="What changed">
-  <span class="slide-no">2</span>
+<section class="slide" data-id="W" data-kind="hidden" data-sec="1" data-steps="1" data-title="What changed">
+  <span class="slide-no">H7</span>
   <header class="sh">
     <p class="eyebrow"><span class="sec-no">Part 1</span> The decoder</p>
     <h2>What changed</h2>
@@ -262,7 +263,7 @@ slides.append('''
 k = "rpc19"; b = m(k, "bo09"); at = N["loci"][k]["models"]["at_412655"]; sm = N["loci"][k]["models"]["site_max_pm20"]["412615-412627"]
 assert abs(at["bo09 before"] - 0.5) < 1e-9 and at["bo09 after"] == 0.0
 slides.append(locus(
-    "L1", 3, k, "locus-rpc19", "RPC19 promoter, chrXIV",
+    "L1", 2, k, "locus-rpc19", "RPC19 promoter, chrXIV",
     "Locus 1 of 4 · chrXIV:412,400–412,900 · ABF1",
     "ABF1 at the poly-A, 412,655: bo09 <strong>%.2f</strong> before, <strong>%.2f</strong> after. "
     "At the MacIsaac ABF1 site: bo09 %.2f / %.2f, bv75 %.2f / %.2f, bu01 %.2f / %.2f."
@@ -278,7 +279,7 @@ slides.append(locus(
 k = "xiv440"; b = m(k, "bo09"); v = m(k, "bv75")
 sp = b["spans_outside_broken"]
 slides.append(locus(
-    "L2", 4, k, "locus-xiv440", "chrXIV 440–445 kb: RAS2 to RPS7B",
+    "L2", "H8", k, "locus-xiv440", "chrXIV 440–445 kb: RAS2 to RPS7B",
     "Locus 2 of 4 · chrXIV:440,001–445,000 · ABF1",
     "bo09's old rows here summed up to %.2f (440,001–442,954) and up to %s (444,001–444,147). "
     "ABF1, bo09: max %.2f before, %.2f after." % (b["old_broken"][0]["rs_max"], sci(b["old_broken"][1]["rs_max"]), b["factor_max_before"], b["factor_max_after"]),
@@ -293,7 +294,7 @@ slides.append(locus(
 k = "xiv724"; b = m(k, "bo09")
 rk = L[k]["ranking"][0]
 slides.append(locus(
-    "L3", 5, k, "locus-xiv724", "chrXIV 724–727 kb: ESF2",
+    "L3", "H9", k, "locus-xiv724", "chrXIV 724–727 kb: ESF2",
     "Locus 3 of 4 · chrXIV:724,001–727,000 · background",
     "bo09's old rows 724,001–726,207 summed up to %s. Here the change is between background and nucleosome, not a TF." % sci(b["old_broken"][0]["rs_max"]),
     diffnums(k) + ' <span>bo09: background <b>%d</b>, nucleosome <b>%d</b>, all in old rows above 1</span>' % (b["bg_ge_0p1"], b["nuc_ge_0p1"]),
@@ -306,7 +307,7 @@ k = "iv1200"; b = m(k, "bo09"); sp = b["spans_outside_broken"]
 bgb, bga = SPAN[("loc4 after broken rows", "background")][0], SPAN[("loc4 after broken rows", "background")][2]
 nub, nua = SPAN[("loc4 after broken rows", "nucleosome")][0], SPAN[("loc4 after broken rows", "nucleosome")][2]
 slides.append(locus(
-    "L4", 6, k, "locus-iv1200", "chrIV 1,200–1,202 kb: ESC2",
+    "L4", "H10", k, "locus-iv1200", "chrIV 1,200–1,202 kb: ESC2",
     "Locus 4 of 4 · chrIV:1,200,001–1,202,000 · FHL1",
     "bo09's old rows 1,200,001–1,201,697 summed up to %s. FHL1, bo09: max %.2f before, %.3f after. "
     "Just past them (1,201,698–1,201,829) nucleosome %.2f → %.2f, background %.2f → %.2f (means)."
@@ -338,10 +339,10 @@ for w in ("chrXIV:400001-430000", "chrXIV:436001-466000", "chrXIV:715001-745000"
              "".join('<td class="n r%s">%s</td>' % ("" if cc[(w, mod)]["tsv"] else " z", c(cc[(w, mod)]["tsv"])) for mod in MODELS))
 slides.append(f'''
 <!-- ======================= S SUMMARY ======================= -->
-<section class="slide" data-id="S" data-kind="main" data-sec="3" data-steps="1" data-title="Where before and after differ">
-  <span class="slide-no">7</span>
+<section class="slide" data-id="S" data-kind="hidden" data-sec="1" data-steps="1" data-title="Where before and after differ">
+  <span class="slide-no">H11</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Summary</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Summary</p>
     <h2>Where before and after differ</h2>
     <p class="msg">Positions where any of 160 columns differs by ≥ 0.1 between the old Run Browser view and log space.</p>
   </header>
@@ -379,10 +380,10 @@ slides.append(f'''
 # ------------------------------------------------------------------ hidden c, d
 slides.append('''
 <!-- ======================= HC LOG-SPACE REVIEW ======================= -->
-<section class="slide" data-id="HC" data-kind="hidden" data-sec="3" data-steps="1" data-title="Log-space decoder review: safe to decode">
+<section class="slide" data-id="HC" data-kind="hidden" data-sec="1" data-steps="1" data-title="Log-space decoder review: safe to decode">
   <span class="slide-no">H3</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Detail · review of the log-space decoder, 23 Oct</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · review of the log-space decoder, 23 Oct</p>
     <h2>Log-space decoder review: safe to decode</h2>
     <p class="msg">Same recursion as the original C code, in the same order, minus the DBL_MIN padding. No blockers.</p>
   </header>
@@ -427,10 +428,10 @@ slides.append('''
 </section>
 
 <!-- ======================= HD GUARDS ======================= -->
-<section class="slide" data-id="HD" data-kind="hidden" data-sec="3" data-steps="1" data-title="Guards for posterior above 1 no longer fire">
+<section class="slide" data-id="HD" data-kind="hidden" data-sec="1" data-steps="1" data-title="Guards for posterior above 1 no longer fire">
   <span class="slide-no">H4</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Detail · downstream guards</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · downstream guards</p>
     <h2>Guards for posterior above 1 no longer fire</h2>
     <p class="msg">Downstream code grew guards for rows above 1. On log-space decodes none can fire. Keep them while old decodes are in use.</p>
   </header>
@@ -461,6 +462,321 @@ slides.append('''
   </div>
 </section>
 ''')
+# ================================================================== Part 2: single-fiberCOP (added Oct 27)
+# Numbers on F1, F2 and F4 are quoted from the single-fiber work (SINGLEFIBER_PLAN.md and the brief of
+# 2026-10-27); the histogram on F3 and its medians are computed here from the 100-read both-directions test.
+import csv, math
+DIRTEST = "/usr/project/xtmp/nd141/permol_proto_logfull/dirtest100"
+PR = {}
+with open(os.path.join(DIRTEST, "per_read.tsv")) as f:
+    for r in csv.DictReader(f, delimiter="\t"):
+        PR.setdefault(r["config"], []).append(r)
+SUMM = json.load(open(os.path.join(DIRTEST, "summary.json")))
+
+
+def stat(cfg, key, q):
+    return SUMM[cfg][key][q]
+
+
+assert all(len(PR[k]) == 100 for k in ("real_motif1st", "real_any", "seqoff_any", "symps_any"))
+for k in ("real_motif1st", "real_any", "seqoff_any"):   # per_read.tsv and summary.json agree
+    v = sorted(float(r["max_all"]) for r in PR[k])
+    assert abs(max(v) - stat(k, "max_all", "max")) < 1e-12
+
+
+def f2(x): return "%.2f" % x
+
+
+def sup(x):
+    """6e-08 -> 6&nbsp;×&nbsp;10<sup>-8</sup>"""
+    e = int(math.floor(math.log10(x))); m_ = x / 10 ** e
+    return "%d&nbsp;×&nbsp;10<sup>%d</sup>" % (round(m_), e)
+
+
+TODAY_MED, TODAY_MAX = stat("real_motif1st", "max_all", "median"), stat("real_motif1st", "max_all", "max")
+ANY_MED, ANY_MAX = stat("real_any", "max_all", "median"), stat("real_any", "max_all", "max")
+OFF_MAX = stat("seqoff_any", "max_all", "max")
+SYM_MED, SYM_MAX = stat("symps_any", "max_all", "median"), stat("symps_any", "max_all", "max")
+ABF_ANY = max(stat("real_any", "abf1_site1", "max"), stat("real_any", "abf1_site2", "max"))
+assert ABF_ANY <= 2e-5
+
+
+def hist_svg():
+    """three small-multiple histograms (per-read max |difference|), shared log x axis, drawn in the deck's tokens"""
+    W, X0, X1 = 1000, 235, 975
+    PH, BH, TOP = 150, 104, 14           # panel height, tallest bar (100 reads), top margin
+    LO, HI, STEP = -9, 0, 0.25
+    def xo(lg): return X0 + (lg - LO) / (HI - LO) * (X1 - X0)
+    panels = [("real_motif1st", "Today's start rule", "h-a"), ("real_any", "Start anywhere", "h-b"),
+              ("seqoff_any", "Sequence layer off", "h-c")]
+    nb = int((HI - LO) / STEP)
+    s = ['<svg viewBox="0 0 %d %d" role="img" aria-label="Histograms of the largest posterior difference per read between the two '
+         'decoding directions, 100 reads at ERV46, for three settings: today\'s start rule, start anywhere, and sequence layer off." '
+         'style="width:100%%;height:auto">' % (W, TOP + 3 * PH + 50)]
+    for i, (cfg, lab, cls) in enumerate(panels):
+        y0 = TOP + i * PH; base = y0 + BH + 18
+        cnt = [0] * nb
+        for r in PR[cfg]:
+            lg = math.log10(min(max(float(r["max_all"]), 10 ** LO), 1))
+            cnt[min(nb - 1, int((lg - LO) / STEP))] += 1
+        for g in (0, 50, 100):
+            yy = base - g / 100 * BH
+            s.append('<line class="grid" x1="%d" x2="%d" y1="%.1f" y2="%.1f"/>' % (X0, X1, yy, yy))
+            s.append('<text class="tick" x="%d" y="%.1f" text-anchor="end" dy="5">%d</text>' % (X0 - 8, yy, g))
+        for b, n in enumerate(cnt):
+            if not n: continue
+            xa, xb = xo(LO + b * STEP), xo(LO + (b + 1) * STEP)
+            h = n / 100 * BH
+            s.append('<rect class="%s" x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="1.5"/>' % (cls, xa + 1, base - h, xb - xa - 2, h))
+        med = stat(cfg, "max_all", "median")
+        xm = xo(math.log10(med))
+        s.append('<path class="hmed" d="M%.1f %.1f l-7 -11 h14 z"/>' % (xm, base - BH - 4))
+        s.append('<line class="ax" x1="%d" x2="%d" y1="%.1f" y2="%.1f"/>' % (X0, X1, base, base))
+        s.append('<text class="lbl-b" x="0" y="%.1f">%s</text>' % (y0 + 30, lab))
+        s.append('<text class="lbl" x="0" y="%.1f">reads (of 100)</text>' % (y0 + 54))
+    yb = TOP + 3 * PH
+    for e in range(LO, HI + 1):
+        xx = xo(e)
+        s.append('<line class="ax" x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f"/>' % (xx, xx, yb - 12, yb - 4))
+        s.append('<text class="tick" x="%.1f" y="%.1f" text-anchor="middle">%s</text>' % (xx, yb + 14, "1" if e == 0 else "10<tspan dy=\"-7\" font-size=\"12\">%d</tspan>" % e))
+    xf = xo(math.log10(6e-8))
+    s.append('<line class="hfl" x1="%.1f" x2="%.1f" y1="%d" y2="%.1f"/>' % (xf, xf, TOP, yb - 12))
+    s.append('<text class="tick" x="%.1f" y="%d" text-anchor="start">float32 limit</text>' % (xf + 6, TOP + 4))
+    s.append('<text class="lbl" x="%.1f" y="%.1f" text-anchor="middle">largest posterior difference in the read, left→right vs right→left (log scale)</text>' % ((X0 + X1) / 2, yb + 42))
+    s.append("</svg>")
+    return "\n".join(s)
+
+
+def sec2(sid, no, title, eyebrow, inner, kind="main"):
+    return '''
+<!-- ======================= %s %s ======================= -->
+<section class="slide" data-id="%s" data-kind="%s" data-sec="2" data-steps="1" data-title="%s">
+  <span class="slide-no">%s</span>
+%s</section>
+''' % (sid, html.escape(title), sid, kind, html.escape(title, quote=True), no, inner.replace("%%EYEBROW%%", "%EYEBROW%").replace("%EYEBROW%", '<span class="sec-no">Part 2</span> ' + eyebrow))
+
+
+slides.append(sec2("F1", 3, "How single-fiberCOP works", "single-fiberCOP · implementation", '''  <header class="sh">
+    <p class="eyebrow">%%EYEBROW%%</p>
+    <h2>How single-fiberCOP works</h2>
+    <p class="msg">The same RoboCOP model, run on one Fiber-seq read at a time.</p>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <ol class="flow">
+      <li><span class="fn">1</span><h3>Load the HMM</h3>
+        <p>RoboCOP log-space decoder, <b>3,485 states</b>: background, 154 TFs × forward + reverse, and a 531-state nucleosome.</p></li>
+      <li><span class="fn">2</span><h3>Read each read from the BAM</h3>
+        <p>m6A probability per A, called <b>methylated</b> (p ≥ 0.81), <b>unmethylated</b> (p ≤ 0.19) or <b>no-call</b>.</p>
+        <p class="fs">0.81 = modkit's automatic threshold (ML ≥ 207 of 255).</p>
+        <p class="fs">Forward read: Watson A's. Reverse read: Crick A's (stored as T).</p></li>
+      <li><span class="fn">3</span><h3>Place calls on the reference</h3>
+        <p>Each call goes to its sacCer3 coordinate. The sequence layer uses the reference genome.</p></li>
+      <li><span class="fn">4</span><h3>Emission: score each base, each state</h3>
+        <p class="fx">log PWM(base)<br>+ log p(m6A) if methylated<br>+ log(1−p) if unmethylated</p>
+        <p class="fs">One Bernoulli per A. No-calls add 0.</p></li>
+      <li><span class="fn">5</span><h3>Forward–backward, in log space</h3>
+        <p>Gives a per-base posterior for every state, on that one read.</p></li>
+    </ol>
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card flag" style="border-left-color:var(--both)"><h3><span class="ok">Works</span> · nucleosomes per read</h3>
+        <p>Chereji ±1 dyads: <b>4 of 4</b> within 20 bp.</p></div>
+      <div class="card flag" style="border-left-color:var(--pending-line)"><h3><span class="bad">Does not work</span> · TF calls per read</h3>
+        <p>ABF1's prior is 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp, and one read gives about <b>5 informative A's</b> in the 14 bp motif.</p></div>
+    </div>
+  </div>
+'''))
+
+slides.append(sec2("F2", 4, "Five problems we found", "single-fiberCOP · what we checked", '''  <header class="sh">
+    <p class="eyebrow">%%EYEBROW%%</p>
+    <h2>Five problems we found</h2>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="tbl-wrap"><table class="tbl probs" style="font-size:23px">
+      <colgroup><col style="width:19%"><col style="width:25%"><col style="width:30%"><col style="width:26%"></colgroup>
+      <thead><tr><th>Problem</th><th>What it is</th><th>What we found</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td class="pn"><span>1</span>Decoding direction</td>
+          <td>Crick reads were decoded 3'→5'.</td>
+          <td>Each read can now be decoded 5'→3' on its own strand.</td>
+          <td><span class="ok">Done:</span> new driver.</td></tr>
+        <tr><td class="pn"><span>2</span>Same answer both ways</td>
+          <td>One read should give the same answer in either direction.</td>
+          <td>"Start anywhere" fixes the read ends, but a gap of about 0.2 remains.</td>
+          <td>The gap comes from the sequence layer → fix 3.</td></tr>
+        <tr><td class="pn"><span>3</span>Nucleosome model asymmetry</td>
+          <td>It scores a sequence and its reverse complement differently.</td>
+          <td>It was trained on one strand only, and its m6A profile is 1 bp off centre.</td>
+          <td><span class="warnc">Planned:</span> retrain on both strands; refit m6A 1 bp left.</td></tr>
+        <tr><td class="pn"><span>4</span>Reference vs read sequence</td>
+          <td>Should each read use its own bases?</td>
+          <td>Read differences are mostly nanopore errors, not real variants.</td>
+          <td><span class="ok">Use the reference</span> unless ≥ 10 reads and &gt; 50% agree on another base.</td></tr>
+        <tr><td class="pn"><span>5</span>TF start chance too low</td>
+          <td>ABF1 is entered with a chance of 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp.</td>
+          <td>Even a perfectly protected fake read only reaches ABF1 ≈ 5&nbsp;×&nbsp;10<sup>-6</sup>.</td>
+          <td><span class="warnc">Next:</span> a per-site prior (fraction of reads bound) instead.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:15px">Details on hidden slides H5 (numbers, incl. the fake-read test) and H6 (the 1 bp offset). Code in <span class="m">analysis/singlefiber/</span>.</p>
+  </div>
+'''))
+
+slides.append(sec2("HF2", "H5", "Five problems we found (detail)", "single-fiberCOP · detail", '''  <header class="sh">
+    <p class="eyebrow">%%EYEBROW%%</p>
+    <h2>Five problems we found</h2>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="tbl-wrap"><table class="tbl compact probs" style="font-size:17.5px">
+      <colgroup><col style="width:14%%"><col style="width:22%%"><col style="width:45%%"><col style="width:19%%"></colgroup>
+      <thead><tr><th>Problem</th><th>What it is</th><th>What we found</th><th>Status / fix</th></tr></thead>
+      <tbody>
+        <tr><td class="pn"><span>1</span>Decoding direction</td>
+          <td>Every read was decoded left→right on the reference, so Crick reads ran 3'→5'.</td>
+          <td>New driver decodes each read 5'→3' on its own strand: Crick reads are reverse-complemented, decoded, then mapped back.
+            <span class="m">--direction ref</span> reproduces the old driver exactly (0 of 44 outputs differ).</td>
+          <td><span class="ok">Done.</span> <span class="m">run_permol_window_logfull_5to3.py</span></td></tr>
+        <tr><td class="pn"><span>2</span>Same answer both ways</td>
+          <td>One read should give the same answer decoded in either direction.</td>
+          <td>100 reads at ERV46, largest difference per read (median / max):
+            today's start rule <b>%(tm)s / %(tx)s</b>; start anywhere <b>%(am)s / %(ax)s</b>; sequence layer off <b>%(off)s</b> (exact).
+            Start anywhere fixes the read ends. The rest comes from the sequence layer, most likely the nucleosome model (not yet isolated).</td>
+          <td><span class="ok">Built</span> (<span class="m">--start any</span>). Remaining gap → problem 3.</td></tr>
+        <tr><td class="pn"><span>3</span>Nucleosome model is not symmetric</td>
+          <td>It scores a sequence and its reverse complement differently: 0.40 log10 on average.</td>
+          <td>Its sequence part was trained on a random, unseeded draw of 5,000 of 9,271 Chereji dyads, Watson strand only
+            (<span class="m">calc_dinucleotide.py:135, 147-149</span>). All 9,271 + reverse complements cuts it to <b>0.04</b>.
+            Also, the m6A profile was fit 1 bp off centre (next slides).</td>
+          <td><span class="warnc">Planned:</span> symmetric retrain + recentred m6A fit.</td></tr>
+        <tr><td class="pn"><span>4</span>Reference or read sequence?</td>
+          <td>Should the sequence layer use each read's own bases?</td>
+          <td>Read differences are mostly nanopore errors, not variants: 0 positions at ERV46 where ≥ 50%% of reads disagree; strand-specific hotspots;
+            a systematic G error in "CGA". Using read sequence moved nucleosome calls by up to 0.65; one error in a motif cut ABF1 100–1000×.</td>
+          <td><span class="ok">Use the reference</span>, unless ≥ 10 reads cover a base and &gt; 50%% agree on another (<span class="m">consensus_seq.py</span>; 0 changes at ERV46).</td></tr>
+        <tr><td class="pn"><span>5</span>TF start chance too low</td>
+          <td>ABF1's start chance is 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp; one read has only 4–5 informative A's in the motif.</td>
+          <td>Fake reads at ERV46 site 1, real decoder: no calls 3.3&nbsp;×&nbsp;10<sup>-6</sup>; motif fully protected <b>4.9&nbsp;×&nbsp;10<sup>-6</sup></b> (best);
+            motif methylated 1.2&nbsp;×&nbsp;10<sup>-7</sup>. 0.5 needs a ~10<sup>5</sup>× higher start chance.</td>
+          <td><span class="warnc">Next:</span> per-site mixture model; fraction bound f from all reads replaces the 1.8&nbsp;×&nbsp;10<sup>-7</sup>.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:15px">ERV46 window: chrI:60,001–65,000. Code in <span class="m">analysis/singlefiber/</span>.
+    Problem 2 numbers: <span class="m">permol_proto_logfull/dirtest100/summary.json</span> (next slide). Problem 5: fake-read test, 26 Oct (its scratch files were lost in a /tmp wipe; numbers recorded in this session, rerun to regenerate).</p>
+  </div>
+''' % dict(tm=f2(TODAY_MED), tx=f2(TODAY_MAX), am=f2(ANY_MED), ax=f2(ANY_MAX), off=sup(OFF_MAX)), kind="hidden"))
+
+slides.append(sec2("F3", 5, "Same read, both directions", "single-fiberCOP · problem 2 in numbers", '''  <header class="sh">
+    <p class="eyebrow">%%EYEBROW%%</p>
+    <h2>Same read, both directions</h2>
+    <p class="msg">Each read decoded left→right and right→left. Bars count reads by their largest posterior difference; ▼ marks the median.</p>
+  </header>
+  <div class="body cols" style="grid-template-columns:1.75fr 1fr;gap:44px;align-items:start">
+    <figure>%(svg)s</figure>
+    <div class="stack" style="gap:18px">
+      <div class="tbl-wrap"><table class="tbl compact" style="font-size:21px">
+        <thead><tr><th>Setting</th><th class="r">Median</th><th class="r">Max</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sw a"></span>Today's start rule</td><td class="n r">%(tm)s</td><td class="n r">%(tx)s</td></tr>
+          <tr class="key"><td><span class="sw b"></span>Start anywhere</td><td class="n r">%(am)s</td><td class="n r">%(ax)s</td></tr>
+          <tr><td><span class="sw" style="background:var(--both)"></span>Sequence layer off</td><td class="n r">%(off)s</td><td class="n r">%(off)s</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="pts" style="font-size:22px;gap:12px">
+        <li>Start anywhere: each state starts at its long-run share, matching "end anywhere".</li>
+        <li>With the sequence layer off, both directions agree to float32 precision.</li>
+        <li>ABF1 at the two sites moves at most %(abf)s (start anywhere).</li>
+      </ul>
+      <p class="foot txt" style="font-size:15px">A symmetric m6A profile with start anywhere gives %(sm)s / %(sx)s: the m6A profile is not the main cause.
+      Source: <span class="m">/usr/project/xtmp/nd141/permol_proto_logfull/dirtest100/</span> (<span class="m">per_read.tsv</span>, <span class="m">summary.json</span>);
+      difference = max over positions and all state columns.</p>
+    </div>
+  </div>
+''' % dict(svg=hist_svg(), tm=f2(TODAY_MED), tx=f2(TODAY_MAX), am=f2(ANY_MED), ax=f2(ANY_MAX), off=sup(OFF_MAX),
+           abf=sup(ABF_ANY), sm=f2(SYM_MED), sx=f2(SYM_MAX))))
+
+slides.append(sec2("F4", "H6", "The m6A nucleosome profile is 1 bp off", "single-fiberCOP · problem 3 in detail", '''  <header class="sh">
+    <p class="eyebrow">%%EYEBROW%%</p>
+    <h2>The m6A nucleosome profile is 1 bp off</h2>
+    <p class="msg">Both nucleosome fits read the same Chereji dyads but put the centre on different bases.</p>
+  </header>
+  <div class="body stack" style="gap:22px">
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div class="card"><h3>Two centres for one dyad</h3>
+        <p>A Chereji row is 1 bp wide, e.g. <span class="m">chrI 2386 2387</span>.</p>
+        <ul class="pts" style="font-size:21px;gap:8px;margin-top:10px">
+          <li>Sequence model: centred on base <b>2386</b> (<span class="m">calc_dinucleotide.py:131, 147-148</span>).</li>
+          <li>m6A fit: centred on base <b>2387</b> (<span class="m">abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:951-953</span>).</li>
+        </ul></div>
+      <div class="card"><h3>The m6A fit is the one that is off</h3>
+        <p>A nucleosome's Watson m6A profile should mirror its Crick profile about the true centre.</p>
+        <div class="tbl-wrap" style="margin-top:10px"><table class="tbl compact" style="font-size:20px">
+          <thead><tr><th>Centre</th><th class="r">Positions |z| &gt; 3 (of 147)</th><th class="r">p</th></tr></thead>
+          <tbody>
+            <tr><td>As fit</td><td class="n r bad">20</td><td class="n r">5&nbsp;×&nbsp;10<sup>-75</sup></td></tr>
+            <tr class="key"><td>Shifted 1 bp left</td><td class="n r">1</td><td class="n r">0.12</td></tr>
+          </tbody>
+        </table></div>
+        <p style="font-size:19px;margin-top:8px">The sequence model's centre is the most symmetric of 7 shifts tested.</p></div>
+    </div>
+    <div>
+      <p class="panel-t">Planned fix</p>
+      <ul class="pts" style="font-size:21px;gap:8px;margin-top:6px">
+        <li>A new copy of the fitting step with the window 1 bp left (<span class="m">dyad-74 … dyad+73</span>), writing a new file
+          <span class="m">inputs/nucleosome_params_recentred.pkl</span>. <span class="m">nucleosome_params.pkl</span> is never overwritten.</li>
+        <li>Point the per-read code at it: <span class="m">singlefiber/permol_params.py:56</span>, and in a <b>new</b> pkgvar copy of
+          <span class="m">permol_seq_maskoff_logfull</span>, <span class="m">robocop.py</span> <span class="m">build_fiber_ps</span> (line 1432) and line 639.</li>
+      </ul>
+    </div>
+    <p class="caveats"><span class="tag caveat">unverified</span> Whether the TF footprint fits share the same 1 bp offset.</p>
+  </div>
+''', kind="hidden"))
+
+slides.append('''
+<!-- ======================= R STRAHL ======================= -->
+<section class="slide" data-id="R" data-kind="main" data-sec="3" data-steps="1" data-title="Strahl lab's results">
+  <span class="slide-no">6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span></p>
+    <h2>Strahl lab's results</h2>
+  </header>
+</section>
+''')
+
+# timeline: one line from 27 Oct 2026 to 31 Mar 2027, positions by day
+import datetime as _dt
+T0, T1 = _dt.date(2026, 10, 27), _dt.date(2027, 3, 31)
+def pct(d): return 100.0 * (d - T0).days / (T1 - T0).days
+months = [(_dt.date(2026, 11, 1), "Nov"), (_dt.date(2026, 12, 1), "Dec"), (_dt.date(2027, 1, 1), "Jan 2027"),
+          (_dt.date(2027, 2, 1), "Feb"), (_dt.date(2027, 3, 1), "Mar")]
+phases = [(T0, _dt.date(2026, 11, 30), "Finish single-fiberCOP", "now → November", "p1", 0),
+          (_dt.date(2026, 12, 1), _dt.date(2027, 1, 31), "Find biology, tweak the model", "December → January", "p2", 1),
+          (_dt.date(2027, 1, 1), T1, "Find biology and publish the paper", "January → March", "p3", 2)]
+tl = ['<div class="tl" role="img" aria-label="Timeline from late October 2026 to March 2027: finish single-fiberCOP by November; '
+      'December to January find biology and tweak the model; January to March find biology and publish the paper; defend in March.">']
+for a, b, txt, when, cls, lane in phases:
+    tl.append('  <div class="tl-bar %s" style="left:%.2f%%;width:%.2f%%;--lane:%d"><b>%s</b><span>%s</span></div>'
+              % (cls, pct(a), pct(b) - pct(a), lane, when, txt))
+tl.append('  <div class="tl-line"></div>')
+tl.append('  <div class="tl-tick now" style="left:0%"><span>now<br>27 Oct</span></div>')
+for d, lab in months:
+    tl.append('  <div class="tl-tick" style="left:%.2f%%"><span>%s</span></div>' % (pct(d), lab))
+dm = _dt.date(2027, 3, 1)
+tl.append('  <div class="tl-defend" style="left:%.2f%%;width:%.2f%%"><b>March</b><span>Defend</span></div>' % (pct(dm), 100 - pct(dm)))
+tl.append('</div>')
+slides.append('''
+<!-- ======================= TL TIMELINE ======================= -->
+<section class="slide" data-id="TL" data-kind="main" data-sec="4" data-steps="1" data-title="Timeline">
+  <span class="slide-no">7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> Plan</p>
+    <h2>Timeline</h2>
+    <p class="msg">From now to the defence in March 2027.</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;justify-content:center">
+''' + "\n".join(tl) + '''
+  </div>
+</section>
+''')
+
 out = "".join(slides)
 open(os.path.join(H, "slides_fragment.html"), "w", encoding="utf-8").write(out)
 print("wrote slides_fragment.html", len(out), "sections", out.count("<section"))

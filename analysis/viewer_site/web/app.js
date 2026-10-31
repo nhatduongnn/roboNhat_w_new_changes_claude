@@ -155,7 +155,8 @@ const V = {runs: [], chrom: null, view: {s: 1, e: 1000}, hist: [], checked: new 
            refMac: true, refCx: true};
 const runCache = new Map(), sharedCache = new Map();
 const GUT = 170, RPAD = 12, LANE_H = 92, LANE_GAP = 6;
-const H = {cOver: 26, cLanes: 200, cMeth: 120, cDep: 60, cSeq: 56, cGene: 52, cRef: 60, cAxis: 30};
+const H = {cOver: 26, cLanes: 200, cMeth: 120, cDep: 60, cSeq: 56, cGene: 52, cRef: 60, cFlag: 0, cAxis: 30};
+const FLAG_H = 46;                         // cFlag height when the chromosome has flags (else 0, hidden)
 const cv = {}; let plotW = 800, DPR = 1, L = 1;
 const nView = () => V.view.e - V.view.s + 1;
 const xOf = p => GUT + (p - V.view.s + 0.5) / nView() * plotW;
@@ -185,6 +186,22 @@ async function loadRun(id, chrom){
   runCache.set(key, p);
   return p;
 }
+// Flagged positions: shared/<chrom>.flags.json.gz (extract_flags.py, rule in
+// analysis/flagged_positions.py). Optional: a missing file means no flag strip and no hatch.
+const flagCache = new Map();
+async function loadFlags(chrom){
+  if (flagCache.has(chrom)) return flagCache.get(chrom);
+  const p = (async () => {
+    try {
+      const raw = await gunzip(`shared/${chrom}.flags.json.gz`);
+      if (!raw) return null;
+      const f = JSON.parse(new TextDecoder().decode(raw));
+      return f.p && f.p.length ? f : null;
+    } catch (e) { return null; }
+  })();
+  flagCache.set(chrom, p);
+  return p;
+}
 async function loadShared(chrom){
   if (sharedCache.has(chrom)) return sharedCache.get(chrom);
   const p = (async () => {
@@ -204,9 +221,12 @@ function resize(){
   plotW = Math.max(240, w - GUT - RPAD);
   H.cLanes = laneCount() * (LANE_H + LANE_GAP) + (V.overlay ? 60 : 0);
   H.cRef = Math.max(34, 20 * Math.max(1, refTracksShown().length));
+  H.cFlag = FL ? FLAG_H : 0;
+  $("flagwrap").style.display = FL ? "" : "none";
   let total = 0;
   for (const id of Object.keys(H)){
     const c = cv[id];
+    if (!H[id]){ c.width = c.height = 0; c.style.height = "0px"; continue; }   // hidden panel
     c.style.width = w + "px"; c.style.height = H[id] + "px";
     c.width = Math.round(w * DPR); c.height = Math.round(H[id] * DPR);
     c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -395,10 +415,104 @@ function drawLanes(){
         }
         ctx.setLineDash([]); ctx.globalAlpha = 1;
       }
+      drawFlagCalls(ctx, y0, h, runsHere);
     }
     ctx.restore();
     frame(ctx, y0, h);
   }
+}
+/* ---- flagged positions: strip under the reference sites + hatch on TF calls ---- */
+// A TF call here is any single motif column (not nucleosome/background/nuc_center/unknown and not
+// the summed "other TFs") with posterior >= TF_CALL. Columns are what extract_run.py kept for the
+// run, so a motif under its keep threshold never counts.
+let FL = null;
+const TF_CALL = 0.5, FKIND_VAR = ["--fAlt", "--fIndel", "--fLow"];
+const NON_TF = new Set(["nucleosome", "background", "nuc_center", "unknown", "other TFs"]);
+function flagLB(p){
+  let lo = 0, hi = FL.p.length;
+  while (lo < hi){ const m = (lo + hi) >> 1; if (FL.p[m] < p) lo = m + 1; else hi = m; }
+  return lo;
+}
+function tfCallsAt(d, p){
+  if (!d || d.missing) return [];
+  for (const b of d.blocks) if (p >= b.start && p < b.start + b.len){
+    const i = p - b.start, out = [];
+    for (const f of d.cols) if (!NON_TF.has(f) && b.cols[f][i] >= TF_CALL * d.q) out.push([f, b.cols[f][i] / d.q]);
+    return out;
+  }
+  return [];
+}
+function drawFlagCalls(ctx, y0, h, runsHere){
+  if (!FL) return;
+  const perBase = plotW / nView(), col = css("--fAlt");
+  const hit = [];
+  for (let j = flagLB(V.view.s); j < FL.p.length && FL.p[j] <= V.view.e; j++){
+    const p = FL.p[j];
+    if (hit.length && hit[hit.length - 1] === p) continue;
+    if (runsHere.some(k => tfCallsAt(RD[k], p).length)) hit.push(p);
+  }
+  let i = 0;
+  ctx.save();
+  while (i < hit.length){
+    let q = i; while (q + 1 < hit.length && hit[q + 1] === hit[q] + 1) q++;
+    let x0 = xOf(hit[i]) - perBase / 2, x1 = xOf(hit[q]) + perBase / 2;
+    if (x1 - x0 < 4){ const cx = (x0 + x1) / 2; x0 = cx - 2; x1 = cx + 2; }
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, x1 - x0, h); ctx.clip();
+    ctx.strokeStyle = col; ctx.globalAlpha = 0.55; ctx.lineWidth = 1.3; ctx.beginPath();
+    for (let dd = -h; dd < x1 - x0 + h; dd += 5){ ctx.moveTo(x0 + dd, y0 + h); ctx.lineTo(x0 + dd + h, y0); }
+    ctx.stroke(); ctx.restore();
+    ctx.strokeStyle = col; ctx.lineWidth = 1.2; ctx.strokeRect(Math.round(x0) + 0.5, y0 + 0.5, Math.max(1, Math.round(x1 - x0) - 1), h - 1);
+    i = q + 1;
+  }
+  ctx.restore();
+}
+function drawFlag(){
+  const c = cv.cFlag, h = H.cFlag;
+  if (!h || !FL) return;
+  const ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
+  gridX(ctx, 0, h);
+  const perBase = plotW / nView();
+  const lane = [{y: 15, hh: 8}, {y: 25, hh: 8}, {y: 35, hh: 7}];
+  ctx.fillStyle = css("--ink3"); ctx.font = "9px " + css("--mono"); ctx.textAlign = "right";
+  ["alt base", "indel", "coverage <10"].forEach((t, k) => ctx.fillText(t, GUT - 6, lane[k].y + 7));
+  // one mark per pixel column per kind at chromosome zoom; per base once bases are wide
+  const w = Math.max(1, perBase - (perBase >= 6 ? 1 : 0));
+  for (let j = flagLB(V.view.s); j < FL.p.length && FL.p[j] <= V.view.e; j++){
+    const k = FL.k[j], L2 = lane[k];
+    ctx.fillStyle = css(FKIND_VAR[k]); ctx.globalAlpha = k === 2 ? 0.6 : 1;
+    ctx.fillRect(xOf(FL.p[j]) - w / 2, L2.y, w, L2.hh);
+  }
+  ctx.globalAlpha = 1;
+  frame(ctx, 0, h);
+}
+function flagLegend(){
+  const nk = [0, 0, 0];
+  if (FL) for (const k of FL.k) nk[k]++;
+  const names = (FL && FL.kinds) || ["alt base", "indel", "low coverage"];
+  $("flaglg").innerHTML = FL ? names.map((nm, k) => nk[k]
+    ? `<i style="background:var(${FKIND_VAR[k]})"></i>${esc(nm)} ${fmt(nk[k])}` : "").join("") +
+    ` <span style="color:var(--ink3)">on ${V.chrom}</span><i class="hatch"></i>hatched in the decode lanes: TF call \u2265 ${TF_CALL} on a flagged base` : "";
+}
+function flagTip(p){
+  if (!FL) return "";
+  const half = Math.max(0, Math.floor(nView() / plotW * 1.5)), rows = [];
+  for (let j = flagLB(p - half); j < FL.p.length && FL.p[j] <= p + half && rows.length < 5; j++){
+    const k = FL.k[j], c = FL.c[j];
+    let what, val;
+    if (k === 0){ what = `alt ${FL.r[j]}\u2192${FL.a[j]}`; val = `${FL.ac[j]}/${c} (${(FL.ac[j] / c).toFixed(2)})`; }
+    else if (k === 1){
+      if (FL.dc[j] >= FL.ic[j]){ what = `deletion of ${FL.r[j]}`; val = `${FL.dc[j]}/${c} (${(FL.dc[j] / c).toFixed(2)})`; }
+      else { what = `insertion +${esc(FL.is[j])}`; val = `${FL.ic[j]}/${c} (${(FL.ic[j] / c).toFixed(2)})`; }
+    } else { what = "low coverage"; val = `${c} reads (&lt;10)`; }
+    rows.push(`<tr><td><span class="sw" style="background:var(${FKIND_VAR[k]})"></span> ${fmt(FL.p[j])} ${what}</td><td class="v">${val}</td></tr>`);
+  }
+  if (!rows.length) return "";
+  const calls = [];
+  V.runs.forEach((id, k) => tfCallsAt(RD[k], p).forEach(([f, v]) =>
+    calls.push(`${esc(f)} ${v.toFixed(2)}${V.runs.length > 1 ? " (" + esc(((BYID[id] || {}).label || id).slice(0, 18)) + ")" : ""}`)));
+  return `<div class="fl"><table>${rows.join("")}</table>` +
+    (calls.length ? `<div style="color:var(--fAlt);font-weight:600;margin-top:3px">TF call on flagged base: ${calls.join(", ")}</div>` : "") + `</div>`;
 }
 function hlGroup(){ const f = V.hl || "Abf1_murphy"; return COLORS.groups[f] || null; }
 // Locus-slide style (presentation/templates/locus_slide/README.md): reference sites are drawn ON the
@@ -661,7 +775,7 @@ function buildSidebar(){
 /* =============================== control =============================== */
 function draw(skipSidebar){
   if (!V.chrom) return;
-  drawOver(); drawLanes(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawRef(); drawAxis();
+  drawOver(); drawLanes(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawRef(); drawFlag(); drawAxis();
   if (!skipSidebar) buildSidebar();
   $("coord").value = `${V.chrom}:${V.view.s}-${V.view.e}`;
   writeHash();
@@ -696,9 +810,10 @@ function writeHash(){
 async function mountChrom(chrom, view){
   V.chrom = chrom;
   $("chromSel").value = chrom;
-  const [sh, ...rd] = await Promise.all([loadShared(chrom), ...V.runs.map(id => loadRun(id, chrom))]);
+  const [sh, fl, ...rd] = await Promise.all([loadShared(chrom), loadFlags(chrom), ...V.runs.map(id => loadRun(id, chrom))]);
   if (V.chrom !== chrom) return;            // superseded
-  SH = sh; RD = rd;
+  SH = sh; RD = rd; FL = fl;
+  flagLegend();
   const sizes = BUILD.chrom_sizes || {};
   L = (SH && SH.length) || sizes[chrom] || 1;
   $("geneList").innerHTML = (SH ? SH.genes : []).map(g => `<option value="${esc(g.name)}">`).join("");
@@ -823,7 +938,7 @@ function showTip(ev, p){
     return `<tr><td>${esc(((BYID[id] || {}).label || id).slice(0, 22))}</td><td class="v">${nuc === null ? "not extracted" :
       "nuc " + nuc.toFixed(2) + (top.length ? " · " + top.map(([f, v]) => `<span class="sw" style="background:${color(f)}"></span> ${esc(f)} ${v.toFixed(2)}`).join(" · ") : "")}</td></tr>`;
   }).join("");
-  tip.innerHTML = `<div class="c">${V.chrom}:${fmt(p)} <span style="color:var(--T)">${seqAt(p) || ""}</span></div><table>${fib}${rows}</table>`;
+  tip.innerHTML = `<div class="c">${V.chrom}:${fmt(p)} <span style="color:var(--T)">${seqAt(p) || ""}</span></div><table>${fib}${rows}</table>` + flagTip(p);
   tip.style.display = "block";
   const w = tip.offsetWidth, h = tip.offsetHeight;
   tip.style.left = Math.min(innerWidth - w - 8, ev.clientX + 14) + "px";

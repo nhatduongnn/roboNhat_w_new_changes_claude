@@ -17,13 +17,33 @@ Slurm, partition `compsci`. A genome decode is 48 array tasks: ~45 min each on
 Decode outputs (20–630 MB each) live on this filesystem and are gitignored; the metadata
 (`config.ini`, `coords.tsv`, `pwm.p`, `conc_patch.json`) is committed.
 
-## Where things stand (2026-10-26) — start here
+## Where things stand (2026-10-31) — start here
 
-**Current work: single-fiber (per-read) decoding. Read `SINGLEFIBER_PLAN.md` first.** The per-read
-decoder runs in log space and is validated; per-read TF calls are limited by the data (~5 informative
-bases per read in a motif), so the next step is a per-site mixture model at ERV46 (chrI:60,001-65,000).
-User decisions there: log space, fiber + sequence first (MNase later), ERV46 as the test locus,
-footprints may be fitted on all 7 barcodes.
+**Current work: single-fiber (per-read) decoding. Read `SINGLEFIBER_PLAN.md` first**, starting with its
+"Next session" and "Update 2026-10-26 → 10-30" sections.
+
+**Next task:** check that the jump in background m6A rate (barcode01 0.138 → all 7 barcodes 0.155) is real
+biology and not caused by a few hypermethylated reads, one barcode, or the lower merged modkit threshold.
+Then decide on read filters and refit background, nucleosome and TF m6A rates from one consistent read set.
+
+**What changed 2026-10-26 → 10-30.** Single-fiber defaults are now in
+`analysis/singlefiber/run_permol_window_logfull_5to3.py`:
+- each read decoded 5'→3';
+- start anywhere;
+- Brogaard symmetric nucleosome model;
+- background + nucleosome m6A rates fit on all 7 barcodes.
+
+Per-read TF calls use the per-site fraction-bound model, `analysis/singlefiber/site_mixture.py`; raising the
+concentration does not work. The decode sequence is always the reference; strain differences are flagged
+only. All model choices are tracked in the shared sheet "FiberCOP model choices" (artifact
+`8KkLfcKovncXqmNwFZh5TT`). The worked math is in the artifact "single-fiberCOP math"
+(`NszXsMkgqaL8N1hMncbMbN`). Lab notes: `lab_meeting/oct_27_notes.md`. The Oct 27 deck is artifact
+`2TCJW7cRfv87hivaFSchu9`.
+
+**Fitting data:** TF footprint rates (`inputs/all_TFs_1000pealVal_params_pseudo.pkl`) were already fit on
+the **merged 7-barcode** pileup (`analysis/abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:1123`). Only
+background and nucleosome were barcode01. The old shipped setup therefore mixed barcode01 background with
+merged-barcode TF footprints.
 
 **Decoder: log space is the way forward (user, 2026-10-23).** Use the `_logfull` trees with
 `ROBOCOP_LOG_EMISSION=exact` (`pkg/robocop/librobocop_logfull.so`, md5 `88f86a35`). It was reviewed and
@@ -82,6 +102,10 @@ Concentration calibration is **finished**; see HANDOFF.md §1 for the numbers.
    small table or a few bullets over a paragraph. If something is genuinely complex, explain it
    in simple terms first and add the detail after — do not pad, and do not repeat context the
    reader already has.
+10. **Explain things in concise and simple-to-understand terms, always.**
+11. **Answers first, explanation after.** Answer each of the user's questions in about 2
+    sentences. Put all of those short answers at the very beginning of the reply. Any
+    explanation, evidence or detail goes in a separate section after them.
 
 ## Gotchas that have each cost a session
 

@@ -8,6 +8,7 @@
 #   3  extract_shared.py        -> shared/<chrom>.json.gz, colors.json, scratch fiber_ref/
 #   2  extract_run.py --all     -> runs/<run>/<chrom>.bin.gz (incremental)
 #   4  fiber_check.py           -> fiber_check.json
+#   3b extract_flags.py       -> shared/<chrom>.flags.json.gz (flagged positions, flagged_positions.py)
 #   5  copy web/ + build_info.json
 set -eo pipefail
 A=/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis
@@ -30,6 +31,7 @@ if [ "$N" -gt 0 ] && [ -z "$NO_BACKFILL" ]; then
 fi
 [ -s "$SITE/colors.json" ] && [ -z "$FORCE_SHARED" ] || python viewer_site/extract_shared.py --out "$SITE"
 python viewer_site/extract_run.py --all --out "$SITE"
+python viewer_site/extract_flags.py --out "$SITE"     # shared/<chrom>.flags.json.gz (flagged positions)
 python viewer_site/fiber_check.py --out "$SITE"
 cp viewer_site/web/index.html viewer_site/web/app.js viewer_site/web/style.css "$SITE/"
 python - "$SITE" <<'PY'

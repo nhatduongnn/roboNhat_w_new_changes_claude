@@ -1,6 +1,6 @@
 {
  "T": "Same three tuned models as on Oct 6. Today: what the Run Browser showed before the fix, next to the log-space decoder.",
- "O": "Three parts. Hidden slides (h) carry the mechanism and the review.",
+ "O": "Four parts: the log-space fix, single-fiberCOP, Strahl lab's results, and the timeline. Hidden slides (h) carry the mechanism and the review.",
  "W": "Plain version: the old decoder multiplied tiny numbers and its undo step left a factor; some rows summed far above 1 and the viewer clipped them. Log space adds logs, so nothing underflows and every row sums to 1.",
  "HA": "C1 is the ordering bug in the backward pass. bo09 is hit hardest because its concentrations are extreme.",
  "HB": "DBL_MIN padding is the second cause. Rows sum to 1 but are wrong. This is the tail on the chrIV slide.",
@@ -10,5 +10,12 @@
  "L4": "bo09 called FHL1 at 1.00 in the broken rows; log space gives 0.002. Past the broken rows, log space has a full nucleosome where the old view shows half background.",
  "S": "bu01 never changes; bv75 barely; bo09 changes where its old rows were broken, plus short tails after them.",
  "HC": "Independent review of the log-space C code: safe to decode, no blockers.",
- "HD": "Guards that clip or drop rows above 1 cannot fire on log-space decodes. Keep them until old decodes are retired."
+ "HD": "Guards that clip or drop rows above 1 cannot fire on log-space decodes. Keep them until old decodes are retired.",
+ "F1": "Same model as genome RoboCOP, but the data is one read. Nucleosomes come through per read; TFs do not, because one read has too few informative A's in a motif to beat ABF1's tiny prior.",
+ "F2": "Five problems in one line each. 1 done, 2 built, 3 is the next fix, 4 decided: keep the reference sequence, 5 is why per-read TF calls fail: the start chance, not the code.",
+ "F3": "Same read, two directions. Today's start rule makes the read ends disagree. Start anywhere fixes the ends. With the sequence layer off the two directions agree exactly, so the rest comes from the sequence layer.",
+ "F4": "The m6A nucleosome profile is centred one base right of the sequence model. Watson and Crick profiles only mirror each other after shifting it 1 bp left. Fix: refit into a new file and point a new pkgvar copy at it.",
+ "R": "Strahl lab's results.",
+ "TL": "Finish the single-fiberCOP model by end of November; December to January find biology and tweak the model; January to March biology and the paper; defend in March.",
+ "HF2": "Detail version with the numbers. Problem 5: even a perfectly protected fake read cannot overcome ABF1's 1.8e-7 start chance."
 }

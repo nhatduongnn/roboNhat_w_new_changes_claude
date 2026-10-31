@@ -42,6 +42,13 @@ Captions stay neutral: what is plotted, not why.
   - `--extra-html file` inserts markup between the tracks and the footnote, for example a numbers strip.
   - `--tf-color` overrides the factor colour.
 
+Flagged positions (`analysis/flagged_positions.py`; scan folder `--flags-dir`, default
+`/usr/project/xtmp/nd141/consensus_scan`, `''` turns them off) are drawn as coloured ticks hanging
+off the axis line (amber alt base, purple indel, grey low coverage). A hatched amber box marks a
+flagged base where a row's factor posterior is ≥ 0.5. The legend entries appear only when the
+window has flags. A deck built before 2026-10-28 carries the old `drawLocus`; paste the new
+snippet script into it to see the marks.
+
 `--from-json` reuses a built payload so the section text can be re-filled without touching the decodes.
 
 Output: `--out-json` (the payload) and `--out-section` (the filled `<section>` followed by its `<script type="application/json" id="trk<id>-data">`).
@@ -54,7 +61,8 @@ Output: `--out-json` (the payload) and `--out-section` (the filled `<section>` f
  runs:{label:{tf:[round(p*1000)]*(e-s+1), nuc:[...]}},
  fiberRun, fiber:{mw, mc, aw, ac}, sites:[[start,end,strand]], rossi?:[summit],
  genes:[{name,start,end,strand}], bg, colors:{tf, nuc, ref},
- call:{run, thr, tol}}
+ call:{run, thr, tol},
+ flags?:{p, k, r, a, ac, dc, ic, is, c}}   # only when the window has flagged positions
 ```
 
 ## Build a new locus slide and insert it

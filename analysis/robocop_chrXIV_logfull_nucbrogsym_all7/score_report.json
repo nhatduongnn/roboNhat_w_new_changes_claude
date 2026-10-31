@@ -1,0 +1,95 @@
+{
+  "label": "robocop_chrXIV_logfull_nucbrogsym_all7",
+  "outDir": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_logfull_nucbrogsym_all7",
+  "n_regions": 1,
+  "nucleosome": {
+    "reference": "Chereji 2018 +1/-1",
+    "n_ref": 626,
+    "n_pred": 4293,
+    "tp": 506,
+    "fp": 3787,
+    "fn": 120,
+    "precision": 0.1178662939669229,
+    "recall": 0.8083067092651757,
+    "f1": 0.20573287253506808,
+    "median_dyad_err": 8.0,
+    "mean_dyad_err": 7.711462450592886,
+    "pct_within_20bp": 0.8083067092651757,
+    "pct_within_30bp": 0.8913738019169329,
+    "tol_bp": 20
+  },
+  "nucleosome_brogaard": {
+    "reference": "Brogaard top-2000",
+    "n_ref": 131,
+    "n_pred": 4293,
+    "tp": 108,
+    "fp": 4185,
+    "fn": 23,
+    "precision": 0.025157232704402517,
+    "recall": 0.8244274809160306,
+    "f1": 0.048824593128390596,
+    "median_dyad_err": 6.0,
+    "mean_dyad_err": 6.388888888888889,
+    "pct_within_20bp": 0.8244274809160306,
+    "pct_within_30bp": 0.9465648854961832,
+    "tol_bp": 20
+  },
+  "phasing": {
+    "median_period_bp": 170.0,
+    "n_regions_with_period": 1,
+    "expected_bp": "~160-170"
+  },
+  "abf1": {
+    "n_ref": 19,
+    "n_pred": 463,
+    "tp": 9,
+    "fp": 454,
+    "fn": 10,
+    "precision": 0.019438444924406047,
+    "recall": 0.47368421052631576,
+    "f1": 0.03734439834024896,
+    "median_dist": 1.0,
+    "tol_bp": 20,
+    "auroc": 0.6189223815519499,
+    "mean_post_at_sites": 0.1578807986877594,
+    "mean_post_background": 0.00665190000158208,
+    "enrichment": 23.73469214062286
+  },
+  "accessibility_consistency": {
+    "mean_corr_access_vs_methylation": 0.24106898959152911,
+    "n_regions": 1,
+    "note": "corr( 1-nuc_occupancy , Fiber meth/A ). Higher = model puts nucleosomes where DNA is protected."
+  },
+  "_per_region": [
+    {
+      "region": "chrXIV:1-784333",
+      "n_pred_dyads": 4293,
+      "nuc": {
+        "n_ref": 626,
+        "n_pred": 4293,
+        "tp": 506,
+        "fp": 3787,
+        "fn": 120,
+        "precision": 0.1178662939669229,
+        "recall": 0.8083067092651757,
+        "f1": 0.20573287253506808,
+        "median_dist": 8.0,
+        "mean_dist": 7.711462450592886
+      },
+      "abf1": {
+        "n_ref": 19,
+        "n_pred": 463,
+        "tp": 9,
+        "fp": 454,
+        "fn": 10,
+        "precision": 0.019438444924406047,
+        "recall": 0.47368421052631576,
+        "f1": 0.03734439834024896,
+        "median_dist": 1.0,
+        "mean_dist": 1.1111111111111112
+      },
+      "period": 170,
+      "abf1_detail": null
+    }
+  ]
+}

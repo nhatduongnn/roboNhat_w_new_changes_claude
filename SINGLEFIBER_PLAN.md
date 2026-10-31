@@ -11,6 +11,74 @@ Call TF binding (and nucleosomes) on **individual Fiber-seq reads**, using each 
 DNA sequence (PWM layer) to make up for how little one read carries. The end question is how many fibers
 are bound at a site, and which ones.
 
+## Next session (2026-10-31): is the background m6A rise real?
+
+**Why.** Refitting background m6A on all 7 merged barcodes raised it from 0.138 (barcode01) to **0.155**:
+- Watson 0.1548 / Crick 0.1527;
+- `inputs/bg_params_all7.pkl`, fit by `analysis/nucbrogsym/bg_fit.py`.
+
+Barcodes and experiments differ, so first make sure the rise is not caused by:
+- a minority of hypermethylated reads (for example fully methylated, failed-chromatin or naked-DNA reads);
+- one outlier barcode;
+- the merged pileup's lower modkit threshold (0.8105 merged vs 0.8223 barcode01; the threshold is the 10th percentile of call confidence, chosen per pileup, unseeded).
+
+**Facts already established:**
+- per-barcode m6A rates are 0.063–0.084 (data-pipeline catalogue, choices sheet);
+- there are no read filters at all: no MAPQ, Q-score or length filter (`singlefiber/read_calls.py`, `min_mapq=0`; the modkit pileup uses defaults);
+- read-group → barcode mapping is solved in `singlefiber/site_mixture.py` (bc22/23/24 and bc04 under hash-suffixed RG IDs);
+- only Mar20 barcode01 has recorded sample conditions (`XL_hia5`).
+
+**To do:**
+1. **Per-read m6A rate distribution in linker/background windows**, per barcode:
+   - look for a heavy tail or a second mode of near-fully-methylated reads;
+   - compute the background rate with and without the top 1/5/10% of reads, and from the median of per-read rates.
+2. **Background rate per barcode**, each at the SAME call threshold (0.8105 and 0.8223, from the BAM via `read_calls`). This splits threshold effect vs barcode effect.
+3. **Read-quality covariates per read:** MAPQ, read length, mean Q-score, fraction of no-calls (ambiguous). Do hypermethylated reads share them?
+4. **Propose read filters**, e.g. MAPQ ≥ 20, min length, a per-read m6A outlier cap. Record the choice in the choices sheet.
+5. **Refit everything from one consistent, filtered read set:** background + nucleosome (`nucbrogsym/bg_fit.py`, `nucbrogsym/m6a_fit.py`), and TF footprints (`abf1_reb1_dms_parameter_Fiber-seq_w_binom.py` `compute_Fiber_seq_TFPhisMus`). New filenames only (CLAUDE.md rule 2).
+6. **Re-run the checks:**
+   - 100-read direction test (`/usr/project/xtmp/nd141/permol_proto_logfull/dirtest100/` or `.../all7/`);
+   - ERV46 Chereji dyads (`nucbrogsym/nuc_quality.py`);
+   - chrXIV whole-chromosome score (`analysis/nucbrogsym/chrXIV_score/`, runs `analysis/robocop_chrXIV_logfull_*`);
+   - per-site model (`/usr/project/xtmp/nd141/tf_compare/`).
+
+   Watch ABF1 aggregate enrichment: it fell 33× → 24× when background moved to all 7 barcodes.
+
+**Then (open user decisions):**
+- rerun the per-site model with the new defaults and extend to REB1;
+- the lost Chereji dyad 61,336 (not investigated);
+- `unknown` / nucleosome prior shares (29% / 11.5%; revisit later);
+- optional 3-outcome emission.
+
+## Update 2026-10-26 → 10-30 (read this first)
+
+**New defaults** in `analysis/singlefiber/run_permol_window_logfull_5to3.py` (the old driver `run_permol_window_logfull.py` is unchanged). The old setup is reproducible with explicit flags; the command is in the docstring at :57-59.
+
+| choice | default now | evidence |
+|---|---|---|
+| direction | each read decoded 5'→3' on its own strand (`--direction 5to3`) | user decision |
+| start rule | start anywhere = long-run vector (`--start any`); end anywhere is upstream since `8debe63` | 100-read left↔right test: 0.75 → 0.21 (old model) → 0.067 (new) |
+| nucleosome sequence model | Brogaard top-2000, Watson + RC pooled, centre = BED start (`robocop_train_fiberonly_nucbrogsym`) | asymmetry 0.40 → 0.058 log10; chrXIV Chereji recall unchanged 0.808, dyad error 8 bp |
+| m6A rates | background + nucleosome refit on all 7 barcodes (`bg_params_all7.pkl`, `nucleosome_params_brogaard_sym_all7.pkl`; pkgvar `permol_seq_maskoff_logfull_nucbrogsym_all7`) | bg p 0.138 → 0.155; TF footprints unchanged |
+| sequence | reference always; positions with ≥10 reads and >50% one other base are FLAGGED only (`consensus_seq.py`; genome scan 11,433 flags, `/usr/project/xtmp/nd141/consensus_scan/`); flags drawn in the posterior viewer | the strain differs from S288C at ~1/kb |
+| trimming | not implemented (post-decode only, if ever) | user note |
+
+**TF calls per read: use the per-site fraction-bound model** (`analysis/singlefiber/site_mixture.py`; results `/usr/project/xtmp/nd141/tf_compare/`).
+- It fits f (fraction of reads bound) per site from all reads, then uses f as each read's prior.
+- Across 42 MacIsaac ABF1 sites + 42 PWM look-alikes on chrI+chrXIV: Rossi AUROC 0.96; barcode hold-out Spearman 0.80; controls ≈ 0.
+- Raising ABF1's prior ×138 (`robocop_train_fiberonly_abf1x138`) calls almost no reads (2 of 84 sites, one false). Don't use it for per-read work.
+
+**Why one read can't call a TF** (worked out in full in the artifact *single-fiberCOP math*, https://claude.ai/artifact/NszXsMkgqaL8N1hMncbMbN):
+- the aggregate emission equals the sum of the reads' Bernoulli emissions + log C(n,k);
+- so a single read has ~1/n of the evidence against the same −16.2-nat ABF1 entry cost.
+
+**Open / noted:**
+- Chereji dyad 61,336 is lost with the Brogaard model at ERV46 (cause not investigated).
+- The new all-7 m6A raises chrXIV ABF1 aggregate calls 327 → 463 (enrichment 33× → 24×); the sequence model alone leaves ABF1 unchanged. The TF footprints were already fit on the merged 7 barcodes (generator `analysis/abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:1123`), so the old setup mixed barcode01 background with merged-barcode footprints.
+- `unknown` takes 29% and nucleosome only 11.5% of bases in the prior (revisit later).
+- 3-outcome emission (no-calls are 2–4× more common in open DNA) is an optional upgrade (`/usr/project/xtmp/nd141/emission_audit/`).
+- All model choices are tracked in the shared sheet https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT.
+
 ## User decisions (2026-10-25)
 
 | decision | value |

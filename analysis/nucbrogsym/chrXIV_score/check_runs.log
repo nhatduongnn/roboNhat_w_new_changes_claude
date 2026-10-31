@@ -1,0 +1,151 @@
+robocop_chrXIV_logfull_oldnuc {'n_segments': 196, 'n_nonfinite': 0, 'rowsum_min': 0.9916166255858693, 'rowsum_max': 1.0000000000000064, 'rows_off_by_1e6': 966559, 'max_emitting_cell': 0.9999999999999218, 'max_abs_silent_cell': 0.0}
+robocop_chrXIV_logfull_nucbrogsym_oldm6a {'n_segments': 196, 'n_nonfinite': 0, 'rowsum_min': 0.9916166586102126, 'rowsum_max': 1.0000000000000056, 'rows_off_by_1e6': 963120, 'max_emitting_cell': 0.9999999999999218, 'max_abs_silent_cell': 0.0}
+robocop_chrXIV_logfull_nucbrogsym_all7 {'n_segments': 196, 'n_nonfinite': 0, 'rowsum_min': 0.9920016647083207, 'rowsum_max': 1.0000000000000075, 'rows_off_by_1e6': 950529, 'max_emitting_cell': 0.9999999999998472, 'max_abs_silent_cell': 0.0}
+robocop_chrXIV_logfull_oldnuc -> robocop_chrXIV_logfull_nucbrogsym_all7 {
+ "mean_occ_a": 0.8083830575884015,
+ "mean_occ_b": 0.8068888225564828,
+ "mean_abs_diff": 0.025549509864959494,
+ "frac_pos_absdiff_gt_0p5": 0.018563543800911093,
+ "corr": 0.95139483990136,
+ "top_1kb_windows": [
+  {
+   "region": "chrXIV:649001-650000",
+   "mean_abs_diff": 0.17251159189923845,
+   "mean_signed_diff": -0.11510187642149985
+  },
+  {
+   "region": "chrXIV:631001-632000",
+   "mean_abs_diff": 0.1629419644567372,
+   "mean_signed_diff": -0.1402749309870088
+  },
+  {
+   "region": "chrXIV:318001-319000",
+   "mean_abs_diff": 0.1534742258377678,
+   "mean_signed_diff": -0.1456627192421833
+  },
+  {
+   "region": "chrXIV:89001-90000",
+   "mean_abs_diff": 0.148236026694769,
+   "mean_signed_diff": -0.14402307174005327
+  },
+  {
+   "region": "chrXIV:560001-561000",
+   "mean_abs_diff": 0.14814267222908517,
+   "mean_signed_diff": -0.14542626268557152
+  },
+  {
+   "region": "chrXIV:443001-444000",
+   "mean_abs_diff": 0.1396431807284468,
+   "mean_signed_diff": -0.13917777433310866
+  },
+  {
+   "region": "chrXIV:63001-64000",
+   "mean_abs_diff": 0.13684107632203416,
+   "mean_signed_diff": 0.13461447406912447
+  },
+  {
+   "region": "chrXIV:768001-769000",
+   "mean_abs_diff": 0.12790588433924213,
+   "mean_signed_diff": 0.04795939589370485
+  }
+ ]
+}
+robocop_chrXIV_logfull_oldnuc -> robocop_chrXIV_logfull_nucbrogsym_oldm6a {
+ "mean_occ_a": 0.8083830575884015,
+ "mean_occ_b": 0.8079193655364739,
+ "mean_abs_diff": 0.015227217316486621,
+ "frac_pos_absdiff_gt_0p5": 0.006466641082295403,
+ "corr": 0.9803533506514212,
+ "top_1kb_windows": [
+  {
+   "region": "chrXIV:443001-444000",
+   "mean_abs_diff": 0.1321134784333305,
+   "mean_signed_diff": -0.13179229303296447
+  },
+  {
+   "region": "chrXIV:768001-769000",
+   "mean_abs_diff": 0.12790588433924216,
+   "mean_signed_diff": 0.04795939589370488
+  },
+  {
+   "region": "chrXIV:777001-778000",
+   "mean_abs_diff": 0.12295278793207211,
+   "mean_signed_diff": 0.0198233912270707
+  },
+  {
+   "region": "chrXIV:766001-767000",
+   "mean_abs_diff": 0.11458750833300106,
+   "mean_signed_diff": -0.022070080875154257
+  },
+  {
+   "region": "chrXIV:776001-777000",
+   "mean_abs_diff": 0.0955841894300067,
+   "mean_signed_diff": 0.0011094754018609531
+  },
+  {
+   "region": "chrXIV:769001-770000",
+   "mean_abs_diff": 0.09535116548355192,
+   "mean_signed_diff": -0.02847950426980301
+  },
+  {
+   "region": "chrXIV:1-1000",
+   "mean_abs_diff": 0.09273579492360318,
+   "mean_signed_diff": -0.08471418432449188
+  },
+  {
+   "region": "chrXIV:773001-774000",
+   "mean_abs_diff": 0.09035718335702486,
+   "mean_signed_diff": 0.02316259727294007
+  }
+ ]
+}
+robocop_chrXIV_logfull_nucbrogsym_oldm6a -> robocop_chrXIV_logfull_nucbrogsym_all7 {
+ "mean_occ_a": 0.8079193655364739,
+ "mean_occ_b": 0.8068888225564828,
+ "mean_abs_diff": 0.02059921387815952,
+ "frac_pos_absdiff_gt_0p5": 0.0154296708158397,
+ "corr": 0.960697416991081,
+ "top_1kb_windows": [
+  {
+   "region": "chrXIV:631001-632000",
+   "mean_abs_diff": 0.15633197819793834,
+   "mean_signed_diff": -0.14514938912776557
+  },
+  {
+   "region": "chrXIV:89001-90000",
+   "mean_abs_diff": 0.1524767586169023,
+   "mean_signed_diff": -0.14373938117461094
+  },
+  {
+   "region": "chrXIV:560001-561000",
+   "mean_abs_diff": 0.14830921807122552,
+   "mean_signed_diff": -0.14474495034188065
+  },
+  {
+   "region": "chrXIV:318001-319000",
+   "mean_abs_diff": 0.14235080264042865,
+   "mean_signed_diff": -0.1366130070084142
+  },
+  {
+   "region": "chrXIV:63001-64000",
+   "mean_abs_diff": 0.1365273568022345,
+   "mean_signed_diff": 0.13482653345567489
+  },
+  {
+   "region": "chrXIV:649001-650000",
+   "mean_abs_diff": 0.12788763869257705,
+   "mean_signed_diff": -0.08993541007975903
+  },
+  {
+   "region": "chrXIV:215001-216000",
+   "mean_abs_diff": 0.12660621276287407,
+   "mean_signed_diff": -0.0024837959611052583
+  },
+  {
+   "region": "chrXIV:425001-426000",
+   "mean_abs_diff": 0.11425138590549351,
+   "mean_signed_diff": 0.00356538060689104
+  }
+ ]
+}
+wrote nucbrogsym/chrXIV_score/checks.json

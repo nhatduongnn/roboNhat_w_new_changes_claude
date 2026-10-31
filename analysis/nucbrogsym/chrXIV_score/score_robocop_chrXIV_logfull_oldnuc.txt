@@ -1,0 +1,48 @@
+====================================================================
+RoboCOP decode score:  robocop_chrXIV_logfull_oldnuc
+regions scored: 1   outDir: /usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_chrXIV_logfull_oldnuc
+====================================================================
+
+[1] NUCLEOSOME dyads  (vs Chereji 2018 +1/-1, tol=20 bp)
+    reference dyads     : 626  (Chereji lists ONLY +1/-1 nucs -> precision/F1 NOT meaningful)
+    predicted dyads     : 4268
+    TP / FN             : 506 / 120
+    recall (KEY)        : 0.808   <- frac of ref dyads recovered
+    median dyad error   : 8.0 bp (KEY)
+    % within +/-20 bp   : 0.808
+    % within +/-30 bp   : 0.891
+    FP=3762, precision=0.119, F1=0.207
+
+[1] NUCLEOSOME dyads  (vs Brogaard top-2000, tol=20 bp)
+    reference dyads     : 131  (Brogaard top-2000 well-positioned nucs, genome-wide)
+    predicted dyads     : 4268
+    TP / FN             : 112 / 19
+    recall (KEY)        : 0.855   <- frac of ref dyads recovered
+    median dyad error   : 8.0 bp (KEY)
+    % within +/-20 bp   : 0.855
+    % within +/-30 bp   : 0.947
+    FP=4156, precision=0.026, F1=0.051
+
+[2] PHASING periodicity (internal)
+    median period       : 171.0 bp   (expected ~160-170)
+    regions with period : 1
+
+[3] ABF1 footprints  (vs MacIsaac match_PWM, tol=20 bp)
+    reference sites     : 19
+    predicted footprints: 327
+    TP / FP / FN        : 8 / 319 / 11
+      TP = predicted ABF1 that matches a real ABF1 site
+      FP = predicted ABF1 with NO ABF1 site nearby (spurious / other TF)
+      FN = real ABF1 site the model missed
+    precision / recall  : 0.024 / 0.421
+    F1                  : 0.046
+    AUROC               : 0.607
+    mean post @ sites   : 0.144
+    mean post @ bg      : 0.004
+    enrichment          : 33.3x
+
+[4] ACCESSIBILITY consistency (internal, Fiber-seq)
+    corr(1-nuc, meth/A) : 0.241   (over 1 regions)
+    -> higher = nucleosomes placed where DNA is protected
+
+JSON report written: robocop_chrXIV_logfull_oldnuc/score_report.json

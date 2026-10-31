@@ -31,7 +31,7 @@ js = js[:js.index("</script>") + len("</script>")]
 notes = json.load(open(os.path.join(H, "notes.json"), encoding="utf-8"))
 js = re.sub(r"var NOTES = \{.*?\n\};", lambda m: "var NOTES = " + json.dumps(notes, ensure_ascii=False) + ";", js, count=1, flags=re.S)
 js = re.sub(r"var SEC_NAMES = \[.*?\];",
-            'var SEC_NAMES = ["Title","What changed","Four loci, before and after","Summary"];', js, count=1)
+            'var SEC_NAMES = ["Title","The log-space fix","single-fiberCOP","Strahl lab\'s results","Timeline"];', js, count=1)
 a = js.index("/* ---------------- charts"); b = js.index("/* ---------------- locus slides")
 js = js[:a] + js[b:]
 old = 'document.title = "RoboCOP Meets Fiber-seq";'

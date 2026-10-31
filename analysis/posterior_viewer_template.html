@@ -17,6 +17,8 @@
   --plus:#87ceeb; --minus:#f08080;
   --A:#2e8b57; --T:#c0392b; --C:#1f77b4; --G:#8c6239;
   --ref:#146b63; --ref2:#6b4b9a;
+  /* flagged positions (reads disagree with the reference): data hues, not chrome */
+  --fAlt:#d97a00; --fIndel:#7b3fb0; --fLow:#8593a1;
   --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
@@ -32,6 +34,7 @@
     --plus:#4f92b5; --minus:#b56b6b;
     --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
     --ref:#3fb3a6; --ref2:#a68ad4;
+    --fAlt:#f2a33a; --fIndel:#b98ae6; --fLow:#65727f;
   }
 }
 :root[data-theme="dark"]{
@@ -45,6 +48,7 @@
   --plus:#4f92b5; --minus:#b56b6b;
   --A:#5cbd85; --T:#e8695c; --C:#5aa9e6; --G:#c1996b;
   --ref:#3fb3a6; --ref2:#a68ad4;
+  --fAlt:#f2a33a; --fIndel:#b98ae6; --fLow:#65727f;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
@@ -130,6 +134,12 @@ canvas{display:block;width:100%;touch-action:none}
 #tip table{border-collapse:collapse}
 #tip td{padding:0 6px 0 0;font-size:11px;white-space:nowrap}
 #tip td.v{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.plab .lg{text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink2);margin-left:8px}
+.plab .lg i{display:inline-block;width:9px;height:9px;border-radius:1.5px;vertical-align:-1px;margin:0 3px 0 6px}
+.plab .lg i.hatch{background:repeating-linear-gradient(135deg,var(--fAlt) 0 1.5px,transparent 1.5px 4px);
+  box-shadow:inset 0 0 0 1px var(--fAlt)}
+.plab .lg i.lowc{background:repeating-linear-gradient(135deg,var(--fLow) 0 1.5px,transparent 1.5px 3.5px)}
+#tip .fl{margin-top:5px;border-top:1px solid var(--line);padding-top:4px}
 footer{padding:4px 16px 28px;color:var(--ink3);font-size:11.5px;max-width:74ch}
 footer p{margin:0 0 7px}
 footer b{color:var(--ink2);font-weight:600}
@@ -185,11 +195,12 @@ footer code{font-family:var(--mono);font-size:10.5px;background:var(--panel);
 
   <section class="plots">
     <div id="stage">
-      <div class="pwrap"><div class="plab">posterior</div><canvas id="cPost"></canvas></div>
+      <div class="pwrap"><div class="plab">posterior<span class="lg" id="postlg"></span></div><canvas id="cPost"></canvas></div>
       <div class="pwrap"><div class="plab">m6A per A &nbsp;·&nbsp; <span style="color:var(--wat)">watson</span> <span style="color:var(--cri)">crick</span></div><canvas id="cMeth"></canvas></div>
       <div class="pwrap"><div class="plab" id="deplab">A-trials (depth)</div><canvas id="cDep"></canvas></div>
       <div class="pwrap"><div class="plab" id="seqlab">AT fraction (7 bp)</div><canvas id="cSeq"></canvas></div>
       <div class="pwrap"><div class="plab">genes</div><canvas id="cGene"></canvas></div>
+      <div class="pwrap" id="flagwrap"><div class="plab" style="top:-1px">flagged<span class="lg" id="flaglg"></span></div><canvas id="cFlag"></canvas></div>
       <div class="pwrap"><canvas id="cAxis"></canvas></div>
       <canvas id="overlay"></canvas>
     </div>
@@ -229,7 +240,8 @@ let regionKey = savedRegion();
 let D = ALL.regions[regionKey];
 let N = D.end - D.start + 1;
 const GUT = 54, RPAD = 12;
-const H = {cPost:330, cMeth:150, cDep:74, cSeq:66, cGene:52, cAxis:30};
+const H = {cPost:330, cMeth:150, cDep:74, cSeq:66, cGene:52, cFlag:46, cAxis:30};
+const FLAG_H = 46;                  // cFlag height when the region has flags; 0 hides it
 // One stroke pattern per run in compare mode. Indexed by run position, so this must
 // cover every run the page carries -- DASH[i] coming back undefined would throw in
 // setLineDash. The || [] is the backstop past the end of the table.
@@ -295,6 +307,7 @@ function resize(){
   let total = 0;
   for (const id of Object.keys(H)){
     const c = cv[id];
+    if (!H[id]){ c.width = c.height = 0; c.style.height = "0px"; continue; }   // hidden panel
     c.style.width = w + "px"; c.style.height = H[id] + "px";
     c.width = Math.round(w * DPR); c.height = Math.round(H[id] * DPR);
     c.getContext("2d").setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -370,6 +383,7 @@ function drawPost(){
     }
   }
   ctx.setLineDash([]);
+  drawFlagCalls(ctx, h, runs);
   frame(ctx, c.width, h);
 }
 
@@ -600,6 +614,138 @@ function drawSeq(){
   frame(ctx, c.width, h);
 }
 
+/* ---------- flagged positions ---------- */
+// Positions where the reads disagree with the reference (analysis/flagged_positions.py,
+// rule in singlefiber/consensus_seq.py). The decode always uses the reference, so these are
+// marks only: a strip under the genes, and a hatch in the posterior panel wherever a TF
+// (any non-nucleosome, non-background state, checked or not) has posterior >= TF_CALL on a
+// flagged base -- that call is the one to read as less reliable. A region without flags
+// hides the strip and the legend, so its page renders as before.
+const TF_CALL = 0.5;
+const FKIND_VAR = ["--fAlt", "--fIndel", "--fLow"];
+let FL = null;                       // D.flags, or null when the region has none
+const flagCallCache = new Map();
+function mountFlags(){
+  FL = (D.flags && D.flags.p && D.flags.p.length) ? D.flags : null;
+  flagCallCache.clear();
+  H.cFlag = FL ? FLAG_H : 0;
+  document.getElementById("flagwrap").style.display = FL ? "" : "none";
+  const nk = [0, 0, 0];
+  if (FL) for (const k of FL.k) nk[k]++;
+  const sw = ["", "", "lowc"];
+  const names = D.flagKinds || ["alt base", "indel", "low coverage"];
+  document.getElementById("flaglg").innerHTML = FL ? names.map((nm, k) => nk[k]
+      ? `<i class="${sw[k]}" style="${sw[k] ? "" : `background:var(${FKIND_VAR[k]})`}"></i>${nm} ${fmt(nk[k])}`
+      : "").join("") : "";
+  document.getElementById("postlg").innerHTML = FL
+    ? `<i class="hatch"></i>TF call ≥ ${TF_CALL} on a flagged base` : "";
+}
+// first index with FL.p[i] >= p
+function flagLB(p){
+  let lo = 0, hi = FL.p.length;
+  while (lo < hi){ const m = (lo + hi) >> 1; if (FL.p[m] < p) lo = m + 1; else hi = m; }
+  return lo;
+}
+// Per run: Uint8Array over the region, 1 where a flagged base carries a TF call.
+const tfList = () => D.factors.filter(f => !(D.nonTF || []).includes(f) && !isRef(f));
+function flagCalls(run){
+  let a = flagCallCache.get(run);
+  if (a) return a;
+  a = new Uint8Array(N);
+  if (FL){
+    const tfs = tfList().map(f => dense(run, f));
+    for (const p of FL.p){
+      const i = p - D.start;
+      if (i < 0 || i >= N || a[i]) continue;
+      for (const arr of tfs) if (arr[i] >= TF_CALL){ a[i] = 1; break; }
+    }
+  }
+  flagCallCache.set(run, a);
+  return a;
+}
+let hatchPat = null, hatchFor = "";
+function hatch(ctx){
+  const col = css("--fAlt");
+  if (!hatchPat || hatchFor !== col){
+    const t = document.createElement("canvas"); t.width = t.height = 6;
+    const g = t.getContext("2d");
+    g.strokeStyle = col; g.lineWidth = 1.4; g.beginPath();
+    g.moveTo(-1, 7); g.lineTo(7, -1); g.moveTo(5, 7); g.lineTo(7, 5); g.moveTo(-1, 1); g.lineTo(1, -1);
+    g.stroke();
+    hatchPat = ctx.createPattern(t, "repeat"); hatchFor = col;
+  }
+  return hatchPat;
+}
+function drawFlagCalls(ctx, h, runs){
+  if (!FL) return;
+  const hit = new Uint8Array(N);
+  for (const r of runs){ const a = flagCalls(r); for (let i = 0; i < N; i++) if (a[i]) hit[i] = 1; }
+  const n = nView(), perBase = plotW / n, col = css("--fAlt");
+  ctx.save();
+  // merge adjacent hit positions so a deletion under a call is one box, not 100 hairlines
+  let p = view.s;
+  while (p <= view.e){
+    const i = p - D.start;
+    if (i < 0 || i >= N || !hit[i]){ p++; continue; }
+    let q = p; while (q + 1 <= view.e && hit[q + 1 - D.start]) q++;
+    let x0 = xOf(p) - perBase / 2, x1 = xOf(q) + perBase / 2;
+    if (x1 - x0 < 4){ const cx = (x0 + x1) / 2; x0 = cx - 2; x1 = cx + 2; }
+    ctx.globalAlpha = 0.55; ctx.fillStyle = hatch(ctx); ctx.fillRect(x0, 0, x1 - x0, h);
+    ctx.globalAlpha = 1; ctx.strokeStyle = col; ctx.lineWidth = 1.2;
+    ctx.strokeRect(Math.round(x0) + 0.5, 0.5, Math.max(1, Math.round(x1 - x0) - 1), h - 1);
+    p = q + 1;
+  }
+  ctx.restore();
+}
+function drawFlag(){
+  const c = cv.cFlag, ctx = c.getContext("2d"), h = H.cFlag;
+  if (!h || !FL) return;
+  ctx.clearRect(0, 0, c.width, c.height);
+  gridX(ctx, h);
+  const n = nView(), perBase = plotW / n;
+  // three lanes, top to bottom: alt, indel, low coverage; label column on the left
+  const lane = [{y: 15, hh: 8}, {y: 25, hh: 8}, {y: 35, hh: 7}];
+  ctx.fillStyle = css("--ink3"); ctx.font = "9px " + css("--mono"); ctx.textAlign = "right";
+  ["alt", "indel", "<10x"].forEach((t, k) => ctx.fillText(t, GUT - 6, lane[k].y + 7));
+  const w = Math.max(1, perBase - (perBase >= 6 ? 1 : 0));
+  const lo = flagLB(view.s);
+  for (let j = lo; j < FL.p.length && FL.p[j] <= view.e; j++){
+    const k = FL.k[j], L = lane[k];
+    ctx.fillStyle = css(FKIND_VAR[k]);
+    if (k === 2) ctx.globalAlpha = 0.6;
+    ctx.fillRect(xOf(FL.p[j]) - w / 2, L.y, w, L.hh);
+    ctx.globalAlpha = 1;
+  }
+  frame(ctx, c.width, h);
+}
+// tooltip rows for flagged bases under the cursor (+/- half a pixel's worth of bases)
+function flagTip(p){
+  if (!FL) return "";
+  const half = Math.max(0, Math.floor(nView() / plotW * 1.5));
+  const rows = [];
+  for (let j = flagLB(p - half); j < FL.p.length && FL.p[j] <= p + half && rows.length < 5; j++){
+    const k = FL.k[j], c = FL.c[j], pos = FL.p[j];
+    const sw = `<span class="sw" style="display:inline-block;background:var(${FKIND_VAR[k]})"></span>`;
+    let what, val;
+    if (k === 0){ what = `alt ${FL.r[j]}→${FL.a[j]}`; val = `${FL.ac[j]}/${c} (${(FL.ac[j] / c).toFixed(2)})`; }
+    else if (k === 1){
+      if (FL.dc[j] >= FL.ic[j]){ what = `deletion of ${FL.r[j]}`; val = `${FL.dc[j]}/${c} (${(FL.dc[j] / c).toFixed(2)})`; }
+      else { what = `insertion +${FL.is[j]}`; val = `${FL.ic[j]}/${c} (${(FL.ic[j] / c).toFixed(2)})`; }
+    } else { what = "low coverage"; val = `${c} reads (&lt;10)`; }
+    rows.push(`<tr><td>${sw}</td><td>${fmt(pos)} ${what}</td><td class="v">${val}</td></tr>`);
+  }
+  if (!rows.length) return "";
+  const shown = runMode === "compare" ? runIds : [runMode];
+  const i = p - D.start, calls = [];
+  for (const r of shown) for (const f of tfList()){
+    const v = dense(r, f)[i];
+    if (v >= TF_CALL) calls.push(`${D.labels[f] || f} ${v.toFixed(2)}${shown.length > 1 ? " (" + r + ")" : ""}`);
+  }
+  return `<div class="fl"><table>${rows.join("")}</table>` +
+    (calls.length ? `<div style="color:var(--fAlt);font-weight:600;margin-top:3px">TF call on flagged base: ${calls.join(", ")}</div>` : "") +
+    `</div>`;
+}
+
 /* ---------- panel: genes ---------- */
 function drawGene(){
   const c = cv.cGene, ctx = c.getContext("2d"), h = H.cGene;
@@ -705,7 +851,7 @@ function setView(s, e, push = true){
 }
 function draw(skipSidebar){
   if (!window._maxes) skipSidebar = false;
-  drawPost(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawAxis();
+  drawPost(); drawMeth(); drawDep(); drawSeq(); drawGene(); drawFlag(); drawAxis();
   if (!skipSidebar) buildSidebar();
   renderStats();
   document.getElementById("coord").value = `${D.chrom}:${view.s}-${view.e}`;
@@ -919,6 +1065,7 @@ function showTip(ev, p){
            <td>${D.labels[r.f] || r.f}</td><td class="v">${r.v.toFixed(3)}</td></tr>`).join("") + `</table>`
       : `<div style="margin-top:5px;color:var(--ink3)">no factor &ge; 0.005</div>`) +
     (hits.length ? `<table style="margin-top:5px">` + hits.join("") + `</table>` : "") +
+    flagTip(p) +
     (runMode === "compare" ? `<div style="margin-top:4px;color:var(--ink3)">values shown for ${shown[0]}</div>` : "");
   tip.style.display = "block";
   const w = tip.offsetWidth, h = tip.offsetHeight;
@@ -938,6 +1085,7 @@ function mountRegion(){
   REF_KEYS = Object.keys(REF);
   runIds = D.runOrder;
   cache.clear();                        // keyed by run|factor, both region-scoped
+  mountFlags();
 
   // Run labels are harmonised across regions, so this normally keeps your run. If a
   // region genuinely lacks it, fall back rather than render an empty panel.
@@ -969,7 +1117,7 @@ function setRegion(k){
   try { localStorage.setItem("rcv.region", k); } catch (e) {}
   document.getElementById("regionsel").value = k;
   mountRegion();
-  draw();
+  resize();                             // the flag strip shows/hides per region
 }
 
 /* ---------- init ---------- */
@@ -980,6 +1128,6 @@ document.getElementById("regionsel").onchange = e => setRegion(e.target.value);
 mountRegion();
 
 addEventListener("resize", resize);
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(true));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { hatchPat = null; draw(true); });
 resize();
 </script>

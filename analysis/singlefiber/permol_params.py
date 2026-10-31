@@ -50,17 +50,22 @@ PS_CEIL = 1.0 - 1e-6
 ARM_C_P = None       # filled from nucleosome_params at load time
 
 
-def load_params(params_dir="inputs"):
+NUC_FILE_DEFAULT = "nucleosome_params.pkl"   # the shipped profile; --nuc-params overrides
+BG_FILE_DEFAULT = "bg_params.pkl"            # the shipped background (barcode01); --bg-params overrides
+
+
+def load_params(params_dir="inputs", nuc_file=NUC_FILE_DEFAULT, bg_file=BG_FILE_DEFAULT):
     with open(os.path.join(params_dir, "all_TFs_1000pealVal_params_pseudo.pkl"), "rb") as f:
         loaded = pickle.load(f)
-    with open(os.path.join(params_dir, "nucleosome_params.pkl"), "rb") as f:
+    with open(os.path.join(params_dir, nuc_file), "rb") as f:
         nuc = pickle.load(f)
-    with open(os.path.join(params_dir, "bg_params.pkl"), "rb") as f:
+    with open(os.path.join(params_dir, bg_file), "rb") as f:
         bg = pickle.load(f)
     return loaded, nuc, bg
 
 
-def build_ps_labelled(dshared, strand, params_dir="inputs"):
+def build_ps_labelled(dshared, strand, params_dir="inputs", nuc_file=NUC_FILE_DEFAULT,
+                      bg_file=BG_FILE_DEFAULT):
     """(ps, source) for one strand layer.
 
     strand is 'watson_signal' or 'crick_signal'. `source[j]` is the index into
@@ -68,7 +73,7 @@ def build_ps_labelled(dshared, strand, params_dir="inputs"):
     SRC_BG / SRC_NUC / SRC_CLC. Mirrors robocop.build_fiber_ps line for line; the two ps
     vectors are asserted equal by assert_verbatim().
     """
-    loaded_params, nucleosome_params, bg_params = load_params(params_dir)
+    loaded_params, nucleosome_params, bg_params = load_params(params_dir, nuc_file, bg_file)
     tf_starts, tf_lens = dshared["tf_starts"], dshared["tf_lens"]
     nsb = dshared["silent_states_begin"]
     ps = np.zeros(nsb)
@@ -103,21 +108,28 @@ def build_ps_labelled(dshared, strand, params_dir="inputs"):
     return ps, source
 
 
-def assert_verbatim(dshared, strand, params_dir="inputs"):
-    """build_ps_labelled must equal robocop.build_fiber_ps bit for bit."""
+def assert_verbatim(dshared, strand, params_dir="inputs", nuc_file=NUC_FILE_DEFAULT,
+                    bg_file=BG_FILE_DEFAULT):
+    """build_ps_labelled must equal robocop.build_fiber_ps bit for bit.
+
+    The tree's build_fiber_ps is called WITHOUT a file name, so it reads the profiles its own
+    tree hard-wires; a nuc_file or bg_file that does not match the imported tree fails here."""
     import robocop
     ref, _bg, _nuc, _lp = robocop.build_fiber_ps(dshared, strand, params_dir=params_dir)
-    mine, _src = build_ps_labelled(dshared, strand, params_dir=params_dir)
+    mine, _src = build_ps_labelled(dshared, strand, params_dir=params_dir, nuc_file=nuc_file,
+                                   bg_file=bg_file)
     assert ref.shape == mine.shape, (ref.shape, mine.shape)
     bad = int((ref != mine).sum())
     assert bad == 0, "%d of %d states differ from the verbatim build" % (bad, ref.size)
     return True
 
 
-def arm_ps(dshared, strand, arm, pi=None, params_dir="inputs"):
+def arm_ps(dshared, strand, arm, pi=None, params_dir="inputs", nuc_file=NUC_FILE_DEFAULT,
+           bg_file=BG_FILE_DEFAULT):
     """ps for one arm, plus a small dict describing what the arm changed."""
-    _lp, nuc, bg = load_params(params_dir)
-    ps, source = build_ps_labelled(dshared, strand, params_dir=params_dir)
+    _lp, nuc, bg = load_params(params_dir, nuc_file, bg_file)
+    ps, source = build_ps_labelled(dshared, strand, params_dir=params_dir, nuc_file=nuc_file,
+                                   bg_file=bg_file)
     fitted = source >= 0
     info = dict(arm=arm, pi=pi, strand=strand,
                 n_fitted_states=int(fitted.sum()),

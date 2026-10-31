@@ -401,6 +401,52 @@ p.foot.txt{display:block}
   #stage .nums{font-size:13px}
 }
 .slide .body p.foot{max-width:none}
+
+/* ---------- Oct 27 Part 2-4 additions: single-fiberCOP flow, problem table, histogram, timeline ---------- */
+ol.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;position:relative}
+ol.flow>li{position:relative;background:var(--surface);border:1px solid var(--rule-2);border-top:4px solid var(--accent);border-radius:6px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+ol.flow>li:not(:last-child)::after{content:"→";position:absolute;right:-29px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:24px;color:var(--muted)}
+ol.flow .fn{font-family:var(--f-mono);font-size:15px;font-weight:600;letter-spacing:.08em;color:var(--accent)}
+ol.flow h3{margin:0;font-family:var(--f-display);font-stretch:90%;font-size:24px;font-weight:700;line-height:1.12;text-wrap:balance}
+ol.flow p{margin:0;font-size:19px;line-height:1.32;color:var(--ink-2)}
+ol.flow p b{color:var(--ink)}
+ol.flow p.fs{font-size:17px;color:var(--muted)}
+ol.flow p.fx{font-family:var(--f-mono);font-size:16px;line-height:1.5;color:var(--ink);background:var(--accent-soft);border-radius:4px;padding:6px 8px}
+table.probs{font-size:18px}
+table.probs td{line-height:1.3}
+table.probs td.pn{font-weight:700;color:var(--ink)}
+table.probs td.pn span{display:block;font-family:var(--f-mono);font-size:15px;color:var(--accent);font-weight:600}
+svg .h-a{fill:var(--pending-line)} svg .h-b{fill:var(--accent)} svg .h-c{fill:var(--both)}
+svg .hmed{fill:var(--ink)}
+svg .hfl{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:2 4;fill:none}
+.tl{position:relative;height:380px;margin:0 30px}
+.tl-line{position:absolute;left:0;right:0;top:248px;height:4px;background:var(--ink-2);border-radius:2px}
+.tl-tick{position:absolute;top:238px;width:0;height:24px;border-left:2px solid var(--ink-2)}
+.tl-tick span{position:absolute;top:32px;left:0;transform:translateX(-50%);font-family:var(--f-mono);font-size:17px;color:var(--muted);white-space:nowrap;text-align:center;line-height:1.25}
+.tl-tick.now{border-left:4px solid var(--accent);height:36px;top:232px}
+.tl-tick.now span{color:var(--accent);font-weight:600;transform:none;left:-4px;top:62px;text-align:left}
+.tl-bar{position:absolute;top:calc(var(--lane) * 72px);height:64px;border-radius:5px;padding:6px 14px;display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0;overflow:hidden;border:1.5px solid}
+.tl-bar b{font-family:var(--f-mono);font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.tl-bar span{font-size:22px;line-height:1.15;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-bar.p1{background:var(--accent-soft);border-color:var(--accent)} .tl-bar.p1 b{color:var(--accent-ink)}
+.tl-bar.p2{background:var(--both-soft);border-color:var(--both)} .tl-bar.p2 b{color:var(--ink-2)}
+.tl-bar.p3{background:var(--seq-soft);border-color:var(--seq)} .tl-bar.p3 b{color:var(--ink-2)}
+.tl-defend{position:absolute;top:322px;height:54px;border-radius:5px;background:var(--pending-bg);border:1.5px solid var(--pending-line);display:flex;align-items:center;justify-content:center;gap:10px}
+.tl-defend b{font-family:var(--f-mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--pending-ink)}
+.tl-defend span{font-family:var(--f-display);font-stretch:90%;font-size:24px;font-weight:700;color:var(--pending-ink)}
+@media (max-width:760px){
+  #stage ol.flow{grid-template-columns:1fr;gap:12px}
+  #stage ol.flow>li::after{content:none}
+  #stage ol.flow h3{font-size:17px}
+  #stage ol.flow p{font-size:14px}
+  #stage table.probs{font-size:13px!important}
+  #stage .tl{margin:0;height:300px}
+  #stage .tl-bar span{font-size:12px;white-space:normal}
+  #stage .tl-bar b{font-size:10px}
+  #stage .tl-tick span{font-size:11px}
+  #stage .tl-defend span{font-size:15px}
+}
+table.probs .m{white-space:nowrap}
 </style>
 
 <div id="viewport">
@@ -424,20 +470,21 @@ p.foot.txt{display:block}
     <p class="eyebrow">Outline</p>
     <h2>Today</h2>
   </header>
-  <div class="body stack">
-    <ul class="pts" style="font-size:34px;gap:28px">
-      <li>What changed in the decoder</li>
-      <li>Four loci, six rows each: every model before and after</li>
-      <li>Where the two disagree, by model</li>
-    </ul>
+  <div class="body stack" style="gap:40px">
+    <ol class="outline">
+      <li><span class="k">Part 1</span><span class="t">The log-space fix</span><span class="s">What changed · four loci before and after · where they differ</span></li>
+      <li><span class="k">Part 2</span><span class="t">single-fiberCOP</span><span class="s">Decoding one read at a time · four problems we found</span></li>
+      <li><span class="k">Part 3</span><span class="t">Strahl lab's results</span><span class="s">&nbsp;</span></li>
+      <li><span class="k">Part 4</span><span class="t">Timeline</span><span class="s">Now to March 2027</span></li>
+    </ol>
     <p class="foot txt">Details are on hidden slides (press <span class="m">h</span>): the C1 bug, the DBL_MIN padding,
     the log-space review, and the guards that no longer fire.</p>
   </div>
 </section>
 
 <!-- ======================= W WHAT CHANGED ======================= -->
-<section class="slide" data-id="W" data-kind="main" data-sec="1" data-steps="1" data-title="What changed">
-  <span class="slide-no">2</span>
+<section class="slide" data-id="W" data-kind="hidden" data-sec="1" data-steps="1" data-title="What changed">
+  <span class="slide-no">H7</span>
   <header class="sh">
     <p class="eyebrow"><span class="sec-no">Part 1</span> The decoder</p>
     <h2>What changed</h2>
@@ -546,10 +593,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= L1 RPC19 promoter, chrXIV ======================= -->
-<section class="slide locus6" data-id="L1" data-kind="main" data-sec="2" data-steps="1" data-title="RPC19 promoter, chrXIV">
-  <span class="slide-no">3</span>
+<section class="slide locus6" data-id="L1" data-kind="main" data-sec="1" data-steps="1" data-title="RPC19 promoter, chrXIV">
+  <span class="slide-no">2</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 2</span> Locus 1 of 4 · chrXIV:412,400–412,900 · ABF1</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Locus 1 of 4 · chrXIV:412,400–412,900 · ABF1</p>
     <h2>RPC19 promoter, chrXIV</h2>
     <p class="msg">ABF1 at the poly-A, 412,655: bo09 <strong>0.50</strong> before, <strong>0.00</strong> after. At the MacIsaac ABF1 site: bo09 1.00 / 1.00, bv75 0.65 / 0.65, bu01 0.00 / 0.00.</p>
   </header>
@@ -592,10 +639,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= L2 chrXIV 440–445 kb: RAS2 to RPS7B ======================= -->
-<section class="slide locus6" data-id="L2" data-kind="main" data-sec="2" data-steps="1" data-title="chrXIV 440–445 kb: RAS2 to RPS7B">
-  <span class="slide-no">4</span>
+<section class="slide locus6" data-id="L2" data-kind="hidden" data-sec="1" data-steps="1" data-title="chrXIV 440–445 kb: RAS2 to RPS7B">
+  <span class="slide-no">H8</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 2</span> Locus 2 of 4 · chrXIV:440,001–445,000 · ABF1</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Locus 2 of 4 · chrXIV:440,001–445,000 · ABF1</p>
     <h2>chrXIV 440–445 kb: RAS2 to RPS7B</h2>
     <p class="msg">bo09's old rows here summed up to 1.24 (440,001–442,954) and up to 1.52&nbsp;×&nbsp;10<sup>60</sup> (444,001–444,147). ABF1, bo09: max 0.00 before, 0.50 after.</p>
   </header>
@@ -637,10 +684,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= L3 chrXIV 724–727 kb: ESF2 ======================= -->
-<section class="slide locus6" data-id="L3" data-kind="main" data-sec="2" data-steps="1" data-title="chrXIV 724–727 kb: ESF2">
-  <span class="slide-no">5</span>
+<section class="slide locus6" data-id="L3" data-kind="hidden" data-sec="1" data-steps="1" data-title="chrXIV 724–727 kb: ESF2">
+  <span class="slide-no">H9</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 2</span> Locus 3 of 4 · chrXIV:724,001–727,000 · background</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Locus 3 of 4 · chrXIV:724,001–727,000 · background</p>
     <h2>chrXIV 724–727 kb: ESF2</h2>
     <p class="msg">bo09's old rows 724,001–726,207 summed up to 13.27. Here the change is between background and nucleosome, not a TF.</p>
   </header>
@@ -682,10 +729,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= L4 chrIV 1,200–1,202 kb: ESC2 ======================= -->
-<section class="slide locus6" data-id="L4" data-kind="main" data-sec="2" data-steps="1" data-title="chrIV 1,200–1,202 kb: ESC2">
-  <span class="slide-no">6</span>
+<section class="slide locus6" data-id="L4" data-kind="hidden" data-sec="1" data-steps="1" data-title="chrIV 1,200–1,202 kb: ESC2">
+  <span class="slide-no">H10</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 2</span> Locus 4 of 4 · chrIV:1,200,001–1,202,000 · FHL1</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Locus 4 of 4 · chrIV:1,200,001–1,202,000 · FHL1</p>
     <h2>chrIV 1,200–1,202 kb: ESC2</h2>
     <p class="msg">bo09's old rows 1,200,001–1,201,697 summed up to 3.91&nbsp;×&nbsp;10<sup>30</sup>. FHL1, bo09: max 1.00 before, 0.002 after. Just past them (1,201,698–1,201,829) nucleosome 0.50 → 1.00, background 0.50 → 0.00 (means).</p>
   </header>
@@ -727,10 +774,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= S SUMMARY ======================= -->
-<section class="slide" data-id="S" data-kind="main" data-sec="3" data-steps="1" data-title="Where before and after differ">
-  <span class="slide-no">7</span>
+<section class="slide" data-id="S" data-kind="hidden" data-sec="1" data-steps="1" data-title="Where before and after differ">
+  <span class="slide-no">H11</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Summary</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Summary</p>
     <h2>Where before and after differ</h2>
     <p class="msg">Positions where any of 160 columns differs by ≥ 0.1 between the old Run Browser view and log space.</p>
   </header>
@@ -774,10 +821,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= HC LOG-SPACE REVIEW ======================= -->
-<section class="slide" data-id="HC" data-kind="hidden" data-sec="3" data-steps="1" data-title="Log-space decoder review: safe to decode">
+<section class="slide" data-id="HC" data-kind="hidden" data-sec="1" data-steps="1" data-title="Log-space decoder review: safe to decode">
   <span class="slide-no">H3</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Detail · review of the log-space decoder, 23 Oct</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · review of the log-space decoder, 23 Oct</p>
     <h2>Log-space decoder review: safe to decode</h2>
     <p class="msg">Same recursion as the original C code, in the same order, minus the DBL_MIN padding. No blockers.</p>
   </header>
@@ -822,10 +869,10 @@ p.foot.txt{display:block}
 </section>
 
 <!-- ======================= HD GUARDS ======================= -->
-<section class="slide" data-id="HD" data-kind="hidden" data-sec="3" data-steps="1" data-title="Guards for posterior above 1 no longer fire">
+<section class="slide" data-id="HD" data-kind="hidden" data-sec="1" data-steps="1" data-title="Guards for posterior above 1 no longer fire">
   <span class="slide-no">H4</span>
   <header class="sh">
-    <p class="eyebrow"><span class="sec-no">Part 3</span> Detail · downstream guards</p>
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · downstream guards</p>
     <h2>Guards for posterior above 1 no longer fire</h2>
     <p class="msg">Downstream code grew guards for rows above 1. On log-space decodes none can fire. Keep them while old decodes are in use.</p>
   </header>
@@ -853,6 +900,290 @@ p.foot.txt{display:block}
     <p class="foot txt" style="font-size:15px">Keep: <span class="m">score_robocop.region_optable</span>'s per-row normalisation (shifts log-space values by ≤ 0.9%, the 10<sup>-4</sup>
     save floor). Source: <span class="m">things_to_revisit_before_shipping.md</span> §8, measured with
     <span class="m">posterior_fix/fibercop_audit/guards/check_guards.py</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= F1 How single-fiberCOP works ======================= -->
+<section class="slide" data-id="F1" data-kind="main" data-sec="2" data-steps="1" data-title="How single-fiberCOP works">
+  <span class="slide-no">3</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> single-fiberCOP · implementation</p>
+    <h2>How single-fiberCOP works</h2>
+    <p class="msg">The same RoboCOP model, run on one Fiber-seq read at a time.</p>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <ol class="flow">
+      <li><span class="fn">1</span><h3>Load the HMM</h3>
+        <p>RoboCOP log-space decoder, <b>3,485 states</b>: background, 154 TFs × forward + reverse, and a 531-state nucleosome.</p></li>
+      <li><span class="fn">2</span><h3>Read each read from the BAM</h3>
+        <p>m6A probability per A, called <b>methylated</b> (p ≥ 0.81), <b>unmethylated</b> (p ≤ 0.19) or <b>no-call</b>.</p>
+        <p class="fs">0.81 = modkit's automatic threshold (ML ≥ 207 of 255).</p>
+        <p class="fs">Forward read: Watson A's. Reverse read: Crick A's (stored as T).</p></li>
+      <li><span class="fn">3</span><h3>Place calls on the reference</h3>
+        <p>Each call goes to its sacCer3 coordinate. The sequence layer uses the reference genome.</p></li>
+      <li><span class="fn">4</span><h3>Emission: score each base, each state</h3>
+        <p class="fx">log PWM(base)<br>+ log p(m6A) if methylated<br>+ log(1−p) if unmethylated</p>
+        <p class="fs">One Bernoulli per A. No-calls add 0.</p></li>
+      <li><span class="fn">5</span><h3>Forward–backward, in log space</h3>
+        <p>Gives a per-base posterior for every state, on that one read.</p></li>
+    </ol>
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card flag" style="border-left-color:var(--both)"><h3><span class="ok">Works</span> · nucleosomes per read</h3>
+        <p>Chereji ±1 dyads: <b>4 of 4</b> within 20 bp.</p></div>
+      <div class="card flag" style="border-left-color:var(--pending-line)"><h3><span class="bad">Does not work</span> · TF calls per read</h3>
+        <p>ABF1's prior is 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp, and one read gives about <b>5 informative A's</b> in the 14 bp motif.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= F2 Five problems we found ======================= -->
+<section class="slide" data-id="F2" data-kind="main" data-sec="2" data-steps="1" data-title="Five problems we found">
+  <span class="slide-no">4</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> single-fiberCOP · what we checked</p>
+    <h2>Five problems we found</h2>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="tbl-wrap"><table class="tbl probs" style="font-size:23px">
+      <colgroup><col style="width:19%"><col style="width:25%"><col style="width:30%"><col style="width:26%"></colgroup>
+      <thead><tr><th>Problem</th><th>What it is</th><th>What we found</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td class="pn"><span>1</span>Decoding direction</td>
+          <td>Crick reads were decoded 3'→5'.</td>
+          <td>Each read can now be decoded 5'→3' on its own strand.</td>
+          <td><span class="ok">Done:</span> new driver.</td></tr>
+        <tr><td class="pn"><span>2</span>Same answer both ways</td>
+          <td>One read should give the same answer in either direction.</td>
+          <td>"Start anywhere" fixes the read ends, but a gap of about 0.2 remains.</td>
+          <td>The gap comes from the sequence layer → fix 3.</td></tr>
+        <tr><td class="pn"><span>3</span>Nucleosome model asymmetry</td>
+          <td>It scores a sequence and its reverse complement differently.</td>
+          <td>It was trained on one strand only, and its m6A profile is 1 bp off centre.</td>
+          <td><span class="warnc">Planned:</span> retrain on both strands; refit m6A 1 bp left.</td></tr>
+        <tr><td class="pn"><span>4</span>Reference vs read sequence</td>
+          <td>Should each read use its own bases?</td>
+          <td>Read differences are mostly nanopore errors, not real variants.</td>
+          <td><span class="ok">Use the reference</span> unless ≥ 10 reads and &gt; 50% agree on another base.</td></tr>
+        <tr><td class="pn"><span>5</span>TF start chance too low</td>
+          <td>ABF1 is entered with a chance of 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp.</td>
+          <td>Even a perfectly protected fake read only reaches ABF1 ≈ 5&nbsp;×&nbsp;10<sup>-6</sup>.</td>
+          <td><span class="warnc">Next:</span> a per-site prior (fraction of reads bound) instead.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:15px">Details on hidden slides H5 (numbers, incl. the fake-read test) and H6 (the 1 bp offset). Code in <span class="m">analysis/singlefiber/</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= HF2 Five problems we found (detail) ======================= -->
+<section class="slide" data-id="HF2" data-kind="hidden" data-sec="2" data-steps="1" data-title="Five problems we found (detail)">
+  <span class="slide-no">H5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> single-fiberCOP · detail</p>
+    <h2>Five problems we found</h2>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="tbl-wrap"><table class="tbl compact probs" style="font-size:17.5px">
+      <colgroup><col style="width:14%"><col style="width:22%"><col style="width:45%"><col style="width:19%"></colgroup>
+      <thead><tr><th>Problem</th><th>What it is</th><th>What we found</th><th>Status / fix</th></tr></thead>
+      <tbody>
+        <tr><td class="pn"><span>1</span>Decoding direction</td>
+          <td>Every read was decoded left→right on the reference, so Crick reads ran 3'→5'.</td>
+          <td>New driver decodes each read 5'→3' on its own strand: Crick reads are reverse-complemented, decoded, then mapped back.
+            <span class="m">--direction ref</span> reproduces the old driver exactly (0 of 44 outputs differ).</td>
+          <td><span class="ok">Done.</span> <span class="m">run_permol_window_logfull_5to3.py</span></td></tr>
+        <tr><td class="pn"><span>2</span>Same answer both ways</td>
+          <td>One read should give the same answer decoded in either direction.</td>
+          <td>100 reads at ERV46, largest difference per read (median / max):
+            today's start rule <b>0.75 / 0.97</b>; start anywhere <b>0.21 / 0.39</b>; sequence layer off <b>6&nbsp;×&nbsp;10<sup>-8</sup></b> (exact).
+            Start anywhere fixes the read ends. The rest comes from the sequence layer, most likely the nucleosome model (not yet isolated).</td>
+          <td><span class="ok">Built</span> (<span class="m">--start any</span>). Remaining gap → problem 3.</td></tr>
+        <tr><td class="pn"><span>3</span>Nucleosome model is not symmetric</td>
+          <td>It scores a sequence and its reverse complement differently: 0.40 log10 on average.</td>
+          <td>Its sequence part was trained on a random, unseeded draw of 5,000 of 9,271 Chereji dyads, Watson strand only
+            (<span class="m">calc_dinucleotide.py:135, 147-149</span>). All 9,271 + reverse complements cuts it to <b>0.04</b>.
+            Also, the m6A profile was fit 1 bp off centre (next slides).</td>
+          <td><span class="warnc">Planned:</span> symmetric retrain + recentred m6A fit.</td></tr>
+        <tr><td class="pn"><span>4</span>Reference or read sequence?</td>
+          <td>Should the sequence layer use each read's own bases?</td>
+          <td>Read differences are mostly nanopore errors, not variants: 0 positions at ERV46 where ≥ 50% of reads disagree; strand-specific hotspots;
+            a systematic G error in "CGA". Using read sequence moved nucleosome calls by up to 0.65; one error in a motif cut ABF1 100–1000×.</td>
+          <td><span class="ok">Use the reference</span>, unless ≥ 10 reads cover a base and &gt; 50% agree on another (<span class="m">consensus_seq.py</span>; 0 changes at ERV46).</td></tr>
+        <tr><td class="pn"><span>5</span>TF start chance too low</td>
+          <td>ABF1's start chance is 1.8&nbsp;×&nbsp;10<sup>-7</sup> per bp; one read has only 4–5 informative A's in the motif.</td>
+          <td>Fake reads at ERV46 site 1, real decoder: no calls 3.3&nbsp;×&nbsp;10<sup>-6</sup>; motif fully protected <b>4.9&nbsp;×&nbsp;10<sup>-6</sup></b> (best);
+            motif methylated 1.2&nbsp;×&nbsp;10<sup>-7</sup>. 0.5 needs a ~10<sup>5</sup>× higher start chance.</td>
+          <td><span class="warnc">Next:</span> per-site mixture model; fraction bound f from all reads replaces the 1.8&nbsp;×&nbsp;10<sup>-7</sup>.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:15px">ERV46 window: chrI:60,001–65,000. Code in <span class="m">analysis/singlefiber/</span>.
+    Problem 2 numbers: <span class="m">permol_proto_logfull/dirtest100/summary.json</span> (next slide). Problem 5: fake-read test, 26 Oct (its scratch files were lost in a /tmp wipe; numbers recorded in this session, rerun to regenerate).</p>
+  </div>
+</section>
+
+<!-- ======================= F3 Same read, both directions ======================= -->
+<section class="slide" data-id="F3" data-kind="main" data-sec="2" data-steps="1" data-title="Same read, both directions">
+  <span class="slide-no">5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> single-fiberCOP · problem 2 in numbers</p>
+    <h2>Same read, both directions</h2>
+    <p class="msg">Each read decoded left→right and right→left. Bars count reads by their largest posterior difference; ▼ marks the median.</p>
+  </header>
+  <div class="body cols" style="grid-template-columns:1.75fr 1fr;gap:44px;align-items:start">
+    <figure><svg viewBox="0 0 1000 514" role="img" aria-label="Histograms of the largest posterior difference per read between the two decoding directions, 100 reads at ERV46, for three settings: today's start rule, start anywhere, and sequence layer off." style="width:100%;height:auto">
+<line class="grid" x1="235" x2="975" y1="136.0" y2="136.0"/>
+<text class="tick" x="227" y="136.0" text-anchor="end" dy="5">0</text>
+<line class="grid" x1="235" x2="975" y1="84.0" y2="84.0"/>
+<text class="tick" x="227" y="84.0" text-anchor="end" dy="5">50</text>
+<line class="grid" x1="235" x2="975" y1="32.0" y2="32.0"/>
+<text class="tick" x="227" y="32.0" text-anchor="end" dy="5">100</text>
+<rect class="h-a" x="934.9" y="124.6" width="18.6" height="11.4" rx="1.5"/>
+<rect class="h-a" x="955.4" y="43.4" width="18.6" height="92.6" rx="1.5"/>
+<path class="hmed" d="M964.7 28.0 l-7 -11 h14 z"/>
+<line class="ax" x1="235" x2="975" y1="136.0" y2="136.0"/>
+<text class="lbl-b" x="0" y="44.0">Today's start rule</text>
+<text class="lbl" x="0" y="68.0">reads (of 100)</text>
+<line class="grid" x1="235" x2="975" y1="286.0" y2="286.0"/>
+<text class="tick" x="227" y="286.0" text-anchor="end" dy="5">0</text>
+<line class="grid" x1="235" x2="975" y1="234.0" y2="234.0"/>
+<text class="tick" x="227" y="234.0" text-anchor="end" dy="5">50</text>
+<line class="grid" x1="235" x2="975" y1="182.0" y2="182.0"/>
+<text class="tick" x="227" y="182.0" text-anchor="end" dy="5">100</text>
+<rect class="h-b" x="791.0" y="285.0" width="18.6" height="1.0" rx="1.5"/>
+<rect class="h-b" x="893.8" y="251.7" width="18.6" height="34.3" rx="1.5"/>
+<rect class="h-b" x="914.3" y="231.9" width="18.6" height="54.1" rx="1.5"/>
+<rect class="h-b" x="934.9" y="271.4" width="18.6" height="14.6" rx="1.5"/>
+<path class="hmed" d="M919.6 178.0 l-7 -11 h14 z"/>
+<line class="ax" x1="235" x2="975" y1="286.0" y2="286.0"/>
+<text class="lbl-b" x="0" y="194.0">Start anywhere</text>
+<text class="lbl" x="0" y="218.0">reads (of 100)</text>
+<line class="grid" x1="235" x2="975" y1="436.0" y2="436.0"/>
+<text class="tick" x="227" y="436.0" text-anchor="end" dy="5">0</text>
+<line class="grid" x1="235" x2="975" y1="384.0" y2="384.0"/>
+<text class="tick" x="227" y="384.0" text-anchor="end" dy="5">50</text>
+<line class="grid" x1="235" x2="975" y1="332.0" y2="332.0"/>
+<text class="tick" x="227" y="332.0" text-anchor="end" dy="5">100</text>
+<rect class="h-c" x="338.8" y="428.7" width="18.6" height="7.3" rx="1.5"/>
+<rect class="h-c" x="379.9" y="339.3" width="18.6" height="96.7" rx="1.5"/>
+<path class="hmed" d="M381.0 328.0 l-7 -11 h14 z"/>
+<line class="ax" x1="235" x2="975" y1="436.0" y2="436.0"/>
+<text class="lbl-b" x="0" y="344.0">Sequence layer off</text>
+<text class="lbl" x="0" y="368.0">reads (of 100)</text>
+<line class="ax" x1="235.0" x2="235.0" y1="452.0" y2="460.0"/>
+<text class="tick" x="235.0" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-9</tspan></text>
+<line class="ax" x1="317.2" x2="317.2" y1="452.0" y2="460.0"/>
+<text class="tick" x="317.2" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-8</tspan></text>
+<line class="ax" x1="399.4" x2="399.4" y1="452.0" y2="460.0"/>
+<text class="tick" x="399.4" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-7</tspan></text>
+<line class="ax" x1="481.7" x2="481.7" y1="452.0" y2="460.0"/>
+<text class="tick" x="481.7" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-6</tspan></text>
+<line class="ax" x1="563.9" x2="563.9" y1="452.0" y2="460.0"/>
+<text class="tick" x="563.9" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-5</tspan></text>
+<line class="ax" x1="646.1" x2="646.1" y1="452.0" y2="460.0"/>
+<text class="tick" x="646.1" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-4</tspan></text>
+<line class="ax" x1="728.3" x2="728.3" y1="452.0" y2="460.0"/>
+<text class="tick" x="728.3" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-3</tspan></text>
+<line class="ax" x1="810.6" x2="810.6" y1="452.0" y2="460.0"/>
+<text class="tick" x="810.6" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-2</tspan></text>
+<line class="ax" x1="892.8" x2="892.8" y1="452.0" y2="460.0"/>
+<text class="tick" x="892.8" y="478.0" text-anchor="middle">10<tspan dy="-7" font-size="12">-1</tspan></text>
+<line class="ax" x1="975.0" x2="975.0" y1="452.0" y2="460.0"/>
+<text class="tick" x="975.0" y="478.0" text-anchor="middle">1</text>
+<line class="hfl" x1="381.2" x2="381.2" y1="14" y2="452.0"/>
+<text class="tick" x="387.2" y="18" text-anchor="start">float32 limit</text>
+<text class="lbl" x="605.0" y="506.0" text-anchor="middle">largest posterior difference in the read, left→right vs right→left (log scale)</text>
+</svg></figure>
+    <div class="stack" style="gap:18px">
+      <div class="tbl-wrap"><table class="tbl compact" style="font-size:21px">
+        <thead><tr><th>Setting</th><th class="r">Median</th><th class="r">Max</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sw a"></span>Today's start rule</td><td class="n r">0.75</td><td class="n r">0.97</td></tr>
+          <tr class="key"><td><span class="sw b"></span>Start anywhere</td><td class="n r">0.21</td><td class="n r">0.39</td></tr>
+          <tr><td><span class="sw" style="background:var(--both)"></span>Sequence layer off</td><td class="n r">6&nbsp;×&nbsp;10<sup>-8</sup></td><td class="n r">6&nbsp;×&nbsp;10<sup>-8</sup></td></tr>
+        </tbody>
+      </table></div>
+      <ul class="pts" style="font-size:22px;gap:12px">
+        <li>Start anywhere: each state starts at its long-run share, matching "end anywhere".</li>
+        <li>With the sequence layer off, both directions agree to float32 precision.</li>
+        <li>ABF1 at the two sites moves at most 2&nbsp;×&nbsp;10<sup>-5</sup> (start anywhere).</li>
+      </ul>
+      <p class="foot txt" style="font-size:15px">A symmetric m6A profile with start anywhere gives 0.21 / 0.40: the m6A profile is not the main cause.
+      Source: <span class="m">/usr/project/xtmp/nd141/permol_proto_logfull/dirtest100/</span> (<span class="m">per_read.tsv</span>, <span class="m">summary.json</span>);
+      difference = max over positions and all state columns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= F4 The m6A nucleosome profile is 1 bp off ======================= -->
+<section class="slide" data-id="F4" data-kind="hidden" data-sec="2" data-steps="1" data-title="The m6A nucleosome profile is 1 bp off">
+  <span class="slide-no">H6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> single-fiberCOP · problem 3 in detail</p>
+    <h2>The m6A nucleosome profile is 1 bp off</h2>
+    <p class="msg">Both nucleosome fits read the same Chereji dyads but put the centre on different bases.</p>
+  </header>
+  <div class="body stack" style="gap:22px">
+    <div class="cols" style="grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div class="card"><h3>Two centres for one dyad</h3>
+        <p>A Chereji row is 1 bp wide, e.g. <span class="m">chrI 2386 2387</span>.</p>
+        <ul class="pts" style="font-size:21px;gap:8px;margin-top:10px">
+          <li>Sequence model: centred on base <b>2386</b> (<span class="m">calc_dinucleotide.py:131, 147-148</span>).</li>
+          <li>m6A fit: centred on base <b>2387</b> (<span class="m">abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:951-953</span>).</li>
+        </ul></div>
+      <div class="card"><h3>The m6A fit is the one that is off</h3>
+        <p>A nucleosome's Watson m6A profile should mirror its Crick profile about the true centre.</p>
+        <div class="tbl-wrap" style="margin-top:10px"><table class="tbl compact" style="font-size:20px">
+          <thead><tr><th>Centre</th><th class="r">Positions |z| &gt; 3 (of 147)</th><th class="r">p</th></tr></thead>
+          <tbody>
+            <tr><td>As fit</td><td class="n r bad">20</td><td class="n r">5&nbsp;×&nbsp;10<sup>-75</sup></td></tr>
+            <tr class="key"><td>Shifted 1 bp left</td><td class="n r">1</td><td class="n r">0.12</td></tr>
+          </tbody>
+        </table></div>
+        <p style="font-size:19px;margin-top:8px">The sequence model's centre is the most symmetric of 7 shifts tested.</p></div>
+    </div>
+    <div>
+      <p class="panel-t">Planned fix</p>
+      <ul class="pts" style="font-size:21px;gap:8px;margin-top:6px">
+        <li>A new copy of the fitting step with the window 1 bp left (<span class="m">dyad-74 … dyad+73</span>), writing a new file
+          <span class="m">inputs/nucleosome_params_recentred.pkl</span>. <span class="m">nucleosome_params.pkl</span> is never overwritten.</li>
+        <li>Point the per-read code at it: <span class="m">singlefiber/permol_params.py:56</span>, and in a <b>new</b> pkgvar copy of
+          <span class="m">permol_seq_maskoff_logfull</span>, <span class="m">robocop.py</span> <span class="m">build_fiber_ps</span> (line 1432) and line 639.</li>
+      </ul>
+    </div>
+    <p class="caveats"><span class="tag caveat">unverified</span> Whether the TF footprint fits share the same 1 bp offset.</p>
+  </div>
+</section>
+
+<!-- ======================= R STRAHL ======================= -->
+<section class="slide" data-id="R" data-kind="main" data-sec="3" data-steps="1" data-title="Strahl lab's results">
+  <span class="slide-no">6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span></p>
+    <h2>Strahl lab's results</h2>
+  </header>
+</section>
+
+<!-- ======================= TL TIMELINE ======================= -->
+<section class="slide" data-id="TL" data-kind="main" data-sec="4" data-steps="1" data-title="Timeline">
+  <span class="slide-no">7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 4</span> Plan</p>
+    <h2>Timeline</h2>
+    <p class="msg">From now to the defence in March 2027.</p>
+  </header>
+  <div class="body" style="display:flex;flex-direction:column;justify-content:center">
+<div class="tl" role="img" aria-label="Timeline from late October 2026 to March 2027: finish single-fiberCOP by November; December to January find biology and tweak the model; January to March find biology and publish the paper; defend in March.">
+  <div class="tl-bar p1" style="left:0.00%;width:21.94%;--lane:0"><b>now → November</b><span>Finish single-fiberCOP</span></div>
+  <div class="tl-bar p2" style="left:22.58%;width:39.35%;--lane:1"><b>December → January</b><span>Find biology, tweak the model</span></div>
+  <div class="tl-bar p3" style="left:42.58%;width:57.42%;--lane:2"><b>January → March</b><span>Find biology and publish the paper</span></div>
+  <div class="tl-line"></div>
+  <div class="tl-tick now" style="left:0%"><span>now<br>27 Oct</span></div>
+  <div class="tl-tick" style="left:3.23%"><span>Nov</span></div>
+  <div class="tl-tick" style="left:22.58%"><span>Dec</span></div>
+  <div class="tl-tick" style="left:42.58%"><span>Jan 2027</span></div>
+  <div class="tl-tick" style="left:62.58%"><span>Feb</span></div>
+  <div class="tl-tick" style="left:80.65%"><span>Mar</span></div>
+  <div class="tl-defend" style="left:80.65%;width:19.35%"><b>March</b><span>Defend</span></div>
+</div>
   </div>
 </section>
 
@@ -894,8 +1225,8 @@ p.foot.txt{display:block}
 <script>
 (function(){
 "use strict";
-var NOTES = {"T": "Same three tuned models as on Oct 6. Today: what the Run Browser showed before the fix, next to the log-space decoder.", "O": "Three parts. Hidden slides (h) carry the mechanism and the review.", "W": "Plain version: the old decoder multiplied tiny numbers and its undo step left a factor; some rows summed far above 1 and the viewer clipped them. Log space adds logs, so nothing underflows and every row sums to 1.", "HA": "C1 is the ordering bug in the backward pass. bo09 is hit hardest because its concentrations are extreme.", "HB": "DBL_MIN padding is the second cause. Rows sum to 1 but are wrong. This is the tail on the chrIV slide.", "L1": "Rows in pairs: before, then after. bo09's 0.50 on the poly-A goes to 0.00; the real ABF1 site stays at 1.00. bu01 and bv75 do not change.", "L2": "Two broken old segments overlap here. bo09 changes mostly in nucleosome and background; bv75 changes at 12 positions at 444,001.", "L3": "No TF changes here; bo09 shifts between background and nucleosome inside the old broken rows.", "L4": "bo09 called FHL1 at 1.00 in the broken rows; log space gives 0.002. Past the broken rows, log space has a full nucleosome where the old view shows half background.", "S": "bu01 never changes; bv75 barely; bo09 changes where its old rows were broken, plus short tails after them.", "HC": "Independent review of the log-space C code: safe to decode, no blockers.", "HD": "Guards that clip or drop rows above 1 cannot fire on log-space decodes. Keep them until old decodes are retired."};
-var SEC_NAMES = ["Title","What changed","Four loci, before and after","Summary"];
+var NOTES = {"T": "Same three tuned models as on Oct 6. Today: what the Run Browser showed before the fix, next to the log-space decoder.", "O": "Four parts: the log-space fix, single-fiberCOP, Strahl lab's results, and the timeline. Hidden slides (h) carry the mechanism and the review.", "W": "Plain version: the old decoder multiplied tiny numbers and its undo step left a factor; some rows summed far above 1 and the viewer clipped them. Log space adds logs, so nothing underflows and every row sums to 1.", "HA": "C1 is the ordering bug in the backward pass. bo09 is hit hardest because its concentrations are extreme.", "HB": "DBL_MIN padding is the second cause. Rows sum to 1 but are wrong. This is the tail on the chrIV slide.", "L1": "Rows in pairs: before, then after. bo09's 0.50 on the poly-A goes to 0.00; the real ABF1 site stays at 1.00. bu01 and bv75 do not change.", "L2": "Two broken old segments overlap here. bo09 changes mostly in nucleosome and background; bv75 changes at 12 positions at 444,001.", "L3": "No TF changes here; bo09 shifts between background and nucleosome inside the old broken rows.", "L4": "bo09 called FHL1 at 1.00 in the broken rows; log space gives 0.002. Past the broken rows, log space has a full nucleosome where the old view shows half background.", "S": "bu01 never changes; bv75 barely; bo09 changes where its old rows were broken, plus short tails after them.", "HC": "Independent review of the log-space C code: safe to decode, no blockers.", "HD": "Guards that clip or drop rows above 1 cannot fire on log-space decodes. Keep them until old decodes are retired.", "F1": "Same model as genome RoboCOP, but the data is one read. Nucleosomes come through per read; TFs do not, because one read has too few informative A's in a motif to beat ABF1's tiny prior.", "F2": "Five problems in one line each. 1 done, 2 built, 3 is the next fix, 4 decided: keep the reference sequence, 5 is why per-read TF calls fail: the start chance, not the code.", "F3": "Same read, two directions. Today's start rule makes the read ends disagree. Start anywhere fixes the ends. With the sequence layer off the two directions agree exactly, so the rest comes from the sequence layer.", "F4": "The m6A nucleosome profile is centred one base right of the sequence model. Watson and Crick profiles only mirror each other after shifting it 1 bp left. Fix: refit into a new file and point a new pkgvar copy at it.", "R": "Strahl lab's results.", "TL": "Finish the single-fiberCOP model by end of November; December to January find biology and tweak the model; January to March biology and the paper; defend in March.", "HF2": "Detail version with the numbers. Problem 5: even a perfectly protected fake read cannot overcome ABF1's 1.8e-7 start chance."};
+var SEC_NAMES = ["Title","The log-space fix","single-fiberCOP","Strahl lab's results","Timeline"];
 
 /* ---------------- locus slides: occupancy-browser tracks ----------------
    One component for every .trk[data-locus="<json id>"]. Data: build_locus_slide.py

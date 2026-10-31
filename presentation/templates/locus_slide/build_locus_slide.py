@@ -26,6 +26,7 @@ ANALYSIS = os.path.join(REPO, "analysis")
 sys.path.insert(0, ANALYSIS)
 os.environ.setdefault("MPLBACKEND", "Agg")
 import make_posterior_viewer as V          # noqa: E402  (data functions, reused as-is)
+import flagged_positions as FP             # noqa: E402  (reads disagree with the reference)
 
 SNIPPET = os.path.join(HERE, "locus_slide_snippet.html")
 
@@ -163,6 +164,13 @@ def build(args):
     }
     if args.rossi:
         out["rossi"] = load_rossi_summits(args.rossi, chrom, s, e)
+    # Flagged positions (analysis/flagged_positions.py). Only stored when the window has any,
+    # so a flag-free slide's payload, legend and drawing are exactly as before.
+    if args.flags_dir:
+        fl = FP.flags_payload(FP.load_flags(chrom, s, e, args.flags_dir))
+        print("  flagged positions: %s" % FP.counts(fl))
+        if fl["p"]:
+            out["flags"] = fl
     for l in labels:
         assert len(out["runs"][l]["tf"]) == e - s + 1, "length mismatch in %s" % l
     return out
@@ -205,6 +213,11 @@ def section(D, a):
     aria = fmt_str % (D["chrom"], fmt(D["s"]), fmt(D["e"]), D["tfLabel"], run_list,
                       ", ".join(g["name"] for g in D["genes"]) or "none", D["refLabel"],
                       "" if len(calls) == 1 else "s", sites_txt or "none")
+    nk = FP.counts(D["flags"]) if D.get("flags") else {}
+    flag_leg = "".join('\n      <span><span class="lk flag f%d"></span>flagged: %s</span>' % (i, lab)
+                       for i, (name, lab) in enumerate(FP.KINDS) if nk.get(name))
+    if nk:
+        flag_leg += '\n      <span><span class="lk flagcall"></span>%s call on a flagged base</span>' % html.escape(D["tfLabel"])
     rossi_leg = ('\n      <span><span class="lk rossi"></span>Rossi %s summit</span>' % D["tfLabel"]) if "rossi" in D else ""
     vals = {
         "ID": a.slide_id, "KIND": a.kind, "SEC": a.sec, "TITLE": html.escape(a.title),
@@ -219,7 +232,7 @@ def section(D, a):
         "METHROW": "" if a.meth_h == 0 else (
             '      <div class="trk-lab" data-step="1"><span class="rn">m6A per A</span><span class="rd">same reads in every run</span></div>\n'
             '      <canvas data-step="1" data-trk="meth" data-h="%d"></canvas>\n' % a.meth_h),
-        "EXTRA": open(a.extra_html, encoding="utf-8").read() if a.extra_html else "", "DATAID": a.data_id, "FOOT": a.foot, "ROSSILEG": rossi_leg,
+        "EXTRA": open(a.extra_html, encoding="utf-8").read() if a.extra_html else "", "DATAID": a.data_id, "FOOT": a.foot, "ROSSILEG": rossi_leg + flag_leg,
         "REFSTYLE": "" if D["colors"]["ref"] == "#d4145a" else ' style="--locus-ref:%s"' % D["colors"]["ref"],
     }
     out = tpl
@@ -262,6 +275,8 @@ def main():
     ap.add_argument("--eyebrow", default='<span class="tag hid">Hidden · backup locus</span> A first look at TF calls')
     ap.add_argument("--msg", default="")
     ap.add_argument("--foot", default="")
+    ap.add_argument("--flags-dir", default=FP.FLAGS_DIR,
+                    help="consensus scan folder with per_chrom/<chrom>.flags.tsv ('' = no flags)")
     ap.add_argument("--from-json", default=None, help="reuse a payload built earlier (only re-fill the section)")
     ap.add_argument("--out-json", required=True)
     ap.add_argument("--out-section", default=None)

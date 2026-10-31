@@ -30,6 +30,10 @@
 .legend .lk.band{width:12px;height:16px;background:rgba(212,20,90,.16);background:color-mix(in srgb,var(--locus-ref,#d4145a) 16%,transparent);border-top:3px solid var(--locus-ref,#d4145a)}
 .legend .lk.dot{width:9px;height:9px;border-radius:50%}
 .legend .lk.dash{width:22px;height:0;border-top:2px dashed var(--bgline)}
+.legend .lk.flag{width:4px;height:14px}
+.legend .lk.flag.f0{background:#e08a00}.legend .lk.flag.f1{background:#8a4fc4}.legend .lk.flag.f2{background:#8c96a0}
+.legend .lk.flagcall{width:12px;height:16px;box-shadow:inset 0 0 0 1.5px #e08a00;
+  background:repeating-linear-gradient(135deg,#e08a00 0 1.5px,transparent 1.5px 4px)}
 .legend .lk.rossi{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid var(--ink)}
 /* narrow screens (inside the deck's @media (max-width:760px) block) */
 @media (max-width:760px){
@@ -92,6 +96,7 @@ function locusData(id){
   }
   return LOCUS_DATA[id];
 }
+var TRK_FLAG = ["#e08a00", "#8a4fc4", "#8c96a0"];   /* flagged alt / indel / low coverage (fixed data colours) */
 function drawLocus(root, T){
   if (!root || !T) return;
   var n = T.e - T.s + 1;
@@ -187,6 +192,21 @@ function drawLocus(root, T){
     ctx.fillStyle = T.colors.nuc + "55"; areaSeries(ctx, run.nuc, y); ctx.fill();
     ctx.strokeStyle = T.colors.nuc; ctx.lineWidth = 1.6; pathSeries(ctx, run.nuc, y); ctx.stroke();
     ctx.strokeStyle = T.colors.tf; ctx.lineWidth = 2.2; pathSeries(ctx, run.tf, y); ctx.stroke();
+    if (T.flags){                       /* flagged base under a call (>= 0.5) of this factor: hatched box */
+      var fx = {}, fp = T.flags.p, pb = plotW/n;
+      fp.forEach(function(p){ var i = p - T.s; if (i >= 0 && i < n && run.tf[i] >= 500) fx[p] = 1; });
+      var ks = Object.keys(fx).map(Number).sort(function(a,b){ return a-b; }), j = 0;
+      while (j < ks.length){
+        var a0 = ks[j], b0 = a0; while (j+1 < ks.length && ks[j+1] === b0+1){ j++; b0 = ks[j]; } j++;
+        var x0 = xOf(a0) - pb/2, x1 = xOf(b0) + pb/2;
+        if (x1 - x0 < 4){ var cx = (x0+x1)/2; x0 = cx-2; x1 = cx+2; }
+        ctx.save(); ctx.beginPath(); ctx.rect(x0, 0, x1-x0, h); ctx.clip();
+        ctx.strokeStyle = TRK_FLAG[0]; ctx.globalAlpha = 0.6; ctx.lineWidth = 1.4; ctx.beginPath();
+        for (var d = -h; d < x1 - x0 + h; d += 5){ ctx.moveTo(x0+d, h); ctx.lineTo(x0+d+h, 0); }
+        ctx.stroke(); ctx.restore();
+        ctx.strokeStyle = TRK_FLAG[0]; ctx.lineWidth = 1.4; ctx.strokeRect(x0, 0.7, x1-x0, h-1.4);
+      }
+    }
     if (T.rossi){                       /* optional: Rossi summits as small ticks on the top edge */
       ctx.fillStyle = tok("--ink");
       T.rossi.forEach(function(p){ var x = xOf(p); ctx.beginPath(); ctx.moveTo(x-5,0); ctx.lineTo(x+5,0); ctx.lineTo(x,8); ctx.closePath(); ctx.fill(); });
@@ -236,6 +256,13 @@ function drawLocus(root, T){
     }
     ctx.stroke();
     ctx.textAlign = "left"; ctx.fillStyle = ink3; ctx.fillText(T.chrom, 2, 21);
+    if (T.flags){                       /* flagged positions: coloured ticks hanging off the axis line */
+      var pw = Math.max(1.5, plotW/n);
+      for (var k = 2; k >= 0; k--){       /* alt drawn last, on top */
+        ctx.fillStyle = TRK_FLAG[k];
+        T.flags.p.forEach(function(p, i){ if (T.flags.k[i] === k && p >= T.s && p <= T.e) ctx.fillRect(xOf(p) - pw/2, 1, pw, k === 2 ? 4 : 8); });
+      }
+    }
   }
   cvs.forEach(function(c){
     var k = c.dataset.trk;
