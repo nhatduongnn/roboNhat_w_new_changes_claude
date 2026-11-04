@@ -202,6 +202,8 @@ def build_table(P, calls_by_name, ext_start0, win):
     ends = np.zeros(len(P["names"]), np.int64)
     strands = np.empty(len(P["names"]), dtype=object)
     dot_rows, dot_pos = [], []
+    pool_obs = np.zeros(W, np.int64)       # A's observed per bp, summed over fibers
+    pool_met = np.zeros(W, np.int64)       # of those, called m6A
     n_missing = 0
     for r, name in enumerate(P["names"]):
         strands[r] = "+" if P["strands"][r] == "watson" else "-"
@@ -215,13 +217,16 @@ def build_table(P, calls_by_name, ext_start0, win):
         starts[r], ends[r] = m.ref_start0 + 1, m.ref_end0
         a = win[0] - 1 - ext_start0
         c = m.calls[a:a + W]
+        pool_obs[:len(c)] += (c >= 0)
+        pool_met[:len(c)] += (c == 1)
         pos = np.nonzero(c == 1)[0]
         dot_rows.extend([r] * len(pos))
         dot_pos.extend((win[0] + pos).tolist())
     return dict(starts=starts, ends=ends, strands=strands,
                 dot_rows=np.asarray(dot_rows, np.int64),
                 dot_pos=np.asarray(dot_pos, np.int64),
-                post=post, abf=abf, nuc=nuc, cov=cov, n_missing=n_missing)
+                post=post, abf=abf, nuc=nuc, cov=cov, n_missing=n_missing,
+                pool_obs=pool_obs, pool_met=pool_met)
 
 
 # =============================================================== clustering
@@ -477,7 +482,7 @@ def _sidebar_clusters(clu):
 
 # =============================================================== frames
 def frame_raw(T, a, o, chrom, win, sites, cwin, agg=None, mean_acc=None,
-              title=None, clusters=None):
+              title=None, clusters=None, pop_title=None):
     """figure 2's frame 1 (B+D) / frame 5 (Jraw) depending on `o` and `clusters`."""
     n = len(o)
     fig = plt.figure(figsize=(a.width_in, a.height_in), dpi=a.dpi)
@@ -488,7 +493,7 @@ def frame_raw(T, a, o, chrom, win, sites, cwin, agg=None, mean_acc=None,
         h = 0.435
         axD = fig.add_axes([X0, Y0, X1 - X0, h])
         gene_track(axG, chrom, win)
-        _population(axB, agg, win, mean_acc)
+        _population(axB, agg, win, mean_acc, title=pop_title)
         overlay(axB, sites, cwin)
     else:
         h = Y1 - Y0 - 0.05
@@ -516,10 +521,14 @@ def frame_raw(T, a, o, chrom, win, sites, cwin, agg=None, mean_acc=None,
     return fig
 
 
-def _population(ax, agg, win, mean_acc=None):
+def _population(ax, agg, win, mean_acc=None, title=None):
     """The population row. figure 2 puts MNase-seq here -- the ensemble measurement the
     single molecules are to be compared against. Ours is RoboCOP's decode of the POOLED
-    modkit pileup over the same window (agg_baseline)."""
+    modkit pileup over the same window (agg_baseline).
+
+    `title` overrides the pooled-decode title. main() passes one when --agg-dir is the
+    per-read run itself: that run's tmpDir/info_0_1.h5 holds the molecule-AVERAGED
+    posterior, not a pooled-pileup decode, so the default title would be false."""
     x = np.arange(win[0], win[1] + 1)
     ax.fill_between(x, agg["acc"], color=ACC_FILL, lw=0,
                     label="P(accessible), pooled")
@@ -534,9 +543,9 @@ def _population(ax, agg, win, mean_acc=None):
     ax.yaxis.tick_right()
     ax.tick_params(labelsize=TICK_FS, length=2, pad=1)
     ax.tick_params(axis="x", labelbottom=False)
-    ttl = ("RoboCOP on the POOLED Fiber-seq pileup (binomial emission, "
-           "one track for the whole population)")
-    if mean_acc is not None:
+    ttl = title or ("RoboCOP on the POOLED Fiber-seq pileup (binomial emission, "
+                    "one track for the whole population)")
+    if mean_acc is not None and title is None:
         ttl += "  — dashed: mean over the molecules covering each bp"
     ax.set_title(ttl, fontsize=TITLE_FS, loc="left", pad=3)
 
@@ -552,12 +561,12 @@ def frame_heat(T, a, o, chrom, win, sites, cwin, which="post", clusters=None,
         cb_title, cb_ticks = "P(accessible)", None
     else:
         Aim = T["abf"][o]
-        vmax = float(np.nanmax(Aim))
-        im = draw_posterior(ax, Aim / max(vmax, 1e-30), win[0], win[1],
+        vmax = _abf1_vmax(a, Aim)
+        im = draw_posterior(ax, np.clip(Aim / max(vmax, 1e-30), 0, 1), win[0], win[1],
                             cmap=ABF1_CMAP, max_bins=10 ** 6, tick_fs=TICK_FS,
                             hide_xticklabels=False)
         cb_title = "P(ABF1)"
-        cb_ticks = ["0", "%.1e" % vmax]
+        cb_ticks = ["0", ("%.1e" % vmax) if getattr(a, "abf1_vmax", None) is None else "%g" % vmax]
     if clusters is not None:
         _separators(ax, clusters)
     ax.set_title(title, fontsize=TITLE_FS, loc="left", pad=3)
@@ -573,7 +582,7 @@ def frame_heat(T, a, o, chrom, win, sites, cwin, which="post", clusters=None,
 
 
 def frame_composite(T, a, o_shuf, o_clu, chrom, win, sites, cwin, agg, clusters,
-                    mean_acc=None, subtitle=""):
+                    mean_acc=None, subtitle="", pop_title=None):
     """figure 2's B/D/J composite: population + raw (shuffled) + decoded (clustered)."""
     fig = plt.figure(figsize=(a.width_in, a.height_in * 1.35), dpi=a.dpi)
     axG = fig.add_axes([X0, 0.895, X1 - X0, 0.070])
@@ -581,7 +590,7 @@ def frame_composite(T, a, o_shuf, o_clu, chrom, win, sites, cwin, agg, clusters,
     axD = fig.add_axes([X0, 0.452, X1 - X0, 0.278])
     axJ = fig.add_axes([X0, 0.122, X1 - X0, 0.298])
     gene_track(axG, chrom, win)
-    _population(axB, agg, win, mean_acc)
+    _population(axB, agg, win, mean_acc, title=pop_title)
 
     n = len(o_shuf)
     rank = np.full(len(T["starts"]), -1, dtype=np.int64)
@@ -627,6 +636,144 @@ def frame_composite(T, a, o_shuf, o_clu, chrom, win, sites, cwin, agg, clusters,
     return fig
 
 
+def _side_cbar(fig, im, box, title, ticklabels=None):
+    """Small vertical colour bar in the right margin, level with its heatmap."""
+    x0, y0, _w, h = box
+    cax = fig.add_axes([X1 + 0.012, y0 + 0.15 * h, 0.010, 0.70 * h])
+    cb = fig.colorbar(im, cax=cax, orientation="vertical", ticks=[0, 1])
+    if ticklabels is not None:
+        cb.ax.set_yticklabels(ticklabels)
+    cb.ax.tick_params(labelsize=TICK_FS - 1, length=2, pad=1)
+    cax.set_title(title, fontsize=LEG_FS - 1.5, pad=11, loc="left")
+
+
+def _abf1_vmax(a, A):
+    """P(ABF1) colour-scale top: --abf1-vmax if given (2026-11-03), else the data max (old behaviour)."""
+    v = getattr(a, "abf1_vmax", None)
+    return float(np.nanmax(A)) if v is None else float(v)
+
+
+def frame_composite_full(T, a, o_shuf, o_clu, chrom, win, sites, cwin, agg, clusters,
+                         mean_acc=None, subtitle="", pop_title=None):
+    """frame_composite + three optional rows (--extra-panels):
+
+      pooled m6A / A     per bp, over every fiber that observes that A (raw data,
+                         no decode) -- under the population row
+      P(nucleosome)      per-molecule `nucleosome` column, clustered order
+      P(ABF1)            per-molecule `Abf1_murphy`, clustered order, colour scale
+                         0..max (the per-read ABF1 posterior is ~1e-3)
+
+    These were only in plot_permol_window.py's overview; drawing them here lets the
+    composite replace that figure. The original rows are drawn exactly as in
+    frame_composite (same drawers, same orders)."""
+    fig = plt.figure(figsize=(a.width_in, a.height_in * 2.55), dpi=a.dpi)
+    # (name, height) top to bottom, in figure fractions; gap between rows.
+    # R (2026-11-03): raw m6A in the SAME clustered order as J/N/A, directly above J, so the
+    # raw data can be checked against the decode row for row.
+    rows = [("G", 0.033), ("B", 0.058), ("M", 0.037), ("D", 0.136), ("R", 0.136),
+            ("J", 0.136), ("N", 0.136), ("A", 0.100)]
+    gap, top = 0.020, 0.970
+    box, y = {}, top
+    for k, h in rows:
+        y -= h
+        box[k] = [X0, y, X1 - X0, h]
+        y -= gap if k != "G" else 0.010
+    ax = {k: fig.add_axes(box[k]) for k, _ in rows}
+
+    gene_track(ax["G"], chrom, win)
+    _population(ax["B"], agg, win, mean_acc, title=pop_title)
+
+    # pooled m6A / A dots
+    x = np.arange(win[0], win[1] + 1)
+    obs = T["pool_obs"].astype(float)
+    rate = np.where(obs > 0, T["pool_met"] / np.maximum(obs, 1), np.nan)
+    ax["M"].plot(x, rate, ".", ms=1.6, color=METH_COLOR)
+    ax["M"].set_xlim(win[0], win[1])
+    ax["M"].set_ylim(0, 1)
+    ax["M"].set_yticks([0, 0.5, 1])
+    ax["M"].yaxis.set_label_position("right")
+    ax["M"].yaxis.tick_right()
+    ax["M"].set_ylabel("m6A / A", fontsize=LAB_FS, labelpad=1)
+    ax["M"].tick_params(labelsize=TICK_FS, length=2, pad=1, labelbottom=False)
+    ax["M"].set_title("Pooled raw m6A: fraction of observed A's called m6A, all fibers "
+                      "(no decode)", fontsize=TITLE_FS, loc="left", pad=3)
+
+    n = len(o_shuf)
+    rank = np.full(len(T["starts"]), -1, dtype=np.int64)
+    rank[o_shuf] = np.arange(n)
+    keep = rank[T["dot_rows"]] >= 0
+    draw_raw_fibers(ax["D"], T["starts"][o_shuf], T["ends"][o_shuf],
+                    rank[T["dot_rows"][keep]], T["dot_pos"][keep], win[0], win[1], n,
+                    tick_fs=TICK_FS, line_lw=a.line_lw, dot_s=a.dot_s)
+    ax["D"].set_title("Fiber-seq raw m6A, single molecules (n=%d fibers, shuffled order)"
+                      % n, fontsize=TITLE_FS, loc="left", pad=3)
+
+    rank_c = np.full(len(T["starts"]), -1, dtype=np.int64)
+    rank_c[o_clu] = np.arange(len(o_clu))
+    keep_c = rank_c[T["dot_rows"]] >= 0
+    draw_raw_fibers(ax["R"], T["starts"][o_clu], T["ends"][o_clu],
+                    rank_c[T["dot_rows"][keep_c]], T["dot_pos"][keep_c], win[0], win[1],
+                    len(o_clu), tick_fs=TICK_FS, line_lw=a.line_lw, dot_s=a.dot_s)
+    ax["R"].set_title("Fiber-seq raw m6A, CLUSTERED order (same rows as the decoded panels "
+                      "below; no decode)", fontsize=TITLE_FS, loc="left", pad=3)
+
+    im = draw_posterior(ax["J"], T["post"][o_clu], win[0], win[1], max_bins=10 ** 6,
+                        tick_fs=TICK_FS, hide_xticklabels=True)
+    ax["J"].set_title("RoboCOP per-molecule P(accessible) = P(background), fibers "
+                      "clustered on the ABF1 window", fontsize=TITLE_FS, loc="left",
+                      pad=3)
+    _side_cbar(fig, im, box["J"], "P(acc.)")
+
+    imN = draw_posterior(ax["N"], T["nuc"][o_clu], win[0], win[1], cmap="Greys",
+                         max_bins=10 ** 6, tick_fs=TICK_FS, hide_xticklabels=True)
+    ax["N"].set_title("RoboCOP per-molecule P(nucleosome), same clustered order",
+                      fontsize=TITLE_FS, loc="left", pad=3)
+    _side_cbar(fig, imN, box["N"], "P(nuc.)")
+
+    vmax = _abf1_vmax(a, T["abf"])
+    imA = draw_posterior(ax["A"], np.clip(T["abf"][o_clu] / max(vmax, 1e-30), 0, 1), win[0], win[1],
+                         cmap=ABF1_CMAP, max_bins=10 ** 6, tick_fs=TICK_FS,
+                         hide_xticklabels=False)
+    if getattr(a, "abf1_vmax", None) is None:
+        ax["A"].set_title("RoboCOP per-molecule P(ABF1), same order — colour scale "
+                          "0 to %.1e (max), not 0 to 1" % vmax,
+                          fontsize=TITLE_FS, loc="left", pad=3)
+        _side_cbar(fig, imA, box["A"], "P(ABF1)", ["0", "%.1e" % vmax])
+    else:
+        ax["A"].set_title("RoboCOP per-molecule P(ABF1), same order — colour scale 0 to %g "
+                          "(data max %.3g)" % (vmax, float(np.nanmax(T["abf"]))),
+                          fontsize=TITLE_FS, loc="left", pad=3)
+        _side_cbar(fig, imA, box["A"], "P(ABF1)", ["0", "%g" % vmax])
+    ax["A"].set_xlabel("%s position (bp)" % chrom, fontsize=LAB_FS, labelpad=2)
+    ax["A"].tick_params(axis="x", labelsize=TICK_FS, labelbottom=True)
+    ax["A"].ticklabel_format(axis="x", style="plain", useOffset=False)
+    for k in ("D", "R", "J", "N"):
+        ax[k].tick_params(axis="x", labelbottom=False)
+    for k in ("R", "J", "N", "A"):
+        _separators(ax[k], clusters)
+
+    for k, rws in (("D", T["strands"][o_shuf]), ("R", T["strands"][o_clu]),
+                   ("J", T["strands"][o_clu]),
+                   ("N", T["strands"][o_clu]), ("A", T["strands"][o_clu])):
+        b = box[k]
+        sb = fig.add_axes([SB_X0, b[1], SB_W, b[3]])
+        draw_sidebar(sb, strands=rws,
+                     clusters=(_sidebar_clusters(clusters) if k != "D" else None),
+                     n_rows=len(rws), lab_fs=LAB_FS, tick_fs=TICK_FS)
+        sb.set_yticks([])
+        sb.set_ylabel("Fibers", fontsize=LAB_FS, labelpad=2)
+    for k in ("B", "M", "D", "R", "J", "N", "A"):
+        overlay(ax[k], sites, cwin)
+    handles = ([Line2D([], [], marker="o", ls="", ms=4, color=METH_COLOR, label="m6A")]
+               + cluster_handles(clusters) + STRAND_H + locus_handles(sites, cwin))
+    fig.legend(handles=handles, loc="lower left", bbox_to_anchor=(X0, 0.002), ncol=5,
+               fontsize=LEG_FS, frameon=False, handlelength=1.4, handletextpad=0.5,
+               columnspacing=1.4)
+    if subtitle:
+        fig.text(X0, 0.990, subtitle, fontsize=TITLE_FS, ha="left", va="top")
+    return fig
+
+
 # =============================================================== driver
 def save(fig, out_prefix, dpi, sizes):
     fig.savefig(out_prefix + ".png", dpi=dpi)
@@ -668,6 +815,18 @@ def main():
                     help="half-width of the zoom frames around the clustering site; "
                          "0 disables them")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--extra-panels", action="store_true",
+                    help="also write permol_composite_full_<arm>: the composite plus "
+                         "pooled m6A/A, per-molecule P(nucleosome) and P(ABF1) rows "
+                         "(default off: output unchanged)")
+    ap.add_argument("--composite-only", action="store_true",
+                    help="write only the composite(s) + json; skip step1-5 and zoom0-3")
+    ap.add_argument("--order-from", default=None,
+                    help="(2026-11-03) a fig_permol_fibers_<tag>.json written by this script: reuse its "
+                         "cluster labels and its clustered + shuffled read order (by read name) instead of "
+                         "re-clustering, so row k is the same read in both figures. Default off.")
+    ap.add_argument("--abf1-vmax", type=float, default=None,
+                    help="(2026-11-03) top of the P(ABF1) colour scale, e.g. 1; default = data max (old)")
     a = ap.parse_args()
 
     tag = os.path.basename(a.arm_dir.rstrip("/"))
@@ -686,21 +845,83 @@ def main():
 
     site = sites[a.cluster_site - 1]
     cwin = (site[2] - a.cluster_halfwidth, site[2] + a.cluster_halfwidth)
-    labels, cinfo = cluster_fibers(T["post"], win, cwin, method=a.cluster_method,
-                                   min_cluster_size=a.min_cluster_size,
-                                   min_window_cov=a.min_window_cov)
-    o_shuf = order_shuffled(len(labels), a.seed)
-    o_clu = order_clustered(labels, T["starts"])
+    if a.order_from:
+        labels, o_shuf, o_clu, cinfo = order_from_json(a.order_from, P["names"])
+    else:
+        labels, cinfo = cluster_fibers(T["post"], win, cwin, method=a.cluster_method,
+                                       min_cluster_size=a.min_cluster_size,
+                                       min_window_cov=a.min_window_cov)
+        o_shuf = order_shuffled(len(labels), a.seed)
+        o_clu = order_clustered(labels, T["starts"])
     clu = labels[o_clu]
+    a._order = dict(names_clustered=[P["names"][i] for i in o_clu],
+                    names_shuffled=[P["names"][i] for i in o_shuf],
+                    labels_by_name={P["names"][i]: int(labels[i]) for i in range(len(labels))})
 
     ncov = T["cov"].sum(0).astype(float)
     mean_acc = (np.nansum(np.where(T["cov"], T["post"], 0.0), axis=0)
                 / np.maximum(ncov, 1)) if a.with_molecule_mean else None
 
     n = len(labels)
+    # --agg-dir == --arm-dir: the per-read run's tmpDir/info_0_1.h5 is the molecule-
+    # AVERAGED posterior (checked 2026-11-03 on erv46_5to3_nordna: max |agg - mean of
+    # covering molecules| = 3.3e-7 on `background`), not a pooled-pileup decode.
+    agg_is_mean = (os.path.realpath(a.agg_dir.rstrip("/"))
+                   == os.path.realpath(a.arm_dir.rstrip("/")))
+    pop_title = ("Mean P(accessible) over the %d fibers (per-read decode; no pooled-"
+                 "pileup decode for this model)" % n) if agg_is_mean else None
+    if agg_is_mean:
+        mean_acc = None        # identical to the population row itself
     sizes = {}
+    if a.extra_panels:
+        save(frame_composite_full(T, a, o_shuf, o_clu, a.chrom, win, sites, cwin, agg,
+                                  clu, mean_acc=mean_acc,
+                                  subtitle="%s  %s:%d-%d  %d molecules"
+                                           % (tag, a.chrom, win[0], win[1], n),
+                                  pop_title=pop_title),
+             os.path.join(outdir, "permol_composite_full_%s" % tag), a.dpi, sizes)
+    save(frame_composite(T, a, o_shuf, o_clu, a.chrom, win, sites, cwin, agg, clu,
+                         mean_acc=mean_acc,
+                         subtitle="%s  %s:%d-%d  %d molecules" % (tag, a.chrom, win[0],
+                                                                  win[1], n),
+                         pop_title=pop_title),
+         os.path.join(outdir, "permol_composite_%s" % tag), a.dpi, sizes)
+    if a.composite_only:
+        a.zoom_halfwidth = 0
+    else:
+        _steps(T, a, o_shuf, o_clu, clu, win, sites, cwin, agg, mean_acc, n, tag,
+               outdir, sizes, pop_title)
+    meta_out = {}
+    _zooms(T, a, labels, o_clu, win, sites, site, cwin, agg, mean_acc, tag, outdir,
+           sizes, pop_title, meta_out)
+    zoom = meta_out.get("zoom", {})
+    _write_meta(a, tag, win, n, sites, cinfo, zoom, T, sizes, outdir,
+                agg_is_mean=agg_is_mean)
+
+
+def order_from_json(path, names):
+    """(labels, o_shuf, o_clu, cinfo) from a json written by _write_meta, mapped onto `names` (this
+    permol.npz's row order). The read sets must be identical."""
+    with open(path) as fh:
+        m = json.load(fh)
+    for k in ("order_names_clustered", "order_names_shuffled", "labels_by_name"):
+        assert k in m, "%s has no %s (re-run fig_permol_fibers.py on the source run first)" % (path, k)
+    idx = {n: i for i, n in enumerate(names)}
+    assert set(idx) == set(m["labels_by_name"]), \
+        "--order-from: read sets differ (%d here, %d in %s, %d shared)" % (
+            len(idx), len(m["labels_by_name"]), path, len(set(idx) & set(m["labels_by_name"])))
+    labels = np.array([m["labels_by_name"][n] for n in names], dtype=np.int64)
+    o_clu = np.array([idx[n] for n in m["order_names_clustered"]], dtype=np.int64)
+    o_shuf = np.array([idx[n] for n in m["order_names_shuffled"]], dtype=np.int64)
+    cinfo = dict(m["clustering"])
+    cinfo["reused_from"] = os.path.abspath(path)
+    return labels, o_shuf, o_clu, cinfo
+
+
+def _steps(T, a, o_shuf, o_clu, clu, win, sites, cwin, agg, mean_acc, n, tag, outdir,
+           sizes, pop_title):
     save(frame_raw(T, a, o_shuf, a.chrom, win, sites, cwin, agg=agg,
-                   mean_acc=mean_acc,
+                   mean_acc=mean_acc, pop_title=pop_title,
                    title="Fiber-seq raw m6A, single molecules (n=%d fibers, shuffled "
                          "order)" % n),
          os.path.join(outdir, "permol_step1_raw_%s" % tag), a.dpi, sizes)
@@ -719,12 +940,10 @@ def main():
                     title="RoboCOP per-molecule ABF1 posterior, clustered order "
                           "(note the colour-bar scale)"),
          os.path.join(outdir, "permol_step5_abf1_%s" % tag), a.dpi, sizes)
-    save(frame_composite(T, a, o_shuf, o_clu, a.chrom, win, sites, cwin, agg, clu,
-                         mean_acc=mean_acc,
-                         subtitle="%s  %s:%d-%d  %d molecules" % (tag, a.chrom, win[0],
-                                                                  win[1], n)),
-         os.path.join(outdir, "permol_composite_%s" % tag), a.dpi, sizes)
 
+
+def _zooms(T, a, labels, o_clu, win, sites, site, cwin, agg, mean_acc, tag, outdir,
+           sizes, pop_title, out):
     # ---- zoom frames: only the molecules that span the clustering window, over a
     # ---- +/- zoom-halfwidth view, i.e. the reference's --require-window-coverage
     # ---- geometry (every drawn row is a clustered row, no grey block).
@@ -758,17 +977,27 @@ def main():
                               "and order (note the colour-bar scale)"),
              os.path.join(outdir, "permol_zoom3_abf1_%s" % tag), a.dpi, sizes)
         save(frame_raw(Z, a, oz, a.chrom, vwin, zsites, cwin, agg=zagg, mean_acc=zmean,
-                       clusters=zclu,
+                       clusters=zclu, pop_title=pop_title,
                        title="Raw m6A, clustered order (n=%d molecules)" % len(rows)),
              os.path.join(outdir, "permol_zoom0_raw_pop_%s" % tag), a.dpi, sizes)
         zoom = dict(view=[int(vwin[0]), int(vwin[1])], n_rows=int(len(rows)))
+    out["zoom"] = zoom
 
+
+def _write_meta(a, tag, win, n, sites, cinfo, zoom, T, sizes, outdir, agg_is_mean):
     meta = dict(arm=tag, arm_dir=a.arm_dir, window=[win[0], win[1]], chrom=a.chrom,
                 n_molecules=n, macisaac_abf1_sites=[[s, e] for s, e, _ in sites],
                 clustering=cinfo, zoom=zoom, shuffle_seed=a.seed,
                 accessible_definition="permol.npz column 'background'",
                 abf1_max_posterior=float(np.nanmax(T["abf"])),
                 molecules_not_matched_in_bam=int(T["n_missing"]),
+                population_row=("mean over molecules (agg-dir == arm-dir)"
+                                if agg_is_mean else "pooled decode in %s" % a.agg_dir),
+                extra_panels=bool(a.extra_panels),
+                abf1_vmax=a.abf1_vmax, order_from=a.order_from,
+                order_names_clustered=a._order["names_clustered"],
+                order_names_shuffled=a._order["names_shuffled"],
+                labels_by_name=a._order["labels_by_name"],
                 figure_px=sizes, drawers_from=os.path.join(FIGREPO, "scripts",
                                                            "fig2_panels.py"))
     with open(os.path.join(outdir, "fig_permol_fibers_%s.json" % tag), "w") as fh:

@@ -7,7 +7,7 @@ The silent columns are **not** bounded by the fix; on chrXII rDNA a few still bl
 
 This note covers bug 1 (the posterior is not normalised). Bug 2 (the emission floor inverts evidence) is
 **not** fixed by the cutover; it is fixed only in the log-space decoder (`_logfull` trees), which also
-avoids bug 3 (`normalize()`'s `+DBL_MIN`, `algo.c:22,26`, wrong at ~1,200 rDNA positions). See HANDOFF §4.8
+avoids bug 3 (`normalize()`'s `+DBL_MIN`, `algo.c:22,26`, wrong at ~1,200 rDNA positions; also outside rDNA: bo09 chrIV:1,200,001-1,205,000 (seg 300), 147 rows, rows still sum to 1; `analysis/posterior_fix/dblmin_history/REPORT.md`). See HANDOFF §4.8
 and `POSTERIOR_FIX_PLAN.md` "Results" and "Handoff, 2026-10-12".
 
 **Update 2026-10-26.** Bug 3 is not rDNA-only: on bo09 chrIV:1,200,001-1,205,000 fix B has 147 rows wrong

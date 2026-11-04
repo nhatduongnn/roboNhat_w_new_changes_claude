@@ -109,7 +109,7 @@ deliberately re-zeroes after the floor). Document the interaction.
 > **inverts** the evidence (chrXII rDNA, ~8,456 positions; HANDOFF §4.8). It is removed only in the
 > log-space trees `pkgvar/*_maskoff_tune75_logfull` (`ROBOCOP_LOG_EMISSION=exact`); production fix B still
 > floors. Also note `normalize()`'s `+DBL_MIN` in `pkg/robocop/algo.c:22,26` (upstream) — a second
-> arbitrary floor, inside the C recursion. See `POSTERIOR_FIX_PLAN.md` "Handoff, 2026-10-12".
+> arbitrary floor, inside the C recursion. **2026-11-02:** not rDNA-only — also outside rDNA: bo09 chrIV:1,200,001-1,205,000 (seg 300), 147 rows, rows still sum to 1; `analysis/posterior_fix/dblmin_history/REPORT.md`. See `POSTERIOR_FIX_PLAN.md` "Handoff, 2026-10-12".
 
 ### 2.7 [P2] Posterior storage silently truncates at 1e-4
 > See also `POSTERIOR_SCALING.md`: this 1e-4 floor is why emitting row sums read ~0.995–1.0, not exactly

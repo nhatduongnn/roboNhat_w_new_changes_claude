@@ -5,6 +5,9 @@ the state of each thread and where to pick it up. `whattodo.md` holds strategy a
 open-work tiers; `FIBERSEQ_CHANGES.md` the code diff against upstream;
 `things_to_revisit_before_shipping.md` the debug leftovers and hardcoded knobs.
 
+> **2026-11-04: the live thread is single-fiber.** Start at `SINGLEFIBER_PLAN.md` "Next session (2026-11-04)"
+> and the dated write-ups in `reports/`.
+
 **CURRENT THREAD (updated 2026-10-26): single-fiber (per-read) decoding — read `SINGLEFIBER_PLAN.md`.**
 The per-read decoder is ported to log space and validated on ERV46; the next step is a per-site
 mixture model there.
@@ -322,7 +325,7 @@ but not done; it changes the numerical core and must be re-validated against an 
 > production (fix B, `librobocop.so` `bf219a43`, cutover 2026-10-06). Defect 2 is fixed only in the
 > log-space decoder (`librobocop_logfull.so`, `pkgvar/*_maskoff_tune75_logfull`). The work found a third
 > defect — `normalize()` adds `DBL_MIN` to every cell (`algo.c:22,26`), wrong at ~1,200 rDNA positions in
-> fix B — and a fourth, silent columns > 1 in fix B. Fix C below was dropped; log space replaced it.
+> fix B, also outside rDNA: bo09 chrIV:1,200,001-1,205,000 (seg 300), 147 rows, rows still sum to 1; `analysis/posterior_fix/dblmin_history/REPORT.md` — and a fourth, silent columns > 1 in fix B. Fix C below was dropped; log space replaced it.
 > Current state and open decisions: `POSTERIOR_FIX_PLAN.md` "Results, 2026-10-06" and "Handoff,
 > 2026-10-12"; binaries and rollback: `POSTERIOR_SCALING.md`. Line numbers below are pre-cutover.
 

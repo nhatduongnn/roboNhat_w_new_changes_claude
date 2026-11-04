@@ -74,9 +74,16 @@ import read_calls as RC  # noqa: E402
 BAM = ("/usr/xtmp/nd141/projects/Fiber_seq/process_nanopore_sequencing/combine_sequencing_runs/"
        "merged_Mar20_barcode01_Jun25_barcode21-24_May07_barcode03-04.bam")
 FASTA = os.path.join(ANALYSIS, "inputs", "SacCer3.fa")
-TRAINDIR = os.path.join(ANALYSIS, "robocop_train_fiberonly")
-NUC_FILE = os.path.join(ANALYSIS, "inputs", "nucleosome_params.pkl")
-BG_FILE = os.path.join(ANALYSIS, "inputs", "bg_params.pkl")
+# 2026-11-03 (local prior plan): the current single-fiber model (run_permol_window_logfull_5to3.py
+# defaults). Before: robocop_train_fiberonly, nucleosome_params.pkl, bg_params.pkl (barcode01), no read
+# filters (backup .site_mixture.py.bak_localprior).
+TRAINDIR = os.path.join(ANALYSIS, "robocop_train_fiberonly_nucbrogsym")
+NUC_FILE = os.path.join(ANALYSIS, "inputs", "nucleosome_params_brogaard_sym_filtnordna.pkl")
+BG_FILE = os.path.join(ANALYSIS, "inputs", "bg_params_filtnordna.pkl")
+# Read filters = the driver defaults (run_permol_window_logfull_5to3.py:109-111).
+MIN_MAPQ, MIN_ALN_LEN, MIN_QS = 20, 500, 10.0
+KEEP_READS = "/usr/project/xtmp/nd141/filtered_refit_nordna/keep_reads.txt"
+CALL_THRESH = 0.8105469
 
 # Read group -> barcode. The merged BAM (combine_sequencing_runs/readme.txt) is a samtools
 # merge of 7 per-barcode BAMs; colliding RG IDs got a hash suffix. Mapping verified by looking
@@ -91,6 +98,12 @@ RG_BARCODE = {
     "7499519127370e847160e7df34d4edd145921c58_dna_r10.4.1_e8.2_400bps_sup@v5.0.0-54557EED": "May07_bc04",
 }
 BARCODES = sorted(set(RG_BARCODE.values()))
+RUNS = sorted(set(b.split("_")[0] for b in BARCODES))          # Jun25, Mar20, May07
+
+
+def barcode_run(bc):
+    """'Jun25_bc21' -> 'Jun25' (sequencing run); 'unknown' stays 'unknown'."""
+    return bc.split("_")[0] if "_" in bc else bc
 NUC_LEN = 147
 
 
@@ -206,13 +219,28 @@ class SiteData:
                         self.names[idx], self.motif_mask, dict(self.info))
 
 
-def load_site(site, bam=BAM, fl=20, min_mapq=0):
-    """Reads spanning the whole window [start1 - fl, end1 + fl], own-strand calls."""
+def _keep_names(path):
+    if path is None:
+        return None
+    key = ("keep", path)
+    if key not in _cache:
+        with open(path) as fh:
+            _cache[key] = set(ln.strip() for ln in fh if ln.strip())
+    return _cache[key]
+
+
+def load_site(site, bam=BAM, fl=20, min_mapq=MIN_MAPQ, min_aln_len=MIN_ALN_LEN, min_qs=MIN_QS,
+              keep_reads=KEEP_READS, thresh=CALL_THRESH):
+    """Reads spanning the whole window [start1 - fl, end1 + fl], own-strand calls.
+    Read filters default to the single-fiber driver's (2026-11-03); pass min_mapq=0, min_aln_len=0,
+    min_qs=None, keep_reads=None, thresh=None for the pre-11-03 behaviour."""
     w0 = site.start1 - 1 - fl                       # window [w0, w1) 0-based
     w1 = site.end1 + fl
     codes = ref_codes(site.chrom, w0, w1)
     mols, es, ee, stats = RC.read_molecules(bam, site.chrom, w0 + 1, w1, codes, flank=0,
-                                            min_mapq=min_mapq)
+                                            min_mapq=min_mapq, min_aln_len=min_aln_len,
+                                            min_qs=min_qs, include_names=_keep_names(keep_reads),
+                                            thresh=thresh)
     assert es == w0 and ee == w1, (es, ee, w0, w1)
     rg = {}
     with pysam.AlignmentFile(bam) as b:
@@ -278,10 +306,11 @@ def _estep(km, nm, kf, nf, lnuc, f, po, pb):
     return R / tot, float((mx[:, 0] + np.log(tot[:, 0])).sum()), L
 
 
-def em(cnt, lnuc, p_bound=None, p_open_floor=None, it=500, tol=1e-9, f0=None):
-    """cnt = (km, nm, kf, nf). p_bound None -> fitted, else fixed. Returns params, R, loglik, L."""
+def em(cnt, lnuc, p_bound=None, p_open_floor=None, it=500, tol=1e-9, f0=None, bg_file=BG_FILE):
+    """cnt = (km, nm, kf, nf). p_bound None -> fitted, else fixed. Returns params, R, loglik, L.
+    p_open is floored at bg_rate(bg_file) unless p_open_floor is given."""
     km, nm, kf, nf = cnt
-    floor = bg_rate() if p_open_floor is None else p_open_floor
+    floor = bg_rate(bg_file) if p_open_floor is None else p_open_floor
     f = np.array([1 / 3] * 3) if f0 is None else np.asarray(f0, float)
     po = 0.25
     pb = 0.05 if p_bound is None else float(p_bound)
@@ -370,4 +399,31 @@ def heldout_barcode(d, p_bound, nuc_file=NUC_FILE, min_reads=5):
         rows.append(dict(barcode=b, n_test=int(te.sum()), f_train=p_tr["f_bound"], f_test=p_te["f_bound"],
                          dll_per_read=(ll1 - ll0) / te.sum(),
                          test_frac_post_gt_0p5=float((R1[:, 0] > 0.5).mean())))
+    return rows
+
+
+def heldout_run(d, p_bound, nuc_file=NUC_FILE, min_reads=5):
+    """As heldout_barcode, but holding out a whole sequencing RUN (Mar20, May07, Jun25; RUNS) in turn:
+    fit (f, p_open) on the other two runs' reads; report f fitted on the held-out run alone, and the
+    held-out reads' posterior bound with the trained f as prior (per_read_post, aligned to d.names[te])."""
+    cnt = _counts(d)
+    lnuc = nuc_loglik(d, nuc_file)
+    runs = np.array([barcode_run(b) for b in d.barcodes])
+    rows = []
+    for rn in RUNS:
+        te = runs == rn
+        tr = ~te
+        if te.sum() < min_reads or tr.sum() < 3 * min_reads:
+            rows.append(dict(run=rn, n_test=int(te.sum()), n_train=int(tr.sum()), f_train=np.nan,
+                             f_test=np.nan, skipped=True))
+            continue
+        sub = lambda m: tuple(x[m] for x in cnt)
+        p_tr, _, _ = em(sub(tr), lnuc[tr], p_bound)
+        p_te, _, _ = em(sub(te), lnuc[te], p_bound)
+        f_tr = np.array([p_tr["f_bound"], p_tr["f_free"], p_tr["f_nuc"]])
+        R1, _, _ = _estep(*sub(te), lnuc[te], f_tr, p_tr["p_open"], p_bound)
+        rows.append(dict(run=rn, n_test=int(te.sum()), n_train=int(tr.sum()), f_train=p_tr["f_bound"],
+                         f_test=p_te["f_bound"], skipped=False,
+                         test_frac_post_gt_0p5=float((R1[:, 0] > 0.5).mean()),
+                         per_read_names=d.names[te].tolist(), per_read_post=R1[:, 0].tolist()))
     return rows

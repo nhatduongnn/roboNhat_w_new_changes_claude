@@ -7,6 +7,20 @@ molecule at a time** from that molecule's own m6A calls, with the same 3,485-sta
 the same transition matrix, the same PWM sequence layer and the same 531-state nucleosome
 dinucleotide model.
 
+> **Current state (2026-11-04):** see `SINGLEFIBER_PLAN.md` "Next session (2026-11-04)".
+>
+> Files added since 10-30:
+> - `local_prior.py`, `calibrate_local_prior.py`, `test_local_prior.py`: the `--local-prior` per-site TF weight;
+> - `compare_localprior_erv46.py`: the 3-way ERV46 comparison;
+> - `sbatch_permol_window_logfull_5to3.sh`: the sbatch for the current driver;
+> - `figures/`: user-facing plots;
+> - `../nucbrogsym/tf_fit.py`: TF footprint fit, gated bit-exact.
+>
+> Changes to existing files:
+> - `read_calls.py` gained read filters, an include list and a threshold argument;
+> - `site_mixture.py` moved to the current model;
+> - `fig_permol_fibers.py` gained `--extra-panels`, `--composite-only`, `--order-from` and `--abf1-vmax`.
+
 Built to the plan of 2026-09-28. Nothing outside this directory and
 `analysis/pkgvar/permol_seq_maskoff/` was touched.
 

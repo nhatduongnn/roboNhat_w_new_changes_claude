@@ -1,0 +1,1692 @@
+<meta charset="utf-8">
+<title>Nov 3 lab meeting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#E9EDF0; --stage:#F8FAFB; --surface:#FFFFFF; --plate:#FFFFFF;
+  --ink:#13202B; --ink-2:#465463; --muted:#6C7985; --rule:#CBD3DA; --rule-2:#E2E7EB;
+  --accent:#1F5C8F; --accent-soft:#DCE7F1; --accent-ink:#163F62;
+  --fiber:#eb6834; --seq:#4a3aa7; --both:#1baf7a;
+  --fiber-soft:#FBE4D9; --seq-soft:#E5E2F5; --both-soft:#D5F0E5;
+  --caveat-ink:#6F4800; --caveat-bg:#FFEFC2; --caveat-line:#D9A93A;
+  --pending-ink:#951F16; --pending-bg:#FCE2DE; --pending-line:#DC8378;
+  --hidden-ink:#4A4F8A; --hidden-bg:#E6E7F5;
+  --wat:#1f77b4; --cri:#ff7f0e; --bgline:#146b63; --gene-plus:#87ceeb; --gene-minus:#f08080;
+  --f-display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --hud-h:52px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1115; --stage:#111920; --surface:#172129; --plate:#F2F4F6;
+    --ink:#E5EBF0; --ink-2:#A9B5C0; --muted:#7F8C98; --rule:#34424D; --rule-2:#232F38;
+    --accent:#80B3E6; --accent-soft:#1B3146; --accent-ink:#D2E5F8;
+    --fiber:#d95926; --seq:#9085e9; --both:#199e70;
+    --fiber-soft:#3A2419; --seq-soft:#27233F; --both-soft:#14322A;
+    --caveat-ink:#F2C766; --caveat-bg:#31280F; --caveat-line:#7A6120;
+    --pending-ink:#F5A69C; --pending-bg:#3A1B18; --pending-line:#84423B;
+    --hidden-ink:#B9BCF0; --hidden-bg:#262845;
+    --wat:#5aa9e6; --cri:#ffa657; --bgline:#3fb3a6; --gene-plus:#4f92b5; --gene-minus:#b56b6b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1115; --stage:#111920; --surface:#172129; --plate:#F2F4F6;
+  --ink:#E5EBF0; --ink-2:#A9B5C0; --muted:#7F8C98; --rule:#34424D; --rule-2:#232F38;
+  --accent:#80B3E6; --accent-soft:#1B3146; --accent-ink:#D2E5F8;
+  --fiber:#d95926; --seq:#9085e9; --both:#199e70;
+  --fiber-soft:#3A2419; --seq-soft:#27233F; --both-soft:#14322A;
+  --caveat-ink:#F2C766; --caveat-bg:#31280F; --caveat-line:#7A6120;
+  --pending-ink:#F5A69C; --pending-bg:#3A1B18; --pending-line:#84423B;
+  --hidden-ink:#B9BCF0; --hidden-bg:#262845;
+  --wat:#5aa9e6; --cri:#ffa657; --bgline:#3fb3a6; --gene-plus:#4f92b5; --gene-minus:#b56b6b;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- viewport + stage ---------- */
+#viewport{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:calc(var(--hud-h) + env(safe-area-inset-bottom,0px));overflow:hidden;cursor:default}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:50% 50%;background:var(--stage);
+  box-shadow:0 1px 0 var(--rule-2),0 12px 40px rgba(10,20,30,.08);
+  --fs-eyebrow:17px;--fs-title:52px;--fs-msg:25px;--fs-body:27px;--fs-small:19px;--fs-table:23px;--fs-th:16px;--pad-x:80px;--pad-top:52px}
+.slide{position:absolute;inset:0;padding:var(--pad-top) var(--pad-x) 40px;display:flex;flex-direction:column;gap:22px;visibility:hidden;opacity:0;transition:opacity .28s ease,visibility 0s linear .28s;overflow:hidden}
+.slide.active{visibility:visible;opacity:1;transition:opacity .28s ease}
+[data-step]{transition:opacity .35s ease,transform .35s ease,visibility 0s}
+.slide [data-step]:not(.shown){opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s}
+.thumb .slide [data-step]{opacity:1!important;visibility:visible!important;transform:none!important}
+
+/* ---------- slide header ---------- */
+.sh{display:flex;flex-direction:column;gap:8px;max-width:1360px}
+.eyebrow{margin:0;font-family:var(--f-mono);font-size:var(--fs-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.eyebrow .sec-no{color:var(--accent);font-weight:600}
+h1,h2{font-family:var(--f-display);font-stretch:88%;font-weight:700;letter-spacing:-.012em;margin:0;text-wrap:balance;line-height:1.05}
+h2{font-size:var(--fs-title)}
+.msg{margin:0;font-size:var(--fs-msg);color:var(--ink-2);line-height:1.3;max-width:62ch;text-wrap:pretty}
+.slide-no{position:absolute;right:var(--pad-x);top:var(--pad-top);font-family:var(--f-mono);font-size:var(--fs-eyebrow);color:var(--muted)}
+
+/* ---------- status tags ---------- */
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px 4px 8px;border-radius:4px;border:1.5px solid;line-height:1.2;white-space:nowrap}
+.tag::before{content:"!";display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-size:12px;color:var(--stage);}
+.tag.caveat{color:var(--caveat-ink);background:var(--caveat-bg);border-color:var(--caveat-line)}
+.tag.caveat::before{background:var(--caveat-ink)}
+.tag.pending{color:var(--pending-ink);background:var(--pending-bg);border-color:var(--pending-line)}
+.tag.pending::before{content:"…";background:var(--pending-ink);line-height:1}
+.tag.hid{color:var(--hidden-ink);background:var(--hidden-bg);border-color:transparent}
+.tag.hid::before{content:none}
+.tag.alt{color:var(--accent-ink);background:var(--accent-soft);border-color:var(--accent)}
+.tag.alt::before{content:none}
+
+/* ---------- body text ---------- */
+.body{font-size:var(--fs-body);line-height:1.34;flex:1;min-height:0}
+.body p{margin:0}
+ul.pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+ul.pts>li{position:relative;padding-left:30px;text-wrap:pretty}
+ul.pts>li::before{content:"";position:absolute;left:4px;top:.55em;width:10px;height:10px;border-radius:2px;background:var(--rule)}
+ul.pts ul{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:6px;font-size:.88em;color:var(--ink-2)}
+ul.pts ul li{padding-left:22px;position:relative}
+ul.pts ul li::before{content:"–";position:absolute;left:2px;color:var(--muted)}
+b,strong{font-weight:700}
+.mono{font-family:var(--f-mono);font-size:.86em;letter-spacing:-.01em}
+.small{font-size:var(--fs-small);color:var(--ink-2);line-height:1.35}
+.foot{font-size:var(--fs-small);color:var(--muted);line-height:1.4;display:flex;flex-direction:column;gap:4px}
+.num{font-variant-numeric:tabular-nums}
+.callout{background:var(--accent-soft);color:var(--accent-ink);border-radius:6px;padding:18px 22px;font-size:.9em;line-height:1.36}
+.callout .lab{display:block;font-family:var(--f-mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:.85}
+.cols{display:grid;gap:48px;min-height:0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-1px;margin-right:8px}
+.sw.fiber{background:var(--fiber)} .sw.seq{background:var(--seq)} .sw.both{background:var(--both)}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;max-width:100%}
+table.tbl{border-collapse:collapse;font-size:var(--fs-table);font-variant-numeric:tabular-nums;width:100%}
+.tbl th{font-family:var(--f-mono);font-size:var(--fs-th);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 14px 8px 0;vertical-align:bottom;border-bottom:2px solid var(--rule);line-height:1.25}
+.tbl th.grp{text-align:left;border-bottom:1px solid var(--rule);color:var(--ink-2);padding-bottom:4px}
+.tbl td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule-2);vertical-align:top;line-height:1.3}
+.tbl td.n{font-family:var(--f-mono);font-size:.9em;white-space:nowrap}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl tr.hi td{background:transparent}
+.tbl td .arr{color:var(--muted);padding:0 .25em}
+.tbl .gapl{padding-left:22px}
+.tbl tbody tr[data-step]{transform:none}
+.tbl.compact th{padding:4px 18px 6px 0}
+.tbl.compact td{padding:5px 18px 5px 0}
+.tbl.roomy th,.tbl.roomy td{padding-right:30px}
+#ch9a svg,#ch9b svg{max-height:258px}
+
+/* ---------- figures ---------- */
+figure{margin:0;display:flex;flex-direction:column;gap:8px;min-height:0}
+figcaption{font-size:var(--fs-small);color:var(--muted);line-height:1.35;text-wrap:pretty}
+.plate{background:var(--plate);border-radius:6px;padding:10px;display:flex;justify-content:center;align-items:center;min-height:0}
+.plate img{display:block;max-width:100%;max-height:100%;height:auto;object-fit:contain}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:var(--f-body)}
+.ax{stroke:var(--rule);stroke-width:1;fill:none}
+.grid{stroke:var(--rule-2);stroke-width:1;fill:none}
+.tick{fill:var(--muted);font-size:16px;font-family:var(--f-mono)!important}
+.lbl{fill:var(--ink-2);font-size:17px}
+.lbl-b{fill:var(--ink);font-size:18px;font-weight:700}
+.dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1.5}
+.dg-edge{stroke:var(--ink-2);stroke-width:1.6;fill:none}
+.dg-t{fill:var(--ink);font-size:19px}
+.dg-s{fill:var(--muted);font-size:15px}
+.dg-acc{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.8}
+.dg-acc-t{fill:var(--accent-ink)}
+
+/* ---------- title slide ---------- */
+.title-slide{justify-content:center;gap:34px}
+.title-slide h1{font-size:92px;font-stretch:82%;max-width:14ch}
+.title-slide .sub{font-family:var(--f-display);font-stretch:95%;font-size:38px;font-weight:500;color:var(--ink-2);margin:0}
+.title-slide .by{font-family:var(--f-mono);font-size:20px;color:var(--muted);margin:0;letter-spacing:.02em}
+.ruler{height:34px;max-width:1100px;background:
+  repeating-linear-gradient(90deg,var(--rule) 0 2px,transparent 2px 22px) bottom/100% 10px no-repeat,
+  repeating-linear-gradient(90deg,var(--ink-2) 0 2px,transparent 2px 110px) bottom/100% 22px no-repeat;
+  border-bottom:2px solid var(--ink-2)}
+
+/* ---------- outline ---------- */
+.outline{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.outline li{border-top:3px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:14px}
+.outline .k{font-family:var(--f-mono);font-size:18px;color:var(--accent);font-weight:600}
+.outline .t{font-family:var(--f-display);font-stretch:90%;font-size:36px;font-weight:650;line-height:1.1;text-wrap:balance}
+.outline .s{font-family:var(--f-mono);font-size:18px;color:var(--muted)}
+
+/* ---------- slide 2 layer stack ---------- */
+.layers{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.layer{display:grid;grid-template-columns:230px 1fr;gap:16px;align-items:center;padding:9px 14px;border-radius:5px;background:var(--surface);border:1px solid var(--rule-2);font-size:19px}
+.layer .ln{font-weight:700}
+.layer .ld{color:var(--ink-2);font-size:17px}
+.layer.fib{border-left:5px solid var(--fiber)}
+.layer.sq{border-left:5px solid var(--seq)}
+.layer.mn{border-left:5px solid var(--rule)}
+.layers .x{font-family:var(--f-mono);font-size:16px;color:var(--muted);padding-left:14px}
+.binom{font-family:var(--f-mono);font-size:18px;background:var(--fiber-soft);color:var(--ink);padding:10px 14px;border-radius:5px;line-height:1.45}
+
+/* ---------- roadmap ---------- */
+.road{display:grid;grid-template-columns:1.9fr auto 1fr auto 1fr;align-items:stretch;gap:0}
+.road .box{border:2px solid var(--rule);border-radius:8px;padding:22px 24px;display:flex;flex-direction:column;gap:14px;color:var(--muted);background:transparent;transition:all .35s ease}
+.road .box h3{margin:0;font-family:var(--f-display);font-stretch:90%;font-size:34px;font-weight:700;line-height:1.1}
+.road .box .bn{font-family:var(--f-mono);font-size:16px;letter-spacing:.06em}
+.road .arrow{align-self:center;width:64px;height:2px;background:var(--rule);position:relative;margin:0 6px}
+.road .arrow::after{content:"";position:absolute;right:-2px;top:-6px;border:7px solid transparent;border-left:10px solid var(--rule);border-right:0}
+.road .box1.on{border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.here{display:inline-block;font-family:var(--f-mono);font-size:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--stage);background:var(--accent);padding:3px 10px;border-radius:3px;align-self:flex-start}
+.subs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:20px}
+.subs li{padding:10px 12px;border-radius:5px;background:var(--bg);color:var(--ink-2);line-height:1.22;position:relative}
+.subs.two{grid-template-columns:repeat(2,1fr);font-size:24px}
+.subs li.today{background:var(--accent-soft);color:var(--accent-ink);font-weight:700;outline:2px solid var(--accent)}
+.subs li.done::after{content:"✓";position:absolute;right:8px;top:6px;color:var(--accent);font-weight:700}
+.subs li.half{background:linear-gradient(90deg,var(--accent-soft) 0 50%,var(--bg) 50%)}
+.today-lab{font-family:var(--f-mono);font-size:16px;color:var(--accent);letter-spacing:.04em}
+.road.compact .box{padding:14px 16px;gap:10px}
+.road.compact .box h3{font-size:25px}
+.road.compact .subs{font-size:16px}
+.road.compact .subs li{padding:7px 9px}
+ul.lessons>li.ok::before,ul.lessons>li.nx::before{background:none;width:auto;height:auto;top:0;left:0;font-weight:700;border-radius:0}
+ul.lessons>li.ok::before{content:"✓";color:var(--accent)}
+ul.lessons>li.nx::before{content:"→";color:var(--ink-2)}
+
+/* ---------- locus slide: occupancy-browser tracks ---------- */
+.trk{display:grid;grid-template-columns:150px minmax(0,1fr);column-gap:14px;row-gap:5px;min-height:0}
+.trk canvas{display:block;width:100%;height:auto}
+.trk-lab{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:2px;text-align:right;min-width:0}
+.trk-lab .rn{font-family:var(--f-mono);font-size:18px;font-weight:600;color:var(--ink);white-space:nowrap}
+.trk-lab .rn .sw{width:12px;height:12px;margin-right:7px}
+.trk-lab .rd{font-size:15px;color:var(--muted);line-height:1.2}
+.trk-sites{position:relative;height:32px}
+.trk-hl{position:relative;pointer-events:none}
+.trk-chip{position:absolute;bottom:3px;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-mono);font-size:15px;font-weight:600;color:#fff;background:var(--locus-ref,#d4145a);padding:3px 10px;border-radius:4px;line-height:1.2}
+.trk-chip i{font-style:normal;font-weight:400;opacity:.9}
+.trk-band{position:absolute;top:-6px;bottom:0;border:2px solid var(--locus-ref,#d4145a);border-radius:3px}
+.trk-tail{position:absolute;bottom:-5px;width:2px;height:8px;margin-left:-1px;background:var(--locus-ref,#d4145a)}
+.legend .lk{display:inline-block;vertical-align:middle;margin-right:8px}
+.legend .lk.ln{width:22px;height:0;border-top:3px solid}
+.legend .lk.ar{width:22px;height:12px;background:rgba(179,179,179,.45);border-top:2px solid #b3b3b3}
+.legend .lk.band{width:12px;height:16px;background:rgba(212,20,90,.16);background:color-mix(in srgb,var(--locus-ref,#d4145a) 16%,transparent);border-top:3px solid var(--locus-ref,#d4145a)}
+.legend .lk.dot{width:9px;height:9px;border-radius:50%}
+.legend .lk.dash{width:22px;height:0;border-top:2px dashed var(--bgline)}
+.legend .lk.rossi{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid var(--ink)}
+
+/* ---------- slide 9 score definitions ---------- */
+.defs{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 26px;font-size:18px;line-height:1.3;color:var(--ink-2)}
+.defs .lab{font-family:var(--f-mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.defs b{font-family:var(--f-mono);color:var(--accent);margin-right:4px}
+
+/* ---------- slide 6 numbers line ---------- */
+.emline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 34px;padding:10px 0 0;border-top:2px solid var(--rule);font-size:24px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.emline .k{font-family:var(--f-mono);font-size:16px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.emline .v b{font-family:var(--f-mono);font-size:.92em;font-weight:600;color:var(--ink)}
+.emline .arr,.emprior .arr{color:var(--muted);padding:0 .2em}
+.emprior{margin:0;font-size:22px;color:var(--ink-2)}
+.emline.two{display:grid;grid-template-columns:auto auto auto auto;justify-content:start;gap:4px 34px}
+.emline.two .k .sw{width:12px;height:12px}
+
+/* ---------- loop / guards ---------- */
+.gcol h4{margin:0 0 12px;font-family:var(--f-mono);font-size:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);padding-bottom:8px}
+.gcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.3}
+.gcol li{padding-left:16px;position:relative;text-wrap:pretty}
+.gcol li::before{content:"";position:absolute;left:0;top:.52em;width:6px;height:6px;background:var(--ink-2);border-radius:1px}
+.gcol.removed li{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--pending-line);color:var(--ink-2)}
+.runchips{display:flex;flex-direction:column;gap:6px}
+.runchip{font-family:var(--f-mono);font-size:19px}
+
+/* ---------- legends ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:18px;color:var(--ink-2);align-items:center}
+.legend .tk{display:inline-block;width:22px;height:0;border-top:3px solid var(--ink);vertical-align:middle;margin-right:8px}
+.panel-t{font-size:19px;font-weight:700;color:var(--ink);margin:0 0 2px}
+.panel-s{font-size:16px;color:var(--muted);margin:0}
+.caveats{display:flex;flex-wrap:wrap;gap:8px 10px;font-size:17px;color:var(--ink-2);align-items:center}
+.caveats span.c{border:1px solid var(--rule);border-radius:3px;padding:3px 10px;background:var(--surface)}
+.caveats .lab{font-family:var(--f-mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- HUD ---------- */
+#hud{position:fixed;left:0;right:0;bottom:0;height:calc(var(--hud-h) + env(safe-area-inset-bottom,0px));padding:0 16px env(safe-area-inset-bottom,0px);display:flex;align-items:center;gap:18px;background:var(--bg);border-top:1px solid var(--rule-2);font-family:var(--f-mono);font-size:13px;color:var(--muted);z-index:20}
+#hud .brand{white-space:nowrap;letter-spacing:.04em}
+#ideo{flex:1;display:flex;gap:10px;align-items:center;min-width:0}
+#ideo .sec{display:flex;gap:3px;flex:var(--n) 1 0;min-width:0}
+#ideo button{flex:1;height:12px;min-width:6px;border:0;padding:0;border-radius:2px;background:var(--rule);cursor:pointer}
+#ideo button.past{background:var(--ink-2)}
+#ideo button.cur{background:var(--accent);height:18px}
+#ideo button:focus-visible,.hudbtn:focus-visible,.ov-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#counter{white-space:nowrap;color:var(--ink);font-size:14px;display:flex;align-items:center;gap:10px}
+#counter .pips{display:inline-flex;gap:3px}
+#counter .pips i{width:6px;height:6px;border-radius:50%;background:var(--rule);display:inline-block}
+#counter .pips i.on{background:var(--ink-2)}
+#hudtag:empty{display:none}
+#hudtag .tag{font-size:12px;padding:2px 7px}
+#hudtag .tag::before{width:14px;height:14px;font-size:10px}
+.hudbtn{font:inherit;color:var(--ink-2);background:transparent;border:1px solid var(--rule);border-radius:4px;padding:4px 8px;cursor:pointer}
+.hudbtn[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent)}
+#keys{white-space:nowrap}
+
+/* ---------- notes ---------- */
+#notes{position:fixed;left:16px;right:16px;bottom:calc(var(--hud-h) + 10px + env(safe-area-inset-bottom,0px));max-width:980px;margin:0 auto;max-height:34vh;overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:14px 20px 16px;z-index:30;font-size:18px;line-height:1.45}
+#notes h5{margin:0 0 6px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+#notes p{margin:0;text-wrap:pretty}
+
+/* ---------- overview ---------- */
+#overview{position:fixed;inset:0;z-index:40;background:var(--bg);overflow:auto;padding:24px 24px 40px}
+#overview header{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;margin-bottom:18px;max-width:1500px;margin-inline:auto}
+#overview header h3{margin:0;font-family:var(--f-display);font-stretch:90%;font-size:26px}
+#overview .kl{font-family:var(--f-mono);font-size:13px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 16px}
+#overview kbd{font-family:var(--f-mono);font-size:12px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:3px;padding:0 5px;background:var(--surface);color:var(--ink)}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;max-width:1500px;margin:0 auto}
+.ov-card{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:6px;border-radius:6px}
+.ov-card .thumb{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border-radius:5px;border:1px solid var(--rule);background:var(--stage)}
+.ov-card.k-hidden .thumb,.ov-card.k-backup .thumb{border-style:dashed;border-width:2px;border-color:var(--hidden-ink)}
+.ov-card.is-cur .thumb{outline:3px solid var(--accent);outline-offset:2px}
+.ov-card .thumb .slide{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;visibility:visible;opacity:1;pointer-events:none;background:var(--stage)}
+.ov-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+.ov-meta .id{font-family:var(--f-mono);font-weight:600;color:var(--ink)}
+.ov-meta .tag{font-size:11px;padding:1px 6px}
+.ov-meta .tag::before{width:13px;height:13px;font-size:9px}
+.ov-sec{grid-column:1/-1;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);padding:14px 0 6px}
+
+/* ---------- narrow screens: stack, scroll inside the slide ---------- */
+@media (max-width:760px){
+  #stage{left:0;top:0;width:100%;height:100%;transform:none!important;box-shadow:none;
+    --fs-eyebrow:12px;--fs-title:27px;--fs-msg:16px;--fs-body:17px;--fs-small:14px;--fs-table:14px;--fs-th:11px;--pad-x:16px;--pad-top:18px}
+  #stage .slide{overflow-y:auto;padding-bottom:40px;gap:16px}
+  #stage .slide-no{display:none}
+  #stage .cols{grid-template-columns:1fr!important;gap:22px}
+  #stage .outline{grid-template-columns:1fr 1fr;gap:18px}
+  #stage .outline .t{font-size:21px}
+  #stage .outline .k,#stage .outline .s{font-size:13px}
+  #stage .title-slide h1{font-size:40px}
+  #stage .title-slide .sub{font-size:22px}
+  #stage .title-slide .by{font-size:14px}
+  #stage .road{grid-template-columns:1fr}
+  #stage .road .arrow{width:2px;height:22px;margin:4px 0;justify-self:center}
+  #stage .road .arrow::after{right:-6px;top:auto;bottom:-3px;border:6px solid transparent;border-top:9px solid var(--rule);border-bottom:0}
+  #stage .road .box h3{font-size:21px}
+  #stage .subs{grid-template-columns:1fr 1fr;font-size:14px}
+  #stage .layer{grid-template-columns:1fr;gap:2px;font-size:15px}
+  #stage .layer .ld{font-size:13px}
+  #stage .binom{font-size:13px}
+  #stage .gcol ul{font-size:15px}
+  #stage .runchip{font-size:14px}
+  #stage .legend,#stage .caveats{font-size:13px}
+  #stage .emline{font-size:15px;gap:4px 16px}
+  #stage .emline .k{font-size:11px}
+  #stage .emprior{font-size:14px}
+  #stage .emline.two{display:flex}
+  #stage .emline.two .k{flex-basis:100%}
+  #stage .defs{font-size:13px}
+  #stage .panel-t{font-size:15px}
+  #stage .trk{grid-template-columns:62px minmax(0,1fr);column-gap:6px;row-gap:3px}
+  #stage .trk-lab .rd{display:none}
+  #stage .trk-lab .rn{font-size:11px;white-space:normal;text-align:right}
+  #stage .trk-lab .rn .sw{display:none}
+  #stage .trk-chip{font-size:10px;padding:2px 5px}
+  #stage .trk-chip i{display:none}
+  #stage ul.pts{gap:12px}
+  #stage ul.pts>li{padding-left:22px}
+  #stage ul.pts>li::before{width:8px;height:8px;left:2px}
+  #stage .callout{padding:12px 14px}
+  #stage .tag{font-size:11px;white-space:normal}
+  #stage .plate{padding:4px}
+  #stage .body [style*="font-size"]:not(text){font-size:var(--fs-body)!important}
+  #stage .body table.tbl[style]{font-size:var(--fs-table)!important}
+  #stage .plate img{max-height:none!important}
+  #hud{gap:10px}
+  #hud .brand,#keys{display:none}
+  #notes{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .slide,.slide.active,[data-step],.slide [data-step]:not(.shown),.road .box{transition:none!important;transform:none!important}
+}
+/* ---------- Oct 6 deck additions (copied from lab_oct6/oct6_extra.css), in talk.html's vocabulary (tokens, sizes) ---------- */
+.body.stack,.stack{display:flex;flex-direction:column;gap:20px}
+.body p{max-width:70ch;text-wrap:pretty}
+.m{font-family:var(--f-mono);font-size:.84em;letter-spacing:-.01em;background:var(--accent-soft);color:var(--accent-ink);padding:.04em .32em;border-radius:3px}
+.formula{font-family:var(--f-mono);font-size:24px;line-height:1.75;white-space:pre-wrap;background:var(--surface);border:1px solid var(--rule-2);border-left:5px solid var(--accent);border-radius:5px;padding:18px 24px;color:var(--ink)}
+.body pre{font-family:var(--f-mono);font-size:20px;line-height:1.6;background:var(--surface);border:1px solid var(--rule-2);border-radius:5px;padding:16px 22px;margin:0;overflow-x:auto;color:var(--ink)}
+.body pre .c{color:var(--muted)}
+.body pre .hl{color:var(--pending-ink);font-weight:600}
+.card{background:var(--surface);border:1px solid var(--rule-2);border-radius:6px;padding:20px 24px;min-width:0}
+.card h3{margin:0 0 8px;font-family:var(--f-display);font-stretch:90%;font-size:28px;font-weight:700;line-height:1.1}
+.card p{font-size:23px;color:var(--ink-2)}
+.card.flag{border-left:5px solid var(--accent)}
+.quote{font-family:var(--f-display);font-stretch:95%;font-size:30px;line-height:1.3;border-left:5px solid var(--accent);padding:4px 0 4px 24px;color:var(--ink)}
+.quote cite{display:block;margin-top:12px;font-family:var(--f-mono);font-size:16px;font-style:normal;color:var(--muted)}
+.tbl th.r,.tbl td.r{text-align:right}
+.tbl tr.key td{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+.ok{color:var(--both);font-weight:700}
+.bad{color:var(--pending-ink);font-weight:700}
+.warnc{color:var(--caveat-ink);font-weight:700}
+.callout{margin:0}
+.chain{display:flex;align-items:stretch;gap:10px}
+.chain span{flex:1 1 0;min-width:0;background:var(--surface);border:1px solid var(--rule-2);border-radius:5px;padding:8px 14px;font-size:19px;line-height:1.3;color:var(--ink)}
+.chain span b{display:block;font-family:var(--f-mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2px}
+.chain i{align-self:center;font-style:normal;color:var(--muted);font-family:var(--f-mono);font-size:22px}
+.sw.a{background:var(--pending-line)} .sw.b{background:var(--accent)}
+.legend .lk.tract{width:18px;height:8px;background:var(--ink-2)}
+@media (max-width:760px){
+  #stage .formula{font-size:13px;padding:10px 12px}
+  #stage .body pre{font-size:11px;padding:10px}
+  #stage .card h3{font-size:18px}
+  #stage .card p,#stage .quote{font-size:15px}
+  #stage .quote cite{font-size:12px}
+  #stage .chain{flex-direction:column}
+  #stage .chain i{display:none}
+  #stage .chain span{font-size:14px}
+  #stage .body[style*="grid-template-columns"]{display:flex!important;flex-direction:column}
+}
+p.foot.txt{display:block}
+.sw.c{background:var(--caveat-line)}
+
+/* ---------- Oct 27 additions: six-row before/after locus slides ---------- */
+.trk.six{row-gap:4px}
+.trk.six .trk-lab .rn{font-size:17px}
+.trk.six .trk-lab .rd{font-size:14px}
+/* one shared bar per model pair (before + after rows), in the model's colour */
+.trk.six .trk-lab.pr{border-right:4px solid var(--pc);padding-right:10px;margin-right:-14px}
+.trk.six .pr.m-bo09{--pc:var(--pending-line)} .trk.six .pr.m-bu01{--pc:var(--accent)} .trk.six .pr.m-bv75{--pc:var(--caveat-line)}
+/* "after" rows (log space) sit on a faint tint; a little extra space above each new pair */
+.trk.six canvas.after{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
+.trk.six .pair-start{margin-top:6px}
+.trk-lab .rd.after{color:var(--accent-ink);font-weight:600}
+.slide.locus6 .sh{gap:6px}
+.slide.locus6 h2{font-size:44px}
+.slide.locus6 .msg{font-size:22px;max-width:none}
+.nums{display:flex;flex-wrap:wrap;gap:4px 26px;font-size:17px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.nums b{font-family:var(--f-mono);font-weight:600;color:var(--ink)}
+.nums .k{font-family:var(--f-mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tbl td.z{color:var(--muted)}
+@media (max-width:760px){
+  #stage .trk.six .trk-lab.pr{margin-right:0}
+  #stage .slide.locus6 h2{font-size:24px}
+  #stage .slide.locus6 .msg{font-size:15px}
+  #stage .nums{font-size:13px}
+}
+.slide .body p.foot{max-width:none}
+
+/* ---------- Oct 27 Part 2-4 additions: single-fiberCOP flow, problem table, histogram, timeline ---------- */
+ol.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;position:relative}
+ol.flow>li{position:relative;background:var(--surface);border:1px solid var(--rule-2);border-top:4px solid var(--accent);border-radius:6px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+ol.flow>li:not(:last-child)::after{content:"→";position:absolute;right:-29px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:24px;color:var(--muted)}
+ol.flow .fn{font-family:var(--f-mono);font-size:15px;font-weight:600;letter-spacing:.08em;color:var(--accent)}
+ol.flow h3{margin:0;font-family:var(--f-display);font-stretch:90%;font-size:24px;font-weight:700;line-height:1.12;text-wrap:balance}
+ol.flow p{margin:0;font-size:19px;line-height:1.32;color:var(--ink-2)}
+ol.flow p b{color:var(--ink)}
+ol.flow p.fs{font-size:17px;color:var(--muted)}
+ol.flow p.fx{font-family:var(--f-mono);font-size:16px;line-height:1.5;color:var(--ink);background:var(--accent-soft);border-radius:4px;padding:6px 8px}
+table.probs{font-size:18px}
+table.probs td{line-height:1.3}
+table.probs td.pn{font-weight:700;color:var(--ink)}
+table.probs td.pn span{display:block;font-family:var(--f-mono);font-size:15px;color:var(--accent);font-weight:600}
+svg .h-a{fill:var(--pending-line)} svg .h-b{fill:var(--accent)} svg .h-c{fill:var(--both)}
+svg .hmed{fill:var(--ink)}
+svg .hfl{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:2 4;fill:none}
+.tl{position:relative;height:380px;margin:0 30px}
+.tl-line{position:absolute;left:0;right:0;top:248px;height:4px;background:var(--ink-2);border-radius:2px}
+.tl-tick{position:absolute;top:238px;width:0;height:24px;border-left:2px solid var(--ink-2)}
+.tl-tick span{position:absolute;top:32px;left:0;transform:translateX(-50%);font-family:var(--f-mono);font-size:17px;color:var(--muted);white-space:nowrap;text-align:center;line-height:1.25}
+.tl-tick.now{border-left:4px solid var(--accent);height:36px;top:232px}
+.tl-tick.now span{color:var(--accent);font-weight:600;transform:none;left:-4px;top:62px;text-align:left}
+.tl-bar{position:absolute;top:calc(var(--lane) * 72px);height:64px;border-radius:5px;padding:6px 14px;display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0;overflow:hidden;border:1.5px solid}
+.tl-bar b{font-family:var(--f-mono);font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.tl-bar span{font-size:22px;line-height:1.15;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-bar.p1{background:var(--accent-soft);border-color:var(--accent)} .tl-bar.p1 b{color:var(--accent-ink)}
+.tl-bar.p2{background:var(--both-soft);border-color:var(--both)} .tl-bar.p2 b{color:var(--ink-2)}
+.tl-bar.p3{background:var(--seq-soft);border-color:var(--seq)} .tl-bar.p3 b{color:var(--ink-2)}
+.tl-defend{position:absolute;top:322px;height:54px;border-radius:5px;background:var(--pending-bg);border:1.5px solid var(--pending-line);display:flex;align-items:center;justify-content:center;gap:10px}
+.tl-defend b{font-family:var(--f-mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--pending-ink)}
+.tl-defend span{font-family:var(--f-display);font-stretch:90%;font-size:24px;font-weight:700;color:var(--pending-ink)}
+@media (max-width:760px){
+  #stage ol.flow{grid-template-columns:1fr;gap:12px}
+  #stage ol.flow>li::after{content:none}
+  #stage ol.flow h3{font-size:17px}
+  #stage ol.flow p{font-size:14px}
+  #stage table.probs{font-size:13px!important}
+  #stage .tl{margin:0;height:300px}
+  #stage .tl-bar span{font-size:12px;white-space:normal}
+  #stage .tl-bar b{font-size:10px}
+  #stage .tl-tick span{font-size:11px}
+  #stage .tl-defend span{font-size:15px}
+}
+table.probs .m{white-space:nowrap}
+
+/* ---------- Nov 3 additions ---------- */
+:root{--run-mar:#1baf7a;--run-may:#1F5C8F;--run-jun:#eb6834}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--run-mar:#199e70;--run-may:#4a8ccc;--run-jun:#d95926}}
+:root[data-theme="dark"]{--run-mar:#199e70;--run-may:#4a8ccc;--run-jun:#d95926}
+.hid-only{display:none!important}
+.show-hidden .hid-only{display:revert!important}
+.hid-note{border:1.5px dashed var(--hidden-ink);background:var(--hidden-bg);color:var(--hidden-ink);border-radius:5px;padding:10px 16px;font-size:18px}
+.bars svg{width:100%;height:auto;display:block;overflow:visible}
+.bars text{font-family:var(--f-mono);fill:var(--ink-2)}
+.bars .ttl{font-family:var(--f-display);font-size:24px;font-weight:700;fill:var(--ink)}
+.bars .val{font-size:15px;fill:var(--ink)}
+.bars .val.jun{font-weight:700}
+.bars .tk{font-size:13px;fill:var(--muted)}
+.bars .bc{font-size:14px;fill:var(--ink-2)}
+.bars .rn{font-size:13px;fill:var(--muted);letter-spacing:.04em}
+.bars .grid{stroke:var(--rule-2);stroke-width:1}
+.bars .base{stroke:var(--rule);stroke-width:1.5}
+.bars .ref{stroke:var(--ink-2);stroke-width:1.5;stroke-dasharray:5 4}
+.bars rect.b{transition:opacity .15s}
+.bars g.panel:hover rect.b{opacity:.45}
+.bars g.panel rect.b:hover{opacity:1}
+.bars .mar{fill:var(--run-mar)} .bars .may{fill:var(--run-may)} .bars .jun{fill:var(--run-jun)}
+.legend-runs{display:flex;flex-wrap:wrap;gap:6px 28px;font-size:19px;color:var(--ink-2)}
+.legend-runs span{display:inline-flex;align-items:center;gap:8px}
+.legend-runs i{width:16px;height:16px;border-radius:3px;display:inline-block}
+.legend-runs b{color:var(--ink);font-weight:600}
+.tbl.filt td,.tbl.filt th{padding:6px 10px}
+.tbl.filt td.d{font-size:16px;color:var(--ink-2);max-width:30ch}
+.tbl.filt td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl.filt td.n small{color:var(--muted);font-size:.8em}
+.tbl.filt th.run-jun{box-shadow:inset 0 -4px 0 var(--run-jun)}
+.tbl.filt th.run-may{box-shadow:inset 0 -4px 0 var(--run-may)}
+.tbl.filt th.run-mar{box-shadow:inset 0 -4px 0 var(--run-mar)}
+.placeholder{border:2px dashed var(--rule);border-radius:8px;min-height:420px;display:grid;place-items:center;color:var(--muted);font-size:26px}
+/* filter slide (final): tighter so the Kept row fits */
+.filt-cards .card{padding:8px 14px!important}
+.filt-cards .card h3{font-size:19px!important;margin-bottom:2px!important}
+.filt-cards .card p{font-size:15px!important;line-height:1.3;max-width:none}
+.tbl.filt2 td,.tbl.filt2 th{padding:4px 10px}
+.tbl.filt2 td.d{max-width:none;white-space:nowrap;font-size:15px}
+.tbl.filt2 td.n{line-height:1.15}
+/* hidden detail slide H1: five read sets x 8 columns must fit */
+.tbl.h1t th{font-size:12px;padding:2px 10px 3px 0;letter-spacing:.02em}
+.tbl.h1t td{padding:2px 10px 2px 0}
+.tbl.h1t td:first-child{white-space:nowrap;font-size:13px}
+.tbl.h1t td.n{font-size:13px;letter-spacing:-.03em}
+/* rDNA slide (2b): fact cards + dot plot. rDNA = --seq (purple), rest of genome = neutral --muted on purpose (a baseline, not a series hue) */
+.rdna-facts .card{padding:10px 16px}
+.rdna-facts .card h3{font-size:20px;margin-bottom:2px}
+.rdna-facts .card p{font-size:17px;line-height:1.32;max-width:none}
+.dots svg{width:100%;height:auto;display:block;overflow:visible}
+.dots text{font-family:var(--f-mono);fill:var(--ink-2)}
+.dots .tk{font-size:13px;fill:var(--muted)}
+.dots .bc{font-size:14px}
+.dots .rn{font-size:13px;fill:var(--muted);letter-spacing:.04em}
+.dots .val{font-size:14px;fill:var(--ink)}
+.dots .val.mute{fill:var(--muted)}
+.dots .grid{stroke:var(--rule-2);stroke-width:1}
+.dots .base{stroke:var(--rule);stroke-width:1.5}
+.dots .conn{stroke:var(--rule);stroke-width:2}
+.dots circle.d{stroke:var(--stage);stroke-width:2}
+.dots circle.rd{fill:var(--seq)} .dots circle.rest{fill:var(--muted)}
+.legend-runs i.dot{width:14px;height:14px;border-radius:50%}
+.legend-runs i.dot.rd{background:var(--seq)} .legend-runs i.dot.rest{background:var(--muted)}
+@media (max-width:760px){
+  #stage .tbl.filt td.d{font-size:12px}
+  #stage .tbl.filt2 td.d{white-space:normal}
+  #stage .legend-runs{font-size:13px}
+  #stage .placeholder{min-height:200px;font-size:16px}
+  #stage .rdna-facts .card p{font-size:14px}
+}
+/* decisions slides (3, 3b): rows = decisions_rows.json = sheet rows */
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+ul.dec,ol.dec{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.dec li{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule-2)}
+.dec li:has(.dn){grid-template-columns:34px auto}
+.dec .dn{grid-row:1/3;font-family:var(--f-mono);font-weight:600;font-size:18px;color:var(--accent)}
+.dec .dc{grid-column:-2/-1;font-size:20px;font-weight:700;color:var(--ink);line-height:1.2}
+.dec .ds{grid-column:-2/-1;font-family:var(--f-mono);font-size:16px;color:var(--ink-2);line-height:1.3;margin-top:2px}
+.dec-first{display:flex;flex-direction:column;gap:2px;padding:12px 20px}
+.dec-first .dc{font-size:24px;font-weight:700}
+.dec-first .ds{font-family:var(--f-mono);font-size:18px}
+.dec-link{font-size:15px}
+@media (max-width:760px){
+  #stage .dec-grid{grid-template-columns:1fr}
+  #stage .dec .dc{font-size:14px}
+  #stage .dec .ds{font-size:12px}
+}
+/* ---------- 2026-11-03 update slides (4-7b) ---------- */
+.callscale svg{width:100%;height:auto;display:block;overflow:visible}
+.callscale .band.un{fill:var(--accent-soft)}
+.callscale .band.skip{fill:var(--accent);opacity:.35}
+.callscale .band.me{fill:var(--seq)}
+.callscale .nc-bg{fill:var(--stage)} .callscale .nc-ln{stroke:var(--rule);stroke-width:4}
+.callscale .band.nc{stroke:var(--rule);stroke-width:1}
+.callscale text{font-family:var(--f-body);fill:var(--ink)}
+.callscale .bl{font-size:24px;font-weight:700}
+.callscale .me-t{fill:var(--seq)}
+.callscale .tk{font-family:var(--f-mono);font-size:18px;fill:var(--ink-2)}
+.callscale .tkl{stroke:var(--ink-2);stroke-width:1.5}
+.callscale .sk{font-size:16px;fill:var(--accent-ink)}
+.callscale .axl{font-size:19px;fill:var(--ink-2)}
+.upd-row{display:grid;grid-template-columns:1060px minmax(0,1fr);gap:48px;align-items:center}
+.bars.mini .ttl{font-size:28px}
+.bars.mini .bc{font-size:18px} .bars.mini .rn{font-size:17px} .bars.mini .tk{font-size:17px}
+.upd-bul{margin:0;padding-left:1.1em;font-size:30px;line-height:1.3;color:var(--ink);display:flex;flex-direction:column;gap:14px}
+.upd-bul li::marker{color:var(--accent)}
+.slide .upd-bul{font-size:26px}
+.figplate{background:var(--plate);border-radius:4px;line-height:0}
+img.full{width:100%;height:auto;display:block}
+.figrows-wrap{display:flex;min-height:0}
+.figrows{display:grid;grid-template-columns:240px var(--imgw);column-gap:20px;row-gap:6px;align-content:start}
+.figrows .fi img{width:100%;height:auto;display:block}
+.figrows .fl{font-size:21px;font-weight:700;color:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:4px;line-height:1.2;text-align:right}
+.figrows .fl small{font-size:15px;font-weight:400;color:var(--ink-2)}
+.figrows .fl small b{color:var(--ink)}
+.figrows .fl small.ref{color:var(--muted);margin-top:6px}
+.figrows .fl .fl-k{font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.mk-strip{position:relative;height:22px}
+.mk{position:absolute;bottom:0;transform:translateX(-50%);font-family:var(--f-mono);font-size:14px;white-space:nowrap;color:var(--ink-2)}
+.mk::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:5px;background:currentColor}
+.mk.s{color:var(--accent);font-weight:600} .mk.x{color:var(--both)}
+.zoom-btn{margin-top:10px;align-self:flex-end;font:600 15px var(--f-body);color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent);border-radius:4px;padding:5px 12px;cursor:zoom-in}
+.zoom-btn:focus-visible,#zoom-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#zoom[hidden]{display:none!important}
+#zoom{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column}
+#zoom .zoom-bar{display:flex;align-items:center;gap:16px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--rule);color:var(--ink);font:600 16px var(--f-body)}
+#zoom .zoom-bar span{flex:1;min-width:0}
+#zoom-x{font:600 15px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:6px 14px;cursor:pointer}
+#zoom .zoom-sc{flex:1;overflow:auto;padding:16px}
+#zoom .zoom-sc img{display:block;margin:0 auto;width:100%;max-width:1800px;height:auto;background:var(--plate)}
+@media (max-width:760px){
+  #stage .upd-row{grid-template-columns:1fr;gap:16px}
+  #stage .upd-bul{font-size:16px}
+  #stage .figrows{grid-template-columns:1fr;--imgw:100%!important}
+  #stage .figrows .fl{text-align:left;font-size:14px}
+  #stage .figrows .fl small{font-size:12px}
+  #stage .mk{font-size:10px}
+  #stage .callscale .bl{font-size:20px}
+}
+/* slide 4b: no-call math table (2026-11-03) */
+table.nc3{font-size:17px;width:100%}
+table.nc3 thead th{font-size:19px;text-align:center}
+table.nc3 thead th small{font-weight:500;color:var(--muted);font-size:14px}
+table.nc3 tbody th[scope=row]{text-align:left;font-weight:600;white-space:nowrap}
+table.nc3 td.pn{text-align:center;padding:4px 10px}
+table.nc3 td.pn span{font-size:13px}
+table.nc3 tr.grp th{text-align:left;font-size:16px;color:var(--accent-ink);background:var(--accent-soft);padding:4px 10px}
+.nc-bul li{font-size:19px}
+table.nc3 tbody th[scope=row] small{display:block;font-size:12px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)}
+/* slide 4b: emission layers at a no-call A (2026-11-03) */
+.nc-layers{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:center}
+table.nclay{font-size:15px;width:100%}
+table.nclay td,table.nclay th{padding:4px 10px;text-align:left;vertical-align:top}
+table.nclay td:first-child{font-family:var(--f-mono);white-space:nowrap}
+.nc-eq{border-left:3px solid var(--accent);padding:6px 0 6px 18px}
+.nc-eq-l{margin:0;font-size:15px;color:var(--muted)}
+.nc-eq-m{margin:6px 0;font-family:var(--f-mono);font-size:24px;font-weight:600;color:var(--ink)}
+.nc-eq-n{margin:0;font-size:15px;color:var(--ink-2)}
+</style>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ======================= T TITLE ======================= -->
+<section class="slide title-slide" data-id="T" data-kind="main" data-sec="0" data-steps="1" data-title="Nov 3 lab meeting">
+  <h1>Nov 3 lab meeting</h1>
+  <div class="ruler" aria-hidden="true"></div>
+</section>
+
+<!-- ======================= 1 BARCODES ======================= -->
+<section class="slide" data-id="1" data-kind="main" data-sec="1" data-steps="1" data-title="m6A rate per barcode">
+  <span class="slide-no">1</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Background m6A</p>
+    <h2>The 2025-06-25 run is methylated more, everywhere</h2>
+    <p class="msg">After read filters, all four Jun25 barcodes sit at 0.183–0.193 in linkers, against 0.114–0.117 for May07 and 0.143 for Mar20.
+    The gap is the same in nucleosome cores and genome-wide (Jun25 / May07 = 1.62×, 1.64×, 1.68×), so it is the run, not one barcode.</p>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="legend-runs">
+      <span><i style="background:var(--run-mar)"></i><b>Mar20</b> · run 2025-03-20 · bc01</span>
+      <span><i style="background:var(--run-may)"></i><b>May07</b> · run 2025-05-07 · bc03, bc04</span>
+      <span><i style="background:var(--run-jun)"></i><b>Jun25</b> · run 2025-06-25 · bc21–bc24</span>
+    </div>
+    <div class="bars"><svg viewBox="0 0 1440 470" role="img" aria-label="m6A rate per barcode in linkers, nucleosome cores and genome-wide, after read filters. Jun25 barcodes are highest in all three.">
+<g class="panel">
+<text class="ttl" x="40" y="30">Linkers</text>
+<line class="grid" x1="80" x2="480" y1="380.0" y2="380.0"/>
+<text class="tk" x="74" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="80" x2="480" y1="302.5" y2="302.5"/>
+<text class="tk" x="74" y="306.5" text-anchor="end">0.05</text>
+<line class="grid" x1="80" x2="480" y1="225.0" y2="225.0"/>
+<text class="tk" x="74" y="229.0" text-anchor="end">0.10</text>
+<line class="grid" x1="80" x2="480" y1="147.5" y2="147.5"/>
+<text class="tk" x="74" y="151.5" text-anchor="end">0.15</text>
+<line class="grid" x1="80" x2="480" y1="70.0" y2="70.0"/>
+<text class="tk" x="74" y="74.0" text-anchor="end">0.20</text>
+<path class="b mar" d="M92.0,380.0 v-217.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v217.0 z"><title>Mar20_bc01 (2025-03-20) · linkers 0.1426 · 1,322,848 informative A calls</title></path>
+<text class="val mar" x="112.0" y="151.0" text-anchor="middle">.143</text>
+<text class="bc" x="112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M162.0,380.0 v-177.9 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v177.9 z"><title>May07_bc03 (2025-05-07) · linkers 0.1174 · 1,908,129 informative A calls</title></path>
+<text class="val may" x="182.0" y="190.1" text-anchor="middle">.117</text>
+<text class="bc" x="182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M210.0,380.0 v-172.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v172.0 z"><title>May07_bc04 (2025-05-07) · linkers 0.1136 · 2,215,043 informative A calls</title></path>
+<text class="val may" x="230.0" y="196.0" text-anchor="middle">.114</text>
+<text class="bc" x="230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M280.0,380.0 v-295.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v295.4 z"><title>Jun25_bc21 (2025-06-25) · linkers 0.1932 · 1,475,621 informative A calls</title></path>
+<text class="val jun" x="300.0" y="72.6" text-anchor="middle">.193</text>
+<text class="bc" x="300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M328.0,380.0 v-279.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v279.3 z"><title>Jun25_bc22 (2025-06-25) · linkers 0.1828 · 1,747,436 informative A calls</title></path>
+<text class="val jun" x="348.0" y="88.7" text-anchor="middle">.183</text>
+<text class="bc" x="348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M376.0,380.0 v-280.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v280.5 z"><title>Jun25_bc23 (2025-06-25) · linkers 0.1835 · 1,363,312 informative A calls</title></path>
+<text class="val jun" x="396.0" y="87.5" text-anchor="middle">.184</text>
+<text class="bc" x="396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M424.0,380.0 v-285.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v285.3 z"><title>Jun25_bc24 (2025-06-25) · linkers 0.1866 · 1,788,450 informative A calls</title></path>
+<text class="val jun" x="444.0" y="82.7" text-anchor="middle">.187</text>
+<text class="bc" x="444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="80" x2="480" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="540" y="30">Nucleosome cores</text>
+<line class="grid" x1="580" x2="980" y1="380.0" y2="380.0"/>
+<text class="tk" x="574" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="580" x2="980" y1="276.7" y2="276.7"/>
+<text class="tk" x="574" y="280.7" text-anchor="end">0.02</text>
+<line class="grid" x1="580" x2="980" y1="173.3" y2="173.3"/>
+<text class="tk" x="574" y="177.3" text-anchor="end">0.04</text>
+<line class="grid" x1="580" x2="980" y1="70.0" y2="70.0"/>
+<text class="tk" x="574" y="74.0" text-anchor="end">0.06</text>
+<path class="b mar" d="M592.0,380.0 v-202.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v202.3 z"><title>Mar20_bc01 (2025-03-20) · nucleosome cores 0.0399 · 1,557,457 informative A calls</title></path>
+<text class="val mar" x="612.0" y="165.7" text-anchor="middle">.040</text>
+<text class="bc" x="612.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M662.0,380.0 v-171.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v171.4 z"><title>May07_bc03 (2025-05-07) · nucleosome cores 0.0340 · 2,213,592 informative A calls</title></path>
+<text class="val may" x="682.0" y="196.6" text-anchor="middle">.034</text>
+<text class="bc" x="682.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M710.0,380.0 v-164.2 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v164.2 z"><title>May07_bc04 (2025-05-07) · nucleosome cores 0.0326 · 2,590,229 informative A calls</title></path>
+<text class="val may" x="730.0" y="203.8" text-anchor="middle">.033</text>
+<text class="bc" x="730.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M780.0,380.0 v-291.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v291.0 z"><title>Jun25_bc21 (2025-06-25) · nucleosome cores 0.0571 · 1,762,395 informative A calls</title></path>
+<text class="val jun" x="800.0" y="77.0" text-anchor="middle">.057</text>
+<text class="bc" x="800.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M828.0,380.0 v-270.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v270.8 z"><title>Jun25_bc22 (2025-06-25) · nucleosome cores 0.0532 · 2,084,161 informative A calls</title></path>
+<text class="val jun" x="848.0" y="97.2" text-anchor="middle">.053</text>
+<text class="bc" x="848.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M876.0,380.0 v-273.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.4 z"><title>Jun25_bc23 (2025-06-25) · nucleosome cores 0.0537 · 1,608,310 informative A calls</title></path>
+<text class="val jun" x="896.0" y="94.6" text-anchor="middle">.054</text>
+<text class="bc" x="896.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M924.0,380.0 v-277.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v277.5 z"><title>Jun25_bc24 (2025-06-25) · nucleosome cores 0.0545 · 2,148,774 informative A calls</title></path>
+<text class="val jun" x="944.0" y="90.5" text-anchor="middle">.054</text>
+<text class="bc" x="944.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="612.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="706.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="872.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="580" x2="980" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="1040" y="30">Genome-wide</text>
+<line class="grid" x1="1080" x2="1480" y1="380.0" y2="380.0"/>
+<text class="tk" x="1074" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="1080" x2="1480" y1="276.7" y2="276.7"/>
+<text class="tk" x="1074" y="280.7" text-anchor="end">0.03</text>
+<line class="grid" x1="1080" x2="1480" y1="173.3" y2="173.3"/>
+<text class="tk" x="1074" y="177.3" text-anchor="end">0.06</text>
+<line class="grid" x1="1080" x2="1480" y1="70.0" y2="70.0"/>
+<text class="tk" x="1074" y="74.0" text-anchor="end">0.09</text>
+<path class="b mar" d="M1092.0,380.0 v-197.1 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v197.1 z"><title>Mar20_bc01 (2025-03-20) · genome-wide 0.0584 · 60,806,644 informative A calls</title></path>
+<text class="val mar" x="1112.0" y="170.9" text-anchor="middle">.058</text>
+<text class="bc" x="1112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M1162.0,380.0 v-157.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v157.6 z"><title>May07_bc03 (2025-05-07) · genome-wide 0.0469 · 86,522,909 informative A calls</title></path>
+<text class="val may" x="1182.0" y="210.4" text-anchor="middle">.047</text>
+<text class="bc" x="1182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M1210.0,380.0 v-152.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v152.4 z"><title>May07_bc04 (2025-05-07) · genome-wide 0.0454 · 100,898,174 informative A calls</title></path>
+<text class="val may" x="1230.0" y="215.6" text-anchor="middle">.045</text>
+<text class="bc" x="1230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M1280.0,380.0 v-273.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.6 z"><title>Jun25_bc21 (2025-06-25) · genome-wide 0.0806 · 68,726,090 informative A calls</title></path>
+<text class="val jun" x="1300.0" y="94.4" text-anchor="middle">.081</text>
+<text class="bc" x="1300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M1328.0,380.0 v-256.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v256.4 z"><title>Jun25_bc22 (2025-06-25) · genome-wide 0.0756 · 81,305,085 informative A calls</title></path>
+<text class="val jun" x="1348.0" y="111.6" text-anchor="middle">.076</text>
+<text class="bc" x="1348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M1376.0,380.0 v-257.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v257.8 z"><title>Jun25_bc23 (2025-06-25) · genome-wide 0.0760 · 63,276,685 informative A calls</title></path>
+<text class="val jun" x="1396.0" y="110.2" text-anchor="middle">.076</text>
+<text class="bc" x="1396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M1424.0,380.0 v-262.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v262.8 z"><title>Jun25_bc24 (2025-06-25) · genome-wide 0.0775 · 83,334,354 informative A calls</title></path>
+<text class="val jun" x="1444.0" y="105.2" text-anchor="middle">.077</text>
+<text class="bc" x="1444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="1112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="1206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="1372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="1080" x2="1480" y1="380" y2="380"/>
+</g>
+</svg></div>
+    <p class="foot txt" style="font-size:15px">Rate = methylated / (methylated + canonical) A calls, pooled per barcode. Calls as
+    <span class="m">singlefiber/read_calls.py</span>: ML/255 ≥ 0.8105 methylated, ≤ 0.1895 canonical (Watson on ref A, Crick on ref T).
+    Linkers: <span class="m">computeLinkers</span>, 15 bp each side of 147 bp Chereji ±1 nucleosomes. Cores: the 147 bp windows of the
+    current nucleosome m6A fit (Brogaard top 2,000, <span class="m">nucbrogsym/m6a_fit.py</span>). Genome-wide: every ref A/T, chrM excluded.
+    Reads: the final keep list (filters on the next slide: rDNA excluded, one pooled MAD fence), 667,502 reads. Source:
+    <span class="m">bg_investigation/nov03_final/rates_final.tsv</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 2 FILTERS ======================= -->
+<section class="slide" data-id="2" data-kind="hidden" data-sec="1" data-steps="1" data-title="Read filters">
+  <span class="slide-no">2</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Which reads we keep</p>
+    <h2 style="font-size:46px">Read filters: we keep 56.1% of reads and 72.5% of calls</h2>
+    <p class="msg" style="font-size:20px;max-width:none">Applied top to bottom; each read counts at the first filter that removes it.
+    Big number: % of mapped reads. Small: % of informative A calls. The outlier fence is now <b>one pooled fence</b> over all 7 barcodes, not one per run.</p>
+  </header>
+  <div class="body stack" style="gap:10px">
+    <div class="cols filt-cards" style="grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">MAPQ: is the read in the right place?</h3>
+        <p style="font-size:16px">MAPQ = −10·log<sub>10</sub>(chance the placement is wrong). 20 means a 1% chance; 60 is the top.
+        Low MAPQ usually means the read fits more than one place.</p></div>
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">qs: are the bases right?</h3>
+        <p style="font-size:16px">dorado's mean base quality per read, same scale. qs 10 ≈ 90% of bases right; 20 ≈ 99%.
+        Low-qs reads also look more methylated (Spearman ρ −0.33 to −0.43, every barcode).</p></div>
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">Untrimmed reads are fine</h3>
+        <p style="font-size:16px">Adapters (~117 bp at the 5′ end) are soft-clipped by the aligner. Trimming and re-aligning 3,500 random reads moved
+        only +10 / −6 across MAPQ 20.</p></div>
+    </div>
+    <div class="tbl-wrap"><table class="tbl compact filt filt2" style="font-size:17px">
+      <thead><tr><th>Filter</th><th>What it removes</th><th class="r run-mar">Mar20<br>bc01</th><th class="r run-may">May07<br>bc03–04</th><th class="r run-jun">Jun25<br>bc21–24</th><th class="r ">All<br>7 barcodes</th></tr></thead>
+      <tbody><tr><td><b>No m6A tags</b></td><td class="d">Failed flag, or no MM/ML tags (0 calls).</td><td class="n r" title="2 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="11 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="3 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="16 reads, 0 calls">0.0%<br><small>16 · –</small></td></tr>
+<tr><td><b>chrM</b></td><td class="d">Mitochondrial: we model the nuclear genome.</td><td class="n r" title="17,302 reads, 3,812,678 calls">7.3%<br><small>4.6%</small></td><td class="n r" title="96,431 reads, 50,206,370 calls">21.5%<br><small>17.3%</small></td><td class="n r" title="21,219 reads, 11,703,237 calls">4.2%<br><small>3.1%</small></td><td class="n r" title="134,952 reads, 65,722,285 calls">11.3%<br><small>134,952 · 8.7%</small></td></tr>
+<tr><td><b>rDNA array</b></td><td class="d">Overlaps chrXII:451,418–468,929 (next slide).</td><td class="n r" title="40,232 reads, 11,895,944 calls">17.0%<br><small>14.2%</small></td><td class="n r" title="75,785 reads, 40,208,463 calls">16.9%<br><small>13.9%</small></td><td class="n r" title="82,827 reads, 52,299,506 calls">16.4%<br><small>13.8%</small></td><td class="n r" title="198,844 reads, 104,403,913 calls">16.7%<br><small>198,844 · 13.9%</small></td></tr>
+<tr><td><b>MAPQ < 20</b></td><td class="d">≥ 1% chance the read is in the wrong place.</td><td class="n r" title="10,578 reads, 1,991,621 calls">4.5%<br><small>2.4%</small></td><td class="n r" title="10,503 reads, 3,931,260 calls">2.3%<br><small>1.4%</small></td><td class="n r" title="14,856 reads, 5,906,262 calls">2.9%<br><small>1.6%</small></td><td class="n r" title="35,937 reads, 11,829,143 calls">3.0%<br><small>35,937 · 1.6%</small></td></tr>
+<tr><td><b>Aligned < 500 bp</b></td><td class="d">Under 500 bp of genome: ~3 nucleosomes.</td><td class="n r" title="47,414 reads, 3,650,835 calls">20.0%<br><small>4.4%</small></td><td class="n r" title="33,863 reads, 2,879,400 calls">7.6%<br><small>1.0%</small></td><td class="n r" title="44,401 reads, 3,679,006 calls">8.8%<br><small>1.0%</small></td><td class="n r" title="125,678 reads, 10,209,241 calls">10.6%<br><small>125,678 · 1.4%</small></td></tr>
+<tr><td><b>Mean Q < 10</b></td><td class="d">Base calls under ~90% accurate on average.</td><td class="n r" title="3,161 reads, 1,360,335 calls">1.3%<br><small>1.6%</small></td><td class="n r" title="6,455 reads, 4,627,478 calls">1.4%<br><small>1.6%</small></td><td class="n r" title="7,857 reads, 6,103,451 calls">1.6%<br><small>1.6%</small></td><td class="n r" title="17,473 reads, 12,091,264 calls">1.5%<br><small>17,473 · 1.6%</small></td></tr>
+<tr><td><b>m6A outlier</b></td><td class="d">Outside the pooled fence [-0.070, 0.194]; all 9,270 are high.</td><td class="n r" title="1,067 reads, 230,677 calls">0.4%<br><small>0.3%</small></td><td class="n r" title="2,591 reads, 801,431 calls">0.6%<br><small>0.3%</small></td><td class="n r" title="5,612 reads, 1,647,671 calls">1.1%<br><small>0.4%</small></td><td class="n r" title="9,270 reads, 2,679,779 calls">0.8%<br><small>9,270 · 0.4%</small></td></tr>
+<tr class="key"><td>Kept</td><td class="d" style="color:inherit">667,502 of 1,189,672 mapped reads</td><td class="n r">49.5%<br><small>117,581 · 72.6% calls</small></td><td class="n r">49.6%<br><small>222,212 · 64.6% calls</small></td><td class="n r">65.0%<br><small>327,709 · 78.5% calls</small></td><td class="n r">56.1%<br><small>667,502 · 72.5% calls</small></td></tr></tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:14px">Fence: reads with ≥ 50 informative A calls are judged on their genome-wide m6A rate; fence = median ± 4 × 1.4826 × MAD
+    (median 0.0618, MAD 0.0223, 676,737 reads judged; 35 reads with &lt; 50 calls kept unjudged).
+    Source: <span class="m">filtered_refit_nordna/filter_summary.tsv</span>, <span class="m">fence.json</span>, <span class="m">scripts/make_keep.py</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 2b rDNA ======================= -->
+<section class="slide" data-id="2b" data-kind="hidden" data-sec="1" data-steps="1" data-title="Why we exclude the rDNA array">
+  <span class="slide-no">2b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Which reads we keep</p>
+    <h2 style="font-size:44px">Why we exclude the rDNA array</h2>
+    <p class="msg" style="font-size:21px">About 150 rDNA copies in the cell map onto 2 copies in the reference. Their reads pile up, cannot be placed,
+    and look more methylated, so they bent the outlier fence. Dropping them barely moves the fitted rates.</p>
+  </header>
+  <div class="body" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;min-height:0">
+    <div class="stack rdna-facts" style="gap:10px">
+      <div class="card"><h3>Where</h3><p>chrXII:451,418–468,929: two copies of a 9,137 bp unit in sacCer3 (the second is 8,375 bp, cut short).</p></div>
+      <div class="card"><h3>Pile-up</h3><p><b>198,847</b> of 1,189,672 mapped reads (<b>16.7%</b>) touch it. Depth <b>990×</b> vs 52.5× for the rest of the genome
+        (723× vs 51.6× after filters).</p></div>
+      <div class="card"><h3>Placement</h3><p><b>68%</b> of rDNA reads have MAPQ &lt; 20, vs 4% elsewhere (131,546 at MAPQ 0, 58,230 at 60).
+        98.4% of the 63,707 MAPQ ≥ 20 reads touch the 762 bp stretch that exists in only one reference copy: high MAPQ means
+        “unique in the reference”, not “unique in the cell”.</p></div>
+      <div class="card"><h3>Methylation</h3><p>Pooled m6A <b>0.107</b> vs 0.065. Median per read 0.099 vs 0.061, higher in every barcode (right).</p></div>
+    </div>
+    <div class="stack" style="gap:10px">
+      <p class="panel-t">Median per-read m6A rate, kept reads</p>
+      <div class="legend-runs" style="font-size:17px"><span><i class="dot rd"></i><b>rDNA reads</b></span><span><i class="dot rest"></i><b>rest of genome</b></span></div>
+      <div class="dots"><svg viewBox="0 0 760 380" role="img" aria-label="Median per-read m6A rate per barcode, rDNA reads versus the rest of the genome. rDNA is higher in all seven barcodes.">
+<line class="grid" x1="56" x2="744" y1="300.0" y2="300.0"/>
+<text class="tk" x="48" y="304.0" text-anchor="end">0.00</text>
+<line class="grid" x1="56" x2="744" y1="232.5" y2="232.5"/>
+<text class="tk" x="48" y="236.5" text-anchor="end">0.03</text>
+<line class="grid" x1="56" x2="744" y1="165.0" y2="165.0"/>
+<text class="tk" x="48" y="169.0" text-anchor="end">0.06</text>
+<line class="grid" x1="56" x2="744" y1="97.5" y2="97.5"/>
+<text class="tk" x="48" y="101.5" text-anchor="end">0.09</text>
+<line class="grid" x1="56" x2="744" y1="30.0" y2="30.0"/>
+<text class="tk" x="48" y="34.0" text-anchor="end">0.12</text>
+<line class="conn" x1="100.9" x2="100.9" y1="174.9" y2="81.8"/>
+<circle class="d rest" cx="100.9" cy="174.9" r="7"><title>Mar20_bc01 rest of genome: median 0.056 (117,762 reads)</title></circle>
+<circle class="d rd" cx="100.9" cy="81.8" r="7"><title>Mar20_bc01 rDNA: median 0.097 (6,835 reads)</title></circle>
+<text class="val" x="100.9" y="67.8" text-anchor="middle">.097</text>
+<text class="val mute" x="100.9" y="198.9" text-anchor="middle">.056</text>
+<text class="bc" x="100.9" y="322" text-anchor="middle">01</text>
+<line class="conn" x1="220.6" x2="220.6" y1="201.5" y2="113.5"/>
+<circle class="d rest" cx="220.6" cy="201.5" r="7"><title>May07_bc03 rest of genome: median 0.044 (103,292 reads)</title></circle>
+<circle class="d rd" cx="220.6" cy="113.5" r="7"><title>May07_bc03 rDNA: median 0.083 (9,715 reads)</title></circle>
+<text class="val" x="220.6" y="99.5" text-anchor="middle">.083</text>
+<text class="val mute" x="220.6" y="225.5" text-anchor="middle">.044</text>
+<text class="bc" x="220.6" y="322" text-anchor="middle">03</text>
+<line class="conn" x1="310.3" x2="310.3" y1="204.3" y2="116.0"/>
+<circle class="d rest" cx="310.3" cy="204.3" r="7"><title>May07_bc04 rest of genome: median 0.043 (119,331 reads)</title></circle>
+<circle class="d rd" cx="310.3" cy="116.0" r="7"><title>May07_bc04 rDNA: median 0.082 (11,108 reads)</title></circle>
+<text class="val" x="310.3" y="102.0" text-anchor="middle">.082</text>
+<text class="val mute" x="310.3" y="228.3" text-anchor="middle">.043</text>
+<text class="bc" x="310.3" y="322" text-anchor="middle">04</text>
+<line class="conn" x1="430.0" x2="430.0" y1="121.3" y2="45.9"/>
+<circle class="d rest" cx="430.0" cy="121.3" r="7"><title>Jun25_bc21 rest of genome: median 0.079 (76,141 reads)</title></circle>
+<circle class="d rd" cx="430.0" cy="45.9" r="7"><title>Jun25_bc21 rDNA: median 0.113 (5,336 reads)</title></circle>
+<text class="val" x="430.0" y="31.9" text-anchor="middle">.113</text>
+<text class="val mute" x="430.0" y="145.3" text-anchor="middle">.079</text>
+<text class="bc" x="430.0" y="322" text-anchor="middle">21</text>
+<line class="conn" x1="519.7" x2="519.7" y1="132.6" y2="56.1"/>
+<circle class="d rest" cx="519.7" cy="132.6" r="7"><title>Jun25_bc22 rest of genome: median 0.074 (89,861 reads)</title></circle>
+<circle class="d rd" cx="519.7" cy="56.1" r="7"><title>Jun25_bc22 rDNA: median 0.108 (6,449 reads)</title></circle>
+<text class="val" x="519.7" y="42.1" text-anchor="middle">.108</text>
+<text class="val mute" x="519.7" y="156.6" text-anchor="middle">.074</text>
+<text class="bc" x="519.7" y="322" text-anchor="middle">22</text>
+<line class="conn" x1="609.4" x2="609.4" y1="131.6" y2="50.6"/>
+<circle class="d rest" cx="609.4" cy="131.6" r="7"><title>Jun25_bc23 rest of genome: median 0.075 (69,234 reads)</title></circle>
+<circle class="d rd" cx="609.4" cy="50.6" r="7"><title>Jun25_bc23 rDNA: median 0.111 (4,870 reads)</title></circle>
+<text class="val" x="609.4" y="36.6" text-anchor="middle">.111</text>
+<text class="val mute" x="609.4" y="155.6" text-anchor="middle">.075</text>
+<text class="bc" x="609.4" y="322" text-anchor="middle">23</text>
+<line class="conn" x1="699.1" x2="699.1" y1="128.1" y2="50.0"/>
+<circle class="d rest" cx="699.1" cy="128.1" r="7"><title>Jun25_bc24 rest of genome: median 0.076 (93,407 reads)</title></circle>
+<circle class="d rd" cx="699.1" cy="50.0" r="7"><title>Jun25_bc24 rDNA: median 0.111 (6,603 reads)</title></circle>
+<text class="val" x="699.1" y="36.0" text-anchor="middle">.111</text>
+<text class="val mute" x="699.1" y="152.1" text-anchor="middle">.076</text>
+<text class="bc" x="699.1" y="322" text-anchor="middle">24</text>
+<text class="rn" x="100.9" y="344" text-anchor="middle">Mar20</text>
+<text class="rn" x="265.4" y="344" text-anchor="middle">May07</text>
+<text class="rn" x="564.6" y="344" text-anchor="middle">Jun25</text>
+<line class="base" x1="56" x2="744" y1="300" y2="300"/>
+</svg></div>
+      <div class="callout" style="font-size:17px;padding:12px 16px"><span class="lab">What excluding it changes</span>
+        <b>Outlier fence:</b> rDNA was 7.75% of judged reads but 43.5% of fence removals (5,947 of 13,656). Upper fence 0.2036 → 0.1940.<br>
+        <b>Fitted rates:</b> background 0.15648 → 0.15635 (Watson), nucleosome ×0.998, TF footprints within 1.3%.<br>
+        <b>Decoder:</b> rDNA is where the old (non-log) decoder gave invalid posteriors.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= H1 DETAIL ======================= -->
+<section class="slide" data-id="H1" data-kind="hidden" data-sec="1" data-steps="1" data-title="Rates under each read set">
+  <span class="slide-no">H1</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · does the read set matter?</p>
+    <h2 style="font-size:40px">Same picture under every read set</h2>
+    <p class="msg" style="font-size:20px;max-width:none">Each cell: linker · nucleosome core · genome-wide. Filters lower the genome-wide rate a little and
+    barely move linkers; the Jun25 lead is unchanged under every read set.</p>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <p class="panel-t">Pooled rate</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.141 · .041 · .065</td><td class="n r">.117 · .035 · .056</td><td class="n r">.113 · .033 · .054</td><td class="n r">.192 · .058 · .088</td><td class="n r">.181 · .054 · .082</td><td class="n r">.182 · .054 · .083</td><td class="n r">.185 · .055 · .084</td><td class="n r">.155 · .046 · .072</td></tr><tr><td>Filters, no fence</td><td class="n r">.143 · .040 · .062</td><td class="n r">.118 · .035 · .052</td><td class="n r">.114 · .033 · .050</td><td class="n r">.194 · .058 · .086</td><td class="n r">.184 · .054 · .080</td><td class="n r">.184 · .055 · .081</td><td class="n r">.187 · .055 · .082</td><td class="n r">.158 · .046 · .069</td></tr><tr><td>Tukey per run</td><td class="n r">.141 · .039 · .058</td><td class="n r">.115 · .033 · .047</td><td class="n r">.112 · .031 · .046</td><td class="n r">.192 · .057 · .082</td><td class="n r">.182 · .053 · .077</td><td class="n r">.183 · .053 · .077</td><td class="n r">.186 · .054 · .079</td><td class="n r">.156 · .045 · .065</td></tr><tr><td>MAD per run</td><td class="n r">.142 · .040 · .060</td><td class="n r">.116 · .033 · .048</td><td class="n r">.113 · .032 · .047</td><td class="n r">.193 · .057 · .083</td><td class="n r">.183 · .053 · .078</td><td class="n r">.184 · .054 · .079</td><td class="n r">.187 · .055 · .080</td><td class="n r">.157 · .045 · .067</td></tr><tr class="key"><td>Final (no rDNA, pooled MAD)</td><td class="n r">.143 · .040 · .058</td><td class="n r">.117 · .034 · .047</td><td class="n r">.114 · .033 · .045</td><td class="n r">.193 · .057 · .081</td><td class="n r">.183 · .053 · .076</td><td class="n r">.184 · .054 · .076</td><td class="n r">.187 · .054 · .077</td><td class="n r">.157 · .046 · .065</td></tr></tbody></table></div>
+    <p class="panel-t">Median per-read rate (reads with ≥ 20 linker, ≥ 20 core, ≥ 200 genome-wide calls)</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.121 · .028 · .058</td><td class="n r">.103 · .024 · .047</td><td class="n r">.100 · .023 · .045</td><td class="n r">.182 · .047 · .082</td><td class="n r">.172 · .043 · .077</td><td class="n r">.171 · .043 · .078</td><td class="n r">.174 · .044 · .079</td><td class="n r">.140 · .034 · .065</td></tr><tr><td>Tukey per run</td><td class="n r">.123 · .028 · .056</td><td class="n r">.102 · .023 · .044</td><td class="n r">.100 · .023 · .043</td><td class="n r">.182 · .047 · .080</td><td class="n r">.173 · .043 · .075</td><td class="n r">.172 · .043 · .076</td><td class="n r">.175 · .044 · .077</td><td class="n r">.143 · .034 · .062</td></tr><tr><td>Final (no rDNA, pooled MAD)</td><td class="n r">.125 · .028 · .055</td><td class="n r">.103 · .024 · .043</td><td class="n r">.100 · .023 · .042</td><td class="n r">.182 · .048 · .079</td><td class="n r">.174 · .043 · .074</td><td class="n r">.173 · .043 · .075</td><td class="n r">.175 · .044 · .076</td><td class="n r">.143 · .034 · .061</td></tr></tbody></table></div>
+    <p class="panel-t">Nucleosome core on Chereji ±1 sites instead (dyad −73 to +73, the original generator's window)</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.052</td><td class="n r">.047</td><td class="n r">.045</td><td class="n r">.073</td><td class="n r">.068</td><td class="n r">.069</td><td class="n r">.070</td><td class="n r">.059</td></tr><tr><td>Tukey per run</td><td class="n r">.050</td><td class="n r">.043</td><td class="n r">.043</td><td class="n r">.072</td><td class="n r">.067</td><td class="n r">.068</td><td class="n r">.069</td><td class="n r">.058</td></tr><tr><td>Final (no rDNA, pooled MAD)</td><td class="n r">.051</td><td class="n r">.045</td><td class="n r">.045</td><td class="n r">.073</td><td class="n r">.068</td><td class="n r">.068</td><td class="n r">.070</td><td class="n r">.059</td></tr></tbody></table></div>
+    <p class="foot txt" style="font-size:14px">MAD rule: outside median ± 4 × 1.4826 × MAD of the genome-wide per-read rate (per run here;
+    one pooled fence in the final set, which also drops rDNA). Sources: <span class="m">bg_investigation/nov03/rates_by_barcode.tsv</span>,
+    final row <span class="m">bg_investigation/nov03_final/rates_final.tsv</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 DECIDED ======================= -->
+<section class="slide" data-id="3" data-kind="main" data-sec="2" data-steps="1" data-title="Single-fiber model decisions: decided">
+  <span class="slide-no">3</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> Single-fiber model decisions</p>
+    <h2 style="font-size:46px">Decided</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <div class="dec-grid"><ul class="dec"><li><span class="dc">Read filters</span><span class="ds">primary + mapped, nuclear; MAPQ ≥ 20; aligned ≥ 500 bp; qs ≥ 10</span></li><li><span class="dc">rDNA reads</span><span class="ds">dropped (chrXII:451,418–468,929), before the fence</span></li><li><span class="dc">Read trimming / realignment</span><span class="ds">none: adapters soft-clipped</span></li><li><span class="dc">Per-read m6A outlier cap</span><span class="ds">one pooled MAD fence, [−0.070, 0.194]</span></li><li><span class="dc">Per-read m6A call threshold</span><span class="ds">modkit 10th-pct rule → 0.8105469, fixed everywhere</span></li><li><span class="dc">Per-A call labels</span><span class="ds">skipped A / ML ≤ 48 → 0 · ML ≥ 207 → 1 · 49–206 no-call</span></li><li><span class="dc">Background m6A rate (single-fiber)</span><span class="ds">one pooled 7-barcode value: 0.1564 / 0.1544</span></li><li><span class="dc">Read set for all m6A fits</span><span class="ds">bg + nucleosome + TF all refit on filtered, rDNA-free reads</span></li></ul><ul class="dec"><li><span class="dc">One background file</span><span class="ds">bg_params_all7.pkl = link to bg_params_merged.pkl</span></li><li><span class="dc">Start rule for per-read decodes</span><span class="ds">start anywhere = stationary distribution (verified)</span></li><li><span class="dc">End rule for per-read decodes</span><span class="ds">end anywhere = backward init 1 (verified)</span></li><li><span class="dc">Decoding direction</span><span class="ds">5′→3′ on each read&#x27;s own strand</span></li><li><span class="dc">Nucleosome sequence model for single-fiber</span><span class="ds">Brogaard top-2000, strand-symmetric</span></li><li><span class="dc">Reference vs read sequence (consensus rule)</span><span class="ds">decode the reference; strain differences flagged only</span></li><li><span class="dc">Decoder numerics for single-fiber</span><span class="ds">log space, exact emission</span></li></ul></div>
+    <p class="foot txt dec-link">All rows, with values, evidence paths and dates: shared sheet <b>FiberCOP model choices</b> · <span class="m">https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT</span></p>
+  </div>
+</section>
+
+<!-- ======================= 4 UPDATE ======================= -->
+<section class="slide" data-id="4" data-kind="main" data-sec="3" data-steps="1" data-title="Update">
+  <span class="slide-no">4</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Single-fiber update</p>
+    <h2>Update</h2>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <div class="callscale"><svg viewBox="0 0 1440 170" role="img" aria-label="m6A call rule on p, the dorado ML probability: skipped A and p up to 0.19 unmethylated, between 0.19 and 0.81 no call, 0.81 and above methylated.">
+<defs><pattern id="nocall-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="nc-bg" width="10" height="10"/><line class="nc-ln" x1="0" y1="0" x2="0" y2="10"/></pattern></defs>
+<rect class="band un" x="30.0" y="62" width="261.4" height="44"/>
+<rect class="band skip" x="30.0" y="62" width="69.0" height="44"/>
+<rect class="band nc" x="291.4" y="62" width="857.1" height="44" fill="url(#nocall-hatch)"/>
+<rect class="band me" x="1148.6" y="62" width="261.4" height="44"/>
+<text class="bl" x="30.0" y="48">unmethylated</text>
+<text class="bl" x="720.0" y="48" text-anchor="middle">no call: no evidence for that base</text>
+<text class="bl me-t" x="1410.0" y="48" text-anchor="end">methylated</text>
+<line class="tkl" x1="30.0" x2="30.0" y1="106" y2="114"/>
+<text class="tk" x="30.0" y="134" text-anchor="start">0</text>
+<line class="tkl" x1="99.0" x2="99.0" y1="106" y2="114"/>
+<text class="tk" x="99.0" y="134" text-anchor="middle">0.05</text>
+<line class="tkl" x1="291.4" x2="291.4" y1="106" y2="114"/>
+<text class="tk" x="291.4" y="134" text-anchor="middle">0.19</text>
+<line class="tkl" x1="1148.6" x2="1148.6" y1="106" y2="114"/>
+<text class="tk" x="1148.6" y="134" text-anchor="middle">0.81</text>
+<line class="tkl" x1="1410.0" x2="1410.0" y1="106" y2="114"/>
+<text class="tk" x="1410.0" y="134" text-anchor="end">1</text>
+<text class="sk" x="109.0" y="91">skipped A (p &lt; 0.05) count as unmethylated</text>
+<text class="axl" x="720.0" y="168" text-anchor="middle">p = dorado ML probability of m6A</text>
+</svg></div>
+    <p class="foot txt" style="font-size:16px;margin-top:-14px">0.81 = modkit's 10th-percentile-of-confidence rule, fixed once on the filtered reads (0.8105469).</p>
+    <div class="upd-row">
+      <div class="bars mini"><svg viewBox="0 0 1440 470" role="img" aria-label="m6A rate per barcode in linkers, nucleosome cores and genome-wide, after read filters. Jun25 barcodes are highest in all three.">
+<g class="panel">
+<text class="ttl" x="40" y="30">Linkers</text>
+<line class="grid" x1="80" x2="480" y1="380.0" y2="380.0"/>
+<text class="tk" x="74" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="80" x2="480" y1="302.5" y2="302.5"/>
+<text class="tk" x="74" y="306.5" text-anchor="end">0.05</text>
+<line class="grid" x1="80" x2="480" y1="225.0" y2="225.0"/>
+<text class="tk" x="74" y="229.0" text-anchor="end">0.10</text>
+<line class="grid" x1="80" x2="480" y1="147.5" y2="147.5"/>
+<text class="tk" x="74" y="151.5" text-anchor="end">0.15</text>
+<line class="grid" x1="80" x2="480" y1="70.0" y2="70.0"/>
+<text class="tk" x="74" y="74.0" text-anchor="end">0.20</text>
+<path class="b mar" d="M92.0,380.0 v-217.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v217.0 z"><title>Mar20_bc01 (2025-03-20) · linkers 0.1426 · 1,322,848 informative A calls</title></path>
+<text class="bc" x="112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M162.0,380.0 v-177.9 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v177.9 z"><title>May07_bc03 (2025-05-07) · linkers 0.1174 · 1,908,129 informative A calls</title></path>
+<text class="bc" x="182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M210.0,380.0 v-172.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v172.0 z"><title>May07_bc04 (2025-05-07) · linkers 0.1136 · 2,215,043 informative A calls</title></path>
+<text class="bc" x="230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M280.0,380.0 v-295.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v295.4 z"><title>Jun25_bc21 (2025-06-25) · linkers 0.1932 · 1,475,621 informative A calls</title></path>
+<text class="bc" x="300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M328.0,380.0 v-279.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v279.3 z"><title>Jun25_bc22 (2025-06-25) · linkers 0.1828 · 1,747,436 informative A calls</title></path>
+<text class="bc" x="348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M376.0,380.0 v-280.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v280.5 z"><title>Jun25_bc23 (2025-06-25) · linkers 0.1835 · 1,363,312 informative A calls</title></path>
+<text class="bc" x="396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M424.0,380.0 v-285.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v285.3 z"><title>Jun25_bc24 (2025-06-25) · linkers 0.1866 · 1,788,450 informative A calls</title></path>
+<text class="bc" x="444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="80" x2="480" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="540" y="30">Nucleosome cores</text>
+<line class="grid" x1="580" x2="980" y1="380.0" y2="380.0"/>
+<text class="tk" x="574" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="580" x2="980" y1="276.7" y2="276.7"/>
+<text class="tk" x="574" y="280.7" text-anchor="end">0.02</text>
+<line class="grid" x1="580" x2="980" y1="173.3" y2="173.3"/>
+<text class="tk" x="574" y="177.3" text-anchor="end">0.04</text>
+<line class="grid" x1="580" x2="980" y1="70.0" y2="70.0"/>
+<text class="tk" x="574" y="74.0" text-anchor="end">0.06</text>
+<path class="b mar" d="M592.0,380.0 v-202.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v202.3 z"><title>Mar20_bc01 (2025-03-20) · nucleosome cores 0.0399 · 1,557,457 informative A calls</title></path>
+<text class="bc" x="612.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M662.0,380.0 v-171.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v171.4 z"><title>May07_bc03 (2025-05-07) · nucleosome cores 0.0340 · 2,213,592 informative A calls</title></path>
+<text class="bc" x="682.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M710.0,380.0 v-164.2 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v164.2 z"><title>May07_bc04 (2025-05-07) · nucleosome cores 0.0326 · 2,590,229 informative A calls</title></path>
+<text class="bc" x="730.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M780.0,380.0 v-291.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v291.0 z"><title>Jun25_bc21 (2025-06-25) · nucleosome cores 0.0571 · 1,762,395 informative A calls</title></path>
+<text class="bc" x="800.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M828.0,380.0 v-270.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v270.8 z"><title>Jun25_bc22 (2025-06-25) · nucleosome cores 0.0532 · 2,084,161 informative A calls</title></path>
+<text class="bc" x="848.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M876.0,380.0 v-273.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.4 z"><title>Jun25_bc23 (2025-06-25) · nucleosome cores 0.0537 · 1,608,310 informative A calls</title></path>
+<text class="bc" x="896.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M924.0,380.0 v-277.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v277.5 z"><title>Jun25_bc24 (2025-06-25) · nucleosome cores 0.0545 · 2,148,774 informative A calls</title></path>
+<text class="bc" x="944.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="612.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="706.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="872.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="580" x2="980" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="1040" y="30">Genome-wide</text>
+<line class="grid" x1="1080" x2="1480" y1="380.0" y2="380.0"/>
+<text class="tk" x="1074" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="1080" x2="1480" y1="276.7" y2="276.7"/>
+<text class="tk" x="1074" y="280.7" text-anchor="end">0.03</text>
+<line class="grid" x1="1080" x2="1480" y1="173.3" y2="173.3"/>
+<text class="tk" x="1074" y="177.3" text-anchor="end">0.06</text>
+<line class="grid" x1="1080" x2="1480" y1="70.0" y2="70.0"/>
+<text class="tk" x="1074" y="74.0" text-anchor="end">0.09</text>
+<path class="b mar" d="M1092.0,380.0 v-197.1 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v197.1 z"><title>Mar20_bc01 (2025-03-20) · genome-wide 0.0584 · 60,806,644 informative A calls</title></path>
+<text class="bc" x="1112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M1162.0,380.0 v-157.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v157.6 z"><title>May07_bc03 (2025-05-07) · genome-wide 0.0469 · 86,522,909 informative A calls</title></path>
+<text class="bc" x="1182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M1210.0,380.0 v-152.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v152.4 z"><title>May07_bc04 (2025-05-07) · genome-wide 0.0454 · 100,898,174 informative A calls</title></path>
+<text class="bc" x="1230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M1280.0,380.0 v-273.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.6 z"><title>Jun25_bc21 (2025-06-25) · genome-wide 0.0806 · 68,726,090 informative A calls</title></path>
+<text class="bc" x="1300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M1328.0,380.0 v-256.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v256.4 z"><title>Jun25_bc22 (2025-06-25) · genome-wide 0.0756 · 81,305,085 informative A calls</title></path>
+<text class="bc" x="1348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M1376.0,380.0 v-257.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v257.8 z"><title>Jun25_bc23 (2025-06-25) · genome-wide 0.0760 · 63,276,685 informative A calls</title></path>
+<text class="bc" x="1396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M1424.0,380.0 v-262.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v262.8 z"><title>Jun25_bc24 (2025-06-25) · genome-wide 0.0775 · 83,334,354 informative A calls</title></path>
+<text class="bc" x="1444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="1112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="1206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="1372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="1080" x2="1480" y1="380" y2="380"/>
+</g>
+</svg></div>
+      <ul class="upd-bul"><li>Some runs are more methylated than others.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4b NO-CALL MATH ======================= -->
+<section class="slide" data-id="4b" data-kind="main" data-sec="3" data-steps="1" data-title="How a no-call enters the model">
+  <span class="slide-no">4b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> one A on one read &middot; open (&theta; = 0.156) vs nucleosome dyad (&theta; = 0.019)</p>
+    <h2 style="font-size:44px">How a no-call enters the model</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <table class="tbl compact probs nc3">
+<thead><tr><th></th><th>Unmethylated A<br><small>p &le; 0.19</small></th><th>Methylated A<br><small>p &ge; 0.81</small></th><th>No-call A<br><small>0.19 &lt; p &lt; 0.81</small></th><th>C, G or T base<br><small>cannot carry m6A on this strand</small></th></tr></thead>
+<tbody>
+<tr class="grp"><th colspan="5">Today: Bernoulli on confident calls only</th></tr>
+<tr><th scope="row">score if open</th><td class="pn">0.844<span>1 &minus; &theta;<sub>open</sub></span></td><td class="pn">0.156<span>&theta;<sub>open</sub></span></td><td class="pn">1.000<span>1 (skipped)</span></td><td class="pn">1.000<span>1 (not scored)</span></td></tr>
+<tr><th scope="row">score if nucleosome</th><td class="pn">0.981<span>1 &minus; &theta;<sub>nuc</sub></span></td><td class="pn">0.019<span>&theta;<sub>nuc</sub></span></td><td class="pn">1.000<span>1 (skipped)</span></td><td class="pn">1.000<span>1 (not scored)</span></td></tr>
+<tr><th scope="row">evidence</th><td class="pn key">1.16&times; nucleosome</td><td class="pn key">8.10&times; open</td><td class="pn key">1&times; &mdash; no evidence</td><td class="pn key">1&times; &mdash; no evidence</td></tr>
+<tr><th scope="row">P(open) after this base<br><small>if open and nucleosome start equal (50:50)</small></th><td class="pn">0.462<span>0.844 / (0.844 + 0.981)</span></td><td class="pn">0.890<span>0.156 / (0.156 + 0.019)</span></td><td class="pn">0.500<span>1.000 / (1.000 + 1.000)</span></td><td class="pn">0.500<span>1.000 / (1.000 + 1.000)</span></td></tr>
+</tbody></table>
+    <div class="nc-layers">
+      <table class="tbl compact nclay">
+        <thead><tr><th>layer</th><th>what</th><th>at a no-call A</th></tr></thead>
+        <tbody>
+        <tr><td>0</td><td>sequence (PWM for TFs, dinucleotide model for nucleosome, base frequencies for background)</td><td><b>used as normal</b></td></tr>
+        <tr><td>1&ndash;4</td><td>MNase</td><td>off (0)</td></tr>
+        <tr><td>5</td><td>Watson m6A Bernoulli</td><td><b>0</b>: the no-call is in neither the methylated nor the unmethylated mask</td></tr>
+        <tr><td>6</td><td>Crick m6A Bernoulli</td><td>0: a read fills only its own strand's layer</td></tr>
+        </tbody>
+      </table>
+      <div class="nc-eq">
+        <p class="nc-eq-l">score of state <i>s</i> at a no-call base <i>i</i></p>
+        <p class="nc-eq-m">log e<sub>s</sub>(i) = log seq<sub>s</sub>(base<sub>i</sub>) + 0</p>
+        <p class="nc-eq-n">same as a C, G or T base; the state at <i>i</i> still comes from the neighbouring bases through forward&ndash;backward</p>
+      </div>
+    </div>
+    <ul class="upd-bul nc-bul">
+      <li>Today a no-call scores 1 in every state, so it cancels: P(s | read) = &pi;<sub>s</sub>&middot;c&middot;L<sub>s</sub> / &Sigma; &pi;<sub>t</sub>&middot;c&middot;L<sub>t</sub>.</li>
+      <li>That assumes no-calls are equally likely in every state. Measured: 14.6% of linker A's vs 7.3% in nucleosome cores.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 5 SINGLE-FIBER DECODE ======================= -->
+<section class="slide" data-id="5" data-kind="main" data-sec="3" data-steps="1" data-title="Current single-fiber decoding">
+  <span class="slide-no">5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · chrI:60,001–65,000 · 387 reads</p>
+    <h2 style="font-size:46px">Current single-fiber decoding</h2>
+    <p class="msg">Per-read P(ABF1) stays near 0.001 (max 0.0011).</p>
+  </header>
+  <div class="body figrows-wrap">
+    <div class="figrows" style="--imgw:970px">
+      <div class="fl"></div><div class="fi"><div class="mk-strip"><span class="mk s" style="left:28.36%">site 1</span><span class="mk s" style="left:53.76%">site 2</span></div></div>
+      <div class="fl">Genes</div><div class="fi figplate"><img src="img/erv46_genes.png" alt="Genes PTA1, ERV46, CDC24"></div>
+      <div class="fl">Raw m6A<small>fibers clustered on the site 2 window</small></div><div class="fi figplate"><img src="img/erv46_raw.png" alt="Raw m6A per fiber, clustered"></div>
+      <div class="fl">P(nucleosome)<small>0 to 1</small></div><div class="fi figplate"><img src="img/erv46_nuc.png" alt="Per-read nucleosome posterior"></div>
+      <div class="fl">P(ABF1)<small>colour scale 0 to 0.0011</small><button type="button" class="zoom-btn" data-src="img/erv46_full.png" data-title="ERV46 chrI:60,001-65,000, 387 reads, filtered rDNA-free model (all panels)">Full figure</button></div><div class="fi figplate"><img src="img/erv46_abf1.png" alt="Per-read ABF1 posterior, scale 0 to 0.0011"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 ABF1 PRIOR SWEEP ======================= -->
+<section class="slide" data-id="6" data-kind="hidden" data-sec="3" data-steps="1" data-title="Raised genome-wide ABF1 prior">
+  <span class="slide-no">6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · ABF1 prior × 1, 138, 400, 1500, 5000</p>
+    <h2 style="font-size:46px">Raised genome-wide ABF1 prior (×1500)</h2>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <div class="figplate"><img class="full" src="img/abf1_sweep_summary.png" alt="ABF1 prior sweep: per-read posterior, fraction of reads above 0.5, and off-site calls versus the prior multiplier"></div>
+    <ul class="upd-bul">
+      <li>All reads rise together: at ×1500, 72% of site-2 reads pass 0.5 (100 of 138). Site 1 stays at 0.01.</li>
+      <li>A spot with no motif site (61,656–61,669) rises too. At ×5000 it passes 0.5 in 133 reads.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 7 LOCAL PRIOR ======================= -->
+<section class="slide" data-id="7" data-kind="main" data-sec="3" data-steps="1" data-title="Local prior (per-site bound fraction)">
+  <span class="slide-no">7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · chrI:60,901–62,900 · same reads, same order</p>
+    <h2 style="font-size:46px">Local prior (per-site bound fraction)</h2>
+    <p class="msg">Local prior: both sites called. Global ×1500: site 2 only.</p>
+  </header>
+  <div class="body figrows-wrap">
+    <div class="figrows" style="--imgw:960px">
+      <div class="fl"><span class="fl-k">reads with P(ABF1) &gt; 0.5</span></div><div class="fi"><div class="mk-strip"><span class="mk s" style="left:19.95%">site 1</span><span class="mk s" style="left:83.47%">site 2</span><span class="mk x" style="left:40.82%">no-site spot</span></div></div>
+      <div class="fl">Before<small>site 1 <b>0%</b> · site 2 <b>0%</b></small></div><div class="fi figplate"><img src="img/cmp_before.png" alt="P(ABF1) before, current defaults"></div>
+      <div class="fl">Local prior<small>site 1 <b>94%</b> · site 2 <b>93%</b></small></div><div class="fi figplate"><img src="img/cmp_local.png" alt="P(ABF1) with the local prior"></div>
+      <div class="fl">Global ×1500<small>site 1 <b>0%</b> · site 2 <b>72%</b></small><small class="ref">site-mixture f: site 1 0.72 · site 2 0.61</small><button type="button" class="zoom-btn" data-src="img/cmp_full.png" data-title="ERV46 chrI:60,901-62,900: raw m6A, P(ABF1) before / local prior / global x1500, per-site scatter">Full figure</button></div><div class="fi figplate"><img src="img/cmp_global.png" alt="P(ABF1) with the genome-wide prior raised 1500 times"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 PLACEHOLDER ======================= -->
+<section class="slide" data-id="8" data-kind="main" data-sec="3" data-steps="1" data-tag="PENDING" data-title="To be added">
+  <span class="slide-no">8</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Next</p>
+    <h2>Slide to be added</h2>
+  </header>
+  <div class="body stack"><div class="placeholder">Placeholder</div></div>
+</section>
+
+<!-- ======================= 9 PLACEHOLDER ======================= -->
+<section class="slide" data-id="9" data-kind="main" data-sec="3" data-steps="1" data-tag="PENDING" data-title="To be added">
+  <span class="slide-no">9</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Next</p>
+    <h2>Slide to be added</h2>
+  </header>
+  <div class="body stack"><div class="placeholder">Placeholder</div></div>
+</section>
+
+<!-- ======================= 7b PER-READ VS MOTIF m6A ======================= -->
+<section class="slide" data-id="7b" data-kind="main" data-sec="3" data-steps="1" data-title="Per-read P(ABF1) vs methylated motif As">
+  <span class="slide-no">7b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Local prior · per read</p>
+    <h2 style="font-size:46px">Per-read P(ABF1) vs methylated As in the motif</h2>
+    <p class="msg">The local prior over-calls site 1: 94% of reads above 0.5, against a bound fraction f = 0.72.</p>
+  </header>
+  <div class="body stack" style="gap:18px">
+    <div class="figplate"><img class="full" src="img/cmp_scatter.png" alt="Per-read P(ABF1) at site 1 and site 2 against the number of methylated As in the motif, for before, local prior, global x1500 and the site-mixture model"></div>
+  </div>
+</section>
+
+<!-- ======================= 3b NEXT ======================= -->
+<section class="slide" data-id="3b" data-kind="main" data-sec="2" data-steps="1" data-title="Single-fiber model decisions: next">
+  <span class="slide-no">3b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> Single-fiber model decisions</p>
+    <h2 style="font-size:46px">Still to decide / to do</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <div class="callout dec-first"><span class="lab">#1 · blocks every per-read TF call</span>
+      <span class="dc">Per-read TF calls: method</span><span class="ds">local prior vs raised global prior: being compared</span><br><span class="dc">Local occupancy: site-specific TF prior per read</span><span class="ds">per-site EM f, cross-fit by run; HMM weight later</span></div>
+    <div class="dec-grid"><ol class="dec"><li><span class="dn">2</span><span class="dc">Move site_mixture.py and other read_calls users to _filtnordna</span><span class="ds">yes, into a new output dir (needs OK)</span></li><li><span class="dn">3</span><span class="dc">Validation design for per-read TF calls</span><span class="ds">add open-DNA no-ChIP controls; Rossi held out</span></li><li><span class="dn">4</span><span class="dc">Run labelling difference (Jun25 ≈ 1.65× May07)</span><span class="ds">one scale factor per run first</span></li><li><span class="dn">5</span><span class="dc">Background value + TF fallback</span><span class="ds">keep 0.156 for now; decide with #6</span></li><li><span class="dn">6</span><span class="dc">Prior shares and concentrations</span><span class="ds">fix nucleosome share (11.5%) first</span></li><li><span class="dn">7</span><span class="dc">ABF1 footprint for per-read work</span><span class="ds">bound-class flank rate; keep p_bound fixed</span></li><li><span class="dn">8</span><span class="dc">Poly-dA:dT hypomethylation</span><span class="ds">run-length term in the free class</span></li></ol><ol class="dec"><li><span class="dn">9</span><span class="dc">No-call emission and p calibration</span><span class="ds">3-outcome emission, after #1–#4</span></li><li><span class="dn">10</span><span class="dc">Which factor after ABF1</span><span class="ds">REB1; check its footprint sign first</span></li><li><span class="dn">11</span><span class="dc">Scale, output and viewer</span><span class="ds">all ABF1/REB1 sites genome-wide, per-site model</span></li><li><span class="dn">12</span><span class="dc">Trimming and consensus flags at scale</span><span class="ds">no trim; decode whole reads; annotate flags</span></li><li><span class="dn">13</span><span class="dc">Aggregate model on _filtnordna + start anywhere</span><span class="ds">yes, as a new aggregate tree</span></li><li><span class="dn">14</span><span class="dc">Code inconsistencies from the review</span><span class="ds">fix list; test_5to3.py fails on new defaults</span></li></ol></div>
+    <p class="foot txt dec-link">All rows, with values, evidence paths and dates: shared sheet <b>FiberCOP model choices</b> · <span class="m">https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT</span></p>
+  </div>
+</section>
+
+</div>
+</div>
+
+<div id="notes" hidden><h5 id="notes-h">Speaker notes</h5><p id="notes-p"></p></div>
+
+<div id="overview" hidden>
+  <header>
+    <h3>All slides</h3>
+    <div class="kl">
+      <span><kbd>→</kbd> <kbd>space</kbd> <kbd>PgDn</kbd> <kbd>wheel</kbd> next</span>
+      <span><kbd>←</kbd> <kbd>PgUp</kbd> back</span>
+      <span><kbd>Home</kbd> <kbd>End</kbd></span>
+      <span><kbd>h</kbd> include hidden slides + content</span>
+      <span><kbd>n</kbd> notes</span>
+      <span><kbd>o</kbd> / <kbd>Esc</kbd> close</span>
+      <span><kbd>f</kbd> fullscreen</span>
+    </div>
+  </header>
+  <div class="ov-grid" id="ov-grid"></div>
+</div>
+
+<nav id="hud" aria-label="Slide navigation">
+  <span class="brand">Lab meeting · 3 Nov 2026</span>
+  <div id="ideo"></div>
+  <span id="hudtag"></span>
+  <span id="counter" aria-live="polite"></span>
+  <button class="hudbtn" id="btn-h" type="button" aria-pressed="false" title="Include hidden and backup slides (h)">h</button>
+  <button class="hudbtn" id="btn-n" type="button" aria-pressed="false" title="Speaker notes (n)">n</button>
+  <button class="hudbtn" id="btn-o" type="button" title="Overview (o)">o</button>
+</nav>
+<div id="zoom" hidden role="dialog" aria-modal="true" aria-labelledby="zoom-t"><div class="zoom-bar"><span id="zoom-t"></span><button type="button" id="zoom-x">Close (Esc)</button></div><div class="zoom-sc"><img id="zoom-img" alt=""></div></div>
+
+<script>
+(function(){
+"use strict";
+var NOTES = {"T": "Last week the background m6A rate went from 0.138 (barcode01 only) to 0.155 (all seven barcodes). Today: where that comes from, and the read filters we will use for the refit.", "1": "The jump is a run effect. The four 2025-06-25 barcodes are higher than the other two runs in linkers, in nucleosome cores and genome-wide, by about the same factor. Pooling all seven barcodes mixes runs with different labelling levels, which is why the pooled background moved. Run dates come from the run folder names (Mar_20_25, May_07_25, Jun_25_25 under process_nanopore_sequencing/) and match the @RG DT field of the merged BAM (DT 2025-03-20, 2025-05-07, 2025-06-25; samtools view -H). Rates on this slide are recomputed on the FINAL keep list (filtered_refit_nordna/keep_reads.txt, 667,502 reads: rDNA excluded, one pooled MAD fence) from the per-read table bg_investigation/nov03/perread_nov03.tsv.gz (columns lkw_*, ncB_*, gw_*), by bg_investigation/nov03_final/rates_final.py. Final (linker / core / genome-wide): Mar20_bc01 0.143 / 0.040 / 0.058; May07_bc03 0.117 / 0.034 / 0.047; May07_bc04 0.114 / 0.033 / 0.045; Jun25_bc21 0.193 / 0.057 / 0.081; Jun25_bc22 0.183 / 0.053 / 0.076; Jun25_bc23 0.184 / 0.054 / 0.076; Jun25_bc24 0.187 / 0.054 / 0.077. Earlier per-run Tukey set, as shown before: Mar20_bc01 0.141 / 0.039 / 0.058; May07_bc03 0.115 / 0.033 / 0.047; May07_bc04 0.112 / 0.031 / 0.046; Jun25_bc21 0.192 / 0.057 / 0.082; Jun25_bc22 0.182 / 0.053 / 0.077; Jun25_bc23 0.183 / 0.053 / 0.077; Jun25_bc24 0.186 / 0.054 / 0.079. Unfiltered: Mar20_bc01 0.141 / 0.041 / 0.065; May07_bc03 0.117 / 0.035 / 0.056; May07_bc04 0.113 / 0.033 / 0.054; Jun25_bc21 0.192 / 0.058 / 0.088; Jun25_bc22 0.181 / 0.054 / 0.082; Jun25_bc23 0.182 / 0.054 / 0.083; Jun25_bc24 0.185 / 0.055 / 0.084. The conclusion does not change: Jun25 is highest, May07 lowest, under every read set.", "2": "Filters run top to bottom; each read is counted once, at the first filter that removes it. Order: flag / no MM tags, chrM, rDNA, MAPQ < 20, aligned < 500 bp, qs < 10, then the outlier fence. MAPQ is the aligner's confidence in the placement: MAPQ = -10 log10(P(wrong place)), so 20 means a 1% chance the read is misplaced. qs is dorado's mean base quality of the read on the same scale: qs 10 means about 90% of bases are right. The reads are untrimmed, but the ~117 bp 5' adapter flank is soft-clipped by the aligner in 99% of reads, and it does not change MAPQ meaningfully: trimming and re-aligning 3,500 random reads moved 10 from below MAPQ 20 to above and 6 the other way (trim_check/analyze.out; trim_check/realign/compare.out, clipcut). Outlier fence: ONE pooled fence over all 7 barcodes (no longer one per run): median 0.0618, MAD 0.0223, fence median +- 4 x 1.4826 x MAD = [-0.070, 0.194], over 676,737 judged reads (>= 50 informative A calls). It removed 9,270 hypermethylated reads and 0 hypomethylated. By run: Mar20 1,067 (0.90% of reads before the fence); May07 2,591 (1.15% of reads before the fence); Jun25 5,612 (1.68% of reads before the fence). Kept 667,502 of 1,189,672 mapped reads (56.1% of reads, 72.5% of informative A calls). Sources: filtered_refit_nordna/filter_summary.tsv, fence.json, scripts/make_keep.py.", "2b": "Where: chrXII:451,418-468,929 holds two copies of a 9,137 bp rDNA unit in sacCer3; the real genome has about 150 copies in tandem (rDNA self-similarity scan, rdna_check/; checked here: sequence at x equals sequence at x + 9,137 over the whole 8,375 bp overlap, so the second copy is 8,375 bp and the last 762 bp of copy 1, chrXII:459,793-460,554, exist only once). Reads: 198,847 of 1,189,672 primary mapped reads overlap it (rdna_check/merged_*.rdna.tsv; filtered_refit_nordna/rdna_reads.txt). Share of all mapped reads by run: Mar20 17.0%; May07 16.9%; Jun25 16.4% (filter_summary.tsv). Depth 989.6x vs 52.5x for the rest of the genome in the merged pileup, 723.1x vs 51.6x in the filtered pileup (rdna_check/pileup_cov_rdna_vs_rest.txt). MAPQ: 131,546 rDNA reads at MAPQ 0, 58,230 at MAPQ 60; 68% of rDNA reads are MAPQ < 20 vs 4% of other nuclear reads (trim_check/analyze.out, class counts). 62,676 of the 63,707 MAPQ >= 20 rDNA reads touch the stretch present in only one reference copy (start + read length, rdna_check tsv), so their high MAPQ says they are unique in the reference, not that they come from one place in the cell. Methylation: pooled m6A 0.1066 rDNA vs 0.0649 rest (merged pileup; 0.0947 vs 0.0649 after filters). Median per-read rate among kept reads of the with-rDNA set (rdna_check/kept_rates.tsv.gz, >= 50 calls): 0.099 vs 0.061; by barcode rDNA vs rest: Mar20_bc01 0.097 vs 0.056; May07_bc03 0.083 vs 0.044; May07_bc04 0.082 vs 0.043; Jun25_bc21 0.113 vs 0.079; Jun25_bc22 0.108 vs 0.074; Jun25_bc23 0.111 vs 0.075; Jun25_bc24 0.111 vs 0.076. Before the fence, 15.6% of judged rDNA reads were above 0.18 vs 1.8% of other reads, with a tail to about 0.45 (99.9th percentile 0.394; 6 reads above 0.45). Hypothesis, not tested: a mix of open (transcribed) and closed rDNA copies. Among kept reads of the with-rDNA set, rDNA was 5.5% of Mar20, 6.6% of Jun25 and 8.6% of May07 reads, so it also differs by run. Fence: with rDNA in, 5,947 of 13,656 fence removals (43.5%) were rDNA reads though rDNA was 7.75% of judged reads; upper fence 0.2036 (filtered_refit/fence.json) -> 0.1940 without rDNA (filtered_refit_nordna/fence.json). Fitted rates (filtered_refit_nordna/fits/compare_fits.txt): background Watson 0.156480 -> 0.156354, nucleosome mean ratio 0.99771, all TF footprint means within 1.3%. No Chereji +-1 nucleosome and no Brogaard top-2000 dyad lies within 100 bp of the rDNA (checked on inputs/Chereji_2018_+1_-1_nucs.bed and the Brogaard bed); the TF fitting windows were not checked one by one. The small shifts come from the fence moving, which also drops some non-rDNA reads. Decoder: chrXII rDNA is where the old (non-log) decoder emitted invalid posteriors, up to 1e171 (CLAUDE.md gotchas; POSTERIOR_SCALING.md). Numbers computed by bg_investigation/nov03_final/rates_final.py -> rdna_checks.json.", "H1": "Pooled rates move by at most a few thousandths between read sets; linker rates hardly move at all. Brogaard cores and Chereji cores give the same ordering; Chereji cores read a little higher. The final row is the keep list used for the refit (rDNA excluded, one pooled MAD fence).", "8": "Placeholder.", "9": "Placeholder.", "3": "Every row here is a row of the shared sheet FiberCOP model choices (https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT), stage Model 8 Single-fiber; slide and sheet are written from the same file, presentation/lab_nov03/decisions_rows.json. Sources: SINGLEFIBER_PLAN.md, reports/2026-11-02_report.md. Row by row: Read filters: primary + mapped reads with MM tags; drop chrM; drop rDNA reads (own step); MAPQ ≥ 20; aligned length ≥ 500 bp (not 1 kb); dorado qs ≥ 10; then the pooled MAD fence. Kept 667,502 of 1,189,672 reads (56.1%) (2026-11-02 (was 2026-09-28: no MAPQ filter); decided by user). Evidence: filter order flag/no-MM → chrM → rDNA → MAPQ → length → qs → fence; per-run counts in /usr/project/xtmp/nd141/filtered_refit_nordna/filter_summary.tsv; reports/2026-11-02_report.md §3; SINGLEFIBER_PLAN.md 'Decisions 2026-11-02 (user)'. Revisit: Other read_calls callers (site_mixture, checks, plots) still read unfiltered reads (open #2) | rDNA reads: reads overlapping chrXII:451,418–468,929 removed as their own filter step, before the MAD fence (198,844 reads) (2026-11-02; decided by user). Evidence: /usr/project/xtmp/nd141/rdna_check/; reports/2026-11-02_report.md §3; SINGLEFIBER_PLAN.md 'Done 2026-11-02 (later)'; refit moved every param < 1.5% (filtered_refit_nordna/fits/compare_fits.txt) | Read trimming / realignment: none: reads stay untrimmed (--no-trim); the aligner soft-clips the ~117 bp 5′ adapter + barcode (2026-11-02; decided by user). Evidence: /usr/project/xtmp/nd141/trim_check/ (analyze.out, realign/compare.out); reports/2026-11-02_report.md §1 | Per-read m6A outlier cap: ONE pooled fence over all 7 barcodes: median ± 4·1.4826·MAD of the genome-wide per-read m6A rate, reads with ≥ 50 informative calls (fewer: kept unjudged). Bounds [−0.070, 0.194]; removed 9,270 hyper, 0 hypo (2026-11-02; decided by user). Evidence: /usr/project/xtmp/nd141/filtered_refit_nordna/fence.json (median 0.0618, MAD 0.0223, 676,737 judged, n_keep 667,502); reports/2026-11-02_report.md §3. Revisit: 4·MAD multiplier and ≥ 50 calls not tuned | Per-read m6A call threshold: modkit's own rule (10th percentile of call confidence max(p,1−p)), run once on the filtered BAM → 0.8105469; fixed at that value everywhere (--call-thresh) (2026-11-02 (was 2026-09-28); decided by user). Evidence: modkit sample-probs on filtered.bam, 3 runs, all 0.8105469 (/usr/project/xtmp/nd141/filtered_refit_nordna/threshold.txt); reader = modkit on 6,371 chrIV positions; reports/2026-11-02_report.md §2 | Per-A call labels: skipped A (not in MM) and ML ≤ 48 → unmethylated (0); ML ≥ 207 → methylated (1); ML 49–206 → no-call (−1, adds 0 to the log-likelihood). Shares of all As: 84.1% / 6.0% / 9.9% (2026-11-02; decided by user). Evidence: reports/2026-11-02_report.md §2 (table); no-calls 14.5% of linker As vs 9.9% genome-wide. Revisit: No-calls carry signal (open #9) | Background m6A rate (single-fiber): ONE pooled value from all 7 barcodes, refit on filtered rDNA-free reads: Watson 0.1564 / Crick 0.1544 (inputs/bg_params_filtnordna.pkl). Aggregate decodes keep the hand-set bg_params_open.pkl (0.249) for now (2026-11-02; decided by user). Evidence: /usr/project/xtmp/nd141/filtered_refit_nordna/fits/bg.json (0.15635 / 0.15437); /usr/project/xtmp/nd141/bg_investigation/{perread,nov03}/; SINGLEFIBER_PLAN.md 'Decisions 2026-11-02 (user)'. Revisit: User expects to raise it by hand later (open #5) | Read set for all m6A fits: background, nucleosome (Brogaard sym) and TF footprint m6A params all refit on the filtered rDNA-free pileup: inputs/{bg_params,nucleosome_params_brogaard_sym,all_TFs_1000pealVal_params_pseudo}_filtnordna.pkl. TF footprints were already all 7 barcodes (2026-11-02; decided by user). Evidence: TF fit gate: on the unfiltered pileup it reproduces all_TFs_1000pealVal_params_pseudo.pkl bit-exactly (/usr/project/xtmp/nd141/filtered_refit/tf_gate/gate_13237237.out: all_bit_identical=True); TF source abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:1123 reads the merged pileup; changes vs _filt < 1.5% (filtered_refit_nordna/fits/compare_fits.txt). bg/nuc gate verified: on the unfiltered pileup bg_fit --check matches inputs/bg_params_merged.pkl (8/8 bit_identical) and the nucleosome fit matches nucleosome_params_brogaard_sym_all7.pkl ('NUC GATE bit_identical True') (/usr/project/xtmp/nd141/filtered_refit/fits/slurm_13237362.out; script fits/fit_bg_nuc.sh). Revisit: Aggregate model still on old params (open #13) | One background file: inputs/bg_params_all7.pkl (byte-identical copy) replaced by a symlink to bg_params_merged.pkl; new code uses bg_params_merged.pkl (2026-11-02; decided by user). Evidence: SINGLEFIBER_PLAN.md 'Decisions 2026-11-02 (user)' | Start rule for per-read decodes: Start anywhere: long-run (stationary) vector — each feature's start chance on every one of its bases, then normalised (default in the 5to3 driver; motif1st kept as an option) (2026-10-30; decided by user). Evidence: 100-read test: direction gap 0.75 → 0.21 (old nucleosome model), 0.068 (Brogaard symmetric); exact agreement (4e-12) with a symmetric model (permol_proto_logfull/dirtest100, nucbrog/). 2026-11-02: verified by power iteration on a toy (/usr/project/xtmp/nd141/startend_check/start/worked_example.md; reports/2026-11-02_report.md §4) | End rule for per-read decodes: end anywhere: every state gets 1 at the last base of the backward pass (algo_log.c:197-198). The end vector is also multiplied into the last forward row (algo_log.c:148-149; upstream algo.c:111): harmless while all ones (2026-11-02; decided by user). Evidence: brute-force toy ≤ 4e-16; log-likelihood matches plain forward-backward to 3e-13 (/usr/project/xtmp/nd141/startend_check/end/; reports/2026-11-02_report.md §5). Revisit: If a non-uniform end vector is ever used, drop it from one pass | Decoding direction: new driver default --direction 5to3: Crick reads decoded on the reverse complement in their own 5'->3' frame, posterior mapped back; old behaviour = ref (2026-10-26; decided by user). Evidence: 100-read direction test (permol_proto_logfull/dirtest100); SINGLEFIBER_PLAN.md 'Update 2026-10-26 → 10-30' table | Nucleosome sequence model for single-fiber: Brogaard top-2000 dyads, Watson + reverse complement pooled, centred at BED start (adopted as single-fiber default) (2026-10-30; decided by user). Evidence: asymmetry 0.40 → 0.058 log10; direction gap 0.21 → 0.068; Chereji dyads 4/4 → 3/4 at ERV46 (61,336 lost, caused by the sequence model; cause not investigated). Revisit: Lost Chereji dyad 61,336 (not investigated). chrXIV score done: Chereji recall unchanged 0.808, dyad error 8 bp (SINGLEFIBER_PLAN.md 'Update 2026-10-26 → 10-30') | Reference vs read sequence (consensus rule): always decode the reference; FLAG only: coverage >= 10 and one alt base > 50% of reads (also low coverage, majority indel) (2026-10-28; decided by user). Evidence: genome scan 11,433 flags (/usr/project/xtmp/nd141/consensus_scan/); 0 at ERV46; flags drawn in the posterior viewer (SINGLEFIBER_PLAN.md 'Update 2026-10-26 → 10-30'). Revisit: 10 and 0.5: reason not recorded; count triggers per chromosome | Decoder numerics for single-fiber: log space, ROBOCOP_LOG_EMISSION=exact (2026-10-25; decided by user). Evidence: Matches linear prototype to 3e-8; 7/7 unit tests pass", "3b": "Open items, ranked by how much they block per-read results, from reports/2026-11-03_singlefiber_decisions.md. Each is a sheet row with decided_by 'open (user)' and the review's recommendation in its Revisit field. Row by row: #1 Per-read TF calls: method: Being compared (reports/2026-11-03_local_prior.md, reports/2026-11-03_abf1_prior_sweep.md); next: bound-only ABF1 rate (Part 2b) if local prior is chosen One read gives ~2–4× LR against a −16.2-nat ABF1 entry cost; a global prior lifts every read equally. | #1 Local occupancy: site-specific TF prior per read: Review recommends: Estimate f per site with the per-site EM mixture. Use it (a) now as the per-read answer at known sites, (b) later as a per-position weight on the TF's first state via the existing emission hook (no C change; equivalence unverified). Cross-fit f by RUN for validation. Candidate sites from a genome-wide PWM scan; MacIsaac/Rossi only as labels. Not for nucleosomes. Blocks: Every per-read TF call: per-read ABF1 ≤ 0.0011 everywhere (erv46_5to3_nordna/permol.npz). | #2 Move site_mixture.py and other read_calls users to _filtnordna: Review recommends: Yes; pass nuc/bg files and the keep list through load_site / em; rerun into e.g. tf_compare/mixture_pb0p02_filtnordna. Report as one model update (rule 7). Blocks: Rerunning #1 on the current model. | #3 Validation design for per-read TF calls: Review recommends: Add accessibility-matched controls (PWM hits in NDRs, no ChIP, matched on A/T runs and call count). Keep Rossi held out. FiberHMM as baseline still open. Blocks: Trusting any result from #1. | #4 Run labelling difference (Jun25 ≈ 1.65× May07): Review recommends: Try one scale factor per run (3–7 numbers) before per-read --eff 1. Never fit f across runs without it. Blocks: Per-read posteriors biased by run. | #5 Background value + TF fallback: Review recommends: Keep 0.156. Either set the fallback to background, or treat unknown openly as the open-DNA state. Do not raise bg before #1 is re-validated. Blocks: What 'free' means; the size of unknown. | #6 Prior shares and concentrations: Review recommends: Fix the nucleosome share first (target from aggregate occupancy, hold-nucleosome style); then unknown; then which λ set. Blocks: Calibrated per-read nucleosome occupancy (read-average 0.58 at ERV46); route #1(b). | #7 ABF1 footprint for per-read work: Review recommends: In the per-site model give the bound class its own elevated flank rate (about −30..−14 and +16..+43), window ±45. Keep p_bound fixed; report sensitivity. Blocks: Sharpness of per-read posteriors (0 of 42 MacIsaac sites have a median read > 0.9). | #8 Poly-dA:dT hypomethylation: Review recommends: Add a run-length multiplier to the free class in the per-site model first, then decide on the HMM. Blocks: False bound calls at A/T-rich sites. | #9 No-call emission and p calibration: Review recommends: 3-outcome (meth / canon / no-call) emission after #1–#4; ask whether unmethylated / fully methylated control samples exist. Blocks: Small gain in open DNA; not blocking. | #10 Which factor after ABF1: Review recommends: REB1 next in the per-site model with its own fitted p_bound, after the #7 flank change; check the bound class comes out protected. Blocks: Extending #1. | #11 Scale, output and viewer: Review recommends: Next: all MacIsaac ABF1/REB1 sites with the per-site model (cheap). Genome HMM only after #1(b). Decide output columns/precision and a per-read viewer panel. Blocks: Genome-scale per-read results. | #12 Trimming and consensus flags at scale: Review recommends: Keep no trim. Decode the whole read span, not window-clipped pieces. Annotate (not drop) TF calls on flagged positions. Blocks: Minor. | #13 Aggregate model on _filtnordna + start anywhere: Review recommends: Yes: filtered pileup + _filtnordna pkls + start anywhere in a new tree (rule 3); the hand-set background stays a separate choice. Blocks: Comparing per-read with aggregate on equal terms. | #14 Code inconsistencies from the review: Review recommends: Fix the §14 list; test_5to3.py should fail assert_verbatim on current defaults (derived from code, not run). Blocks: Regression testing.", "4": "Call rule (singlefiber/read_calls.py, same as modkit pileup): p = ML/255. Methylated if p >= 0.8105469; unmethylated if p <= 0.1894531 or the A is not listed in MM (dorado does not list A below about p = 0.05; tag mode A+a. means unlisted = canonical); in between = no call, dropped like modkit drops it from Nvalid_cov. Threshold: /usr/project/xtmp/nd141/filtered_refit_nordna/threshold.txt (modkit 0.2.6 sample-probs, 10th percentile of sampled A call confidence, 3 runs all 0.8105469). Chart = slide 1's chart on the final keep list (bg_investigation/nov03_final/rates_final.tsv). Jun25 / May07 pooled rate: linkers 0.1864 / 0.1153 = 1.62x; nucleosome cores 0.0546 / 0.0332 = 1.64x; genome-wide 0.0774 / 0.0461 = 1.68x. Mar20 sits in between (linkers 0.1426, cores 0.0399, genome-wide 0.0584).", "5": "ERV46 chrI:60,001-65,000, 387 reads, the filtered rDNA-free model (run_permol_window_logfull_5to3.py defaults: 5'->3', start anywhere, Brogaard symmetric nucleosome, _filtnordna bg/nuc/TF rates). Shown: genes, raw m6A in clustered order, P(nucleosome), P(ABF1) on a 0 to 0.0011 scale. The full figure (button) also has mean P(accessible), pooled m6A, raw m6A shuffled and per-read P(accessible). Clustering: PCA + UMAP + HDBSCAN on the site 2 window 62,540-62,790; 122 reads cover it, 265 do not. Site 1 per-read P(ABF1) median 6.5e-06, site 2 median 0.00088 (max 0.0011); 0 reads above 0.5 (abf1sweep/sweep_summary.json, key 1; figures/erv46_2026-11-02/filtnordna/fig.log: ABF1 max posterior over the window 0.00112444).", "6": "Genome-wide ABF1 prior multiplied by 1, 138, 400, 1500, 5000 (trainDirs robocop_train_fiberonly_nucbrogsym[_abf1xN]), same 387 reads. Source /usr/project/xtmp/nd141/permol_proto_logfull/abf1sweep/sweep_summary.json. x1: site 2 median 0.000882 (IQR 0.000595-0.001), 0/138 reads > 0.5; site 1 median 6.54e-06, 0/142 > 0.5; gene-body control median 6.6e-10; nucleosome-core control median 7.8e-07; reads with an off-site call > 0.5: 0; x138: site 2 median 0.109 (IQR 0.0759-0.122), 0/138 reads > 0.5; site 1 median 0.000901, 0/142 > 0.5; gene-body control median 9.1e-08; nucleosome-core control median 0.00011; reads with an off-site call > 0.5: 0; x400: site 2 median 0.261 (IQR 0.192-0.286), 0/138 reads > 0.5; site 1 median 0.00261, 0/142 > 0.5; gene-body control median 2.6e-07; nucleosome-core control median 0.00031; reads with an off-site call > 0.5: 0; x1500: site 2 median 0.572 (IQR 0.473-0.602), 100/138 reads > 0.5; site 1 median 0.00971, 0/142 > 0.5; gene-body control median 9.9e-07; nucleosome-core control median 0.0011; reads with an off-site call > 0.5: 0; x5000: site 2 median 0.819 (IQR 0.751-0.836), 131/138 reads > 0.5; site 1 median 0.0316, 0/142 > 0.5; gene-body control median 3.3e-06; nucleosome-core control median 0.0037; reads with an off-site call > 0.5: 133. At x5000 the off-site calls are 133 reads at 61,656-61,669 and 1 read at 61,083-61,090. Per-read posterior falls with methylated motif As (Spearman -0.73 at site 2) but the whole distribution moves up together, so the prior sets the level, not which reads are bound. Posteriors valid in every arm (no NaN, row sums within 1.5e-14).", "7": "Local prior: the ABF1 weight at each MacIsaac site is calibrated so that the decode's bound fraction matches the site-mixture f, with each read's own run held out (compare_localprior/sites_w.tsv; 280 placements over 199 reads). Source /usr/project/xtmp/nd141/permol_proto_logfull/compare_localprior/compare_summary.json. Per-read P(ABF1) median, site 1: before 6.5e-06, local 0.81, global x1500 0.0097; site 2: before 0.00088, local 0.79, global 0.57. Fraction of reads > 0.5, site 1: 0% / 94% / 0%; site 2: 0% / 93% / 72%. Site-mixture f (tf_compare/mixture_filtnordna_pb0p02/sites_f.tsv): site 1 0.715, site 2 0.615. So the local prior over-calls: 94% of site 1 reads > 0.5 against f = 0.72. Agreement with the site-mixture per-read call at 0.5 (held-out run): site 1 local 94%, global 11%; site 2 local 77%, global 75%. Controls: gene body 64,001 and nucleosome core 61,491 unchanged by the local prior; no reads with an off-site call > 0.5 in any arm. Nucleosome posterior moves little (mean abs diff vs before 0.0009 local, 0.0022 global).", "7b": "Same reads as slide 7. x = methylated As inside the motif on the read's own strand (jittered); y = per-read P(ABF1) over the motif. Grey = site-mixture per-read posterior (site_mixture.py). Before is flat at 0; the local prior keeps the ordering by motif m6A but sits high at 0 methylated As. Spearman of P(ABF1) vs methylated motif As, local prior: site 1 -0.58, site 2 -0.72."};
+var SEC_NAMES = ["Title","Barcodes and read filters","Model decisions","Single-fiber update"];
+
+/* ---------------- locus slides: occupancy-browser tracks ----------------
+   One component for every .trk[data-locus="<json id>"]. Data: build_locus_slide.py
+   (analysis/make_posterior_viewer.py underneath), posteriors as round(p*1000), one window.
+   Drawing follows posterior_viewer_template.html: posterior panel with reference bands,
+   min/max envelope once there is more than one bp per pixel, m6A dots per A per strand,
+   genes, axis. Step 3 outlines each reference site and labels it hit/miss by the call run's
+   max posterior within +-call.tol bp of the site (hit if >= call.thr). */
+var TRK_GUT = 56, TRK_RPAD = 12;
+function trkTicks(span, target){
+  var raw = span/target, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  var ms = [1,2,5,10];
+  for (var k=0;k<ms.length;k++) if (raw <= ms[k]*mag) return ms[k]*mag;
+  return 10*mag;
+}
+function trkFmt(v){ return v.toLocaleString("en-US"); }
+var LOCUS_DATA = {};
+function locusData(id){
+  if (!(id in LOCUS_DATA)){
+    try { LOCUS_DATA[id] = JSON.parse(document.getElementById(id).textContent); } catch(e){ LOCUS_DATA[id] = null; }
+  }
+  return LOCUS_DATA[id];
+}
+function drawLocus(root, T){
+  if (!root || !T) return;
+  var n = T.e - T.s + 1;
+  var call = T.call || {run:"fib+seq", thr:0.10, tol:20};
+  var rs = getComputedStyle(document.documentElement);
+  var tok = function(k){ return rs.getPropertyValue(k).trim(); };
+  var mono = tok("--f-mono") || "monospace";
+  var labs = root.querySelectorAll(".trk-lab"), cvs = root.querySelectorAll("canvas");
+  root.querySelector(".trk-sites").style.gridArea = "1 / 2 / 2 / 3";
+  var nPost = 0;
+  for (var r=0;r<cvs.length;r++){
+    labs[r].style.gridArea = (r+2)+" / 1 / "+(r+3)+" / 2";
+    cvs[r].style.gridArea = (r+2)+" / 2 / "+(r+3)+" / 3";
+    if (cvs[r].dataset.trk === "post" || cvs[r].dataset.trk === "meth") nPost = r + 1;
+  }
+  var hl = root.querySelector(".trk-hl");
+  hl.style.gridArea = "2 / 2 / "+(nPost+2)+" / 3";   /* outlines span run rows + m6A panel */
+  var W = Math.max(200, Math.floor(cvs[0].clientWidth || root.clientWidth - 164));
+  var plotW = Math.max(120, W - TRK_GUT - TRK_RPAD);
+  var ratio = Math.min(4, Math.max(2, 2*(window.devicePixelRatio||1)));
+  var xOf = function(p){ return TRK_GUT + (p - T.s + 0.5)/n*plotW; };
+  var line2 = tok("--rule-2"), line = tok("--rule"), ink3 = tok("--muted"), ink2 = tok("--ink-2");
+
+  function setup(c){
+    var h = +c.dataset.h;
+    c.width = Math.round(W*ratio); c.height = Math.round(h*ratio);
+    var ctx = c.getContext("2d");
+    ctx.setTransform(ratio,0,0,ratio,0,0); ctx.clearRect(0,0,W,h);
+    return {ctx:ctx, h:h};
+  }
+  function gridX(ctx, h){
+    var step = trkTicks(n, 8);
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,h);
+    }
+    ctx.stroke();
+  }
+  function frame(ctx, h){ ctx.strokeStyle = line; ctx.lineWidth = 1; ctx.strokeRect(TRK_GUT+0.5, 0.5, plotW-1, h-1); }
+  function yGrid(ctx, y, labels){
+    ctx.strokeStyle = line2; ctx.lineWidth = 1; ctx.beginPath();
+    [0,0.25,0.5,0.75,1].forEach(function(v){ var yy = Math.round(y(v))+0.5; ctx.moveTo(TRK_GUT,yy); ctx.lineTo(TRK_GUT+plotW,yy); });
+    ctx.stroke();
+    ctx.fillStyle = ink3; ctx.font = "14px " + mono; ctx.textAlign = "right";
+    labels.forEach(function(v){ ctx.fillText(v.toFixed(2), TRK_GUT-6, y(v)+5); });
+  }
+  /* viewer pathSeries: min/max envelope per pixel once bp per px > 1.2, else a polyline */
+  function pathSeries(ctx, arr, y){
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW));
+        var mn = Infinity, mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v<mn) mn=v; if (v>mx) mx=v; }
+        if (mn === Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        ctx.moveTo(x, y(mn)); ctx.lineTo(x, y(mx === mn ? mn + 1e-6 : mx));
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p), yy = y(arr[p]/1000); if (p===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }
+    }
+  }
+  /* viewer areaSeries (its fill mode): upper envelope as one polygon */
+  function areaSeries(ctx, arr, y){
+    var y0 = y(0), x0 = null, x1 = null;
+    ctx.beginPath();
+    if (n > plotW*1.2){
+      for (var px=0; px<plotW; px++){
+        var i0 = Math.floor(px*n/plotW), i1 = Math.min(n, Math.floor((px+1)*n/plotW)), mx = -Infinity;
+        for (var i=i0;i<i1;i++){ var v = arr[i]/1000; if (v>mx) mx=v; }
+        if (mx === -Infinity) continue;
+        var x = TRK_GUT + px + 0.5;
+        if (x0 === null){ x0 = x; ctx.moveTo(x, y0); }
+        ctx.lineTo(x, y(mx)); x1 = x;
+      }
+    } else {
+      for (var p=0;p<n;p++){ var xx = xOf(T.s+p); if (x0 === null){ x0 = xx; ctx.moveTo(xx, y0); } ctx.lineTo(xx, y(arr[p]/1000)); x1 = xx; }
+    }
+    if (x0 === null) return;
+    ctx.lineTo(x1, y0); ctx.closePath();
+  }
+  function drawPost(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, run = T.runs[c.dataset.run];
+    var y = function(v){ return h - 6 - v*(h - 20); };
+    yGrid(ctx, y, [0,0.5,1]); gridX(ctx, h);
+    T.sites.forEach(function(st){
+      var a = Math.max(st[0], T.s), b = Math.min(st[1], T.e);
+      var x0 = xOf(a), w = Math.max(2, xOf(b) - x0);
+      ctx.fillStyle = T.colors.ref + "22"; ctx.fillRect(x0, 0, w, h);
+      ctx.fillStyle = T.colors.ref; ctx.fillRect(x0, 0, w, 3);
+    });
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    ctx.fillStyle = T.colors.nuc + "55"; areaSeries(ctx, run.nuc, y); ctx.fill();
+    ctx.strokeStyle = T.colors.nuc; ctx.lineWidth = 1.6; pathSeries(ctx, run.nuc, y); ctx.stroke();
+    ctx.strokeStyle = T.colors.tf; ctx.lineWidth = 2.2; pathSeries(ctx, run.tf, y); ctx.stroke();
+    if (T.rossi){                       /* optional: Rossi summits as small ticks on the top edge */
+      ctx.fillStyle = tok("--ink");
+      T.rossi.forEach(function(p){ var x = xOf(p); ctx.beginPath(); ctx.moveTo(x-5,0); ctx.lineTo(x+5,0); ctx.lineTo(x,8); ctx.closePath(); ctx.fill(); });
+    }
+    frame(ctx, h);
+  }
+  function drawMeth(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, F = T.fiber;
+    var y = function(v){ return h - 6 - Math.min(v,1)*(h - 20); };
+    yGrid(ctx, y, [0,0.5,1]); gridX(ctx, h);
+    var yy = Math.round(y(T.bg)) + 0.5, rc = tok("--bgline");
+    ctx.setLineDash([4,3]); ctx.strokeStyle = rc; ctx.lineWidth = 1.2; ctx.beginPath();
+    ctx.moveTo(TRK_GUT, yy); ctx.lineTo(TRK_GUT+plotW, yy); ctx.stroke(); ctx.setLineDash([]);
+    var rad = n > plotW ? 1.4 : (n > plotW/3 ? 1.8 : 2.8);
+    [["mw","aw",tok("--wat")],["mc","ac",tok("--cri")]].forEach(function(t){
+      ctx.fillStyle = t[2];
+      for (var i=0;i<n;i++){
+        var a = F[t[1]][i]; if (!a) continue;
+        ctx.beginPath(); ctx.arc(xOf(T.s+i), y(F[t[0]][i]/a), rad, 0, 6.2832); ctx.fill();
+      }
+    });
+    ctx.fillStyle = rc; ctx.font = "13px " + mono; ctx.textAlign = "right";
+    ctx.fillText("bg " + T.bg.toFixed(3), TRK_GUT + plotW - 6, yy - 5);
+    frame(ctx, h);
+  }
+  function drawGene(c){
+    var s = setup(c), ctx = s.ctx, h = s.h;
+    gridX(ctx, h);
+    ctx.font = "14px " + mono; ctx.textAlign = "left";
+    T.genes.forEach(function(g){
+      var x0 = Math.max(TRK_GUT, xOf(Math.max(g.start, T.s))), x1 = Math.min(TRK_GUT+plotW, xOf(Math.min(g.end, T.e)));
+      var plus = g.strand === "+";
+      ctx.fillStyle = tok(plus ? "--gene-plus" : "--gene-minus");
+      ctx.fillRect(x0, plus ? 16 : 28, Math.max(2, x1 - x0), 9);
+      ctx.fillStyle = ink2;
+      ctx.fillText(g.name + (plus ? " →" : " ←"), Math.max(TRK_GUT+3, x0+3), plus ? 13 : 50);
+    });
+    frame(ctx, h);
+  }
+  function drawAxis(c){
+    var s = setup(c), ctx = s.ctx, h = s.h, step = trkTicks(n, 8);
+    ctx.strokeStyle = line; ctx.beginPath(); ctx.moveTo(TRK_GUT, 0.5); ctx.lineTo(TRK_GUT+plotW, 0.5); ctx.stroke();
+    ctx.fillStyle = ink2; ctx.font = "14px " + mono; ctx.textAlign = "center";
+    ctx.strokeStyle = ink3; ctx.beginPath();
+    for (var p = Math.ceil(T.s/step)*step; p <= T.e; p += step){
+      var x = Math.round(xOf(p)) + 0.5; ctx.moveTo(x,0); ctx.lineTo(x,5); ctx.fillText(trkFmt(p), x, 21);
+    }
+    ctx.stroke();
+    ctx.textAlign = "left"; ctx.fillStyle = ink3; ctx.fillText(T.chrom, 2, 21);
+  }
+  cvs.forEach(function(c){
+    var k = c.dataset.trk;
+    if (k === "post") drawPost(c); else if (k === "meth") drawMeth(c); else if (k === "gene") drawGene(c); else drawAxis(c);
+  });
+
+  /* step 3: each reference site, labelled with the call run's posterior (max within +-tol bp) */
+  var chips = root.querySelector(".trk-sites"), bands = hl;
+  chips.innerHTML = ""; bands.innerHTML = "";
+  var fs = T.runs[call.run].tf, placed = [];
+  T.sites.forEach(function(st){
+    var mx = 0;
+    for (var p = st[0]-call.tol; p <= st[1]+call.tol; p++){ var i = p - T.s; if (i>=0 && i<n && fs[i] > mx) mx = fs[i]; }
+    mx = mx/1000;
+    var hit = mx >= call.thr;
+    var xa = xOf(st[0]) - 4, xb = xOf(st[1]) + 4, cx = (xa + xb)/2;
+    var band = document.createElement("div"); band.className = "trk-band";
+    band.style.left = xa + "px"; band.style.width = Math.max(10, xb - xa) + "px";
+    bands.appendChild(band);
+    var chip = document.createElement("span"); chip.className = "trk-chip";
+    chip.innerHTML = "<b></b> <i></i>";
+    chip.querySelector("b").textContent = (hit ? "hit" : "miss") + " · " + trkFmt(st[0]) + "–" + trkFmt(st[1]);
+    var txt = "\u00b7 " + call.run + " " + (T.tfLabel || "ABF1") + " " + mx.toFixed(2);
+    (call.also || []).forEach(function(ar){        /* optional: the same max for comparison runs */
+      var a2 = T.runs[ar].tf, m2 = 0;
+      for (var p2 = st[0]-call.tol; p2 <= st[1]+call.tol; p2++){ var i2 = p2 - T.s; if (i2>=0 && i2<n && a2[i2] > m2) m2 = a2[i2]; }
+      txt += " \u00b7 " + ar + " " + (m2/1000).toFixed(2);
+    });
+    chip.querySelector("i").textContent = txt;
+    chips.appendChild(chip);
+    var cw = chip.offsetWidth || 0;
+    var lo = cw/2 + 2, hi = W - cw/2 - 2;
+    chip.style.left = (hi > lo ? Math.min(hi, Math.max(lo, cx)) : cx) + "px";
+    placed.push({chip:chip, cx:cx, w:cw, x:(hi > lo ? Math.min(hi, Math.max(lo, cx)) : cx)});
+  });
+  /* chips that would overlap (sites closer than a chip width): spread them left to right, keep
+     their order, re-centre the group, and drop a short tail from each shifted chip to its band */
+  placed.sort(function(a,b){ return a.cx - b.cx; });
+  var crowded = false;
+  for (var q=1;q<placed.length;q++) if (placed[q].x - placed[q].w/2 < placed[q-1].x + placed[q-1].w/2 + 8) crowded = true;
+  if (crowded){
+    var gap = 12, total = placed.reduce(function(s,c){ return s + c.w; }, 0) + gap*(placed.length-1);
+    var mid = placed.reduce(function(s,c){ return s + c.cx; }, 0)/placed.length;
+    var left = Math.max(2, Math.min(W - total - 2, mid - total/2));
+    placed.forEach(function(c){
+      c.x = left + c.w/2; left += c.w + gap;
+      c.chip.style.left = c.x + "px";
+      var tail = document.createElement("span"); tail.className = "trk-tail";
+      tail.style.left = c.cx + "px";
+      chips.appendChild(tail);
+    });
+  }
+}
+function drawAllLoci(){
+  document.querySelectorAll('#stage .slide .trk[data-locus]').forEach(function(root){
+    try { drawLocus(root, locusData(root.dataset.locus)); } catch(e){ if (window.console) console.error(e); }
+  });
+}
+try {
+  drawAllLoci();
+  window.addEventListener("resize", drawAllLoci);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAllLoci);
+  if (window.matchMedia) {
+    var trkMQ = window.matchMedia("(prefers-color-scheme: dark)");
+    if (trkMQ.addEventListener) trkMQ.addEventListener("change", drawAllLoci); else if (trkMQ.addListener) trkMQ.addListener(drawAllLoci);
+  }
+  if (window.MutationObserver) new MutationObserver(drawAllLoci).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+} catch(err){ if (window.console) console.error(err); }
+
+/* ---------------- deck state ---------------- */
+function load(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } }
+function save(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+
+var slides = Array.prototype.slice.call(document.querySelectorAll("#stage > .slide"));
+var meta = slides.map(function(s){
+  return {el:s, id:s.dataset.id, kind:s.dataset.kind, steps:parseInt(s.dataset.steps||"1",10),
+          tag:s.dataset.tag||"", title:s.dataset.title||"", sec:s.dataset.sec};
+});
+var mainCount = meta.filter(function(m){return m.kind==="main";}).length;
+var showAll = load("nov03.showAll")==="1";
+var notesOn = load("nov03.notes")==="1";
+var cur = 0, step = 1;
+
+function allowed(i){ return showAll || meta[i].kind==="main"; }
+function neighbour(i,d){ for (var j=i+d;j>=0&&j<meta.length;j+=d){ if (allowed(j)) return j; } return -1; }
+
+var ideo = document.getElementById("ideo");
+(function buildIdeo(){
+  var secs = {};
+  meta.forEach(function(m,i){
+    if (m.kind!=="main") return;
+    if (!secs[m.sec]){ secs[m.sec] = document.createElement("div"); secs[m.sec].className="sec"; ideo.appendChild(secs[m.sec]); }
+    var b = document.createElement("button");
+    b.type="button"; b.dataset.idx=i; b.title=m.id+" · "+m.title; b.setAttribute("aria-label","Slide "+m.id+": "+m.title);
+    b.addEventListener("click",function(ev){ ev.stopPropagation(); go(i,1); });
+    secs[m.sec].appendChild(b);
+  });
+  Object.keys(secs).forEach(function(k){ secs[k].style.setProperty("--n", secs[k].children.length); });
+})();
+
+function tagHTML(m){
+  var h = "";
+  if (m.kind==="hidden") h += '<span class="tag hid">hidden</span> ';
+  if (m.kind==="backup") h += '<span class="tag hid">backup</span> ';
+  if (m.tag==="CAVEAT") h += '<span class="tag caveat">caveat</span>';
+  if (m.tag==="PENDING") h += '<span class="tag pending">pending</span>';
+  if (m.tag==="ALT") h += '<span class="tag alt">alternative</span>';
+  return h;
+}
+
+function render(){
+  var m = meta[cur];
+  slides.forEach(function(s,i){ s.classList.toggle("active", i===cur); s.setAttribute("aria-hidden", i===cur?"false":"true"); });
+  m.el.querySelectorAll("[data-step]").forEach(function(e){ e.classList.toggle("shown", parseInt(e.dataset.step,10)<=step); });
+  m.el.querySelectorAll("[data-on]").forEach(function(e){ e.classList.toggle("on", parseInt(e.dataset.on,10)<=step); });
+  if (m.el.scrollTop && step===1) m.el.scrollTop = 0;
+  ideo.querySelectorAll("button").forEach(function(b){
+    var i = +b.dataset.idx;
+    b.classList.toggle("cur", i===cur);
+    b.classList.toggle("past", i<cur);
+  });
+  var c = document.getElementById("counter");
+  var pips = "";
+  if (m.steps>1){ pips = '<span class="pips" aria-label="step '+step+' of '+m.steps+'">'; for (var k=1;k<=m.steps;k++) pips += '<i class="'+(k<=step?"on":"")+'"></i>'; pips += "</span>"; }
+  c.innerHTML = (m.id==="T" ? "<b>Title</b>" : (m.kind==="main" ? "<b>"+m.id+"</b> / "+mainCount : "<b>"+m.id+"</b>")) + pips;
+  document.getElementById("hudtag").innerHTML = tagHTML(m);
+  document.getElementById("btn-h").setAttribute("aria-pressed", showAll?"true":"false");
+  document.documentElement.classList.toggle("show-hidden", showAll);
+  document.getElementById("btn-n").setAttribute("aria-pressed", notesOn?"true":"false");
+  var np = document.getElementById("notes");
+  np.hidden = !notesOn;
+  document.getElementById("notes-h").textContent = "Speaker notes · " + m.id + " · " + m.title + (m.steps>1 ? " · step "+step+"/"+m.steps : "");
+  document.getElementById("notes-p").textContent = NOTES[m.id] || "(no notes)";
+  var h = "#" + m.id + "." + step;
+  if (location.hash !== h){
+    try { history.replaceState(null, "", h); } catch(e){ try { location.hash = h; } catch(e2){} }
+  }
+  document.title = "Nov 3 lab meeting";
+}
+function go(i, s){ if (i<0||i>=meta.length) return; cur=i; step=Math.max(1,Math.min(s||1, meta[i].steps)); render(); }
+function next(){
+  if (step < meta[cur].steps){ step++; render(); return; }
+  var n = neighbour(cur, 1); if (n>=0) go(n,1);
+}
+function prev(){
+  if (step > 1){ step--; render(); return; }
+  var p = neighbour(cur, -1); if (p>=0) go(p, meta[p].steps);
+}
+function first(){ for (var i=0;i<meta.length;i++) if (allowed(i)) return go(i,1); }
+function last(){ for (var i=meta.length-1;i>=0;i--) if (allowed(i)) return go(i,meta[i].steps); }
+
+function fromHash(){
+  var mm = /^#?([A-Za-z0-9]+)(?:\.(\d+))?$/.exec(decodeURIComponent(location.hash||""));
+  if (!mm) return false;
+  var i = meta.findIndex(function(m){ return m.id===mm[1]; });
+  if (i<0) return false;
+  cur = i; step = Math.max(1, Math.min(parseInt(mm[2]||"1",10), meta[i].steps));
+  return true;
+}
+
+/* ---------------- fit stage ---------------- */
+var stage = document.getElementById("stage"), vp = document.getElementById("viewport");
+var narrowMQ = window.matchMedia("(max-width: 760px)");
+function fit(){
+  if (narrowMQ.matches){ stage.style.transform = "none"; return; }
+  var s = Math.min(vp.clientWidth/1600, vp.clientHeight/900);
+  stage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
+}
+window.addEventListener("resize", fit);
+
+/* ---------------- toggles ---------------- */
+function toggleAll(){ showAll=!showAll; save("nov03.showAll", showAll?"1":"0"); render(); if (!ov.hidden) buildOverview(); }
+function toggleNotes(){ notesOn=!notesOn; save("nov03.notes", notesOn?"1":"0"); render(); }
+var ov = document.getElementById("overview"), ovGrid = document.getElementById("ov-grid");
+function buildOverview(){
+  ovGrid.innerHTML = "";
+  var lastGroup = null;
+  meta.forEach(function(m,i){
+    var group = m.kind==="backup" ? "Backup" : (m.kind==="main" ? SEC_NAMES[+m.sec] : null);
+    if (group && group!==lastGroup){ var d=document.createElement("div"); d.className="ov-sec"; d.textContent=group; ovGrid.appendChild(d); lastGroup=group; }
+    var card = document.createElement("button");
+    card.type="button"; card.className="ov-card k-"+m.kind+(i===cur?" is-cur":"");
+    var th = document.createElement("div"); th.className="thumb";
+    var clone = m.el.cloneNode(true);
+    clone.classList.add("active"); clone.removeAttribute("aria-hidden");
+    clone.querySelectorAll("[id]").forEach(function(e){ e.removeAttribute("id"); });
+    clone.querySelectorAll("[data-on]").forEach(function(e){ e.classList.add("on"); });
+    var srcC = m.el.querySelectorAll("canvas"), dstC = clone.querySelectorAll("canvas");
+    for (var ci=0; ci<dstC.length && ci<srcC.length; ci++){
+      try { dstC[ci].width = srcC[ci].width; dstC[ci].height = srcC[ci].height; dstC[ci].getContext("2d").drawImage(srcC[ci],0,0); } catch(e){}
+    }
+    th.appendChild(clone);
+    var mt = document.createElement("div"); mt.className="ov-meta";
+    mt.innerHTML = '<span class="id"></span><span class="tt"></span> ' + tagHTML(m);
+    mt.querySelector(".id").textContent = m.id;
+    mt.querySelector(".tt").textContent = m.title + (m.steps>1 ? " · "+m.steps+" steps" : "");
+    card.appendChild(th); card.appendChild(mt);
+    card.addEventListener("click", function(){ closeOverview(); go(i,1); });
+    ovGrid.appendChild(card);
+  });
+  requestAnimationFrame(scaleThumbs);
+}
+function scaleThumbs(){
+  ovGrid.querySelectorAll(".thumb").forEach(function(t){
+    var s = t.clientWidth/1600; var sl = t.firstChild; if (sl) sl.style.transform = "scale("+s+")";
+  });
+}
+function openOverview(){ ov.hidden=false; buildOverview(); var c=ovGrid.querySelector(".is-cur"); if (c){ c.focus({preventScroll:true}); c.scrollIntoView({block:"center"}); } }
+function closeOverview(){ ov.hidden=true; ovGrid.innerHTML=""; }
+window.addEventListener("resize", function(){ if (!ov.hidden) scaleThumbs(); });
+
+document.getElementById("btn-h").addEventListener("click", function(e){ e.stopPropagation(); toggleAll(); });
+document.getElementById("btn-n").addEventListener("click", function(e){ e.stopPropagation(); toggleNotes(); });
+document.getElementById("btn-o").addEventListener("click", function(e){ e.stopPropagation(); openOverview(); });
+
+/* ---------------- input ---------------- */
+document.addEventListener("keydown", function(e){
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  var k = e.key;
+  if (!ov.hidden){
+    if (k==="Escape" || k==="o" || k==="O"){ e.preventDefault(); closeOverview(); }
+    else if (k==="h" || k==="H"){ e.preventDefault(); toggleAll(); }
+    return;
+  }
+  switch (k){
+    case "ArrowRight": case "ArrowDown": case "PageDown": case "Enter": e.preventDefault(); next(); break;
+    case " ": case "Spacebar": e.preventDefault(); if (e.shiftKey) prev(); else next(); break;
+    case "ArrowLeft": case "ArrowUp": case "PageUp": case "Backspace": e.preventDefault(); prev(); break;
+    case "Home": e.preventDefault(); first(); break;
+    case "End": e.preventDefault(); last(); break;
+    case "h": case "H": e.preventDefault(); toggleAll(); break;
+    case "n": case "N": e.preventDefault(); toggleNotes(); break;
+    case "o": case "O": e.preventDefault(); openOverview(); break;
+    case "f": case "F":
+      e.preventDefault();
+      try { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); } catch(err){}
+      break;
+  }
+});
+
+/* wheel: one gesture (a notch, or a trackpad swipe with its inertia) = one step */
+var wheelAcc = 0, wheelLocked = false, wheelQuiet = null, wheelUnlockAt = 0;
+vp.addEventListener("wheel", function(e){
+  if (!ov.hidden) return;
+  var sl = meta[cur].el;
+  if (narrowMQ.matches && sl.scrollHeight > sl.clientHeight + 2){
+    var atTop = sl.scrollTop <= 0, atBottom = sl.scrollTop + sl.clientHeight >= sl.scrollHeight - 2;
+    if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
+  }
+  e.preventDefault();
+  var dy = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  if (e.deltaMode === 1) dy *= 16;
+  clearTimeout(wheelQuiet);
+  wheelQuiet = setTimeout(function(){ wheelAcc = 0; if (Date.now() >= wheelUnlockAt) wheelLocked = false; else setTimeout(function(){ wheelLocked=false; }, wheelUnlockAt-Date.now()); }, 180);
+  if (wheelLocked) return;
+  wheelAcc += dy;
+  if (Math.abs(wheelAcc) >= 30){
+    if (wheelAcc > 0) next(); else prev();
+    wheelAcc = 0; wheelLocked = true; wheelUnlockAt = Date.now() + 380;
+  }
+}, {passive:false});
+
+/* click halves */
+vp.addEventListener("click", function(e){
+  if (e.target.closest("a,button,input,select,textarea,summary")) return;
+  var sel = window.getSelection && window.getSelection();
+  if (sel && String(sel).length) return;
+  var r = vp.getBoundingClientRect();
+  if (e.clientX - r.left > r.width/2) next(); else prev();
+});
+
+/* touch swipe */
+var tx=0, ty=0;
+vp.addEventListener("touchstart", function(e){ var t=e.changedTouches[0]; tx=t.clientX; ty=t.clientY; }, {passive:true});
+vp.addEventListener("touchend", function(e){
+  var t=e.changedTouches[0], dx=t.clientX-tx, dy=t.clientY-ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)*1.3){ if (dx<0) next(); else prev(); }
+}, {passive:true});
+
+window.addEventListener("hashchange", function(){ if (fromHash()) render(); });
+
+fromHash();
+fit();
+render();
+})();
+</script>
+<script>
+(function(){
+  var z=document.getElementById("zoom"), im=document.getElementById("zoom-img"), t=document.getElementById("zoom-t"), last=null;
+  function open(b){ last=b; im.src=b.getAttribute("data-src"); im.alt=b.getAttribute("data-title")||""; t.textContent=b.getAttribute("data-title")||""; z.hidden=false; document.getElementById("zoom-x").focus(); }
+  function close(){ z.hidden=true; im.removeAttribute("src"); if(last) try{ last.focus(); }catch(e){} }
+  document.addEventListener("click", function(e){ var b=e.target.closest(".zoom-btn"); if(b){ e.stopPropagation(); open(b); } }, true);
+  document.getElementById("zoom-x").addEventListener("click", close);
+  window.addEventListener("keydown", function(e){ if(z.hidden) return; e.stopPropagation(); if(e.key==="Escape"){ e.preventDefault(); close(); } }, true);
+})();
+</script>

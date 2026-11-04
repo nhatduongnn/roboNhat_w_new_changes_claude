@@ -43,7 +43,10 @@ EXCLUDE = ("nuc_start", "nuc_end")
 # about the OLD model (check 1 is bit-for-bit against the old driver), so every new-driver run
 # passes the old model explicitly.
 OLD_MODEL = ["--traindir", "robocop_train_fiberonly", "--pkg-tree", "pkgvar/permol_seq_maskoff_logfull",
-             "--nuc-params", "nucleosome_params.pkl", "--bg-params", "bg_params.pkl"]
+             "--nuc-params", "nucleosome_params.pkl", "--bg-params", "bg_params.pkl",
+             # 2026-11-02: the driver defaults now also set the TF file and read filters; pin the old ones.
+             "--tf-params", "all_TFs_1000pealVal_params_pseudo.pkl", "--min-mapq", "0",
+             "--min-aln-len", "0", "--min-qs", "-1", "--keep-reads", "none"]
 
 RUNS = {
     "old": (OLD, []),

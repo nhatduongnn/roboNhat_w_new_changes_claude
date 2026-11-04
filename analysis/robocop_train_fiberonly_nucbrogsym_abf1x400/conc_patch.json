@@ -1,0 +1,27 @@
+{
+  "lams": {
+    "Abf1_murphy": 400.0
+  },
+  "src": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_fiberonly_nucbrogsym",
+  "out": "/usr/project/xtmp/nd141/programs/roboNhat_w_new_changes_claude/analysis/robocop_train_fiberonly_nucbrogsym_abf1x400",
+  "silent_states_begin": 3330,
+  "factors": {
+    "Abf1_murphy": {
+      "index": 0,
+      "conc_before": 4.7290090269997077e-07,
+      "conc_after": 0.0001891603610799883,
+      "tf_prob_before": 1.7973671600465632e-07,
+      "tf_prob_after": 7.185305659648061e-05,
+      "tf_prob_ratio": 399.76838452205374
+    }
+  },
+  "background_prob_before": 0.9332338342081699,
+  "background_prob_after": 0.9331952253631219,
+  "nucleosome_prob_before": 0.0013572753679111484,
+  "nucleosome_prob_after": 0.0013490459205343019,
+  "max_rel_change_other_tfs": 0.0008270954856800516,
+  "transition_rows_changed": [
+    3330
+  ],
+  "nucleosome_lambda_solved": null
+}

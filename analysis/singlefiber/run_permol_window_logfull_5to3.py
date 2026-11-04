@@ -54,6 +54,18 @@ Usage (from analysis/):
 
     ROBOCOP_LOG_EMISSION=exact python singlefiber/run_permol_window_logfull_5to3.py --arm A --out <dir>
 
+5. FILTERED, rDNA-FREE DEFAULT MODEL (2026-11-02): tree pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna,
+   params bg_params_filtnordna.pkl / nucleosome_params_brogaard_sym_filtnordna.pkl /
+   all_TFs_1000pealVal_params_pseudo_filtnordna.pkl, keep list filtered_refit_nordna/keep_reads.txt (rDNA reads
+   chrXII:451,418-468,929 removed before the MAD fence). The intermediate _filt model (rDNA kept) is
+   reproducible with --pkg-tree ..._filt, the _filt pkls and --keep-reads /usr/project/xtmp/nd141/filtered_refit/keep_reads.txt.
+   Earlier text, kept for the record: tree ..._filt, params
+   bg_params_filt.pkl / nucleosome_params_brogaard_sym_filt.pkl / all_TFs_1000pealVal_params_pseudo_filt.pkl
+   (all refit on the filtered 7-barcode pileup), read filters --min-mapq 20 --min-aln-len 500 --min-qs 10
+   --keep-reads filtered_refit/keep_reads.txt, --call-thresh 0.8105469. Reproduce the 10-30 all7 default:
+
+    ROBOCOP_LOG_EMISSION=exact python singlefiber/run_permol_window_logfull_5to3.py --arm A --out <dir> --pkg-tree pkgvar/permol_seq_maskoff_logfull_nucbrogsym_all7 --nuc-params nucleosome_params_brogaard_sym_all7.pkl --bg-params bg_params_all7.pkl --tf-params all_TFs_1000pealVal_params_pseudo.pkl --min-mapq 0 --min-aln-len 0 --min-qs -1 --keep-reads none
+
 Reproduce an old (pre-2026-10-30 default) run, e.g. the old driver run_permol_window_logfull.py bit for bit:
 
     ROBOCOP_LOG_EMISSION=exact python singlefiber/run_permol_window_logfull_5to3.py --arm A --out <dir> --traindir robocop_train_fiberonly --pkg-tree pkgvar/permol_seq_maskoff_logfull --nuc-params nucleosome_params.pkl --bg-params bg_params.pkl --start motif1st --direction ref
@@ -61,6 +73,16 @@ Reproduce an old (pre-2026-10-30 default) run, e.g. the old driver run_permol_wi
 (drop --direction ref for an old 5to3 run; Brogaard barcode01 runs: --traindir
 robocop_train_fiberonly_nucbrogsym --pkg-tree pkgvar/permol_seq_maskoff_logfull_nucbrogsym
 --nuc-params nucleosome_params_brogaard_sym.pkl --bg-params bg_params.pkl).
+
+6. --local-prior <sites_w.tsv>  (2026-11-03, default OFF; plan let-s-go-with-mad-snazzy-lollipop Part 2).
+   Site-specific TF entry weight w (local_prior.py): both first states of the TF at the motif-start row
+   weighted by w, i.e. a w-times larger entry probability at that position only. Written into the per-read
+   log emission through decode_one's emission_hook (after --seq-layer's hook), layer 1 (otherwise 0.0), as
+   -log(w) on every OTHER emitting state for w > 1 (each layer must be <= 0, robocop.py:970-973). Row/state
+   mapping for ref-frame and flipped (Crick 5'->3') reads in local_prior.placements. A table with
+   heldout_run rows (Mar20 / May07 / Jun25) gives each read the w fitted with ITS OWN run held out (read
+   group -> barcode -> run, site_mixture.RG_BARCODE). w comes from calibrate_local_prior.py. Off = the
+   driver is unchanged (no hook, same molecules.tsv columns); run_stats/RUN_INFO record local_prior = null.
 
 Outputs as run_permol_window_logfull.py, plus consensus_sites.tsv; molecules.tsv gains
 `frame` (ref / flipped); run_stats.json gains direction, start, flip_ps, consensus (on/off),
@@ -84,11 +106,19 @@ from scipy import sparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 ANALYSIS = os.path.dirname(HERE)
 os.chdir(ANALYSIS)                      # the package reads 'inputs/...' relatively
-sys.path.insert(0, 'pkgvar/permol_seq_maskoff_logfull_nucbrogsym_all7/')   # literal, so write_run_info.driver_tree resolves it
-TREE_DEFAULT = "pkgvar/permol_seq_maskoff_logfull_nucbrogsym_all7"   # ALL7 default (2026-10-30)
+sys.path.insert(0, 'pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna/')   # literal, so write_run_info.driver_tree resolves it
+TREE_DEFAULT = "pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna"   # 2026-11-02 default (rDNA-free); earlier: ..._filt, 10-30: ..._all7
 TRAINDIR_DEFAULT = "robocop_train_fiberonly_nucbrogsym"
-NUC_PARAMS_DEFAULT = "nucleosome_params_brogaard_sym_all7.pkl"
-BG_PARAMS_DEFAULT = "bg_params_all7.pkl"
+NUC_PARAMS_DEFAULT = "nucleosome_params_brogaard_sym_filtnordna.pkl"     # 10-30: nucleosome_params_brogaard_sym_all7.pkl
+BG_PARAMS_DEFAULT = "bg_params_filtnordna.pkl"                           # 10-30: bg_params_all7.pkl
+TF_PARAMS_DEFAULT = "all_TFs_1000pealVal_params_pseudo_filtnordna.pkl"   # 10-30: all_TFs_1000pealVal_params_pseudo.pkl
+# Read filters (2026-11-02 defaults; 10-30 = none: --min-mapq 0 --min-aln-len 0 --min-qs -1 --keep-reads none).
+# The keep list is the read set the _filt params were fitted on (/usr/project/xtmp/nd141/filtered_refit/:
+# nuclear, MAPQ>=20, aligned>=500, qs>=10, pooled median+-4*1.4826*MAD per-read m6A cap). Threshold
+# 0.8105469 = modkit sample-probs on the filtered BAM (threshold.txt), equal to read_calls.THRESH.
+MIN_MAPQ_DEFAULT, MIN_ALN_LEN_DEFAULT, MIN_QS_DEFAULT = 20, 500, 10.0
+KEEP_READS_DEFAULT = "/usr/project/xtmp/nd141/filtered_refit_nordna/keep_reads.txt"   # rDNA reads excluded; earlier: filtered_refit/
+CALL_THRESH_DEFAULT = 0.8105469
 # --pkg-tree (default: the literal tree above) must be known BEFORE `import robocop`.
 _pre = argparse.ArgumentParser(add_help=False)
 _pre.add_argument("--pkg-tree", default=None)
@@ -104,6 +134,7 @@ from robocop.utils.getNucleotides import getNucleotideSequence     # noqa: E402
 
 import collapse as C                                              # noqa: E402
 import consensus_seq as CS                                        # noqa: E402
+import local_prior as LP                                          # noqa: E402
 import permol_params as PP                                        # noqa: E402
 import read_calls as RC                                           # noqa: E402
 import run_permol_window_logfull as D                             # noqa: E402  (old driver, unchanged)
@@ -290,7 +321,25 @@ def main(argv=None):
     ap.add_argument("--bg-params", default=BG_PARAMS_DEFAULT,
                     help="background m6A params in inputs/ (default %s; old runs bg_params.pkl). Must be "
                          "the file the --pkg-tree reads (assert_verbatim checks it)" % BG_PARAMS_DEFAULT)
+    ap.add_argument("--tf-params", default=TF_PARAMS_DEFAULT,
+                    help="TF footprint m6A params in inputs/ (default %s). Must be the file the "
+                         "--pkg-tree reads (assert_verbatim checks it)" % TF_PARAMS_DEFAULT)
+    ap.add_argument("--min-mapq", type=int, default=MIN_MAPQ_DEFAULT)
+    ap.add_argument("--min-aln-len", type=int, default=MIN_ALN_LEN_DEFAULT,
+                    help="minimum aligned bases (query_alignment_length)")
+    ap.add_argument("--min-qs", type=float, default=MIN_QS_DEFAULT, help="minimum dorado qs tag")
+    ap.add_argument("--keep-reads", default=KEEP_READS_DEFAULT,
+                    help="file of read names to keep (the filtered-refit keep list); none = no list")
+    ap.add_argument("--call-thresh", type=float, default=CALL_THRESH_DEFAULT,
+                    help="m6A call threshold (default read_calls.THRESH)")
+    ap.add_argument("--local-prior", default=None,
+                    help="sites_w.tsv from calibrate_local_prior.py: site-specific TF entry weights "
+                         "(default off; see docstring item 6)")
     a = ap.parse_args(argv)
+    if a.keep_reads in ("none", ""):
+        a.keep_reads = None
+    if a.min_qs is not None and a.min_qs < 0:
+        a.min_qs = None
     t_all = time.time()
     mode = robocop.log_emission_mode()      # raises unless ROBOCOP_LOG_EMISSION is floored|exact
     md5 = D.so_md5(LOGFULL_SO)
@@ -321,7 +370,7 @@ def main(argv=None):
         print("start=any: stationary initial probs", json.dumps(sinfo))
 
     # --- parameters ---------------------------------------------------------------
-    pf = dict(nuc_file=a.nuc_params, bg_file=a.bg_params)
+    pf = dict(nuc_file=a.nuc_params, bg_file=a.bg_params, tf_file=a.tf_params)
     PP.assert_verbatim(dshared, "watson_signal", **pf)
     PP.assert_verbatim(dshared, "crick_signal", **pf)
     ps_w, src_w, info_w = PP.arm_ps(dshared, "watson_signal", a.arm, a.pi, **pf)
@@ -370,10 +419,35 @@ def main(argv=None):
 
     # --- molecules ----------------------------------------------------------------
     t0 = time.time()
+    keep_names = None
+    if a.keep_reads:
+        with open(a.keep_reads) as fh:
+            keep_names = set(ln.strip() for ln in fh if ln.strip())
     mols, es, ee, rstats = RC.read_molecules(a.bam, chrom, win_start1, win_end1,
-                                             codes_ext, flank=a.flank)
+                                             codes_ext, flank=a.flank,
+                                             min_mapq=a.min_mapq, min_aln_len=a.min_aln_len,
+                                             min_qs=a.min_qs, include_names=keep_names,
+                                             thresh=a.call_thresh)
     print("read %d molecules in %.1fs; %s" % (len(mols), time.time() - t0,
                                               json.dumps(rstats, sort_keys=True)))
+    lp_table, lp_info, mol_run = None, None, {}
+    if a.local_prior:
+        lp_table = LP.load_table(a.local_prior)
+        LP.check_single_parent(dshared)
+        lp_runs = sorted(set(lp_table.heldout_run) - {"pooled"})
+        if lp_runs:                     # per-read run, from the read group (site_mixture.RG_BARCODE)
+            import pysam
+            import site_mixture as SMX
+            with pysam.AlignmentFile(a.bam) as b:
+                for r in b.fetch(chrom, es, ee):
+                    if not (r.is_secondary or r.is_supplementary):
+                        mol_run[r.query_name] = SMX.barcode_run(
+                            SMX.RG_BARCODE.get(r.get_tag("RG") if r.has_tag("RG") else None, "unknown"))
+        lp_info = dict(file=os.path.abspath(a.local_prior), md5=LP.md5(a.local_prior),
+                       n_rows=int(len(lp_table)), sites=sorted(set(lp_table.name)),
+                       tfs=sorted(set(lp_table.tf)), heldout_runs=lp_runs, layer=LP.LAYER,
+                       n_reads_weighted=0, n_placements=0)
+        print("local prior:", json.dumps(lp_info))
     if a.max_molecules:
         mols = mols[:a.max_molecules]
     pooled_f = PP.pooled_rate(mols, "flank")
@@ -418,6 +492,17 @@ def main(argv=None):
             pw, pc, pf, pfw = (PP.scaled_ps(ps_w, scale), PP.scaled_ps(ps_c, scale),
                                PP.scaled_ps(ps_flip, scale), PP.scaled_ps(ps_flip_w, scale))
 
+        hook = seq_hook
+        lp_names, lp_run = "", ""
+        if lp_table is not None:
+            lp_run = mol_run.get(m.name, "unknown") if lp_info["heldout_runs"] else "pooled"
+            pl = LP.placements(LP.rows_for(lp_table, lp_run), dshared, seg_start1, seg_end1, chrom, flip)
+            if pl:
+                hook = LP.make_hook(pl, ssb, inner=seq_hook)
+                lp_info["n_reads_weighted"] += 1
+                lp_info["n_placements"] += len(pl)
+            lp_names = ",".join("%s:w=%.6g" % (x[3], x[2]) for x in pl)
+
         t1 = time.time()
         if not flip:
             if m.strand == "watson":
@@ -426,18 +511,18 @@ def main(argv=None):
                 calls_w, calls_c = no, calls
             p, op, ll = D.decode_one(dshared, chrom, seg_start1, seg_end1, codes_seg,
                                      pw, pc, calls_w, calls_c, M, keep_idx,
-                                     emission_hook=seq_hook)
+                                     emission_hook=hook)
         else:
             codes_f = revcomp_codes(codes_seg)[::-1].copy()
             calls_f = np.ascontiguousarray(calls[::-1])
             if m.strand == "crick":
                 pf_raw, _op, ll = D.decode_one(dshared, chrom, seg_start1, seg_end1, codes_f,
                                                pf, pc, calls_f, no, M, keep_idx,
-                                               emission_hook=seq_hook)
+                                               emission_hook=hook)
             else:                                   # --direction rev only
                 pf_raw, _op, ll = D.decode_one(dshared, chrom, seg_start1, seg_end1, codes_f,
                                                pw, pfw, no, calls_f, M, keep_idx,
-                                               emission_hook=seq_hook)
+                                               emission_hook=hook)
             vf = D.posterior_validity(pf_raw, ssb)
             assert vf["n_nan"] == 0 and vf["max_row_sum_dev"] < ROW_SUM_TOL and vf["max_silent"] == 0.0, \
                 "molecule %d (flipped frame): %r" % (mi, vf)
@@ -470,6 +555,8 @@ def main(argv=None):
                          eff_scale=scale, eff_basis=basis, loglik=ll,
                          n_invalid_posterior=bad, max_row_sum_dev=v["max_row_sum_dev"],
                          secs=time.time() - t1, frame="flipped" if flip else "ref"))
+        if lp_table is not None:
+            rows[-1].update(local_prior_run=lp_run, local_prior_sites=lp_names)
         if (mi + 1) % 25 == 0:
             print("  %d/%d  %.1fs elapsed  peak RSS %.2f GiB" % (
                 mi + 1, len(mols), time.time() - t_dec,
@@ -532,10 +619,18 @@ def main(argv=None):
         label += "_nuc%s" % os.path.splitext(a.nuc_params)[0].replace("nucleosome_params_", "")
     if a.bg_params != PP.BG_FILE_DEFAULT:
         label += "_bg%s" % os.path.splitext(a.bg_params)[0].replace("bg_params_", "")
+    if a.tf_params != PP.TF_FILE_DEFAULT:
+        label += "_tf%s" % os.path.splitext(a.tf_params)[0].replace("all_TFs_1000pealVal_params_pseudo_", "")
+    if a.keep_reads or a.min_mapq or a.min_aln_len or a.min_qs is not None:
+        label += "_filt"
+    if lp_table is not None:
+        label += "_localprior"
     run_opts = dict(direction=a.direction, start=a.start, flip_ps=a.flip_ps,
                     consensus=a.consensus, seq_layer=a.seq_layer, ps_symmetric=a.ps_symmetric,
-                    nuc_params=a.nuc_params, bg_params=a.bg_params,
-                    defaults_version="2026-10-30 all7")
+                    nuc_params=a.nuc_params, bg_params=a.bg_params, tf_params=a.tf_params,
+                    min_mapq=a.min_mapq, min_aln_len=a.min_aln_len, min_qs=a.min_qs,
+                    keep_reads=a.keep_reads, call_thresh=rstats.get("thresh"),
+                    defaults_version="2026-11-02 filtnordna", local_prior=lp_info)
     with open(os.path.join(out, "RUN_INFO.json"), "w") as f:
         json.dump(dict(schema=1, outdir=out, label=label,
                        driver="singlefiber/run_permol_window_logfull_5to3.py",

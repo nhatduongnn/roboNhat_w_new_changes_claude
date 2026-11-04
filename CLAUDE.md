@@ -17,14 +17,37 @@ Slurm, partition `compsci`. A genome decode is 48 array tasks: ~45 min each on
 Decode outputs (20–630 MB each) live on this filesystem and are gitignored; the metadata
 (`config.ini`, `coords.tsv`, `pwm.p`, `conc_patch.json`) is committed.
 
-## Where things stand (2026-10-31) — start here
+## Where things stand (2026-11-04) — start here
 
-**Current work: single-fiber (per-read) decoding. Read `SINGLEFIBER_PLAN.md` first**, starting with its
-"Next session" and "Update 2026-10-26 → 10-30" sections.
+**Current work: single-fiber (per-read) decoding. Read `SINGLEFIBER_PLAN.md` first, its "Next session
+(2026-11-04)" section.** Results so far are written up in `reports/` (newest first).
 
-**Next task:** check that the jump in background m6A rate (barcode01 0.138 → all 7 barcodes 0.155) is real
-biology and not caused by a few hypermethylated reads, one barcode, or the lower merged modkit threshold.
-Then decide on read filters and refit background, nucleosome and TF m6A rates from one consistent read set.
+**Current single-fiber defaults** (`analysis/singlefiber/run_permol_window_logfull_5to3.py`):
+- tree `pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna`;
+- `inputs/*_filtnordna.pkl` (background 0.1564 / 0.1544, nucleosome, TF footprints), all refit on one filtered read
+  set: primary, nuclear, rDNA (chrXII:451,418–468,929) removed, MAPQ ≥ 20, aligned ≥ 500 bp, qs ≥ 10, one pooled MAD
+  m6A cap;
+- keep list `/usr/project/xtmp/nd141/filtered_refit_nordna/keep_reads.txt`;
+- call threshold fixed at 0.8105469: skipped A / ML ≤ 48 → 0, ML ≥ 207 → 1, otherwise no-call.
+
+**Next tasks (user decides):**
+1. No-call handling. The PI objects: no-calls are 14.6% of linker A's vs 7.3% in nucleosome cores, so treating them as
+   "no evidence" is wrong.
+2. The per-read TF-call method: local prior (`--local-prior`, implemented) vs raised genome-wide prior (fails); the
+   bound-only ABF1 rate is pending.
+
+The background rise 0.138 → 0.155 is explained: a mixture of runs (Jun25 ≈ 1.65× May07).
+
+**Artifacts:**
+- Nov 3 deck `QJgpxNtLXFFfCdYWLPvYio` (source `presentation/lab_nov03/`);
+- decisions sheet `8KkLfcKovncXqmNwFZh5TT` (DB collection `choices`, mirrored by
+  `presentation/lab_nov03/decisions_rows.json`);
+- the Oct 27 deck `2TCJW7cRfv87hivaFSchu9`;
+- the math artifact `NszXsMkgqaL8N1hMncbMbN`.
+
+User-facing figures go in `analysis/singlefiber/figures/<topic_date>/`.
+
+### Earlier (2026-10-26 → 10-30)
 
 **What changed 2026-10-26 → 10-30.** Single-fiber defaults are now in
 `analysis/singlefiber/run_permol_window_logfull_5to3.py`:
@@ -191,6 +214,7 @@ and `README.md` covers inputs, sizing (3 rows fit 1600×900) and the hit/miss ru
 
 | file | what |
 |---|---|
+| `reports/2026-11-0*.md` | dated write-ups: 11-02 (filters, m6A calls, start/end, rDNA), 11-03 (single-fiber decisions, ABF1 prior sweep, local prior) |
 | `SINGLEFIBER_PLAN.md` | **current work.** Single-fiber (per-read) decoding: what exists, the model, why per-read TF calls fail, decisions, next steps |
 | `POSTERIOR_FIX_PLAN.md` | The posterior fix: phases B→A→D→C, gates, results (2026-10-06), handoff (2026-10-12), and "Results and decisions, 2026-10-20 → 10-26" (C1 scan, log-space review, DBL_MIN outside rDNA, log-space re-decodes) |
 | `POSTERIOR_SCALING.md` | the posterior convention, how to check any decode, the binary cutover (which `.so` made a run, rollback), the silent-column issue |

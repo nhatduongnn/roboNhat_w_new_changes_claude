@@ -1,0 +1,577 @@
+<!-- ======================= T TITLE ======================= -->
+<section class="slide title-slide" data-id="T" data-kind="main" data-sec="0" data-steps="1" data-title="Nov 3 lab meeting">
+  <h1>Nov 3 lab meeting</h1>
+  <div class="ruler" aria-hidden="true"></div>
+</section>
+
+<!-- ======================= 1 BARCODES ======================= -->
+<section class="slide" data-id="1" data-kind="main" data-sec="1" data-steps="1" data-title="m6A rate per barcode">
+  <span class="slide-no">1</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Background m6A</p>
+    <h2>The 2025-06-25 run is methylated more, everywhere</h2>
+    <p class="msg">After read filters, all four Jun25 barcodes sit at 0.183–0.193 in linkers, against 0.114–0.117 for May07 and 0.143 for Mar20.
+    The gap is the same in nucleosome cores and genome-wide (Jun25 / May07 = 1.62×, 1.64×, 1.68×), so it is the run, not one barcode.</p>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <div class="legend-runs">
+      <span><i style="background:var(--run-mar)"></i><b>Mar20</b> · run 2025-03-20 · bc01</span>
+      <span><i style="background:var(--run-may)"></i><b>May07</b> · run 2025-05-07 · bc03, bc04</span>
+      <span><i style="background:var(--run-jun)"></i><b>Jun25</b> · run 2025-06-25 · bc21–bc24</span>
+    </div>
+    <div class="bars"><svg viewBox="0 0 1440 470" role="img" aria-label="m6A rate per barcode in linkers, nucleosome cores and genome-wide, after read filters. Jun25 barcodes are highest in all three.">
+<g class="panel">
+<text class="ttl" x="40" y="30">Linkers</text>
+<line class="grid" x1="80" x2="480" y1="380.0" y2="380.0"/>
+<text class="tk" x="74" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="80" x2="480" y1="302.5" y2="302.5"/>
+<text class="tk" x="74" y="306.5" text-anchor="end">0.05</text>
+<line class="grid" x1="80" x2="480" y1="225.0" y2="225.0"/>
+<text class="tk" x="74" y="229.0" text-anchor="end">0.10</text>
+<line class="grid" x1="80" x2="480" y1="147.5" y2="147.5"/>
+<text class="tk" x="74" y="151.5" text-anchor="end">0.15</text>
+<line class="grid" x1="80" x2="480" y1="70.0" y2="70.0"/>
+<text class="tk" x="74" y="74.0" text-anchor="end">0.20</text>
+<path class="b mar" d="M92.0,380.0 v-217.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v217.0 z"><title>Mar20_bc01 (2025-03-20) · linkers 0.1426 · 1,322,848 informative A calls</title></path>
+<text class="val mar" x="112.0" y="151.0" text-anchor="middle">.143</text>
+<text class="bc" x="112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M162.0,380.0 v-177.9 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v177.9 z"><title>May07_bc03 (2025-05-07) · linkers 0.1174 · 1,908,129 informative A calls</title></path>
+<text class="val may" x="182.0" y="190.1" text-anchor="middle">.117</text>
+<text class="bc" x="182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M210.0,380.0 v-172.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v172.0 z"><title>May07_bc04 (2025-05-07) · linkers 0.1136 · 2,215,043 informative A calls</title></path>
+<text class="val may" x="230.0" y="196.0" text-anchor="middle">.114</text>
+<text class="bc" x="230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M280.0,380.0 v-295.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v295.4 z"><title>Jun25_bc21 (2025-06-25) · linkers 0.1932 · 1,475,621 informative A calls</title></path>
+<text class="val jun" x="300.0" y="72.6" text-anchor="middle">.193</text>
+<text class="bc" x="300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M328.0,380.0 v-279.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v279.3 z"><title>Jun25_bc22 (2025-06-25) · linkers 0.1828 · 1,747,436 informative A calls</title></path>
+<text class="val jun" x="348.0" y="88.7" text-anchor="middle">.183</text>
+<text class="bc" x="348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M376.0,380.0 v-280.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v280.5 z"><title>Jun25_bc23 (2025-06-25) · linkers 0.1835 · 1,363,312 informative A calls</title></path>
+<text class="val jun" x="396.0" y="87.5" text-anchor="middle">.184</text>
+<text class="bc" x="396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M424.0,380.0 v-285.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v285.3 z"><title>Jun25_bc24 (2025-06-25) · linkers 0.1866 · 1,788,450 informative A calls</title></path>
+<text class="val jun" x="444.0" y="82.7" text-anchor="middle">.187</text>
+<text class="bc" x="444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="80" x2="480" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="540" y="30">Nucleosome cores</text>
+<line class="grid" x1="580" x2="980" y1="380.0" y2="380.0"/>
+<text class="tk" x="574" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="580" x2="980" y1="276.7" y2="276.7"/>
+<text class="tk" x="574" y="280.7" text-anchor="end">0.02</text>
+<line class="grid" x1="580" x2="980" y1="173.3" y2="173.3"/>
+<text class="tk" x="574" y="177.3" text-anchor="end">0.04</text>
+<line class="grid" x1="580" x2="980" y1="70.0" y2="70.0"/>
+<text class="tk" x="574" y="74.0" text-anchor="end">0.06</text>
+<path class="b mar" d="M592.0,380.0 v-202.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v202.3 z"><title>Mar20_bc01 (2025-03-20) · nucleosome cores 0.0399 · 1,557,457 informative A calls</title></path>
+<text class="val mar" x="612.0" y="165.7" text-anchor="middle">.040</text>
+<text class="bc" x="612.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M662.0,380.0 v-171.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v171.4 z"><title>May07_bc03 (2025-05-07) · nucleosome cores 0.0340 · 2,213,592 informative A calls</title></path>
+<text class="val may" x="682.0" y="196.6" text-anchor="middle">.034</text>
+<text class="bc" x="682.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M710.0,380.0 v-164.2 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v164.2 z"><title>May07_bc04 (2025-05-07) · nucleosome cores 0.0326 · 2,590,229 informative A calls</title></path>
+<text class="val may" x="730.0" y="203.8" text-anchor="middle">.033</text>
+<text class="bc" x="730.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M780.0,380.0 v-291.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v291.0 z"><title>Jun25_bc21 (2025-06-25) · nucleosome cores 0.0571 · 1,762,395 informative A calls</title></path>
+<text class="val jun" x="800.0" y="77.0" text-anchor="middle">.057</text>
+<text class="bc" x="800.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M828.0,380.0 v-270.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v270.8 z"><title>Jun25_bc22 (2025-06-25) · nucleosome cores 0.0532 · 2,084,161 informative A calls</title></path>
+<text class="val jun" x="848.0" y="97.2" text-anchor="middle">.053</text>
+<text class="bc" x="848.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M876.0,380.0 v-273.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.4 z"><title>Jun25_bc23 (2025-06-25) · nucleosome cores 0.0537 · 1,608,310 informative A calls</title></path>
+<text class="val jun" x="896.0" y="94.6" text-anchor="middle">.054</text>
+<text class="bc" x="896.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M924.0,380.0 v-277.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v277.5 z"><title>Jun25_bc24 (2025-06-25) · nucleosome cores 0.0545 · 2,148,774 informative A calls</title></path>
+<text class="val jun" x="944.0" y="90.5" text-anchor="middle">.054</text>
+<text class="bc" x="944.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="612.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="706.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="872.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="580" x2="980" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="1040" y="30">Genome-wide</text>
+<line class="grid" x1="1080" x2="1480" y1="380.0" y2="380.0"/>
+<text class="tk" x="1074" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="1080" x2="1480" y1="276.7" y2="276.7"/>
+<text class="tk" x="1074" y="280.7" text-anchor="end">0.03</text>
+<line class="grid" x1="1080" x2="1480" y1="173.3" y2="173.3"/>
+<text class="tk" x="1074" y="177.3" text-anchor="end">0.06</text>
+<line class="grid" x1="1080" x2="1480" y1="70.0" y2="70.0"/>
+<text class="tk" x="1074" y="74.0" text-anchor="end">0.09</text>
+<path class="b mar" d="M1092.0,380.0 v-197.1 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v197.1 z"><title>Mar20_bc01 (2025-03-20) · genome-wide 0.0584 · 60,806,644 informative A calls</title></path>
+<text class="val mar" x="1112.0" y="170.9" text-anchor="middle">.058</text>
+<text class="bc" x="1112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M1162.0,380.0 v-157.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v157.6 z"><title>May07_bc03 (2025-05-07) · genome-wide 0.0469 · 86,522,909 informative A calls</title></path>
+<text class="val may" x="1182.0" y="210.4" text-anchor="middle">.047</text>
+<text class="bc" x="1182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M1210.0,380.0 v-152.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v152.4 z"><title>May07_bc04 (2025-05-07) · genome-wide 0.0454 · 100,898,174 informative A calls</title></path>
+<text class="val may" x="1230.0" y="215.6" text-anchor="middle">.045</text>
+<text class="bc" x="1230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M1280.0,380.0 v-273.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.6 z"><title>Jun25_bc21 (2025-06-25) · genome-wide 0.0806 · 68,726,090 informative A calls</title></path>
+<text class="val jun" x="1300.0" y="94.4" text-anchor="middle">.081</text>
+<text class="bc" x="1300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M1328.0,380.0 v-256.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v256.4 z"><title>Jun25_bc22 (2025-06-25) · genome-wide 0.0756 · 81,305,085 informative A calls</title></path>
+<text class="val jun" x="1348.0" y="111.6" text-anchor="middle">.076</text>
+<text class="bc" x="1348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M1376.0,380.0 v-257.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v257.8 z"><title>Jun25_bc23 (2025-06-25) · genome-wide 0.0760 · 63,276,685 informative A calls</title></path>
+<text class="val jun" x="1396.0" y="110.2" text-anchor="middle">.076</text>
+<text class="bc" x="1396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M1424.0,380.0 v-262.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v262.8 z"><title>Jun25_bc24 (2025-06-25) · genome-wide 0.0775 · 83,334,354 informative A calls</title></path>
+<text class="val jun" x="1444.0" y="105.2" text-anchor="middle">.077</text>
+<text class="bc" x="1444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="1112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="1206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="1372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="1080" x2="1480" y1="380" y2="380"/>
+</g>
+</svg></div>
+    <p class="foot txt" style="font-size:15px">Rate = methylated / (methylated + canonical) A calls, pooled per barcode. Calls as
+    <span class="m">singlefiber/read_calls.py</span>: ML/255 ≥ 0.8105 methylated, ≤ 0.1895 canonical (Watson on ref A, Crick on ref T).
+    Linkers: <span class="m">computeLinkers</span>, 15 bp each side of 147 bp Chereji ±1 nucleosomes. Cores: the 147 bp windows of the
+    current nucleosome m6A fit (Brogaard top 2,000, <span class="m">nucbrogsym/m6a_fit.py</span>). Genome-wide: every ref A/T, chrM excluded.
+    Reads: the final keep list (filters on the next slide: rDNA excluded, one pooled MAD fence), 667,502 reads. Source:
+    <span class="m">bg_investigation/nov03_final/rates_final.tsv</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 2 FILTERS ======================= -->
+<section class="slide" data-id="2" data-kind="hidden" data-sec="1" data-steps="1" data-title="Read filters">
+  <span class="slide-no">2</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Which reads we keep</p>
+    <h2 style="font-size:46px">Read filters: we keep 56.1% of reads and 72.5% of calls</h2>
+    <p class="msg" style="font-size:20px;max-width:none">Applied top to bottom; each read counts at the first filter that removes it.
+    Big number: % of mapped reads. Small: % of informative A calls. The outlier fence is now <b>one pooled fence</b> over all 7 barcodes, not one per run.</p>
+  </header>
+  <div class="body stack" style="gap:10px">
+    <div class="cols filt-cards" style="grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">MAPQ: is the read in the right place?</h3>
+        <p style="font-size:16px">MAPQ = −10·log<sub>10</sub>(chance the placement is wrong). 20 means a 1% chance; 60 is the top.
+        Low MAPQ usually means the read fits more than one place.</p></div>
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">qs: are the bases right?</h3>
+        <p style="font-size:16px">dorado's mean base quality per read, same scale. qs 10 ≈ 90% of bases right; 20 ≈ 99%.
+        Low-qs reads also look more methylated (Spearman ρ −0.33 to −0.43, every barcode).</p></div>
+      <div class="card" style="padding:10px 16px"><h3 style="font-size:20px;margin-bottom:4px">Untrimmed reads are fine</h3>
+        <p style="font-size:16px">Adapters (~117 bp at the 5′ end) are soft-clipped by the aligner. Trimming and re-aligning 3,500 random reads moved
+        only +10 / −6 across MAPQ 20.</p></div>
+    </div>
+    <div class="tbl-wrap"><table class="tbl compact filt filt2" style="font-size:17px">
+      <thead><tr><th>Filter</th><th>What it removes</th><th class="r run-mar">Mar20<br>bc01</th><th class="r run-may">May07<br>bc03–04</th><th class="r run-jun">Jun25<br>bc21–24</th><th class="r ">All<br>7 barcodes</th></tr></thead>
+      <tbody><tr><td><b>No m6A tags</b></td><td class="d">Failed flag, or no MM/ML tags (0 calls).</td><td class="n r" title="2 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="11 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="3 reads, 0 calls">0.0%<br><small>–</small></td><td class="n r" title="16 reads, 0 calls">0.0%<br><small>16 · –</small></td></tr>
+<tr><td><b>chrM</b></td><td class="d">Mitochondrial: we model the nuclear genome.</td><td class="n r" title="17,302 reads, 3,812,678 calls">7.3%<br><small>4.6%</small></td><td class="n r" title="96,431 reads, 50,206,370 calls">21.5%<br><small>17.3%</small></td><td class="n r" title="21,219 reads, 11,703,237 calls">4.2%<br><small>3.1%</small></td><td class="n r" title="134,952 reads, 65,722,285 calls">11.3%<br><small>134,952 · 8.7%</small></td></tr>
+<tr><td><b>rDNA array</b></td><td class="d">Overlaps chrXII:451,418–468,929 (next slide).</td><td class="n r" title="40,232 reads, 11,895,944 calls">17.0%<br><small>14.2%</small></td><td class="n r" title="75,785 reads, 40,208,463 calls">16.9%<br><small>13.9%</small></td><td class="n r" title="82,827 reads, 52,299,506 calls">16.4%<br><small>13.8%</small></td><td class="n r" title="198,844 reads, 104,403,913 calls">16.7%<br><small>198,844 · 13.9%</small></td></tr>
+<tr><td><b>MAPQ < 20</b></td><td class="d">≥ 1% chance the read is in the wrong place.</td><td class="n r" title="10,578 reads, 1,991,621 calls">4.5%<br><small>2.4%</small></td><td class="n r" title="10,503 reads, 3,931,260 calls">2.3%<br><small>1.4%</small></td><td class="n r" title="14,856 reads, 5,906,262 calls">2.9%<br><small>1.6%</small></td><td class="n r" title="35,937 reads, 11,829,143 calls">3.0%<br><small>35,937 · 1.6%</small></td></tr>
+<tr><td><b>Aligned < 500 bp</b></td><td class="d">Under 500 bp of genome: ~3 nucleosomes.</td><td class="n r" title="47,414 reads, 3,650,835 calls">20.0%<br><small>4.4%</small></td><td class="n r" title="33,863 reads, 2,879,400 calls">7.6%<br><small>1.0%</small></td><td class="n r" title="44,401 reads, 3,679,006 calls">8.8%<br><small>1.0%</small></td><td class="n r" title="125,678 reads, 10,209,241 calls">10.6%<br><small>125,678 · 1.4%</small></td></tr>
+<tr><td><b>Mean Q < 10</b></td><td class="d">Base calls under ~90% accurate on average.</td><td class="n r" title="3,161 reads, 1,360,335 calls">1.3%<br><small>1.6%</small></td><td class="n r" title="6,455 reads, 4,627,478 calls">1.4%<br><small>1.6%</small></td><td class="n r" title="7,857 reads, 6,103,451 calls">1.6%<br><small>1.6%</small></td><td class="n r" title="17,473 reads, 12,091,264 calls">1.5%<br><small>17,473 · 1.6%</small></td></tr>
+<tr><td><b>m6A outlier</b></td><td class="d">Outside the pooled fence [-0.070, 0.194]; all 9,270 are high.</td><td class="n r" title="1,067 reads, 230,677 calls">0.4%<br><small>0.3%</small></td><td class="n r" title="2,591 reads, 801,431 calls">0.6%<br><small>0.3%</small></td><td class="n r" title="5,612 reads, 1,647,671 calls">1.1%<br><small>0.4%</small></td><td class="n r" title="9,270 reads, 2,679,779 calls">0.8%<br><small>9,270 · 0.4%</small></td></tr>
+<tr class="key"><td>Kept</td><td class="d" style="color:inherit">667,502 of 1,189,672 mapped reads</td><td class="n r">49.5%<br><small>117,581 · 72.6% calls</small></td><td class="n r">49.6%<br><small>222,212 · 64.6% calls</small></td><td class="n r">65.0%<br><small>327,709 · 78.5% calls</small></td><td class="n r">56.1%<br><small>667,502 · 72.5% calls</small></td></tr></tbody>
+    </table></div>
+    <p class="foot txt" style="font-size:14px">Fence: reads with ≥ 50 informative A calls are judged on their genome-wide m6A rate; fence = median ± 4 × 1.4826 × MAD
+    (median 0.0618, MAD 0.0223, 676,737 reads judged; 35 reads with &lt; 50 calls kept unjudged).
+    Source: <span class="m">filtered_refit_nordna/filter_summary.tsv</span>, <span class="m">fence.json</span>, <span class="m">scripts/make_keep.py</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 2b rDNA ======================= -->
+<section class="slide" data-id="2b" data-kind="hidden" data-sec="1" data-steps="1" data-title="Why we exclude the rDNA array">
+  <span class="slide-no">2b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Which reads we keep</p>
+    <h2 style="font-size:44px">Why we exclude the rDNA array</h2>
+    <p class="msg" style="font-size:21px">About 150 rDNA copies in the cell map onto 2 copies in the reference. Their reads pile up, cannot be placed,
+    and look more methylated, so they bent the outlier fence. Dropping them barely moves the fitted rates.</p>
+  </header>
+  <div class="body" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;min-height:0">
+    <div class="stack rdna-facts" style="gap:10px">
+      <div class="card"><h3>Where</h3><p>chrXII:451,418–468,929: two copies of a 9,137 bp unit in sacCer3 (the second is 8,375 bp, cut short).</p></div>
+      <div class="card"><h3>Pile-up</h3><p><b>198,847</b> of 1,189,672 mapped reads (<b>16.7%</b>) touch it. Depth <b>990×</b> vs 52.5× for the rest of the genome
+        (723× vs 51.6× after filters).</p></div>
+      <div class="card"><h3>Placement</h3><p><b>68%</b> of rDNA reads have MAPQ &lt; 20, vs 4% elsewhere (131,546 at MAPQ 0, 58,230 at 60).
+        98.4% of the 63,707 MAPQ ≥ 20 reads touch the 762 bp stretch that exists in only one reference copy: high MAPQ means
+        “unique in the reference”, not “unique in the cell”.</p></div>
+      <div class="card"><h3>Methylation</h3><p>Pooled m6A <b>0.107</b> vs 0.065. Median per read 0.099 vs 0.061, higher in every barcode (right).</p></div>
+    </div>
+    <div class="stack" style="gap:10px">
+      <p class="panel-t">Median per-read m6A rate, kept reads</p>
+      <div class="legend-runs" style="font-size:17px"><span><i class="dot rd"></i><b>rDNA reads</b></span><span><i class="dot rest"></i><b>rest of genome</b></span></div>
+      <div class="dots"><svg viewBox="0 0 760 380" role="img" aria-label="Median per-read m6A rate per barcode, rDNA reads versus the rest of the genome. rDNA is higher in all seven barcodes.">
+<line class="grid" x1="56" x2="744" y1="300.0" y2="300.0"/>
+<text class="tk" x="48" y="304.0" text-anchor="end">0.00</text>
+<line class="grid" x1="56" x2="744" y1="232.5" y2="232.5"/>
+<text class="tk" x="48" y="236.5" text-anchor="end">0.03</text>
+<line class="grid" x1="56" x2="744" y1="165.0" y2="165.0"/>
+<text class="tk" x="48" y="169.0" text-anchor="end">0.06</text>
+<line class="grid" x1="56" x2="744" y1="97.5" y2="97.5"/>
+<text class="tk" x="48" y="101.5" text-anchor="end">0.09</text>
+<line class="grid" x1="56" x2="744" y1="30.0" y2="30.0"/>
+<text class="tk" x="48" y="34.0" text-anchor="end">0.12</text>
+<line class="conn" x1="100.9" x2="100.9" y1="174.9" y2="81.8"/>
+<circle class="d rest" cx="100.9" cy="174.9" r="7"><title>Mar20_bc01 rest of genome: median 0.056 (117,762 reads)</title></circle>
+<circle class="d rd" cx="100.9" cy="81.8" r="7"><title>Mar20_bc01 rDNA: median 0.097 (6,835 reads)</title></circle>
+<text class="val" x="100.9" y="67.8" text-anchor="middle">.097</text>
+<text class="val mute" x="100.9" y="198.9" text-anchor="middle">.056</text>
+<text class="bc" x="100.9" y="322" text-anchor="middle">01</text>
+<line class="conn" x1="220.6" x2="220.6" y1="201.5" y2="113.5"/>
+<circle class="d rest" cx="220.6" cy="201.5" r="7"><title>May07_bc03 rest of genome: median 0.044 (103,292 reads)</title></circle>
+<circle class="d rd" cx="220.6" cy="113.5" r="7"><title>May07_bc03 rDNA: median 0.083 (9,715 reads)</title></circle>
+<text class="val" x="220.6" y="99.5" text-anchor="middle">.083</text>
+<text class="val mute" x="220.6" y="225.5" text-anchor="middle">.044</text>
+<text class="bc" x="220.6" y="322" text-anchor="middle">03</text>
+<line class="conn" x1="310.3" x2="310.3" y1="204.3" y2="116.0"/>
+<circle class="d rest" cx="310.3" cy="204.3" r="7"><title>May07_bc04 rest of genome: median 0.043 (119,331 reads)</title></circle>
+<circle class="d rd" cx="310.3" cy="116.0" r="7"><title>May07_bc04 rDNA: median 0.082 (11,108 reads)</title></circle>
+<text class="val" x="310.3" y="102.0" text-anchor="middle">.082</text>
+<text class="val mute" x="310.3" y="228.3" text-anchor="middle">.043</text>
+<text class="bc" x="310.3" y="322" text-anchor="middle">04</text>
+<line class="conn" x1="430.0" x2="430.0" y1="121.3" y2="45.9"/>
+<circle class="d rest" cx="430.0" cy="121.3" r="7"><title>Jun25_bc21 rest of genome: median 0.079 (76,141 reads)</title></circle>
+<circle class="d rd" cx="430.0" cy="45.9" r="7"><title>Jun25_bc21 rDNA: median 0.113 (5,336 reads)</title></circle>
+<text class="val" x="430.0" y="31.9" text-anchor="middle">.113</text>
+<text class="val mute" x="430.0" y="145.3" text-anchor="middle">.079</text>
+<text class="bc" x="430.0" y="322" text-anchor="middle">21</text>
+<line class="conn" x1="519.7" x2="519.7" y1="132.6" y2="56.1"/>
+<circle class="d rest" cx="519.7" cy="132.6" r="7"><title>Jun25_bc22 rest of genome: median 0.074 (89,861 reads)</title></circle>
+<circle class="d rd" cx="519.7" cy="56.1" r="7"><title>Jun25_bc22 rDNA: median 0.108 (6,449 reads)</title></circle>
+<text class="val" x="519.7" y="42.1" text-anchor="middle">.108</text>
+<text class="val mute" x="519.7" y="156.6" text-anchor="middle">.074</text>
+<text class="bc" x="519.7" y="322" text-anchor="middle">22</text>
+<line class="conn" x1="609.4" x2="609.4" y1="131.6" y2="50.6"/>
+<circle class="d rest" cx="609.4" cy="131.6" r="7"><title>Jun25_bc23 rest of genome: median 0.075 (69,234 reads)</title></circle>
+<circle class="d rd" cx="609.4" cy="50.6" r="7"><title>Jun25_bc23 rDNA: median 0.111 (4,870 reads)</title></circle>
+<text class="val" x="609.4" y="36.6" text-anchor="middle">.111</text>
+<text class="val mute" x="609.4" y="155.6" text-anchor="middle">.075</text>
+<text class="bc" x="609.4" y="322" text-anchor="middle">23</text>
+<line class="conn" x1="699.1" x2="699.1" y1="128.1" y2="50.0"/>
+<circle class="d rest" cx="699.1" cy="128.1" r="7"><title>Jun25_bc24 rest of genome: median 0.076 (93,407 reads)</title></circle>
+<circle class="d rd" cx="699.1" cy="50.0" r="7"><title>Jun25_bc24 rDNA: median 0.111 (6,603 reads)</title></circle>
+<text class="val" x="699.1" y="36.0" text-anchor="middle">.111</text>
+<text class="val mute" x="699.1" y="152.1" text-anchor="middle">.076</text>
+<text class="bc" x="699.1" y="322" text-anchor="middle">24</text>
+<text class="rn" x="100.9" y="344" text-anchor="middle">Mar20</text>
+<text class="rn" x="265.4" y="344" text-anchor="middle">May07</text>
+<text class="rn" x="564.6" y="344" text-anchor="middle">Jun25</text>
+<line class="base" x1="56" x2="744" y1="300" y2="300"/>
+</svg></div>
+      <div class="callout" style="font-size:17px;padding:12px 16px"><span class="lab">What excluding it changes</span>
+        <b>Outlier fence:</b> rDNA was 7.75% of judged reads but 43.5% of fence removals (5,947 of 13,656). Upper fence 0.2036 → 0.1940.<br>
+        <b>Fitted rates:</b> background 0.15648 → 0.15635 (Watson), nucleosome ×0.998, TF footprints within 1.3%.<br>
+        <b>Decoder:</b> rDNA is where the old (non-log) decoder gave invalid posteriors.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= H1 DETAIL ======================= -->
+<section class="slide" data-id="H1" data-kind="hidden" data-sec="1" data-steps="1" data-title="Rates under each read set">
+  <span class="slide-no">H1</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 1</span> Detail · does the read set matter?</p>
+    <h2 style="font-size:40px">Same picture under every read set</h2>
+    <p class="msg" style="font-size:20px;max-width:none">Each cell: linker · nucleosome core · genome-wide. Filters lower the genome-wide rate a little and
+    barely move linkers; the Jun25 lead is unchanged under every read set.</p>
+  </header>
+  <div class="body stack" style="gap:12px">
+    <p class="panel-t">Pooled rate</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.141 · .041 · .065</td><td class="n r">.117 · .035 · .056</td><td class="n r">.113 · .033 · .054</td><td class="n r">.192 · .058 · .088</td><td class="n r">.181 · .054 · .082</td><td class="n r">.182 · .054 · .083</td><td class="n r">.185 · .055 · .084</td><td class="n r">.155 · .046 · .072</td></tr><tr><td>Filters, no fence</td><td class="n r">.143 · .040 · .062</td><td class="n r">.118 · .035 · .052</td><td class="n r">.114 · .033 · .050</td><td class="n r">.194 · .058 · .086</td><td class="n r">.184 · .054 · .080</td><td class="n r">.184 · .055 · .081</td><td class="n r">.187 · .055 · .082</td><td class="n r">.158 · .046 · .069</td></tr><tr><td>Tukey per run</td><td class="n r">.141 · .039 · .058</td><td class="n r">.115 · .033 · .047</td><td class="n r">.112 · .031 · .046</td><td class="n r">.192 · .057 · .082</td><td class="n r">.182 · .053 · .077</td><td class="n r">.183 · .053 · .077</td><td class="n r">.186 · .054 · .079</td><td class="n r">.156 · .045 · .065</td></tr><tr><td>MAD per run</td><td class="n r">.142 · .040 · .060</td><td class="n r">.116 · .033 · .048</td><td class="n r">.113 · .032 · .047</td><td class="n r">.193 · .057 · .083</td><td class="n r">.183 · .053 · .078</td><td class="n r">.184 · .054 · .079</td><td class="n r">.187 · .055 · .080</td><td class="n r">.157 · .045 · .067</td></tr><tr class="key"><td>Final (no rDNA, pooled MAD)</td><td class="n r">.143 · .040 · .058</td><td class="n r">.117 · .034 · .047</td><td class="n r">.114 · .033 · .045</td><td class="n r">.193 · .057 · .081</td><td class="n r">.183 · .053 · .076</td><td class="n r">.184 · .054 · .076</td><td class="n r">.187 · .054 · .077</td><td class="n r">.157 · .046 · .065</td></tr></tbody></table></div>
+    <p class="panel-t">Median per-read rate (reads with ≥ 20 linker, ≥ 20 core, ≥ 200 genome-wide calls)</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.121 · .028 · .058</td><td class="n r">.103 · .024 · .047</td><td class="n r">.100 · .023 · .045</td><td class="n r">.182 · .047 · .082</td><td class="n r">.172 · .043 · .077</td><td class="n r">.171 · .043 · .078</td><td class="n r">.174 · .044 · .079</td><td class="n r">.140 · .034 · .065</td></tr><tr><td>Tukey per run</td><td class="n r">.123 · .028 · .056</td><td class="n r">.102 · .023 · .044</td><td class="n r">.100 · .023 · .043</td><td class="n r">.182 · .047 · .080</td><td class="n r">.173 · .043 · .075</td><td class="n r">.172 · .043 · .076</td><td class="n r">.175 · .044 · .077</td><td class="n r">.143 · .034 · .062</td></tr><tr><td>Final (no rDNA, pooled MAD)</td><td class="n r">.125 · .028 · .055</td><td class="n r">.103 · .024 · .043</td><td class="n r">.100 · .023 · .042</td><td class="n r">.182 · .048 · .079</td><td class="n r">.174 · .043 · .074</td><td class="n r">.173 · .043 · .075</td><td class="n r">.175 · .044 · .076</td><td class="n r">.143 · .034 · .061</td></tr></tbody></table></div>
+    <p class="panel-t">Nucleosome core on Chereji ±1 sites instead (dyad −73 to +73, the original generator's window)</p>
+    <div class="tbl-wrap"><table class="tbl compact h1t" style="font-size:14px">
+      <thead><tr><th>Read set</th><th class="r">Mar20 bc01</th><th class="r">May07 bc03</th><th class="r">May07 bc04</th><th class="r">Jun25 bc21</th><th class="r">Jun25 bc22</th><th class="r">Jun25 bc23</th><th class="r">Jun25 bc24</th><th class="r">ALL</th></tr></thead>
+      <tbody><tr><td>Unfiltered</td><td class="n r">.052</td><td class="n r">.047</td><td class="n r">.045</td><td class="n r">.073</td><td class="n r">.068</td><td class="n r">.069</td><td class="n r">.070</td><td class="n r">.059</td></tr><tr><td>Tukey per run</td><td class="n r">.050</td><td class="n r">.043</td><td class="n r">.043</td><td class="n r">.072</td><td class="n r">.067</td><td class="n r">.068</td><td class="n r">.069</td><td class="n r">.058</td></tr><tr><td>Final (no rDNA, pooled MAD)</td><td class="n r">.051</td><td class="n r">.045</td><td class="n r">.045</td><td class="n r">.073</td><td class="n r">.068</td><td class="n r">.068</td><td class="n r">.070</td><td class="n r">.059</td></tr></tbody></table></div>
+    <p class="foot txt" style="font-size:14px">MAD rule: outside median ± 4 × 1.4826 × MAD of the genome-wide per-read rate (per run here;
+    one pooled fence in the final set, which also drops rDNA). Sources: <span class="m">bg_investigation/nov03/rates_by_barcode.tsv</span>,
+    final row <span class="m">bg_investigation/nov03_final/rates_final.tsv</span>.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 DECIDED ======================= -->
+<section class="slide" data-id="3" data-kind="main" data-sec="2" data-steps="1" data-title="Single-fiber model decisions: decided">
+  <span class="slide-no">3</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> Single-fiber model decisions</p>
+    <h2 style="font-size:46px">Decided</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <div class="dec-grid"><ul class="dec"><li><span class="dc">Read filters</span><span class="ds">primary + mapped, nuclear; MAPQ ≥ 20; aligned ≥ 500 bp; qs ≥ 10</span></li><li><span class="dc">rDNA reads</span><span class="ds">dropped (chrXII:451,418–468,929), before the fence</span></li><li><span class="dc">Read trimming / realignment</span><span class="ds">none: adapters soft-clipped</span></li><li><span class="dc">Per-read m6A outlier cap</span><span class="ds">one pooled MAD fence, [−0.070, 0.194]</span></li><li><span class="dc">Per-read m6A call threshold</span><span class="ds">modkit 10th-pct rule → 0.8105469, fixed everywhere</span></li><li><span class="dc">Per-A call labels</span><span class="ds">skipped A / ML ≤ 48 → 0 · ML ≥ 207 → 1 · 49–206 no-call</span></li><li><span class="dc">Background m6A rate (single-fiber)</span><span class="ds">one pooled 7-barcode value: 0.1564 / 0.1544</span></li><li><span class="dc">Read set for all m6A fits</span><span class="ds">bg + nucleosome + TF all refit on filtered, rDNA-free reads</span></li></ul><ul class="dec"><li><span class="dc">One background file</span><span class="ds">bg_params_all7.pkl = link to bg_params_merged.pkl</span></li><li><span class="dc">Start rule for per-read decodes</span><span class="ds">start anywhere = stationary distribution (verified)</span></li><li><span class="dc">End rule for per-read decodes</span><span class="ds">end anywhere = backward init 1 (verified)</span></li><li><span class="dc">Decoding direction</span><span class="ds">5′→3′ on each read&#x27;s own strand</span></li><li><span class="dc">Nucleosome sequence model for single-fiber</span><span class="ds">Brogaard top-2000, strand-symmetric</span></li><li><span class="dc">Reference vs read sequence (consensus rule)</span><span class="ds">decode the reference; strain differences flagged only</span></li><li><span class="dc">Decoder numerics for single-fiber</span><span class="ds">log space, exact emission</span></li></ul></div>
+    <p class="foot txt dec-link">All rows, with values, evidence paths and dates: shared sheet <b>FiberCOP model choices</b> · <span class="m">https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT</span></p>
+  </div>
+</section>
+
+<!-- ======================= 4 UPDATE ======================= -->
+<section class="slide" data-id="4" data-kind="main" data-sec="3" data-steps="1" data-title="Update">
+  <span class="slide-no">4</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Single-fiber update</p>
+    <h2>Update</h2>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <div class="callscale"><svg viewBox="0 0 1440 170" role="img" aria-label="m6A call rule on p, the dorado ML probability: skipped A and p up to 0.19 unmethylated, between 0.19 and 0.81 no call, 0.81 and above methylated.">
+<defs><pattern id="nocall-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="nc-bg" width="10" height="10"/><line class="nc-ln" x1="0" y1="0" x2="0" y2="10"/></pattern></defs>
+<rect class="band un" x="30.0" y="62" width="261.4" height="44"/>
+<rect class="band skip" x="30.0" y="62" width="69.0" height="44"/>
+<rect class="band nc" x="291.4" y="62" width="857.1" height="44" fill="url(#nocall-hatch)"/>
+<rect class="band me" x="1148.6" y="62" width="261.4" height="44"/>
+<text class="bl" x="30.0" y="48">unmethylated</text>
+<text class="bl" x="720.0" y="48" text-anchor="middle">no call: no evidence for that base</text>
+<text class="bl me-t" x="1410.0" y="48" text-anchor="end">methylated</text>
+<line class="tkl" x1="30.0" x2="30.0" y1="106" y2="114"/>
+<text class="tk" x="30.0" y="134" text-anchor="start">0</text>
+<line class="tkl" x1="99.0" x2="99.0" y1="106" y2="114"/>
+<text class="tk" x="99.0" y="134" text-anchor="middle">0.05</text>
+<line class="tkl" x1="291.4" x2="291.4" y1="106" y2="114"/>
+<text class="tk" x="291.4" y="134" text-anchor="middle">0.19</text>
+<line class="tkl" x1="1148.6" x2="1148.6" y1="106" y2="114"/>
+<text class="tk" x="1148.6" y="134" text-anchor="middle">0.81</text>
+<line class="tkl" x1="1410.0" x2="1410.0" y1="106" y2="114"/>
+<text class="tk" x="1410.0" y="134" text-anchor="end">1</text>
+<text class="sk" x="109.0" y="91">skipped A (p &lt; 0.05) count as unmethylated</text>
+<text class="axl" x="720.0" y="168" text-anchor="middle">p = dorado ML probability of m6A</text>
+</svg></div>
+    <p class="foot txt" style="font-size:16px;margin-top:-14px">0.81 = modkit's 10th-percentile-of-confidence rule, fixed once on the filtered reads (0.8105469).</p>
+    <div class="upd-row">
+      <div class="bars mini"><svg viewBox="0 0 1440 470" role="img" aria-label="m6A rate per barcode in linkers, nucleosome cores and genome-wide, after read filters. Jun25 barcodes are highest in all three.">
+<g class="panel">
+<text class="ttl" x="40" y="30">Linkers</text>
+<line class="grid" x1="80" x2="480" y1="380.0" y2="380.0"/>
+<text class="tk" x="74" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="80" x2="480" y1="302.5" y2="302.5"/>
+<text class="tk" x="74" y="306.5" text-anchor="end">0.05</text>
+<line class="grid" x1="80" x2="480" y1="225.0" y2="225.0"/>
+<text class="tk" x="74" y="229.0" text-anchor="end">0.10</text>
+<line class="grid" x1="80" x2="480" y1="147.5" y2="147.5"/>
+<text class="tk" x="74" y="151.5" text-anchor="end">0.15</text>
+<line class="grid" x1="80" x2="480" y1="70.0" y2="70.0"/>
+<text class="tk" x="74" y="74.0" text-anchor="end">0.20</text>
+<path class="b mar" d="M92.0,380.0 v-217.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v217.0 z"><title>Mar20_bc01 (2025-03-20) · linkers 0.1426 · 1,322,848 informative A calls</title></path>
+<text class="bc" x="112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M162.0,380.0 v-177.9 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v177.9 z"><title>May07_bc03 (2025-05-07) · linkers 0.1174 · 1,908,129 informative A calls</title></path>
+<text class="bc" x="182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M210.0,380.0 v-172.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v172.0 z"><title>May07_bc04 (2025-05-07) · linkers 0.1136 · 2,215,043 informative A calls</title></path>
+<text class="bc" x="230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M280.0,380.0 v-295.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v295.4 z"><title>Jun25_bc21 (2025-06-25) · linkers 0.1932 · 1,475,621 informative A calls</title></path>
+<text class="bc" x="300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M328.0,380.0 v-279.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v279.3 z"><title>Jun25_bc22 (2025-06-25) · linkers 0.1828 · 1,747,436 informative A calls</title></path>
+<text class="bc" x="348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M376.0,380.0 v-280.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v280.5 z"><title>Jun25_bc23 (2025-06-25) · linkers 0.1835 · 1,363,312 informative A calls</title></path>
+<text class="bc" x="396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M424.0,380.0 v-285.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v285.3 z"><title>Jun25_bc24 (2025-06-25) · linkers 0.1866 · 1,788,450 informative A calls</title></path>
+<text class="bc" x="444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="80" x2="480" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="540" y="30">Nucleosome cores</text>
+<line class="grid" x1="580" x2="980" y1="380.0" y2="380.0"/>
+<text class="tk" x="574" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="580" x2="980" y1="276.7" y2="276.7"/>
+<text class="tk" x="574" y="280.7" text-anchor="end">0.02</text>
+<line class="grid" x1="580" x2="980" y1="173.3" y2="173.3"/>
+<text class="tk" x="574" y="177.3" text-anchor="end">0.04</text>
+<line class="grid" x1="580" x2="980" y1="70.0" y2="70.0"/>
+<text class="tk" x="574" y="74.0" text-anchor="end">0.06</text>
+<path class="b mar" d="M592.0,380.0 v-202.3 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v202.3 z"><title>Mar20_bc01 (2025-03-20) · nucleosome cores 0.0399 · 1,557,457 informative A calls</title></path>
+<text class="bc" x="612.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M662.0,380.0 v-171.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v171.4 z"><title>May07_bc03 (2025-05-07) · nucleosome cores 0.0340 · 2,213,592 informative A calls</title></path>
+<text class="bc" x="682.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M710.0,380.0 v-164.2 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v164.2 z"><title>May07_bc04 (2025-05-07) · nucleosome cores 0.0326 · 2,590,229 informative A calls</title></path>
+<text class="bc" x="730.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M780.0,380.0 v-291.0 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v291.0 z"><title>Jun25_bc21 (2025-06-25) · nucleosome cores 0.0571 · 1,762,395 informative A calls</title></path>
+<text class="bc" x="800.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M828.0,380.0 v-270.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v270.8 z"><title>Jun25_bc22 (2025-06-25) · nucleosome cores 0.0532 · 2,084,161 informative A calls</title></path>
+<text class="bc" x="848.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M876.0,380.0 v-273.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.4 z"><title>Jun25_bc23 (2025-06-25) · nucleosome cores 0.0537 · 1,608,310 informative A calls</title></path>
+<text class="bc" x="896.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M924.0,380.0 v-277.5 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v277.5 z"><title>Jun25_bc24 (2025-06-25) · nucleosome cores 0.0545 · 2,148,774 informative A calls</title></path>
+<text class="bc" x="944.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="612.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="706.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="872.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="580" x2="980" y1="380" y2="380"/>
+</g>
+<g class="panel">
+<text class="ttl" x="1040" y="30">Genome-wide</text>
+<line class="grid" x1="1080" x2="1480" y1="380.0" y2="380.0"/>
+<text class="tk" x="1074" y="384.0" text-anchor="end">0.00</text>
+<line class="grid" x1="1080" x2="1480" y1="276.7" y2="276.7"/>
+<text class="tk" x="1074" y="280.7" text-anchor="end">0.03</text>
+<line class="grid" x1="1080" x2="1480" y1="173.3" y2="173.3"/>
+<text class="tk" x="1074" y="177.3" text-anchor="end">0.06</text>
+<line class="grid" x1="1080" x2="1480" y1="70.0" y2="70.0"/>
+<text class="tk" x="1074" y="74.0" text-anchor="end">0.09</text>
+<path class="b mar" d="M1092.0,380.0 v-197.1 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v197.1 z"><title>Mar20_bc01 (2025-03-20) · genome-wide 0.0584 · 60,806,644 informative A calls</title></path>
+<text class="bc" x="1112.0" y="402" text-anchor="middle">01</text>
+<path class="b may" d="M1162.0,380.0 v-157.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v157.6 z"><title>May07_bc03 (2025-05-07) · genome-wide 0.0469 · 86,522,909 informative A calls</title></path>
+<text class="bc" x="1182.0" y="402" text-anchor="middle">03</text>
+<path class="b may" d="M1210.0,380.0 v-152.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v152.4 z"><title>May07_bc04 (2025-05-07) · genome-wide 0.0454 · 100,898,174 informative A calls</title></path>
+<text class="bc" x="1230.0" y="402" text-anchor="middle">04</text>
+<path class="b jun" d="M1280.0,380.0 v-273.6 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v273.6 z"><title>Jun25_bc21 (2025-06-25) · genome-wide 0.0806 · 68,726,090 informative A calls</title></path>
+<text class="bc" x="1300.0" y="402" text-anchor="middle">21</text>
+<path class="b jun" d="M1328.0,380.0 v-256.4 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v256.4 z"><title>Jun25_bc22 (2025-06-25) · genome-wide 0.0756 · 81,305,085 informative A calls</title></path>
+<text class="bc" x="1348.0" y="402" text-anchor="middle">22</text>
+<path class="b jun" d="M1376.0,380.0 v-257.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v257.8 z"><title>Jun25_bc23 (2025-06-25) · genome-wide 0.0760 · 63,276,685 informative A calls</title></path>
+<text class="bc" x="1396.0" y="402" text-anchor="middle">23</text>
+<path class="b jun" d="M1424.0,380.0 v-262.8 a4,4 0 0 1 4,-4 h32.0 a4,4 0 0 1 4,4 v262.8 z"><title>Jun25_bc24 (2025-06-25) · genome-wide 0.0775 · 83,334,354 informative A calls</title></path>
+<text class="bc" x="1444.0" y="402" text-anchor="middle">24</text>
+<text class="rn" x="1112.0" y="426" text-anchor="middle">Mar20</text>
+<text class="rn" x="1206.0" y="426" text-anchor="middle">May07</text>
+<text class="rn" x="1372.0" y="426" text-anchor="middle">Jun25</text>
+<line class="base" x1="1080" x2="1480" y1="380" y2="380"/>
+</g>
+</svg></div>
+      <ul class="upd-bul"><li>Some runs are more methylated than others.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4b NO-CALL MATH ======================= -->
+<section class="slide" data-id="4b" data-kind="main" data-sec="3" data-steps="1" data-title="How a no-call enters the model">
+  <span class="slide-no">4b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> one A on one read &middot; open (&theta; = 0.156) vs nucleosome dyad (&theta; = 0.019)</p>
+    <h2 style="font-size:44px">How a no-call enters the model</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <table class="tbl compact probs nc3">
+<thead><tr><th></th><th>Unmethylated A<br><small>p &le; 0.19</small></th><th>Methylated A<br><small>p &ge; 0.81</small></th><th>No-call A<br><small>0.19 &lt; p &lt; 0.81</small></th><th>C, G or T base<br><small>cannot carry m6A on this strand</small></th></tr></thead>
+<tbody>
+<tr class="grp"><th colspan="5">Today: Bernoulli on confident calls only</th></tr>
+<tr><th scope="row">score if open</th><td class="pn">0.844<span>1 &minus; &theta;<sub>open</sub></span></td><td class="pn">0.156<span>&theta;<sub>open</sub></span></td><td class="pn">1.000<span>1 (skipped)</span></td><td class="pn">1.000<span>1 (not scored)</span></td></tr>
+<tr><th scope="row">score if nucleosome</th><td class="pn">0.981<span>1 &minus; &theta;<sub>nuc</sub></span></td><td class="pn">0.019<span>&theta;<sub>nuc</sub></span></td><td class="pn">1.000<span>1 (skipped)</span></td><td class="pn">1.000<span>1 (not scored)</span></td></tr>
+<tr><th scope="row">evidence</th><td class="pn key">1.16&times; nucleosome</td><td class="pn key">8.10&times; open</td><td class="pn key">1&times; &mdash; no evidence</td><td class="pn key">1&times; &mdash; no evidence</td></tr>
+<tr><th scope="row">P(open) after this base<br><small>if open and nucleosome start equal (50:50)</small></th><td class="pn">0.462<span>0.844 / (0.844 + 0.981)</span></td><td class="pn">0.890<span>0.156 / (0.156 + 0.019)</span></td><td class="pn">0.500<span>1.000 / (1.000 + 1.000)</span></td><td class="pn">0.500<span>1.000 / (1.000 + 1.000)</span></td></tr>
+</tbody></table>
+    <div class="nc-layers">
+      <table class="tbl compact nclay">
+        <thead><tr><th>layer</th><th>what</th><th>at a no-call A</th></tr></thead>
+        <tbody>
+        <tr><td>0</td><td>sequence (PWM for TFs, dinucleotide model for nucleosome, base frequencies for background)</td><td><b>used as normal</b></td></tr>
+        <tr><td>1&ndash;4</td><td>MNase</td><td>off (0)</td></tr>
+        <tr><td>5</td><td>Watson m6A Bernoulli</td><td><b>0</b>: the no-call is in neither the methylated nor the unmethylated mask</td></tr>
+        <tr><td>6</td><td>Crick m6A Bernoulli</td><td>0: a read fills only its own strand's layer</td></tr>
+        </tbody>
+      </table>
+      <div class="nc-eq">
+        <p class="nc-eq-l">score of state <i>s</i> at a no-call base <i>i</i></p>
+        <p class="nc-eq-m">log e<sub>s</sub>(i) = log seq<sub>s</sub>(base<sub>i</sub>) + 0</p>
+        <p class="nc-eq-n">same as a C, G or T base; the state at <i>i</i> still comes from the neighbouring bases through forward&ndash;backward</p>
+      </div>
+    </div>
+    <ul class="upd-bul nc-bul">
+      <li>Today a no-call scores 1 in every state, so it cancels: P(s | read) = &pi;<sub>s</sub>&middot;c&middot;L<sub>s</sub> / &Sigma; &pi;<sub>t</sub>&middot;c&middot;L<sub>t</sub>.</li>
+      <li>That assumes no-calls are equally likely in every state. Measured: 14.6% of linker A's vs 7.3% in nucleosome cores.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 5 SINGLE-FIBER DECODE ======================= -->
+<section class="slide" data-id="5" data-kind="main" data-sec="3" data-steps="1" data-title="Current single-fiber decoding">
+  <span class="slide-no">5</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · chrI:60,001–65,000 · 387 reads</p>
+    <h2 style="font-size:46px">Current single-fiber decoding</h2>
+    <p class="msg">Per-read P(ABF1) stays near 0.001 (max 0.0011).</p>
+  </header>
+  <div class="body figrows-wrap">
+    <div class="figrows" style="--imgw:970px">
+      <div class="fl"></div><div class="fi"><div class="mk-strip"><span class="mk s" style="left:28.36%">site 1</span><span class="mk s" style="left:53.76%">site 2</span></div></div>
+      <div class="fl">Genes</div><div class="fi figplate"><img src="img/erv46_genes.png" alt="Genes PTA1, ERV46, CDC24"></div>
+      <div class="fl">Raw m6A<small>fibers clustered on the site 2 window</small></div><div class="fi figplate"><img src="img/erv46_raw.png" alt="Raw m6A per fiber, clustered"></div>
+      <div class="fl">P(nucleosome)<small>0 to 1</small></div><div class="fi figplate"><img src="img/erv46_nuc.png" alt="Per-read nucleosome posterior"></div>
+      <div class="fl">P(ABF1)<small>colour scale 0 to 0.0011</small><button type="button" class="zoom-btn" data-src="img/erv46_full.png" data-title="ERV46 chrI:60,001-65,000, 387 reads, filtered rDNA-free model (all panels)">Full figure</button></div><div class="fi figplate"><img src="img/erv46_abf1.png" alt="Per-read ABF1 posterior, scale 0 to 0.0011"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 ABF1 PRIOR SWEEP ======================= -->
+<section class="slide" data-id="6" data-kind="hidden" data-sec="3" data-steps="1" data-title="Raised genome-wide ABF1 prior">
+  <span class="slide-no">6</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · ABF1 prior × 1, 138, 400, 1500, 5000</p>
+    <h2 style="font-size:46px">Raised genome-wide ABF1 prior (×1500)</h2>
+  </header>
+  <div class="body stack" style="gap:26px">
+    <div class="figplate"><img class="full" src="img/abf1_sweep_summary.png" alt="ABF1 prior sweep: per-read posterior, fraction of reads above 0.5, and off-site calls versus the prior multiplier"></div>
+    <ul class="upd-bul">
+      <li>All reads rise together: at ×1500, 72% of site-2 reads pass 0.5 (100 of 138). Site 1 stays at 0.01.</li>
+      <li>A spot with no motif site (61,656–61,669) rises too. At ×5000 it passes 0.5 in 133 reads.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 7 LOCAL PRIOR ======================= -->
+<section class="slide" data-id="7" data-kind="main" data-sec="3" data-steps="1" data-title="Local prior (per-site bound fraction)">
+  <span class="slide-no">7</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> ERV46 · chrI:60,901–62,900 · same reads, same order</p>
+    <h2 style="font-size:46px">Local prior (per-site bound fraction)</h2>
+    <p class="msg">Local prior: both sites called. Global ×1500: site 2 only.</p>
+  </header>
+  <div class="body figrows-wrap">
+    <div class="figrows" style="--imgw:960px">
+      <div class="fl"><span class="fl-k">reads with P(ABF1) &gt; 0.5</span></div><div class="fi"><div class="mk-strip"><span class="mk s" style="left:19.95%">site 1</span><span class="mk s" style="left:83.47%">site 2</span><span class="mk x" style="left:40.82%">no-site spot</span></div></div>
+      <div class="fl">Before<small>site 1 <b>0%</b> · site 2 <b>0%</b></small></div><div class="fi figplate"><img src="img/cmp_before.png" alt="P(ABF1) before, current defaults"></div>
+      <div class="fl">Local prior<small>site 1 <b>94%</b> · site 2 <b>93%</b></small></div><div class="fi figplate"><img src="img/cmp_local.png" alt="P(ABF1) with the local prior"></div>
+      <div class="fl">Global ×1500<small>site 1 <b>0%</b> · site 2 <b>72%</b></small><small class="ref">site-mixture f: site 1 0.72 · site 2 0.61</small><button type="button" class="zoom-btn" data-src="img/cmp_full.png" data-title="ERV46 chrI:60,901-62,900: raw m6A, P(ABF1) before / local prior / global x1500, per-site scatter">Full figure</button></div><div class="fi figplate"><img src="img/cmp_global.png" alt="P(ABF1) with the genome-wide prior raised 1500 times"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 PLACEHOLDER ======================= -->
+<section class="slide" data-id="8" data-kind="main" data-sec="3" data-steps="1" data-tag="PENDING" data-title="To be added">
+  <span class="slide-no">8</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Next</p>
+    <h2>Slide to be added</h2>
+  </header>
+  <div class="body stack"><div class="placeholder">Placeholder</div></div>
+</section>
+
+<!-- ======================= 9 PLACEHOLDER ======================= -->
+<section class="slide" data-id="9" data-kind="main" data-sec="3" data-steps="1" data-tag="PENDING" data-title="To be added">
+  <span class="slide-no">9</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Next</p>
+    <h2>Slide to be added</h2>
+  </header>
+  <div class="body stack"><div class="placeholder">Placeholder</div></div>
+</section>
+
+<!-- ======================= 7b PER-READ VS MOTIF m6A ======================= -->
+<section class="slide" data-id="7b" data-kind="main" data-sec="3" data-steps="1" data-title="Per-read P(ABF1) vs methylated motif As">
+  <span class="slide-no">7b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 3</span> Local prior · per read</p>
+    <h2 style="font-size:46px">Per-read P(ABF1) vs methylated As in the motif</h2>
+    <p class="msg">The local prior over-calls site 1: 94% of reads above 0.5, against a bound fraction f = 0.72.</p>
+  </header>
+  <div class="body stack" style="gap:18px">
+    <div class="figplate"><img class="full" src="img/cmp_scatter.png" alt="Per-read P(ABF1) at site 1 and site 2 against the number of methylated As in the motif, for before, local prior, global x1500 and the site-mixture model"></div>
+  </div>
+</section>
+
+<!-- ======================= 3b NEXT ======================= -->
+<section class="slide" data-id="3b" data-kind="main" data-sec="2" data-steps="1" data-title="Single-fiber model decisions: next">
+  <span class="slide-no">3b</span>
+  <header class="sh">
+    <p class="eyebrow"><span class="sec-no">Part 2</span> Single-fiber model decisions</p>
+    <h2 style="font-size:46px">Still to decide / to do</h2>
+  </header>
+  <div class="body stack" style="gap:14px">
+    <div class="callout dec-first"><span class="lab">#1 · blocks every per-read TF call</span>
+      <span class="dc">Per-read TF calls: method</span><span class="ds">local prior vs raised global prior: being compared</span><br><span class="dc">Local occupancy: site-specific TF prior per read</span><span class="ds">per-site EM f, cross-fit by run; HMM weight later</span></div>
+    <div class="dec-grid"><ol class="dec"><li><span class="dn">2</span><span class="dc">Move site_mixture.py and other read_calls users to _filtnordna</span><span class="ds">yes, into a new output dir (needs OK)</span></li><li><span class="dn">3</span><span class="dc">Validation design for per-read TF calls</span><span class="ds">add open-DNA no-ChIP controls; Rossi held out</span></li><li><span class="dn">4</span><span class="dc">Run labelling difference (Jun25 ≈ 1.65× May07)</span><span class="ds">one scale factor per run first</span></li><li><span class="dn">5</span><span class="dc">Background value + TF fallback</span><span class="ds">keep 0.156 for now; decide with #6</span></li><li><span class="dn">6</span><span class="dc">Prior shares and concentrations</span><span class="ds">fix nucleosome share (11.5%) first</span></li><li><span class="dn">7</span><span class="dc">ABF1 footprint for per-read work</span><span class="ds">bound-class flank rate; keep p_bound fixed</span></li><li><span class="dn">8</span><span class="dc">Poly-dA:dT hypomethylation</span><span class="ds">run-length term in the free class</span></li></ol><ol class="dec"><li><span class="dn">9</span><span class="dc">No-call emission and p calibration</span><span class="ds">3-outcome emission, after #1–#4</span></li><li><span class="dn">10</span><span class="dc">Which factor after ABF1</span><span class="ds">REB1; check its footprint sign first</span></li><li><span class="dn">11</span><span class="dc">Scale, output and viewer</span><span class="ds">all ABF1/REB1 sites genome-wide, per-site model</span></li><li><span class="dn">12</span><span class="dc">Trimming and consensus flags at scale</span><span class="ds">no trim; decode whole reads; annotate flags</span></li><li><span class="dn">13</span><span class="dc">Aggregate model on _filtnordna + start anywhere</span><span class="ds">yes, as a new aggregate tree</span></li><li><span class="dn">14</span><span class="dc">Code inconsistencies from the review</span><span class="ds">fix list; test_5to3.py fails on new defaults</span></li></ol></div>
+    <p class="foot txt dec-link">All rows, with values, evidence paths and dates: shared sheet <b>FiberCOP model choices</b> · <span class="m">https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT</span></p>
+  </div>
+</section>

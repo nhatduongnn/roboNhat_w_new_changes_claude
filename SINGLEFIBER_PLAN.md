@@ -1,4 +1,4 @@
-# Single-fiber FiberCOP — handoff and plan (2026-10-26)
+# Single-fiber FiberCOP — handoff and plan (updated 2026-11-04)
 
 **Start here for the single-fiber thread.** Read `CLAUDE.md` first (environment, rules). This file says
 what exists, what was decided, what the model is, what failed and why, and what to do next.
@@ -11,7 +11,69 @@ Call TF binding (and nucleosomes) on **individual Fiber-seq reads**, using each 
 DNA sequence (PWM layer) to make up for how little one read carries. The end question is how many fibers
 are bound at a site, and which ones.
 
-## Next session (2026-10-31): is the background m6A rise real?
+## Next session (2026-11-04): start here
+
+**State in one paragraph.** The single-fiber defaults are the filtered, rDNA-free 7-barcode model:
+- tree `pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna`;
+- `inputs/*_filtnordna.pkl` (background, nucleosome and TF m6A, all refit on one read set);
+- keep list `/usr/project/xtmp/nd141/filtered_refit_nordna/keep_reads.txt`;
+- read filters MAPQ ≥ 20, aligned ≥ 500, qs ≥ 10, one pooled MAD cap;
+- fixed call threshold 0.8105469; start anywhere; 5'→3'.
+
+Nucleosomes per read look good. Per-read TF calls are still the problem. Details are in the "Done 2026-11-02",
+"Local prior, 2026-11-03" and "Revisit later" sections below, and in `reports/`.
+
+**Open, in order (the user decides):**
+1. **No-call handling — the PI is not happy with it.**
+   - Today a no-call A (0.19 < p < 0.81) scores 1 in every state, the same as C/G/T, so it cancels.
+   - Measured no-call fraction: 14.6% of linker A's vs 7.3% in Brogaard nucleosome cores
+     (`/usr/project/xtmp/nd141/nocall_rates/nocall_rates.json`), so the "no evidence" assumption is false.
+   - Options:
+     - (a) 3-outcome categorical emission, P(meth) = (1−ν)θ, P(unmeth) = (1−ν)(1−θ), P(no-call) = ν, with ν per state
+       fitted from the pileup's N_fail;
+     - (b) soft calls θp + (1−θ)(1−p), which need calibrated dorado p;
+     - (c) keep as is.
+   - The user wants to see what is best before choosing.
+   - Nov 3 deck slide 4b shows today's math.
+   - Not measured yet: ν at bound TF sites.
+2. **Per-read TF-call method (open #1 in the decisions sheet).** Three options compared at ERV46
+   (`reports/2026-11-03_local_prior.md`, `reports/2026-11-03_abf1_prior_sweep.md`):
+   - **Before:** ≤ 0.001.
+   - **Raised genome-wide ABF1 prior:** lifts all reads together. ×1500 calls site 2 only; 84-site Rossi AUROC is 0.56,
+     against 0.94 for the per-site model.
+   - **Local prior:** per-site f from `site_mixture.py` fed in with `--local-prior`. Calls both sites but over-calls:
+     94% of reads > 0.5 against f = 0.72.
+   - Next, if the local prior is chosen: **Part 2b**, a bound-only ABF1 m6A rate (RoboCOP's 0.084 is pooled over
+     bound and unbound fibers). Needs a new TF pkl and tree; user OK required.
+3. **Parameters averaged over bound and unbound fibers.** This is the general version of 2b: nucleosome and TF p's
+   are pooled fits. Not yet a row in the decisions sheet; the user was asked whether to add it.
+4. The rest of the ranked list: `reports/2026-11-03_singlefiber_decisions.md` (14 items), mirrored on Nov 3
+   deck slide 3b and in the sheet.
+
+**Figures** (user preference: in the repo):
+- `analysis/singlefiber/figures/erv46_2026-11-02/filtnordna/permol_composite_full_*.png` — current decode, with a
+  raw-m6A panel in the clustered order;
+- `analysis/singlefiber/figures/erv46_localprior_2026-11-03/compare_abf1_3way_erv46.png`;
+- `analysis/singlefiber/figures/abf1_prior_sweep_2026-11-03/`.
+
+Clustering (`fig_permol_fibers.py`) uses only the ±125 bp window around ABF1 **site 2** (chrI:62,540–62,790),
+and only reads covering 100% of it (122 of 387 at ERV46).
+
+**Artifacts:**
+- Nov 3 deck: https://claude.ai/artifact/QJgpxNtLXFFfCdYWLPvYio, source `presentation/lab_nov03/`.
+  Slides come from `make_fragment.py` + `update_slides.py` → `make_template.py`, then republish to the same URL.
+  The images in `img/` are published files.
+- Decisions sheet "FiberCOP model choices": https://claude.ai/artifact/8KkLfcKovncXqmNwFZh5TT. Its rows live in
+  the page's database, collection `choices`. `presentation/lab_nov03/decisions_rows.json` mirrors them; keep the two
+  in sync.
+
+**Waiting on the user:** the slide 4b "P(open) from 50:50" row is a two-state toy, not decoder output — remove,
+relabel, or replace it with a real flip-one-call re-decode.
+
+## 2026-10-31 → 11-03 (DONE): is the background m6A rise real?
+
+**Answer:** a mixture of sequencing runs; Jun25 is about 1.65× May07. Not hypermethylated reads, not the threshold.
+See "Decisions 2026-11-02" and `reports/2026-11-02_report.md`. The original plan follows.
 
 **Why.** Refitting background m6A on all 7 merged barcodes raised it from 0.138 (barcode01) to **0.155**:
 - Watson 0.1548 / Crick 0.1527;
@@ -43,6 +105,125 @@ Barcodes and experiments differ, so first make sure the rise is not caused by:
    - per-site model (`/usr/project/xtmp/nd141/tf_compare/`).
 
    Watch ABF1 aggregate enrichment: it fell 33× → 24× when background moved to all 7 barcodes.
+
+**REVISIT — move everything to 7 barcodes (user decision 2026-10-31).** Every model and script must use
+all 7 barcodes; code that works on one barcode gets rewritten. Do this AFTER the read-filter and
+background-rate questions above are answered, then refit once and switch all models together. Known
+single-barcode spots so far:
+- `singlefiber/site_mixture.py:77-79` — `bg_params.pkl`, `nucleosome_params.pkl`, `robocop_train_fiberonly`;
+- `singlefiber/sbatch_permol_window_logfull.sh:42-44` — runs the old driver and old trainDir (no sbatch for `_5to3`);
+- `nucbrogsym/m6a_fit.py:30-31,105-106` — defaults to the barcode01 pileup and the barcode01 output name;
+- `singlefiber/permol_params.py:53-54` — defaults `nucleosome_params.pkl` / `bg_params.pkl`;
+- `singlefiber/test_5to3.py:46` — passes the barcode01 pkls;
+- tuner default driver `run_split_revfix_seq_maskoff_abi8.py` (`tune_concentrations.py:92`) — its tree loads barcode01
+  nuc + bg; the tune75 / logfull trees load barcode01 nuc + `bg_params_open.pkl` (0.249, copied from
+  `combined_low_count`, `make_bg_open.py`);
+- `pkg/robocop/robocop.py:602,606` — shipped package hardcodes `nucleosome_params.pkl` / `bg_params.pkl`;
+- `posterior_fix/fibercop_audit/fiber_model.py:57-58`, `bg_likelihood_arithmetic.py:64`; plotting scripts with
+  `BG_METH = 0.1383` (`plot_abf1_*`, `plot_factor_*`); param builders `make_bg_open.py`, `make_bg_tss*.py`,
+  `make_low_abf1.py`, `make_params_wide.py`.
+- Frozen pkgvar trees (rule 3, never edit — make new ones): 87 of 89 load a barcode01 nucleosome pkl; only
+  `permol_seq_maskoff_logfull_nucbrogsym_all7` and `seq_maskoff_logfull_nucbrogsym_all7` are fully all-7.
+TF footprints were fit on all 7 barcodes from the shipped pkl's first commit (`1480f85`, 2025-12-14;
+`abf1_reb1_dms_parameter_Fiber-seq_w_binom.py:1121-1129` reads the merged pileup). All 1,673 decode
+`config.ini` files read the merged pileup. Inventory 2026-10-31.
+
+**Decisions 2026-11-02 (user).**
+- Background answer: the 0.138 → 0.155 rise is a mixture of runs (Jun25 bc21-24 ~1.65× May07, in linkers,
+  nucleosome cores and genome-wide alike); not threshold, not hypermethylated reads
+  (`/usr/project/xtmp/nd141/bg_investigation/{perread,nov03}/`).
+- Single-fiber background = ONE pooled value from all 7 barcodes (0.1548 / 0.1527). The user expects to raise it
+  by hand later, as in the aggregate runs.
+- Aggregate decodes keep the hand-set `bg_params_open.pkl` (0.2489 / 0.2647) for now.
+- Read filters: primary + mapped; MAPQ ≥ 20; aligned length ≥ 500 bp (not 1 kb); qs ≥ 10; per-read m6A outlier
+  cap on the methylation rate (box-plot rule vs MAD still being weighed; the lower fence is < 0 in every run, so
+  neither removes hypo reads).
+- **One background file:** `inputs/bg_params_all7.pkl` was byte-identical to `inputs/bg_params_merged.pkl`. The
+  original name `bg_params_merged.pkl` is kept as the real file; `bg_params_all7.pkl` is now a symlink to it
+  (the copy moved to `inputs/_trash/20261102_bg_all7_dedupe/`). The link stays because the frozen trees
+  `pkgvar/{seq,permol_seq}_maskoff_logfull_nucbrogsym_all7` and the `_5to3` driver default read that name.
+  New code should use `bg_params_merged.pkl`.
+
+**Done 2026-11-02 — filtered refit, new single-fiber defaults.**
+- **Read set:** `/usr/project/xtmp/nd141/filtered_refit/`, 719,979 of 1,189,672 mapped primary reads kept.
+  - Filters: nuclear chromosomes only, MAPQ ≥ 20, aligned length ≥ 500, qs ≥ 10.
+  - Outlier cap: one pooled median ± 4·1.4826·MAD on the per-read m6A rate, giving bounds [−0.075, 0.204]. It removed 13,656 hyper reads and 0 hypo reads.
+  - Threshold: modkit `sample-probs` on the filtered BAM gives 0.8105469 (3 runs, identical).
+- **New fits** (each checked first: on the unfiltered pileup it reproduces the old file bit-exactly):
+
+  | file | Watson | Crick | change from old |
+  |---|---|---|---|
+  | `inputs/bg_params_filt.pkl` | 0.1565 | 0.1545 | +1.1% |
+  | `inputs/nucleosome_params_brogaard_sym_filt.pkl` | | | ×0.973, correlation 0.9998 |
+  | `inputs/all_TFs_1000pealVal_params_pseudo_filt.pkl` | | | every position within 0.017 |
+
+  - The TF file was made with the new `nucbrogsym/tf_fit.py`.
+- **Driver** `_5to3` defaults to:
+  - tree `pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filt`, the three `_filt` pkls, the read filters and the keep list;
+  - the docstring gives the command that reproduces the 10-30 runs.
+- **Sbatch:** `singlefiber/sbatch_permol_window_logfull_5to3.sh`.
+- **ERV46 decode:** `/usr/project/xtmp/nd141/permol_proto_logfull/filt/erv46_5to3` (387 reads; its figures moved 2026-11-03 to `analysis/singlefiber/figures/_trash/20261103/erv46_2026-11-02/filt_with_rdna/`; rDNA-free run figures: `analysis/singlefiber/figures/erv46_2026-11-02/filtnordna/permol_composite{,_full}_erv46_5to3_nordna.png`).
+  - With the same 387 reads, new params vs old: nucleosome occupancy correlation 0.99993; Chereji check recall 0.75 (PASS) in both.
+  - Per-read ABF1 maximum at the two sites is ≤ 0.0011 in every run, i.e. still no per-read TF calls.
+
+**Done 2026-11-02 (later) — rDNA excluded; these are the current defaults.**
+- **Read set:** reads overlapping chrXII:451,418-468,929 are removed as their own filter step, before the MAD fence
+  (`/usr/project/xtmp/nd141/filtered_refit_nordna/`).
+  - Kept: 667,502 of 1,189,672 reads (56.1%).
+  - Fence: [−0.070, 0.194], removing 9,270 hypermethylated reads.
+  - Threshold unchanged at 0.8105469.
+- **Refit:** `inputs/*_filtnordna.pkl`; everything moved by less than 1.5% from `_filt`.
+  - background 0.15635 / 0.15437
+- **Tree** `pkgvar/permol_seq_maskoff_logfull_nucbrogsym_filtnordna` is now the `_5to3` driver default, with keep list
+  `filtered_refit_nordna/keep_reads.txt`.
+- **ERV46 decode:** `/usr/project/xtmp/nd141/permol_proto_logfull/filt/erv46_5to3_nordna`.
+  - Same 387 reads.
+  - Read-averaged tracks within 8e-4 of the `_filt` run.
+- **Why exclude rDNA:**
+  - 17% of reads, about 19× genome depth;
+  - MAPQ ≥ 20 there does not mean a unique copy;
+  - a higher m6A rate (0.107 vs 0.065);
+  - 43.5% of the old fence removals were rDNA reads;
+  - no fitting window touches it.
+  - Evidence: `/usr/project/xtmp/nd141/rdna_check/`.
+
+**Revisit later (noted 2026-11-02):**
+- Aggregate log-space driver (`run_split_seq_maskoff_logfull_nucbrogsym_all7.py`) still starts motif-first: it uses the
+  trainDir's `initial_probs` (310 non-zero states, `init[0]` 0.933). End-anywhere is on (end_probs all 1;
+  `algo_log.c:197-198`). Single-fiber starts anywhere (`stationary_initial`, `_5to3.py:222-255`). User: port later.
+- `site_mixture.py`: move to the filtered params and plumb a bg file into `em()` (:284). Rerun into a new output dir,
+  because the runner would otherwise overwrite `tf_compare/mixture`.
+- `test_5to3.py:45-46` pins the old barcode01 model.
+- Latent bug in the never-run branch at `robocop.py:932` (`motif_starts` undefined there).
+- Latent (upstream): `end_probs` is applied in BOTH the forward pass (`algo_log.c:148-149`, `algo.c:111`) and the
+  backward init (`algo_log.c:197-198`). With end-anywhere it is all ones, so this has no effect today. A
+  non-uniform end vector would be counted twice; drop it from one of the two passes. Verified 2026-11-02
+  (`/usr/project/xtmp/nd141/startend_check/end/`).
+- Other `read_calls` callers (plots, `site_mixture`, `checks`, `pooled_emission_check*`) still read unfiltered reads.
+- **(user, 2026-11-02) Per-read TF calls: per-site bound fraction (`site_mixture.py`) vs raising the TF entry
+  transition.**
+  - The ×138 ABF1 prior test called 2 of 84 sites. Revisit both approaches side by side on the filtered model.
+- **(user, 2026-11-02) Methylated / unmethylated / no-call.**
+  - Today each A on the read's strand is one of three codes (`read_calls.py`: 1, 0, −1).
+  - The emission is a Bernoulli on calls 1 and 0 only: +log p for 1, +log(1−p) for 0 (`robocop.py:1581-1582` in the
+    `_filt` tree). A no-call, a non-target base or an uncovered base adds 0, i.e. it is skipped
+    (`:1583`, exact mode).
+  - No-calls are 2–4× more common in open DNA (`/usr/project/xtmp/nd141/emission_audit/`), so skipping them throws
+    away signal.
+  - Revisit a 3-outcome (categorical) emission and its effect on single-fiber reads.
+  - **Measured 2026-11-03** (filtered rDNA-free pileup; `/usr/project/xtmp/nd141/nocall_rates/nocall_rates.json`).
+    The no-call fraction is N_fail / (N_valid + N_fail) on A calls:
+
+    | region | no-call fraction |
+    |---|---|
+    | linkers | 14.6% |
+    | Brogaard nucleosome cores | 7.3% |
+    | Chereji cores | 8.2% |
+    | genome | 9.0% |
+
+    - So no-calls depend on the state, and treating them as "no evidence" is not justified.
+    - One no-call would favour open about 2× (larger than an unmethylated A's 1.16–1.26× toward nucleosome).
+    - The PI flagged this. Slide 4b of the Nov 3 deck shows the math.
 
 **Then (open user decisions):**
 - rerun the per-site model with the new defaults and extend to REB1;
@@ -187,3 +368,22 @@ Not yet re-run in log space: arms B, C and efficiency-on (`--array=1-9` on `sbat
 ## Related, outside the repo
 - FiberHMM + FIRE run on 13 BAMs: `/usr/project/xtmp/nd141/projects/Fiber_seq/Fiber_tools_claude/fiberhmm_run/`
 - per-fiber HSMM with a k-mer (sequence-context) emission: `/usr/project/xtmp/nd141/projects/Fiber_seq/hmm_for_clustering_claude_code/`
+
+## Local prior, 2026-11-03
+
+Built (plan `let-s-go-with-mad-snazzy-lollipop`; full report `reports/2026-11-03_local_prior.md`):
+- **Part 1.** `singlefiber/site_mixture.py` moved to the current model (nucbrogsym trainDir, filtnordna nuc/bg
+  pkls, bg floor from `bg_params_filtnordna.pkl`, driver read filters + keep list + thresh 0.8105469) and gained
+  `heldout_run`. Runner `/usr/project/xtmp/nd141/tf_compare/scripts/run_site_mixture_filtnordna.py` →
+  `tf_compare/mixture_filtnordna_pb0p02/sites_f.tsv` (86 sites). ERV46: f = 0.715 (site 1), 0.615 (site 2).
+- **Part 2.** `singlefiber/local_prior.py` (weight w on both ABF1 first states at the motif-start row, layer 1,
+  as −log w on the other states), `--local-prior <sites_w.tsv>` in `run_permol_window_logfull_5to3.py`
+  (default off; off = bit-identical to `filt/erv46_5to3_nordna`), `singlefiber/calibrate_local_prior.py`
+  (bisects w so prior-only P(ABF1) = f; one table per held-out run), `singlefiber/test_local_prior.py`.
+- **Result at ERV46** (`/usr/project/xtmp/nd141/permol_proto_logfull/compare_localprior/compare_summary.json`):
+  the local prior lifts per-read P(ABF1) at both MacIsaac sites to median ~0.8 (site 1 0.81, site 2 0.79) with no
+  off-site calls. The raised global prior (×1500) lifts site 2 only (0.57); site 1 stays 0.0097, and a non-site spot
+  at 61,660 reaches 0.50. Per-read spread with the local prior is SD 0.13 / 0.12, against site_mixture's 0.33 at
+  the same sites. RoboCOP's per-read m6A evidence is still weaker than the per-site model's (Part 2b). Building a
+  bound-only ABF1 rate needs the user's decision; it is not built.
+- Figures: `analysis/singlefiber/figures/erv46_localprior_2026-11-03/`.

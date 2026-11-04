@@ -393,7 +393,8 @@ decision, so 7-arg trees fail at lookup). `librobocop_prenorm.so` 6a0724bf (the 
    (both) −320, −452, −2318, −187, −989; 1,203 (both) / 773 (fib) rows differ by >0.01; 0 on chrXIV.
 
 **Why 5 fails — a third defect, in the linear recursion.** `normalize()` (`algo.c:22,26`) adds
-`DBL_MIN` to every cell, masked and unreachable states included. On rDNA the per-position scale is
+`DBL_MIN` to every cell, masked and unreachable states included. Wherever the per-position scale is tiny (rDNA; also bo09,
+also outside rDNA: bo09 chrIV:1,200,001-1,205,000 (seg 300), 147 rows, rows still sum to 1; `analysis/posterior_fix/dblmin_history/REPORT.md`) it bites. On rDNA the per-position scale is
 tiny (the non-A strand puts 1e-30 on every state) and coverage gives likelihood ratios beyond
 1e250, so that phantom mass outweighs true paths that float64 cannot hold. Proof (chrXII seg2 both,
 identical inputs, in-process): an 80-bit recursion **without** the `DBL_MIN` equals the log code
@@ -401,7 +402,8 @@ identical inputs, in-process): an 80-bit recursion **without** the `DBL_MIN` equ
 Removing `DBL_MIN` in float64 does not fix it (NaN rows). No row sum is near 1e-305 (smallest exact
 offset e^-639), so this is not plain underflow. Files: `posterior_fix/replica_longdouble.py`,
 `underflow_scan.py`. **Consequence: log space is the correct decoder on high-coverage loci; fix B is
-right everywhere the recursion fits in float64, which includes all of chrXIV.**
+right everywhere the recursion fits in float64, which includes all of chrXIV.** **Superseded 2026-10-23:
+fix B is also wrong on ordinary chrIV for bo09 (seg 300, 147 rows; `analysis/posterior_fix/dblmin_history/REPORT.md`).**
 
 **Silent columns > 1 in B — separate, open.** At a few chrXII rows, silent column 3330 reaches
 1.7e17, even in the exact 80-bit run, so it is not the defect above. Likely a time-index mismatch:

@@ -96,3 +96,8 @@ analysis/_trash/
 analysis/posterior_fix/fibercop_audit/c1scan/work_*/
 analysis/posterior_fix/logspace_review/scratch/
 *.pre_tw3_logfull
+
+# 2026-11-04: local trash folders and in-place backups (never committed)
+_trash/
+.*.bak_*
+*.bak_*

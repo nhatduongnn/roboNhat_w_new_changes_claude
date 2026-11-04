@@ -1,0 +1,51 @@
+{
+ "arm": "x1500",
+ "arm_dir": "/usr/project/xtmp/nd141/permol_proto_logfull/abf1sweep/x1500",
+ "window": [
+  60001,
+  65000
+ ],
+ "chrom": "chrI",
+ "n_molecules": 387,
+ "macisaac_abf1_sites": [
+  [
+   61165,
+   61177
+  ],
+  [
+   62659,
+   62671
+  ]
+ ],
+ "clustering": {
+  "cluster_window": [
+   62540,
+   62790
+  ],
+  "n_total": 387,
+  "n_eligible": 122,
+  "n_no_window_coverage": 265,
+  "min_window_cov": 1.0,
+  "min_cluster_size": 10,
+  "pca_components": 50,
+  "method": "PCA(50) + UMAP(2D, n_neighbors=15, min_dist=0.1, random_state=42) + HDBSCAN(min_cluster_size=10) via /usr/project/xtmp/nd141/projects/Fiber_seq/hmm_for_clustering_claude_code/.venv/bin/python",
+  "sizes": {
+   "-2": 265,
+   "-1": 33,
+   "0": 66,
+   "1": 23
+  }
+ },
+ "zoom": {},
+ "shuffle_seed": 0,
+ "accessible_definition": "permol.npz column 'background'",
+ "abf1_max_posterior": 0.6313154697418213,
+ "molecules_not_matched_in_bam": 0,
+ "population_row": "mean over molecules (agg-dir == arm-dir)",
+ "extra_panels": true,
+ "figure_px": {
+  "permol_composite_full_x1500": "2800x4079",
+  "permol_composite_x1500": "2800x2160"
+ },
+ "drawers_from": "/usr/project/xtmp/nd141/projects/Fiber_seq/hmm_for_clustering_claude_code/scripts/fig2_panels.py"
+}

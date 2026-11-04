@@ -1,0 +1,23 @@
+wrote singlefiber/figures/erv46_localprior_2026-11-03/before/permol_composite_full_erv46_5to3_nordna.png (2800x4079 px) + .pdf
+wrote singlefiber/figures/erv46_localprior_2026-11-03/before/permol_composite_erv46_5to3_nordna.png (2800x2160 px) + .pdf
+{
+ "cluster_window": [
+  62540,
+  62790
+ ],
+ "n_total": 387,
+ "n_eligible": 122,
+ "n_no_window_coverage": 265,
+ "min_window_cov": 1.0,
+ "min_cluster_size": 10,
+ "pca_components": 50,
+ "method": "PCA(50) + UMAP(2D, n_neighbors=15, min_dist=0.1, random_state=42) + HDBSCAN(min_cluster_size=10) via /usr/project/xtmp/nd141/projects/Fiber_seq/hmm_for_clustering_claude_code/.venv/bin/python",
+ "sizes": {
+  "-2": 265,
+  "-1": 14,
+  "0": 45,
+  "1": 39,
+  "2": 24
+ }
+}
+ABF1 max posterior over the window: 0.00112444

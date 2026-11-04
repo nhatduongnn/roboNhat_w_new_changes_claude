@@ -104,8 +104,15 @@ def _ml_by_query_pos(read, qlen):
 
 
 def read_molecules(bam_path, chrom, win_start1, win_end1, ref_codes_ext, flank=400,
-                   min_mapq=0, require_implicit_canonical=True):
+                   min_mapq=0, require_implicit_canonical=True, min_aln_len=0, min_qs=None,
+                   exclude_names=None, thresh=None, include_names=None):
     """Per-molecule calls for every read overlapping chrom:win_start1-win_end1.
+
+    Read filters (2026-11-02; all off by default, so old callers are unchanged):
+    min_mapq, min_aln_len (read.query_alignment_length, aligned bases), min_qs (the dorado `qs` tag,
+    mean read Q; a read without the tag is dropped when min_qs is set), exclude_names (set of read
+    names to drop, e.g. the per-read m6A outlier list), include_names (set of read names to keep; every
+    other read is dropped -- the filtered-refit keep list). thresh: call threshold (default THRESH).
 
     win_start1/win_end1 are 1-based inclusive, as coords.tsv writes them.
     ref_codes_ext must be the nucleotide codes for [ext_start0, ext_end0) where
@@ -123,7 +130,10 @@ def read_molecules(bam_path, chrom, win_start1, win_end1, ref_codes_ext, flank=4
 
     bam = pysam.AlignmentFile(bam_path)
     mols = []
-    stats = dict(fetched=0, skipped_flag=0, skipped_mapq=0, skipped_nomm=0,
+    t = THRESH if thresh is None else float(thresh)
+    ml_meth, ml_canon = t * 255.0, (1.0 - t) * 255.0
+    stats = dict(fetched=0, skipped_flag=0, skipped_mapq=0, skipped_alnlen=0, skipped_qs=0,
+                 skipped_excluded=0, skipped_not_included=0, skipped_nomm=0, thresh=t,
                  mode_not_dot=0, duplex=0, informative=0, meth=0, ambiguous=0,
                  unlisted_canonical=0)
 
@@ -135,6 +145,18 @@ def read_molecules(bam_path, chrom, win_start1, win_end1, ref_codes_ext, flank=4
             continue
         if read.mapping_quality < min_mapq:
             stats["skipped_mapq"] += 1
+            continue
+        if min_aln_len and read.query_alignment_length < min_aln_len:
+            stats["skipped_alnlen"] += 1
+            continue
+        if min_qs is not None and (not read.has_tag("qs") or float(read.get_tag("qs")) < min_qs):
+            stats["skipped_qs"] += 1
+            continue
+        if exclude_names is not None and read.query_name in exclude_names:
+            stats["skipped_excluded"] += 1
+            continue
+        if include_names is not None and read.query_name not in include_names:
+            stats["skipped_not_included"] += 1
             continue
         if read.has_tag("dx") and int(read.get_tag("dx")) != 0:
             stats["duplex"] += 1
@@ -179,11 +201,11 @@ def read_molecules(bam_path, chrom, win_start1, win_end1, ref_codes_ext, flank=4
 
         calls = np.full(n_ext, NO_OBS, dtype=np.int8)
         unlisted = mlv < 0
-        is_meth = (~unlisted) & (mlv >= ML_METH)
-        is_canon = unlisted | ((~unlisted) & (mlv <= ML_CANON))
+        is_meth = (~unlisted) & (mlv >= ml_meth)
+        is_canon = unlisted | ((~unlisted) & (mlv <= ml_canon))
         if mode != "." and require_implicit_canonical:
             # no implicit canonical for mode '?'
-            is_canon = (~unlisted) & (mlv <= ML_CANON)
+            is_canon = (~unlisted) & (mlv <= ml_canon)
         ambig = ~(is_meth | is_canon)
         calls[ri_t[is_meth]] = METH
         calls[ri_t[is_canon]] = CANON
